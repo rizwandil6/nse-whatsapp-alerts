@@ -1,0 +1,17 @@
+nse:
+  watchlist:
+    - TCS
+    - INFY
+  circular-keywords:
+    - "orders"
+    - "contracts"
+  poll-interval-ms: 600000   # 10 minutes
+
+callmebot:
+  phone: "REPLACE_WITH_YOUR_NUMBER"     # e.g. 919999999999 (with country code, no +)
+  apikey: "REPLACE_WITH_YOUR_APIKEY"
+
+# If using a scraping proxy like ScraperAPI/ScrapingBee to bypass NSE's bot protection,
+# set the base url here. Leave blank to call NSE directly (works locally less reliably).
+proxy:
+  base-url: ""
