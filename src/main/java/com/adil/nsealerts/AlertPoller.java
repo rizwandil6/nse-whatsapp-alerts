@@ -2,7 +2,7 @@ package com.adil.nsealerts;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
+import com.rometools.rome.feed.synd.SyndEntry;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -11,46 +11,119 @@ import java.util.*;
 @Component
 public class AlertPoller {
 
-    @Value("${nse.watchlist}")
     private List<String> watchlist;
 
-    @Value("${nse.circular-keywords}")
     private List<String> circularKeywords;
+    private List<String> announcementKeywords;
 
     private final NseClient nseClient;
     private final WhatsAppSender whatsAppSender;
+    private final DocumentFetcher documentFetcher;
+    private final PromptRatingService promptRatingService;
     private final ObjectMapper mapper = new ObjectMapper();
+
+    private final org.springframework.core.env.Environment env;
 
     // Simple in-memory dedup. Restarts will re-alert once - acceptable for v1.
     private final Set<String> seenIds = new HashSet<>();
 
-    public AlertPoller(NseClient nseClient, WhatsAppSender whatsAppSender) {
+    public AlertPoller(NseClient nseClient,
+                       WhatsAppSender whatsAppSender,
+                       DocumentFetcher documentFetcher,
+                       PromptRatingService promptRatingService,
+                       org.springframework.core.env.Environment env) {
         this.nseClient = nseClient;
         this.whatsAppSender = whatsAppSender;
+        this.documentFetcher = documentFetcher;
+        this.promptRatingService = promptRatingService;
+        this.env = env;
+
+        // Try multiple ways to load the watchlist from YAML
+        String[] watch = env.getProperty("nse.watchlist", String[].class);
+        if (watch == null) {
+            // Try with comma-separated list fallback
+            String watchStr = env.getProperty("nse.watchlist");
+            if (watchStr != null && !watchStr.isEmpty()) {
+                watch = watchStr.split(",");
+                for (int i = 0; i < watch.length; i++) {
+                    watch[i] = watch[i].trim();
+                }
+            }
+        }
+        this.watchlist = watch == null ? java.util.Collections.emptyList() : java.util.Arrays.asList(watch);
+        System.out.println("[AlertPoller] Loaded watchlist: " + this.watchlist);
+
+        String[] circulars = env.getProperty("nse.circular-keywords", String[].class);
+        if (circulars == null) {
+            String circularStr = env.getProperty("nse.circular-keywords");
+            if (circularStr != null && !circularStr.isEmpty()) {
+                circulars = circularStr.split(",");
+                for (int i = 0; i < circulars.length; i++) {
+                    circulars[i] = circulars[i].trim();
+                }
+            }
+        }
+        this.circularKeywords = circulars == null ? java.util.Collections.emptyList() : java.util.Arrays.asList(circulars);
+        System.out.println("[AlertPoller] Loaded circular keywords: " + this.circularKeywords);
+
+        // Load announcement keywords using indexed property access for YAML lists
+        List<String> annKeywords = new ArrayList<>();
+        int idx = 0;
+        String keyword;
+        while ((keyword = env.getProperty("nse.announcement-keywords[" + idx + "]")) != null) {
+            annKeywords.add(keyword);
+            idx++;
+        }
+        this.announcementKeywords = annKeywords.isEmpty() ? java.util.Collections.emptyList() : annKeywords;
+        System.out.println("[AlertPoller] Loaded announcement keywords: " + this.announcementKeywords);
     }
 
     @Scheduled(fixedDelayString = "${nse.poll-interval-ms}")
     public void poll() {
+        // System.out.println("Poll tick: checking announcements and circulars");
         checkAnnouncements();
-        checkCirculars();
+       // checkCirculars();
     }
 
     private void checkAnnouncements() {
-        String json = nseClient.fetchAnnouncements();
-        if (json == null) return;
+        List<SyndEntry> entries = nseClient.fetchAnnouncements();
+        if (entries == null || entries.isEmpty()) {
+            return;
+        }
+        
         try {
-            JsonNode root = mapper.readTree(json);
-            for (JsonNode item : root) {
-                String symbol = textOf(item, "symbol");
-                String subject = textOf(item, "desc", "subject", "attchmntText");
-                String id = textOf(item, "an_dt", "seq_id") + "|" + symbol + "|" + subject;
+            // System.out.println("Checking " + entries.size() + " announcements");
+            for (SyndEntry entry : entries) {
+                String title = entry.getTitle() != null ? entry.getTitle() : "";
+                String description = entry.getDescription() != null ? entry.getDescription().getValue() : "";
+                String link = entry.getLink() != null ? entry.getLink() : "";
+                
+                // Create a unique ID based on the entry link/guid
+                String id = link.isEmpty() ? (title + ":" + entry.getPublishedDate()) : link;
 
-                if (watchlist.contains(symbol) && seenIds.add(id)) {
-                    whatsAppSender.send("NSE Announcement - " + symbol + ": " + subject);
+                // Exclude subjects with unwanted sub-para text
+                boolean excluded = title.contains("(Sub-para 4-Para B)") || description.contains("(Sub-para 4-Para B)");
+
+                // Check if description matches announcement keywords
+                boolean matches = !excluded && (announcementKeywords.isEmpty() || 
+                        announcementKeywords.stream()
+                        .anyMatch(k -> description.toLowerCase().contains(k.toLowerCase())));
+
+                if (matches && seenIds.add(id)) {
+                    System.out.println("✓ New announcement: " + title);
+                    String documentText = documentFetcher.fetchText(link);
+                    AnalysisResult result = promptRatingService.analyze(title, description, link, documentText);
+                    String orderSizeText = result.getOrderSizeCrores() != null ? result.getOrderSizeCrores() + " Cr" : "unknown";
+                    String message = String.format("Stock: %s | Rating: %.1f/10 | Verdict: %s | Order Size: %s", title, result.getRating(), result.getQuickVerdict(), orderSizeText);
+                    System.out.println("  → " + message);
+                    whatsAppSender.send(message);
+                } else if (!matches) {
+                    // System.out.println("  (Filtered out: " + title + ")");
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error parsing announcements: " + e.getMessage());
+            System.err.println("Error processing announcements: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -67,7 +140,7 @@ public class AlertPoller {
                 boolean matches = circularKeywords.stream()
                         .anyMatch(k -> subject.toLowerCase().contains(k.toLowerCase()));
 
-                if (matches && seenIds.add(id)) {
+                if (/*matches && */seenIds.add(id)) {
                     whatsAppSender.send("NSE Circular: " + subject);
                 }
             }

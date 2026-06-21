@@ -5,13 +5,30 @@ nse:
   circular-keywords:
     - "orders"
     - "contracts"
-  poll-interval-ms: 600000   # 10 minutes
+  announcement-keywords:
+    - "Bagging/Receiving of orders/contracts"
 
-callmebot:
-  phone: "REPLACE_WITH_YOUR_NUMBER"     # e.g. 919999999999 (with country code, no +)
-  apikey: "REPLACE_WITH_YOUR_APIKEY"
+  poll-interval-ms: 10000   # 10 seconds
 
-# If using a scraping proxy like ScraperAPI/ScrapingBee to bypass NSE's bot protection,
-# set the base url here. Leave blank to call NSE directly (works locally less reliably).
+twilio:
+  account-sid: "ACaa3d9b326ae18cef8f3599a6712f853d"
+  auth-token: "2cb44497cdcebbef7b3ac34598070440"
+  whatsapp-from: "+14155238886"  # e.g. +1234567890
+  # Provide one or more recipient WhatsApp numbers (with country code, include +)
+  whatsapp-to:
+    - "+918686186386"    # your first number (example)
+    - "+917386380037"    # optional additional number
+
+# ANNOUNCEMENTS now use a public RSS feed (no proxy needed).
+# CIRCULARS still use the JSON API and may need a scraping proxy if NSE blocks your IP.
+# If you need to bypass NSE's bot protection for circulars, set proxy.base-url here.
+# Example for ScraperAPI free version:
+# proxy.base-url: "https://api.scraperapi.com/?api_key=YOUR_API_KEY&url="
+# auth-header and auth-token can remain blank when the key is passed in the URL.
 proxy:
   base-url: ""
+  auth-header: ""
+  auth-token: ""
+
+analysis:
+  openai-api-key: ""
