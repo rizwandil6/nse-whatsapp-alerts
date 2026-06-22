@@ -7,12 +7,14 @@ nse:
     - "contracts"
   announcement-keywords:
     - "Bagging/Receiving of orders/contracts"
+  ignore-keywords:
+    - "Awarding or Bagging of Orders/Contracts-XBRL"
 
-  poll-interval-ms: 10000   # 10 seconds
+  poll-interval-ms: 30000   # 30 seconds
 
 twilio:
   account-sid: "ACaa3d9b326ae18cef8f3599a6712f853d"
-  auth-token: "2cb44497cdcebbef7b3ac34598070440"
+  auth-token: "08ceabd620c94e81985801e11c3c1b08"
   whatsapp-from: "+14155238886"  # e.g. +1234567890
   # Provide one or more recipient WhatsApp numbers (with country code, include +)
   whatsapp-to:

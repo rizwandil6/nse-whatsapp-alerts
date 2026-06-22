@@ -3,7 +3,6 @@ package com.adil.nsealerts;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
-import com.rometools.rome.io.XmlReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URL;
+import java.io.StringReader;
 import java.util.*;
 
 /**
@@ -42,11 +41,31 @@ public class NseClient {
      */
     public List<SyndEntry> fetchAnnouncements() {
         try {
-            // System.out.println("Fetching announcements from RSS: " + ANNOUNCEMENTS_RSS_URL);
-            URL feedUrl = new URL(ANNOUNCEMENTS_RSS_URL);
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent",
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36");
+            headers.set("Accept", "application/rss+xml, application/xml, text/xml, */*");
+            headers.set("Accept-Language", "en-US,en;q=0.9");
+            headers.set("Connection", "keep-alive");
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                    ANNOUNCEMENTS_RSS_URL, HttpMethod.GET, new HttpEntity<>(headers), String.class);
+
+            String body = response.getBody();
+            if (body == null || body.isBlank()) {
+                logger.warn("NSE RSS feed returned empty response");
+                return Collections.emptyList();
+            }
+
+            // Strip BOM or leading whitespace/junk before the XML declaration
+            int xmlStart = body.indexOf('<');
+            if (xmlStart > 0) {
+                body = body.substring(xmlStart);
+            }
+
             SyndFeedInput input = new SyndFeedInput();
-            SyndFeed feed = input.build(new XmlReader(feedUrl));
-            // System.out.println("Successfully fetched RSS feed with " + feed.getEntries().size() + " entries");
+            SyndFeed feed = input.build(new StringReader(body));
+            logger.info("Fetched RSS feed with {} entries", feed.getEntries().size());
             return new ArrayList<>(feed.getEntries());
         } catch (Exception e) {
             logger.error("Error fetching announcements RSS", e);

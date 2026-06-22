@@ -27,6 +27,7 @@ public class DocumentFetcher {
     private static final Logger logger = LoggerFactory.getLogger(DocumentFetcher.class);
     private final RestTemplate restTemplate;
     private static final Pattern PDF_LINK_PATTERN = Pattern.compile("(?i).*\\.pdf($|\\?.*)");
+    private static final Pattern XML_LINK_PATTERN = Pattern.compile("(?i).*\\.xml($|\\?.*)");
 
     public DocumentFetcher() {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -41,6 +42,9 @@ public class DocumentFetcher {
                 return "";
             }
             String normalized = normalizeUrl(url);
+            if (isXmlLink(normalized)) {
+                return "";
+            }
             if (isPdfLink(normalized)) {
                 return fetchPdfText(normalized);
             }
@@ -50,7 +54,7 @@ public class DocumentFetcher {
             if (pdfLink.isPresent()) {
                 return fetchPdfText(pdfLink.get());
             }
-            return extractTextFromHtml(html);
+            return "";
         } catch (Exception e) {
             logger.error("DocumentFetcher failed for {}", url, e);
             return "";
@@ -66,6 +70,10 @@ public class DocumentFetcher {
 
     private boolean isPdfLink(String url) {
         return PDF_LINK_PATTERN.matcher(url).matches() || url.toLowerCase().contains("application/pdf");
+    }
+
+    private boolean isXmlLink(String url) {
+        return XML_LINK_PATTERN.matcher(url).matches() || url.toLowerCase().contains("application/xml");
     }
 
     private String fetchPdfText(String pdfUrl) {
@@ -123,18 +131,4 @@ public class DocumentFetcher {
         return Optional.empty();
     }
 
-    private String extractTextFromHtml(String html) {
-        try {
-            Document document = Jsoup.parse(html);
-            document.select("script, style, noscript, header, footer, nav, form").remove();
-            String text = document.body() != null ? document.body().text() : document.text();
-            if (text == null) {
-                return "";
-            }
-            return text;
-        } catch (Exception e) {
-            logger.warn("Failed to extract text from HTML", e);
-            return "";
-        }
-    }
 }

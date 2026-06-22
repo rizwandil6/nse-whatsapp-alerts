@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,44 +27,92 @@ public class WhatsAppSender {
     private String whatsappFrom;
 
     private final Environment env;
+    private volatile boolean twilioInitialized;
 
     public WhatsAppSender(Environment env) {
         this.env = env;
     }
 
-    public void send(String message) {
-        try {
-            Twilio.init(accountSid, authToken);
+    @PostConstruct
+    void logTwilioConfiguration() {
+        logger.info("Twilio config loaded: accountSid={}, authTokenSet={}, whatsappFrom={}, recipients={}",
+                maskAccountSid(accountSid),
+                authToken != null && !authToken.isBlank(),
+                whatsappFrom,
+                loadRecipients().size());
+    }
 
-            // Load recipients from YAML list using indexed properties
-            List<String> whatsappTo = new ArrayList<>();
-            int index = 0;
-            String recipient;
-            while ((recipient = env.getProperty("twilio.whatsapp-to[" + index + "]")) != null) {
-                whatsappTo.add(recipient);
-                index++;
-            }
+    public void send(String body) {
+        List<String> recipients = loadRecipients();
+        if (recipients.isEmpty()) {
+            logger.warn("No WhatsApp recipients configured; skipping send");
+            return;
+        }
 
-            if (whatsappTo.isEmpty()) {
-                logger.warn("No Twilio recipients configured (twilio.whatsapp-to)");
+        initializeTwilio();
+
+        for (String recipient : recipients) {
+            sendToRecipient(recipient, body);
+        }
+    }
+
+    private void initializeTwilio() {
+        if (twilioInitialized) {
+            return;
+        }
+
+        synchronized (this) {
+            if (twilioInitialized) {
                 return;
             }
-
-            logger.info("Sending message to {} recipients", whatsappTo.size());
-            for (String to : whatsappTo) {
-                try {
-                    Message.creator(
-                            new PhoneNumber("whatsapp:" + to),
-                            new PhoneNumber("whatsapp:" + whatsappFrom),
-                            message
-                    ).create();
-                    logger.info("  ✓ Sent to {}", to);
-                } catch (Exception e) {
-                    logger.warn("  ✗ Failed to send to {}", to, e);
-                }
-            }
-        } catch (Exception e) {
-            logger.error("Failed to send WhatsApp alert", e);
+            Twilio.init(accountSid, authToken);
+            twilioInitialized = true;
         }
+    }
+
+    private List<String> loadRecipients() {
+        List<String> recipients = new ArrayList<>();
+        int index = 0;
+        String recipient;
+        while ((recipient = env.getProperty("twilio.whatsapp-to[" + index + "]")) != null) {
+            String trimmed = recipient.trim();
+            if (!trimmed.isEmpty()) {
+                recipients.add(trimmed);
+            }
+            index++;
+        }
+        logger.debug("Loaded {} WhatsApp recipients", recipients.size());
+        return recipients;
+    }
+
+    private void sendToRecipient(String to, String body) {
+        try {
+            Message message = Message.creator(
+                    new PhoneNumber("whatsapp:" + to),
+                    new PhoneNumber("whatsapp:" + whatsappFrom),
+                    body)
+                .create();
+            logger.info("Sent message to {}: {}", to, message.getSid());
+        } catch (com.twilio.exception.ApiException e) {
+            logger.error("Twilio ApiException sending to {}: status={}, code={}, msg={}, accountSid={}",
+                    to,
+                    e.getStatusCode(),
+                    e.getCode(),
+                    e.getMessage(),
+                    maskAccountSid(accountSid),
+                    e);
+        } catch (Exception e) {
+            logger.error("Unexpected exception sending WhatsApp to {}", to, e);
+        }
+    }
+
+    private String maskAccountSid(String value) {
+        if (value == null || value.isBlank()) {
+            return "<empty>";
+        }
+        if (value.length() <= 6) {
+            return "***";
+        }
+        return value.substring(0, 4) + "***" + value.substring(value.length() - 4);
     }
 }

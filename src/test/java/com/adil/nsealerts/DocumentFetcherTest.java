@@ -5,7 +5,6 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -13,13 +12,14 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class DocumentFetcherTest {
@@ -60,18 +60,6 @@ class DocumentFetcherTest {
     }
 
     @Test
-    void extractTextFromHtmlRemovesScriptsStylesAndNavigation() throws Exception {
-        DocumentFetcher fetcher = new DocumentFetcher();
-        Method extractText = DocumentFetcher.class.getDeclaredMethod("extractTextFromHtml", String.class);
-        extractText.setAccessible(true);
-
-        String html = "<html><head><style>body {}</style></head><body>Visible text<script>var x=1;</script><nav>nav</nav></body></html>";
-        String extracted = (String) extractText.invoke(fetcher, html);
-
-        assertEquals("Visible text", extracted);
-    }
-
-    @Test
     void normalizeUrlAddsHttpsForProtocolRelativeLinks() throws Exception {
         DocumentFetcher fetcher = new DocumentFetcher();
         Method normalizeUrl = DocumentFetcher.class.getDeclaredMethod("normalizeUrl", String.class);
@@ -79,6 +67,18 @@ class DocumentFetcherTest {
 
         String normalized = (String) normalizeUrl.invoke(fetcher, "//example.com/page");
         assertEquals("https://example.com/page", normalized);
+    }
+
+    @Test
+    void fetchTextIgnoresXmlUrls() {
+        DocumentFetcher fetcher = new DocumentFetcher();
+        RestTemplate mockRestTemplate = mock(RestTemplate.class);
+        ReflectionTestUtils.setField(fetcher, "restTemplate", mockRestTemplate);
+
+        String text = fetcher.fetchText("https://example.com/announcement.xml");
+
+        assertEquals("", text);
+        verify(mockRestTemplate, never()).exchange(any(), eq(HttpMethod.GET), any(), eq(byte[].class));
     }
 
     private byte[] generateMinimalPdf(String text) throws Exception {
