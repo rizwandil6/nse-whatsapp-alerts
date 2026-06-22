@@ -4,6 +4,8 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,7 @@ import java.util.*;
  */
 @Component
 public class NseClient {
+    private static final Logger logger = LoggerFactory.getLogger(NseClient.class);
     private static final String ANNOUNCEMENTS_RSS_URL = "https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml";
     private static final String CIRCULARS_URL = "https://www.nseindia.com/api/circulars?dept=members";
 
@@ -46,7 +49,7 @@ public class NseClient {
             // System.out.println("Successfully fetched RSS feed with " + feed.getEntries().size() + " entries");
             return new ArrayList<>(feed.getEntries());
         } catch (Exception e) {
-            System.err.println("Error fetching announcements RSS: " + e.getMessage());
+            logger.error("Error fetching announcements RSS", e);
             return Collections.emptyList();
         }
     }
@@ -77,15 +80,15 @@ public class NseClient {
                     target, HttpMethod.GET, new HttpEntity<>(headers), String.class);
             String body = resp.getBody();
             if (body == null || body.trim().isEmpty()) {
-                System.out.println("NSE JSON API returned empty response for " + url);
+                logger.warn("NSE JSON API returned empty response for {}", url);
                 return null;
             }
             return body;
         } catch (HttpStatusCodeException e) {
-            System.out.println("NSE JSON API failed for " + url + ": " + e.getStatusCode());
+            logger.warn("NSE JSON API failed for {}: {}", url, e.getStatusCode());
             return null;
         } catch (Exception e) {
-            System.out.println("NSE JSON API error for " + url + ": " + e.getMessage());
+            logger.error("NSE JSON API error for {}", url, e);
             return null;
         }
     }

@@ -2,6 +2,8 @@ package com.adil.nsealerts;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,7 @@ import java.util.regex.Pattern;
 
 @Component
 public class PromptRatingService {
+    private static final Logger logger = LoggerFactory.getLogger(PromptRatingService.class);
     private static final String OPENAI_URL = "https://api.openai.com/v1/chat/completions";
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -28,7 +31,7 @@ public class PromptRatingService {
             try {
                 return analyzeWithOpenAi(prompt);
             } catch (Exception e) {
-                System.err.println("OpenAI analysis failed: " + e.getMessage());
+                logger.error("OpenAI analysis failed", e);
             }
         }
         return fallbackAnalysis(title, description, documentText);
@@ -99,7 +102,7 @@ public class PromptRatingService {
             String summary = resultNode.path("summary").asText("");
             return new AnalysisResult(rating, orderSize, quickVerdict, summary, impact);
         } catch (Exception e) {
-            System.err.println("Failed to parse OpenAI analysis JSON, falling back: " + e.getMessage());
+            logger.error("Failed to parse OpenAI analysis JSON, falling back", e);
             return fallbackAnalysis("", content, content);
         }
     }

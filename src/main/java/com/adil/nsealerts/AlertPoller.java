@@ -3,6 +3,8 @@ package com.adil.nsealerts;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rometools.rome.feed.synd.SyndEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +12,7 @@ import java.util.*;
 
 @Component
 public class AlertPoller {
+    private static final Logger logger = LoggerFactory.getLogger(AlertPoller.class);
 
     private List<String> watchlist;
 
@@ -51,7 +54,7 @@ public class AlertPoller {
             }
         }
         this.watchlist = watch == null ? java.util.Collections.emptyList() : java.util.Arrays.asList(watch);
-        System.out.println("[AlertPoller] Loaded watchlist: " + this.watchlist);
+        logger.info("[AlertPoller] Loaded watchlist: {}", this.watchlist);
 
         String[] circulars = env.getProperty("nse.circular-keywords", String[].class);
         if (circulars == null) {
@@ -64,7 +67,7 @@ public class AlertPoller {
             }
         }
         this.circularKeywords = circulars == null ? java.util.Collections.emptyList() : java.util.Arrays.asList(circulars);
-        System.out.println("[AlertPoller] Loaded circular keywords: " + this.circularKeywords);
+        logger.info("[AlertPoller] Loaded circular keywords: {}", this.circularKeywords);
 
         // Load announcement keywords using indexed property access for YAML lists
         List<String> annKeywords = new ArrayList<>();
@@ -75,7 +78,7 @@ public class AlertPoller {
             idx++;
         }
         this.announcementKeywords = annKeywords.isEmpty() ? java.util.Collections.emptyList() : annKeywords;
-        System.out.println("[AlertPoller] Loaded announcement keywords: " + this.announcementKeywords);
+        logger.info("[AlertPoller] Loaded announcement keywords: {}", this.announcementKeywords);
     }
 
     @Scheduled(fixedDelayString = "${nse.poll-interval-ms}")
@@ -110,20 +113,19 @@ public class AlertPoller {
                         .anyMatch(k -> description.toLowerCase().contains(k.toLowerCase())));
 
                 if (matches && seenIds.add(id)) {
-                    System.out.println("✓ New announcement: " + title);
+                    logger.info("✓ New announcement: {}", title);
                     String documentText = documentFetcher.fetchText(link);
                     AnalysisResult result = promptRatingService.analyze(title, description, link, documentText);
                     String orderSizeText = result.getOrderSizeCrores() != null ? result.getOrderSizeCrores() + " Cr" : "unknown";
                     String message = String.format("Stock: %s | Rating: %.1f/10 | Verdict: %s | Order Size: %s", title, result.getRating(), result.getQuickVerdict(), orderSizeText);
-                    System.out.println("  → " + message);
+                    logger.info("  → {}", message);
                     whatsAppSender.send(message);
                 } else if (!matches) {
                     // System.out.println("  (Filtered out: " + title + ")");
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error processing announcements: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Error processing announcements", e);
         }
     }
 
@@ -145,7 +147,7 @@ public class AlertPoller {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error parsing circulars: " + e.getMessage());
+            logger.error("Error parsing circulars", e);
         }
     }
 

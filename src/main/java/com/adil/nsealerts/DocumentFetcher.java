@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,13 +19,12 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayInputStream;
 import java.net.URI;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Component
 public class DocumentFetcher {
+    private static final Logger logger = LoggerFactory.getLogger(DocumentFetcher.class);
     private final RestTemplate restTemplate;
     private static final Pattern PDF_LINK_PATTERN = Pattern.compile("(?i).*\\.pdf($|\\?.*)");
 
@@ -51,7 +52,7 @@ public class DocumentFetcher {
             }
             return extractTextFromHtml(html);
         } catch (Exception e) {
-            System.err.println("DocumentFetcher failed for " + url + ": " + e.getMessage());
+            logger.error("DocumentFetcher failed for {}", url, e);
             return "";
         }
     }
@@ -81,7 +82,7 @@ public class DocumentFetcher {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Failed to download PDF from " + pdfUrl + ": " + e.getMessage());
+            logger.warn("Failed to download PDF from {}", pdfUrl, e);
         }
         return "";
     }
@@ -95,7 +96,7 @@ public class DocumentFetcher {
                     .get()
                     .html();
         } catch (Exception e) {
-            System.err.println("Failed to fetch HTML from " + url + ": " + e.getMessage());
+            logger.warn("Failed to fetch HTML from {}", url, e);
             return "";
         }
     }
@@ -117,7 +118,7 @@ public class DocumentFetcher {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Failed to parse HTML for PDF links: " + e.getMessage());
+            logger.warn("Failed to parse HTML for PDF links", e);
         }
         return Optional.empty();
     }
@@ -132,7 +133,7 @@ public class DocumentFetcher {
             }
             return text;
         } catch (Exception e) {
-            System.err.println("Failed to extract text from HTML: " + e.getMessage());
+            logger.warn("Failed to extract text from HTML", e);
             return "";
         }
     }

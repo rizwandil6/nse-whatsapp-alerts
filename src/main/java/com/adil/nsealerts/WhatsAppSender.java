@@ -3,6 +3,8 @@ package com.adil.nsealerts;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Service
 public class WhatsAppSender {
+    private static final Logger logger = LoggerFactory.getLogger(WhatsAppSender.class);
 
     @Value("${twilio.account-sid}")
     private String accountSid;
@@ -42,11 +45,11 @@ public class WhatsAppSender {
             }
 
             if (whatsappTo.isEmpty()) {
-                System.out.println("No Twilio recipients configured (twilio.whatsapp-to)");
+                logger.warn("No Twilio recipients configured (twilio.whatsapp-to)");
                 return;
             }
 
-            System.out.println("Sending message to " + whatsappTo.size() + " recipients");
+            logger.info("Sending message to {} recipients", whatsappTo.size());
             for (String to : whatsappTo) {
                 try {
                     Message.creator(
@@ -54,14 +57,13 @@ public class WhatsAppSender {
                             new PhoneNumber("whatsapp:" + whatsappFrom),
                             message
                     ).create();
-                    System.out.println("  ✓ Sent to " + to);
+                    logger.info("  ✓ Sent to {}", to);
                 } catch (Exception e) {
-                    System.out.println("  ✗ Failed to send to " + to + ": " + e.getMessage());
+                    logger.warn("  ✗ Failed to send to {}", to, e);
                 }
             }
         } catch (Exception e) {
-            System.out.println("Failed to send WhatsApp alert: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Failed to send WhatsApp alert", e);
         }
     }
 }
