@@ -13,9 +13,9 @@ nse:
   poll-interval-ms: 30000   # 30 seconds
 
 twilio:
-  account-sid: "ACaa3d9b326ae18cef8f3599a6712f853d"
-  auth-token: "08ceabd620c94e81985801e11c3c1b08"
-  whatsapp-from: "+14155238886"  # e.g. +1234567890
+  account-sid: ${TWILIO_ACCOUNT_SID}
+  auth-token: ${TWILIO_AUTH_TOKEN}
+  whatsapp-from: ${TWILIO_WHATSAPP_FROM:+14155238886}
   # Provide one or more recipient WhatsApp numbers (with country code, include +)
   whatsapp-to:
     - "+918686186386"    # your first number (example)
