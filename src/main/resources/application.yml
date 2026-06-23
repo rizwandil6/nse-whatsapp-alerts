@@ -10,7 +10,7 @@ nse:
   ignore-keywords:
     - "Awarding or Bagging of Orders/Contracts-XBRL"
 
-  poll-interval-ms: 30000   # 30 seconds
+  poll-interval-ms: 300000   # 5 minutes
 
 twilio:
   account-sid: ${TWILIO_ACCOUNT_SID}
