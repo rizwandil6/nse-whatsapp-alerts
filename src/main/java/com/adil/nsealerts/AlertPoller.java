@@ -2,6 +2,7 @@ package com.adil.nsealerts;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rometools.rome.feed.synd.SyndCategory;
 import com.rometools.rome.feed.synd.SyndEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ public class AlertPoller {
     private final FundamentalScreener fundamentalScreener;
     private final PromptRatingService promptRatingService;
     private final boolean screeningEnabled;
+    private final boolean ignoreSme;
     private final ObjectMapper mapper = new ObjectMapper();
 
     // Simple in-memory dedup. Restarts will re-alert once - acceptable for v1.
@@ -45,6 +47,7 @@ public class AlertPoller {
         this.promptRatingService = promptRatingService;
         String screeningFlag = env.getProperty("screening.enabled", "true");
         this.screeningEnabled = Boolean.parseBoolean(screeningFlag);
+        this.ignoreSme = Boolean.parseBoolean(env.getProperty("nse.ignore-sme", "true"));
 
         String[] watch = env.getProperty("nse.watchlist", String[].class);
         if (watch == null) {
@@ -110,6 +113,11 @@ public class AlertPoller {
                 String description = entry.getDescription() != null ? entry.getDescription().getValue() : "";
                 String link = entry.getLink() != null ? entry.getLink() : "";
 
+                if (ignoreSme && isSmeAnnouncement(entry, title, description)) {
+                    logger.debug("Skipping SME/Emerge announcement: {}", title);
+                    continue;
+                }
+
                 String id = link.isEmpty() ? (title + ":" + entry.getPublishedDate()) : link;
 
                 boolean excluded = title.contains("(Sub-para 4-Para B)") || description.contains("(Sub-para 4-Para B)")
@@ -156,6 +164,30 @@ public class AlertPoller {
         } catch (Exception e) {
             logger.error("Error parsing circulars", e);
         }
+    }
+
+    /**
+     * Detects NSE Emerge (SME) announcements via RSS categories or known text markers.
+     * NSE SME/Emerge announcements carry a "NSE EMERGE" category or mention it in the description.
+     */
+    private boolean isSmeAnnouncement(SyndEntry entry, String title, String description) {
+        // Check RSS categories first — most reliable signal
+        if (entry.getCategories() != null) {
+            for (SyndCategory cat : entry.getCategories()) {
+                if (cat.getName() != null) {
+                    String name = cat.getName().toUpperCase();
+                    if (name.contains("EMERGE") || name.contains("SME")) {
+                        return true;
+                    }
+                }
+            }
+        }
+        // Fallback: check title and description text
+        String haystack = (title + " " + description).toUpperCase();
+        return haystack.contains("NSE EMERGE")
+                || haystack.contains("NSE SME")
+                || haystack.contains("EMERGE PLATFORM")
+                || haystack.contains("SME PLATFORM");
     }
 
     private boolean containsAnyIgnoreKeyword(String title, String description) {
