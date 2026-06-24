@@ -20,6 +20,10 @@ telegram:
 
 # ANNOUNCEMENTS now use a public RSS feed (no proxy needed).
 # CIRCULARS still use the JSON API and may need a scraping proxy if NSE blocks your IP.
+# If you need to bypass NSE's bot protection for circulars, set proxy.base-url here.
+# Example for ScraperAPI free version:
+# proxy.base-url: "https://api.scraperapi.com/?api_key=YOUR_API_KEY&url="
+# auth-header and auth-token can remain blank when the key is passed in the URL.
 proxy:
   base-url: ""
   auth-header: ""
