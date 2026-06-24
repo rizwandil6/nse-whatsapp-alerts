@@ -4,17 +4,22 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rometools.rome.feed.synd.SyndCategory;
 import com.rometools.rome.feed.synd.SyndEntry;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class AlertPoller {
@@ -31,6 +36,13 @@ public class AlertPoller {
     private final PromptRatingService promptRatingService;
     private final boolean screeningEnabled;
     private final boolean ignoreSme;
+
+    /** Symbols listed on NSE main board (loaded from EQUITY_L.csv at startup). Null = unavailable, don't filter. */
+    private volatile Set<String> mainBoardSymbols = null;
+    private static final String EQUITY_LIST_URL =
+            "https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv";
+    /** Extracts the NSE symbol from a PDF link, e.g. .../TEXRAIL_24062026...pdf → TEXRAIL */
+    private static final Pattern SYMBOL_FROM_LINK = Pattern.compile("/([A-Z0-9&%-]+)_\\d{12,14}_");
     private final ObjectMapper mapper = new ObjectMapper();
 
     // Simple in-memory dedup. Restarts will re-alert once - acceptable for v1.
@@ -93,6 +105,33 @@ public class AlertPoller {
         }
         this.ignoredKeywords = ignored.isEmpty() ? java.util.Collections.emptyList() : ignored;
         logger.info("[AlertPoller] Loaded ignored keywords: {}", this.ignoredKeywords);
+    }
+
+    @PostConstruct
+    void loadMainBoardSymbols() {
+        if (!ignoreSme) {
+            return; // SME filter disabled; no need to load list
+        }
+        try {
+            RestTemplate rt = new RestTemplate();
+            String csv = rt.getForObject(EQUITY_LIST_URL, String.class);
+            if (csv == null || csv.isBlank()) {
+                logger.warn("[SME filter] EQUITY_L.csv returned empty; SME filtering by symbol disabled");
+                return;
+            }
+            Set<String> symbols = new HashSet<>();
+            String[] lines = csv.split("\\r?\\n");
+            for (int i = 1; i < lines.length; i++) { // skip header row
+                String line = lines[i].trim();
+                if (!line.isEmpty()) {
+                    symbols.add(line.split(",")[0].trim().toUpperCase(Locale.ROOT));
+                }
+            }
+            mainBoardSymbols = symbols;
+            logger.info("[SME filter] Loaded {} main-board symbols from EQUITY_L.csv", symbols.size());
+        } catch (Exception e) {
+            logger.warn("[SME filter] Could not load EQUITY_L.csv ({}); SME filtering by symbol disabled", e.getMessage());
+        }
     }
 
     @Scheduled(fixedDelayString = "${nse.poll-interval-ms}")
@@ -167,23 +206,43 @@ public class AlertPoller {
     }
 
     /**
-     * Detects NSE Emerge (SME) announcements via RSS categories or known text markers.
-     * NSE SME/Emerge announcements carry a "NSE EMERGE" category or mention it in the description.
+     * Detects NSE Emerge (SME) announcements.
+     *
+     * Strategy (in order of reliability):
+     * 1. Symbol extracted from the PDF link compared against the main-board EQUITY_L.csv list.
+     *    If the symbol is NOT in the main-board list it is SME/Emerge → filter it out.
+     * 2. RSS category tags containing "EMERGE" or "SME".
+     * 3. Text markers in title / description as a last resort.
      */
     private boolean isSmeAnnouncement(SyndEntry entry, String title, String description) {
-        // Check RSS categories first — most reliable signal
+        // 1. Symbol-based check (most reliable)
+        String link = entry.getLink() != null ? entry.getLink().toUpperCase(Locale.ROOT) : "";
+        if (mainBoardSymbols != null && !link.isEmpty()) {
+            Matcher m = SYMBOL_FROM_LINK.matcher(link);
+            if (m.find()) {
+                String symbol = m.group(1);
+                if (!mainBoardSymbols.contains(symbol)) {
+                    logger.debug("[SME filter] Dropping symbol not on main board: {}", symbol);
+                    return true;
+                }
+                return false; // confirmed main-board stock — not SME
+            }
+        }
+
+        // 2. RSS category tags
         if (entry.getCategories() != null) {
             for (SyndCategory cat : entry.getCategories()) {
                 if (cat.getName() != null) {
-                    String name = cat.getName().toUpperCase();
+                    String name = cat.getName().toUpperCase(Locale.ROOT);
                     if (name.contains("EMERGE") || name.contains("SME")) {
                         return true;
                     }
                 }
             }
         }
-        // Fallback: check title and description text
-        String haystack = (title + " " + description).toUpperCase();
+
+        // 3. Text markers in title / description
+        String haystack = (title + " " + description).toUpperCase(Locale.ROOT);
         return haystack.contains("NSE EMERGE")
                 || haystack.contains("NSE SME")
                 || haystack.contains("EMERGE PLATFORM")
