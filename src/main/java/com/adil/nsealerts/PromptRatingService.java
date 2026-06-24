@@ -34,7 +34,7 @@ public class PromptRatingService {
                 logger.error("OpenAI analysis failed", e);
             }
         }
-        return fallbackAnalysis(title, description, documentText);
+        return fallbackAnalysis(title, description, link, documentText);
     }
 
     private String buildPrompt(String title, String description, String link, String documentText) {
@@ -468,7 +468,7 @@ Input fields:
         messages.add(message);
         rootNode.put("model", "gpt-3.5-turbo");
         rootNode.set("messages", messages);
-        rootNode.put("max_tokens", 400);
+        rootNode.put("max_tokens", 1500);
         rootNode.put("temperature", 0.2);
         String requestBody = rootNode.toString();
 
@@ -506,11 +506,11 @@ Input fields:
             return new AnalysisResult(rating, orderSize, quickVerdict, summary, impact, whatsappMessage);
         } catch (Exception e) {
             logger.error("Failed to parse OpenAI analysis JSON, falling back", e);
-            return fallbackAnalysis("", content, content);
+            return fallbackAnalysis("", content, "", content);
         }
     }
 
-    private AnalysisResult fallbackAnalysis(String title, String description, String documentText) {
+    private AnalysisResult fallbackAnalysis(String title, String description, String link, String documentText) {
         String combined = (title + " " + description + " " + documentText).toLowerCase(Locale.ROOT);
         Double orderSizeCrores = extractOrderSizeCrores(combined);
         double score = 3.0;
@@ -534,7 +534,28 @@ Input fields:
         String summary = "Heuristic analysis: " + (orderSizeCrores != null ? "order size ~" + orderSizeCrores + " Cr." : "order size unknown") + ".";
         String quickVerdict = score >= 9 ? "Strong opportunity" : score >= 7 ? "Good opportunity" : score >= 5 ? "Watchlist" : score >= 3 ? "Low impact" : "Ignore";
         String impact = orderSizeCrores == null ? "Ignore" : orderSizeCrores > 100 ? "High Priority" : "Medium Priority";
-        return new AnalysisResult(score, orderSizeCrores, quickVerdict, summary, impact);
+
+        String scannerEmoji = score >= 9 ? "🟢" : score >= 5 ? "🟡" : "🔴";
+        String scannerDecision = score >= 9 ? "Research Immediately" : score >= 5 ? "Watchlist" : "Ignore";
+        String orderValue = orderSizeCrores != null
+                ? String.format("INR %.2f Cr", orderSizeCrores)
+                : "Unknown";
+        String companyName = title != null && !title.isBlank() ? title : "Company";
+        String source = link != null && !link.isBlank() ? link : "N/A";
+
+        String whatsappMessage = "Company Snapshot\n"
+                + "👉 " + companyName + "\n\n"
+                + "Quick Verdict\n"
+                + "Rating " + String.format("%.1f", score) + "/10 - " + quickVerdict + "\n\n"
+                + "Order Details\n"
+                + "Order Value: " + orderValue + "\n"
+                + "Source: " + source + "\n\n"
+                + "Overall Rating\n"
+                + String.format("%.1f", score) + "/10\n\n"
+                + "Scanner Decision\n"
+                + scannerEmoji + " " + scannerDecision;
+
+        return new AnalysisResult(score, orderSizeCrores, quickVerdict, summary, impact, whatsappMessage);
     }
 
     private Double extractOrderSizeCrores(String text) {
