@@ -10,23 +10,16 @@ nse:
   ignore-keywords:
     - "Awarding or Bagging of Orders/Contracts-XBRL"
 
-  poll-interval-ms: 300000   # 5 minutes
+  poll-interval-ms: 30000   # 30 seconds
 
-twilio:
-  account-sid: ${TWILIO_ACCOUNT_SID}
-  auth-token: ${TWILIO_AUTH_TOKEN}
-  whatsapp-from: ${TWILIO_WHATSAPP_FROM:+14155238886}
-  # Provide one or more recipient WhatsApp numbers (with country code, include +)
-  whatsapp-to:
-    - "+918686186386"    # your first number (example)
-    - "+917386380037"    # optional additional number
+telegram:
+  bot-token: ${TELEGRAM_BOT_TOKEN:}
+  # Provide one or more Telegram chat IDs (use @username or numeric ID)
+  chat-ids:
+    - "5937539323"    # Adil Rizwan Mohammed
 
 # ANNOUNCEMENTS now use a public RSS feed (no proxy needed).
 # CIRCULARS still use the JSON API and may need a scraping proxy if NSE blocks your IP.
-# If you need to bypass NSE's bot protection for circulars, set proxy.base-url here.
-# Example for ScraperAPI free version:
-# proxy.base-url: "https://api.scraperapi.com/?api_key=YOUR_API_KEY&url="
-# auth-header and auth-token can remain blank when the key is passed in the URL.
 proxy:
   base-url: ""
   auth-header: ""
@@ -34,3 +27,10 @@ proxy:
 
 analysis:
   openai-api-key: ""
+
+screener:
+  username: rizwan.dil6@gmail.com
+  password: Adil_12345
+
+screening:
+  enabled: true
