@@ -19,7 +19,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -153,9 +152,9 @@ public class AlertPoller implements SchedulingConfigurer {
             this::poll,
             context -> {
                 Instant base = context.lastActualExecutionTime() != null
-                        ? context.lastActualExecutionTime().toInstant()
+                        ? context.lastActualExecutionTime()
                         : Instant.now();
-                return Date.from(base.plusMillis(isMarketHours() ? MARKET_HOURS_DELAY_MS : OFF_MARKET_DELAY_MS));
+                return base.plusMillis(isMarketHours() ? MARKET_HOURS_DELAY_MS : OFF_MARKET_DELAY_MS);
             }
         );
     }
