@@ -11,6 +11,7 @@ nse:
     - "Awarding or Bagging of Orders/Contracts-XBRL"
 
   poll-interval-ms: 30000   # 30 seconds
+  ignore-sme: true          # set to false to also receive NSE Emerge (SME) announcements
 
 telegram:
   bot-token: ${TELEGRAM_BOT_TOKEN:}
