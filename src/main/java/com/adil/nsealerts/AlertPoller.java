@@ -178,15 +178,30 @@ public class AlertPoller {
 
         StringBuilder builder = new StringBuilder();
 
-        // Start with old format message if available
+        // Use Company Snapshot format from PromptRatingService if available,
+        // otherwise build it from the analysis fields + context (e.g. when OpenAI truncates whatsapp_message)
         if (analysisResult != null && analysisResult.getWhatsappMessage() != null && !analysisResult.getWhatsappMessage().isBlank()) {
             builder.append(analysisResult.getWhatsappMessage()).append("\n\n");
         } else {
-            // Fallback: basic announcement format
-            builder.append("📢 NSE ANNOUNCEMENT\n");
-            builder.append("🏢 ").append(context.companyName()).append("\n");
-            builder.append("📋 ").append(context.subject()).append("\n");
-            builder.append("🔗 ").append(context.link()).append("\n\n");
+            double rating = analysisResult != null ? analysisResult.getRating() : 5.0;
+            String verdict = analysisResult != null ? analysisResult.getQuickVerdict() : "Watchlist";
+            String orderValue = (analysisResult != null && analysisResult.getOrderSizeCrores() != null)
+                    ? String.format("INR %.2f Cr", analysisResult.getOrderSizeCrores())
+                    : "Unknown";
+            String scannerEmoji = rating >= 9 ? "🟢" : rating >= 5 ? "🟡" : "🔴";
+            String scannerDecision = rating >= 9 ? "Research Immediately" : rating >= 5 ? "Watchlist" : "Ignore";
+
+            builder.append("Company Snapshot\n");
+            builder.append("👉 ").append(context.companyName()).append("\n\n");
+            builder.append("Quick Verdict\n");
+            builder.append("Rating ").append(String.format("%.1f", rating)).append("/10 - ").append(verdict).append("\n\n");
+            builder.append("Order Details\n");
+            builder.append("Order Value: ").append(orderValue).append("\n");
+            builder.append("Source: ").append(context.link()).append("\n\n");
+            builder.append("Overall Rating\n");
+            builder.append(String.format("%.1f", rating)).append("/10\n\n");
+            builder.append("Scanner Decision\n");
+            builder.append(scannerEmoji).append(" ").append(scannerDecision).append("\n\n");
         }
 
         // Append new fundamental analysis if screening is enabled
