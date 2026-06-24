@@ -10,7 +10,9 @@ nse:
   ignore-keywords:
     - "Awarding or Bagging of Orders/Contracts-XBRL"
 
-  poll-interval-ms: 30000   # 30 seconds
+  # poll-interval-ms no longer used — polling is dynamic:
+  #   2 min during market hours (IST 09:15–15:30, Mon–Fri)
+  #   5 min outside market hours
   ignore-sme: true          # set to false to also receive NSE Emerge (SME) announcements
 
 telegram:
