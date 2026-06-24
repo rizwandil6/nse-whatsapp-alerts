@@ -7,12 +7,19 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -22,7 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class AlertPoller {
+public class AlertPoller implements SchedulingConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(AlertPoller.class);
 
     private List<String> watchlist;
@@ -134,8 +141,37 @@ public class AlertPoller {
         }
     }
 
-    @Scheduled(fixedDelayString = "${nse.poll-interval-ms}")
+    private static final ZoneId IST = ZoneId.of("Asia/Kolkata");
+    private static final LocalTime MARKET_OPEN  = LocalTime.of(9, 15);
+    private static final LocalTime MARKET_CLOSE = LocalTime.of(15, 30);
+    private static final long MARKET_HOURS_DELAY_MS    = 2  * 60 * 1000L; // 2 min
+    private static final long OFF_MARKET_DELAY_MS      = 5  * 60 * 1000L; // 5 min
+
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+        taskRegistrar.addTriggerTask(
+            this::poll,
+            context -> {
+                Instant base = context.lastActualExecutionTime() != null
+                        ? context.lastActualExecutionTime().toInstant()
+                        : Instant.now();
+                return Date.from(base.plusMillis(isMarketHours() ? MARKET_HOURS_DELAY_MS : OFF_MARKET_DELAY_MS));
+            }
+        );
+    }
+
+    private boolean isMarketHours() {
+        ZonedDateTime now = ZonedDateTime.now(IST);
+        DayOfWeek day = now.getDayOfWeek();
+        if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
+            return false;
+        }
+        LocalTime time = now.toLocalTime();
+        return !time.isBefore(MARKET_OPEN) && !time.isAfter(MARKET_CLOSE);
+    }
+
     public void poll() {
+        logger.debug("Polling NSE [market hours={}]", isMarketHours());
         checkAnnouncements();
         checkCirculars();
     }
