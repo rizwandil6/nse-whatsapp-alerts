@@ -31,6 +31,7 @@ public class AlertPoller {
     private final boolean screeningEnabled;
     private final ObjectMapper mapper = new ObjectMapper();
 
+    // Simple in-memory dedup. Restarts will re-alert once - acceptable for v1.
     private final Set<String> seenIds = new HashSet<>();
 
     public AlertPoller(NseClient nseClient,
@@ -50,7 +51,9 @@ public class AlertPoller {
             String watchStr = env.getProperty("nse.watchlist");
             if (watchStr != null && !watchStr.isEmpty()) {
                 watch = watchStr.split(",");
-                for (int i = 0; i < watch.length; i++) watch[i] = watch[i].trim();
+                for (int i = 0; i < watch.length; i++) {
+                    watch[i] = watch[i].trim();
+                }
             }
         }
         this.watchlist = watch == null ? java.util.Collections.emptyList() : java.util.Arrays.asList(watch);
@@ -61,7 +64,9 @@ public class AlertPoller {
             String circularStr = env.getProperty("nse.circular-keywords");
             if (circularStr != null && !circularStr.isEmpty()) {
                 circulars = circularStr.split(",");
-                for (int i = 0; i < circulars.length; i++) circulars[i] = circulars[i].trim();
+                for (int i = 0; i < circulars.length; i++) {
+                    circulars[i] = circulars[i].trim();
+                }
             }
         }
         this.circularKeywords = circulars == null ? java.util.Collections.emptyList() : java.util.Arrays.asList(circulars);
@@ -95,27 +100,32 @@ public class AlertPoller {
 
     private void checkAnnouncements() {
         List<SyndEntry> entries = nseClient.fetchAnnouncements();
-        if (entries == null || entries.isEmpty()) return;
+        if (entries == null || entries.isEmpty()) {
+            return;
+        }
 
         for (SyndEntry entry : entries) {
             try {
                 String title = entry.getTitle() != null ? entry.getTitle() : "";
                 String description = entry.getDescription() != null ? entry.getDescription().getValue() : "";
                 String link = entry.getLink() != null ? entry.getLink() : "";
+
                 String id = link.isEmpty() ? (title + ":" + entry.getPublishedDate()) : link;
 
                 boolean excluded = title.contains("(Sub-para 4-Para B)") || description.contains("(Sub-para 4-Para B)")
                         || containsAnyIgnoreKeyword(title, description);
+
                 boolean matches = !excluded && (announcementKeywords.isEmpty() ||
-                        announcementKeywords.stream().anyMatch(k -> description.toLowerCase().contains(k.toLowerCase())));
+                        announcementKeywords.stream()
+                                .anyMatch(k -> description.toLowerCase().contains(k.toLowerCase())));
 
                 if (matches && seenIds.add(id)) {
-                    logger.info("\u2713 New announcement: {}", title);
+                    logger.info("✓ New announcement: {}", title);
                     AnnouncementContext context = extractAnnouncementContext(title, description, link);
                     String message = screeningEnabled
                             ? buildAnnouncementMessage(context)
                             : buildPlainAnnouncementMessage(context);
-                    logger.info("  \u2192 {}", message);
+                    logger.info("  → {}", message);
                     telegramSender.send(message);
                 }
             } catch (Exception e) {
@@ -126,15 +136,19 @@ public class AlertPoller {
 
     private void checkCirculars() {
         String json = nseClient.fetchCirculars();
-        if (json == null) return;
+        if (json == null) {
+            return;
+        }
         try {
             JsonNode root = mapper.readTree(json);
             JsonNode list = root.has("data") ? root.get("data") : root;
             for (JsonNode item : list) {
                 String subject = textOf(item, "sub", "subject", "circNo");
                 String id = textOf(item, "circNo", "subject");
+
                 boolean matches = circularKeywords.stream()
                         .anyMatch(k -> subject.toLowerCase().contains(k.toLowerCase()));
+
                 if (matches && !containsAnyIgnoreKeyword(subject, "") && seenIds.add(id)) {
                     telegramSender.send("NSE Circular: " + subject);
                 }
@@ -149,46 +163,91 @@ public class AlertPoller {
         return ignoredKeywords.stream()
                 .filter(Objects::nonNull)
                 .map(String::trim)
-                .filter(v -> !v.isEmpty())
+                .filter(value -> !value.isEmpty())
                 .map(String::toLowerCase)
                 .anyMatch(haystack::contains);
     }
 
     private String buildAnnouncementMessage(AnnouncementContext context) {
+        // Get old format analysis from PromptRatingService
         AnalysisResult analysisResult = promptRatingService.analyze(
-                context.companyName(), context.subject(), context.link(), context.subject());
+                context.companyName(),
+                context.subject(),
+                context.link(),
+                context.subject());
 
         StringBuilder builder = new StringBuilder();
+
+        // Start with old format message if available
         if (analysisResult != null && analysisResult.getWhatsappMessage() != null && !analysisResult.getWhatsappMessage().isBlank()) {
             builder.append(analysisResult.getWhatsappMessage()).append("\n\n");
         } else {
-            builder.append("\ud83d\udce2 NSE ANNOUNCEMENT\n");
-            builder.append("\ud83c\udfe2 ").append(context.companyName()).append("\n");
-            builder.append("\ud83d\udccb ").append(context.subject()).append("\n");
-            builder.append("\ud83d\udd17 ").append(context.link()).append("\n\n");
+            // Fallback: basic announcement format
+            builder.append("📢 NSE ANNOUNCEMENT\n");
+            builder.append("🏢 ").append(context.companyName()).append("\n");
+            builder.append("📋 ").append(context.subject()).append("\n");
+            builder.append("🔗 ").append(context.link()).append("\n\n");
         }
 
+        // Append new fundamental analysis if screening is enabled
         if (screeningEnabled) {
             FundamentalResult result = fundamentalScreener.analyze(context.companyName());
+
             if (result != null && result.isAvailable()) {
+
                 builder.append("\n--- FUNDAMENTAL ANALYSIS ---\n\n");
-                builder.append("\ud83d\udcca FUNDAMENTAL ANALYSIS\n");
-                builder.append("\ud83d\udcb0 Market Cap: ").append(formatDouble(result.getMarketCapCr())).append(" Cr \u2014 ").append(nullSafe(result.getMarketCapCategory())).append("\n");
-                builder.append("\ud83d\udcc8 PE Ratio: ").append(formatDouble(result.getTrailingPe())).append(" \u2014 ").append(nullSafe(result.getPeRating()));
-                if (result.getPeComparison() != null && !result.getPeComparison().isBlank()) builder.append(" (").append(result.getPeComparison()).append(")");
+                builder.append("📊 FUNDAMENTAL ANALYSIS\n");
+                builder.append("💰 Market Cap: ")
+                        .append(formatDouble(result.getMarketCapCr()))
+                        .append(" Cr — ")
+                        .append(nullSafe(result.getMarketCapCategory()))
+                        .append("\n");
+
+                builder.append("📈 PE Ratio: ")
+                        .append(formatDouble(result.getTrailingPe()))
+                        .append(" — ")
+                        .append(nullSafe(result.getPeRating()));
+                if (result.getPeComparison() != null && !result.getPeComparison().isBlank()) {
+                    builder.append(" (").append(result.getPeComparison()).append(")");
+                }
                 builder.append("\n");
-                builder.append("\ud83d\udcbc ROCE: ").append(formatPercent(result.getRocePercent())).append("% \u2014 ").append(nullSafe(result.getRoceRating())).append("\n\n");
-                builder.append("\ud83d\udcb3 DEBT ANALYSIS\n");
+
+                builder.append("💼 ROCE: ")
+                        .append(formatPercent(result.getRocePercent()))
+                        .append("% — ")
+                        .append(nullSafe(result.getRoceRating()))
+                        .append("\n\n");
+
+                builder.append("💳 DEBT ANALYSIS\n");
                 builder.append("Debt vs MCap: ").append(nullSafe(result.getDebtVsMarketCapRating())).append("\n");
                 builder.append("Debt vs Reserve: ").append(nullSafe(result.getDebtVsReserveRating())).append("\n");
-                builder.append("Debt/Assets: ").append(formatPercent(result.getDebtToAssetsPercent())).append("% ").append(nullSafe(result.getDebtToAssetsRating())).append("\n\n");
-                builder.append("\ud83d\udcc5 LAST 3 QUARTERS\n");
-                builder.append("Revenue: ").append(formatQuarterSeries(result.getQuarterlyRevenueCr())).append(" Cr ").append(nullSafe(result.getQuarterlyRevenueTrend())).append("\n");
-                builder.append("Net Profit: ").append(formatQuarterSeries(result.getQuarterlyNetProfitCr())).append(" Cr ").append(nullSafe(result.getQuarterlyNetProfitTrend())).append("\n\n");
-                builder.append("\ud83d\udc64 EPS: ").append(formatDouble(result.getTrailingEps())).append("\n");
-                builder.append("\ud83d\udcda Book Value ratio: ").append(nullSafe(result.getBookValueRating())).append("\n");
-                builder.append("\ud83c\udfe6 Promoter Holding: ").append(formatPercent(result.getPromoterHoldingPercent())).append("% ").append(nullSafe(result.getPromoterHoldingRating())).append("\n\n");
-                builder.append("\ud83d\udcc9 TECHNICAL\n");
+                builder.append("Debt/Assets: ")
+                        .append(formatPercent(result.getDebtToAssetsPercent()))
+                        .append("% ")
+                        .append(nullSafe(result.getDebtToAssetsRating()))
+                        .append("\n\n");
+
+                builder.append("📅 LAST 3 QUARTERS\n");
+                builder.append("Revenue: ")
+                        .append(formatQuarterSeries(result.getQuarterlyRevenueCr()))
+                        .append(" Cr ")
+                        .append(nullSafe(result.getQuarterlyRevenueTrend()))
+                        .append("\n");
+                builder.append("Net Profit: ")
+                        .append(formatQuarterSeries(result.getQuarterlyNetProfitCr()))
+                        .append(" Cr ")
+                        .append(nullSafe(result.getQuarterlyNetProfitTrend()))
+                        .append("\n\n");
+
+                builder.append("👤 EPS: ").append(formatDouble(result.getTrailingEps())).append("\n");
+                builder.append("📚 Book Value ratio: ").append(nullSafe(result.getBookValueRating())).append("\n");
+                builder.append("🏦 Promoter Holding: ")
+                        .append(formatPercent(result.getPromoterHoldingPercent()))
+                        .append("% ")
+                        .append(nullSafe(result.getPromoterHoldingRating()))
+                        .append("\n\n");
+
+                builder.append("📉 TECHNICAL\n");
                 builder.append("200 EMA: ").append(nullSafe(result.getEma200Rating())).append("\n");
                 builder.append("RSI: ").append(nullSafe(result.getRsiRating())).append("\n");
                 builder.append("Breakout: ").append(nullSafe(result.getBreakoutRating())).append("\n");
@@ -201,10 +260,10 @@ public class AlertPoller {
 
     private String buildPlainAnnouncementMessage(AnnouncementContext context) {
         StringBuilder builder = new StringBuilder();
-        builder.append("\ud83d\udce2 NSE ANNOUNCEMENT\n");
-        builder.append("\ud83c\udfe2 ").append(context.companyName()).append(" (").append(context.symbol()).append(")\n");
-        builder.append("\ud83d\udccb ").append(context.subject()).append("\n\n");
-        builder.append("\ud83d\udd17 ").append(context.link());
+        builder.append("📢 NSE ANNOUNCEMENT\n");
+        builder.append("🏢 ").append(context.companyName()).append(" (").append(context.symbol()).append(")\n");
+        builder.append("📋 ").append(context.subject()).append("\n\n");
+        builder.append("🔗 ").append(context.link());
         return builder.toString();
     }
 
@@ -213,8 +272,13 @@ public class AlertPoller {
         String companyName = extractCompanyName(cleanTitle);
         String subject = extractSubject(cleanTitle, description);
         String symbol = extractSymbol(cleanTitle, description, companyName);
-        if (symbol.isBlank()) symbol = companyName.isBlank() ? "NSE" : companyName;
-        return new AnnouncementContext(companyName.isBlank() ? cleanTitle : companyName, symbol, subject.isBlank() ? cleanTitle : subject, link);
+        if (symbol.isBlank()) {
+            symbol = companyName.isBlank() ? "NSE" : companyName;
+        }
+        return new AnnouncementContext(companyName.isBlank() ? cleanTitle : companyName,
+                symbol,
+                subject.isBlank() ? cleanTitle : subject,
+                link);
     }
 
     private String extractCompanyName(String title) {
@@ -224,28 +288,41 @@ public class AlertPoller {
 
     private String extractSubject(String title, String description) {
         String[] parts = splitAnnouncementTitle(title);
-        if (parts[1] != null && !parts[1].isBlank()) return parts[1].trim();
+        if (parts[1] != null && !parts[1].isBlank()) {
+            return parts[1].trim();
+        }
         return description == null ? "" : description.trim();
     }
 
     private String extractSymbol(String title, String description, String companyName) {
         String haystack = (title + " " + description + " " + companyName).toUpperCase(Locale.ROOT);
         for (String item : watchlist) {
-            if (item == null || item.isBlank()) continue;
+            if (item == null || item.isBlank()) {
+                continue;
+            }
             String candidate = item.trim().toUpperCase(Locale.ROOT);
-            if (containsWholeWord(haystack, candidate)) return candidate;
+            if (containsWholeWord(haystack, candidate)) {
+                return candidate;
+            }
         }
+
         String fallback = companyName == null ? "" : companyName.trim().toUpperCase(Locale.ROOT);
-        return fallback.isBlank() ? "" : fallback;
+        if (fallback.isBlank()) {
+            return "";
+        }
+        return fallback;
     }
 
     private String[] splitAnnouncementTitle(String title) {
-        if (title == null || title.isBlank()) return new String[]{"", ""};
-        String[] separators = {" - ", " : ", " | ", " \u2013 ", " \u2014 "};
+        if (title == null || title.isBlank()) {
+            return new String[]{"", ""};
+        }
+        String[] separators = {" - ", " : ", " | ", " – ", " — "};
         for (String separator : separators) {
             int index = title.indexOf(separator);
-            if (index > 0 && index < title.length() - separator.length())
+            if (index > 0 && index < title.length() - separator.length()) {
                 return new String[]{title.substring(0, index).trim(), title.substring(index + separator.length()).trim()};
+            }
         }
         return new String[]{title.trim(), ""};
     }
@@ -256,18 +333,28 @@ public class AlertPoller {
     }
 
     private String formatQuarterSeries(List<Double> values) {
-        if (values == null || values.isEmpty()) return "N/A";
+        if (values == null || values.isEmpty()) {
+            return "N/A";
+        }
         List<String> formatted = new ArrayList<>();
-        for (Double value : values) formatted.add(formatDouble(value));
-        return String.join(" \u2192 ", formatted);
+        for (Double value : values) {
+            formatted.add(formatDouble(value));
+        }
+        return String.join(" → ", formatted);
     }
 
     private String formatDouble(Double value) {
-        return value == null ? "N/A" : String.format(Locale.US, "%.2f", value);
+        if (value == null) {
+            return "N/A";
+        }
+        return String.format(Locale.US, "%.2f", value);
     }
 
     private String formatPercent(Double value) {
-        return value == null ? "N/A" : String.format(Locale.US, "%.2f", value);
+        if (value == null) {
+            return "N/A";
+        }
+        return String.format(Locale.US, "%.2f", value);
     }
 
     private String nullSafe(String value) {
@@ -276,10 +363,13 @@ public class AlertPoller {
 
     private String textOf(JsonNode node, String... fields) {
         for (String f : fields) {
-            if (node.has(f) && !node.get(f).isNull()) return node.get(f).asText();
+            if (node.has(f) && !node.get(f).isNull()) {
+                return node.get(f).asText();
+            }
         }
         return "";
     }
 
-    private record AnnouncementContext(String companyName, String symbol, String subject, String link) {}
+    private record AnnouncementContext(String companyName, String symbol, String subject, String link) {
+    }
 }
