@@ -150,12 +150,7 @@ public class AlertPoller implements SchedulingConfigurer {
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         taskRegistrar.addTriggerTask(
             this::poll,
-            context -> {
-                Instant base = context.lastActualExecutionTime() != null
-                        ? context.lastActualExecutionTime()
-                        : Instant.now();
-                return base.plusMillis(isMarketHours() ? MARKET_HOURS_DELAY_MS : OFF_MARKET_DELAY_MS);
-            }
+            context -> Instant.now().plusMillis(isMarketHours() ? MARKET_HOURS_DELAY_MS : OFF_MARKET_DELAY_MS)
         );
     }
 
