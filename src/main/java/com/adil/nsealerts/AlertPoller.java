@@ -396,6 +396,15 @@ public class AlertPoller {
                 builder.append("RSI: ").append(nullSafe(result.getRsiRating())).append("\n");
                 builder.append("Breakout: ").append(nullSafe(result.getBreakoutRating())).append("\n");
 
+                if (result.getDemandZoneLow() != null) {
+                    builder.append("\nDEMAND ZONE\n");
+                    builder.append("Zone: ₹").append(String.format("%.2f", result.getDemandZoneLow()))
+                           .append(" – ₹").append(String.format("%.2f", result.getDemandZoneHigh())).append("\n");
+                    builder.append("Distance: ").append(String.format("%.1f", result.getDemandZoneDistancePct())).append("% from current price\n");
+                    builder.append("Strength: ").append(nullSafe(result.getDemandZoneStrength())).append("\n");
+                    builder.append("Signal: ").append(nullSafe(result.getDemandZoneSignal())).append("\n");
+                }
+
                 builder.append("\nCOMPOUNDED SALES GROWTH\n");
                 builder.append("10Y: ").append(formatPercent(result.getSalesGrowth10Y())).append("% — ").append(salesGrowthLabel(result.getSalesGrowth10Y())).append("\n");
                 builder.append("5Y:  ").append(formatPercent(result.getSalesGrowth5Y())).append("% — ").append(salesGrowthLabel(result.getSalesGrowth5Y())).append("\n");
