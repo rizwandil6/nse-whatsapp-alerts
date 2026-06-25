@@ -56,6 +56,13 @@ public class FundamentalResult {
     private Double salesGrowth3Y;
     private Double salesGrowthTtm;
 
+    // Demand Zone
+    private Double demandZoneLow;
+    private Double demandZoneHigh;
+    private String demandZoneStrength;
+    private Double demandZoneDistancePct;
+    private String demandZoneSignal;
+
     public String getSymbol() {
         return symbol;
     }
@@ -347,4 +354,19 @@ public class FundamentalResult {
 
     public Double getSalesGrowthTtm() { return salesGrowthTtm; }
     public void setSalesGrowthTtm(Double salesGrowthTtm) { this.salesGrowthTtm = salesGrowthTtm; }
+
+    public Double getDemandZoneLow() { return demandZoneLow; }
+    public void setDemandZoneLow(Double demandZoneLow) { this.demandZoneLow = demandZoneLow; }
+
+    public Double getDemandZoneHigh() { return demandZoneHigh; }
+    public void setDemandZoneHigh(Double demandZoneHigh) { this.demandZoneHigh = demandZoneHigh; }
+
+    public String getDemandZoneStrength() { return demandZoneStrength; }
+    public void setDemandZoneStrength(String demandZoneStrength) { this.demandZoneStrength = demandZoneStrength; }
+
+    public Double getDemandZoneDistancePct() { return demandZoneDistancePct; }
+    public void setDemandZoneDistancePct(Double demandZoneDistancePct) { this.demandZoneDistancePct = demandZoneDistancePct; }
+
+    public String getDemandZoneSignal() { return demandZoneSignal; }
+    public void setDemandZoneSignal(String demandZoneSignal) { this.demandZoneSignal = demandZoneSignal; }
 }
