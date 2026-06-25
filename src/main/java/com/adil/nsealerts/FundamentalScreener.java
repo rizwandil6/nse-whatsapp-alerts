@@ -246,6 +246,26 @@ public class FundamentalScreener {
         parseQuarterlyResults(doc, result);
         parseBalanceSheet(doc, result, marketCap);
         parseShareholding(doc, result);
+        parseCompoundedSalesGrowth(doc, result);
+    }
+
+    private void parseCompoundedSalesGrowth(Document doc, FundamentalResult result) {
+        // Screener renders compounded growth in small cards: <ul> inside a <div class="card"> with heading "Compounded Sales Growth"
+        for (Element card : doc.select("div.card, section")) {
+            String heading = card.select("h3, h2, .card-header").text().trim();
+            if (heading.toLowerCase().contains("compounded sales growth")) {
+                for (Element li : card.select("li")) {
+                    String label = li.select(".name, span:first-child").text().trim().toLowerCase();
+                    String value = li.select(".value, span:last-child").text().trim();
+                    Double pct = parsePct(value);
+                    if (label.contains("10")) result.setSalesGrowth10Y(pct);
+                    else if (label.contains("5")) result.setSalesGrowth5Y(pct);
+                    else if (label.contains("3")) result.setSalesGrowth3Y(pct);
+                    else if (label.contains("ttm")) result.setSalesGrowthTtm(pct);
+                }
+                return;
+            }
+        }
     }
 
     private Map<String, String> parseKeyRatios(Document doc) {
