@@ -395,6 +395,12 @@ public class AlertPoller {
                 builder.append("200 EMA: ").append(nullSafe(result.getEma200Rating())).append("\n");
                 builder.append("RSI: ").append(nullSafe(result.getRsiRating())).append("\n");
                 builder.append("Breakout: ").append(nullSafe(result.getBreakoutRating())).append("\n");
+
+                builder.append("\nCOMPOUNDED SALES GROWTH\n");
+                builder.append("10Y: ").append(formatPercent(result.getSalesGrowth10Y())).append("% — ").append(salesGrowthLabel(result.getSalesGrowth10Y())).append("\n");
+                builder.append("5Y:  ").append(formatPercent(result.getSalesGrowth5Y())).append("% — ").append(salesGrowthLabel(result.getSalesGrowth5Y())).append("\n");
+                builder.append("3Y:  ").append(formatPercent(result.getSalesGrowth3Y())).append("% — ").append(salesGrowthLabel(result.getSalesGrowth3Y())).append("\n");
+                builder.append("TTM: ").append(formatPercent(result.getSalesGrowthTtm())).append("% — ").append(salesGrowthLabel(result.getSalesGrowthTtm())).append("\n");
             } else if (result != null && result.getUnavailableMessage() != null && !result.getUnavailableMessage().isBlank()) {
                 builder.append(result.getUnavailableMessage()).append("\n");
             }
@@ -503,6 +509,16 @@ public class AlertPoller {
 
     private String nullSafe(String value) {
         return value == null || value.isBlank() ? "N/A" : value;
+    }
+
+    private String salesGrowthLabel(Double pct) {
+        if (pct == null) return "N/A";
+        if (pct >= 30) return "Exceptional";
+        if (pct >= 20) return "Excellent";
+        if (pct >= 15) return "Very Strong";
+        if (pct >= 10) return "Good";
+        if (pct >= 5)  return "Decent";
+        return "Slow";
     }
 
     private String textOf(JsonNode node, String... fields) {
