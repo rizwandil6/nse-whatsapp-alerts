@@ -355,9 +355,110 @@ public class FundamentalScreener {
             JsonNode chartRoot = readChartJson(String.format(CHART_URL_TEMPLATE, screenerSymbol));
             if (chartRoot == null) return;
             JsonNode chartResult = firstArrayItem(chartRoot.path("chart").path("result"));
-            if (chartResult != null) populateTechnicalFields(result, chartResult);
+            if (chartResult != null) {
+                populateTechnicalFields(result, chartResult);
+                detectDemandZone(result, chartResult);
+            }
         } catch (Exception e) {
             logger.debug("Chart data unavailable for {}: {}", screenerSymbol, e.getMessage());
+        }
+    }
+
+    private void detectDemandZone(FundamentalResult result, JsonNode chartResult) {
+        try {
+            JsonNode quote = firstArrayItem(chartResult.path("indicators").path("quote"));
+            if (quote == null) return;
+
+            JsonNode closeArr = quote.path("close");
+            JsonNode lowArr   = quote.path("low");
+            JsonNode volArr   = quote.path("volume");
+            int n = closeArr.size();
+            if (n < 20) return;
+
+            double[] closes  = new double[n];
+            double[] lows    = new double[n];
+            double[] volumes = new double[n];
+            double totalVol  = 0;
+
+            for (int i = 0; i < n; i++) {
+                closes[i]  = closeArr.get(i).isNull() ? 0 : closeArr.get(i).asDouble();
+                lows[i]    = lowArr.get(i).isNull()   ? 0 : lowArr.get(i).asDouble();
+                volumes[i] = volArr.get(i).isNull()   ? 0 : volArr.get(i).asDouble();
+                totalVol  += volumes[i];
+            }
+
+            double avgVol      = totalVol / n;
+            double currentPrice = closes[n - 1];
+            if (currentPrice <= 0) return;
+
+            // Detect swing lows using 3-candle window
+            List<double[]> swingLows = new ArrayList<>(); // [price, volume]
+            for (int i = 2; i < n - 2; i++) {
+                if (lows[i] > 0
+                        && lows[i] < lows[i - 1] && lows[i] < lows[i - 2]
+                        && lows[i] < lows[i + 1] && lows[i] < lows[i + 2]) {
+                    swingLows.add(new double[]{lows[i], volumes[i]});
+                }
+            }
+            if (swingLows.isEmpty()) return;
+
+            // Cluster nearby swing lows within 3% of each other
+            List<List<double[]>> zones = new ArrayList<>();
+            for (double[] sw : swingLows) {
+                boolean merged = false;
+                for (List<double[]> zone : zones) {
+                    double zoneRef = zone.get(0)[0];
+                    if (Math.abs(sw[0] - zoneRef) / zoneRef < 0.03) {
+                        zone.add(sw);
+                        merged = true;
+                        break;
+                    }
+                }
+                if (!merged) {
+                    List<double[]> newZone = new ArrayList<>();
+                    newZone.add(sw);
+                    zones.add(newZone);
+                }
+            }
+
+            // Find closest demand zone below current price
+            double bestDist = Double.MAX_VALUE;
+            double bestLow = 0, bestHigh = 0;
+            int bestTouches = 0;
+            boolean bestHighVol = false;
+
+            for (List<double[]> zone : zones) {
+                double avgZonePrice = zone.stream().mapToDouble(z -> z[0]).average().orElse(0);
+                if (avgZonePrice <= 0 || avgZonePrice >= currentPrice) continue;
+
+                double distPct = (currentPrice - avgZonePrice) / currentPrice * 100;
+                if (distPct < bestDist) {
+                    bestDist    = distPct;
+                    bestLow     = zone.stream().mapToDouble(z -> z[0]).min().orElse(0);
+                    bestHigh    = bestLow * 1.03;
+                    bestTouches = zone.size();
+                    bestHighVol = zone.stream().anyMatch(z -> z[1] > avgVol * 1.5);
+                }
+            }
+
+            if (bestLow <= 0) return;
+
+            result.setDemandZoneLow(bestLow);
+            result.setDemandZoneHigh(bestHigh);
+            result.setDemandZoneDistancePct(bestDist);
+
+            String strength = (bestTouches >= 3 && bestHighVol) ? "🟢 Strong"
+                            : (bestTouches >= 2 || bestHighVol) ? "🟡 Moderate"
+                            : "🔴 Weak";
+            result.setDemandZoneStrength(strength);
+
+            String signal = bestDist <= 3 ? "⚠️ At Demand Zone"
+                          : bestDist <= 7 ? "👀 Approaching Zone"
+                          : "➡️ Away from Zone";
+            result.setDemandZoneSignal(signal);
+
+        } catch (Exception e) {
+            logger.debug("Demand zone detection failed: {}", e.getMessage());
         }
     }
 
