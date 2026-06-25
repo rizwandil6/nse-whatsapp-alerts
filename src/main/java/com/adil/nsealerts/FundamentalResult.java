@@ -50,6 +50,12 @@ public class FundamentalResult {
     private Double fiftyTwoWeekHigh;
     private String breakoutRating;
 
+    // Compounded Sales Growth
+    private Double salesGrowth10Y;
+    private Double salesGrowth5Y;
+    private Double salesGrowth3Y;
+    private Double salesGrowthTtm;
+
     public String getSymbol() {
         return symbol;
     }
@@ -329,4 +335,16 @@ public class FundamentalResult {
     public void setBreakoutRating(String breakoutRating) {
         this.breakoutRating = breakoutRating;
     }
+
+    public Double getSalesGrowth10Y() { return salesGrowth10Y; }
+    public void setSalesGrowth10Y(Double salesGrowth10Y) { this.salesGrowth10Y = salesGrowth10Y; }
+
+    public Double getSalesGrowth5Y() { return salesGrowth5Y; }
+    public void setSalesGrowth5Y(Double salesGrowth5Y) { this.salesGrowth5Y = salesGrowth5Y; }
+
+    public Double getSalesGrowth3Y() { return salesGrowth3Y; }
+    public void setSalesGrowth3Y(Double salesGrowth3Y) { this.salesGrowth3Y = salesGrowth3Y; }
+
+    public Double getSalesGrowthTtm() { return salesGrowthTtm; }
+    public void setSalesGrowthTtm(Double salesGrowthTtm) { this.salesGrowthTtm = salesGrowthTtm; }
 }
