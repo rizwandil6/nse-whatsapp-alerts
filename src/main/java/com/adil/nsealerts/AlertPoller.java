@@ -116,28 +116,33 @@ public class AlertPoller implements SchedulingConfigurer {
     @PostConstruct
     void loadMainBoardSymbols() {
         if (!ignoreSme) {
-            return; // SME filter disabled; no need to load list
+            return;
         }
-        try {
-            RestTemplate rt = new RestTemplate();
-            String csv = rt.getForObject(EQUITY_LIST_URL, String.class);
-            if (csv == null || csv.isBlank()) {
-                logger.warn("[SME filter] EQUITY_L.csv returned empty; SME filtering by symbol disabled");
-                return;
-            }
-            Set<String> symbols = new HashSet<>();
-            String[] lines = csv.split("\\r?\\n");
-            for (int i = 1; i < lines.length; i++) { // skip header row
-                String line = lines[i].trim();
-                if (!line.isEmpty()) {
-                    symbols.add(line.split(",")[0].trim().toUpperCase(Locale.ROOT));
+        // Run in background so it does not block application startup
+        Thread loader = new Thread(() -> {
+            try {
+                RestTemplate rt = new RestTemplate();
+                String csv = rt.getForObject(EQUITY_LIST_URL, String.class);
+                if (csv == null || csv.isBlank()) {
+                    logger.warn("[SME filter] EQUITY_L.csv returned empty; SME filtering by symbol disabled");
+                    return;
                 }
+                Set<String> symbols = new HashSet<>();
+                String[] lines = csv.split("\\r?\\n");
+                for (int i = 1; i < lines.length; i++) {
+                    String line = lines[i].trim();
+                    if (!line.isEmpty()) {
+                        symbols.add(line.split(",")[0].trim().toUpperCase(Locale.ROOT));
+                    }
+                }
+                mainBoardSymbols = symbols;
+                logger.info("[SME filter] Loaded {} main-board symbols from EQUITY_L.csv", symbols.size());
+            } catch (Exception e) {
+                logger.warn("[SME filter] Could not load EQUITY_L.csv ({}); SME filtering by symbol disabled", e.getMessage());
             }
-            mainBoardSymbols = symbols;
-            logger.info("[SME filter] Loaded {} main-board symbols from EQUITY_L.csv", symbols.size());
-        } catch (Exception e) {
-            logger.warn("[SME filter] Could not load EQUITY_L.csv ({}); SME filtering by symbol disabled", e.getMessage());
-        }
+        }, "equity-list-loader");
+        loader.setDaemon(true);
+        loader.start();
     }
 
     private static final ZoneId IST = ZoneId.of("Asia/Kolkata");
@@ -165,7 +170,7 @@ public class AlertPoller implements SchedulingConfigurer {
     }
 
     public void poll() {
-        logger.debug("Polling NSE [market hours={}]", isMarketHours());
+        logger.info("Polling NSE [market hours={}]", isMarketHours());
         checkAnnouncements();
         checkCirculars();
     }
