@@ -7,13 +7,11 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.DayOfWeek;
-import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -28,7 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class AlertPoller implements SchedulingConfigurer {
+public class AlertPoller {
     private static final Logger logger = LoggerFactory.getLogger(AlertPoller.class);
 
     private List<String> watchlist;
@@ -151,12 +149,9 @@ public class AlertPoller implements SchedulingConfigurer {
     private static final long MARKET_HOURS_DELAY_MS    = 2  * 60 * 1000L; // 2 min
     private static final long OFF_MARKET_DELAY_MS      = 5  * 60 * 1000L; // 5 min
 
-    @Override
-    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        taskRegistrar.addTriggerTask(
-            this::poll,
-            context -> Instant.now().plusMillis(isMarketHours() ? MARKET_HOURS_DELAY_MS : OFF_MARKET_DELAY_MS)
-        );
+    @Scheduled(fixedDelay = 120000) // 2 minutes
+    public void scheduledPoll() {
+        poll();
     }
 
     private boolean isMarketHours() {
