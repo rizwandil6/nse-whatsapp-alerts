@@ -247,15 +247,23 @@ public class AlertPoller {
     private boolean isSmeAnnouncement(SyndEntry entry, String title, String description) {
         // 1. Symbol-based check (most reliable)
         String link = entry.getLink() != null ? entry.getLink().toUpperCase(Locale.ROOT) : "";
-        if (mainBoardSymbols != null && !link.isEmpty()) {
+        if (!link.isEmpty()) {
             Matcher m = SYMBOL_FROM_LINK.matcher(link);
             if (m.find()) {
                 String symbol = m.group(1);
-                if (!mainBoardSymbols.contains(symbol)) {
-                    logger.debug("[SME filter] Dropping symbol not on main board: {}", symbol);
+                // If symbol itself ends with SME or contains SME marker — definitely SME
+                if (symbol.endsWith("SME") || symbol.contains("-SME") || symbol.contains("SME-")) {
+                    logger.info("[SME filter] Dropping SME symbol by name: {}", symbol);
                     return true;
                 }
-                return false; // confirmed main-board stock — not SME
+                // If main-board list loaded, check against it
+                if (mainBoardSymbols != null) {
+                    if (!mainBoardSymbols.contains(symbol)) {
+                        logger.info("[SME filter] Dropping symbol not on main board: {}", symbol);
+                        return true;
+                    }
+                    return false; // confirmed main-board stock — not SME
+                }
             }
         }
 
@@ -332,14 +340,14 @@ public class AlertPoller {
             if (result != null && result.isAvailable()) {
 
                 builder.append("\n--- FUNDAMENTAL ANALYSIS ---\n\n");
-                builder.append("📊 FUNDAMENTAL ANALYSIS\n");
-                builder.append("💰 Market Cap: ")
+                builder.append("FUNDAMENTAL ANALYSIS\n");
+                builder.append("Market Cap: ")
                         .append(formatDouble(result.getMarketCapCr()))
                         .append(" Cr — ")
                         .append(nullSafe(result.getMarketCapCategory()))
                         .append("\n");
 
-                builder.append("📈 PE Ratio: ")
+                builder.append("PE Ratio: ")
                         .append(formatDouble(result.getTrailingPe()))
                         .append(" — ")
                         .append(nullSafe(result.getPeRating()));
@@ -348,13 +356,13 @@ public class AlertPoller {
                 }
                 builder.append("\n");
 
-                builder.append("💼 ROCE: ")
+                builder.append("ROCE: ")
                         .append(formatPercent(result.getRocePercent()))
                         .append("% — ")
                         .append(nullSafe(result.getRoceRating()))
                         .append("\n\n");
 
-                builder.append("💳 DEBT ANALYSIS\n");
+                builder.append("DEBT ANALYSIS\n");
                 builder.append("Debt vs MCap: ").append(nullSafe(result.getDebtVsMarketCapRating())).append("\n");
                 builder.append("Debt vs Reserve: ").append(nullSafe(result.getDebtVsReserveRating())).append("\n");
                 builder.append("Debt/Assets: ")
@@ -363,7 +371,7 @@ public class AlertPoller {
                         .append(nullSafe(result.getDebtToAssetsRating()))
                         .append("\n\n");
 
-                builder.append("📅 LAST 3 QUARTERS\n");
+                builder.append("LAST 3 QUARTERS\n");
                 builder.append("Revenue: ")
                         .append(formatQuarterSeries(result.getQuarterlyRevenueCr()))
                         .append(" Cr ")
@@ -375,15 +383,15 @@ public class AlertPoller {
                         .append(nullSafe(result.getQuarterlyNetProfitTrend()))
                         .append("\n\n");
 
-                builder.append("👤 EPS: ").append(formatDouble(result.getTrailingEps())).append("\n");
-                builder.append("📚 Book Value ratio: ").append(nullSafe(result.getBookValueRating())).append("\n");
-                builder.append("🏦 Promoter Holding: ")
+                builder.append("EPS: ").append(formatDouble(result.getTrailingEps())).append("\n");
+                builder.append("Book Value ratio: ").append(nullSafe(result.getBookValueRating())).append("\n");
+                builder.append("Promoter Holding: ")
                         .append(formatPercent(result.getPromoterHoldingPercent()))
                         .append("% ")
                         .append(nullSafe(result.getPromoterHoldingRating()))
                         .append("\n\n");
 
-                builder.append("📉 TECHNICAL\n");
+                builder.append("TECHNICAL\n");
                 builder.append("200 EMA: ").append(nullSafe(result.getEma200Rating())).append("\n");
                 builder.append("RSI: ").append(nullSafe(result.getRsiRating())).append("\n");
                 builder.append("Breakout: ").append(nullSafe(result.getBreakoutRating())).append("\n");
