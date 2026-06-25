@@ -466,9 +466,9 @@ Input fields:
         message.put("role", "user");
         message.put("content", prompt);
         messages.add(message);
-        rootNode.put("model", "gpt-3.5-turbo");
+        rootNode.put("model", "gpt-4o-mini");
         rootNode.set("messages", messages);
-        rootNode.put("max_tokens", 1500);
+        rootNode.put("max_tokens", 2000);
         rootNode.put("temperature", 0.2);
         String requestBody = rootNode.toString();
 
