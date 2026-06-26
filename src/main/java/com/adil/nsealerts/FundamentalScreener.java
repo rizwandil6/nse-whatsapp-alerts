@@ -250,6 +250,28 @@ public class FundamentalScreener {
     }
 
     private void parseCompoundedSalesGrowth(Document doc, FundamentalResult result) {
+        // Debug: check what's in the profit-loss section
+        Element plSection = doc.getElementById("profit-loss");
+        if (plSection == null) {
+            logger.warn("[SalesGrowth] #profit-loss section NOT FOUND in page");
+        } else {
+            String plText = plSection.text();
+            int idx = plText.toLowerCase().indexOf("compounded");
+            if (idx >= 0) {
+                logger.info("[SalesGrowth] Found 'compounded' in #profit-loss at idx={}: ...{}...",
+                        idx, plText.substring(idx, Math.min(idx + 100, plText.length())));
+            } else {
+                logger.warn("[SalesGrowth] 'compounded' text NOT found in #profit-loss section");
+            }
+            // Log all tags inside profit-loss that contain "compounded"
+            for (Element el : plSection.getAllElements()) {
+                if (el.ownText().toLowerCase().contains("compounded")) {
+                    logger.info("[SalesGrowth] Found 'compounded' in <{} class='{}'>: '{}'",
+                            el.tagName(), el.className(), el.ownText().trim());
+                }
+            }
+        }
+
         // Log all h3 headings to understand structure
         for (Element h : doc.select("h3, h4")) {
             logger.info("[SalesGrowth] Found heading <{}>: '{}'", h.tagName(), h.text().trim());
