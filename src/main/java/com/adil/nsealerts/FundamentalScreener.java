@@ -430,9 +430,10 @@ public class FundamentalScreener {
             double totalVol  = 0;
 
             for (int i = 0; i < n; i++) {
-                closes[i]  = closeArr.get(i).isNull() ? 0 : closeArr.get(i).asDouble();
-                lows[i]    = lowArr.get(i).isNull()   ? 0 : lowArr.get(i).asDouble();
-                volumes[i] = volArr.get(i).isNull()   ? 0 : volArr.get(i).asDouble();
+                JsonNode c = closeArr.get(i), l = lowArr.get(i), v = volArr.get(i);
+                closes[i]  = (c == null || c.isNull()) ? 0 : c.asDouble();
+                lows[i]    = (l == null || l.isNull()) ? 0 : l.asDouble();
+                volumes[i] = (v == null || v.isNull()) ? 0 : v.asDouble();
                 totalVol  += volumes[i];
             }
 
@@ -512,7 +513,7 @@ public class FundamentalScreener {
             result.setDemandZoneSignal(signal);
 
         } catch (Exception e) {
-            logger.debug("Demand zone detection failed: {}", e.getMessage());
+            logger.warn("[DemandZone] Detection failed: {} — {}", e.getClass().getSimpleName(), e.getMessage());
         }
     }
 
