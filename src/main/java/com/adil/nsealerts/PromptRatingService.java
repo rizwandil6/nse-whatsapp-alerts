@@ -142,7 +142,8 @@ Examples:
 Action:
 
 - Revenue impact cannot be calculated.
-- Cap overall rating at 5/10.
+- Score based on strategic importance, customer quality, and sector significance.
+- Do not apply any artificial rating cap — rate as low as 1/10 if truly insignificant.
 
 Examples:
 
