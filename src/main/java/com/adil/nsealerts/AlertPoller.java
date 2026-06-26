@@ -392,8 +392,9 @@ public class AlertPoller {
                         .append(nullSafe(result.getQuarterlyNetProfitTrend()))
                         .append("\n\n");
 
-                builder.append("EPS: ").append(formatDouble(result.getTrailingEps())).append("\n");
-                builder.append("Book Value ratio: ").append(nullSafe(result.getBookValueRating())).append("\n");
+                if (result.getBookValueRating() != null) {
+                    builder.append("Book Value ratio: ").append(result.getBookValueRating()).append("\n");
+                }
                 builder.append("Promoter Holding: ")
                         .append(formatPercent(result.getPromoterHoldingPercent()))
                         .append("% ")
