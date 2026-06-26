@@ -250,80 +250,31 @@ public class FundamentalScreener {
     }
 
     private void parseCompoundedSalesGrowth(Document doc, FundamentalResult result) {
-        // Debug: check what's in the profit-loss section
-        Element plSection = doc.getElementById("profit-loss");
-        if (plSection == null) {
-            logger.warn("[SalesGrowth] #profit-loss section NOT FOUND in page");
-        } else {
-            String plText = plSection.text();
-            int idx = plText.toLowerCase().indexOf("compounded");
-            if (idx >= 0) {
-                logger.info("[SalesGrowth] Found 'compounded' in #profit-loss at idx={}: ...{}...",
-                        idx, plText.substring(idx, Math.min(idx + 100, plText.length())));
-            } else {
-                logger.warn("[SalesGrowth] 'compounded' text NOT found in #profit-loss section");
+        // "Compounded Sales Growth" is a <th> inside a ranges-table
+        // Structure: each <td> in that column contains "10 Years: 40%" as combined text
+        for (Element th : doc.select("th")) {
+            if (!th.text().trim().toLowerCase().contains("compounded sales growth")) continue;
+
+            int colIndex = th.elementSiblingIndex();
+            Element table = th.closest("table");
+            if (table == null) continue;
+
+            for (Element tr : table.select("tr")) {
+                Elements tds = tr.select("td");
+                if (tds.isEmpty()) continue;
+
+                // Data cell is at colIndex if multi-column, otherwise index 0
+                Element cell = tds.size() > colIndex ? tds.get(colIndex) : tds.get(0);
+                String cellText = cell.text().trim();
+                if (cellText.isBlank()) continue;
+
+                String lower = cellText.toLowerCase();
+                Double pct = parseLastNumber(cellText);
+                setSalesGrowthField(result, lower, pct);
             }
-            // Log all tags inside profit-loss that contain "compounded"
-            for (Element el : plSection.getAllElements()) {
-                if (el.ownText().toLowerCase().contains("compounded")) {
-                    logger.info("[SalesGrowth] Found 'compounded' in <{} class='{}'>: '{}'",
-                            el.tagName(), el.className(), el.ownText().trim());
-                }
-            }
+            return;
         }
-
-        // Log all h3 headings to understand structure
-        for (Element h : doc.select("h3, h4")) {
-            logger.info("[SalesGrowth] Found heading <{}>: '{}'", h.tagName(), h.text().trim());
-        }
-
-        // Find the heading element — could be h3, h4, b, or span
-        for (Element heading : doc.select("h3, h4, b, strong, span")) {
-            String headingText = heading.text().trim();
-            if (!headingText.toLowerCase().contains("compounded sales growth")) continue;
-            logger.info("[SalesGrowth] Matched heading '{}' tag=<{}>", headingText, heading.tagName());
-
-            Element parent = heading.parent();
-            if (parent == null) continue;
-
-            // Data could be in: next sibling table/ul, or children of parent
-            Element dataEl = heading.nextElementSibling();
-            logger.info("[SalesGrowth] Next sibling: {}", dataEl != null ? dataEl.tagName() : "null");
-
-            if (dataEl == null) {
-                for (Element child : parent.children()) {
-                    if (child != heading && (child.tagName().equals("table") || child.tagName().equals("ul"))) {
-                        dataEl = child;
-                        break;
-                    }
-                }
-            }
-            if (dataEl == null) continue;
-
-            // Parse table rows
-            if (dataEl.tagName().equals("table")) {
-                for (Element tr : dataEl.select("tr")) {
-                    Elements tds = tr.select("td");
-                    if (tds.size() < 2) continue;
-                    String label = tds.get(0).text().trim().toLowerCase();
-                    Double pct = parseLastNumber(tds.get(1).text());
-                    logger.info("[SalesGrowth] table row: label='{}' pct={}", label, pct);
-                    setSalesGrowthField(result, label, pct);
-                }
-            } else {
-                // Parse ul/li
-                for (Element li : dataEl.select("li")) {
-                    String text = li.text().trim();
-                    Double pct = parseLastNumber(text);
-                    logger.info("[SalesGrowth] li: '{}' pct={}", text, pct);
-                    setSalesGrowthField(result, text.toLowerCase(), pct);
-                }
-            }
-
-            if (result.getSalesGrowth10Y() != null || result.getSalesGrowth5Y() != null) return;
-        }
-
-        logger.warn("[SalesGrowth] Could not find Compounded Sales Growth section for symbol");
+        logger.warn("[SalesGrowth] Could not find Compounded Sales Growth <th> for symbol");
     }
 
     private void setSalesGrowthField(FundamentalResult result, String label, Double pct) {
