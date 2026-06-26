@@ -250,22 +250,74 @@ public class FundamentalScreener {
     }
 
     private void parseCompoundedSalesGrowth(Document doc, FundamentalResult result) {
-        // Screener renders compounded growth in small cards: <ul> inside a <div class="card"> with heading "Compounded Sales Growth"
-        for (Element card : doc.select("div.card, section")) {
-            String heading = card.select("h3, h2, .card-header").text().trim();
-            if (heading.toLowerCase().contains("compounded sales growth")) {
-                for (Element li : card.select("li")) {
-                    String label = li.select(".name, span:first-child").text().trim().toLowerCase();
-                    String value = li.select(".value, span:last-child").text().trim();
-                    Double pct = parsePct(value);
-                    if (label.contains("10")) result.setSalesGrowth10Y(pct);
-                    else if (label.contains("5")) result.setSalesGrowth5Y(pct);
-                    else if (label.contains("3")) result.setSalesGrowth3Y(pct);
-                    else if (label.contains("ttm")) result.setSalesGrowthTtm(pct);
-                }
-                return;
-            }
+        // Log all h3 headings to understand structure
+        for (Element h : doc.select("h3, h4")) {
+            logger.info("[SalesGrowth] Found heading <{}>: '{}'", h.tagName(), h.text().trim());
         }
+
+        // Find the heading element — could be h3, h4, b, or span
+        for (Element heading : doc.select("h3, h4, b, strong, span")) {
+            String headingText = heading.text().trim();
+            if (!headingText.toLowerCase().contains("compounded sales growth")) continue;
+            logger.info("[SalesGrowth] Matched heading '{}' tag=<{}>", headingText, heading.tagName());
+
+            Element parent = heading.parent();
+            if (parent == null) continue;
+
+            // Data could be in: next sibling table/ul, or children of parent
+            Element dataEl = heading.nextElementSibling();
+            logger.info("[SalesGrowth] Next sibling: {}", dataEl != null ? dataEl.tagName() : "null");
+
+            if (dataEl == null) {
+                for (Element child : parent.children()) {
+                    if (child != heading && (child.tagName().equals("table") || child.tagName().equals("ul"))) {
+                        dataEl = child;
+                        break;
+                    }
+                }
+            }
+            if (dataEl == null) continue;
+
+            // Parse table rows
+            if (dataEl.tagName().equals("table")) {
+                for (Element tr : dataEl.select("tr")) {
+                    Elements tds = tr.select("td");
+                    if (tds.size() < 2) continue;
+                    String label = tds.get(0).text().trim().toLowerCase();
+                    Double pct = parseLastNumber(tds.get(1).text());
+                    logger.info("[SalesGrowth] table row: label='{}' pct={}", label, pct);
+                    setSalesGrowthField(result, label, pct);
+                }
+            } else {
+                // Parse ul/li
+                for (Element li : dataEl.select("li")) {
+                    String text = li.text().trim();
+                    Double pct = parseLastNumber(text);
+                    logger.info("[SalesGrowth] li: '{}' pct={}", text, pct);
+                    setSalesGrowthField(result, text.toLowerCase(), pct);
+                }
+            }
+
+            if (result.getSalesGrowth10Y() != null || result.getSalesGrowth5Y() != null) return;
+        }
+
+        logger.warn("[SalesGrowth] Could not find Compounded Sales Growth section for symbol");
+    }
+
+    private void setSalesGrowthField(FundamentalResult result, String label, Double pct) {
+        if (label.contains("10")) result.setSalesGrowth10Y(pct);
+        else if (label.contains("ttm")) result.setSalesGrowthTtm(pct);
+        else if (label.contains("5")) result.setSalesGrowth5Y(pct);
+        else if (label.contains("3")) result.setSalesGrowth3Y(pct);
+    }
+
+    private Double parseLastNumber(String text) {
+        if (text == null || text.isBlank()) return null;
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("(-?\\d+(?:\\.\\d+)?)\\s*%?\\s*$").matcher(text.trim());
+        if (m.find()) {
+            try { return Double.parseDouble(m.group(1)); } catch (NumberFormatException e) { return null; }
+        }
+        return null;
     }
 
     private Map<String, String> parseKeyRatios(Document doc) {
