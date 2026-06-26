@@ -38,6 +38,7 @@ public class AlertPoller {
     private final TelegramSender telegramSender;
     private final FundamentalScreener fundamentalScreener;
     private final PromptRatingService promptRatingService;
+    private final PdfExtractor pdfExtractor;
     private final boolean screeningEnabled;
     private final boolean ignoreSme;
 
@@ -56,11 +57,13 @@ public class AlertPoller {
                        TelegramSender telegramSender,
                        FundamentalScreener fundamentalScreener,
                        PromptRatingService promptRatingService,
+                       PdfExtractor pdfExtractor,
                        org.springframework.core.env.Environment env) {
         this.nseClient = nseClient;
         this.telegramSender = telegramSender;
         this.fundamentalScreener = fundamentalScreener;
         this.promptRatingService = promptRatingService;
+        this.pdfExtractor = pdfExtractor;
         String screeningFlag = env.getProperty("screening.enabled", "true");
         this.screeningEnabled = Boolean.parseBoolean(screeningFlag);
         this.ignoreSme = Boolean.parseBoolean(env.getProperty("nse.ignore-sme", "true"));
@@ -298,12 +301,15 @@ public class AlertPoller {
     }
 
     private String buildAnnouncementMessage(AnnouncementContext context) {
-        // Get old format analysis from PromptRatingService
+        // Extract PDF text for richer OpenAI analysis
+        String pdfText = pdfExtractor.extractText(context.link());
+        String documentText = pdfText != null && !pdfText.isBlank() ? pdfText : context.subject();
+
         AnalysisResult analysisResult = promptRatingService.analyze(
                 context.companyName(),
                 context.subject(),
                 context.link(),
-                context.subject());
+                documentText);
 
         StringBuilder builder = new StringBuilder();
 
