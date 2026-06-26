@@ -250,8 +250,10 @@ public class FundamentalScreener {
     }
 
     private void parseCompoundedSalesGrowth(Document doc, FundamentalResult result) {
-        // "Compounded Sales Growth" is a <th> inside a ranges-table
-        // Structure: each <td> in that column contains "10 Years: 40%" as combined text
+        // "Compounded Sales Growth" is a <th> inside a ranges-table.
+        // Two possible structures:
+        //   A) <td>10 Years: 40%</td>  — label+value in one cell
+        //   B) <td>10 Years:</td><td>40 %</td> — separate label/value cells
         for (Element th : doc.select("th")) {
             if (!th.text().trim().toLowerCase().contains("compounded sales growth")) continue;
 
@@ -263,14 +265,21 @@ public class FundamentalScreener {
                 Elements tds = tr.select("td");
                 if (tds.isEmpty()) continue;
 
-                // Data cell is at colIndex if multi-column, otherwise index 0
-                Element cell = tds.size() > colIndex ? tds.get(colIndex) : tds.get(0);
-                String cellText = cell.text().trim();
-                if (cellText.isBlank()) continue;
+                // Get the label cell at colIndex (or col 0 if table has fewer cols)
+                int labelCol = Math.min(colIndex, tds.size() - 1);
+                String labelText = tds.get(labelCol).text().trim().toLowerCase();
+                if (labelText.isBlank()) continue;
 
-                String lower = cellText.toLowerCase();
-                Double pct = parseLastNumber(cellText);
-                setSalesGrowthField(result, lower, pct);
+                // Try to parse number from label cell first (structure A)
+                Double pct = parseLastNumber(tds.get(labelCol).text());
+
+                // If no number found, check adjacent cell (structure B: next col is value)
+                if (pct == null && tds.size() > labelCol + 1) {
+                    pct = parseLastNumber(tds.get(labelCol + 1).text());
+                }
+
+                logger.info("[SalesGrowth] row label='{}' pct={}", labelText, pct);
+                setSalesGrowthField(result, labelText, pct);
             }
             return;
         }
