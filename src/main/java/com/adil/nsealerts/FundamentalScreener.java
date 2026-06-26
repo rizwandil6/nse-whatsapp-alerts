@@ -386,28 +386,43 @@ public class FundamentalScreener {
 
     private void fetchTechnicalData(String screenerSymbol, FundamentalResult result) {
         try {
-            JsonNode chartRoot = readChartJson(String.format(CHART_URL_TEMPLATE, screenerSymbol));
-            if (chartRoot == null) return;
-            JsonNode chartResult = firstArrayItem(chartRoot.path("chart").path("result"));
-            if (chartResult != null) {
-                populateTechnicalFields(result, chartResult);
-                detectDemandZone(result, chartResult);
+            String chartUrl = String.format(CHART_URL_TEMPLATE, screenerSymbol);
+            logger.info("[DemandZone] Fetching chart: {}", chartUrl);
+            JsonNode chartRoot = readChartJson(chartUrl);
+            if (chartRoot == null) {
+                logger.warn("[DemandZone] Chart API returned null for {}", screenerSymbol);
+                return;
             }
+            JsonNode chartResult = firstArrayItem(chartRoot.path("chart").path("result"));
+            if (chartResult == null) {
+                logger.warn("[DemandZone] No chart result for {} — error: {}", screenerSymbol,
+                        chartRoot.path("chart").path("error").toString());
+                return;
+            }
+            populateTechnicalFields(result, chartResult);
+            detectDemandZone(result, chartResult);
         } catch (Exception e) {
-            logger.debug("Chart data unavailable for {}: {}", screenerSymbol, e.getMessage());
+            logger.warn("[DemandZone] Chart data unavailable for {}: {}", screenerSymbol, e.getMessage());
         }
     }
 
     private void detectDemandZone(FundamentalResult result, JsonNode chartResult) {
         try {
             JsonNode quote = firstArrayItem(chartResult.path("indicators").path("quote"));
-            if (quote == null) return;
+            if (quote == null) {
+                logger.info("[DemandZone] No quote data in chart result");
+                return;
+            }
 
             JsonNode closeArr = quote.path("close");
             JsonNode lowArr   = quote.path("low");
             JsonNode volArr   = quote.path("volume");
             int n = closeArr.size();
-            if (n < 20) return;
+            logger.info("[DemandZone] symbol={} candles={}", result.getSymbol(), n);
+            if (n < 20) {
+                logger.info("[DemandZone] Not enough candles ({}), skipping", n);
+                return;
+            }
 
             double[] closes  = new double[n];
             double[] lows    = new double[n];
@@ -434,6 +449,7 @@ public class FundamentalScreener {
                     swingLows.add(new double[]{lows[i], volumes[i]});
                 }
             }
+            logger.info("[DemandZone] swingLows found={} currentPrice={}", swingLows.size(), currentPrice);
             if (swingLows.isEmpty()) return;
 
             // Cluster nearby swing lows within 3% of each other
@@ -461,8 +477,11 @@ public class FundamentalScreener {
             int bestTouches = 0;
             boolean bestHighVol = false;
 
+            logger.info("[DemandZone] zones clustered={}", zones.size());
             for (List<double[]> zone : zones) {
                 double avgZonePrice = zone.stream().mapToDouble(z -> z[0]).average().orElse(0);
+                logger.info("[DemandZone] zone avgPrice={} currentPrice={} below={}",
+                        String.format("%.2f", avgZonePrice), String.format("%.2f", currentPrice), avgZonePrice < currentPrice);
                 if (avgZonePrice <= 0 || avgZonePrice >= currentPrice) continue;
 
                 double distPct = (currentPrice - avgZonePrice) / currentPrice * 100;
@@ -475,6 +494,7 @@ public class FundamentalScreener {
                 }
             }
 
+            logger.info("[DemandZone] bestLow={} bestDist={}%", String.format("%.2f", bestLow), String.format("%.1f", bestDist));
             if (bestLow <= 0) return;
 
             result.setDemandZoneLow(bestLow);
