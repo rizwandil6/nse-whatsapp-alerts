@@ -210,9 +210,6 @@ public class FundamentalScreener {
 
     private void parseScreenerFundamentals(Document doc, FundamentalResult result) {
         Map<String, String> ratios = parseKeyRatios(doc);
-        logger.info("[Ratios] Keys found: {}", ratios.keySet());
-        logger.info("[Ratios] EPS='{}' BookValue='{}' CurrentPrice='{}'",
-                ratios.get("EPS"), ratios.get("Book Value"), ratios.get("Current Price"));
 
         Double marketCap = parseNum(ratios.getOrDefault("Market Cap", ratios.getOrDefault("Mkt Cap", "")));
         if (marketCap != null) {
