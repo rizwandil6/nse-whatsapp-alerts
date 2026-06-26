@@ -341,6 +341,9 @@ public class AlertPoller {
 
                 builder.append("\n--- FUNDAMENTAL ANALYSIS ---\n\n");
                 builder.append("FUNDAMENTAL ANALYSIS\n");
+                if (result.getCurrentPrice() != null) {
+                    builder.append("CMP: ₹").append(formatDouble(result.getCurrentPrice())).append("\n");
+                }
                 builder.append("Market Cap: ")
                         .append(formatDouble(result.getMarketCapCr()))
                         .append(" Cr — ")
@@ -396,13 +399,15 @@ public class AlertPoller {
                 builder.append("RSI: ").append(nullSafe(result.getRsiRating())).append("\n");
                 builder.append("Breakout: ").append(nullSafe(result.getBreakoutRating())).append("\n");
 
+                builder.append("\nDEMAND ZONE\n");
                 if (result.getDemandZoneLow() != null) {
-                    builder.append("\nDEMAND ZONE\n");
                     builder.append("Zone: ₹").append(String.format("%.2f", result.getDemandZoneLow()))
                            .append(" – ₹").append(String.format("%.2f", result.getDemandZoneHigh())).append("\n");
                     builder.append("Distance: ").append(String.format("%.1f", result.getDemandZoneDistancePct())).append("% from current price\n");
                     builder.append("Strength: ").append(nullSafe(result.getDemandZoneStrength())).append("\n");
                     builder.append("Signal: ").append(nullSafe(result.getDemandZoneSignal())).append("\n");
+                } else {
+                    builder.append("Not detected\n");
                 }
 
                 builder.append("\nCOMPOUNDED SALES GROWTH\n");
