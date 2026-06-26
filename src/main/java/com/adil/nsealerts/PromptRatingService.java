@@ -433,7 +433,12 @@ Order Impact:
 
 ## **Final Verdict**
 
-Keep the analysis concise, investor-focused, and optimized for quickly filtering NSE/BSE announcements into actionable opportunities. The final verdict must clearly state whether the announcement is likely to materially affect future earnings and why.
+Write the Final Verdict as 3–5 sharp, specific sentences following these rules:
+
+1. **Call out misleading headlines** — if framed as a "major order" but is actually an amendment, renewal, extension, or MoU revision, say so explicitly. Example: "The headline 'Major Order Secured' is misleading — this is an amendment increasing the contract value by ₹X Cr, not a fresh order."
+2. **Distinguish total value from true new value** — for amendments or scope expansions, calculate and state the incremental value (new total minus old total). Example: "The true new business value is only ₹28.8 Cr (from ₹120.13 Cr to ₹148.93 Cr)."
+3. **State revenue impact clearly** — express as % of annual revenue and say whether it is a meaningful earnings catalyst. Example: "At ~1% of annual revenue, this is not a meaningful earnings catalyst."
+4. **Give a clear single-line action** — one of: Research immediately / Add to watchlist / Monitor / Ignore. Be direct and specific. Avoid vague language like "could be positive" or "may impact earnings."
 
 Return valid JSON with fields: rating, order_size_crores, quick_verdict, impact_level, summary, whatsapp_message.
 Set order_size_crores to null if unavailable.
