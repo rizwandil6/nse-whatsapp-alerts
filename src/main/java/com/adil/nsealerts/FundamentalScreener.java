@@ -437,9 +437,18 @@ public class FundamentalScreener {
                 totalVol  += volumes[i];
             }
 
-            double avgVol      = totalVol / n;
-            double currentPrice = closes[n - 1];
-            if (currentPrice <= 0) return;
+            double avgVol = totalVol / n;
+            // Yahoo Finance often returns null (→ 0) for the last 1–2 candles.
+            // Scan backwards for the last settled (non-zero) close price.
+            double currentPrice = 0;
+            for (int i = n - 1; i >= 0; i--) {
+                if (closes[i] > 0) { currentPrice = closes[i]; break; }
+            }
+            logger.info("[DemandZone] currentPrice resolved={}", String.format("%.2f", currentPrice));
+            if (currentPrice <= 0) {
+                logger.warn("[DemandZone] Could not resolve currentPrice — all closes are zero");
+                return;
+            }
 
             // Detect swing lows using 3-candle window
             List<double[]> swingLows = new ArrayList<>(); // [price, volume]
