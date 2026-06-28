@@ -110,6 +110,12 @@ public class NseClient {
     // Circulars — session-based (or proxy if configured)
     // -------------------------------------------------------------------------
 
+    public String fetchFiiDii() {
+        return fetchNseApi(
+                "https://www.nseindia.com/api/fiidiiTradeReact",
+                "https://www.nseindia.com/reports/fii-dii");
+    }
+
     public String fetchCirculars() {
         if (!proxyBaseUrl.isBlank()) {
             // Proxy explicitly configured — use it
@@ -118,35 +124,34 @@ public class NseClient {
         return fetchCircularsWithSession();
     }
 
-    private String fetchCircularsWithSession() {
+    /** Generic session-based NSE API fetcher used by circulars, FII/DII, etc. */
+    private String fetchNseApi(String apiUrl, String referer) {
         try {
-            if (!sessionInitialized) {
-                initNseSession();
-            }
+            if (!sessionInitialized) initNseSession();
 
-            String body = doCircularsRequest();
+            String body = doNseApiRequest(apiUrl, referer);
             if (body != null) return body;
 
             // Session may have expired — re-init and retry once
-            logger.warn("Circulars empty on first try; re-initialising session and retrying");
+            logger.warn("NSE API empty on first try for {}; re-initialising session", apiUrl);
             sessionInitialized = false;
             initNseSession();
-            return doCircularsRequest();
+            return doNseApiRequest(apiUrl, referer);
 
         } catch (Exception e) {
-            logger.error("Error fetching circulars via session", e);
+            logger.error("Error fetching NSE API {}", apiUrl, e);
             return null;
         }
     }
 
-    private String doCircularsRequest() throws Exception {
+    private String doNseApiRequest(String apiUrl, String referer) throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(CIRCULARS_URL))
+                .uri(URI.create(apiUrl))
                 .timeout(Duration.ofSeconds(20))
                 .header("User-Agent", USER_AGENT)
                 .header("Accept", "application/json, text/plain, */*")
                 .header("Accept-Language", "en-US,en;q=0.9")
-                .header("Referer", "https://www.nseindia.com/regulations/circulars")
+                .header("Referer", referer)
                 .header("X-Requested-With", "XMLHttpRequest")
                 .GET()
                 .build();
@@ -155,18 +160,20 @@ public class NseClient {
                 httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         int status = response.statusCode();
-        logger.info("Circulars API responded with status {}", status);
+        logger.info("NSE API {} responded with status {}", apiUrl, status);
 
         if (status == 200) {
             String body = response.body();
-            if (body != null && !body.isBlank()) {
-                return body;
-            }
-            logger.warn("Circulars API returned 200 but empty body");
+            if (body != null && !body.isBlank()) return body;
+            logger.warn("NSE API returned 200 but empty body for {}", apiUrl);
         } else {
-            logger.warn("Circulars API returned non-200 status {}", status);
+            logger.warn("NSE API returned non-200 status {} for {}", status, apiUrl);
         }
         return null;
+    }
+
+    private String fetchCircularsWithSession() {
+        return fetchNseApi(CIRCULARS_URL, "https://www.nseindia.com/regulations/circulars");
     }
 
     /**
