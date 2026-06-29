@@ -53,12 +53,24 @@ public class MarketBulletinService {
     // Entry point
     // ─────────────────────────────────────────────────────────────────────────
 
+    public String buildBulletin() throws Exception {
+        List<SyndEntry> rssEntries = nseClient.fetchAnnouncements();
+        String fiiJson = nseClient.fetchFiiDii();
+        return assembleBulletin(rssEntries, fiiJson);
+    }
+
     public void buildAndSend() {
         logger.info("[Bulletin] Building daily market bulletin...");
         try {
-            List<SyndEntry> rssEntries = nseClient.fetchAnnouncements();
-            String fiiJson = nseClient.fetchFiiDii();
+            String text = buildBulletin();
+            telegramSender.send(text);
+            logger.info("[Bulletin] Sent successfully");
+        } catch (Exception e) {
+            logger.error("[Bulletin] Failed to build/send bulletin", e);
+        }
+    }
 
+    private String assembleBulletin(List<SyndEntry> rssEntries, String fiiJson) throws Exception {
             StringBuilder sb = new StringBuilder();
 
             // Header
@@ -105,12 +117,7 @@ public class MarketBulletinService {
                   .append(buildOneLiner(symbol, rssEntries)).append("\n");
             }
 
-            telegramSender.send(sb.toString());
-            logger.info("[Bulletin] Sent successfully");
-
-        } catch (Exception e) {
-            logger.error("[Bulletin] Failed to build/send bulletin", e);
-        }
+            return sb.toString();
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -274,9 +281,14 @@ public class MarketBulletinService {
             for (JsonNode item : arr) {
                 String cat = item.path("category").asText(
                              item.path("clientType").asText("")).toUpperCase();
-                double net = item.path("netPurchases").asDouble(
-                             item.path("NET_PURCHASES").asDouble(
-                             item.path("net").asDouble(Double.NaN)));
+                double net = Double.NaN;
+                for (String f : new String[]{"netPurchases", "NET_PURCHASES", "netValue", "net"}) {
+                    com.fasterxml.jackson.databind.JsonNode n = item.path(f);
+                    if (!n.isMissingNode() && !n.isNull()) {
+                        try { net = Double.parseDouble(n.asText()); break; }
+                        catch (NumberFormatException ignored) {}
+                    }
+                }
 
                 if (cat.contains("FII") || cat.contains("FPI") || cat.contains("FOREIGN"))
                     fiiNet = net;
