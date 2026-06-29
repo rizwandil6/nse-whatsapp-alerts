@@ -53,39 +53,27 @@ public class MarketBulletinService {
     // Entry point
     // ─────────────────────────────────────────────────────────────────────────
 
-    public String buildBulletin() throws Exception {
-        List<SyndEntry> rssEntries = nseClient.fetchAnnouncements();
-        String fiiJson = nseClient.fetchFiiDii();
-        return assembleBulletin(rssEntries, fiiJson);
-    }
-
     public void buildAndSend() {
         logger.info("[Bulletin] Building daily market bulletin...");
         try {
-            String text = buildBulletin();
-            telegramSender.send(text);
-            logger.info("[Bulletin] Sent successfully");
-        } catch (Exception e) {
-            logger.error("[Bulletin] Failed to build/send bulletin", e);
-        }
-    }
+            List<SyndEntry> rssEntries = nseClient.fetchAnnouncements();
+            String fiiJson = nseClient.fetchFiiDii();
 
-    private String assembleBulletin(List<SyndEntry> rssEntries, String fiiJson) throws Exception {
             StringBuilder sb = new StringBuilder();
 
             // Header
-            sb.append("Daily Market Bulletin\n");
-            sb.append("Date: ").append(LocalDate.now()).append("\n");
-            sb.append("---\n\n");
+            sb.append("🇮🇳 *Daily Market Bulletin*\n");
+            sb.append("📅 ").append(LocalDate.now()).append("\n");
+            sb.append("⸻\n\n");
 
             // US Markets
-            sb.append("US Markets (Latest Close)\n");
+            sb.append("🇺🇸 *US Markets (Latest Close)*\n");
             sb.append(indexLine("Dow Jones",  "^DJI")).append("\n");
             sb.append(indexLine("S&P 500",    "^GSPC")).append("\n");
             sb.append(indexLine("Nasdaq",     "^IXIC")).append("\n\n");
 
             // Asian Markets
-            sb.append("Asian Markets\n");
+            sb.append("🌏 *Asian Markets*\n");
             sb.append(indexLine("Nikkei 225 (JP)",  "^N225")).append("\n");
             sb.append(indexLine("Hang Seng (HK)",   "^HSI")).append("\n");
             sb.append(indexLine("Shanghai (CN)",     "000001.SS")).append("\n");
@@ -93,65 +81,63 @@ public class MarketBulletinService {
             sb.append(indexLine("Straits Times (SG)","^STI")).append("\n\n");
 
             // GIFT Nifty proxy
-            sb.append("GIFT Nifty (Nifty 50 proxy)\n");
+            sb.append("🎁 *GIFT Nifty (Nifty 50 proxy)*\n");
             sb.append(indexLine("Nifty 50", "^NSEI")).append("\n\n");
 
             // Commodities & FX
-            sb.append("Commodities & Currency\n");
+            sb.append("🛢️ *Commodities & Currency*\n");
             sb.append(indexLine("Brent Crude ($/bbl)", "BZ=F")).append("\n");
             sb.append(indexLine("USDINR",               "USDINR=X")).append("\n\n");
 
             // FII/DII
-            sb.append("FII / DII Activity (Previous Day)\n");
+            sb.append("🏦 *FII / DII Activity (Previous Day)*\n");
             sb.append(parseFiiDii(fiiJson)).append("\n\n");
 
             // Market Bias (Claude)
             String rawData = sb.toString();
-            sb.append("Market Bias\n");
+            sb.append("📈 *Market Bias*\n");
             sb.append(generateMarketBias(rawData)).append("\n\n");
 
             // Watchlist
-            sb.append("---\nWatchlist Updates\n\n");
+            sb.append("⸻\n🔎 *Watchlist Updates*\n\n");
             for (String symbol : watchlist) {
-                sb.append("  ").append(symbol).append(": ")
+                sb.append("• *").append(symbol).append("*: ")
                   .append(buildOneLiner(symbol, rssEntries)).append("\n");
             }
 
-            return sb.toString();
+            telegramSender.send(sb.toString());
+            logger.info("[Bulletin] Sent successfully");
+
+        } catch (Exception e) {
+            logger.error("[Bulletin] Failed to build/send bulletin", e);
+        }
     }
 
     // ─────────────────────────────────────────────────────────────────────────
     // Index / quote fetch
     // ─────────────────────────────────────────────────────────────────────────
 
-    private static final java.net.http.HttpClient YAHOO_CLIENT = java.net.http.HttpClient.newBuilder()
-            .connectTimeout(java.time.Duration.ofSeconds(15))
-            .followRedirects(java.net.http.HttpClient.Redirect.NORMAL)
-            .build();
-
     private String indexLine(String label, String symbol) {
         try {
-            String enc    = symbol.replace("^", "%5E").replace("=", "%3D");
-            String rawUrl = String.format(YAHOO_URL, enc, "1d", "5d");
-            java.net.http.HttpRequest req = java.net.http.HttpRequest.newBuilder()
-                    .uri(java.net.URI.create(rawUrl))
-                    .timeout(java.time.Duration.ofSeconds(15))
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
-                    .header("Accept", "application/json, text/plain, */*")
-                    .header("Accept-Language", "en-US,en;q=0.9")
-                    .header("Referer", "https://finance.yahoo.com/")
-                    .GET().build();
-            java.net.http.HttpResponse<String> resp =
-                    YAHOO_CLIENT.send(req, java.net.http.HttpResponse.BodyHandlers.ofString());
-            JsonNode meta = mapper.readTree(resp.body())
+            String enc = symbol.replace("^", "%5E").replace("=", "%3D");
+            String url = String.format(YAHOO_URL, enc, "1d", "5d");
+
+            HttpHeaders h = new HttpHeaders();
+            h.set("User-Agent", USER_AGENT);
+            ResponseEntity<String> resp = restTemplate.exchange(
+                    url, HttpMethod.GET, new HttpEntity<>(h), String.class);
+
+            JsonNode meta = mapper.readTree(resp.getBody())
                     .path("chart").path("result").get(0).path("meta");
-            double price     = meta.path("regularMarketPrice").asDouble();
-            double changePct = meta.path("regularMarketChangePercent").asDouble();
-            String sign      = changePct >= 0 ? "+" : "";
-            return String.format("  %s: %.2f (%s%.2f%%)", label, price, sign, changePct);
+
+            double price      = meta.path("regularMarketPrice").asDouble();
+            double changePct  = meta.path("regularMarketChangePercent").asDouble();
+            String sign       = changePct >= 0 ? "🟢 +" : "🔴 ";
+            return String.format("• %s: %.2f (%s%.2f%%)", label, price, sign, changePct);
+
         } catch (Exception e) {
-            logger.warn("[Bulletin] Index fetch failed for {} ({}): {}", label, symbol, e.getMessage());
-            return "  " + label + ": N/A";
+            logger.debug("[Bulletin] Index fetch failed for {}: {}", symbol, e.getMessage());
+            return "• " + label + ": N/A";
         }
     }
 
@@ -164,19 +150,14 @@ public class MarketBulletinService {
 
         try {
             String enc = (nseSymbol + ".NS");
-            String rawUrl = String.format(YAHOO_URL, enc, "1wk", "1y");
-            java.net.http.HttpRequest req = java.net.http.HttpRequest.newBuilder()
-                    .uri(java.net.URI.create(rawUrl))
-                    .timeout(java.time.Duration.ofSeconds(15))
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
-                    .header("Accept", "application/json, text/plain, */*")
-                    .header("Accept-Language", "en-US,en;q=0.9")
-                    .header("Referer", "https://finance.yahoo.com/")
-                    .GET().build();
-            java.net.http.HttpResponse<String> resp =
-                    YAHOO_CLIENT.send(req, java.net.http.HttpResponse.BodyHandlers.ofString());
+            String url = String.format(YAHOO_URL, enc, "1wk", "1y");
 
-            JsonNode root   = mapper.readTree(resp.body())
+            HttpHeaders h = new HttpHeaders();
+            h.set("User-Agent", USER_AGENT);
+            ResponseEntity<String> resp = restTemplate.exchange(
+                    url, HttpMethod.GET, new HttpEntity<>(h), String.class);
+
+            JsonNode root   = mapper.readTree(resp.getBody())
                     .path("chart").path("result").get(0);
             JsonNode meta   = root.path("meta");
             JsonNode closes = root.path("indicators").path("quote").get(0).path("close");
@@ -281,14 +262,9 @@ public class MarketBulletinService {
             for (JsonNode item : arr) {
                 String cat = item.path("category").asText(
                              item.path("clientType").asText("")).toUpperCase();
-                double net = Double.NaN;
-                for (String f : new String[]{"netPurchases", "NET_PURCHASES", "netValue", "net"}) {
-                    com.fasterxml.jackson.databind.JsonNode n = item.path(f);
-                    if (!n.isMissingNode() && !n.isNull()) {
-                        try { net = Double.parseDouble(n.asText()); break; }
-                        catch (NumberFormatException ignored) {}
-                    }
-                }
+                double net = item.path("netPurchases").asDouble(
+                             item.path("NET_PURCHASES").asDouble(
+                             item.path("net").asDouble(Double.NaN)));
 
                 if (cat.contains("FII") || cat.contains("FPI") || cat.contains("FOREIGN"))
                     fiiNet = net;
