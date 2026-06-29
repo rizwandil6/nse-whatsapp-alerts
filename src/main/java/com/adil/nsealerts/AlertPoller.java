@@ -179,6 +179,7 @@ public class AlertPoller {
             return;
         }
 
+        logger.info("[Announcements] Fetched {} entries from RSS", entries.size());
         for (SyndEntry entry : entries) {
             try {
                 String title = entry.getTitle() != null ? entry.getTitle() : "";
@@ -186,7 +187,7 @@ public class AlertPoller {
                 String link = entry.getLink() != null ? entry.getLink() : "";
 
                 if (ignoreSme && isSmeAnnouncement(entry, title, description)) {
-                    logger.debug("Skipping SME/Emerge announcement: {}", title);
+                    logger.info("[SME filter] Skipping announcement: {}", title);
                     continue;
                 }
 
@@ -195,9 +196,10 @@ public class AlertPoller {
                 boolean excluded = title.contains("(Sub-para 4-Para B)") || description.contains("(Sub-para 4-Para B)")
                         || containsAnyIgnoreKeyword(title, description);
 
+                String combinedText = (title + " " + description).toLowerCase();
                 boolean matches = !excluded && (announcementKeywords.isEmpty() ||
                         announcementKeywords.stream()
-                                .anyMatch(k -> description.toLowerCase().contains(k.toLowerCase())));
+                                .anyMatch(k -> combinedText.contains(k.toLowerCase())));
 
                 if (matches && seenIds.add(id)) {
                     logger.info("✓ New announcement: {}", title);
@@ -392,9 +394,8 @@ public class AlertPoller {
                         .append(nullSafe(result.getQuarterlyNetProfitTrend()))
                         .append("\n\n");
 
-                if (result.getBookValueRating() != null) {
-                    builder.append("Book Value ratio: ").append(result.getBookValueRating()).append("\n");
-                }
+                builder.append("EPS: ").append(formatDouble(result.getTrailingEps())).append("\n");
+                builder.append("Book Value ratio: ").append(nullSafe(result.getBookValueRating())).append("\n");
                 builder.append("Promoter Holding: ")
                         .append(formatPercent(result.getPromoterHoldingPercent()))
                         .append("% ")
