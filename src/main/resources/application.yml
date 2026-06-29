@@ -19,6 +19,7 @@ telegram:
   bot-token: ${TELEGRAM_BOT_TOKEN:}
   chat-ids:
     - "5937539323"    # Adil Rizwan Mohammed
+    - "-5338709046"
 
 # ANNOUNCEMENTS now use a public RSS feed (no proxy needed).
 # CIRCULARS use session-based NSE access (no proxy needed).
@@ -31,11 +32,11 @@ analysis:
   openai-api-key: ""
 
 anthropic:
-  api-key: ${ANTHROPIC_API_KEY:}   # set this env var on the VM, or paste key directly here
+  api-key: ${ANTHROPIC_API_KEY:}
 
 screener:
   username: rizwan.dil6@gmail.com
-  password: Adil_12345
+  password: ${SCREENER_PASSWORD:}
 
 screening:
   enabled: true
