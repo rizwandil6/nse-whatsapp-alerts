@@ -9,6 +9,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+// HTTP_CLIENT (java.net.http) used for Yahoo Finance requests (avoids RestTemplate double-encoding of ^ and =)
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -62,18 +63,18 @@ public class MarketBulletinService {
             StringBuilder sb = new StringBuilder();
 
             // Header
-            sb.append("🇮🇳 *Daily Market Bulletin*\n");
-            sb.append("📅 ").append(LocalDate.now()).append("\n");
-            sb.append("⸻\n\n");
+            sb.append("Daily Market Bulletin\n");
+            sb.append("Date: ").append(LocalDate.now()).append("\n");
+            sb.append("---\n\n");
 
             // US Markets
-            sb.append("🇺🇸 *US Markets (Latest Close)*\n");
+            sb.append("US Markets (Latest Close)\n");
             sb.append(indexLine("Dow Jones",  "^DJI")).append("\n");
             sb.append(indexLine("S&P 500",    "^GSPC")).append("\n");
             sb.append(indexLine("Nasdaq",     "^IXIC")).append("\n\n");
 
             // Asian Markets
-            sb.append("🌏 *Asian Markets*\n");
+            sb.append("Asian Markets\n");
             sb.append(indexLine("Nikkei 225 (JP)",  "^N225")).append("\n");
             sb.append(indexLine("Hang Seng (HK)",   "^HSI")).append("\n");
             sb.append(indexLine("Shanghai (CN)",     "000001.SS")).append("\n");
@@ -81,27 +82,27 @@ public class MarketBulletinService {
             sb.append(indexLine("Straits Times (SG)","^STI")).append("\n\n");
 
             // GIFT Nifty proxy
-            sb.append("🎁 *GIFT Nifty (Nifty 50 proxy)*\n");
+            sb.append("GIFT Nifty (Nifty 50 proxy)\n");
             sb.append(indexLine("Nifty 50", "^NSEI")).append("\n\n");
 
             // Commodities & FX
-            sb.append("🛢️ *Commodities & Currency*\n");
+            sb.append("Commodities & Currency\n");
             sb.append(indexLine("Brent Crude ($/bbl)", "BZ=F")).append("\n");
             sb.append(indexLine("USDINR",               "USDINR=X")).append("\n\n");
 
             // FII/DII
-            sb.append("🏦 *FII / DII Activity (Previous Day)*\n");
+            sb.append("FII / DII Activity (Previous Day)\n");
             sb.append(parseFiiDii(fiiJson)).append("\n\n");
 
             // Market Bias (Claude)
             String rawData = sb.toString();
-            sb.append("📈 *Market Bias*\n");
+            sb.append("Market Bias\n");
             sb.append(generateMarketBias(rawData)).append("\n\n");
 
             // Watchlist
-            sb.append("⸻\n🔎 *Watchlist Updates*\n\n");
+            sb.append("---\nWatchlist Updates\n\n");
             for (String symbol : watchlist) {
-                sb.append("• *").append(symbol).append("*: ")
+                sb.append("  ").append(symbol).append(": ")
                   .append(buildOneLiner(symbol, rssEntries)).append("\n");
             }
 
@@ -117,26 +118,38 @@ public class MarketBulletinService {
     // Index / quote fetch
     // ─────────────────────────────────────────────────────────────────────────
 
+    private static final java.net.http.HttpClient HTTP_CLIENT = java.net.http.HttpClient.newBuilder()
+            .connectTimeout(java.time.Duration.ofSeconds(15))
+            .followRedirects(java.net.http.HttpClient.Redirect.NORMAL)
+            .build();
+
     private String indexLine(String label, String symbol) {
         try {
-            String enc = symbol.replace("^", "%5E").replace("=", "%3D");
-            String url = String.format(YAHOO_URL, enc, "1d", "5d");
+            String enc    = symbol.replace("^", "%5E").replace("=", "%3D");
+            String rawUrl = String.format(YAHOO_URL, enc, "1d", "5d");
 
-            HttpHeaders h = new HttpHeaders();
-            h.set("User-Agent", USER_AGENT);
-            ResponseEntity<String> resp = restTemplate.exchange(
-                    url, HttpMethod.GET, new HttpEntity<>(h), String.class);
+            java.net.http.HttpRequest req = java.net.http.HttpRequest.newBuilder()
+                    .uri(java.net.URI.create(rawUrl))
+                    .timeout(java.time.Duration.ofSeconds(15))
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+                    .header("Accept", "application/json, text/plain, */*")
+                    .header("Accept-Language", "en-US,en;q=0.9")
+                    .header("Referer", "https://finance.yahoo.com/")
+                    .GET().build();
 
-            JsonNode meta = mapper.readTree(resp.getBody())
+            java.net.http.HttpResponse<String> resp =
+                    HTTP_CLIENT.send(req, java.net.http.HttpResponse.BodyHandlers.ofString());
+
+            JsonNode meta = mapper.readTree(resp.body())
                     .path("chart").path("result").get(0).path("meta");
 
-            double price      = meta.path("regularMarketPrice").asDouble();
-            double changePct  = meta.path("regularMarketChangePercent").asDouble();
-            String sign       = changePct >= 0 ? "🟢 +" : "🔴 ";
-            return String.format("• %s: %.2f (%s%.2f%%)", label, price, sign, changePct);
+            double price     = meta.path("regularMarketPrice").asDouble();
+            double changePct = meta.path("regularMarketChangePercent").asDouble();
+            String sign      = changePct >= 0 ? "+" : "";
+            return String.format("  %s: %.2f (%s%.2f%%)", label, price, sign, changePct);
 
         } catch (Exception e) {
-            logger.debug("[Bulletin] Index fetch failed for {}: {}", symbol, e.getMessage());
+            logger.warn("[Bulletin] Index fetch failed for {} ({}): {}", label, symbol, e.getMessage());
             return "• " + label + ": N/A";
         }
     }
@@ -150,14 +163,18 @@ public class MarketBulletinService {
 
         try {
             String enc = (nseSymbol + ".NS");
-            String url = String.format(YAHOO_URL, enc, "1wk", "1y");
+            java.net.http.HttpRequest req = java.net.http.HttpRequest.newBuilder()
+                    .uri(java.net.URI.create(String.format(YAHOO_URL, enc, "1wk", "1y")))
+                    .timeout(java.time.Duration.ofSeconds(15))
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+                    .header("Accept", "application/json, text/plain, */*")
+                    .header("Accept-Language", "en-US,en;q=0.9")
+                    .header("Referer", "https://finance.yahoo.com/")
+                    .GET().build();
+            java.net.http.HttpResponse<String> resp =
+                    HTTP_CLIENT.send(req, java.net.http.HttpResponse.BodyHandlers.ofString());
 
-            HttpHeaders h = new HttpHeaders();
-            h.set("User-Agent", USER_AGENT);
-            ResponseEntity<String> resp = restTemplate.exchange(
-                    url, HttpMethod.GET, new HttpEntity<>(h), String.class);
-
-            JsonNode root   = mapper.readTree(resp.getBody())
+            JsonNode root   = mapper.readTree(resp.body())
                     .path("chart").path("result").get(0);
             JsonNode meta   = root.path("meta");
             JsonNode closes = root.path("indicators").path("quote").get(0).path("close");
@@ -299,10 +316,11 @@ public class MarketBulletinService {
             String prompt =
                 "You are a concise Indian equity market analyst. Based on this pre-market data:\n\n"
                 + marketData
-                + "\nProvide your market bias for Indian equities today:\n"
-                + "Line 1: Bias: 🟢 Moderately Bullish / 🔴 Bearish / 🟡 Neutral\n"
-                + "Line 2-4: Drivers (2-3 short bullets)\n"
-                + "Line 5-6: Risk (1-2 short bullets)\n"
+                + "\nProvide your market bias for Indian equities today in plain text only."
+                + " No markdown, no bold, no bullet symbols, no asterisks.\n"
+                + "Line 1: Bias: Moderately Bullish / Bearish / Neutral (with emoji 🟢/🔴/🟡)\n"
+                + "Line 2-4: Drivers: 2-3 short lines prefixed with -\n"
+                + "Line 5-6: Risks: 1-2 short lines prefixed with -\n"
                 + "Max 80 words. Be direct and specific.";
 
             Map<String, Object> body = new LinkedHashMap<>();
@@ -310,18 +328,20 @@ public class MarketBulletinService {
             body.put("max_tokens", 300);
             body.put("messages", List.of(Map.of("role", "user", "content", prompt)));
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("x-api-key", anthropicApiKey);
-            headers.set("anthropic-version", "2023-06-01");
-            headers.setContentType(MediaType.APPLICATION_JSON);
+            java.net.http.HttpRequest req = java.net.http.HttpRequest.newBuilder()
+                    .uri(java.net.URI.create("https://api.anthropic.com/v1/messages"))
+                    .timeout(java.time.Duration.ofSeconds(20))
+                    .header("x-api-key", anthropicApiKey)
+                    .header("anthropic-version", "2023-06-01")
+                    .header("Content-Type", "application/json")
+                    .POST(java.net.http.HttpRequest.BodyPublishers.ofString(
+                            mapper.writeValueAsString(body)))
+                    .build();
 
-            ResponseEntity<String> resp = restTemplate.exchange(
-                    "https://api.anthropic.com/v1/messages",
-                    HttpMethod.POST,
-                    new HttpEntity<>(mapper.writeValueAsString(body), headers),
-                    String.class);
+            java.net.http.HttpResponse<String> resp = HTTP_CLIENT.send(
+                    req, java.net.http.HttpResponse.BodyHandlers.ofString());
 
-            return mapper.readTree(resp.getBody())
+            return mapper.readTree(resp.body())
                     .path("content").get(0).path("text").asText("N/A");
 
         } catch (Exception e) {
