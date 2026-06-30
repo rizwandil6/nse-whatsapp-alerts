@@ -111,8 +111,12 @@ public class NseClient {
     // -------------------------------------------------------------------------
 
     public String fetchAnnouncementsJson() {
-        return fetchNseApi(
-                "https://www.nseindia.com/api/corporate-announcements?index=equities",
+        String today = java.time.LocalDate.now()
+                .format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String url = "https://www.nseindia.com/api/corporate-announcements?index=equities"
+                + "&from_date=" + today + "&to_date=" + today;
+        logger.info("[Announcements-JSON] Fetching: {}", url);
+        return fetchNseApi(url,
                 "https://www.nseindia.com/companies-listing/corporate-filings-announcements");
     }
 
