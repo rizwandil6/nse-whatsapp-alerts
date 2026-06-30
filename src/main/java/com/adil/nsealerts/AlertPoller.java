@@ -141,6 +141,64 @@ public class AlertPoller {
     // ─────────────────────────────────────────────────────────────────────────
 
     private void checkAnnouncements() {
+        // Primary: NSE JSON API (returns all of today's announcements, not limited like RSS)
+        String json = nseClient.fetchAnnouncementsJson();
+        if (json != null && !json.isBlank()) {
+            try {
+                JsonNode arr = mapper.readTree(json);
+                if (arr.isArray()) {
+                    checkAnnouncementsFromJson(arr);
+                    return;
+                }
+            } catch (Exception e) {
+                logger.warn("[Announcements] JSON parse failed, falling back to RSS: {}", e.getMessage());
+            }
+        }
+        // Fallback: RSS feed
+        checkAnnouncementsFromRss();
+    }
+
+    private void checkAnnouncementsFromJson(JsonNode arr) {
+        logger.info("[Announcements] Fetched {} entries from JSON API", arr.size());
+        for (JsonNode item : arr) {
+            try {
+                String symbol   = item.path("symbol").asText("").trim().toUpperCase();
+                String company  = item.path("company").asText(item.path("comp").asText(""));
+                String subject  = item.path("subject").asText("");
+                String desc     = item.path("desc").asText("");
+                String attFile  = item.path("att_file_pb_nm").asText(item.path("attchmnt").asText(""));
+                String sortDate = item.path("sort_date").asText(item.path("exchdisstime").asText(""));
+                String id       = symbol + ":" + sortDate;
+
+                String link = attFile.isBlank() ? ""
+                        : "https://nsearchives.nseindia.com/corp_actions/announcements/" + attFile;
+
+                if (ignoreSme && !symbol.isBlank() && mainBoardSymbols != null
+                        && !mainBoardSymbols.contains(symbol)) {
+                    logger.info("[SME filter] Skipping: {}", symbol);
+                    continue;
+                }
+
+                boolean excluded = containsAnyIgnoreKeyword(subject, desc);
+                String combinedText = (subject + " " + desc).toLowerCase();
+                boolean matches = !excluded && (announcementKeywords.isEmpty()
+                        || announcementKeywords.stream()
+                                .anyMatch(k -> combinedText.contains(k.toLowerCase())));
+
+                if (matches && seenIds.add(id)) {
+                    logger.info("New announcement: {} - {}", symbol, subject);
+                    String companyName = company.isBlank() ? symbol : company;
+                    AnnouncementContext ctx = new AnnouncementContext(companyName, symbol, subject, link);
+                    String message = buildAnnouncementMessage(ctx);
+                    telegramSender.send(message);
+                }
+            } catch (Exception e) {
+                logger.error("Error processing JSON announcement entry", e);
+            }
+        }
+    }
+
+    private void checkAnnouncementsFromRss() {
         List<SyndEntry> entries = nseClient.fetchAnnouncements();
         if (entries == null || entries.isEmpty()) return;
 
