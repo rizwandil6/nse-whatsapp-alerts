@@ -170,10 +170,11 @@ public class AlertPoller {
                 String desc     = item.path("desc").asText("");
                 String annText  = item.path("attchmntText").asText("");
                 // attchmntFile = full PDF URL (already absolute, no base URL construction needed)
-                String link     = item.path("attchmntFile").asText("").trim();
-                String sortDate = item.path("sort_date").asText(item.path("exchdisstime").asText(""));
-                String id       = symbol + ":" + sortDate;
-                String subject  = desc; // use category as subject for display and matching
+                String link          = item.path("attchmntFile").asText("").trim();
+                String broadcastTime = item.path("exchdisstime").asText(item.path("an_dt").asText(""));
+                String sortDate      = item.path("sort_date").asText(broadcastTime);
+                String id            = symbol + ":" + sortDate;
+                String subject       = desc; // use category as subject for display and matching
 
                 if (ignoreSme && !symbol.isBlank() && mainBoardSymbols != null
                         && !mainBoardSymbols.contains(symbol)) {
@@ -190,7 +191,7 @@ public class AlertPoller {
                 if (matches && seenIds.add(id)) {
                     logger.info("New announcement: {} - {} | link={}", symbol, subject, link.isBlank() ? "NONE" : link);
                     String companyName = company.isBlank() ? symbol : company;
-                    AnnouncementContext ctx = new AnnouncementContext(companyName, symbol, subject, link);
+                    AnnouncementContext ctx = new AnnouncementContext(companyName, symbol, subject, link, broadcastTime);
                     String message = buildAnnouncementMessage(ctx);
                     telegramSender.send(message);
                 }
@@ -230,7 +231,10 @@ public class AlertPoller {
 
                 if (matches && seenIds.add(id)) {
                     logger.info("New announcement: {}", title);
-                    AnnouncementContext ctx = extractAnnouncementContext(title, description, link);
+                    String pubTime = entry.getPublishedDate() != null
+                            ? new java.text.SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(entry.getPublishedDate())
+                            : "";
+                    AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
                     String message = buildAnnouncementMessage(ctx);
                     telegramSender.send(message);
                 }
@@ -252,6 +256,11 @@ public class AlertPoller {
                 ctx.companyName(), ctx.subject(), ctx.link(), documentText);
 
         StringBuilder sb = new StringBuilder();
+
+        // Broadcast time header
+        if (ctx.broadcastTime() != null && !ctx.broadcastTime().isBlank()) {
+            sb.append("Broadcast: ").append(ctx.broadcastTime()).append("\n");
+        }
 
         // AI analysis block (company name, rating, order summary, verdict, source, scanner)
         if (result != null && result.getWhatsappMessage() != null && !result.getWhatsappMessage().isBlank()) {
@@ -393,7 +402,7 @@ public class AlertPoller {
     // Context extraction
     // ─────────────────────────────────────────────────────────────────────────
 
-    private AnnouncementContext extractAnnouncementContext(String title, String description, String link) {
+    private AnnouncementContext extractAnnouncementContext(String title, String description, String link, String broadcastTime) {
         String cleanTitle   = title == null ? "" : title.trim();
         String companyName  = extractCompanyName(cleanTitle);
         String subject      = extractSubject(cleanTitle, description);
@@ -401,7 +410,7 @@ public class AlertPoller {
         if (symbol.isBlank()) symbol = companyName.isBlank() ? "NSE" : companyName;
         return new AnnouncementContext(
                 companyName.isBlank() ? cleanTitle : companyName,
-                symbol, subject.isBlank() ? cleanTitle : subject, link);
+                symbol, subject.isBlank() ? cleanTitle : subject, link, broadcastTime);
     }
 
     private String extractCompanyName(String title) {
@@ -468,5 +477,5 @@ public class AlertPoller {
         return "";
     }
 
-    private record AnnouncementContext(String companyName, String symbol, String subject, String link) {}
+    private record AnnouncementContext(String companyName, String symbol, String subject, String link, String broadcastTime) {}
 }
