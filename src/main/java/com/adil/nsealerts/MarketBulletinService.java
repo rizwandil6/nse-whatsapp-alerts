@@ -144,12 +144,25 @@ public class MarketBulletinService {
             java.net.http.HttpResponse<String> resp =
                     HTTP_CLIENT.send(req, java.net.http.HttpResponse.BodyHandlers.ofString());
 
-            JsonNode meta = mapper.readTree(resp.body())
-                    .path("chart").path("result").get(0).path("meta");
+            JsonNode result  = mapper.readTree(resp.body()).path("chart").path("result").get(0);
+            JsonNode meta    = result.path("meta");
+            JsonNode closes  = result.path("indicators").path("quote").get(0).path("close");
 
-            double price     = meta.path("regularMarketPrice").asDouble();
-            double changePct = meta.path("regularMarketChangePercent").asDouble();
-            String sign      = changePct >= 0 ? "+" : "";
+            double price = meta.path("regularMarketPrice").asDouble();
+
+            // Compute change% from last two non-null closes in the array
+            List<Double> closeList = new ArrayList<>();
+            for (JsonNode c : closes) {
+                if (!c.isNull()) closeList.add(c.asDouble());
+            }
+            double changePct = 0;
+            if (closeList.size() >= 2) {
+                double prev = closeList.get(closeList.size() - 2);
+                double last = closeList.get(closeList.size() - 1);
+                if (prev > 0) changePct = (last - prev) / prev * 100.0;
+            }
+
+            String sign = changePct >= 0 ? "+" : "";
             return String.format("  %s: %.2f (%s%.2f%%)", label, price, sign, changePct);
 
         } catch (Exception e) {
