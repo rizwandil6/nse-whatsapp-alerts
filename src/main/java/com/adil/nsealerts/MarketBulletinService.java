@@ -54,61 +54,65 @@ public class MarketBulletinService {
     // Entry point
     // ─────────────────────────────────────────────────────────────────────────
 
+    public String buildBulletin() throws Exception {
+        List<SyndEntry> rssEntries = nseClient.fetchAnnouncements();
+        String fiiJson = nseClient.fetchFiiDii();
+
+        StringBuilder sb = new StringBuilder();
+
+        // Header
+        sb.append("Daily Market Bulletin\n");
+        sb.append("Date: ").append(LocalDate.now()).append("\n");
+        sb.append("---\n\n");
+
+        // US Markets
+        sb.append("US Markets (Latest Close)\n");
+        sb.append(indexLine("Dow Jones",  "^DJI")).append("\n");
+        sb.append(indexLine("S&P 500",    "^GSPC")).append("\n");
+        sb.append(indexLine("Nasdaq",     "^IXIC")).append("\n\n");
+
+        // Asian Markets
+        sb.append("Asian Markets\n");
+        sb.append(indexLine("Nikkei 225 (JP)",  "^N225")).append("\n");
+        sb.append(indexLine("Hang Seng (HK)",   "^HSI")).append("\n");
+        sb.append(indexLine("Shanghai (CN)",     "000001.SS")).append("\n");
+        sb.append(indexLine("KOSPI (KR)",        "^KS11")).append("\n");
+        sb.append(indexLine("Straits Times (SG)","^STI")).append("\n\n");
+
+        // GIFT Nifty proxy
+        sb.append("GIFT Nifty (Nifty 50 proxy)\n");
+        sb.append(indexLine("Nifty 50", "^NSEI")).append("\n\n");
+
+        // Commodities & FX
+        sb.append("Commodities & Currency\n");
+        sb.append(indexLine("Brent Crude ($/bbl)", "BZ=F")).append("\n");
+        sb.append(indexLine("USDINR",               "USDINR=X")).append("\n\n");
+
+        // FII/DII
+        sb.append("FII / DII Activity (Previous Day)\n");
+        sb.append(parseFiiDii(fiiJson)).append("\n\n");
+
+        // Market Bias (Claude)
+        String rawData = sb.toString();
+        sb.append("Market Bias\n");
+        sb.append(generateMarketBias(rawData)).append("\n\n");
+
+        // Watchlist
+        sb.append("---\nWatchlist Updates\n\n");
+        for (String symbol : watchlist) {
+            sb.append("  ").append(symbol).append(": ")
+              .append(buildOneLiner(symbol, rssEntries)).append("\n");
+        }
+
+        return sb.toString();
+    }
+
     public void buildAndSend() {
         logger.info("[Bulletin] Building daily market bulletin...");
         try {
-            List<SyndEntry> rssEntries = nseClient.fetchAnnouncements();
-            String fiiJson = nseClient.fetchFiiDii();
-
-            StringBuilder sb = new StringBuilder();
-
-            // Header
-            sb.append("Daily Market Bulletin\n");
-            sb.append("Date: ").append(LocalDate.now()).append("\n");
-            sb.append("---\n\n");
-
-            // US Markets
-            sb.append("US Markets (Latest Close)\n");
-            sb.append(indexLine("Dow Jones",  "^DJI")).append("\n");
-            sb.append(indexLine("S&P 500",    "^GSPC")).append("\n");
-            sb.append(indexLine("Nasdaq",     "^IXIC")).append("\n\n");
-
-            // Asian Markets
-            sb.append("Asian Markets\n");
-            sb.append(indexLine("Nikkei 225 (JP)",  "^N225")).append("\n");
-            sb.append(indexLine("Hang Seng (HK)",   "^HSI")).append("\n");
-            sb.append(indexLine("Shanghai (CN)",     "000001.SS")).append("\n");
-            sb.append(indexLine("KOSPI (KR)",        "^KS11")).append("\n");
-            sb.append(indexLine("Straits Times (SG)","^STI")).append("\n\n");
-
-            // GIFT Nifty proxy
-            sb.append("GIFT Nifty (Nifty 50 proxy)\n");
-            sb.append(indexLine("Nifty 50", "^NSEI")).append("\n\n");
-
-            // Commodities & FX
-            sb.append("Commodities & Currency\n");
-            sb.append(indexLine("Brent Crude ($/bbl)", "BZ=F")).append("\n");
-            sb.append(indexLine("USDINR",               "USDINR=X")).append("\n\n");
-
-            // FII/DII
-            sb.append("FII / DII Activity (Previous Day)\n");
-            sb.append(parseFiiDii(fiiJson)).append("\n\n");
-
-            // Market Bias (Claude)
-            String rawData = sb.toString();
-            sb.append("Market Bias\n");
-            sb.append(generateMarketBias(rawData)).append("\n\n");
-
-            // Watchlist
-            sb.append("---\nWatchlist Updates\n\n");
-            for (String symbol : watchlist) {
-                sb.append("  ").append(symbol).append(": ")
-                  .append(buildOneLiner(symbol, rssEntries)).append("\n");
-            }
-
-            telegramSender.send(sb.toString());
+            String bulletin = buildBulletin();
+            telegramSender.send(bulletin);
             logger.info("[Bulletin] Sent successfully");
-
         } catch (Exception e) {
             logger.error("[Bulletin] Failed to build/send bulletin", e);
         }
@@ -279,9 +283,17 @@ public class MarketBulletinService {
             for (JsonNode item : arr) {
                 String cat = item.path("category").asText(
                              item.path("clientType").asText("")).toUpperCase();
-                double net = item.path("netPurchases").asDouble(
-                             item.path("NET_PURCHASES").asDouble(
-                             item.path("net").asDouble(Double.NaN)));
+                // NSE returns "netValue" (string), try multiple field names
+                JsonNode netNode = item.has("netValue") ? item.get("netValue")
+                                 : item.has("netPurchases") ? item.get("netPurchases")
+                                 : item.has("NET_PURCHASES") ? item.get("NET_PURCHASES")
+                                 : item.has("net") ? item.get("net")
+                                 : null;
+                double net = Double.NaN;
+                if (netNode != null && !netNode.isNull()) {
+                    try { net = Double.parseDouble(netNode.asText().replaceAll(",", "")); }
+                    catch (NumberFormatException ignored) {}
+                }
 
                 if (cat.contains("FII") || cat.contains("FPI") || cat.contains("FOREIGN"))
                     fiiNet = net;
