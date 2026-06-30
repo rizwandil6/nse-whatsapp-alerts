@@ -160,20 +160,30 @@ public class AlertPoller {
 
     private void checkAnnouncementsFromJson(JsonNode arr) {
         logger.info("[Announcements] Fetched {} entries from JSON API", arr.size());
-        // DEBUG: log first item to inspect field names — remove after confirming
-        if (arr.size() > 0) logger.info("[JSON-DEBUG] first entry fields: {}", arr.get(0));
+        if (arr.size() > 0) {
+            JsonNode first = arr.get(0);
+            logger.info("[JSON-DEBUG] sample entry: symbol={} subject={} att_file_pb_nm={} attchmnt={} pdfName={}",
+                first.path("symbol").asText(), first.path("subject").asText(),
+                first.path("att_file_pb_nm").asText("MISSING"),
+                first.path("attchmnt").asText("MISSING"),
+                first.path("pdfName").asText("MISSING"));
+        }
         for (JsonNode item : arr) {
             try {
                 String symbol   = item.path("symbol").asText("").trim().toUpperCase();
                 String company  = item.path("company").asText(item.path("comp").asText(""));
                 String subject  = item.path("subject").asText("");
                 String desc     = item.path("desc").asText("");
-                String attFile  = item.path("att_file_pb_nm").asText(item.path("attchmnt").asText(""));
+                // Try multiple known NSE field names for the PDF filename
+                String attFile  = item.path("att_file_pb_nm").asText(
+                                  item.path("attchmnt").asText(
+                                  item.path("pdfName").asText("")));
                 String sortDate = item.path("sort_date").asText(item.path("exchdisstime").asText(""));
                 String id       = symbol + ":" + sortDate;
 
+                // NSE corporate PDF base URL (same as RSS links)
                 String link = attFile.isBlank() ? ""
-                        : "https://nsearchives.nseindia.com/corp_actions/announcements/" + attFile;
+                        : "https://nsearchives.nseindia.com/corporate/" + attFile;
 
                 if (ignoreSme && !symbol.isBlank() && mainBoardSymbols != null
                         && !mainBoardSymbols.contains(symbol)) {
