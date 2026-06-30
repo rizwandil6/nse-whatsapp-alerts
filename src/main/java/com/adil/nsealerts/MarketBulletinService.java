@@ -163,7 +163,8 @@ public class MarketBulletinService {
             }
 
             String sign = changePct >= 0 ? "+" : "";
-            return String.format("  %s: %.2f (%s%.2f%%)", label, price, sign, changePct);
+            String icon = changePct >= 0.5 ? "🟢" : changePct <= -0.5 ? "🔴" : "🟡";
+            return String.format("  %s %s: %.2f (%s%.2f%%)", icon, label, price, sign, changePct);
 
         } catch (Exception e) {
             logger.warn("[Bulletin] Index fetch failed for {} ({}): {}", label, symbol, e.getMessage());
