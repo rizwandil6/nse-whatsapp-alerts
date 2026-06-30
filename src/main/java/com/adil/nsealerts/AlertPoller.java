@@ -162,11 +162,11 @@ public class AlertPoller {
         logger.info("[Announcements] Fetched {} entries from JSON API", arr.size());
         if (arr.size() > 0) {
             JsonNode first = arr.get(0);
-            logger.info("[JSON-DEBUG] sample entry: symbol={} subject={} att_file_pb_nm={} attchmnt={} pdfName={}",
-                first.path("symbol").asText(), first.path("subject").asText(),
-                first.path("att_file_pb_nm").asText("MISSING"),
-                first.path("attchmnt").asText("MISSING"),
-                first.path("pdfName").asText("MISSING"));
+            // Dump all field names so we can identify the PDF attachment key
+            java.util.List<String> keys = new java.util.ArrayList<>();
+            first.fieldNames().forEachRemaining(keys::add);
+            logger.info("[JSON-DEBUG] field names in first entry: {}", keys);
+            logger.info("[JSON-DEBUG] full first entry: {}", first);
         }
         for (JsonNode item : arr) {
             try {
