@@ -154,6 +154,7 @@ public class NseClient {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))
                 .timeout(Duration.ofSeconds(20))
+                .version(HttpClient.Version.HTTP_1_1)   // NSE drops HTTP/2 connections for large responses
                 .header("User-Agent", USER_AGENT)
                 .header("Accept", "application/json, text/plain, */*")
                 .header("Accept-Language", "en-US,en;q=0.9")
