@@ -160,30 +160,20 @@ public class AlertPoller {
 
     private void checkAnnouncementsFromJson(JsonNode arr) {
         logger.info("[Announcements] Fetched {} entries from JSON API", arr.size());
-        if (arr.size() > 0) {
-            JsonNode first = arr.get(0);
-            // Dump all field names so we can identify the PDF attachment key
-            java.util.List<String> keys = new java.util.ArrayList<>();
-            first.fieldNames().forEachRemaining(keys::add);
-            logger.info("[JSON-DEBUG] field names in first entry: {}", keys);
-            logger.info("[JSON-DEBUG] full first entry: {}", first);
-        }
         for (JsonNode item : arr) {
             try {
                 String symbol   = item.path("symbol").asText("").trim().toUpperCase();
-                String company  = item.path("company").asText(item.path("comp").asText(""));
-                String subject  = item.path("subject").asText("");
+                // sm_name = full company name; fallback to symbol
+                String company  = item.path("sm_name").asText(item.path("company").asText(""));
+                // desc = announcement category (e.g. "Bagging/Receiving of orders/contracts")
+                // attchmntText = full announcement description text
                 String desc     = item.path("desc").asText("");
-                // Try multiple known NSE field names for the PDF filename
-                String attFile  = item.path("att_file_pb_nm").asText(
-                                  item.path("attchmnt").asText(
-                                  item.path("pdfName").asText("")));
+                String annText  = item.path("attchmntText").asText("");
+                // attchmntFile = full PDF URL (already absolute, no base URL construction needed)
+                String link     = item.path("attchmntFile").asText("").trim();
                 String sortDate = item.path("sort_date").asText(item.path("exchdisstime").asText(""));
                 String id       = symbol + ":" + sortDate;
-
-                // NSE corporate PDF base URL (same as RSS links)
-                String link = attFile.isBlank() ? ""
-                        : "https://nsearchives.nseindia.com/corporate/" + attFile;
+                String subject  = desc; // use category as subject for display and matching
 
                 if (ignoreSme && !symbol.isBlank() && mainBoardSymbols != null
                         && !mainBoardSymbols.contains(symbol)) {
@@ -191,14 +181,14 @@ public class AlertPoller {
                     continue;
                 }
 
-                boolean excluded = containsAnyIgnoreKeyword(subject, desc);
-                String combinedText = (subject + " " + desc).toLowerCase();
+                boolean excluded = containsAnyIgnoreKeyword(subject, annText);
+                String combinedText = (subject + " " + annText).toLowerCase();
                 boolean matches = !excluded && (announcementKeywords.isEmpty()
                         || announcementKeywords.stream()
                                 .anyMatch(k -> combinedText.contains(k.toLowerCase())));
 
                 if (matches && seenIds.add(id)) {
-                    logger.info("New announcement: {} - {}", symbol, subject);
+                    logger.info("New announcement: {} - {} | link={}", symbol, subject, link.isBlank() ? "NONE" : link);
                     String companyName = company.isBlank() ? symbol : company;
                     AnnouncementContext ctx = new AnnouncementContext(companyName, symbol, subject, link);
                     String message = buildAnnouncementMessage(ctx);
