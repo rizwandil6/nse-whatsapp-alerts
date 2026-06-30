@@ -160,6 +160,8 @@ public class AlertPoller {
 
     private void checkAnnouncementsFromJson(JsonNode arr) {
         logger.info("[Announcements] Fetched {} entries from JSON API", arr.size());
+        // DEBUG: log first item to inspect field names — remove after confirming
+        if (arr.size() > 0) logger.info("[JSON-DEBUG] first entry fields: {}", arr.get(0));
         for (JsonNode item : arr) {
             try {
                 String symbol   = item.path("symbol").asText("").trim().toUpperCase();
