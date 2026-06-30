@@ -86,7 +86,7 @@ public class PromptRatingService {
             + "{\n"
             + "  \"rating\": <number 1-10>,\n"
             + "  \"order_size_crores\": <number or null>,\n"
-            + "  \"order_summary\": \"<2-3 plain text sentences: customer, order value, nature, execution timeline, revenue impact %>\",\n"
+            + "  \"order_summary\": \"<one line: quantity/material ordered, customer name, order value (or 'value undisclosed')>\",\n"
             + "  \"final_verdict\": \"<3-5 plain text sentences: significance, red flags, clear action — Research/Watchlist/Ignore>\"\n"
             + "}\n\n"
             + "Rules:\n"
@@ -125,7 +125,7 @@ public class PromptRatingService {
 
             String msg = companyName + "\n"
                        + "Rating: " + String.format("%.0f", rating) + "/10 — " + quickVerdict + "\n\n"
-                       + (orderSummary.isBlank() ? "" : orderSummary + "\n\n")
+                       + (orderSummary.isBlank() ? "" : "Order: " + orderSummary + "\n\n")
                        + (finalVerdict.isBlank() ? "" : "Verdict: " + finalVerdict + "\n\n")
                        + "Source: " + link + "\n"
                        + scannerEmoji + " " + scannerLabel;
