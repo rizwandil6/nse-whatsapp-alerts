@@ -110,6 +110,12 @@ public class NseClient {
     // Circulars — session-based (or proxy if configured)
     // -------------------------------------------------------------------------
 
+    public String fetchAnnouncementsJson() {
+        return fetchNseApi(
+                "https://www.nseindia.com/api/corporate-announcements?index=equities",
+                "https://www.nseindia.com/companies-listing/corporate-filings-announcements");
+    }
+
     public String fetchFiiDii() {
         return fetchNseApi(
                 "https://www.nseindia.com/api/fiidiiTradeReact",
