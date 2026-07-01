@@ -1,3 +1,6 @@
+server:
+  port: ${PORT:8080}
+
 nse:
   watchlist:
     - TCS
@@ -19,7 +22,7 @@ telegram:
   bot-token: ${TELEGRAM_BOT_TOKEN:}
   chat-ids:
     - "5937539323"    # Adil Rizwan Mohammed
-    - "-5338709046"
+    - "-5338709046"   # Group
 
 # ANNOUNCEMENTS now use a public RSS feed (no proxy needed).
 # CIRCULARS use session-based NSE access (no proxy needed).
@@ -35,7 +38,7 @@ anthropic:
   api-key: ${ANTHROPIC_API_KEY:}
 
 screener:
-  username: rizwan.dil6@gmail.com
+  username: ${SCREENER_USERNAME:rizwan.dil6@gmail.com}
   password: ${SCREENER_PASSWORD:}
 
 screening:
@@ -59,7 +62,7 @@ bulletin:
     - RAILTEL
     - GAIL
     - ADSL
-    - ARMAN        # ARE&M — verify NSE symbol if needed
+    - ARE&M
     - NCC
     - STERTOOLS
     - TEXRAIL
