@@ -49,8 +49,9 @@ public class AlertPoller {
     private static final Pattern SYMBOL_FROM_LINK = Pattern.compile("/([A-Z0-9&%-]+)_\\d{12,14}_");
     private final ObjectMapper mapper = new ObjectMapper();
 
-    // Simple in-memory dedup. Restarts will re-alert once - acceptable for v1.
+    // Dedup set — populated silently on first poll (seed), alerts only from second poll onward
     private final Set<String> seenIds = new HashSet<>();
+    private volatile boolean seedCompleted = false;
 
     public AlertPoller(NseClient nseClient,
                        TelegramSender telegramSender,
@@ -148,6 +149,10 @@ public class AlertPoller {
                 JsonNode arr = mapper.readTree(json);
                 if (arr.isArray()) {
                     checkAnnouncementsFromJson(arr);
+                    if (!seedCompleted) {
+                        seedCompleted = true;
+                        logger.info("[Seed] Initial seed complete — alerts enabled for new announcements");
+                    }
                     return;
                 }
             } catch (Exception e) {
@@ -156,6 +161,10 @@ public class AlertPoller {
         }
         // Fallback: RSS feed
         checkAnnouncementsFromRss();
+        if (!seedCompleted) {
+            seedCompleted = true;
+            logger.info("[Seed] Initial seed complete (RSS) — alerts enabled for new announcements");
+        }
     }
 
     private void checkAnnouncementsFromJson(JsonNode arr) {
@@ -189,6 +198,10 @@ public class AlertPoller {
                                 .anyMatch(k -> combinedText.contains(k.toLowerCase())));
 
                 if (matches && seenIds.add(id)) {
+                    if (!seedCompleted) {
+                        logger.info("[Seed] Pre-existing: {} - {}", symbol, subject);
+                        continue;
+                    }
                     logger.info("New announcement: {} - {} | link={}", symbol, subject, link.isBlank() ? "NONE" : link);
                     String companyName = company.isBlank() ? symbol : company;
                     AnnouncementContext ctx = new AnnouncementContext(companyName, symbol, subject, link, broadcastTime);
@@ -230,6 +243,10 @@ public class AlertPoller {
                                 .anyMatch(k -> combinedText.contains(k.toLowerCase())));
 
                 if (matches && seenIds.add(id)) {
+                    if (!seedCompleted) {
+                        logger.info("[Seed] Pre-existing (RSS): {}", title);
+                        continue;
+                    }
                     logger.info("New announcement: {}", title);
                     String pubTime = entry.getPublishedDate() != null
                             ? new java.text.SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(entry.getPublishedDate())
