@@ -37,6 +37,9 @@ analysis:
 anthropic:
   api-key: ${ANTHROPIC_API_KEY:}
 
+news:
+  api-key: ${NEWS_API_KEY:}
+
 screener:
   username: ${SCREENER_USERNAME:rizwan.dil6@gmail.com}
   password: ${SCREENER_PASSWORD:}
