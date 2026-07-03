@@ -301,9 +301,15 @@ public class ScreenerCheckService {
                 logger.info("[ScreenerCheck] [{}] Pledged(alt) from NSE={}", symbol, v);
                 return v;
             }
-            // Log snippet so we can identify the right field name on first run
-            logger.warn("[ScreenerCheck] [{}] NSE shareholding JSON snippet ({}c): [{}]",
-                    symbol, json.length(), json.substring(0, Math.min(300, json.length())));
+            // "missing index" (13c) = NSE has no data for this symbol yet (newly listed / SME).
+            // Log as info — this is expected, not a bug.
+            String snippet = json.substring(0, Math.min(300, json.length()));
+            if (json.length() < 30 || snippet.toLowerCase().contains("missing")) {
+                logger.info("[ScreenerCheck] [{}] NSE pledged: no data ({})", symbol, snippet.trim());
+            } else {
+                logger.warn("[ScreenerCheck] [{}] NSE shareholding JSON: pledged field not found. Snippet ({}c): [{}]",
+                        symbol, json.length(), snippet);
+            }
         } catch (Exception e) {
             logger.warn("[ScreenerCheck] [{}] NSE pledged fetch error: {}", symbol, e.getMessage());
         }
@@ -447,12 +453,22 @@ public class ScreenerCheckService {
         // Price/Sales: marketCap / annual revenue.
         // IMPORTANT: use section-scoped parsing so we hit the annual P&L table,
         // not the quarterly results table (which appears earlier in the HTML).
+        // Screener uses different row labels by sector:
+        //   Manufacturing/Products → "Sales"
+        //   Services/IT            → "Revenue"
+        //   Infrastructure/Power   → "Revenue from operations"  (or "Sales" too)
         if (nan(priceSales) && !nan(marketCap)) {
             double sales = sectionRatio(mainText, "Profit & Loss", "Sales");
+            if (nan(sales) || sales <= 0)
+                sales = sectionRatio(mainText, "Profit & Loss", "Revenue from operations");
+            if (nan(sales) || sales <= 0)
+                sales = sectionRatio(mainText, "Profit & Loss", "Revenue");
             if (!nan(sales) && sales > 0) {
                 priceSales = marketCap / sales;
                 logger.info("[ScreenerCheck] [{}] Computed P/S={} (mktCap={} sales={})",
                         symbol, f(priceSales), (long) marketCap, (long) sales);
+            } else {
+                logger.info("[ScreenerCheck] [{}] P/S: no sales row found in P&L section", symbol);
             }
         }
 
@@ -571,16 +587,32 @@ public class ScreenerCheckService {
      * Most recent (last) numeric value in the row identified by {@code rowLabel},
      * searched from the start of the full mainText.
      * Screener shows years oldest→newest; the last number is TTM / most recent.
+     *
+     * Tokens that look like column headers (e.g. "Mar-20", "TTM", "2023") are skipped
+     * rather than breaking the scan, because on Screener's server-rendered page the
+     * fiscal-year headers sometimes interleave with the first data row in plain text.
+     * A run of 4+ consecutive pure-alpha/date tokens with no numbers signals end-of-row.
      */
     private double ratioLatest(String text, String rowLabel) {
         int idx = text.indexOf(rowLabel);
         if (idx < 0) return Double.NaN;
         String win = text.substring(idx + rowLabel.length(),
-                Math.min(idx + rowLabel.length() + 200, text.length()));
+                Math.min(idx + rowLabel.length() + 300, text.length()));
         String[] tokens = win.split("\\s+");
         double last = Double.NaN;
+        int skippedTextRun = 0;
         for (String tok : tokens) {
+            // Tokens that are pure letters or date-like (Mar, TTM, Mar-20, 2023, etc.)
+            boolean isDateOrHeader = tok.matches("[A-Za-z]+") || tok.matches("[A-Za-z]+-?\\d*")
+                    || tok.matches("\\d{4}") || tok.equalsIgnoreCase("TTM");
+            if (isDateOrHeader) {
+                skippedTextRun++;
+                if (skippedTextRun > 4 && nan(last)) break; // too many headers with no numbers → wrong row
+                continue;
+            }
+            // If token contains letters other than date headers, stop (we've left the data row)
             if (tok.matches(".*[A-Za-z]{2,}.*")) break;
+            skippedTextRun = 0;
             String clean = tok.replaceAll("[^\\d\\.\\-]", "");
             if (clean.isEmpty()) continue;
             try { last = Double.parseDouble(clean); } catch (NumberFormatException ignored) {}
