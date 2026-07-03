@@ -126,6 +126,19 @@ public class NseClient {
                 "https://www.nseindia.com/reports/fii-dii");
     }
 
+    /**
+     * Fetches the shareholding pattern JSON for a given NSE symbol.
+     * Used to obtain the promoter pledged-shares percentage for the latest quarter.
+     */
+    public String fetchShareholdingJson(String symbol) {
+        String enc;
+        try { enc = java.net.URLEncoder.encode(symbol, java.nio.charset.StandardCharsets.UTF_8); }
+        catch (Exception e) { enc = symbol; }
+        return fetchNseApi(
+                "https://www.nseindia.com/api/corporate-share-holdings-master?symbol=" + enc + "&issuerType=EQ",
+                "https://www.nseindia.com/companies-listing/corporate-filings-shareholding");
+    }
+
     public String fetchCirculars() {
         if (!proxyBaseUrl.isBlank()) {
             // Proxy explicitly configured — use it

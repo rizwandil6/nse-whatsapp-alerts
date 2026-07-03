@@ -13,6 +13,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +36,13 @@ import java.util.regex.Pattern;
  * 11.  OPM > 15%
  * 12.  Price/Sales < 10
  * 13.  EV/EBITDA < 25
+ *
+ * Data sources (in priority order):
+ *  - Screener quick_ratios API  → Industry PE, Pledged, EV/EBITDA, Price/Sales, Debt/Equity
+ *  - Screener main page text    → Market Cap, Stock P/E, ROE, ROCE, OPM, growth rates, Promoter
+ *  - Screener main page text    → P/S (marketCap / annual Sales) and EV/EBITDA fallback
+ *  - Screener sector page       → Industry PE fallback (market-cap-weighted peer average)
+ *  - NSE shareholding API       → Pledged % fallback
  */
 @Component
 public class ScreenerCheckService {
@@ -46,11 +55,16 @@ public class ScreenerCheckService {
     @Value("${screener.password:}")
     private String password;
 
+    private final NseClient nseClient;
     private final CookieManager cookieManager = new CookieManager();
     private final HttpClient httpClient;
     private volatile boolean loggedIn = false;
 
-    public ScreenerCheckService() {
+    /** Per-run cache for sector PE (keyed by sector URL path). Cleared on restart. */
+    private final Map<String, Double> sectorPeCache = new ConcurrentHashMap<>();
+
+    public ScreenerCheckService(NseClient nseClient) {
+        this.nseClient = nseClient;
         this.httpClient = HttpClient.newBuilder()
                 .cookieHandler(cookieManager)
                 .connectTimeout(Duration.ofSeconds(15))
@@ -72,15 +86,17 @@ public class ScreenerCheckService {
             ensureLoggedIn();
             if (!loggedIn) return "";
 
-            // Main page — has Market Cap, Stock P/E, ROCE, ROE, OPM, growth rates
+            // Main page — has Market Cap, Stock P/E, ROCE, ROE, OPM, growth rates,
+            //              P&L table (Sales, Operating Profit, Depreciation),
+            //              Balance Sheet (Borrowings, Equity Capital, Reserves),
+            //              and the sector page URL embedded in the peer section.
             String mainHtml = fetchPage(symbol, "");
             if (mainHtml == null || mainHtml.isBlank()) return "";
             logger.info("[ScreenerCheck] main page fetched ({} chars) for {}", mainHtml.length(), symbol);
             String mainText = htmlToText(mainHtml);
 
             // The actual quick_ratios endpoint uses a NUMERIC company ID, not the symbol.
-            // The ID is embedded in the main page HTML and can be extracted via regex.
-            // Endpoint: https://www.screener.in/api/company/{ID}/quick_ratios/
+            // The ID is embedded in the main page HTML (e.g. in the Follow button URL).
             String companyId = extractCompanyId(mainHtml, symbol);
             String qrHtml = null;
             if (companyId != null) {
@@ -90,7 +106,6 @@ public class ScreenerCheckService {
                         referer);
                 int qrLen = qrHtml != null ? qrHtml.length() : 0;
                 logger.info("[ScreenerCheck] [{}] companyId={} qrHtml={} chars", symbol, companyId, qrLen);
-                // Log short responses verbatim so we can diagnose empty/error replies
                 if (qrHtml != null && qrLen < 50) {
                     logger.warn("[ScreenerCheck] [{}] qrHtml short content: [{}]", symbol, qrHtml);
                 }
@@ -98,7 +113,7 @@ public class ScreenerCheckService {
                 logger.warn("[ScreenerCheck] [{}] could not extract numeric company ID", symbol);
             }
 
-            return buildResult(mainText, qrHtml, symbol);
+            return buildResult(mainHtml, mainText, qrHtml, symbol);
         } catch (Exception e) {
             logger.warn("[ScreenerCheck] Failed for {}: {}", symbol, e.getMessage());
             return "";
@@ -110,7 +125,6 @@ public class ScreenerCheckService {
     private synchronized void ensureLoggedIn() throws Exception {
         if (loggedIn) return;
 
-        // Step 1: GET login page to obtain CSRF token
         String loginUrl = "https://www.screener.in/login/";
         HttpResponse<String> getResp = httpClient.send(
                 HttpRequest.newBuilder().uri(URI.create(loginUrl))
@@ -124,7 +138,6 @@ public class ScreenerCheckService {
             return;
         }
 
-        // Step 2: POST credentials
         String body = "csrfmiddlewaretoken=" + enc(csrf)
                 + "&username=" + enc(username)
                 + "&password=" + enc(password);
@@ -139,26 +152,18 @@ public class ScreenerCheckService {
                         .POST(HttpRequest.BodyPublishers.ofString(body)).build(),
                 HttpResponse.BodyHandlers.ofString());
 
-        // With followRedirects(NORMAL): a successful login (302 → home) ends up as HTTP 200
-        // on the home page, while a failed login stays on /login/ (also 200).
-        // Distinguish by checking the final URI — success redirects away from /login/.
-        String finalLoginUri = postResp.uri().toString();
-        boolean redirectedAway = !finalLoginUri.contains("/login");
-        loggedIn = redirectedAway;
+        // A successful login redirects away from /login/; failure stays on /login/.
+        String finalUri = postResp.uri().toString();
+        loggedIn = !finalUri.contains("/login");
 
-        // Log body snippet to diagnose login failures
-        String bodySnippet = postResp.body().length() > 300
+        String snippet = postResp.body().length() > 300
                 ? postResp.body().substring(0, 300) : postResp.body();
-        // Redact password just in case it appears in error messages
-        bodySnippet = bodySnippet.replaceAll("(?i)password[^<]{0,60}", "password=***");
-        logger.info("[ScreenerCheck] Login POST → finalUri={} loggedIn={}", finalLoginUri, loggedIn);
-        if (!loggedIn) {
-            logger.warn("[ScreenerCheck] Login failed. Body snippet: [{}]", bodySnippet);
-        }
+        snippet = snippet.replaceAll("(?i)password[^<]{0,60}", "password=***");
+        logger.info("[ScreenerCheck] Login POST → finalUri={} loggedIn={}", finalUri, loggedIn);
+        if (!loggedIn) logger.warn("[ScreenerCheck] Login failed. Body snippet: [{}]", snippet);
     }
 
     private String extractCsrf(String html) {
-        // <input name="csrfmiddlewaretoken" value="TOKEN">  (order may vary)
         Matcher m = Pattern.compile("csrfmiddlewaretoken[^>]+value=[\"']([^\"']+)[\"']").matcher(html);
         if (m.find()) return m.group(1);
         m = Pattern.compile("value=[\"']([^\"']+)[\"'][^>]+csrfmiddlewaretoken").matcher(html);
@@ -170,99 +175,68 @@ public class ScreenerCheckService {
         return URLEncoder.encode(s, StandardCharsets.UTF_8);
     }
 
-    // ── Fetch page ────────────────────────────────────────────────────────────
+    // ── Company ID extraction ─────────────────────────────────────────────────
 
     /**
      * Extracts Screener's internal numeric company ID from the main page HTML.
-     *
-     * Screener embeds the quick_ratios URL in the page as a data-url or x-data attribute
-     * that Alpine.js uses to make the AJAX call.  Searching for the exact endpoint path
-     * is the most reliable approach — it gives us the ID that Screener itself uses.
+     * Looks for the quick_ratios URL first (most specific), then falls back to
+     * the Follow button URL (/api/company/{ID}/add/) which is always the company's own ID.
      */
     private String extractCompanyId(String html, String symbol) {
-        // Most specific: the quick_ratios URL is embedded in the HTML as a data attribute.
-        // e.g.  data-url="/api/company/6320575/quick_ratios/"
         Matcher m = Pattern.compile("/api/company/(\\d+)/quick_ratios/").matcher(html);
         if (m.find()) {
             logger.info("[ScreenerCheck] [{}] companyId via quick_ratios URL: {}", symbol, m.group(1));
             return m.group(1);
         }
-        // Fallback: any /api/company/{ID}/ reference.
-        // WARNING: peers section may reference OTHER companies; log for diagnosis.
         m = Pattern.compile("/api/company/(\\d+)/").matcher(html);
         if (m.find()) {
-            String id = m.group(1);
-            int idx = m.start();
+            String id  = m.group(1);
+            int    idx = m.start();
             String ctx = html.substring(idx, Math.min(idx + 80, html.length()));
             logger.warn("[ScreenerCheck] [{}] companyId fallback {}; ctx=[{}]", symbol, id, ctx);
             return id;
         }
-        // Wider fallback: data attributes
         m = Pattern.compile("data-company[_-]id=[\"'](\\d+)[\"']").matcher(html);
         if (m.find()) return m.group(1);
         return null;
     }
 
-    /** Fetches an absolute URL with Referer + XHR headers; returns null on non-200. */
-    private String fetchAbsoluteUrl(String url, String referer) throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("User-Agent", "Mozilla/5.0")
-                .header("Referer", referer)
-                .header("X-Requested-With", "XMLHttpRequest")
-                .header("Accept", "text/html,*/*")
-                .timeout(Duration.ofSeconds(20))
-                .GET().build();
-        HttpResponse<String> resp = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        if (resp.statusCode() != 200) {
-            logger.info("[ScreenerCheck] HTTP {} for {}", resp.statusCode(), url);
-            return null;
-        }
-        return resp.body();
-    }
-
-    /**
-     * Parses a named ratio from the quick_ratios HTML response.
-     * Each entry looks like:
-     *   <span class="name">Industry PE</span>
-     *   ...
-     *   <span class="number">17.7</span>
-     */
-    private double parseQR(String html, String ratioName) {
-        // Find the ratio name label, then look for the first <span class="number"> after it.
-        String escaped = Pattern.quote(ratioName);
-        Matcher m = Pattern.compile(
-                "class=\"name\"[^>]*>\\s*" + escaped + "\\s*</span>" +
-                ".*?class=\"number\"[^>]*>([\\d,\\.]+)</span>",
-                Pattern.DOTALL).matcher(html);
-        if (m.find()) {
-            try { return Double.parseDouble(m.group(1).replace(",", "")); }
-            catch (NumberFormatException ignored) {}
-        }
-        return Double.NaN;
-    }
+    // ── Fetch helpers ─────────────────────────────────────────────────────────
 
     /** Fetches https://www.screener.in/company/{SYMBOL}/{subPath} */
     private String fetchPage(String symbol, String subPath) throws Exception {
         String companyUrl = "https://www.screener.in/company/" + enc(symbol) + "/";
         String url = companyUrl + subPath;
-
         HttpRequest.Builder req = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("User-Agent", "Mozilla/5.0")
                 .header("Referer", companyUrl)
                 .timeout(Duration.ofSeconds(20));
-
-        // quick_ratios/ and similar are AJAX endpoints — must identify as XHR
         if (!subPath.isEmpty()) {
-            req.header("X-Requested-With", "XMLHttpRequest")
-               .header("Accept", "*/*");
+            req.header("X-Requested-With", "XMLHttpRequest").header("Accept", "*/*");
         }
-
         HttpResponse<String> resp = httpClient.send(req.GET().build(),
                 HttpResponse.BodyHandlers.ofString());
         if (resp.statusCode() != 200) {
             logger.info("[ScreenerCheck] HTTP {} for {}{}", resp.statusCode(), symbol, subPath);
+            return null;
+        }
+        return resp.body();
+    }
+
+    /** Fetches an absolute URL with Referer + XHR headers; returns null on non-200. */
+    private String fetchAbsoluteUrl(String url, String referer) throws Exception {
+        HttpResponse<String> resp = httpClient.send(
+                HttpRequest.newBuilder().uri(URI.create(url))
+                        .header("User-Agent", "Mozilla/5.0")
+                        .header("Referer", referer)
+                        .header("X-Requested-With", "XMLHttpRequest")
+                        .header("Accept", "text/html,*/*")
+                        .timeout(Duration.ofSeconds(20))
+                        .GET().build(),
+                HttpResponse.BodyHandlers.ofString());
+        if (resp.statusCode() != 200) {
+            logger.info("[ScreenerCheck] HTTP {} for {}", resp.statusCode(), url);
             return null;
         }
         return resp.body();
@@ -281,11 +255,151 @@ public class ScreenerCheckService {
                 .replaceAll("\\s+", " ").trim();
     }
 
+    // ── Quick-ratios HTML parser ──────────────────────────────────────────────
+
+    /**
+     * Parses a named ratio from the quick_ratios HTML response.
+     * Entry format: <span class="name">Ratio Name</span> ... <span class="number">VALUE</span>
+     */
+    private double parseQR(String html, String ratioName) {
+        String escaped = Pattern.quote(ratioName);
+        Matcher m = Pattern.compile(
+                "class=\"name\"[^>]*>\\s*" + escaped + "\\s*</span>"
+                + ".*?class=\"number\"[^>]*>([\\d,\\.]+)</span>",
+                Pattern.DOTALL).matcher(html);
+        if (m.find()) {
+            try { return Double.parseDouble(m.group(1).replace(",", "")); }
+            catch (NumberFormatException ignored) {}
+        }
+        return Double.NaN;
+    }
+
+    // ── External data: pledged from NSE ───────────────────────────────────────
+
+    /**
+     * Fetches the most-recent promoter pledged percentage from NSE's shareholding API.
+     * On first run the NSE JSON structure is logged so field names can be verified.
+     */
+    private double fetchPledgedFromNse(String symbol) {
+        try {
+            String json = nseClient.fetchShareholdingJson(symbol);
+            if (json == null || json.isBlank()) return Double.NaN;
+
+            // Most recent entry is first. NSE field name (varies by endpoint):
+            Matcher m = Pattern.compile(
+                    "percentageOfSharesPledgedOrOtherwiseEncumbered[\"']?\\s*:\\s*([\\d.]+)"
+            ).matcher(json);
+            if (m.find()) {
+                double v = Double.parseDouble(m.group(1));
+                logger.info("[ScreenerCheck] [{}] Pledged from NSE={}", symbol, v);
+                return v;
+            }
+            // Alternate field name used in some endpoints
+            m = Pattern.compile("\"pledged\"\\s*:\\s*([\\d.]+)").matcher(json);
+            if (m.find()) {
+                double v = Double.parseDouble(m.group(1));
+                logger.info("[ScreenerCheck] [{}] Pledged(alt) from NSE={}", symbol, v);
+                return v;
+            }
+            // Log snippet so we can identify the right field name on first run
+            logger.warn("[ScreenerCheck] [{}] NSE shareholding JSON snippet ({}c): [{}]",
+                    symbol, json.length(), json.substring(0, Math.min(300, json.length())));
+        } catch (Exception e) {
+            logger.warn("[ScreenerCheck] [{}] NSE pledged fetch error: {}", symbol, e.getMessage());
+        }
+        return Double.NaN;
+    }
+
+    // ── External data: Industry PE from Screener sector page ─────────────────
+
+    /**
+     * Computes a market-cap-weighted sector PE by:
+     *  1. Extracting the industry sector URL from the main page's peer section
+     *     (Screener embeds: <a href="/market/..." title="Industry">)
+     *  2. Fetching that public sector page (no auth required)
+     *  3. Parsing each company row's P/E and Market Cap
+     *  4. Returning the weighted average
+     *
+     * Result is cached per sector URL for the lifetime of the process.
+     */
+    private double fetchSectorIndustryPE(String mainHtml, String symbol) {
+        try {
+            // Extract the deepest industry-level URL from the peer comparison breadcrumb
+            Matcher m = Pattern.compile(
+                    "href=[\"'](/market/[^\"']+/)[\"'][^>]*title=[\"']Industry[\"']"
+            ).matcher(mainHtml);
+            if (!m.find()) {
+                m = Pattern.compile(
+                        "title=[\"']Industry[\"'][^>]*href=[\"'](/market/[^\"']+/)[\"']"
+                ).matcher(mainHtml);
+                if (!m.find()) {
+                    logger.info("[ScreenerCheck] [{}] No sector URL found in HTML", symbol);
+                    return Double.NaN;
+                }
+            }
+            String sectorPath = m.group(1);
+
+            // Return cached value if already fetched this run
+            Double cached = sectorPeCache.get(sectorPath);
+            if (cached != null) {
+                logger.info("[ScreenerCheck] [{}] Sector PE (cached)={} path={}", symbol, f(cached), sectorPath);
+                return cached;
+            }
+
+            String sectorUrl = "https://www.screener.in" + sectorPath;
+            logger.info("[ScreenerCheck] [{}] Fetching sector PE from {}", symbol, sectorUrl);
+            String sectorHtml = fetchAbsoluteUrl(sectorUrl,
+                    "https://www.screener.in/company/" + enc(symbol) + "/");
+            if (sectorHtml == null || sectorHtml.isBlank()) return Double.NaN;
+
+            // Each data row: <td>N.</td> <td><a>Name</a>...</td> <td>CMP</td> <td>P/E</td> <td>MCap</td>
+            Pattern rowPat = Pattern.compile(
+                    "<td[^>]*>\\d+\\.</td>\\s*"           // S.No.
+                    + "<td[^>]*>.*?</td>\\s*"             // Name (may contain nested tags)
+                    + "<td[^>]*>[\\d,.]+</td>\\s*"        // CMP (not captured)
+                    + "<td[^>]*>([\\d,.]+)</td>\\s*"      // P/E  ← capture
+                    + "<td[^>]*>([\\d,.]+)</td>",         // Market Cap ← capture
+                    Pattern.DOTALL);
+            Matcher rowMatcher = rowPat.matcher(sectorHtml);
+
+            double totalMcap  = 0;
+            double weightedPE = 0;
+            int    count      = 0;
+
+            while (rowMatcher.find()) {
+                try {
+                    double pe   = Double.parseDouble(rowMatcher.group(1).replace(",", ""));
+                    double mcap = Double.parseDouble(rowMatcher.group(2).replace(",", ""));
+                    if (pe > 0 && pe < 2000 && mcap > 0) {
+                        totalMcap  += mcap;
+                        weightedPE += pe * mcap;
+                        count++;
+                    }
+                } catch (NumberFormatException ignored) {}
+            }
+
+            if (count == 0 || totalMcap == 0) {
+                logger.warn("[ScreenerCheck] [{}] No valid PE rows parsed from sector page", symbol);
+                return Double.NaN;
+            }
+
+            double industryPE = weightedPE / totalMcap;
+            logger.info("[ScreenerCheck] [{}] Sector PE={} ({} companies, path={})",
+                    symbol, f(industryPE), count, sectorPath);
+            sectorPeCache.put(sectorPath, industryPE);
+            return industryPE;
+
+        } catch (Exception e) {
+            logger.warn("[ScreenerCheck] [{}] Sector PE fetch failed: {}", symbol, e.getMessage());
+            return Double.NaN;
+        }
+    }
+
     // ── 13-criteria evaluation ────────────────────────────────────────────────
 
-    private String buildResult(String mainText, String qrHtml, String symbol) {
+    private String buildResult(String mainHtml, String mainText, String qrHtml, String symbol) {
 
-        // ── Main page HTML: Market Cap, Stock P/E, ROCE, ROE, OPM, growth rates ──
+        // ── From main page (always server-rendered) ───────────────────────────
         double marketCap      = after(mainText, "Market Cap");
         double stockPE        = after(mainText, "Stock P/E");
         double roce           = after(mainText, "ROCE");
@@ -294,22 +408,18 @@ public class ScreenerCheckService {
         double profitGrowth5Y = growth(mainText, "Profit Growth", "5 Years");
         double opm            = ratioLatest(mainText, "OPM %");
 
-        // ── /api/company/{ID}/quick_ratios/ (real per-company endpoint) ──
-        // Returns HTML <li data-source="quick-ratio"> items with <span class="name"> and
-        // <span class="number">. Labels match exactly what Screener shows on the page.
-        double debtEquity  = Double.NaN;
-        double industryPE  = Double.NaN;
-        double promoter    = Double.NaN;
-        double pledged     = Double.NaN;
-        double evEbitda    = Double.NaN;
-        double priceSales  = Double.NaN;
+        // ── From quick_ratios API (works for companies with Screener data) ────
+        double debtEquity = Double.NaN;
+        double industryPE = Double.NaN;
+        double pledged    = Double.NaN;
+        double evEbitda   = Double.NaN;
+        double priceSales = Double.NaN;
 
         if (qrHtml != null && !qrHtml.isBlank()) {
             debtEquity = parseQR(qrHtml, "Debt to equity");
             industryPE = parseQR(qrHtml, "Industry PE");
-            // NOTE: skip "Promoter holding" from QR — it uses a different calculation
-            // basis than the shareholding table (verified mismatches across companies).
-            // We always source promoter from the server-rendered shareholding section.
+            // Promoter holding intentionally NOT taken from QR — QR uses a different
+            // calculation basis than the shareholding table (verified mismatches).
             pledged    = parseQR(qrHtml, "Pledged percentage");
             evEbitda   = parseQR(qrHtml, "EVEBITDA");
             priceSales = parseQR(qrHtml, "Price to Sales");
@@ -317,10 +427,12 @@ public class ScreenerCheckService {
                     symbol, debtEquity, industryPE, pledged, evEbitda, priceSales);
         }
 
-        // ── Server-rendered mainText sources (always reliable) ──
+        // ── Fallbacks from server-rendered mainText ───────────────────────────
+
         // Promoter: "Promoters + 73.91% ..." is always in the shareholding section.
-        promoter = after(mainText, "Promoters");
-        // Debt/Equity: compute from balance sheet if API didn't provide it.
+        double promoter = after(mainText, "Promoters");
+
+        // Debt/Equity: compute from annual balance sheet if API didn't provide it.
         if (nan(debtEquity)) {
             double borrowings    = ratioLatest(mainText, "Borrowings");
             double equityCapital = ratioLatest(mainText, "Equity Capital");
@@ -332,41 +444,77 @@ public class ScreenerCheckService {
             }
         }
 
+        // Price/Sales: marketCap / annual revenue.
+        // IMPORTANT: use section-scoped parsing so we hit the annual P&L table,
+        // not the quarterly results table (which appears earlier in the HTML).
+        if (nan(priceSales) && !nan(marketCap)) {
+            double sales = sectionRatio(mainText, "Profit & Loss", "Sales");
+            if (!nan(sales) && sales > 0) {
+                priceSales = marketCap / sales;
+                logger.info("[ScreenerCheck] [{}] Computed P/S={} (mktCap={} sales={})",
+                        symbol, f(priceSales), (long) marketCap, (long) sales);
+            }
+        }
+
+        // EV/EBITDA: (Market Cap + Debt) / (Operating Profit + Depreciation).
+        // Cash is not a separate Balance Sheet line on Screener, so EV = MCap + Debt.
+        if (nan(evEbitda) && !nan(marketCap)) {
+            double op  = sectionRatio(mainText, "Profit & Loss", "Operating Profit");
+            double dep = sectionRatio(mainText, "Profit & Loss", "Depreciation");
+            double bor = sectionRatio(mainText, "Balance Sheet", "Borrowings");
+            if (!nan(op) && !nan(dep)) {
+                double ebitda = op + dep;
+                double ev     = marketCap + (nan(bor) ? 0 : bor);
+                if (ebitda > 0) {
+                    evEbitda = ev / ebitda;
+                    logger.info("[ScreenerCheck] [{}] Computed EV/EBITDA={} (ev={} ebitda={})",
+                            symbol, f(evEbitda), (long) ev, (long) ebitda);
+                }
+            }
+        }
+
+        // Pledged: fetch from NSE shareholding pattern API.
+        if (nan(pledged)) {
+            pledged = fetchPledgedFromNse(symbol);
+        }
+
+        // Industry PE: market-cap-weighted average from Screener's public sector page.
+        if (nan(industryPE)) {
+            industryPE = fetchSectorIndustryPE(mainHtml, symbol);
+        }
+
         logger.info("[ScreenerCheck] [{}] promoter={} pledged={} debtEq={} indPE={}",
                 symbol, promoter, pledged, debtEquity, industryPE);
 
-        // ── Derived ──
+        // ── Derived ──────────────────────────────────────────────────────────
         double peg = (!nan(stockPE) && !nan(profitGrowth5Y) && profitGrowth5Y > 0)
                 ? stockPE / profitGrowth5Y : Double.NaN;
 
-        // 4 criteria are JS-rendered on Screener and cannot be obtained via plain HTTP:
-        // PE/Ind PE (industryPE), Pledged, Price/Sales, EV/EBITDA.
-        // Score denominator = evaluatable criteria only so the verdict is meaningful.
+        // Score denominator excludes criteria that are still N/A after all fallbacks.
         int naCount = ((nan(stockPE) || nan(industryPE)) ? 1 : 0)
                     + (nan(pledged)    ? 1 : 0)
                     + (nan(priceSales) ? 1 : 0)
                     + (nan(evEbitda)   ? 1 : 0);
-        int evaluatable = 13 - naCount;   // currently 9
+        int evaluatable = 13 - naCount;
 
         StringBuilder sb = new StringBuilder();
         sb.append("\n🔍 Screener.in Check — ").append(symbol).append("\n");
 
         int pass = 0;
-        pass += row(sb, "Market Cap",    f(marketCap) + " Cr",               marketCap > 1000,                                           "> ₹1,000 Cr",   nan(marketCap));
-        pass += row(sb, "PEG",           f(peg),                              peg < 1,                                                     "< 1",           nan(peg));
-        pass += row(sb, "PE / Ind PE",   f(stockPE) + " / " + f(industryPE), !nan(stockPE) && !nan(industryPE) && stockPE < industryPE,   "PE < Ind PE",   nan(stockPE) || nan(industryPE));
-        pass += row(sb, "ROE",           f(roe) + "%",                        roe > 20,                                                    "> 20%",         nan(roe));
-        pass += row(sb, "ROCE",          f(roce) + "%",                       roce > 15,                                                   "> 15%",         nan(roce));
-        pass += row(sb, "Debt/Equity",   f(debtEquity),                       debtEquity < 0.5,                                            "< 0.5",         nan(debtEquity));
-        pass += row(sb, "Promoter",      f(promoter) + "%",                   promoter > 50,                                               "> 50%",         nan(promoter));
-        pass += row(sb, "Sales Gr 3Y",   f(salesGrowth3Y) + "%",              salesGrowth3Y > 15,                                          "> 15%",         nan(salesGrowth3Y));
-        pass += row(sb, "Profit Gr 5Y",  f(profitGrowth5Y) + "%",             profitGrowth5Y > 15,                                         "> 15%",         nan(profitGrowth5Y));
-        pass += row(sb, "Pledged",       f(pledged) + "%",                    pledged < 1,                                                 "< 1%",          nan(pledged));
-        pass += row(sb, "OPM",           f(opm) + "%",                        opm > 15,                                                    "> 15%",         nan(opm));
-        pass += row(sb, "Price/Sales",   f(priceSales),                       priceSales < 10,                                             "< 10",          nan(priceSales));
-        pass += row(sb, "EV/EBITDA",     f(evEbitda),                         evEbitda < 25,                                               "< 25",          nan(evEbitda));
+        pass += row(sb, "Market Cap",   f(marketCap) + " Cr",               marketCap > 1000,                                         "> ₹1,000 Cr", nan(marketCap));
+        pass += row(sb, "PEG",          f(peg),                              peg < 1,                                                   "< 1",         nan(peg));
+        pass += row(sb, "PE / Ind PE",  f(stockPE) + " / " + f(industryPE), !nan(stockPE) && !nan(industryPE) && stockPE < industryPE, "PE < Ind PE", nan(stockPE) || nan(industryPE));
+        pass += row(sb, "ROE",          f(roe) + "%",                        roe > 20,                                                  "> 20%",       nan(roe));
+        pass += row(sb, "ROCE",         f(roce) + "%",                       roce > 15,                                                 "> 15%",       nan(roce));
+        pass += row(sb, "Debt/Equity",  f(debtEquity),                       debtEquity < 0.5,                                          "< 0.5",       nan(debtEquity));
+        pass += row(sb, "Promoter",     f(promoter) + "%",                   promoter > 50,                                             "> 50%",       nan(promoter));
+        pass += row(sb, "Sales Gr 3Y",  f(salesGrowth3Y) + "%",              salesGrowth3Y > 15,                                        "> 15%",       nan(salesGrowth3Y));
+        pass += row(sb, "Profit Gr 5Y", f(profitGrowth5Y) + "%",             profitGrowth5Y > 15,                                       "> 15%",       nan(profitGrowth5Y));
+        pass += row(sb, "Pledged",      f(pledged) + "%",                    pledged < 1,                                               "< 1%",        nan(pledged));
+        pass += row(sb, "OPM",          f(opm) + "%",                        opm > 15,                                                  "> 15%",       nan(opm));
+        pass += row(sb, "Price/Sales",  f(priceSales),                       priceSales < 10,                                           "< 10",        nan(priceSales));
+        pass += row(sb, "EV/EBITDA",    f(evEbitda),                         evEbitda < 25,                                             "< 25",        nan(evEbitda));
 
-        // Thresholds proportional to evaluatable count (≥88% = Strong Buy, ≥67% = Moderate)
         String verdict = pass >= Math.round(evaluatable * 0.88f) ? "Strong Buy"
                        : pass >= Math.round(evaluatable * 0.67f) ? "Moderate"
                        : "Avoid";
@@ -387,7 +535,7 @@ public class ScreenerCheckService {
 
     // ── Parsing helpers ───────────────────────────────────────────────────────
 
-    /** First number found immediately after `label` in plain text. */
+    /** First number found immediately after {@code label} in plain text. */
     private double after(String text, String label) {
         int idx = text.indexOf(label);
         if (idx < 0) return Double.NaN;
@@ -420,8 +568,9 @@ public class ScreenerCheckService {
     }
 
     /**
-     * Most recent (last) numeric value in the ratios table row identified by `rowLabel`.
-     * Screener.in shows up to 10 years + TTM per row; we take the last number.
+     * Most recent (last) numeric value in the row identified by {@code rowLabel},
+     * searched from the start of the full mainText.
+     * Screener shows years oldest→newest; the last number is TTM / most recent.
      */
     private double ratioLatest(String text, String rowLabel) {
         int idx = text.indexOf(rowLabel);
@@ -431,7 +580,6 @@ public class ScreenerCheckService {
         String[] tokens = win.split("\\s+");
         double last = Double.NaN;
         for (String tok : tokens) {
-            // Stop if we hit a token that looks like a new row label (has letters, length > 2)
             if (tok.matches(".*[A-Za-z]{2,}.*")) break;
             String clean = tok.replaceAll("[^\\d\\.\\-]", "");
             if (clean.isEmpty()) continue;
@@ -440,11 +588,26 @@ public class ScreenerCheckService {
         return last;
     }
 
+    /**
+     * Like {@link #ratioLatest} but restricts the search to a named section of the text.
+     * This prevents "Sales" in the Quarterly Results table (which appears earlier in the HTML)
+     * from shadowing "Sales" in the annual Profit & Loss table.
+     *
+     * @param sectionMarker text that marks the start of the section (e.g. "Profit & Loss")
+     * @param rowLabel      the row label to find within that section
+     */
+    private double sectionRatio(String text, String sectionMarker, String rowLabel) {
+        int sIdx = text.indexOf(sectionMarker);
+        if (sIdx < 0) return Double.NaN;
+        // 3 000 chars covers ~9 years of annual data for any row
+        String section = text.substring(sIdx, Math.min(sIdx + 3000, text.length()));
+        return ratioLatest(section, rowLabel);
+    }
+
     private boolean nan(double v) { return Double.isNaN(v); }
 
     private String f(double v) {
         if (Double.isNaN(v)) return "N/A";
-        // Show as integer if no fractional part
         if (v == Math.floor(v) && !Double.isInfinite(v) && Math.abs(v) < 1_000_000)
             return String.valueOf((long) v);
         return String.format("%.2f", v);
