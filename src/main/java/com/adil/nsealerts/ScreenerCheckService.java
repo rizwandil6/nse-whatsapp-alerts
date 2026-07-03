@@ -468,7 +468,13 @@ public class ScreenerCheckService {
                 logger.info("[ScreenerCheck] [{}] Computed P/S={} (mktCap={} sales={})",
                         symbol, f(priceSales), (long) marketCap, (long) sales);
             } else {
-                logger.info("[ScreenerCheck] [{}] P/S: no sales row found in P&L section", symbol);
+                // Dump first 400 chars of P&L section so we can identify the actual revenue row label
+                int plIdx = mainText.indexOf("Profit & Loss");
+                String plSnippet = plIdx >= 0
+                        ? mainText.substring(plIdx, Math.min(plIdx + 400, mainText.length()))
+                        : "(section not found)";
+                logger.info("[ScreenerCheck] [{}] P/S: no revenue row found. P&L section start: [{}]",
+                        symbol, plSnippet);
             }
         }
 
@@ -584,35 +590,19 @@ public class ScreenerCheckService {
     }
 
     /**
-     * Most recent (last) numeric value in the row identified by {@code rowLabel},
-     * searched from the start of the full mainText.
-     * Screener shows years oldest→newest; the last number is TTM / most recent.
-     *
-     * Tokens that look like column headers (e.g. "Mar-20", "TTM", "2023") are skipped
-     * rather than breaking the scan, because on Screener's server-rendered page the
-     * fiscal-year headers sometimes interleave with the first data row in plain text.
-     * A run of 4+ consecutive pure-alpha/date tokens with no numbers signals end-of-row.
+     * Most recent (last) numeric value in the row identified by {@code rowLabel}.
+     * Screener renders years oldest→newest; the last number is TTM / most recent annual.
+     * Stops at any token containing 2+ consecutive letters (signals next row label or section).
      */
     private double ratioLatest(String text, String rowLabel) {
         int idx = text.indexOf(rowLabel);
         if (idx < 0) return Double.NaN;
         String win = text.substring(idx + rowLabel.length(),
-                Math.min(idx + rowLabel.length() + 300, text.length()));
+                Math.min(idx + rowLabel.length() + 200, text.length()));
         String[] tokens = win.split("\\s+");
         double last = Double.NaN;
-        int skippedTextRun = 0;
         for (String tok : tokens) {
-            // Tokens that are pure letters or date-like (Mar, TTM, Mar-20, 2023, etc.)
-            boolean isDateOrHeader = tok.matches("[A-Za-z]+") || tok.matches("[A-Za-z]+-?\\d*")
-                    || tok.matches("\\d{4}") || tok.equalsIgnoreCase("TTM");
-            if (isDateOrHeader) {
-                skippedTextRun++;
-                if (skippedTextRun > 4 && nan(last)) break; // too many headers with no numbers → wrong row
-                continue;
-            }
-            // If token contains letters other than date headers, stop (we've left the data row)
             if (tok.matches(".*[A-Za-z]{2,}.*")) break;
-            skippedTextRun = 0;
             String clean = tok.replaceAll("[^\\d\\.\\-]", "");
             if (clean.isEmpty()) continue;
             try { last = Double.parseDouble(clean); } catch (NumberFormatException ignored) {}
