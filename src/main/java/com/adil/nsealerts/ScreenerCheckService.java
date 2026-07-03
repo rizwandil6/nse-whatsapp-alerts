@@ -49,9 +49,6 @@ public class ScreenerCheckService {
     private final CookieManager cookieManager = new CookieManager();
     private final HttpClient httpClient;
     private volatile boolean loggedIn = false;
-    // Screener redirects /company/SYMBOL/ → /company/SYMBOL/consolidated/ (or standalone/).
-    // Track the final URL per symbol so quick_ratios/ uses the correct base.
-    private final java.util.Map<String, String> finalCompanyUrls = new java.util.concurrent.ConcurrentHashMap<>();
 
     public ScreenerCheckService() {
         this.httpClient = HttpClient.newBuilder()
@@ -81,10 +78,14 @@ public class ScreenerCheckService {
             logger.info("[ScreenerCheck] main page fetched ({} chars) for {}", mainHtml.length(), symbol);
             String mainText = htmlToText(mainHtml);
 
-            // quick_ratios/ — the AJAX endpoint that loads Debt/Equity, Industry PE,
-            // Promoter Holding, Pledged (these are NOT in the initial HTML)
-            String qrHtml  = fetchPage(symbol, "quick_ratios/");
-            String qrText  = (qrHtml != null && !qrHtml.isBlank()) ? htmlToText(qrHtml) : "";
+            // quick_ratios/ is an AJAX endpoint for Debt/Equity, Industry PE, Promoter,
+            // Pledged, EV/EBITDA, Price to Sales.
+            // Screener serves most companies under /consolidated/ or /standalone/ sub-path.
+            // Try consolidated first (most NSE companies), then standalone, then bare.
+            String qrHtml = fetchPage(symbol, "consolidated/quick_ratios/");
+            if (qrHtml == null) qrHtml = fetchPage(symbol, "standalone/quick_ratios/");
+            if (qrHtml == null) qrHtml = fetchPage(symbol, "quick_ratios/");
+            String qrText = (qrHtml != null && !qrHtml.isBlank()) ? htmlToText(qrHtml) : "";
             logger.info("[ScreenerCheck] quick_ratios raw ({} chars): [{}]",
                     qrText.length(),
                     qrText.length() > 300 ? qrText.substring(0, 300) : qrText);
@@ -148,29 +149,18 @@ public class ScreenerCheckService {
 
     // ── Fetch page ────────────────────────────────────────────────────────────
 
-    /**
-     * Fetches the Screener company page (or a sub-path like quick_ratios/).
-     *
-     * Screener redirects /company/SYMBOL/ → /company/SYMBOL/consolidated/ (or standalone/).
-     * We track the final URL after the first (main-page) fetch and use it as the base
-     * for subsequent AJAX sub-requests so the URL is correct.
-     */
+    /** Fetches https://www.screener.in/company/{SYMBOL}/{subPath} */
     private String fetchPage(String symbol, String subPath) throws Exception {
         String companyUrl = "https://www.screener.in/company/" + enc(symbol) + "/";
-
-        // For sub-requests (e.g. quick_ratios/), use the post-redirect base URL if known
-        String baseUrl = subPath.isEmpty()
-                ? companyUrl
-                : finalCompanyUrls.getOrDefault(symbol, companyUrl);
-        String url = baseUrl + subPath;
+        String url = companyUrl + subPath;
 
         HttpRequest.Builder req = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("User-Agent", "Mozilla/5.0")
-                .header("Referer", baseUrl)
+                .header("Referer", companyUrl)
                 .timeout(Duration.ofSeconds(20));
 
-        // quick_ratios/ is an AJAX endpoint — must identify as XHR or Screener returns 404
+        // quick_ratios/ and similar are AJAX endpoints — must identify as XHR
         if (!subPath.isEmpty()) {
             req.header("X-Requested-With", "XMLHttpRequest")
                .header("Accept", "*/*");
@@ -178,17 +168,8 @@ public class ScreenerCheckService {
 
         HttpResponse<String> resp = httpClient.send(req.GET().build(),
                 HttpResponse.BodyHandlers.ofString());
-
-        // After loading main page, record the final URL (after Screener's redirect)
-        if (subPath.isEmpty() && resp.statusCode() == 200) {
-            String finalUrl = resp.uri().toString();
-            if (!finalUrl.endsWith("/")) finalUrl += "/";
-            finalCompanyUrls.put(symbol, finalUrl);
-            logger.debug("[ScreenerCheck] Final URL for {}: {}", symbol, finalUrl);
-        }
-
         if (resp.statusCode() != 200) {
-            logger.warn("[ScreenerCheck] HTTP {} for {}{}", resp.statusCode(), symbol, subPath);
+            logger.info("[ScreenerCheck] HTTP {} for {}{}", resp.statusCode(), symbol, subPath);
             return null;
         }
         return resp.body();
