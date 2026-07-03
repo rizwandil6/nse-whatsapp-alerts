@@ -468,13 +468,7 @@ public class ScreenerCheckService {
                 logger.info("[ScreenerCheck] [{}] Computed P/S={} (mktCap={} sales={})",
                         symbol, f(priceSales), (long) marketCap, (long) sales);
             } else {
-                // Dump first 400 chars of P&L section so we can identify the actual revenue row label
-                int plIdx = mainText.indexOf("Profit & Loss");
-                String plSnippet = plIdx >= 0
-                        ? mainText.substring(plIdx, Math.min(plIdx + 400, mainText.length()))
-                        : "(section not found)";
-                logger.info("[ScreenerCheck] [{}] P/S: no revenue row found. P&L section start: [{}]",
-                        symbol, plSnippet);
+                logger.warn("[ScreenerCheck] [{}] P/S: no revenue row found in P&L section", symbol);
             }
         }
 
@@ -615,11 +609,31 @@ public class ScreenerCheckService {
      * This prevents "Sales" in the Quarterly Results table (which appears earlier in the HTML)
      * from shadowing "Sales" in the annual Profit & Loss table.
      *
+     * <p>Screener's page text starts with a navigation tab bar that reads
+     * "Profit &amp; Loss Balance Sheet Cash Flow Ratios …". The first occurrence of
+     * "Profit &amp; Loss" therefore hits this nav bar, not the financial-data table.
+     * We detect this by checking whether "Balance Sheet" immediately follows the
+     * marker (within 60 chars) and, if so, skip that occurrence and try the next one.
+     *
      * @param sectionMarker text that marks the start of the section (e.g. "Profit & Loss")
      * @param rowLabel      the row label to find within that section
      */
     private double sectionRatio(String text, String sectionMarker, String rowLabel) {
-        int sIdx = text.indexOf(sectionMarker);
+        int sIdx = -1;
+        int searchFrom = 0;
+        while (true) {
+            int found = text.indexOf(sectionMarker, searchFrom);
+            if (found < 0) break;
+            // Nav-tab pattern: "Profit & Loss Balance Sheet Cash Flow …" — skip it
+            String peek = text.substring(found + sectionMarker.length(),
+                    Math.min(found + sectionMarker.length() + 60, text.length()));
+            if (peek.contains("Balance Sheet")) {
+                searchFrom = found + 1;
+                continue;
+            }
+            sIdx = found;
+            break;
+        }
         if (sIdx < 0) return Double.NaN;
         // 3 000 chars covers ~9 years of annual data for any row
         String section = text.substring(sIdx, Math.min(sIdx + 3000, text.length()));
