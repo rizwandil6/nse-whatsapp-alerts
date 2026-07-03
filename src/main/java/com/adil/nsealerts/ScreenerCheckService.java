@@ -49,6 +49,9 @@ public class ScreenerCheckService {
     private final CookieManager cookieManager = new CookieManager();
     private final HttpClient httpClient;
     private volatile boolean loggedIn = false;
+    // Screener redirects /company/SYMBOL/ → /company/SYMBOL/consolidated/ (or standalone/).
+    // Track the final URL per symbol so quick_ratios/ uses the correct base.
+    private final java.util.Map<String, String> finalCompanyUrls = new java.util.concurrent.ConcurrentHashMap<>();
 
     public ScreenerCheckService() {
         this.httpClient = HttpClient.newBuilder()
@@ -145,15 +148,26 @@ public class ScreenerCheckService {
 
     // ── Fetch page ────────────────────────────────────────────────────────────
 
-    /** Fetches https://www.screener.in/company/{SYMBOL}/{subPath} */
+    /**
+     * Fetches the Screener company page (or a sub-path like quick_ratios/).
+     *
+     * Screener redirects /company/SYMBOL/ → /company/SYMBOL/consolidated/ (or standalone/).
+     * We track the final URL after the first (main-page) fetch and use it as the base
+     * for subsequent AJAX sub-requests so the URL is correct.
+     */
     private String fetchPage(String symbol, String subPath) throws Exception {
         String companyUrl = "https://www.screener.in/company/" + enc(symbol) + "/";
-        String url = companyUrl + subPath;
+
+        // For sub-requests (e.g. quick_ratios/), use the post-redirect base URL if known
+        String baseUrl = subPath.isEmpty()
+                ? companyUrl
+                : finalCompanyUrls.getOrDefault(symbol, companyUrl);
+        String url = baseUrl + subPath;
 
         HttpRequest.Builder req = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("User-Agent", "Mozilla/5.0")
-                .header("Referer", companyUrl)
+                .header("Referer", baseUrl)
                 .timeout(Duration.ofSeconds(20));
 
         // quick_ratios/ is an AJAX endpoint — must identify as XHR or Screener returns 404
@@ -164,6 +178,15 @@ public class ScreenerCheckService {
 
         HttpResponse<String> resp = httpClient.send(req.GET().build(),
                 HttpResponse.BodyHandlers.ofString());
+
+        // After loading main page, record the final URL (after Screener's redirect)
+        if (subPath.isEmpty() && resp.statusCode() == 200) {
+            String finalUrl = resp.uri().toString();
+            if (!finalUrl.endsWith("/")) finalUrl += "/";
+            finalCompanyUrls.put(symbol, finalUrl);
+            logger.debug("[ScreenerCheck] Final URL for {}: {}", symbol, finalUrl);
+        }
+
         if (resp.statusCode() != 200) {
             logger.warn("[ScreenerCheck] HTTP {} for {}{}", resp.statusCode(), symbol, subPath);
             return null;
