@@ -78,24 +78,10 @@ public class ScreenerCheckService {
             logger.info("[ScreenerCheck] main page fetched ({} chars) for {}", mainHtml.length(), symbol);
             String mainText = htmlToText(mainHtml);
 
-            // quick_ratios/ under /company/ does not exist — the data is JS-rendered.
-            // Try /user/quick_ratios/ (the endpoint referenced in the HTML) with the
-            // company referer so the server knows which company we're asking about.
-            // Also try /company/{symbol}/quick_ratios/ as a last resort (usually 404).
-            String companyReferer = "https://www.screener.in/company/" + enc(symbol) + "/";
-            String qrHtml = fetchAbsoluteUrl(
-                    "https://www.screener.in/user/quick_ratios/?company=" + enc(symbol),
-                    companyReferer);
-            if (qrHtml == null) {
-                qrHtml = fetchAbsoluteUrl("https://www.screener.in/user/quick_ratios/", companyReferer);
-            }
-            if (qrHtml == null) {
-                qrHtml = fetchPage(symbol, "quick_ratios/");  // last resort
-            }
-            String qrText = (qrHtml != null && !qrHtml.isBlank()) ? htmlToText(qrHtml) : "";
-            logger.info("[ScreenerCheck] quick_ratios raw ({} chars): [{}]",
-                    qrText.length(),
-                    qrText.length() > 300 ? qrText.substring(0, 300) : qrText);
+            // The quick_ratios AJAX endpoint is not directly accessible via HTTP without
+            // a headless browser (JS-rendered). /user/quick_ratios/ returns the management page.
+            // All fields we need are parsed from mainText below (server-rendered HTML).
+            String qrText = "";
 
             return buildResult(mainText, qrText, symbol);
         } catch (Exception e) {
@@ -265,41 +251,60 @@ public class ScreenerCheckService {
 
         // ── Main page HTML: Market Cap, Stock P/E, ROCE, ROE, OPM, growth rates ──
         double marketCap      = after(mainText, "Market Cap");
-        double stockPE        = after(mainText, "Stock P/E");   // in main HTML, NOT in quick_ratios
+        double stockPE        = after(mainText, "Stock P/E");
         double roce           = after(mainText, "ROCE");
         double roe            = after(mainText, "ROE");
         double salesGrowth3Y  = growth(mainText, "Sales Growth",  "3 Years");
         double profitGrowth5Y = growth(mainText, "Profit Growth", "5 Years");
         double opm            = ratioLatest(mainText, "OPM %");
 
-        // ── Fields from quick_ratios AJAX (if available) ──
-        double debtEquity  = after(qrText, "Debt to equity");
-        double industryPE  = after(qrText, "Industry PE");
-        double promoter    = after(qrText, "Promoter holding");
-        double pledged     = after(qrText, "Pledged percentage");
-        double evEbitda    = after(qrText, "EVEBITDA");
-        double priceSales  = after(qrText, "Price to Sales");
+        // qrText is empty — no accessible AJAX endpoint; all fields from mainText.
+        double debtEquity  = Double.NaN;
+        double industryPE  = Double.NaN;
+        double promoter    = Double.NaN;
+        double pledged     = Double.NaN;
+        double evEbitda    = Double.NaN;   // JS-rendered; will remain N/A
+        double priceSales  = Double.NaN;   // JS-rendered; will remain N/A
 
-        // ── Fallback: parse fields from main HTML (server-rendered sections) ──
-        // Shareholding Pattern section: "Promoters 65.2 % ..."
-        if (nan(promoter))   promoter   = after(mainText, "Promoters");
-        // Shareholding sub-section for pledged: "Pledged 0.00" or "Pledged percentage"
-        if (nan(pledged)) {
-            pledged = after(mainText, "Pledged percentage");
-            if (nan(pledged)) pledged = after(mainText, "% Pledged");
-            if (nan(pledged)) pledged = after(mainText, "Pledged");
-        }
-        // Balance Sheet / Ratios: "Debt to equity 0.02"
+        // ── Shareholding Pattern (server-rendered) ──
+        // "Promoters 73.91 % 73.91 % ..."
+        promoter = after(mainText, "Promoters");
+        // Pledged sub-row: "Pledged Shares 0.00 %" or "Pledged 0.00 %"
+        pledged = after(mainText, "Pledged Shares");
+        if (nan(pledged)) pledged = after(mainText, "Pledged shares");
+        if (nan(pledged)) pledged = after(mainText, "% Pledged");
+        if (nan(pledged)) pledged = after(mainText, "Pledged");
+
+        // ── Debt/Equity: try label first, then compute from balance sheet ──
+        debtEquity = after(mainText, "Debt to equity");
+        if (nan(debtEquity)) debtEquity = after(mainText, "Debt to Equity");
         if (nan(debtEquity)) {
-            debtEquity = after(mainText, "Debt to equity");
-            if (nan(debtEquity)) debtEquity = after(mainText, "Debt / Equity");
+            // Balance sheet section shows "Borrowings", "Share Capital", "Reserves"
+            // as row labels; first number after each label = most-recent annual value.
+            double borrowings   = after(mainText, "Borrowings");
+            double shareCapital = after(mainText, "Share Capital");
+            double reserves     = after(mainText, "Reserves");
+            if (!nan(borrowings) && !nan(shareCapital) && !nan(reserves)) {
+                double netWorth = shareCapital + reserves;
+                if (netWorth > 0) debtEquity = borrowings / netWorth;
+                logger.info("[ScreenerCheck] [{}] D/E computed: borrowings={} sc={} res={} → debtEq={}",
+                        symbol, borrowings, shareCapital, reserves, debtEquity);
+            }
         }
-        // Peers table: "Ind. PE" or "Industry PE"
-        if (nan(industryPE)) {
-            industryPE = after(mainText, "Ind. PE");
-            if (nan(industryPE)) industryPE = after(mainText, "Industry PE");
-            if (nan(industryPE)) industryPE = after(mainText, "Ind PE");
-        }
+
+        // ── Industry PE: peers section ──
+        industryPE = after(mainText, "Ind. PE");
+        if (nan(industryPE)) industryPE = after(mainText, "Ind. P/E");
+        if (nan(industryPE)) industryPE = after(mainText, "Industry PE");
+        if (nan(industryPE)) industryPE = after(mainText, "Ind PE");
+        if (nan(industryPE)) industryPE = after(mainText, "Industry P/E");
+
+        // ── Diagnostic: log mainText context around key labels ──
+        logLabelCtx(mainText, symbol, "Promoters",    300);  // shareholding section
+        logLabelCtx(mainText, symbol, "Pledged",      200);  // pledged row
+        logLabelCtx(mainText, symbol, "Borrowings",   120);  // balance sheet
+        logLabelCtx(mainText, symbol, "Ind. PE",      150);  // peers section
+        logLabelCtx(mainText, symbol, "Ind. P/E",     100);
         logger.info("[ScreenerCheck] [{}] promoter={} pledged={} debtEq={} indPE={}",
                 symbol, promoter, pledged, debtEquity, industryPE);
 
@@ -341,6 +346,17 @@ public class ScreenerCheckService {
     }
 
     // ── Parsing helpers ───────────────────────────────────────────────────────
+
+    /** Logs the first `window` chars after `label` in mainText (for diagnosis). */
+    private void logLabelCtx(String text, String symbol, String label, int window) {
+        int i = text.indexOf(label);
+        if (i < 0) {
+            logger.info("[ScreenerCheck] [{}] '{}' NOT FOUND", symbol, label);
+        } else {
+            String ctx = text.substring(i, Math.min(i + window, text.length()));
+            logger.info("[ScreenerCheck] [{}] '{}' → [{}]", symbol, label, ctx);
+        }
+    }
 
     /** First number found immediately after `label` in plain text. */
     private double after(String text, String label) {
