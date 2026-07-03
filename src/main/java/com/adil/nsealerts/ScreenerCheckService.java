@@ -75,13 +75,16 @@ public class ScreenerCheckService {
             // Main page — has Market Cap, Stock P/E, ROCE, ROE, OPM, growth rates
             String mainHtml = fetchPage(symbol, "");
             if (mainHtml == null || mainHtml.isBlank()) return "";
+            logger.info("[ScreenerCheck] main page fetched ({} chars) for {}", mainHtml.length(), symbol);
             String mainText = htmlToText(mainHtml);
 
             // quick_ratios/ — the AJAX endpoint that loads Debt/Equity, Industry PE,
             // Promoter Holding, Pledged (these are NOT in the initial HTML)
             String qrHtml  = fetchPage(symbol, "quick_ratios/");
             String qrText  = (qrHtml != null && !qrHtml.isBlank()) ? htmlToText(qrHtml) : "";
-            logger.debug("[ScreenerCheck] quick_ratios snippet: {}", qrText.length() > 200 ? qrText.substring(0, 200) : qrText);
+            logger.info("[ScreenerCheck] quick_ratios raw ({} chars): [{}]",
+                    qrText.length(),
+                    qrText.length() > 300 ? qrText.substring(0, 300) : qrText);
 
             return buildResult(mainText, qrText, symbol);
         } catch (Exception e) {
