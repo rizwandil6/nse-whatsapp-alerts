@@ -157,55 +157,6 @@ public class ScreenerCheckService {
 
     // ── Fetch page ────────────────────────────────────────────────────────────
 
-    /**
-     * Scans the company page HTML for the quick_ratios URL.
-     * Screener embeds the URL in its JS/HTML because it uses numeric company IDs internally.
-     * Patterns tried (Screener may use various formats):
-     *   url: '/company/12345/quick_ratios/'
-     *   href="/company/12345/quick_ratios/"
-     *   "quick_ratios_url": "/company/12345/quick_ratios/"
-     */
-    private String extractQuickRatiosUrl(String html) {
-        // Search for every occurrence of "quick_ratios" in the HTML/JS.
-        // On an AUTHENTICATED company page the JS will contain the actual AJAX URL.
-        // On an unauthenticated page we only see the /user/quick_ratios/?next=... link.
-        int idx = html.indexOf("quick_ratios");
-        while (idx >= 0) {
-            int start = Math.max(0, idx - 80);
-            int end   = Math.min(html.length(), idx + 100);
-            String ctx = html.substring(start, end);
-            logger.info("[ScreenerCheck] quick_ratios ctx: [{}]", ctx.replace("\n", "\\n").replace("\r", ""));
-
-            // Match URLs that are AJAX data endpoints (under /company/, not /user/)
-            Matcher m = Pattern.compile("(/company/[^/\"'\\s]+/(?:consolidated/|standalone/)?quick_ratios/)").matcher(ctx);
-            if (m.find()) {
-                String path = m.group(1);
-                return path.startsWith("http") ? path : "https://www.screener.in" + path;
-            }
-            idx = html.indexOf("quick_ratios", idx + 1);
-        }
-        return null;
-    }
-
-    /** Fetches an absolute URL, setting the XHR headers and provided Referer. */
-    private String fetchAbsoluteUrl(String url, String referer) throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("User-Agent", "Mozilla/5.0")
-                .header("Referer", referer)
-                .header("X-Requested-With", "XMLHttpRequest")
-                .header("Accept", "*/*")
-                .timeout(Duration.ofSeconds(20))
-                .GET().build();
-
-        HttpResponse<String> resp = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        if (resp.statusCode() != 200) {
-            logger.info("[ScreenerCheck] fetchAbsoluteUrl HTTP {} for {}", resp.statusCode(), url);
-            return null;
-        }
-        return resp.body();
-    }
-
     /** Fetches https://www.screener.in/company/{SYMBOL}/{subPath} */
     private String fetchPage(String symbol, String subPath) throws Exception {
         String companyUrl = "https://www.screener.in/company/" + enc(symbol) + "/";
@@ -267,46 +218,39 @@ public class ScreenerCheckService {
         double priceSales  = Double.NaN;   // JS-rendered; will remain N/A
 
         // ── Shareholding Pattern (server-rendered) ──
-        // "Promoters 73.91 % 73.91 % ..."
+        // "Promoters + 73.91% 73.91% ..." — confirmed working in all cases.
         promoter = after(mainText, "Promoters");
-        // Pledged sub-row: "Pledged Shares 0.00 %" or "Pledged 0.00 %"
-        pledged = after(mainText, "Pledged Shares");
-        if (nan(pledged)) pledged = after(mainText, "Pledged shares");
-        if (nan(pledged)) pledged = after(mainText, "% Pledged");
-        if (nan(pledged)) pledged = after(mainText, "Pledged");
+        // Pledged is JS-rendered and NOT present in the initial HTML (confirmed for 7
+        // companies). pledged stays NaN → shown as ❓ N/A.
 
-        // ── Debt/Equity: try label first, then compute from balance sheet ──
+        // ── Debt/Equity: compute from balance sheet ──
+        // Screener's balance sheet shows annual values oldest→newest (left→right).
+        // ratioLatest() picks the LAST number in each row = most-recent year.
+        // "Equity Capital" is the label Screener uses (not "Share Capital").
+        // Confirmed present: "Borrowings". Need to verify "Equity Capital" / "Reserves".
         debtEquity = after(mainText, "Debt to equity");
         if (nan(debtEquity)) debtEquity = after(mainText, "Debt to Equity");
         if (nan(debtEquity)) {
-            // Balance sheet section shows "Borrowings", "Share Capital", "Reserves"
-            // as row labels; first number after each label = most-recent annual value.
-            double borrowings   = after(mainText, "Borrowings");
-            double shareCapital = after(mainText, "Share Capital");
-            double reserves     = after(mainText, "Reserves");
-            if (!nan(borrowings) && !nan(shareCapital) && !nan(reserves)) {
-                double netWorth = shareCapital + reserves;
+            double borrowings   = ratioLatest(mainText, "Borrowings");
+            double equityCapital = ratioLatest(mainText, "Equity Capital");
+            if (nan(equityCapital)) equityCapital = ratioLatest(mainText, "Share Capital");
+            double reserves     = ratioLatest(mainText, "Reserves");
+            logger.info("[ScreenerCheck] [{}] BS parse: borrowings={} equityCap={} reserves={}",
+                    symbol, borrowings, equityCapital, reserves);
+            if (!nan(borrowings) && !nan(equityCapital) && !nan(reserves)) {
+                double netWorth = equityCapital + reserves;
                 if (netWorth > 0) debtEquity = borrowings / netWorth;
-                logger.info("[ScreenerCheck] [{}] D/E computed: borrowings={} sc={} res={} → debtEq={}",
-                        symbol, borrowings, shareCapital, reserves, debtEquity);
             }
         }
 
-        // ── Industry PE: peers section ──
-        industryPE = after(mainText, "Ind. PE");
-        if (nan(industryPE)) industryPE = after(mainText, "Ind. P/E");
-        if (nan(industryPE)) industryPE = after(mainText, "Industry PE");
-        if (nan(industryPE)) industryPE = after(mainText, "Ind PE");
-        if (nan(industryPE)) industryPE = after(mainText, "Industry P/E");
+        // Industry PE and Pledged are JS-rendered; not in server HTML.
+        // industryPE and pledged remain NaN → shown as ❓ N/A.
 
-        // ── Diagnostic: log mainText context around key labels ──
-        logLabelCtx(mainText, symbol, "Promoters",    300);  // shareholding section
-        logLabelCtx(mainText, symbol, "Pledged",      200);  // pledged row
-        logLabelCtx(mainText, symbol, "Borrowings",   120);  // balance sheet
-        logLabelCtx(mainText, symbol, "Ind. PE",      150);  // peers section
-        logLabelCtx(mainText, symbol, "Ind. P/E",     100);
         logger.info("[ScreenerCheck] [{}] promoter={} pledged={} debtEq={} indPE={}",
                 symbol, promoter, pledged, debtEquity, industryPE);
+        // Diagnostic: confirm balance sheet labels present (remove after D/E is stable)
+        logLabelCtx(mainText, symbol, "Equity Capital", 120);
+        logLabelCtx(mainText, symbol, "Reserves",       120);
 
         // ── Derived ──
         double peg = (!nan(stockPE) && !nan(profitGrowth5Y) && profitGrowth5Y > 0)
