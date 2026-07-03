@@ -48,11 +48,13 @@ public class NewsPoller {
             .build();
 
     // Real-time RSS feeds — articles appear within 2-5 min of publication, no API key needed
+    // ET feeds block automated requests (return HTML). Reuters shut down feeds.reuters.com in 2020.
+    // Using feeds that reliably serve valid XML:
     private static final String[] RSS_FEEDS = {
-        "https://economictimes.indiatimes.com/markets/rss.cms",       // ET Markets
-        "https://economictimes.indiatimes.com/economy/rss.cms",       // ET Economy/Macro
-        "https://feeds.reuters.com/reuters/businessNews",              // Reuters Global Business
-        "https://www.moneycontrol.com/rss/latestnews.xml",            // Moneycontrol India
+        "https://www.moneycontrol.com/rss/latestnews.xml",                 // Moneycontrol India
+        "https://www.business-standard.com/rss/markets-106.rss",           // Business Standard Markets
+        "https://www.business-standard.com/rss/economy-policy-102.rss",    // BS Economy/Policy
+        "https://www.thehindubusinessline.com/markets/?service=rss",       // Hindu BusinessLine Markets
     };
 
     private static final String WATCHLIST_STOCKS =
@@ -126,10 +128,22 @@ public class NewsPoller {
             throw new RuntimeException("HTTP " + response.statusCode());
         }
 
+        // Guard: skip if response is HTML (blocked/redirected) rather than XML
+        String body = response.body();
+        String trimmed = body.stripLeading();
+        if (trimmed.startsWith("<!DOCTYPE html") || trimmed.startsWith("<html")) {
+            throw new RuntimeException("Feed returned HTML instead of XML (likely blocked)");
+        }
+        if (!trimmed.startsWith("<?xml") && !trimmed.startsWith("<rss") && !trimmed.startsWith("<feed")) {
+            throw new RuntimeException("Unexpected response format (not XML/RSS)");
+        }
+
         // Derive source name from URL
-        String source = feedUrl.contains("economictimes") ? "Economic Times"
-                      : feedUrl.contains("reuters")       ? "Reuters"
-                      : feedUrl.contains("moneycontrol")  ? "Moneycontrol"
+        String source = feedUrl.contains("moneycontrol")      ? "Moneycontrol"
+                      : feedUrl.contains("business-standard")  ? "Business Standard"
+                      : feedUrl.contains("thehindubusinessline") ? "BusinessLine"
+                      : feedUrl.contains("economictimes")      ? "Economic Times"
+                      : feedUrl.contains("reuters")            ? "Reuters"
                       : feedUrl;
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -138,7 +152,7 @@ public class NewsPoller {
         factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
         DocumentBuilder builder = factory.newDocumentBuilder();
 
-        byte[] bytes = response.body().getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
         Document doc = builder.parse(new ByteArrayInputStream(bytes));
         doc.getDocumentElement().normalize();
 
