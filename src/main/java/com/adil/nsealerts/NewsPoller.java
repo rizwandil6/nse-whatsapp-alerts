@@ -7,9 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.ByteArrayInputStream;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -19,7 +24,11 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @Component
@@ -27,9 +36,7 @@ public class NewsPoller {
     private static final Logger logger = LoggerFactory.getLogger(NewsPoller.class);
     private final ObjectMapper mapper = new ObjectMapper();
     private final Set<String> seenUrls = new HashSet<>();
-
-    @Value("${news.api-key:}")
-    private String newsApiKey;
+    private volatile boolean newsSeedCompleted = false;
 
     @Value("${anthropic.api-key:}")
     private String anthropicApiKey;
@@ -40,6 +47,14 @@ public class NewsPoller {
             .connectTimeout(Duration.ofSeconds(15))
             .build();
 
+    // Real-time RSS feeds — articles appear within 2-5 min of publication, no API key needed
+    private static final String[] RSS_FEEDS = {
+        "https://economictimes.indiatimes.com/markets/rss.cms",       // ET Markets
+        "https://economictimes.indiatimes.com/economy/rss.cms",       // ET Economy/Macro
+        "https://feeds.reuters.com/reuters/businessNews",              // Reuters Global Business
+        "https://www.moneycontrol.com/rss/latestnews.xml",            // Moneycontrol India
+    };
+
     private static final String WATCHLIST_STOCKS =
             "CONCOR, HATHWAY, NHPC, JSWINFRA, JKIL, SUZLON, WAAREEENER, OLAELEC, " +
             "HINDCOPPER, MHRIL, RVNL, RAILTEL, GAIL, ADSL, ARE&M, NCC, STERTOOLS, " +
@@ -49,91 +64,135 @@ public class NewsPoller {
             "RELIANCE, TCS, HDFCBANK, ICICIBANK, INFY, LT, WIPRO, BAJFINANCE, " +
             "MARUTI, TATAMOTORS, SUNPHARMA, ONGC, NTPC, POWERGRID, SBIN, AXISBANK, ITC";
 
-    // Combined query — global macro + India specific (single request per poll)
-    private static final String QUERY =
-            "\"Federal Reserve\" OR \"FOMC\" OR \"CPI\" OR \"inflation data\" OR " +
-            "\"trade war\" OR \"tariff\" OR \"OPEC\" OR \"crude oil\" OR " +
-            "\"sanctions\" OR \"recession risk\" OR \"GDP data\" OR " +
-            "\"RBI\" OR \"Reserve Bank of India\" OR \"SEBI\" OR " +
-            "\"Indian rupee\" OR \"Nifty\" OR \"FII\" OR \"capital outflows\" OR " +
-            "\"geopolitical risk\" OR \"military conflict\"";
+    // RSS pub-date formats
+    private static final DateTimeFormatter RFC_822 =
+            DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+    private static final DateTimeFormatter RFC_822_NO_DOW =
+            DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 
     public NewsPoller(TelegramSender telegramSender) {
         this.telegramSender = telegramSender;
     }
 
-    // Free-tier NewsAPI has ~24h delay on `from` filter — it always returns 0 results.
-    // Strategy: fetch latest 30 articles per poll (sorted by publishedAt), deduplicate
-    // via seenUrls. First poll seeds the set silently; subsequent polls alert on new ones.
-    private volatile boolean newsSeedCompleted = false;
+    record NewsItem(String title, String description, String url, String source, String publishedAt) {}
 
-    @Scheduled(fixedDelay = 15 * 60 * 1000)  // every 15 minutes
+    @Scheduled(fixedDelay = 15 * 60 * 1000)
     public void pollNews() {
-        if (newsApiKey == null || newsApiKey.isBlank()) {
-            logger.debug("[News] API key not configured — skipping");
+        if (anthropicApiKey == null || anthropicApiKey.isBlank()) {
+            logger.debug("[News] Anthropic key not configured — skipping");
             return;
         }
 
-        try {
-            String encodedQ = URLEncoder.encode(QUERY, StandardCharsets.UTF_8);
-            String url = "https://newsapi.org/v2/everything"
-                    + "?q=" + encodedQ
-                    + "&language=en"
-                    + "&sortBy=publishedAt"
-                    + "&pageSize=30"
-                    + "&apiKey=" + newsApiKey;
+        List<NewsItem> newItems = new ArrayList<>();
 
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .timeout(Duration.ofSeconds(15))
-                    .header("User-Agent", "NSEAlertsApp/1.0")
-                    .GET()
-                    .build();
-
-            HttpResponse<String> response =
-                    HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-
-            if (response.statusCode() != 200) {
-                logger.warn("[News] NewsAPI returned status {}: {}", response.statusCode(), response.body());
-                return;
+        for (String feedUrl : RSS_FEEDS) {
+            try {
+                List<NewsItem> items = fetchRss(feedUrl);
+                for (NewsItem item : items) {
+                    if (seenUrls.contains(item.url())) continue;
+                    seenUrls.add(item.url());
+                    newItems.add(item);
+                }
+            } catch (Exception e) {
+                logger.warn("[News] Failed to fetch {}: {}", feedUrl, e.getMessage());
             }
+        }
 
-            JsonNode root     = mapper.readTree(response.body());
-            JsonNode articles = root.path("articles");
-            logger.info("[News] Fetched {} articles (seed={})", articles.size(), !newsSeedCompleted);
+        logger.info("[News] {} new articles across all feeds (seed={})", newItems.size(), !newsSeedCompleted);
 
-            for (JsonNode article : articles) {
-                String articleUrl   = article.path("url").asText("").trim();
-                String title        = article.path("title").asText("").trim();
-                String description  = article.path("description").asText("").trim();
-                String source       = article.path("source").path("name").asText("Unknown");
-                String publishedAt  = article.path("publishedAt").asText("");
-
-                if (articleUrl.isBlank() || title.isBlank() || title.equals("[Removed]")) continue;
-                if (seenUrls.contains(articleUrl)) continue;
-                seenUrls.add(articleUrl);
-
-                if (!newsSeedCompleted) continue;  // first poll: seed seenUrls silently
-
-                analyzeAndAlert(title, description, source, articleUrl, publishedAt);
-            }
-
+        if (!newsSeedCompleted) {
             newsSeedCompleted = true;
+            logger.info("[News] Seed complete — {} articles cached silently", newItems.size());
+            return;
+        }
 
-        } catch (Exception e) {
-            logger.error("[News] Poll failed: {}", e.getMessage());
+        for (NewsItem item : newItems) {
+            analyzeAndAlert(item);
         }
     }
 
-    private void analyzeAndAlert(String title, String description,
-                                  String source, String url, String publishedAt) {
-        if (anthropicApiKey == null || anthropicApiKey.isBlank()) return;
+    private List<NewsItem> fetchRss(String feedUrl) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(feedUrl))
+                .timeout(Duration.ofSeconds(15))
+                .header("User-Agent", "NSEAlertsApp/1.0")
+                .GET()
+                .build();
+
+        HttpResponse<String> response =
+                HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 200) {
+            throw new RuntimeException("HTTP " + response.statusCode());
+        }
+
+        // Derive source name from URL
+        String source = feedUrl.contains("economictimes") ? "Economic Times"
+                      : feedUrl.contains("reuters")       ? "Reuters"
+                      : feedUrl.contains("moneycontrol")  ? "Moneycontrol"
+                      : feedUrl;
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false);
+        factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        DocumentBuilder builder = factory.newDocumentBuilder();
+
+        byte[] bytes = response.body().getBytes(StandardCharsets.UTF_8);
+        Document doc = builder.parse(new ByteArrayInputStream(bytes));
+        doc.getDocumentElement().normalize();
+
+        NodeList items = doc.getElementsByTagName("item");
+        List<NewsItem> result = new ArrayList<>();
+
+        for (int i = 0; i < items.getLength(); i++) {
+            Element el = (Element) items.item(i);
+            String title       = text(el, "title");
+            String link        = text(el, "link");
+            String description = text(el, "description");
+            String pubDate     = text(el, "pubDate");
+            String guid        = text(el, "guid");
+
+            String url = link.isBlank() ? guid : link;
+            if (url.isBlank() || title.isBlank() || title.equals("[Removed]")) continue;
+
+            // Normalise pubDate to IST string
+            String publishedAt = parseRssDate(pubDate);
+
+            result.add(new NewsItem(title, description, url, source, publishedAt));
+        }
+        return result;
+    }
+
+    private String text(Element el, String tag) {
+        NodeList nl = el.getElementsByTagName(tag);
+        if (nl.getLength() == 0) return "";
+        return nl.item(0).getTextContent().trim();
+    }
+
+    private String parseRssDate(String raw) {
+        if (raw == null || raw.isBlank()) return "";
         try {
-            String prompt       = buildPrompt(title, description);
+            ZonedDateTime zdt = ZonedDateTime.parse(raw.trim(), RFC_822);
+            return zdt.withZoneSameInstant(ZoneId.of("Asia/Kolkata"))
+                      .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm")) + " IST";
+        } catch (DateTimeParseException e1) {
+            try {
+                ZonedDateTime zdt = ZonedDateTime.parse(raw.trim(), RFC_822_NO_DOW);
+                return zdt.withZoneSameInstant(ZoneId.of("Asia/Kolkata"))
+                          .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm")) + " IST";
+            } catch (Exception e2) {
+                return raw;
+            }
+        }
+    }
+
+    private void analyzeAndAlert(NewsItem item) {
+        try {
+            String prompt       = buildPrompt(item.title(), item.description());
             String responseText = callAnthropic(prompt);
             if (responseText == null || responseText.isBlank()) return;
 
-            // Strip markdown code block if present
             String json = responseText.trim();
             if (json.startsWith("```")) {
                 int start = json.indexOf('\n') + 1;
@@ -143,16 +202,16 @@ public class NewsPoller {
 
             JsonNode result = mapper.readTree(json);
             int score = result.path("impact_score").asInt(0);
-            logger.info("[News] Scored {}/10: {}", score, title);
+            logger.info("[News] Scored {}/10: {}", score, item.title());
 
             if (score < 7) return;
 
-            String message = buildMessage(result, title, source, url, publishedAt);
+            String message = buildMessage(result, item);
             telegramSender.send(message);
-            logger.info("[News] Alert sent: {}", title);
+            logger.info("[News] Alert sent: {}", item.title());
 
         } catch (Exception e) {
-            logger.warn("[News] Analysis failed for '{}': {}", title, e.getMessage());
+            logger.warn("[News] Analysis failed for '{}': {}", item.title(), e.getMessage());
         }
     }
 
@@ -211,26 +270,15 @@ public class NewsPoller {
         return mapper.readTree(response.body()).at("/content/0/text").asText();
     }
 
-    private String buildMessage(JsonNode result, String title, String source,
-                                 String url, String publishedAt) {
-        String timeStr;
-        try {
-            ZonedDateTime ist = Instant.parse(publishedAt)
-                    .atZone(ZoneId.of("Asia/Kolkata"));
-            timeStr = ist.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm")) + " IST";
-        } catch (Exception e) {
-            timeStr = publishedAt;
-        }
-
+    private String buildMessage(JsonNode result, NewsItem item) {
         StringBuilder sb = new StringBuilder();
         sb.append("🚨 Market Alert — Breaking News\n");
-        sb.append(timeStr).append("\n\n");
-        sb.append(title).append("\n\n");
+        sb.append(item.publishedAt().isBlank() ? "" : item.publishedAt() + "\n");
+        sb.append("\n").append(item.title()).append("\n\n");
 
         String impact = result.path("market_impact").asText("");
         if (!impact.isBlank()) sb.append(impact).append("\n");
 
-        // Sectors
         JsonNode sectors = result.path("sectors_affected");
         if (sectors.isArray() && sectors.size() > 0) {
             sb.append("\nSectors:\n");
@@ -242,7 +290,6 @@ public class NewsPoller {
             }
         }
 
-        // Stocks
         JsonNode stocks = result.path("stocks_affected");
         if (stocks.isArray() && stocks.size() > 0) {
             sb.append("\nStocks:\n");
@@ -254,8 +301,8 @@ public class NewsPoller {
             }
         }
 
-        sb.append("\nSource: ").append(source).append("\n");
-        sb.append("Link: ").append(url);
+        sb.append("\nSource: ").append(item.source()).append("\n");
+        sb.append("Link: ").append(item.url());
         return sb.toString();
     }
 }
