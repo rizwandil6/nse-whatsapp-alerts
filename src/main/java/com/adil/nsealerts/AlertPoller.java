@@ -38,6 +38,7 @@ public class AlertPoller {
     private final FundamentalScreener fundamentalScreener;
     private final PromptRatingService promptRatingService;
     private final PdfExtractor pdfExtractor;
+    private final ScreenerCheckService screenerCheckService;
     private final boolean screeningEnabled;
     private final boolean ignoreSme;
 
@@ -58,12 +59,14 @@ public class AlertPoller {
                        FundamentalScreener fundamentalScreener,
                        PromptRatingService promptRatingService,
                        PdfExtractor pdfExtractor,
+                       ScreenerCheckService screenerCheckService,
                        org.springframework.core.env.Environment env) {
         this.nseClient = nseClient;
         this.telegramSender = telegramSender;
         this.fundamentalScreener = fundamentalScreener;
         this.promptRatingService = promptRatingService;
         this.pdfExtractor = pdfExtractor;
+        this.screenerCheckService = screenerCheckService;
         this.screeningEnabled = Boolean.parseBoolean(env.getProperty("screening.enabled", "true"));
         this.ignoreSme = Boolean.parseBoolean(env.getProperty("nse.ignore-sme", "true"));
 
@@ -288,7 +291,7 @@ public class AlertPoller {
             sb.append("Source: ").append(ctx.link()).append("\n");
         }
 
-        // Fundamental analysis
+        // Fundamental analysis (existing screener)
         if (screeningEnabled) {
             FundamentalResult fr = fundamentalScreener.analyze(ctx.companyName());
             if (fr != null && fr.isAvailable()) {
@@ -297,6 +300,12 @@ public class AlertPoller {
             } else if (fr != null && fr.getUnavailableMessage() != null) {
                 sb.append("\n").append(fr.getUnavailableMessage()).append("\n");
             }
+        }
+
+        // 13-criteria check from Screener.in
+        String check13 = screenerCheckService.check(ctx.symbol());
+        if (check13 != null && !check13.isBlank()) {
+            sb.append(check13);
         }
 
         return sb.toString();
