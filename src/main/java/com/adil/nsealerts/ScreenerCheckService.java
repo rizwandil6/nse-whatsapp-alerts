@@ -81,15 +81,19 @@ public class ScreenerCheckService {
             // The actual quick_ratios endpoint uses a NUMERIC company ID, not the symbol.
             // The ID is embedded in the main page HTML and can be extracted via regex.
             // Endpoint: https://www.screener.in/api/company/{ID}/quick_ratios/
-            String companyId = extractCompanyId(mainHtml);
+            String companyId = extractCompanyId(mainHtml, symbol);
             String qrHtml = null;
             if (companyId != null) {
                 String referer = "https://www.screener.in/company/" + enc(symbol) + "/";
                 qrHtml = fetchAbsoluteUrl(
                         "https://www.screener.in/api/company/" + companyId + "/quick_ratios/",
                         referer);
-                logger.info("[ScreenerCheck] [{}] companyId={} qrHtml={} chars",
-                        symbol, companyId, qrHtml != null ? qrHtml.length() : 0);
+                int qrLen = qrHtml != null ? qrHtml.length() : 0;
+                logger.info("[ScreenerCheck] [{}] companyId={} qrHtml={} chars", symbol, companyId, qrLen);
+                // Log short responses verbatim so we can diagnose empty/error replies
+                if (qrHtml != null && qrLen < 50) {
+                    logger.warn("[ScreenerCheck] [{}] qrHtml short content: [{}]", symbol, qrHtml);
+                }
             } else {
                 logger.warn("[ScreenerCheck] [{}] could not extract numeric company ID", symbol);
             }
@@ -170,14 +174,30 @@ public class ScreenerCheckService {
 
     /**
      * Extracts Screener's internal numeric company ID from the main page HTML.
-     * The ID is embedded in API URLs within the page (e.g. /api/company/6320575/peers/).
-     * Company IDs are 5–8 digit numbers.
+     *
+     * Screener embeds the quick_ratios URL in the page as a data-url or x-data attribute
+     * that Alpine.js uses to make the AJAX call.  Searching for the exact endpoint path
+     * is the most reliable approach — it gives us the ID that Screener itself uses.
      */
-    private String extractCompanyId(String html) {
-        // Most reliable: /api/company/{ID}/ appears in multiple AJAX links on the page
-        Matcher m = Pattern.compile("/api/company/(\\d{5,8})/").matcher(html);
-        if (m.find()) return m.group(1);
-        // Fallback: data attribute on the company container
+    private String extractCompanyId(String html, String symbol) {
+        // Most specific: the quick_ratios URL is embedded in the HTML as a data attribute.
+        // e.g.  data-url="/api/company/6320575/quick_ratios/"
+        Matcher m = Pattern.compile("/api/company/(\\d+)/quick_ratios/").matcher(html);
+        if (m.find()) {
+            logger.info("[ScreenerCheck] [{}] companyId via quick_ratios URL: {}", symbol, m.group(1));
+            return m.group(1);
+        }
+        // Fallback: any /api/company/{ID}/ reference.
+        // WARNING: peers section may reference OTHER companies; log for diagnosis.
+        m = Pattern.compile("/api/company/(\\d+)/").matcher(html);
+        if (m.find()) {
+            String id = m.group(1);
+            int idx = m.start();
+            String ctx = html.substring(idx, Math.min(idx + 80, html.length()));
+            logger.warn("[ScreenerCheck] [{}] companyId fallback {}; ctx=[{}]", symbol, id, ctx);
+            return id;
+        }
+        // Wider fallback: data attributes
         m = Pattern.compile("data-company[_-]id=[\"'](\\d+)[\"']").matcher(html);
         if (m.find()) return m.group(1);
         return null;
@@ -287,17 +307,19 @@ public class ScreenerCheckService {
         if (qrHtml != null && !qrHtml.isBlank()) {
             debtEquity = parseQR(qrHtml, "Debt to equity");
             industryPE = parseQR(qrHtml, "Industry PE");
-            promoter   = parseQR(qrHtml, "Promoter holding");
+            // NOTE: skip "Promoter holding" from QR — it uses a different calculation
+            // basis than the shareholding table (verified mismatches across companies).
+            // We always source promoter from the server-rendered shareholding section.
             pledged    = parseQR(qrHtml, "Pledged percentage");
             evEbitda   = parseQR(qrHtml, "EVEBITDA");
             priceSales = parseQR(qrHtml, "Price to Sales");
-            logger.info("[ScreenerCheck] [{}] QR → debtEq={} indPE={} promo={} pledged={} ev={} ps={}",
-                    symbol, debtEquity, industryPE, promoter, pledged, evEbitda, priceSales);
+            logger.info("[ScreenerCheck] [{}] QR → debtEq={} indPE={} pledged={} ev={} ps={}",
+                    symbol, debtEquity, industryPE, pledged, evEbitda, priceSales);
         }
 
-        // ── Fallback to server-rendered mainText for critical fields ──
-        // Promoter: "Promoters + 73.91% ..." is always server-rendered.
-        if (nan(promoter)) promoter = after(mainText, "Promoters");
+        // ── Server-rendered mainText sources (always reliable) ──
+        // Promoter: "Promoters + 73.91% ..." is always in the shareholding section.
+        promoter = after(mainText, "Promoters");
         // Debt/Equity: compute from balance sheet if API didn't provide it.
         if (nan(debtEquity)) {
             double borrowings    = ratioLatest(mainText, "Borrowings");
