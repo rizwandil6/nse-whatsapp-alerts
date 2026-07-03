@@ -78,12 +78,23 @@ public class ScreenerCheckService {
             logger.info("[ScreenerCheck] main page fetched ({} chars) for {}", mainHtml.length(), symbol);
             String mainText = htmlToText(mainHtml);
 
-            // The quick_ratios AJAX endpoint is not directly accessible via HTTP without
-            // a headless browser (JS-rendered). /user/quick_ratios/ returns the management page.
-            // All fields we need are parsed from mainText below (server-rendered HTML).
-            String qrText = "";
+            // The actual quick_ratios endpoint uses a NUMERIC company ID, not the symbol.
+            // The ID is embedded in the main page HTML and can be extracted via regex.
+            // Endpoint: https://www.screener.in/api/company/{ID}/quick_ratios/
+            String companyId = extractCompanyId(mainHtml);
+            String qrHtml = null;
+            if (companyId != null) {
+                String referer = "https://www.screener.in/company/" + enc(symbol) + "/";
+                qrHtml = fetchAbsoluteUrl(
+                        "https://www.screener.in/api/company/" + companyId + "/quick_ratios/",
+                        referer);
+                logger.info("[ScreenerCheck] [{}] companyId={} qrHtml={} chars",
+                        symbol, companyId, qrHtml != null ? qrHtml.length() : 0);
+            } else {
+                logger.warn("[ScreenerCheck] [{}] could not extract numeric company ID", symbol);
+            }
 
-            return buildResult(mainText, qrText, symbol);
+            return buildResult(mainText, qrHtml, symbol);
         } catch (Exception e) {
             logger.warn("[ScreenerCheck] Failed for {}: {}", symbol, e.getMessage());
             return "";
@@ -157,6 +168,60 @@ public class ScreenerCheckService {
 
     // ── Fetch page ────────────────────────────────────────────────────────────
 
+    /**
+     * Extracts Screener's internal numeric company ID from the main page HTML.
+     * The ID is embedded in API URLs within the page (e.g. /api/company/6320575/peers/).
+     * Company IDs are 5–8 digit numbers.
+     */
+    private String extractCompanyId(String html) {
+        // Most reliable: /api/company/{ID}/ appears in multiple AJAX links on the page
+        Matcher m = Pattern.compile("/api/company/(\\d{5,8})/").matcher(html);
+        if (m.find()) return m.group(1);
+        // Fallback: data attribute on the company container
+        m = Pattern.compile("data-company[_-]id=[\"'](\\d+)[\"']").matcher(html);
+        if (m.find()) return m.group(1);
+        return null;
+    }
+
+    /** Fetches an absolute URL with Referer + XHR headers; returns null on non-200. */
+    private String fetchAbsoluteUrl(String url, String referer) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("User-Agent", "Mozilla/5.0")
+                .header("Referer", referer)
+                .header("X-Requested-With", "XMLHttpRequest")
+                .header("Accept", "text/html,*/*")
+                .timeout(Duration.ofSeconds(20))
+                .GET().build();
+        HttpResponse<String> resp = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        if (resp.statusCode() != 200) {
+            logger.info("[ScreenerCheck] HTTP {} for {}", resp.statusCode(), url);
+            return null;
+        }
+        return resp.body();
+    }
+
+    /**
+     * Parses a named ratio from the quick_ratios HTML response.
+     * Each entry looks like:
+     *   <span class="name">Industry PE</span>
+     *   ...
+     *   <span class="number">17.7</span>
+     */
+    private double parseQR(String html, String ratioName) {
+        // Find the ratio name label, then look for the first <span class="number"> after it.
+        String escaped = Pattern.quote(ratioName);
+        Matcher m = Pattern.compile(
+                "class=\"name\"[^>]*>\\s*" + escaped + "\\s*</span>" +
+                ".*?class=\"number\"[^>]*>([\\d,\\.]+)</span>",
+                Pattern.DOTALL).matcher(html);
+        if (m.find()) {
+            try { return Double.parseDouble(m.group(1).replace(",", "")); }
+            catch (NumberFormatException ignored) {}
+        }
+        return Double.NaN;
+    }
+
     /** Fetches https://www.screener.in/company/{SYMBOL}/{subPath} */
     private String fetchPage(String symbol, String subPath) throws Exception {
         String companyUrl = "https://www.screener.in/company/" + enc(symbol) + "/";
@@ -198,7 +263,7 @@ public class ScreenerCheckService {
 
     // ── 13-criteria evaluation ────────────────────────────────────────────────
 
-    private String buildResult(String mainText, String qrText, String symbol) {
+    private String buildResult(String mainText, String qrHtml, String symbol) {
 
         // ── Main page HTML: Market Cap, Stock P/E, ROCE, ROE, OPM, growth rates ──
         double marketCap      = after(mainText, "Market Cap");
@@ -209,52 +274,57 @@ public class ScreenerCheckService {
         double profitGrowth5Y = growth(mainText, "Profit Growth", "5 Years");
         double opm            = ratioLatest(mainText, "OPM %");
 
-        // qrText is empty — no accessible AJAX endpoint; all fields from mainText.
+        // ── /api/company/{ID}/quick_ratios/ (real per-company endpoint) ──
+        // Returns HTML <li data-source="quick-ratio"> items with <span class="name"> and
+        // <span class="number">. Labels match exactly what Screener shows on the page.
         double debtEquity  = Double.NaN;
         double industryPE  = Double.NaN;
         double promoter    = Double.NaN;
         double pledged     = Double.NaN;
-        double evEbitda    = Double.NaN;   // JS-rendered; will remain N/A
-        double priceSales  = Double.NaN;   // JS-rendered; will remain N/A
+        double evEbitda    = Double.NaN;
+        double priceSales  = Double.NaN;
 
-        // ── Shareholding Pattern (server-rendered) ──
-        // "Promoters + 73.91% 73.91% ..." — confirmed working in all cases.
-        promoter = after(mainText, "Promoters");
-        // Pledged is JS-rendered and NOT present in the initial HTML (confirmed for 7
-        // companies). pledged stays NaN → shown as ❓ N/A.
+        if (qrHtml != null && !qrHtml.isBlank()) {
+            debtEquity = parseQR(qrHtml, "Debt to equity");
+            industryPE = parseQR(qrHtml, "Industry PE");
+            promoter   = parseQR(qrHtml, "Promoter holding");
+            pledged    = parseQR(qrHtml, "Pledged percentage");
+            evEbitda   = parseQR(qrHtml, "EVEBITDA");
+            priceSales = parseQR(qrHtml, "Price to Sales");
+            logger.info("[ScreenerCheck] [{}] QR → debtEq={} indPE={} promo={} pledged={} ev={} ps={}",
+                    symbol, debtEquity, industryPE, promoter, pledged, evEbitda, priceSales);
+        }
 
-        // ── Debt/Equity: compute from balance sheet ──
-        // Screener's balance sheet shows annual values oldest→newest (left→right).
-        // ratioLatest() picks the LAST number in each row = most-recent year.
-        // "Equity Capital" is the label Screener uses (not "Share Capital").
-        // Confirmed present: "Borrowings". Need to verify "Equity Capital" / "Reserves".
-        debtEquity = after(mainText, "Debt to equity");
-        if (nan(debtEquity)) debtEquity = after(mainText, "Debt to Equity");
+        // ── Fallback to server-rendered mainText for critical fields ──
+        // Promoter: "Promoters + 73.91% ..." is always server-rendered.
+        if (nan(promoter)) promoter = after(mainText, "Promoters");
+        // Debt/Equity: compute from balance sheet if API didn't provide it.
         if (nan(debtEquity)) {
-            double borrowings   = ratioLatest(mainText, "Borrowings");
+            double borrowings    = ratioLatest(mainText, "Borrowings");
             double equityCapital = ratioLatest(mainText, "Equity Capital");
             if (nan(equityCapital)) equityCapital = ratioLatest(mainText, "Share Capital");
-            double reserves     = ratioLatest(mainText, "Reserves");
-            logger.info("[ScreenerCheck] [{}] BS parse: borrowings={} equityCap={} reserves={}",
-                    symbol, borrowings, equityCapital, reserves);
+            double reserves      = ratioLatest(mainText, "Reserves");
             if (!nan(borrowings) && !nan(equityCapital) && !nan(reserves)) {
                 double netWorth = equityCapital + reserves;
                 if (netWorth > 0) debtEquity = borrowings / netWorth;
             }
         }
 
-        // Industry PE and Pledged are JS-rendered; not in server HTML.
-        // industryPE and pledged remain NaN → shown as ❓ N/A.
-
         logger.info("[ScreenerCheck] [{}] promoter={} pledged={} debtEq={} indPE={}",
                 symbol, promoter, pledged, debtEquity, industryPE);
-        // Diagnostic: confirm balance sheet labels present (remove after D/E is stable)
-        logLabelCtx(mainText, symbol, "Equity Capital", 120);
-        logLabelCtx(mainText, symbol, "Reserves",       120);
 
         // ── Derived ──
         double peg = (!nan(stockPE) && !nan(profitGrowth5Y) && profitGrowth5Y > 0)
                 ? stockPE / profitGrowth5Y : Double.NaN;
+
+        // 4 criteria are JS-rendered on Screener and cannot be obtained via plain HTTP:
+        // PE/Ind PE (industryPE), Pledged, Price/Sales, EV/EBITDA.
+        // Score denominator = evaluatable criteria only so the verdict is meaningful.
+        int naCount = ((nan(stockPE) || nan(industryPE)) ? 1 : 0)
+                    + (nan(pledged)    ? 1 : 0)
+                    + (nan(priceSales) ? 1 : 0)
+                    + (nan(evEbitda)   ? 1 : 0);
+        int evaluatable = 13 - naCount;   // currently 9
 
         StringBuilder sb = new StringBuilder();
         sb.append("\n🔍 Screener.in Check — ").append(symbol).append("\n");
@@ -274,8 +344,12 @@ public class ScreenerCheckService {
         pass += row(sb, "Price/Sales",   f(priceSales),                       priceSales < 10,                                             "< 10",          nan(priceSales));
         pass += row(sb, "EV/EBITDA",     f(evEbitda),                         evEbitda < 25,                                               "< 25",          nan(evEbitda));
 
-        String verdict = pass >= 11 ? "Strong Buy" : pass >= 8 ? "Moderate" : "Avoid";
-        sb.append("Score: ").append(pass).append("/13 — ").append(verdict);
+        // Thresholds proportional to evaluatable count (≥88% = Strong Buy, ≥67% = Moderate)
+        String verdict = pass >= Math.round(evaluatable * 0.88f) ? "Strong Buy"
+                       : pass >= Math.round(evaluatable * 0.67f) ? "Moderate"
+                       : "Avoid";
+        sb.append("Score: ").append(pass).append("/").append(evaluatable)
+          .append(" — ").append(verdict);
         return sb.toString();
     }
 
@@ -290,17 +364,6 @@ public class ScreenerCheckService {
     }
 
     // ── Parsing helpers ───────────────────────────────────────────────────────
-
-    /** Logs the first `window` chars after `label` in mainText (for diagnosis). */
-    private void logLabelCtx(String text, String symbol, String label, int window) {
-        int i = text.indexOf(label);
-        if (i < 0) {
-            logger.info("[ScreenerCheck] [{}] '{}' NOT FOUND", symbol, label);
-        } else {
-            String ctx = text.substring(i, Math.min(i + window, text.length()));
-            logger.info("[ScreenerCheck] [{}] '{}' → [{}]", symbol, label, ctx);
-        }
-    }
 
     /** First number found immediately after `label` in plain text. */
     private double after(String text, String label) {
