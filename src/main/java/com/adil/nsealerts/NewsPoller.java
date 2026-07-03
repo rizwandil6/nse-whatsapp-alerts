@@ -45,16 +45,17 @@ public class NewsPoller {
 
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(15))
+            .followRedirects(HttpClient.Redirect.NORMAL)
             .build();
 
     // Real-time RSS feeds — articles appear within 2-5 min of publication, no API key needed
-    // ET feeds block automated requests (return HTML). Reuters shut down feeds.reuters.com in 2020.
-    // Using feeds that reliably serve valid XML:
+    // BS blocks (403), Moneycontrol redirects to login (302 → HTML).
+    // Using feeds confirmed to serve valid XML:
     private static final String[] RSS_FEEDS = {
-        "https://www.moneycontrol.com/rss/latestnews.xml",                 // Moneycontrol India
-        "https://www.business-standard.com/rss/markets-106.rss",           // Business Standard Markets
-        "https://www.business-standard.com/rss/economy-policy-102.rss",    // BS Economy/Policy
-        "https://www.thehindubusinessline.com/markets/?service=rss",       // Hindu BusinessLine Markets
+        "https://www.thehindubusinessline.com/markets/?service=rss",        // Hindu BusinessLine Markets
+        "https://www.thehindubusinessline.com/economy/?service=rss",        // Hindu BusinessLine Economy
+        "https://www.thehindu.com/business/Economy/?service=rss",           // The Hindu Business/Economy
+        "https://economictimes.indiatimes.com/rssfeedstopstories.cms",      // ET Top Stories (less aggressive block)
     };
 
     private static final String WATCHLIST_STOCKS =

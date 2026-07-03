@@ -147,12 +147,22 @@ public class ScreenerCheckService {
 
     /** Fetches https://www.screener.in/company/{SYMBOL}/{subPath} */
     private String fetchPage(String symbol, String subPath) throws Exception {
-        String url = "https://www.screener.in/company/" + enc(symbol) + "/" + subPath;
-        HttpResponse<String> resp = httpClient.send(
-                HttpRequest.newBuilder().uri(URI.create(url))
-                        .header("User-Agent", "Mozilla/5.0")
-                        .header("Referer", "https://www.screener.in/")
-                        .timeout(Duration.ofSeconds(20)).GET().build(),
+        String companyUrl = "https://www.screener.in/company/" + enc(symbol) + "/";
+        String url = companyUrl + subPath;
+
+        HttpRequest.Builder req = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("User-Agent", "Mozilla/5.0")
+                .header("Referer", companyUrl)
+                .timeout(Duration.ofSeconds(20));
+
+        // quick_ratios/ is an AJAX endpoint — must identify as XHR or Screener returns 404
+        if (!subPath.isEmpty()) {
+            req.header("X-Requested-With", "XMLHttpRequest")
+               .header("Accept", "*/*");
+        }
+
+        HttpResponse<String> resp = httpClient.send(req.GET().build(),
                 HttpResponse.BodyHandlers.ofString());
         if (resp.statusCode() != 200) {
             logger.warn("[ScreenerCheck] HTTP {} for {}{}", resp.statusCode(), symbol, subPath);
