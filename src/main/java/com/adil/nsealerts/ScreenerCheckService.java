@@ -78,22 +78,19 @@ public class ScreenerCheckService {
             logger.info("[ScreenerCheck] main page fetched ({} chars) for {}", mainHtml.length(), symbol);
             String mainText = htmlToText(mainHtml);
 
-            // Log the actual quick_ratios URL Screener embeds in the page
-            // (Screener uses numeric company IDs internally; the URL is in the JS/HTML)
-            String embeddedQrUrl = extractQuickRatiosUrl(mainHtml);
-            logger.info("[ScreenerCheck] quick_ratios URL from HTML: [{}]", embeddedQrUrl);
-
-            // Rate-limit guard: wait before making the AJAX request
-            Thread.sleep(800);
-
-            // quick_ratios/ AJAX: Debt/Equity, Industry PE, Promoter, Pledged, EV/EBITDA, P/S
-            String qrHtml;
-            if (embeddedQrUrl != null && !embeddedQrUrl.isBlank()) {
-                qrHtml = fetchAbsoluteUrl(embeddedQrUrl,
-                        "https://www.screener.in/company/" + enc(symbol) + "/");
-            } else {
-                // Fallback: try with the NSE symbol (may 404 if ID is required)
-                qrHtml = fetchPage(symbol, "quick_ratios/");
+            // quick_ratios/ under /company/ does not exist — the data is JS-rendered.
+            // Try /user/quick_ratios/ (the endpoint referenced in the HTML) with the
+            // company referer so the server knows which company we're asking about.
+            // Also try /company/{symbol}/quick_ratios/ as a last resort (usually 404).
+            String companyReferer = "https://www.screener.in/company/" + enc(symbol) + "/";
+            String qrHtml = fetchAbsoluteUrl(
+                    "https://www.screener.in/user/quick_ratios/?company=" + enc(symbol),
+                    companyReferer);
+            if (qrHtml == null) {
+                qrHtml = fetchAbsoluteUrl("https://www.screener.in/user/quick_ratios/", companyReferer);
+            }
+            if (qrHtml == null) {
+                qrHtml = fetchPage(symbol, "quick_ratios/");  // last resort
             }
             String qrText = (qrHtml != null && !qrHtml.isBlank()) ? htmlToText(qrHtml) : "";
             logger.info("[ScreenerCheck] quick_ratios raw ({} chars): [{}]",
@@ -275,16 +272,36 @@ public class ScreenerCheckService {
         double profitGrowth5Y = growth(mainText, "Profit Growth", "5 Years");
         double opm            = ratioLatest(mainText, "OPM %");
 
-        // ── quick_ratios/ AJAX: ALL fields loaded dynamically (not in initial HTML) ──
-        // Labels exactly as seen in DevTools preview:
-        // "Debt to equity 0.02 ... Industry PE 17.7 ... Promoter holding 65.2 %
-        //  Pledged percentage 0.00 % EVEBITDA 10.0 Price to Sales 1.49"
+        // ── Fields from quick_ratios AJAX (if available) ──
         double debtEquity  = after(qrText, "Debt to equity");
         double industryPE  = after(qrText, "Industry PE");
         double promoter    = after(qrText, "Promoter holding");
         double pledged     = after(qrText, "Pledged percentage");
-        double evEbitda    = after(qrText, "EVEBITDA");         // label is "EVEBITDA", not "EV / EBITDA"
+        double evEbitda    = after(qrText, "EVEBITDA");
         double priceSales  = after(qrText, "Price to Sales");
+
+        // ── Fallback: parse fields from main HTML (server-rendered sections) ──
+        // Shareholding Pattern section: "Promoters 65.2 % ..."
+        if (nan(promoter))   promoter   = after(mainText, "Promoters");
+        // Shareholding sub-section for pledged: "Pledged 0.00" or "Pledged percentage"
+        if (nan(pledged)) {
+            pledged = after(mainText, "Pledged percentage");
+            if (nan(pledged)) pledged = after(mainText, "% Pledged");
+            if (nan(pledged)) pledged = after(mainText, "Pledged");
+        }
+        // Balance Sheet / Ratios: "Debt to equity 0.02"
+        if (nan(debtEquity)) {
+            debtEquity = after(mainText, "Debt to equity");
+            if (nan(debtEquity)) debtEquity = after(mainText, "Debt / Equity");
+        }
+        // Peers table: "Ind. PE" or "Industry PE"
+        if (nan(industryPE)) {
+            industryPE = after(mainText, "Ind. PE");
+            if (nan(industryPE)) industryPE = after(mainText, "Industry PE");
+            if (nan(industryPE)) industryPE = after(mainText, "Ind PE");
+        }
+        logger.info("[ScreenerCheck] [{}] promoter={} pledged={} debtEq={} indPE={}",
+                symbol, promoter, pledged, debtEquity, industryPE);
 
         // ── Derived ──
         double peg = (!nan(stockPE) && !nan(profitGrowth5Y) && profitGrowth5Y > 0)
