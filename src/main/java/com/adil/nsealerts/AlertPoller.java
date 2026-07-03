@@ -203,6 +203,14 @@ public class AlertPoller {
                 if (matches && seenIds.add(id)) {
                     if (!seedCompleted) {
                         logger.info("[Seed] Pre-existing: {} - {}", symbol, subject);
+                        // Run Screener check and log result so we can verify parameters
+                        // without waiting for a live order alert — no Telegram message sent
+                        String seedCheck = screenerCheckService.check(symbol);
+                        if (seedCheck != null && !seedCheck.isBlank()) {
+                            logger.info("[Seed][ScreenerCheck]{}", seedCheck);
+                        } else {
+                            logger.info("[Seed][ScreenerCheck] No result for {}", symbol);
+                        }
                         continue;
                     }
                     logger.info("New announcement: {} - {} | link={}", symbol, subject, link.isBlank() ? "NONE" : link);
