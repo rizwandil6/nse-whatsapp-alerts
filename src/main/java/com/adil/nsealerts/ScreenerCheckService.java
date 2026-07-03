@@ -133,15 +133,30 @@ public class ScreenerCheckService {
 
         HttpResponse<String> postResp = httpClient.send(
                 HttpRequest.newBuilder().uri(URI.create(loginUrl))
-                        .header("User-Agent", "Mozilla/5.0")
+                        .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36")
                         .header("Content-Type", "application/x-www-form-urlencoded")
                         .header("Referer", loginUrl)
+                        .header("Origin", "https://www.screener.in")
                         .timeout(Duration.ofSeconds(15))
                         .POST(HttpRequest.BodyPublishers.ofString(body)).build(),
                 HttpResponse.BodyHandlers.ofString());
 
-        loggedIn = (postResp.statusCode() == 200 || postResp.statusCode() == 302);
-        logger.info("[ScreenerCheck] Login: HTTP {} → loggedIn={}", postResp.statusCode(), loggedIn);
+        // With followRedirects(NORMAL): a successful login (302 → home) ends up as HTTP 200
+        // on the home page, while a failed login stays on /login/ (also 200).
+        // Distinguish by checking the final URI — success redirects away from /login/.
+        String finalLoginUri = postResp.uri().toString();
+        boolean redirectedAway = !finalLoginUri.contains("/login");
+        loggedIn = redirectedAway;
+
+        // Log body snippet to diagnose login failures
+        String bodySnippet = postResp.body().length() > 300
+                ? postResp.body().substring(0, 300) : postResp.body();
+        // Redact password just in case it appears in error messages
+        bodySnippet = bodySnippet.replaceAll("(?i)password[^<]{0,60}", "password=***");
+        logger.info("[ScreenerCheck] Login POST → finalUri={} loggedIn={}", finalLoginUri, loggedIn);
+        if (!loggedIn) {
+            logger.warn("[ScreenerCheck] Login failed. Body snippet: [{}]", bodySnippet);
+        }
     }
 
     private String extractCsrf(String html) {
@@ -168,16 +183,17 @@ public class ScreenerCheckService {
      *   "quick_ratios_url": "/company/12345/quick_ratios/"
      */
     private String extractQuickRatiosUrl(String html) {
-        // Look for quick_ratios anywhere in the HTML with its surrounding URL
+        // Search for every occurrence of "quick_ratios" in the HTML/JS.
+        // On an AUTHENTICATED company page the JS will contain the actual AJAX URL.
+        // On an unauthenticated page we only see the /user/quick_ratios/?next=... link.
         int idx = html.indexOf("quick_ratios");
         while (idx >= 0) {
-            // Grab 200 chars of context before and after
             int start = Math.max(0, idx - 80);
-            int end   = Math.min(html.length(), idx + 80);
+            int end   = Math.min(html.length(), idx + 100);
             String ctx = html.substring(start, end);
-            logger.info("[ScreenerCheck] quick_ratios context in HTML: [{}]", ctx);
+            logger.info("[ScreenerCheck] quick_ratios ctx: [{}]", ctx.replace("\n", "\\n").replace("\r", ""));
 
-            // Try to extract the path: /company/<digits>/quick_ratios/ or /company/<symbol>/quick_ratios/
+            // Match URLs that are AJAX data endpoints (under /company/, not /user/)
             Matcher m = Pattern.compile("(/company/[^/\"'\\s]+/(?:consolidated/|standalone/)?quick_ratios/)").matcher(ctx);
             if (m.find()) {
                 String path = m.group(1);
