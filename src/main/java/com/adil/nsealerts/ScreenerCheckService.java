@@ -71,10 +71,19 @@ public class ScreenerCheckService {
         try {
             ensureLoggedIn();
             if (!loggedIn) return "";
-            String html = fetchPage(symbol);
-            if (html == null || html.isBlank()) return "";
-            String text = htmlToText(html);
-            return buildResult(text, symbol);
+
+            // Main page — has Market Cap, Stock P/E, ROCE, ROE, OPM, growth rates
+            String mainHtml = fetchPage(symbol, "");
+            if (mainHtml == null || mainHtml.isBlank()) return "";
+            String mainText = htmlToText(mainHtml);
+
+            // quick_ratios/ — the AJAX endpoint that loads Debt/Equity, Industry PE,
+            // Promoter Holding, Pledged (these are NOT in the initial HTML)
+            String qrHtml  = fetchPage(symbol, "quick_ratios/");
+            String qrText  = (qrHtml != null && !qrHtml.isBlank()) ? htmlToText(qrHtml) : "";
+            logger.debug("[ScreenerCheck] quick_ratios snippet: {}", qrText.length() > 200 ? qrText.substring(0, 200) : qrText);
+
+            return buildResult(mainText, qrText, symbol);
         } catch (Exception e) {
             logger.warn("[ScreenerCheck] Failed for {}: {}", symbol, e.getMessage());
             return "";
@@ -133,9 +142,9 @@ public class ScreenerCheckService {
 
     // ── Fetch page ────────────────────────────────────────────────────────────
 
-    private String fetchPage(String symbol) throws Exception {
-        // ARE&M → need URL-safe form; Screener.in uses the NSE symbol directly
-        String url = "https://www.screener.in/company/" + enc(symbol) + "/";
+    /** Fetches https://www.screener.in/company/{SYMBOL}/{subPath} */
+    private String fetchPage(String symbol, String subPath) throws Exception {
+        String url = "https://www.screener.in/company/" + enc(symbol) + "/" + subPath;
         HttpResponse<String> resp = httpClient.send(
                 HttpRequest.newBuilder().uri(URI.create(url))
                         .header("User-Agent", "Mozilla/5.0")
@@ -143,7 +152,7 @@ public class ScreenerCheckService {
                         .timeout(Duration.ofSeconds(20)).GET().build(),
                 HttpResponse.BodyHandlers.ofString());
         if (resp.statusCode() != 200) {
-            logger.warn("[ScreenerCheck] HTTP {} for symbol {}", resp.statusCode(), symbol);
+            logger.warn("[ScreenerCheck] HTTP {} for {}{}", resp.statusCode(), symbol, subPath);
             return null;
         }
         return resp.body();
@@ -164,26 +173,27 @@ public class ScreenerCheckService {
 
     // ── 13-criteria evaluation ────────────────────────────────────────────────
 
-    private String buildResult(String text, String symbol) {
+    private String buildResult(String mainText, String qrText, String symbol) {
 
-        // ── Summary grid metrics ──
-        double marketCap    = after(text, "Market Cap");         // Cr
-        double stockPE      = after(text, "Stock P/E");
-        double industryPE   = after(text, "Industry PE");
-        double roce         = after(text, "ROCE");
-        double roe          = after(text, "ROE");
-        double debtEquity   = after(text, "Debt to equity");
-        double promoter     = after(text, "Promoter holding");
-        double pledged      = after(text, "Pledged percentage");
+        // ── Main page HTML: Market Cap, Stock P/E, ROCE, ROE, OPM, growth rates ──
+        double marketCap      = after(mainText, "Market Cap");
+        double stockPE        = after(mainText, "Stock P/E");   // in main HTML, NOT in quick_ratios
+        double roce           = after(mainText, "ROCE");
+        double roe            = after(mainText, "ROE");
+        double salesGrowth3Y  = growth(mainText, "Sales Growth",  "3 Years");
+        double profitGrowth5Y = growth(mainText, "Profit Growth", "5 Years");
+        double opm            = ratioLatest(mainText, "OPM %");
 
-        // ── Compounded growth sections ──
-        double salesGrowth3Y  = growth(text, "Sales Growth",  "3 Years");
-        double profitGrowth5Y = growth(text, "Profit Growth", "5 Years");
-
-        // ── Ratios table (most-recent value in the series) ──
-        double opm        = ratioLatest(text, "OPM %");
-        double priceSales = ratioLatest(text, "Price to Sales");
-        double evEbitda   = ratioLatest(text, "EV / EBITDA");
+        // ── quick_ratios/ AJAX: ALL fields loaded dynamically (not in initial HTML) ──
+        // Labels exactly as seen in DevTools preview:
+        // "Debt to equity 0.02 ... Industry PE 17.7 ... Promoter holding 65.2 %
+        //  Pledged percentage 0.00 % EVEBITDA 10.0 Price to Sales 1.49"
+        double debtEquity  = after(qrText, "Debt to equity");
+        double industryPE  = after(qrText, "Industry PE");
+        double promoter    = after(qrText, "Promoter holding");
+        double pledged     = after(qrText, "Pledged percentage");
+        double evEbitda    = after(qrText, "EVEBITDA");         // label is "EVEBITDA", not "EV / EBITDA"
+        double priceSales  = after(qrText, "Price to Sales");
 
         // ── Derived ──
         double peg = (!nan(stockPE) && !nan(profitGrowth5Y) && profitGrowth5Y > 0)
