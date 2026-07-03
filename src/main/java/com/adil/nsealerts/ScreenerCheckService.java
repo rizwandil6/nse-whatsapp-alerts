@@ -78,13 +78,23 @@ public class ScreenerCheckService {
             logger.info("[ScreenerCheck] main page fetched ({} chars) for {}", mainHtml.length(), symbol);
             String mainText = htmlToText(mainHtml);
 
-            // quick_ratios/ is an AJAX endpoint for Debt/Equity, Industry PE, Promoter,
-            // Pledged, EV/EBITDA, Price to Sales.
-            // Screener serves most companies under /consolidated/ or /standalone/ sub-path.
-            // Try consolidated first (most NSE companies), then standalone, then bare.
-            String qrHtml = fetchPage(symbol, "consolidated/quick_ratios/");
-            if (qrHtml == null) qrHtml = fetchPage(symbol, "standalone/quick_ratios/");
-            if (qrHtml == null) qrHtml = fetchPage(symbol, "quick_ratios/");
+            // Log the actual quick_ratios URL Screener embeds in the page
+            // (Screener uses numeric company IDs internally; the URL is in the JS/HTML)
+            String embeddedQrUrl = extractQuickRatiosUrl(mainHtml);
+            logger.info("[ScreenerCheck] quick_ratios URL from HTML: [{}]", embeddedQrUrl);
+
+            // Rate-limit guard: wait before making the AJAX request
+            Thread.sleep(800);
+
+            // quick_ratios/ AJAX: Debt/Equity, Industry PE, Promoter, Pledged, EV/EBITDA, P/S
+            String qrHtml;
+            if (embeddedQrUrl != null && !embeddedQrUrl.isBlank()) {
+                qrHtml = fetchAbsoluteUrl(embeddedQrUrl,
+                        "https://www.screener.in/company/" + enc(symbol) + "/");
+            } else {
+                // Fallback: try with the NSE symbol (may 404 if ID is required)
+                qrHtml = fetchPage(symbol, "quick_ratios/");
+            }
             String qrText = (qrHtml != null && !qrHtml.isBlank()) ? htmlToText(qrHtml) : "";
             logger.info("[ScreenerCheck] quick_ratios raw ({} chars): [{}]",
                     qrText.length(),
@@ -148,6 +158,54 @@ public class ScreenerCheckService {
     }
 
     // ── Fetch page ────────────────────────────────────────────────────────────
+
+    /**
+     * Scans the company page HTML for the quick_ratios URL.
+     * Screener embeds the URL in its JS/HTML because it uses numeric company IDs internally.
+     * Patterns tried (Screener may use various formats):
+     *   url: '/company/12345/quick_ratios/'
+     *   href="/company/12345/quick_ratios/"
+     *   "quick_ratios_url": "/company/12345/quick_ratios/"
+     */
+    private String extractQuickRatiosUrl(String html) {
+        // Look for quick_ratios anywhere in the HTML with its surrounding URL
+        int idx = html.indexOf("quick_ratios");
+        while (idx >= 0) {
+            // Grab 200 chars of context before and after
+            int start = Math.max(0, idx - 80);
+            int end   = Math.min(html.length(), idx + 80);
+            String ctx = html.substring(start, end);
+            logger.info("[ScreenerCheck] quick_ratios context in HTML: [{}]", ctx);
+
+            // Try to extract the path: /company/<digits>/quick_ratios/ or /company/<symbol>/quick_ratios/
+            Matcher m = Pattern.compile("(/company/[^/\"'\\s]+/(?:consolidated/|standalone/)?quick_ratios/)").matcher(ctx);
+            if (m.find()) {
+                String path = m.group(1);
+                return path.startsWith("http") ? path : "https://www.screener.in" + path;
+            }
+            idx = html.indexOf("quick_ratios", idx + 1);
+        }
+        return null;
+    }
+
+    /** Fetches an absolute URL, setting the XHR headers and provided Referer. */
+    private String fetchAbsoluteUrl(String url, String referer) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("User-Agent", "Mozilla/5.0")
+                .header("Referer", referer)
+                .header("X-Requested-With", "XMLHttpRequest")
+                .header("Accept", "*/*")
+                .timeout(Duration.ofSeconds(20))
+                .GET().build();
+
+        HttpResponse<String> resp = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        if (resp.statusCode() != 200) {
+            logger.info("[ScreenerCheck] fetchAbsoluteUrl HTTP {} for {}", resp.statusCode(), url);
+            return null;
+        }
+        return resp.body();
+    }
 
     /** Fetches https://www.screener.in/company/{SYMBOL}/{subPath} */
     private String fetchPage(String symbol, String subPath) throws Exception {
