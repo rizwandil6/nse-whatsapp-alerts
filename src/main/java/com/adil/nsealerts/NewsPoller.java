@@ -14,7 +14,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -62,6 +61,11 @@ public class NewsPoller {
         this.telegramSender = telegramSender;
     }
 
+    // Free-tier NewsAPI has ~24h delay on `from` filter — it always returns 0 results.
+    // Strategy: fetch latest 30 articles per poll (sorted by publishedAt), deduplicate
+    // via seenUrls. First poll seeds the set silently; subsequent polls alert on new ones.
+    private volatile boolean newsSeedCompleted = false;
+
     @Scheduled(fixedDelay = 15 * 60 * 1000)  // every 15 minutes
     public void pollNews() {
         if (newsApiKey == null || newsApiKey.isBlank()) {
@@ -70,16 +74,12 @@ public class NewsPoller {
         }
 
         try {
-            // Fetch articles from the last 16 min (slight overlap to avoid gaps)
-            String from = Instant.now().minus(Duration.ofMinutes(16))
-                    .toString().replace(".000Z", "Z");
             String encodedQ = URLEncoder.encode(QUERY, StandardCharsets.UTF_8);
             String url = "https://newsapi.org/v2/everything"
                     + "?q=" + encodedQ
                     + "&language=en"
                     + "&sortBy=publishedAt"
-                    + "&pageSize=10"
-                    + "&from=" + from
+                    + "&pageSize=30"
                     + "&apiKey=" + newsApiKey;
 
             HttpRequest request = HttpRequest.newBuilder()
@@ -99,7 +99,7 @@ public class NewsPoller {
 
             JsonNode root     = mapper.readTree(response.body());
             JsonNode articles = root.path("articles");
-            logger.info("[News] Fetched {} articles", articles.size());
+            logger.info("[News] Fetched {} articles (seed={})", articles.size(), !newsSeedCompleted);
 
             for (JsonNode article : articles) {
                 String articleUrl   = article.path("url").asText("").trim();
@@ -112,8 +112,12 @@ public class NewsPoller {
                 if (seenUrls.contains(articleUrl)) continue;
                 seenUrls.add(articleUrl);
 
+                if (!newsSeedCompleted) continue;  // first poll: seed seenUrls silently
+
                 analyzeAndAlert(title, description, source, articleUrl, publishedAt);
             }
+
+            newsSeedCompleted = true;
 
         } catch (Exception e) {
             logger.error("[News] Poll failed: {}", e.getMessage());
