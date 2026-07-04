@@ -233,10 +233,15 @@ public class ScreenerCheckService {
             String searchUrl = "https://www.screener.in/api/company/search/?q=" + enc(query);
             String json = fetchAbsoluteUrl(searchUrl, "https://www.screener.in/");
             if (json == null || json.isBlank()) return null;
-            // Response: [{"id":123,"name":"Globe Civil Projects Limited","url":"GLOBECIVIL",...}, ...]
+            // Response: [{"id":123,"name":"Globe Civil Projects Limited","url":"/company/GLOBECIVIL/",...}, ...]
             Matcher m = Pattern.compile("\"url\"\\s*:\\s*\"([^\"]+)\"").matcher(json);
             if (m.find()) {
-                return m.group(1);
+                // Strip /company/ prefix and trailing slash to get bare slug e.g. "GLOBECIVIL"
+                String slug = m.group(1)
+                        .replaceAll("^/company/", "")
+                        .replaceAll("/$", "")
+                        .trim();
+                return slug.isEmpty() ? null : slug;
             }
         } catch (Exception e) {
             logger.warn("[ScreenerCheck] Search failed for '{}': {}", companyName, e.getMessage());

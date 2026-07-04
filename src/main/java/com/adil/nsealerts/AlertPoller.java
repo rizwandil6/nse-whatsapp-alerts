@@ -183,7 +183,8 @@ public class AlertPoller {
                     AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
                     logger.info("New announcement: {}", title);
                     String message = buildAnnouncementMessage(ctx);
-                    telegramSender.send(message);
+                    // DRY-RUN: log full message instead of sending to Telegram
+                    logger.info("[MSG] {}", message);
                 }
             } catch (Exception e) {
                 logger.error("Error processing announcement entry", e);
