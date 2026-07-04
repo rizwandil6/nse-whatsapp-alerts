@@ -254,15 +254,21 @@ public class AlertPoller {
                                 .anyMatch(k -> combinedText.contains(k.toLowerCase())));
 
                 if (matches && seenIds.add(id)) {
-                    if (!seedCompleted) {
-                        logger.info("[Seed] Pre-existing (RSS): {}", title);
-                        continue;
-                    }
-                    logger.info("New announcement: {}", title);
                     String pubTime = entry.getPublishedDate() != null
                             ? new java.text.SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(entry.getPublishedDate())
                             : "";
                     AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
+                    if (!seedCompleted) {
+                        logger.info("[Seed] Pre-existing (RSS): {} symbol={}", title, ctx.symbol());
+                        String seedCheck = screenerCheckService.check(ctx.symbol());
+                        if (seedCheck != null && !seedCheck.isBlank()) {
+                            logger.info("[Seed][ScreenerCheck]{}", seedCheck);
+                        } else {
+                            logger.info("[Seed][ScreenerCheck] No result for {}", ctx.symbol());
+                        }
+                        continue;
+                    }
+                    logger.info("New announcement: {}", title);
                     String message = buildAnnouncementMessage(ctx);
                     telegramSender.send(message);
                 }
@@ -440,8 +446,19 @@ public class AlertPoller {
         String cleanTitle   = title == null ? "" : title.trim();
         String companyName  = extractCompanyName(cleanTitle);
         String subject      = extractSubject(cleanTitle, description);
-        String symbol       = extractSymbol(cleanTitle, description, companyName);
+
+        // 1. Best source: NSE archive PDF links encode the symbol directly.
+        //    Pattern: https://nsearchives.nseindia.com/corporate/QPOWER/12345678.pdf
+        String symbol = "";
+        if (link != null && !link.isBlank()) {
+            Matcher lm = Pattern.compile("/corporate/([A-Z0-9&%]+)/", Pattern.CASE_INSENSITIVE).matcher(link);
+            if (lm.find()) symbol = lm.group(1).toUpperCase(Locale.ROOT);
+        }
+        // 2. Fallback: watchlist scan across title + description + company name
+        if (symbol.isBlank()) symbol = extractSymbol(cleanTitle, description, companyName);
+        // 3. Last resort: company name itself (best-effort for Screener lookup)
         if (symbol.isBlank()) symbol = companyName.isBlank() ? "NSE" : companyName;
+
         return new AnnouncementContext(
                 companyName.isBlank() ? cleanTitle : companyName,
                 symbol, subject.isBlank() ? cleanTitle : subject, link, broadcastTime);
