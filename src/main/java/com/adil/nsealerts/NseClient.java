@@ -112,7 +112,8 @@ public class NseClient {
 
     public String fetchAnnouncementsJson() {
         java.time.format.DateTimeFormatter fmt = java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String date = java.time.LocalDate.now().format(fmt);
+        // TEMP: yesterday for dry-run testing
+        String date = java.time.LocalDate.now().minusDays(1).format(fmt);
         String url = "https://www.nseindia.com/api/corporate-announcements?index=equities"
                 + "&from_date=" + date + "&to_date=" + date;
         logger.info("[Announcements-JSON] Fetching: {}", url);

@@ -52,7 +52,8 @@ public class AlertPoller {
 
     // Dedup set — populated silently on first poll (seed), alerts only from second poll onward
     private final Set<String> seenIds = new HashSet<>();
-    private volatile boolean seedCompleted = false;
+    // TEMP: pre-seeded for dry-run testing — revert to false before going live
+    private volatile boolean seedCompleted = true;
 
     public AlertPoller(NseClient nseClient,
                        TelegramSender telegramSender,
@@ -217,7 +218,8 @@ public class AlertPoller {
                     String companyName = company.isBlank() ? symbol : company;
                     AnnouncementContext ctx = new AnnouncementContext(companyName, symbol, subject, link, broadcastTime);
                     String message = buildAnnouncementMessage(ctx);
-                    telegramSender.send(message);
+                    // TEMP dry-run: log instead of send
+                    logger.info("[DRY-RUN] Telegram message:\n{}", message);
                 }
             } catch (Exception e) {
                 logger.error("Error processing JSON announcement entry", e);
@@ -270,7 +272,8 @@ public class AlertPoller {
                     }
                     logger.info("New announcement: {}", title);
                     String message = buildAnnouncementMessage(ctx);
-                    telegramSender.send(message);
+                    // TEMP dry-run: log instead of send
+                    logger.info("[DRY-RUN] Telegram message:\n{}", message);
                 }
             } catch (Exception e) {
                 logger.error("Error processing announcement entry", e);
@@ -396,7 +399,8 @@ public class AlertPoller {
                 boolean matches = circularKeywords.stream()
                         .anyMatch(k -> subject.toLowerCase().contains(k.toLowerCase()));
                 if (matches && !containsAnyIgnoreKeyword(subject, "") && seenIds.add(id)) {
-                    telegramSender.send("NSE Circular: " + subject);
+                    // TEMP dry-run: log instead of send
+                    logger.info("[DRY-RUN] Circular: {}", subject);
                 }
             }
         } catch (Exception e) {
