@@ -233,12 +233,14 @@ public class AlertPoller {
 
         logger.info("[Announcements] Fetched {} entries from RSS", entries.size());
 
-        // TEMP: log first 10 RSS titles+links so we can see actual format
+        // TEMP: log first 10 RSS entries so we can see title+desc+link format
         int dbg = 0;
         for (SyndEntry e : entries) {
             if (dbg++ >= 10) break;
-            logger.info("[RSS-SAMPLE] title=[{}] link=[{}]",
-                    e.getTitle(), e.getLink() != null ? e.getLink() : "");
+            String desc = e.getDescription() != null ? e.getDescription().getValue() : "";
+            logger.info("[RSS-SAMPLE] title=[{}] desc=[{}] link=[{}]",
+                    e.getTitle(), desc.length() > 200 ? desc.substring(0, 200) : desc,
+                    e.getLink() != null ? e.getLink() : "");
         }
 
         for (SyndEntry entry : entries) {
@@ -460,10 +462,11 @@ public class AlertPoller {
         String subject      = extractSubject(cleanTitle, description);
 
         // 1. Best source: NSE archive PDF links encode the symbol directly.
-        //    Pattern: https://nsearchives.nseindia.com/corporate/QPOWER/12345678.pdf
+        //    Pattern: /corporate/ENIL_04072026104335_filename.pdf  → symbol = ENIL
+        //    The symbol is everything before the first underscore after /corporate/
         String symbol = "";
         if (link != null && !link.isBlank()) {
-            Matcher lm = Pattern.compile("/corporate/([A-Z0-9&%]+)/", Pattern.CASE_INSENSITIVE).matcher(link);
+            Matcher lm = Pattern.compile("/corporate/([A-Z0-9&%]+)_\\d", Pattern.CASE_INSENSITIVE).matcher(link);
             if (lm.find()) symbol = lm.group(1).toUpperCase(Locale.ROOT);
         }
         // 2. Fallback: watchlist scan across title + description + company name
