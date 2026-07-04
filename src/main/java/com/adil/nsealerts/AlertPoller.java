@@ -233,6 +233,14 @@ public class AlertPoller {
 
         logger.info("[Announcements] Fetched {} entries from RSS", entries.size());
 
+        // TEMP: log first 10 RSS titles+links so we can see actual format
+        int dbg = 0;
+        for (SyndEntry e : entries) {
+            if (dbg++ >= 10) break;
+            logger.info("[RSS-SAMPLE] title=[{}] link=[{}]",
+                    e.getTitle(), e.getLink() != null ? e.getLink() : "");
+        }
+
         for (SyndEntry entry : entries) {
             try {
                 String title       = entry.getTitle() != null ? entry.getTitle() : "";
