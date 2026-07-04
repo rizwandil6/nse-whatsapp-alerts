@@ -52,7 +52,7 @@ public class AlertPoller {
 
     // Dedup set — populated silently on first poll (seed), alerts only from second poll onward
     private final Set<String> seenIds = new HashSet<>();
-    private volatile boolean seedCompleted = false;
+    // No seed phase — every matching announcement fires immediately, including on first poll.
 
     public AlertPoller(NseClient nseClient,
                        TelegramSender telegramSender,
@@ -146,10 +146,6 @@ public class AlertPoller {
 
     private void checkAnnouncements() {
         checkAnnouncementsFromRss();
-        if (!seedCompleted) {
-            seedCompleted = true;
-            logger.info("[Seed] Initial seed complete — alerts enabled for new announcements");
-        }
     }
 
     private void checkAnnouncementsFromRss() {
@@ -185,16 +181,6 @@ public class AlertPoller {
                             ? new java.text.SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(entry.getPublishedDate())
                             : "";
                     AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
-                    if (!seedCompleted) {
-                        logger.info("[Seed] Pre-existing (RSS): {} symbol={}", title, ctx.symbol());
-                        String seedCheck = screenerCheckService.check(ctx.symbol(), ctx.companyName());
-                        if (seedCheck != null && !seedCheck.isBlank()) {
-                            logger.info("[Seed][ScreenerCheck]{}", seedCheck);
-                        } else {
-                            logger.info("[Seed][ScreenerCheck] No result for {}", ctx.symbol());
-                        }
-                        continue;
-                    }
                     logger.info("New announcement: {}", title);
                     String message = buildAnnouncementMessage(ctx);
                     telegramSender.send(message);
