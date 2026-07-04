@@ -12,9 +12,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -183,8 +185,8 @@ public class AlertPoller {
                     AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
                     logger.info("New announcement: {}", title);
                     String message = buildAnnouncementMessage(ctx);
-                    // DRY-RUN: log full message instead of sending to Telegram
                     logger.info("[MSG] {}", message);
+                    telegramSender.send(message);
                 }
             } catch (Exception e) {
                 logger.error("Error processing announcement entry", e);
@@ -361,13 +363,22 @@ public class AlertPoller {
         String companyName  = extractCompanyName(cleanTitle);
         String subject      = extractSubject(cleanTitle, description);
 
-        // 1. Best source: NSE archive PDF links encode the symbol directly.
-        //    Pattern: /corporate/ENIL_04072026104335_filename.pdf  → symbol = ENIL
-        //    The symbol is everything before the first underscore after /corporate/
+        // 1. Best source: NSE archive PDF links encode the symbol AND timestamp directly.
+        //    Pattern: /corporate/ENIL_04072026104335_filename.pdf
+        //             symbol = ENIL, timestamp = 04072026104335 (DDMMyyyyHHmmss)
         String symbol = "";
         if (link != null && !link.isBlank()) {
-            Matcher lm = Pattern.compile("/corporate/([A-Z0-9&%]+)_\\d", Pattern.CASE_INSENSITIVE).matcher(link);
-            if (lm.find()) symbol = lm.group(1).toUpperCase(Locale.ROOT);
+            Matcher lm = Pattern.compile("/corporate/([A-Z0-9&%]+)_(\\d{14})_", Pattern.CASE_INSENSITIVE).matcher(link);
+            if (lm.find()) {
+                symbol = lm.group(1).toUpperCase(Locale.ROOT);
+                if (broadcastTime == null || broadcastTime.isBlank()) {
+                    try {
+                        LocalDateTime dt = LocalDateTime.parse(lm.group(2),
+                                DateTimeFormatter.ofPattern("ddMMyyyyHHmmss"));
+                        broadcastTime = dt.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss"));
+                    } catch (Exception ignored) {}
+                }
+            }
         }
         // 2. Fallback: watchlist scan across title + description + company name
         if (symbol.isBlank()) symbol = extractSymbol(cleanTitle, description, companyName);
