@@ -77,6 +77,10 @@ public class ScreenerCheckService {
      * or an empty string if screener is unavailable / credentials missing.
      */
     public String check(String symbol) {
+        return check(symbol, null);
+    }
+
+    public String check(String symbol, String companyName) {
         if (symbol == null || symbol.isBlank()) return "";
         if (username == null || username.isBlank() || password == null || password.isBlank()) {
             logger.debug("[ScreenerCheck] Credentials not configured — skipping");
@@ -91,6 +95,18 @@ public class ScreenerCheckService {
             //              Balance Sheet (Borrowings, Equity Capital, Reserves),
             //              and the sector page URL embedded in the peer section.
             String mainHtml = fetchPage(symbol, "");
+
+            // If 404 (NSE archive folder ≠ NSE symbol, e.g. GLOBE2024 vs GLOBECIVIL),
+            // search Screener by company name and retry with the resolved slug.
+            if ((mainHtml == null || mainHtml.isBlank()) && companyName != null && !companyName.isBlank()) {
+                String resolved = resolveSlugByName(companyName);
+                if (resolved != null) {
+                    logger.info("[ScreenerCheck] [{}] resolved to slug '{}' via search", symbol, resolved);
+                    symbol = resolved;
+                    mainHtml = fetchPage(symbol, "");
+                }
+            }
+
             if (mainHtml == null || mainHtml.isBlank()) return "";
             logger.info("[ScreenerCheck] main page fetched ({} chars) for {}", mainHtml.length(), symbol);
             String mainText = htmlToText(mainHtml);
@@ -202,6 +218,31 @@ public class ScreenerCheckService {
     }
 
     // ── Fetch helpers ─────────────────────────────────────────────────────────
+
+    /**
+     * Calls Screener's autocomplete search API with the company name and returns
+     * the URL slug (= NSE symbol on Screener) of the first result.
+     * Used when the NSE archive folder name differs from the trading symbol
+     * (e.g. GLOBE2024 → GLOBECIVIL).
+     */
+    private String resolveSlugByName(String companyName) {
+        try {
+            // Use just the first 4 words to get a broad match
+            String[] words = companyName.trim().split("\\s+");
+            String query = String.join(" ", java.util.Arrays.copyOf(words, Math.min(4, words.length)));
+            String searchUrl = "https://www.screener.in/api/company/search/?q=" + enc(query);
+            String json = fetchAbsoluteUrl(searchUrl, "https://www.screener.in/");
+            if (json == null || json.isBlank()) return null;
+            // Response: [{"id":123,"name":"Globe Civil Projects Limited","url":"GLOBECIVIL",...}, ...]
+            Matcher m = Pattern.compile("\"url\"\\s*:\\s*\"([^\"]+)\"").matcher(json);
+            if (m.find()) {
+                return m.group(1);
+            }
+        } catch (Exception e) {
+            logger.warn("[ScreenerCheck] Search failed for '{}': {}", companyName, e.getMessage());
+        }
+        return null;
+    }
 
     /** Fetches https://www.screener.in/company/{SYMBOL}/{subPath} */
     private String fetchPage(String symbol, String subPath) throws Exception {

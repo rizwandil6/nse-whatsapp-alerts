@@ -187,7 +187,7 @@ public class AlertPoller {
                     AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
                     if (!seedCompleted) {
                         logger.info("[Seed] Pre-existing (RSS): {} symbol={}", title, ctx.symbol());
-                        String seedCheck = screenerCheckService.check(ctx.symbol());
+                        String seedCheck = screenerCheckService.check(ctx.symbol(), ctx.companyName());
                         if (seedCheck != null && !seedCheck.isBlank()) {
                             logger.info("[Seed][ScreenerCheck]{}", seedCheck);
                         } else {
@@ -244,7 +244,7 @@ public class AlertPoller {
         }
 
         // 13-criteria check from Screener.in
-        String check13 = screenerCheckService.check(ctx.symbol());
+        String check13 = screenerCheckService.check(ctx.symbol(), ctx.companyName());
         if (check13 != null && !check13.isBlank()) {
             sb.append(check13);
         }
