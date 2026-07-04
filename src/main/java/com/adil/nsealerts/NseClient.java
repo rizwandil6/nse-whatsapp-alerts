@@ -110,17 +110,6 @@ public class NseClient {
     // Circulars — session-based (or proxy if configured)
     // -------------------------------------------------------------------------
 
-    public String fetchAnnouncementsJson() {
-        java.time.format.DateTimeFormatter fmt = java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        // TEMP: yesterday for dry-run testing
-        String date = java.time.LocalDate.now().minusDays(1).format(fmt);
-        String url = "https://www.nseindia.com/api/corporate-announcements?index=equities"
-                + "&from_date=" + date + "&to_date=" + date;
-        logger.info("[Announcements-JSON] Fetching: {}", url);
-        return fetchNseApi(url,
-                "https://www.nseindia.com/companies-listing/corporate-filings-announcements");
-    }
-
     public String fetchFiiDii() {
         return fetchNseApi(
                 "https://www.nseindia.com/api/fiidiiTradeReact",

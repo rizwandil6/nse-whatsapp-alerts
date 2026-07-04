@@ -52,8 +52,7 @@ public class AlertPoller {
 
     // Dedup set — populated silently on first poll (seed), alerts only from second poll onward
     private final Set<String> seenIds = new HashSet<>();
-    // TEMP: pre-seeded for dry-run testing — revert to false before going live
-    private volatile boolean seedCompleted = true;
+    private volatile boolean seedCompleted = false;
 
     public AlertPoller(NseClient nseClient,
                        TelegramSender telegramSender,
@@ -146,84 +145,10 @@ public class AlertPoller {
     // ─────────────────────────────────────────────────────────────────────────
 
     private void checkAnnouncements() {
-        // Primary: NSE JSON API (returns all of today's announcements, not limited like RSS)
-        String json = nseClient.fetchAnnouncementsJson();
-        if (json != null && !json.isBlank()) {
-            try {
-                JsonNode arr = mapper.readTree(json);
-                if (arr.isArray()) {
-                    checkAnnouncementsFromJson(arr);
-                    if (!seedCompleted) {
-                        seedCompleted = true;
-                        logger.info("[Seed] Initial seed complete — alerts enabled for new announcements");
-                    }
-                    return;
-                }
-            } catch (Exception e) {
-                logger.warn("[Announcements] JSON parse failed, falling back to RSS: {}", e.getMessage());
-            }
-        }
-        // Fallback: RSS feed
         checkAnnouncementsFromRss();
         if (!seedCompleted) {
             seedCompleted = true;
-            logger.info("[Seed] Initial seed complete (RSS) — alerts enabled for new announcements");
-        }
-    }
-
-    private void checkAnnouncementsFromJson(JsonNode arr) {
-        logger.info("[Announcements] Fetched {} entries from JSON API", arr.size());
-        for (JsonNode item : arr) {
-            try {
-                String symbol   = item.path("symbol").asText("").trim().toUpperCase();
-                // sm_name = full company name; fallback to symbol
-                String company  = item.path("sm_name").asText(item.path("company").asText(""));
-                // desc = announcement category (e.g. "Bagging/Receiving of orders/contracts")
-                // attchmntText = full announcement description text
-                String desc     = item.path("desc").asText("");
-                String annText  = item.path("attchmntText").asText("");
-                // attchmntFile = full PDF URL (already absolute, no base URL construction needed)
-                String link          = item.path("attchmntFile").asText("").trim();
-                String broadcastTime = item.path("exchdisstime").asText(item.path("an_dt").asText(""));
-                String sortDate      = item.path("sort_date").asText(broadcastTime);
-                String id            = symbol + ":" + sortDate;
-                String subject       = desc; // use category as subject for display and matching
-
-                if (ignoreSme && !symbol.isBlank() && mainBoardSymbols != null
-                        && !mainBoardSymbols.contains(symbol)) {
-                    logger.info("[SME filter] Skipping: {}", symbol);
-                    continue;
-                }
-
-                boolean excluded = containsAnyIgnoreKeyword(subject, annText);
-                String combinedText = (subject + " " + annText).toLowerCase();
-                boolean matches = !excluded && (announcementKeywords.isEmpty()
-                        || announcementKeywords.stream()
-                                .anyMatch(k -> combinedText.contains(k.toLowerCase())));
-
-                if (matches && seenIds.add(id)) {
-                    if (!seedCompleted) {
-                        logger.info("[Seed] Pre-existing: {} - {}", symbol, subject);
-                        // Run Screener check and log result so we can verify parameters
-                        // without waiting for a live order alert — no Telegram message sent
-                        String seedCheck = screenerCheckService.check(symbol);
-                        if (seedCheck != null && !seedCheck.isBlank()) {
-                            logger.info("[Seed][ScreenerCheck]{}", seedCheck);
-                        } else {
-                            logger.info("[Seed][ScreenerCheck] No result for {}", symbol);
-                        }
-                        continue;
-                    }
-                    logger.info("New announcement: {} - {} | link={}", symbol, subject, link.isBlank() ? "NONE" : link);
-                    String companyName = company.isBlank() ? symbol : company;
-                    AnnouncementContext ctx = new AnnouncementContext(companyName, symbol, subject, link, broadcastTime);
-                    String message = buildAnnouncementMessage(ctx);
-                    // TEMP dry-run: log instead of send
-                    logger.info("[DRY-RUN] Telegram message:\n{}", message);
-                }
-            } catch (Exception e) {
-                logger.error("Error processing JSON announcement entry", e);
-            }
+            logger.info("[Seed] Initial seed complete — alerts enabled for new announcements");
         }
     }
 
@@ -232,16 +157,6 @@ public class AlertPoller {
         if (entries == null || entries.isEmpty()) return;
 
         logger.info("[Announcements] Fetched {} entries from RSS", entries.size());
-
-        // TEMP: log first 10 RSS entries so we can see title+desc+link format
-        int dbg = 0;
-        for (SyndEntry e : entries) {
-            if (dbg++ >= 10) break;
-            String desc = e.getDescription() != null ? e.getDescription().getValue() : "";
-            logger.info("[RSS-SAMPLE] title=[{}] desc=[{}] link=[{}]",
-                    e.getTitle(), desc.length() > 200 ? desc.substring(0, 200) : desc,
-                    e.getLink() != null ? e.getLink() : "");
-        }
 
         for (SyndEntry entry : entries) {
             try {
@@ -282,8 +197,7 @@ public class AlertPoller {
                     }
                     logger.info("New announcement: {}", title);
                     String message = buildAnnouncementMessage(ctx);
-                    // TEMP dry-run: log instead of send
-                    logger.info("[DRY-RUN] Telegram message:\n{}", message);
+                    telegramSender.send(message);
                 }
             } catch (Exception e) {
                 logger.error("Error processing announcement entry", e);
@@ -409,8 +323,7 @@ public class AlertPoller {
                 boolean matches = circularKeywords.stream()
                         .anyMatch(k -> subject.toLowerCase().contains(k.toLowerCase()));
                 if (matches && !containsAnyIgnoreKeyword(subject, "") && seenIds.add(id)) {
-                    // TEMP dry-run: log instead of send
-                    logger.info("[DRY-RUN] Circular: {}", subject);
+                    telegramSender.send("NSE Circular: " + subject);
                 }
             }
         } catch (Exception e) {
