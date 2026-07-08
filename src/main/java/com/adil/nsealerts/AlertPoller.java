@@ -53,9 +53,8 @@ public class AlertPoller {
     private static final Pattern SYMBOL_FROM_LINK = Pattern.compile("/([A-Z0-9&%-]+)_\\d{12,14}_");
     private final ObjectMapper mapper = new ObjectMapper();
 
-    // Dedup set — populated silently on first poll (seed), alerts only from second poll onward
+    // Dedup set — seeded at startup to suppress re-alerts on redeploy; new entries only thereafter
     private final Set<String> seenIds = new HashSet<>();
-    // No seed phase — every matching announcement fires immediately, including on first poll.
 
     public AlertPoller(NseClient nseClient,
                        TelegramSender telegramSender,
@@ -132,6 +131,29 @@ public class AlertPoller {
         }, "equity-list-loader");
         loader.setDaemon(true);
         loader.start();
+    }
+
+    /**
+     * Silently pre-populate seenIds with whatever is currently on the RSS feed.
+     * Runs synchronously before any @Scheduled method fires, so a redeploy (e.g. to
+     * refresh the Upstox token) never re-sends announcements that were already alerted.
+     */
+    @PostConstruct
+    void seedSeenIds() {
+        try {
+            List<SyndEntry> entries = nseClient.fetchAnnouncements();
+            if (entries == null) return;
+            for (SyndEntry entry : entries) {
+                String link = entry.getLink() != null ? entry.getLink() : "";
+                String id   = link.isEmpty()
+                        ? (entry.getTitle() + ":" + entry.getPublishedDate())
+                        : link;
+                seenIds.add(id);
+            }
+            logger.info("[AlertPoller] Seeded {} existing RSS entries — no alerts sent", seenIds.size());
+        } catch (Exception e) {
+            logger.warn("[AlertPoller] Seed failed ({}); first poll may re-send recent entries", e.getMessage());
+        }
     }
 
     private static final ZoneId    IST          = ZoneId.of("Asia/Kolkata");
