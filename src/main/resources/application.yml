@@ -47,6 +47,20 @@ screener:
 screening:
   enabled: true
 
+# ── Upstox Trade Execution ────────────────────────────────────────────────────
+# Set UPSTOX_ENABLED=true in Railway env to activate live trading.
+# Refresh UPSTOX_ACCESS_TOKEN daily before market open (Upstox daily OAuth token).
+upstox:
+  access-token: ${UPSTOX_ACCESS_TOKEN:}
+  enabled: ${UPSTOX_ENABLED:false}
+  capital-per-trade: ${UPSTOX_CAPITAL_PER_TRADE:5000}   # ₹ per trade
+  nifty-gate-pct: 0.5        # skip if NIFTY down > 0.5% vs prev close
+  stop-loss-pct: 1.5         # hard stop: -1.5% on full position
+  target-pct: 2.0            # partial exit: sell 50% at +2%
+  trail-pct: 1.0             # trailing stop: exit remaining when peak drops by 1%
+  time-exit-minutes: 45      # force square-off after 45 min
+  circuit-breaker-limit: 2   # pause after 2 consecutive stop-losses
+
 # ── Daily Market Bulletin ─────────────────────────────────────────────────────
 # Sent every day at 7:30 AM IST via Telegram.
 bulletin:

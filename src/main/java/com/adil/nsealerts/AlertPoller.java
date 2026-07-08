@@ -41,6 +41,7 @@ public class AlertPoller {
     private final PromptRatingService promptRatingService;
     private final PdfExtractor pdfExtractor;
     private final ScreenerCheckService screenerCheckService;
+    private final UpstoxTradeService upstoxTradeService;
     private final boolean screeningEnabled;
     private final boolean ignoreSme;
 
@@ -62,6 +63,7 @@ public class AlertPoller {
                        PromptRatingService promptRatingService,
                        PdfExtractor pdfExtractor,
                        ScreenerCheckService screenerCheckService,
+                       UpstoxTradeService upstoxTradeService,
                        org.springframework.core.env.Environment env) {
         this.nseClient = nseClient;
         this.telegramSender = telegramSender;
@@ -69,6 +71,7 @@ public class AlertPoller {
         this.promptRatingService = promptRatingService;
         this.pdfExtractor = pdfExtractor;
         this.screenerCheckService = screenerCheckService;
+        this.upstoxTradeService = upstoxTradeService;
         this.screeningEnabled = Boolean.parseBoolean(env.getProperty("screening.enabled", "true"));
         this.ignoreSme = Boolean.parseBoolean(env.getProperty("nse.ignore-sme", "true"));
 
@@ -131,10 +134,27 @@ public class AlertPoller {
         loader.start();
     }
 
-    private static final ZoneId IST = ZoneId.of("Asia/Kolkata");
+    private static final ZoneId    IST          = ZoneId.of("Asia/Kolkata");
+    private static final LocalTime MARKET_OPEN  = LocalTime.of(9, 15);
+    private static final LocalTime MARKET_CLOSE = LocalTime.of(15, 30);
 
-    @Scheduled(fixedDelay = 120000)
-    public void scheduledPoll() { poll(); }
+    /** During market hours: poll every 7 s. Outside: throttle to every 2 min. */
+    private volatile long lastNonMarketPollMs = 0;
+
+    @Scheduled(fixedDelay = 7000)
+    public void scheduledPoll() {
+        ZonedDateTime now = ZonedDateTime.now(IST);
+        DayOfWeek day     = now.getDayOfWeek();
+        LocalTime time    = now.toLocalTime();
+        boolean isMarket  = day != DayOfWeek.SATURDAY && day != DayOfWeek.SUNDAY
+                && !time.isBefore(MARKET_OPEN) && !time.isAfter(MARKET_CLOSE);
+        if (!isMarket) {
+            long nowMs = System.currentTimeMillis();
+            if (nowMs - lastNonMarketPollMs < 120_000) return;
+            lastNonMarketPollMs = nowMs;
+        }
+        poll();
+    }
 
     public void poll() {
         logger.info("Polling NSE");
@@ -204,6 +224,11 @@ public class AlertPoller {
 
         AnalysisResult result = promptRatingService.analyze(
                 ctx.companyName(), ctx.subject(), ctx.link(), documentText);
+
+        // Fire intraday trade immediately if rating ≥ 7 and market hours
+        if (result != null && result.getRating() >= 7.0) {
+            upstoxTradeService.executeIfEligible(ctx.symbol(), (int) Math.round(result.getRating()));
+        }
 
         StringBuilder sb = new StringBuilder();
 
