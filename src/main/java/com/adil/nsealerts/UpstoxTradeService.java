@@ -148,8 +148,12 @@ public class UpstoxTradeService {
 
         String instrumentKey = instrumentMap.get(nseSymbol.toUpperCase());
         if (instrumentKey == null) {
-            log.warn("[Upstox] No instrument key for symbol '{}' — update instrument map", nseSymbol);
-            return;
+            // NSE archive symbol may differ from Upstox trading symbol — try search fallback
+            instrumentKey = searchInstrumentKey(nseSymbol);
+            if (instrumentKey == null) {
+                log.warn("[Upstox] Symbol '{}' not in instruments or search — skipping", nseSymbol);
+                return;
+            }
         }
 
         Double ltp = getLtp(instrumentKey);
@@ -372,6 +376,36 @@ public class UpstoxTradeService {
         }
         try (InputStream is = conn.getInputStream()) {
             return new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        }
+    }
+
+    /**
+     * Fallback when the NSE archive symbol (from PDF link) doesn't match the Upstox trading symbol.
+     * Calls Upstox instrument search and returns the first NSE_EQ match, caching it in instrumentMap.
+     */
+    private String searchInstrumentKey(String query) {
+        try {
+            String encoded = URLEncoder.encode(query, StandardCharsets.UTF_8);
+            String json = get(BASE_URL + "/market-quote/search?q=" + encoded + "&asset_type=shares");
+            if (json == null) return null;
+            JsonNode dataArr = mapper.readTree(json).path("data");
+            for (JsonNode item : dataArr) {
+                if ("NSE_EQ".equals(item.path("segment").asText(""))) {
+                    String key = item.path("instrument_key").asText("");
+                    String sym = item.path("trading_symbol").asText("");
+                    if (!key.isBlank()) {
+                        // Cache so subsequent polls for same symbol skip the search
+                        instrumentMap.put(query.toUpperCase(), key);
+                        if (!sym.isBlank()) instrumentMap.put(sym.toUpperCase(), key);
+                        log.info("[Upstox] Resolved '{}' → {} ({}) via search", query, sym, key);
+                        return key;
+                    }
+                }
+            }
+            return null;
+        } catch (Exception e) {
+            log.warn("[Upstox] searchInstrumentKey('{}') error: {}", query, e.getMessage());
+            return null;
         }
     }
 
