@@ -60,7 +60,7 @@ public class UpstoxTradeService {
     private final TelegramSender telegram;
     private final ObjectMapper   mapper = new ObjectMapper();
 
-    /** NSE trading symbol (upper-case) → Upstox instrument key, e.g. "NSE_EQ|INE040A01034" */
+    /** NSE trading symbol (upper-case) → Upstox instrument key, e.g. "NSE_EQ|INE040A01034" or "NSE_SM|INE..." */
     private final Map<String, String>          instrumentMap    = new ConcurrentHashMap<>();
     private final AtomicReference<ActiveTrade> activeTrade      = new AtomicReference<>();
     private final AtomicInteger                consecutiveStops = new AtomicInteger(0);
@@ -103,18 +103,28 @@ public class UpstoxTradeService {
                     }
                     while (parser.nextToken() == JsonToken.START_OBJECT) {
                         JsonNode item = mapper.readTree(parser); // reads ONE object, not the whole array
-                        if ("NSE_EQ".equals(item.path("segment").asText(""))
+                        String segment = item.path("segment").asText("");
+                        // Include both regular equity (NSE_EQ) and SME/emerge stocks (NSE_SM)
+                        if (("NSE_EQ".equals(segment) || "NSE_SM".equals(segment))
                                 && "EQ".equals(item.path("instrument_type").asText(""))) {
-                            String sym = item.path("trading_symbol").asText("").toUpperCase();
-                            String key = item.path("instrument_key").asText("");
+                            String sym  = item.path("trading_symbol").asText("").toUpperCase();
+                            String key  = item.path("instrument_key").asText("");
+                            String name = item.path("name").asText("").toUpperCase();
                             if (!sym.isBlank() && !key.isBlank()) {
-                                instrumentMap.put(sym, key);
+                                instrumentMap.put(sym, key);   // e.g. "SSEGL" → "NSE_SM|INE..."
+                                // Also index by first word of company name so NSE archive
+                                // symbols (e.g. "SATHLOKHAR") can match "SATHLOKHAR SYNERGYS..."
+                                if (!name.isBlank()) {
+                                    String firstWord = name.split("[^A-Z0-9]")[0];
+                                    if (firstWord.length() >= 4)
+                                        instrumentMap.putIfAbsent(firstWord, key);
+                                }
                                 count++;
                             }
                         }
                     }
                 }
-                log.info("[Upstox] Loaded {} NSE EQ instruments", count);
+                log.info("[Upstox] Loaded {} NSE EQ + SME instruments", count);
             } catch (Exception e) {
                 log.error("[Upstox] Failed to load instruments: {}", e.getMessage());
             }
@@ -317,7 +327,6 @@ public class UpstoxTradeService {
      * Returns null only if all three attempts fail.
      */
     private Double getLtp(String instrumentKey) {
-        String dataKey = instrumentKey.replace("|", ":");
         String encoded;
         try {
             encoded = URLEncoder.encode(instrumentKey, StandardCharsets.UTF_8);
@@ -327,16 +336,16 @@ public class UpstoxTradeService {
         }
 
         // Attempt 1 — fast LTP endpoint
-        Double ltp = fetchLtpEndpoint(encoded, dataKey);
+        Double ltp = fetchLtpEndpoint(encoded, null);
         if (ltp != null) return ltp;
 
-        // Attempt 2 — retry after 300ms (brief quote data gap)
+        // Attempt 2 — retry after 300ms (covers transient quote gaps)
         try { Thread.sleep(300); } catch (InterruptedException ie) { Thread.currentThread().interrupt(); return null; }
-        ltp = fetchLtpEndpoint(encoded, dataKey);
+        ltp = fetchLtpEndpoint(encoded, null);
         if (ltp != null) return ltp;
 
-        // Attempt 3 — fallback to full quotes endpoint (more reliable, includes OHLC)
-        ltp = fetchQuotesEndpoint(encoded, dataKey);
+        // Attempt 3 — fallback to full quotes endpoint
+        ltp = fetchQuotesEndpoint(encoded, null);
         if (ltp != null) {
             log.info("[Upstox] LTP for {} resolved via quotes fallback: {}", instrumentKey, ltp);
         } else {
@@ -345,30 +354,39 @@ public class UpstoxTradeService {
         return ltp;
     }
 
-    private Double fetchLtpEndpoint(String encodedKey, String dataKey) {
+    private Double fetchLtpEndpoint(String encodedKey, String ignoredKey) {
         try {
             String json = get(BASE_URL + "/market-quote/ltp?instrument_key=" + encodedKey);
             if (json == null) return null;
-            double ltp = mapper.readTree(json).path("data").path(dataKey)
-                               .path("last_price").asDouble(0);
-            return ltp > 0 ? ltp : null;
+            // Upstox keys the response by trading symbol ("NSE_EQ:SOLEX"), NOT by ISIN.
+            // Never do instrumentKey.replace("|",":") — just take the first entry in data.
+            return firstLastPrice(mapper.readTree(json).path("data"));
         } catch (Exception e) {
             log.warn("[Upstox] fetchLtpEndpoint error: {}", e.getMessage());
             return null;
         }
     }
 
-    private Double fetchQuotesEndpoint(String encodedKey, String dataKey) {
+    private Double fetchQuotesEndpoint(String encodedKey, String ignoredKey) {
         try {
             String json = get(BASE_URL + "/market-quote/quotes?instrument_key=" + encodedKey);
             if (json == null) return null;
-            double ltp = mapper.readTree(json).path("data").path(dataKey)
-                               .path("last_price").asDouble(0);
-            return ltp > 0 ? ltp : null;
+            return firstLastPrice(mapper.readTree(json).path("data"));
         } catch (Exception e) {
             log.warn("[Upstox] fetchQuotesEndpoint error: {}", e.getMessage());
             return null;
         }
+    }
+
+    /**
+     * Extracts last_price from the first entry in an Upstox "data" node.
+     * Upstox keys the response by trading symbol ("NSE_EQ:SOLEX"), not by the
+     * instrument_key ISIN we used in the request — so we must not hard-code the key.
+     */
+    private Double firstLastPrice(JsonNode data) {
+        if (data == null || data.isMissingNode() || !data.fields().hasNext()) return null;
+        double ltp = data.fields().next().getValue().path("last_price").asDouble(0);
+        return ltp > 0 ? ltp : null;
     }
 
     /** Place a market order. Returns orderId on success, null on failure. */
@@ -437,33 +455,16 @@ public class UpstoxTradeService {
     }
 
     /**
-     * Fallback when the NSE archive symbol (from PDF link) doesn't match the Upstox trading symbol.
-     * Calls Upstox instrument search and returns the first NSE_EQ match, caching it in instrumentMap.
+     * Upstox v2 has no instrument search API endpoint.
+     * Instead, loadInstruments() indexes both the trading symbol AND the first word of
+     * the company name so NSE archive symbols (e.g. "SATHLOKHAR") can match the
+     * Upstox trading symbol (e.g. "SSEGL") via the company name field.
+     * If still not found, log a clear message so the operator knows to check the mapping.
      */
     private String searchInstrumentKey(String query) {
-        try {
-            String encoded = URLEncoder.encode(query, StandardCharsets.UTF_8);
-            String json = get(BASE_URL + "/market-quote/search?q=" + encoded + "&asset_type=shares");
-            if (json == null) return null;
-            JsonNode dataArr = mapper.readTree(json).path("data");
-            for (JsonNode item : dataArr) {
-                if ("NSE_EQ".equals(item.path("segment").asText(""))) {
-                    String key = item.path("instrument_key").asText("");
-                    String sym = item.path("trading_symbol").asText("");
-                    if (!key.isBlank()) {
-                        // Cache so subsequent polls for same symbol skip the search
-                        instrumentMap.put(query.toUpperCase(), key);
-                        if (!sym.isBlank()) instrumentMap.put(sym.toUpperCase(), key);
-                        log.info("[Upstox] Resolved '{}' → {} ({}) via search", query, sym, key);
-                        return key;
-                    }
-                }
-            }
-            return null;
-        } catch (Exception e) {
-            log.warn("[Upstox] searchInstrumentKey('{}') error: {}", query, e.getMessage());
-            return null;
-        }
+        log.warn("[Upstox] '{}' not in instrument map (NSE archive symbol ≠ Upstox trading symbol). " +
+                 "Company name index also missed — add manual alias if needed.", query);
+        return null;
     }
 
     /** True if current IST time is a weekday between 09:15 and 15:30. */
