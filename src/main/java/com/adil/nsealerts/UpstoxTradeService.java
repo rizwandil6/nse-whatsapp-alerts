@@ -307,19 +307,66 @@ public class UpstoxTradeService {
         }
     }
 
-    /** Fetch last traded price for an instrument key. Returns null on any error. */
+    /**
+     * Fetch last traded price for an instrument key.
+     * Strategy:
+     *   1. Try /market-quote/ltp (fast, lightweight)
+     *   2. If data gap (returns 0), wait 300ms and retry once — covers brief quote gaps
+     *      during rapid price moves (as seen with SOLEX spike)
+     *   3. If still null, fall back to /market-quote/quotes (heavier but more reliable)
+     * Returns null only if all three attempts fail.
+     */
     private Double getLtp(String instrumentKey) {
+        String dataKey = instrumentKey.replace("|", ":");
+        String encoded;
         try {
-            String encoded = URLEncoder.encode(instrumentKey, StandardCharsets.UTF_8);
-            String json    = get(BASE_URL + "/market-quote/ltp?instrument_key=" + encoded);
+            encoded = URLEncoder.encode(instrumentKey, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            log.warn("[Upstox] getLtp encode error: {}", e.getMessage());
+            return null;
+        }
+
+        // Attempt 1 — fast LTP endpoint
+        Double ltp = fetchLtpEndpoint(encoded, dataKey);
+        if (ltp != null) return ltp;
+
+        // Attempt 2 — retry after 300ms (brief quote data gap)
+        try { Thread.sleep(300); } catch (InterruptedException ie) { Thread.currentThread().interrupt(); return null; }
+        ltp = fetchLtpEndpoint(encoded, dataKey);
+        if (ltp != null) return ltp;
+
+        // Attempt 3 — fallback to full quotes endpoint (more reliable, includes OHLC)
+        ltp = fetchQuotesEndpoint(encoded, dataKey);
+        if (ltp != null) {
+            log.info("[Upstox] LTP for {} resolved via quotes fallback: {}", instrumentKey, ltp);
+        } else {
+            log.warn("[Upstox] Could not fetch LTP for {} after ltp×2 + quotes fallback", instrumentKey);
+        }
+        return ltp;
+    }
+
+    private Double fetchLtpEndpoint(String encodedKey, String dataKey) {
+        try {
+            String json = get(BASE_URL + "/market-quote/ltp?instrument_key=" + encodedKey);
             if (json == null) return null;
-            // Response key replaces "|" with ":"
-            String dataKey = instrumentKey.replace("|", ":");
-            double ltp     = mapper.readTree(json).path("data").path(dataKey)
-                                   .path("last_price").asDouble(0);
+            double ltp = mapper.readTree(json).path("data").path(dataKey)
+                               .path("last_price").asDouble(0);
             return ltp > 0 ? ltp : null;
         } catch (Exception e) {
-            log.warn("[Upstox] getLtp error for {}: {}", instrumentKey, e.getMessage());
+            log.warn("[Upstox] fetchLtpEndpoint error: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    private Double fetchQuotesEndpoint(String encodedKey, String dataKey) {
+        try {
+            String json = get(BASE_URL + "/market-quote/quotes?instrument_key=" + encodedKey);
+            if (json == null) return null;
+            double ltp = mapper.readTree(json).path("data").path(dataKey)
+                               .path("last_price").asDouble(0);
+            return ltp > 0 ? ltp : null;
+        } catch (Exception e) {
+            log.warn("[Upstox] fetchQuotesEndpoint error: {}", e.getMessage());
             return null;
         }
     }
