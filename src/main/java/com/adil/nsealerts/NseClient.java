@@ -2,6 +2,7 @@ package com.adil.nsealerts;
 
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.ParsingFeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,36 +75,53 @@ public class NseClient {
     // -------------------------------------------------------------------------
 
     public List<SyndEntry> fetchAnnouncements() {
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("User-Agent", USER_AGENT);
-            headers.set("Accept", "application/rss+xml, application/xml, text/xml, */*");
-            headers.set("Accept-Language", "en-US,en;q=0.9");
-            headers.set("Connection", "keep-alive");
+        // NSE occasionally returns truncated XML under high-frequency polling
+        // (connection closed before full body delivered). Retry once after 1 s.
+        for (int attempt = 1; attempt <= 2; attempt++) {
+            try {
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("User-Agent", USER_AGENT);
+                headers.set("Accept", "application/rss+xml, application/xml, text/xml, */*");
+                headers.set("Accept-Language", "en-US,en;q=0.9");
+                headers.set("Connection", "keep-alive");
 
-            ResponseEntity<String> response = restTemplate.exchange(
-                    ANNOUNCEMENTS_RSS_URL, HttpMethod.GET,
-                    new HttpEntity<>(headers), String.class);
+                ResponseEntity<String> response = restTemplate.exchange(
+                        ANNOUNCEMENTS_RSS_URL, HttpMethod.GET,
+                        new HttpEntity<>(headers), String.class);
 
-            String body = response.getBody();
-            if (body == null || body.isBlank()) {
-                logger.warn("NSE RSS feed returned empty response");
+                String body = response.getBody();
+                if (body == null || body.isBlank()) {
+                    logger.warn("NSE RSS feed returned empty response");
+                    return Collections.emptyList();
+                }
+
+                // Strip BOM or leading whitespace before the XML declaration
+                int xmlStart = body.indexOf('<');
+                if (xmlStart > 0) body = body.substring(xmlStart);
+
+                SyndFeedInput input = new SyndFeedInput();
+                SyndFeed feed = input.build(new StringReader(body));
+                logger.info("Fetched RSS feed with {} entries", feed.getEntries().size());
+                return new ArrayList<>(feed.getEntries());
+
+            } catch (ParsingFeedException e) {
+                // Truncated XML from NSE — re-fetch and retry once
+                if (attempt < 2) {
+                    logger.warn("[NseClient] RSS truncated XML (attempt {}), retrying in 1s...", attempt);
+                    try { Thread.sleep(1000); }
+                    catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        return Collections.emptyList();
+                    }
+                } else {
+                    logger.error("[NseClient] RSS parse failed after {} attempts", attempt, e);
+                }
+            } catch (Exception e) {
+                logger.error("[NseClient] Error fetching announcements RSS", e);
                 return Collections.emptyList();
             }
-
-            // Strip BOM or leading whitespace before the XML declaration
-            int xmlStart = body.indexOf('<');
-            if (xmlStart > 0) body = body.substring(xmlStart);
-
-            SyndFeedInput input = new SyndFeedInput();
-            SyndFeed feed = input.build(new StringReader(body));
-            logger.info("Fetched RSS feed with {} entries", feed.getEntries().size());
-            return new ArrayList<>(feed.getEntries());
-
-        } catch (Exception e) {
-            logger.error("Error fetching announcements RSS", e);
-            return Collections.emptyList();
         }
+        return Collections.emptyList();
     }
 
     // -------------------------------------------------------------------------
