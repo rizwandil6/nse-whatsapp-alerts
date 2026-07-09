@@ -1,5 +1,7 @@
 package com.adil.nsealerts;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -89,10 +91,18 @@ public class UpstoxTradeService {
                 HttpURLConnection conn = (HttpURLConnection) new URL(INSTRUMENTS_URL).openConnection();
                 conn.setConnectTimeout(20_000);
                 conn.setReadTimeout(60_000);
+                // Stream one object at a time — avoids loading 150MB+ JSON tree into heap
                 int count = 0;
-                try (InputStream is = new GZIPInputStream(conn.getInputStream())) {
-                    JsonNode arr = mapper.readTree(is);
-                    for (JsonNode item : arr) {
+                try (InputStream raw = conn.getInputStream();
+                     GZIPInputStream gz = new GZIPInputStream(raw);
+                     JsonParser parser = mapper.getFactory().createParser(gz)) {
+
+                    if (parser.nextToken() != JsonToken.START_ARRAY) {
+                        log.warn("[Upstox] Instruments response is not a JSON array");
+                        return;
+                    }
+                    while (parser.nextToken() == JsonToken.START_OBJECT) {
+                        JsonNode item = mapper.readTree(parser); // reads ONE object, not the whole array
                         if ("NSE_EQ".equals(item.path("segment").asText(""))
                                 && "EQ".equals(item.path("instrument_type").asText(""))) {
                             String sym = item.path("trading_symbol").asText("").toUpperCase();
