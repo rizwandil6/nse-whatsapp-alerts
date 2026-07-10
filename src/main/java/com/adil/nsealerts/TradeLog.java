@@ -32,7 +32,7 @@ import java.time.Instant;
 public class TradeLog {
     private static final Logger log = LoggerFactory.getLogger(TradeLog.class);
     private static final String HEADER =
-            "timestamp,mode,event,symbol,instrument_key,rating,price,qty,gain_pct,reason";
+            "timestamp,mode,event,symbol,instrument_key,rating,price,qty,gain_pct,reason,latency_ms";
 
     @Value("${tradelog.path:trades.csv}")
     private String path;
@@ -42,24 +42,30 @@ public class TradeLog {
      * backtest/run.js's signals.csv format (symbol,instrument_key,entry_iso,rating)
      * without a manual lookup step — filter this file to event=entry rows and rename
      * the timestamp column to entry_iso.
+     *
+     * latencyMs is broadcast-time-to-entry, in milliseconds (-1 if the announcement's
+     * broadcast time couldn't be parsed). This is the actual measured answer to "how
+     * fast is the pipeline", replacing what used to be pure guesswork from reading
+     * the code — see UpstoxTradeService.latencyMs().
      */
     public void logEntry(boolean shadow, String symbol, String instrumentKey, int rating,
-                          double price, int qty, String note) {
-        write(shadow, "entry", symbol, instrumentKey, String.valueOf(rating), fmt(price), String.valueOf(qty), "", note);
+                          double price, int qty, long latencyMs, String note) {
+        write(shadow, "entry", symbol, instrumentKey, String.valueOf(rating), fmt(price),
+                String.valueOf(qty), "", note, String.valueOf(latencyMs));
     }
 
     public void logPartialExit(boolean shadow, String symbol, double price, double gainPct) {
-        write(shadow, "partial_exit", symbol, "", "", fmt(price), "", fmt(gainPct), "");
+        write(shadow, "partial_exit", symbol, "", "", fmt(price), "", fmt(gainPct), "", "");
     }
 
     public void logExit(boolean shadow, String symbol, String reason, double price, double gainPct) {
-        write(shadow, "exit", symbol, "", "", fmt(price), "", fmt(gainPct), reason);
+        write(shadow, "exit", symbol, "", "", fmt(price), "", fmt(gainPct), reason, "");
     }
 
     private void write(boolean shadow, String event, String symbol, String instrumentKey, String rating,
-                        String price, String qty, String gainPct, String reason) {
+                        String price, String qty, String gainPct, String reason, String latencyMs) {
         String line = csv(Instant.now().toString(), shadow ? "shadow" : "live", event,
-                symbol, instrumentKey, rating, price, qty, gainPct, reason);
+                symbol, instrumentKey, rating, price, qty, gainPct, reason, latencyMs);
         // Always echo to the application log too — on platforms without a persistent
         // volume, Railway's own log retention is the only durable copy of this data.
         log.info("[TradeLog] {}", line);

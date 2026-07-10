@@ -279,7 +279,7 @@ public class AlertPoller {
         // UpstoxTradeService's manual alias map instead of waiting on a Screener
         // lookup for the correct symbol — see MANUAL_SYMBOL_ALIASES.
         if (result != null && result.getRating() >= tradeRatingThreshold) {
-            upstoxTradeService.executeIfEligible(ctx.symbol(), (int) Math.round(result.getRating()));
+            upstoxTradeService.executeIfEligible(ctx.symbol(), (int) Math.round(result.getRating()), ctx.broadcastTimeMs());
         }
 
         FundamentalResult fr = null;
@@ -500,7 +500,8 @@ public class AlertPoller {
 
         return new AnnouncementContext(
                 companyName.isBlank() ? cleanTitle : companyName,
-                symbol, subject.isBlank() ? cleanTitle : subject, link, broadcastTime);
+                symbol, subject.isBlank() ? cleanTitle : subject, link, broadcastTime,
+                parseBroadcastTimeMs(broadcastTime));
     }
 
     private String extractCompanyName(String title) {
@@ -567,5 +568,20 @@ public class AlertPoller {
         return "";
     }
 
-    private record AnnouncementContext(String companyName, String symbol, String subject, String link, String broadcastTime) {}
+    private static final DateTimeFormatter BROADCAST_TIME_FORMAT =
+            DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
+
+    /** Epoch millis for the "dd-MMM-yyyy HH:mm:ss" broadcast time string, interpreted as IST. 0 if unparseable. */
+    private long parseBroadcastTimeMs(String broadcastTime) {
+        if (broadcastTime == null || broadcastTime.isBlank()) return 0L;
+        try {
+            LocalDateTime dt = LocalDateTime.parse(broadcastTime, BROADCAST_TIME_FORMAT);
+            return dt.atZone(IST).toInstant().toEpochMilli();
+        } catch (Exception e) {
+            return 0L;
+        }
+    }
+
+    private record AnnouncementContext(String companyName, String symbol, String subject, String link,
+                                        String broadcastTime, long broadcastTimeMs) {}
 }

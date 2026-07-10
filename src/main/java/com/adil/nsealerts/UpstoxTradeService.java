@@ -110,7 +110,7 @@ public class UpstoxTradeService {
             "IONEXCHANGE", "IONEXCHANG"
     );
 
-    private record QueuedSignal(String symbol, int rating, long queuedAtMs) {}
+    private record QueuedSignal(String symbol, int rating, long queuedAtMs, long broadcastTimeMs) {}
     private record OrderFill(String status, double avgPrice, int filledQty) {}
     private record PrefetchedQuote(String instrumentKey, CompletableFuture<Double> ltpFuture, long startedAtMs) {}
 
@@ -185,7 +185,12 @@ public class UpstoxTradeService {
 
     // ─── Entry point called by AlertPoller after rating ≥ nse.trade-rating-threshold ──────────────────
 
-    public void executeIfEligible(String nseSymbol, int rating) {
+    /**
+     * @param broadcastTimeMs epoch millis the announcement was actually broadcast by NSE
+     *                        (0 if unparseable) — used only for latency telemetry in
+     *                        TradeLog, never for trading decisions.
+     */
+    public void executeIfEligible(String nseSymbol, int rating, long broadcastTimeMs) {
         if (!enabled && !shadowEnabled) return;
         if (accessToken == null || accessToken.isBlank()) {
             log.warn("[Upstox] No UPSTOX_ACCESS_TOKEN set — cannot trade or shadow-simulate {}", nseSymbol);
@@ -197,12 +202,12 @@ public class UpstoxTradeService {
             // 6% land pre-market — after-hours (42%) and weekend (11%) are the bigger
             // buckets, and both used to be silently dropped here just like pre-market
             // was. Queue ALL of them and fire at the next trading day's 09:15 open.
-            queuedSignals.add(new QueuedSignal(nseSymbol.toUpperCase(), rating, System.currentTimeMillis()));
+            queuedSignals.add(new QueuedSignal(nseSymbol.toUpperCase(), rating, System.currentTimeMillis(), broadcastTimeMs));
             log.info("[Upstox] {} queued — outside market hours (rating {}), will attempt at next 09:15 open", nseSymbol, rating);
             return;
         }
 
-        attemptEntry(nseSymbol.toUpperCase(), rating);
+        attemptEntry(nseSymbol.toUpperCase(), rating, broadcastTimeMs);
     }
 
     /** Fires at 09:15:05 IST on weekdays — drains any signals queued since the last open. */
@@ -222,7 +227,7 @@ public class UpstoxTradeService {
 
         log.info("[Upstox] Market open — firing {} queued signal(s)", toFire.size());
         for (QueuedSignal q : toFire) {
-            attemptEntry(q.symbol(), q.rating());
+            attemptEntry(q.symbol(), q.rating(), q.broadcastTimeMs());
         }
     }
 
@@ -265,7 +270,7 @@ public class UpstoxTradeService {
      * entirely). The two are independent of each other — a decline reason for live
      * trading doesn't block shadow simulation and vice versa.
      */
-    private void attemptEntry(String nseSymbol, int rating) {
+    private void attemptEntry(String nseSymbol, int rating, long broadcastTimeMs) {
         String instrumentKey;
         Double ltp;
 
@@ -297,11 +302,16 @@ public class UpstoxTradeService {
 
         String declineReason = liveDeclineReason();
         if (declineReason == null) {
-            placeLiveEntry(nseSymbol, instrumentKey, ltp, rating);
+            placeLiveEntry(nseSymbol, instrumentKey, ltp, rating, broadcastTimeMs);
         } else {
             log.info("[Upstox] {} not live-eligible ({}) — shadow-simulating instead", nseSymbol, declineReason);
-            if (shadowEnabled) startShadow(nseSymbol, instrumentKey, ltp, rating, declineReason);
+            if (shadowEnabled) startShadow(nseSymbol, instrumentKey, ltp, rating, declineReason, broadcastTimeMs);
         }
+    }
+
+    /** Broadcast-to-entry latency in ms, or -1 if the broadcast time couldn't be parsed. */
+    private long latencyMs(long broadcastTimeMs) {
+        return broadcastTimeMs > 0 ? System.currentTimeMillis() - broadcastTimeMs : -1;
     }
 
     /** Returns null if live trading is currently eligible, otherwise a human-readable reason it isn't. */
@@ -323,7 +333,7 @@ public class UpstoxTradeService {
         return null;
     }
 
-    private void placeLiveEntry(String nseSymbol, String instrumentKey, double refLtp, int rating) {
+    private void placeLiveEntry(String nseSymbol, String instrumentKey, double refLtp, int rating, long broadcastTimeMs) {
         int qty = (int) Math.floor(capitalPerTrade / refLtp);
         if (qty < 1) {
             log.warn("[Upstox] Qty=0 for {} @₹{} — capital ₹{} too low for one lot",
@@ -357,19 +367,20 @@ public class UpstoxTradeService {
         ActiveTrade trade = new ActiveTrade(nseSymbol, instrumentKey, entryPrice, filledQty, orderId);
         activeTrade.set(trade);
 
-        log.info("[Upstox] BUY {} qty={} entry=₹{} (fill-confirmed) orderId={}",
-                nseSymbol, filledQty, entryPrice, orderId);
+        long latency = latencyMs(broadcastTimeMs);
+        log.info("[Upstox] BUY {} qty={} entry=₹{} (fill-confirmed) orderId={} latencyMs={}",
+                nseSymbol, filledQty, entryPrice, orderId, latency);
         telegram.send(String.format(
                 "🟢 TRADE ENTRY: %s%nQty: %d @₹%.2f%nRating: %d/10%nTarget: +%.1f%% (50%%) | Stop: -%.1f%% (full)",
                 nseSymbol, filledQty, entryPrice, rating, targetPct, stopLossPct));
-        tradeLog.logEntry(false, nseSymbol, instrumentKey, rating, entryPrice, filledQty, orderId);
+        tradeLog.logEntry(false, nseSymbol, instrumentKey, rating, entryPrice, filledQty, latency, orderId);
     }
 
-    private void startShadow(String symbol, String instrumentKey, double ltp, int rating, String declineReason) {
+    private void startShadow(String symbol, String instrumentKey, double ltp, int rating, String declineReason, long broadcastTimeMs) {
         String shadowId = symbol + "#" + System.currentTimeMillis();
         ActiveTrade shadow = new ActiveTrade(symbol, instrumentKey, ltp, 1, "shadow");
         shadowTrades.put(shadowId, shadow);
-        tradeLog.logEntry(true, symbol, instrumentKey, rating, ltp, 1, declineReason);
+        tradeLog.logEntry(true, symbol, instrumentKey, rating, ltp, 1, latencyMs(broadcastTimeMs), declineReason);
     }
 
     // ─── Position monitors — run every 3 s ─────────────────────────────────────
