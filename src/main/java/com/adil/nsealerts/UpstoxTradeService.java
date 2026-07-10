@@ -44,11 +44,12 @@ import java.util.zip.GZIPInputStream;
  *     concurrently, so the strategy's raw per-signal edge can be measured even
  *     while a real position is open, or while UPSTOX_ENABLED=false entirely.
  *
- * Pre-market signals (announcement rated before 09:15 IST) are queued and
- * retried at market open instead of being silently dropped — many order-win
- * disclosures are filed before the bell specifically because they move the
- * opening price, so trading hours alone was previously discarding some of the
- * highest-signal announcements.
+ * Any signal seen outside market hours — pre-market, after-hours, or weekend —
+ * is queued and retried at the next 09:15 IST open instead of being silently
+ * dropped. Backtesting against real NSE data (272 order/contract announcements,
+ * Apr-Jul 2026) showed only 6% of matches land pre-market; after-hours (42%)
+ * and weekend (11%) are actually the bigger buckets, so this needed to cover
+ * all three, not just pre-market.
  *
  * Requires Railway env var:
  *   UPSTOX_ACCESS_TOKEN  — refreshed daily before market open
@@ -84,8 +85,8 @@ public class UpstoxTradeService {
     /** Shadow (paper) positions — not capital-constrained, keyed by a unique id per signal. */
     private final Map<String, ActiveTrade> shadowTrades = new ConcurrentHashMap<>();
 
-    /** Signals seen before market open, queued to retry exactly at 09:15 IST. */
-    private final List<QueuedSignal> preMarketQueue = new CopyOnWriteArrayList<>();
+    /** Signals seen outside market hours (pre-market, after-hours, or weekend), queued to retry at the next 09:15 IST open. */
+    private final List<QueuedSignal> queuedSignals = new CopyOnWriteArrayList<>();
 
     private record QueuedSignal(String symbol, int rating, long queuedAtMs) {}
     private record OrderFill(String status, double avgPrice, int filledQty) {}
@@ -168,41 +169,35 @@ public class UpstoxTradeService {
             return;
         }
 
-        ZonedDateTime now   = ZonedDateTime.now(IST);
-        DayOfWeek     day   = now.getDayOfWeek();
-        boolean       isWeekday = day != DayOfWeek.SATURDAY && day != DayOfWeek.SUNDAY;
-
-        if (isWeekday && now.toLocalTime().isBefore(MARKET_OPEN)) {
-            // Pre-market announcements are common (boards often approve/disclose before
-            // the bell) and previously just got dropped here. Queue instead — fired by
-            // fireQueuedPreMarketSignals() at 09:15 IST.
-            preMarketQueue.add(new QueuedSignal(nseSymbol.toUpperCase(), rating, System.currentTimeMillis()));
-            log.info("[Upstox] {} queued — pre-market signal (rating {}), will attempt at 09:15 open", nseSymbol, rating);
-            return;
-        }
         if (!isMarketHours()) {
-            log.info("[Upstox] {} skipped — outside market hours (post-close or weekend)", nseSymbol);
+            // Real NSE data (272 order/contract announcements, Apr-Jul 2026) showed only
+            // 6% land pre-market — after-hours (42%) and weekend (11%) are the bigger
+            // buckets, and both used to be silently dropped here just like pre-market
+            // was. Queue ALL of them and fire at the next trading day's 09:15 open.
+            queuedSignals.add(new QueuedSignal(nseSymbol.toUpperCase(), rating, System.currentTimeMillis()));
+            log.info("[Upstox] {} queued — outside market hours (rating {}), will attempt at next 09:15 open", nseSymbol, rating);
             return;
         }
 
         attemptEntry(nseSymbol.toUpperCase(), rating);
     }
 
-    /** Fires at 09:15:05 IST on weekdays — drains any signals queued before the open. */
+    /** Fires at 09:15:05 IST on weekdays — drains any signals queued since the last open. */
     @Scheduled(cron = "5 15 9 * * MON-FRI", zone = "Asia/Kolkata")
-    void fireQueuedPreMarketSignals() {
-        if (preMarketQueue.isEmpty()) return;
+    void fireQueuedSignals() {
+        if (queuedSignals.isEmpty()) return;
 
-        // Safety net: only fire signals actually queued "today", in case the process
-        // was up across a weekend/holiday edge case with something stale left over.
-        long todayStartMs = LocalDate.now(IST).atStartOfDay(IST).toInstant().toEpochMilli();
+        // Safety net: drop anything queued more than 4 days ago (covers a long
+        // weekend/holiday) in case the process ran across an edge case with
+        // something stale left over — not expected in normal operation.
+        long cutoffMs = System.currentTimeMillis() - 4L * 24 * 60 * 60 * 1000;
         List<QueuedSignal> toFire = new ArrayList<>();
-        for (QueuedSignal q : preMarketQueue) {
-            if (q.queuedAtMs() >= todayStartMs) toFire.add(q);
+        for (QueuedSignal q : queuedSignals) {
+            if (q.queuedAtMs() >= cutoffMs) toFire.add(q);
         }
-        preMarketQueue.clear();
+        queuedSignals.clear();
 
-        log.info("[Upstox] Market open — firing {} queued pre-market signal(s)", toFire.size());
+        log.info("[Upstox] Market open — firing {} queued signal(s)", toFire.size());
         for (QueuedSignal q : toFire) {
             attemptEntry(q.symbol(), q.rating());
         }
