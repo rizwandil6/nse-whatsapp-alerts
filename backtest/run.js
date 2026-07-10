@@ -137,7 +137,9 @@ async function main() {
   console.log(`\nPer-trade results written to ${outPath}`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}
