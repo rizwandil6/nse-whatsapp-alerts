@@ -17,9 +17,12 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.*;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.zip.GZIPInputStream;
@@ -27,7 +30,8 @@ import java.util.zip.GZIPInputStream;
 /**
  * Upstox intraday trade execution service.
  *
- * Strategy (confirmed via backtest on June 2026 data, 44 intraday trades):
+ * Strategy (see TradeRules.java for the exact exit-decision logic, shared with
+ * shadow-mode simulation so live and simulated trades can never drift apart):
  *   - Entry:          market buy immediately after AI rating ≥ 7
  *   - Partial exit:   sell 50% at +2% target
  *   - Trailing stop:  remaining 50% exits when (peak - current) ≥ 1%
@@ -35,11 +39,21 @@ import java.util.zip.GZIPInputStream;
  *   - Time exit:      square off remaining at 45 min
  *   - NIFTY gate:     skip if NIFTY is down > 0.5% vs previous close
  *   - Circuit breaker:pause after 2 consecutive stop-losses
- *   - One trade at a time (AtomicReference guard)
+ *   - One LIVE trade at a time (AtomicReference guard). Shadow trades are NOT
+ *     capital-constrained — every signal that can't go live still gets simulated
+ *     concurrently, so the strategy's raw per-signal edge can be measured even
+ *     while a real position is open, or while UPSTOX_ENABLED=false entirely.
+ *
+ * Pre-market signals (announcement rated before 09:15 IST) are queued and
+ * retried at market open instead of being silently dropped — many order-win
+ * disclosures are filed before the bell specifically because they move the
+ * opening price, so trading hours alone was previously discarding some of the
+ * highest-signal announcements.
  *
  * Requires Railway env var:
  *   UPSTOX_ACCESS_TOKEN  — refreshed daily before market open
- *   UPSTOX_ENABLED=true  — enable live trading
+ *   UPSTOX_ENABLED=true  — enable live trading (shadow-mode runs regardless,
+ *                          see upstox.shadow-enabled)
  */
 @Service
 public class UpstoxTradeService {
@@ -49,6 +63,7 @@ public class UpstoxTradeService {
     // ─── Config (application.yml → upstox: section) ───────────────────────────
     @Value("${upstox.access-token:}")          private String  accessToken;
     @Value("${upstox.enabled:false}")           private boolean enabled;
+    @Value("${upstox.shadow-enabled:true}")     private boolean shadowEnabled;
     @Value("${upstox.capital-per-trade:5000}")  private double  capitalPerTrade;
     @Value("${upstox.nifty-gate-pct:0.5}")     private double  niftyGatePct;
     @Value("${upstox.stop-loss-pct:1.5}")       private double  stopLossPct;
@@ -58,12 +73,22 @@ public class UpstoxTradeService {
     @Value("${upstox.circuit-breaker-limit:2}") private int     circuitBreakerLimit;
 
     private final TelegramSender telegram;
+    private final TradeLog       tradeLog;
     private final ObjectMapper   mapper = new ObjectMapper();
 
     /** NSE trading symbol (upper-case) → Upstox instrument key, e.g. "NSE_EQ|INE040A01034" or "NSE_SM|INE..." */
     private final Map<String, String>          instrumentMap    = new ConcurrentHashMap<>();
     private final AtomicReference<ActiveTrade> activeTrade      = new AtomicReference<>();
     private final AtomicInteger                consecutiveStops = new AtomicInteger(0);
+
+    /** Shadow (paper) positions — not capital-constrained, keyed by a unique id per signal. */
+    private final Map<String, ActiveTrade> shadowTrades = new ConcurrentHashMap<>();
+
+    /** Signals seen before market open, queued to retry exactly at 09:15 IST. */
+    private final List<QueuedSignal> preMarketQueue = new CopyOnWriteArrayList<>();
+
+    private record QueuedSignal(String symbol, int rating, long queuedAtMs) {}
+    private record OrderFill(String status, double avgPrice, int filledQty) {}
 
     private static final ZoneId    IST              = ZoneId.of("Asia/Kolkata");
     private static final LocalTime MARKET_OPEN      = LocalTime.of(9, 15);
@@ -73,16 +98,17 @@ public class UpstoxTradeService {
             "https://assets.upstox.com/market-quote/instruments/exchange/complete.json.gz";
     private static final String    NIFTY_KEY        = "NSE_INDEX|Nifty 50";
 
-    public UpstoxTradeService(TelegramSender telegram) {
+    public UpstoxTradeService(TelegramSender telegram, TradeLog tradeLog) {
         this.telegram = telegram;
+        this.tradeLog = tradeLog;
     }
 
     // ─── Startup: load NSE instruments into memory ────────────────────────────
 
     @PostConstruct
     void loadInstruments() {
-        if (!enabled) {
-            log.info("[Upstox] Disabled (upstox.enabled=false) — skipping instrument load");
+        if (!enabled && !shadowEnabled) {
+            log.info("[Upstox] Disabled (upstox.enabled=false, upstox.shadow-enabled=false) — skipping instrument load");
             return;
         }
         Thread t = new Thread(() -> {
@@ -136,56 +162,107 @@ public class UpstoxTradeService {
     // ─── Entry point called by AlertPoller after rating ≥ 7 ──────────────────
 
     public void executeIfEligible(String nseSymbol, int rating) {
-        if (!enabled) return;
-
+        if (!enabled && !shadowEnabled) return;
         if (accessToken == null || accessToken.isBlank()) {
-            log.warn("[Upstox] No UPSTOX_ACCESS_TOKEN set — cannot trade {}", nseSymbol);
+            log.warn("[Upstox] No UPSTOX_ACCESS_TOKEN set — cannot trade or shadow-simulate {}", nseSymbol);
+            return;
+        }
+
+        ZonedDateTime now   = ZonedDateTime.now(IST);
+        DayOfWeek     day   = now.getDayOfWeek();
+        boolean       isWeekday = day != DayOfWeek.SATURDAY && day != DayOfWeek.SUNDAY;
+
+        if (isWeekday && now.toLocalTime().isBefore(MARKET_OPEN)) {
+            // Pre-market announcements are common (boards often approve/disclose before
+            // the bell) and previously just got dropped here. Queue instead — fired by
+            // fireQueuedPreMarketSignals() at 09:15 IST.
+            preMarketQueue.add(new QueuedSignal(nseSymbol.toUpperCase(), rating, System.currentTimeMillis()));
+            log.info("[Upstox] {} queued — pre-market signal (rating {}), will attempt at 09:15 open", nseSymbol, rating);
             return;
         }
         if (!isMarketHours()) {
-            log.info("[Upstox] {} skipped — outside market hours", nseSymbol);
+            log.info("[Upstox] {} skipped — outside market hours (post-close or weekend)", nseSymbol);
             return;
         }
 
-        ActiveTrade existing = activeTrade.get();
-        if (existing != null) {
-            log.info("[Upstox] {} skipped — already in position: {}", nseSymbol, existing.symbol);
-            return;
-        }
+        attemptEntry(nseSymbol.toUpperCase(), rating);
+    }
 
-        int stops = consecutiveStops.get();
-        if (stops >= circuitBreakerLimit) {
-            log.warn("[Upstox] Circuit breaker active ({} consecutive stops) — skipping {}", stops, nseSymbol);
-            telegram.send("⚠️ Upstox circuit breaker: paused after " + stops
-                    + " consecutive stop-losses. Reset UPSTOX_ENABLED or restart to resume.");
-            return;
-        }
+    /** Fires at 09:15:05 IST on weekdays — drains any signals queued before the open. */
+    @Scheduled(cron = "5 15 9 * * MON-FRI", zone = "Asia/Kolkata")
+    void fireQueuedPreMarketSignals() {
+        if (preMarketQueue.isEmpty()) return;
 
-        if (!niftyGateOk()) {
-            log.info("[Upstox] {} skipped — NIFTY gate (down > {}%)", nseSymbol, niftyGatePct);
-            return;
+        // Safety net: only fire signals actually queued "today", in case the process
+        // was up across a weekend/holiday edge case with something stale left over.
+        long todayStartMs = LocalDate.now(IST).atStartOfDay(IST).toInstant().toEpochMilli();
+        List<QueuedSignal> toFire = new ArrayList<>();
+        for (QueuedSignal q : preMarketQueue) {
+            if (q.queuedAtMs() >= todayStartMs) toFire.add(q);
         }
+        preMarketQueue.clear();
 
-        String instrumentKey = instrumentMap.get(nseSymbol.toUpperCase());
+        log.info("[Upstox] Market open — firing {} queued pre-market signal(s)", toFire.size());
+        for (QueuedSignal q : toFire) {
+            attemptEntry(q.symbol(), q.rating());
+        }
+    }
+
+    /**
+     * Resolves the instrument + a reference LTP once, then either places a real order
+     * (if all live-eligibility gates pass) or starts a shadow simulation (if not, or if
+     * upstox.enabled=false entirely). The two are independent of each other — a decline
+     * reason for live trading doesn't block shadow simulation and vice versa.
+     */
+    private void attemptEntry(String nseSymbol, int rating) {
+        String instrumentKey = instrumentMap.get(nseSymbol);
         if (instrumentKey == null) {
-            // NSE archive symbol may differ from Upstox trading symbol — try search fallback
             instrumentKey = searchInstrumentKey(nseSymbol);
-            if (instrumentKey == null) {
-                log.warn("[Upstox] Symbol '{}' not in instruments or search — skipping", nseSymbol);
-                return;
-            }
+        }
+        if (instrumentKey == null) {
+            log.warn("[Upstox] Symbol '{}' not in instruments or search — skipping (live+shadow)", nseSymbol);
+            return;
         }
 
         Double ltp = getLtp(instrumentKey);
         if (ltp == null || ltp <= 0) {
-            log.warn("[Upstox] Could not fetch LTP for {} ({})", nseSymbol, instrumentKey);
+            log.warn("[Upstox] Could not fetch LTP for {} ({}) — skipping (live+shadow)", nseSymbol, instrumentKey);
             return;
         }
 
-        int qty = (int) Math.floor(capitalPerTrade / ltp);
+        String declineReason = liveDeclineReason();
+        if (declineReason == null) {
+            placeLiveEntry(nseSymbol, instrumentKey, ltp, rating);
+        } else {
+            log.info("[Upstox] {} not live-eligible ({}) — shadow-simulating instead", nseSymbol, declineReason);
+            if (shadowEnabled) startShadow(nseSymbol, instrumentKey, ltp, rating, declineReason);
+        }
+    }
+
+    /** Returns null if live trading is currently eligible, otherwise a human-readable reason it isn't. */
+    private String liveDeclineReason() {
+        if (!enabled) return "UPSTOX_ENABLED=false";
+
+        ActiveTrade existing = activeTrade.get();
+        if (existing != null) return "already in position: " + existing.symbol;
+
+        int stops = consecutiveStops.get();
+        if (stops >= circuitBreakerLimit) {
+            telegram.send("⚠️ Upstox circuit breaker: paused after " + stops
+                    + " consecutive stop-losses. Reset UPSTOX_ENABLED or restart to resume.");
+            return stops + " consecutive stop-losses (circuit breaker)";
+        }
+
+        if (!niftyGateOk()) return "NIFTY gate (down > " + niftyGatePct + "%)";
+
+        return null;
+    }
+
+    private void placeLiveEntry(String nseSymbol, String instrumentKey, double refLtp, int rating) {
+        int qty = (int) Math.floor(capitalPerTrade / refLtp);
         if (qty < 1) {
             log.warn("[Upstox] Qty=0 for {} @₹{} — capital ₹{} too low for one lot",
-                    nseSymbol, ltp, capitalPerTrade);
+                    nseSymbol, refLtp, capitalPerTrade);
             return;
         }
 
@@ -195,16 +272,42 @@ public class UpstoxTradeService {
             return;
         }
 
-        ActiveTrade trade = new ActiveTrade(nseSymbol, instrumentKey, ltp, qty, orderId);
+        // Confirm the order actually filled instead of trusting the pre-order LTP
+        // snapshot as the entry price — a market order into a fast-moving stock can
+        // fill meaningfully worse than that, and a rejected order must not be tracked
+        // as an open position.
+        OrderFill fill = waitForFill(orderId);
+        if (fill == null || !"complete".equalsIgnoreCase(fill.status())) {
+            log.error("[Upstox] BUY {} orderId={} did not confirm as filled (status={}) — not tracking a position",
+                    nseSymbol, orderId, fill == null ? "unknown/timeout" : fill.status());
+            telegram.send(String.format(
+                    "⚠️ BUY order for %s (id=%s) did not confirm filled (status=%s) — check Upstox manually.",
+                    nseSymbol, orderId, fill == null ? "unknown/timeout" : fill.status()));
+            return;
+        }
+
+        double entryPrice = fill.avgPrice() > 0 ? fill.avgPrice() : refLtp;
+        int    filledQty  = fill.filledQty() > 0 ? fill.filledQty() : qty;
+
+        ActiveTrade trade = new ActiveTrade(nseSymbol, instrumentKey, entryPrice, filledQty, orderId);
         activeTrade.set(trade);
 
-        log.info("[Upstox] BUY {} qty={} entry~₹{} orderId={}", nseSymbol, qty, ltp, orderId);
+        log.info("[Upstox] BUY {} qty={} entry=₹{} (fill-confirmed) orderId={}",
+                nseSymbol, filledQty, entryPrice, orderId);
         telegram.send(String.format(
-                "🟢 TRADE ENTRY: %s%nQty: %d @~₹%.2f%nRating: %d/10%nTarget: +%.1f%% (50%%) | Stop: -%.1f%% (full)",
-                nseSymbol, qty, ltp, rating, targetPct, stopLossPct));
+                "🟢 TRADE ENTRY: %s%nQty: %d @₹%.2f%nRating: %d/10%nTarget: +%.1f%% (50%%) | Stop: -%.1f%% (full)",
+                nseSymbol, filledQty, entryPrice, rating, targetPct, stopLossPct));
+        tradeLog.logEntry(false, nseSymbol, instrumentKey, rating, entryPrice, filledQty, orderId);
     }
 
-    // ─── Position monitor — runs every 3 s while a trade is active ────────────
+    private void startShadow(String symbol, String instrumentKey, double ltp, int rating, String declineReason) {
+        String shadowId = symbol + "#" + System.currentTimeMillis();
+        ActiveTrade shadow = new ActiveTrade(symbol, instrumentKey, ltp, 1, "shadow");
+        shadowTrades.put(shadowId, shadow);
+        tradeLog.logEntry(true, symbol, instrumentKey, rating, ltp, 1, declineReason);
+    }
+
+    // ─── Position monitors — run every 3 s ─────────────────────────────────────
 
     @Scheduled(fixedDelay = 3000)
     public void monitorPosition() {
@@ -217,53 +320,89 @@ public class UpstoxTradeService {
 
             double gainPct = (ltp - trade.entryPrice) / trade.entryPrice * 100.0;
             trade.maxGainPct = Math.max(trade.maxGainPct, gainPct);
-
-            // 1. Time exit — always square off before market close
             long ageMin = (System.currentTimeMillis() - trade.entryTimeMs) / 60_000L;
-            if (ageMin >= timeExitMinutes) {
-                exit(trade, ltp, String.format("⏱ Time exit (%d min)", timeExitMinutes));
-                return;
-            }
 
-            // 2. Hard stop — full position, any time
-            if (gainPct <= -stopLossPct) {
-                exit(trade, ltp, String.format("🔴 Stop-loss (%.2f%%)", gainPct));
-                return;
-            }
+            TradeRules.Decision decision = TradeRules.decide(ruleParams(), gainPct, trade.maxGainPct,
+                    trade.partialExitDone, ageMin);
 
-            // 3. Partial exit at target (+2%) — sell first half
-            if (!trade.partialExitDone && gainPct >= targetPct) {
-                int halfQty = trade.totalQty / 2;
-                if (halfQty < 1) halfQty = 1; // edge case: qty=1 → sell all and close
-                String oid = placeOrder(trade.instrumentKey, halfQty, "SELL");
-                if (oid != null) {
-                    trade.partialExitDone = true;
-                    trade.remainingQty    = trade.totalQty - halfQty;
-                    consecutiveStops.set(0); // reaching target resets circuit breaker
-                    log.info("[Upstox] Partial exit {} qty={} @₹{} +{}%",
-                            trade.symbol, halfQty, ltp, String.format("%.2f", gainPct));
-                    telegram.send(String.format(
-                            "🟡 PARTIAL EXIT: %s%nSold %d/%d @~₹%.2f (+%.2f%%)%nHolding %d with 1%% trailing stop",
-                            trade.symbol, halfQty, trade.totalQty, ltp, gainPct, trade.remainingQty));
-                    if (trade.remainingQty <= 0) {
-                        activeTrade.set(null);
-                    }
-                }
-                return;
+            switch (decision.action()) {
+                case TIME_EXIT, HARD_STOP, TRAIL_STOP ->
+                        exit(trade, ltp, emojiFor(decision.action()) + " " + decision.reason());
+                case PARTIAL_EXIT -> doPartialExit(trade, ltp, gainPct);
+                case HOLD -> { /* no-op */ }
             }
-
-            // 4. Trailing stop on remaining qty (active only after partial exit)
-            //    Triggers when price drops ≥ 1% below the session peak
-            if (trade.partialExitDone && trade.maxGainPct >= trailPct) {
-                double trailTrigger = trade.maxGainPct - trailPct;
-                if (gainPct <= trailTrigger) {
-                    exit(trade, ltp, String.format("📉 Trail stop (peak:+%.2f%% → now:+%.2f%%)",
-                            trade.maxGainPct, gainPct));
-                }
-            }
-
         } catch (Exception e) {
-            log.error("[Upstox] monitorPosition error for {}: {}", trade != null ? trade.symbol : "?", e.getMessage());
+            log.error("[Upstox] monitorPosition error for {}: {}", trade.symbol, e.getMessage());
+        }
+    }
+
+    /** Same exit rules, applied to unconstrained paper positions — no order placement, just logging. */
+    @Scheduled(fixedDelay = 3000)
+    public void monitorShadowPositions() {
+        if (shadowTrades.isEmpty()) return;
+
+        for (Map.Entry<String, ActiveTrade> entry : shadowTrades.entrySet()) {
+            ActiveTrade trade = entry.getValue();
+            try {
+                Double ltp = getLtp(trade.instrumentKey);
+                if (ltp == null) continue;
+
+                double gainPct = (ltp - trade.entryPrice) / trade.entryPrice * 100.0;
+                trade.maxGainPct = Math.max(trade.maxGainPct, gainPct);
+                long ageMin = (System.currentTimeMillis() - trade.entryTimeMs) / 60_000L;
+
+                TradeRules.Decision decision = TradeRules.decide(ruleParams(), gainPct, trade.maxGainPct,
+                        trade.partialExitDone, ageMin);
+
+                switch (decision.action()) {
+                    case TIME_EXIT, HARD_STOP, TRAIL_STOP -> {
+                        tradeLog.logExit(true, trade.symbol, decision.reason(), ltp, gainPct);
+                        shadowTrades.remove(entry.getKey());
+                    }
+                    case PARTIAL_EXIT -> {
+                        trade.partialExitDone = true;
+                        tradeLog.logPartialExit(true, trade.symbol, ltp, gainPct);
+                    }
+                    case HOLD -> { /* no-op */ }
+                }
+            } catch (Exception e) {
+                log.error("[Upstox] monitorShadowPositions error for {}: {}", trade.symbol, e.getMessage());
+            }
+        }
+    }
+
+    private TradeRules.Params ruleParams() {
+        return new TradeRules.Params(targetPct, stopLossPct, trailPct, timeExitMinutes);
+    }
+
+    private String emojiFor(TradeRules.Action action) {
+        return switch (action) {
+            case TIME_EXIT -> "⏱";
+            case HARD_STOP -> "🔴";
+            case TRAIL_STOP -> "📉";
+            default -> "";
+        };
+    }
+
+    private void doPartialExit(ActiveTrade trade, double ltp, double gainPct) {
+        int halfQty = trade.totalQty / 2;
+        if (halfQty < 1) halfQty = 1; // edge case: qty=1 → sell all and close
+        String oid = placeOrder(trade.instrumentKey, halfQty, "SELL");
+        if (oid == null) return;
+
+        trade.partialExitDone = true;
+        trade.remainingQty    = trade.totalQty - halfQty;
+        consecutiveStops.set(0); // reaching target resets circuit breaker
+
+        log.info("[Upstox] Partial exit {} qty={} @₹{} +{}%",
+                trade.symbol, halfQty, ltp, String.format("%.2f", gainPct));
+        telegram.send(String.format(
+                "🟡 PARTIAL EXIT: %s%nSold %d/%d @~₹%.2f (+%.2f%%)%nHolding %d with 1%% trailing stop",
+                trade.symbol, halfQty, trade.totalQty, ltp, gainPct, trade.remainingQty));
+        tradeLog.logPartialExit(false, trade.symbol, ltp, gainPct);
+
+        if (trade.remainingQty <= 0) {
+            activeTrade.set(null);
         }
     }
 
@@ -290,6 +429,7 @@ public class UpstoxTradeService {
         telegram.send(String.format(
                 "%s EXIT: %s%n%s%n@~₹%.2f (%+.2f%%)%nP&L on exit lot: ₹%+.0f",
                 emoji, trade.symbol, reason, ltp, gainPct, pnl));
+        tradeLog.logExit(false, trade.symbol, reason, ltp, gainPct);
     }
 
     // ─── Upstox API helpers ───────────────────────────────────────────────────
@@ -416,6 +556,37 @@ public class UpstoxTradeService {
         }
     }
 
+    /**
+     * Polls GET /v2/order/details up to ~4s (8 x 500ms) for a terminal status
+     * (complete/rejected/cancelled) after placing an order, so callers use the
+     * actual fill price/qty instead of trusting a pre-order LTP snapshot.
+     * Returns null if no terminal status was reached in time — caller must treat
+     * that as "unconfirmed", not as a silent success.
+     */
+    private OrderFill waitForFill(String orderId) {
+        for (int i = 0; i < 8; i++) {
+            try {
+                String json = get(BASE_URL + "/order/details?order_id="
+                        + URLEncoder.encode(orderId, StandardCharsets.UTF_8));
+                if (json != null) {
+                    JsonNode data   = mapper.readTree(json).path("data");
+                    String   status = data.path("status").asText("");
+                    if ("complete".equalsIgnoreCase(status)
+                            || "rejected".equalsIgnoreCase(status)
+                            || "cancelled".equalsIgnoreCase(status)) {
+                        return new OrderFill(status, data.path("average_price").asDouble(0),
+                                data.path("filled_quantity").asInt(0));
+                    }
+                }
+            } catch (Exception e) {
+                log.warn("[Upstox] waitForFill({}) error: {}", orderId, e.getMessage());
+            }
+            try { Thread.sleep(500); } catch (InterruptedException ie) { Thread.currentThread().interrupt(); break; }
+        }
+        log.warn("[Upstox] waitForFill({}) — no terminal status after retries", orderId);
+        return null;
+    }
+
     /** HTTP GET with Bearer auth. Returns response body string, or null on non-200. */
     private String get(String urlStr) throws Exception {
         HttpURLConnection conn = (HttpURLConnection) new URL(urlStr).openConnection();
@@ -476,14 +647,14 @@ public class UpstoxTradeService {
                 && !time.isBefore(MARKET_OPEN) && !time.isAfter(MARKET_CLOSE);
     }
 
-    // ─── Active trade state ───────────────────────────────────────────────────
+    // ─── Active trade state (used for both live and shadow positions) ─────────
 
     static class ActiveTrade {
         final String  symbol;
         final String  instrumentKey;
-        final double  entryPrice;   // LTP at order time (market order → estimate)
+        final double  entryPrice;   // live: fill-confirmed avg price. shadow: LTP at signal time.
         final int     totalQty;
-        final String  buyOrderId;
+        final String  buyOrderId;   // live: real Upstox order id. shadow: "shadow".
         final long    entryTimeMs   = System.currentTimeMillis();
 
         volatile int     remainingQty;

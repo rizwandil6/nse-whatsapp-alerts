@@ -53,6 +53,12 @@ screening:
 upstox:
   access-token: ${UPSTOX_ACCESS_TOKEN:}
   enabled: ${UPSTOX_ENABLED:false}
+  # Shadow mode simulates the same rules against real prices for every rating>=7
+  # signal that DOESN'T go live (or all of them, while enabled=false) and logs the
+  # outcome via TradeLog — the recommended way to collect real performance data
+  # before risking capital. Requires UPSTOX_ACCESS_TOKEN (for LTP + instrument list)
+  # but does not place any orders.
+  shadow-enabled: ${UPSTOX_SHADOW_ENABLED:true}
   capital-per-trade: ${UPSTOX_CAPITAL_PER_TRADE:5000}   # ₹ per trade
   nifty-gate-pct: 0.5        # skip if NIFTY down > 0.5% vs prev close
   stop-loss-pct: 1.5         # hard stop: -1.5% on full position
@@ -60,6 +66,11 @@ upstox:
   trail-pct: 1.0             # trailing stop: exit remaining when peak drops by 1%
   time-exit-minutes: 45      # force square-off after 45 min
   circuit-breaker-limit: 2   # pause after 2 consecutive stop-losses
+
+# CSV trade log (live + shadow trades) — see TradeLog.java for the durability caveat
+# on platforms without a persistent volume (e.g. Railway).
+tradelog:
+  path: ${TRADELOG_PATH:trades.csv}
 
 # ── Daily Market Bulletin ─────────────────────────────────────────────────────
 # Sent every day at 7:30 AM IST via Telegram.

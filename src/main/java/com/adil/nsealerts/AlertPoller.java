@@ -25,6 +25,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class AlertPoller {
@@ -244,10 +246,28 @@ public class AlertPoller {
         String pdfText     = pdfExtractor.extractText(ctx.link());
         String documentText = pdfText != null && !pdfText.isBlank() ? pdfText : ctx.subject();
 
+        // Kick off the fundamentals/market-cap fetch in parallel with the AI rating call
+        // instead of after it — the AI call already takes 1-3s, so this piggybacks on that
+        // latency instead of adding to it, and the same result is reused below instead of
+        // scraping Screener.in twice for the same symbol.
+        CompletableFuture<FundamentalResult> fundamentalsFuture = screeningEnabled
+                ? CompletableFuture.supplyAsync(() -> fundamentalScreener.analyze(ctx.companyName()))
+                : CompletableFuture.completedFuture(null);
+
         AnalysisResult result = promptRatingService.analyze(
                 ctx.companyName(), ctx.subject(), ctx.link(), documentText);
 
-        // Fire intraday trade immediately if rating ≥ 7 and market hours
+        FundamentalResult fr = null;
+        try {
+            fr = fundamentalsFuture.get(8, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            logger.warn("[Fundamentals] fetch for {} did not complete in time: {}", ctx.companyName(), e.getMessage());
+        }
+
+        result = adjustRatingForMarketCapImpact(result, fr);
+
+        // Fire intraday trade immediately if rating ≥ 7 (UpstoxTradeService decides
+        // live-vs-shadow based on market hours / eligibility from here)
         if (result != null && result.getRating() >= 7.0) {
             upstoxTradeService.executeIfEligible(ctx.symbol(), (int) Math.round(result.getRating()));
         }
@@ -268,9 +288,8 @@ public class AlertPoller {
             sb.append("Source: ").append(ctx.link()).append("\n");
         }
 
-        // Fundamental analysis (existing screener)
+        // Fundamental analysis (existing screener) — reuses the fr fetched above
         if (screeningEnabled) {
-            FundamentalResult fr = fundamentalScreener.analyze(ctx.companyName());
             if (fr != null && fr.isAvailable()) {
                 sb.append("\n--- FUNDAMENTAL ANALYSIS ---\n\n");
                 appendFundamentals(sb, fr);
@@ -286,6 +305,34 @@ public class AlertPoller {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Order-value-as-%-of-market-cap proxy for expected price impact: the same order
+     * size that barely dents a large cap's revenue-weighted rating can move a small
+     * cap's price sharply, which is closer to what actually gets traded intraday.
+     * Deliberately simple, unvalidated heuristic — tune or replace once TradeLog /
+     * shadow-mode data shows whether it actually helps (see TradeLog.java).
+     */
+    private AnalysisResult adjustRatingForMarketCapImpact(AnalysisResult result, FundamentalResult fr) {
+        if (result == null || fr == null || !fr.isAvailable()) return result;
+        Double marketCapCr = fr.getMarketCapCr();
+        Double orderSizeCr = result.getOrderSizeCrores();
+        if (marketCapCr == null || marketCapCr <= 0 || orderSizeCr == null) return result;
+
+        double ratioPct = orderSizeCr / marketCapCr * 100.0;
+        double rating = result.getRating();
+        double adjusted = rating;
+        if (ratioPct >= 10.0)      adjusted = Math.min(10.0, rating + 2.0);
+        else if (ratioPct >= 3.0)  adjusted = Math.min(10.0, rating + 1.0);
+        else if (ratioPct < 0.05)  adjusted = Math.max(1.0, rating - 1.0);
+
+        if (adjusted == rating) return result;
+
+        logger.info("[Rating] {} adjusted {} -> {} (order/mcap ratio {}%)",
+                fr.getSymbol(), rating, adjusted, String.format("%.2f", ratioPct));
+        return new AnalysisResult(adjusted, result.getOrderSizeCrores(), result.getQuickVerdict(),
+                result.getSummary(), result.getImpactLevel(), result.getWhatsappMessage());
     }
 
     private void appendFundamentals(StringBuilder sb, FundamentalResult r) {
