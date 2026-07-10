@@ -21,8 +21,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.zip.GZIPInputStream;
@@ -88,8 +90,29 @@ public class UpstoxTradeService {
     /** Signals seen outside market hours (pre-market, after-hours, or weekend), queued to retry at the next 09:15 IST open. */
     private final List<QueuedSignal> queuedSignals = new CopyOnWriteArrayList<>();
 
+    /**
+     * In-flight/recently-completed LTP prefetches, keyed by NSE symbol. Populated by
+     * prefetchQuote() as soon as an announcement's symbol is known — well before the
+     * PDF-fetch/AI-rating chain finishes — so attemptEntry() usually finds a quote
+     * already in hand instead of adding another network round-trip to the critical
+     * entry path. Self-cleaning: entries are removed on use or found stale (>15s old).
+     */
+    private final Map<String, PrefetchedQuote> ltpPrefetchCache = new ConcurrentHashMap<>();
+
+    /**
+     * Known NSE-archive-filename-vs-real-trading-symbol mismatches (e.g. a corporate
+     * filing PDF path under "IONEXCHANGE" when the real NSE/Upstox ticker is
+     * "IONEXCHANG"). Checked before the slower company-name search fallback. Add to
+     * this as new mismatches are found in production logs
+     * ("not in instrument map ... add manual alias if needed").
+     */
+    private static final Map<String, String> MANUAL_SYMBOL_ALIASES = Map.of(
+            "IONEXCHANGE", "IONEXCHANG"
+    );
+
     private record QueuedSignal(String symbol, int rating, long queuedAtMs) {}
     private record OrderFill(String status, double avgPrice, int filledQty) {}
+    private record PrefetchedQuote(String instrumentKey, CompletableFuture<Double> ltpFuture, long startedAtMs) {}
 
     private static final ZoneId    IST              = ZoneId.of("Asia/Kolkata");
     private static final LocalTime MARKET_OPEN      = LocalTime.of(9, 15);
@@ -204,22 +227,69 @@ public class UpstoxTradeService {
     }
 
     /**
-     * Resolves the instrument + a reference LTP once, then either places a real order
-     * (if all live-eligibility gates pass) or starts a shadow simulation (if not, or if
-     * upstox.enabled=false entirely). The two are independent of each other — a decline
-     * reason for live trading doesn't block shadow simulation and vice versa.
+     * Kicks off instrument resolution + an LTP fetch for a symbol as soon as it's
+     * known from the announcement metadata — well before the PDF-fetch/AI-rating
+     * chain that decides whether this symbol is even eligible to trade has finished.
+     * Fire-and-forget: safe to call for every matched announcement regardless of
+     * whether it ends up rating >= 7 (the cache entry is small and self-expires).
+     * By the time attemptEntry() runs (if the rating clears 7), the quote is usually
+     * already in hand, shaving a network round-trip off the critical entry path.
+     */
+    public void prefetchQuote(String nseSymbol) {
+        if (!enabled && !shadowEnabled) return;
+        if (accessToken == null || accessToken.isBlank()) return;
+        String symbol = nseSymbol.toUpperCase();
+        String instrumentKey = resolveInstrumentKeyForSymbol(symbol);
+        if (instrumentKey == null) return; // attemptEntry() will retry resolution + log as usual
+        String key = instrumentKey;
+        CompletableFuture<Double> ltpFuture = CompletableFuture.supplyAsync(() -> getLtp(key));
+        ltpPrefetchCache.put(symbol, new PrefetchedQuote(instrumentKey, ltpFuture, System.currentTimeMillis()));
+    }
+
+    /** instrumentMap lookup, then the known-mismatch alias map, then the company-name search fallback. */
+    private String resolveInstrumentKeyForSymbol(String symbol) {
+        String instrumentKey = instrumentMap.get(symbol);
+        if (instrumentKey != null) return instrumentKey;
+        String alias = MANUAL_SYMBOL_ALIASES.get(symbol);
+        if (alias != null) {
+            instrumentKey = instrumentMap.get(alias);
+            if (instrumentKey != null) return instrumentKey;
+        }
+        return searchInstrumentKey(symbol);
+    }
+
+    /**
+     * Resolves the instrument + a reference LTP (reusing prefetchQuote()'s result when
+     * fresh and available), then either places a real order (if all live-eligibility
+     * gates pass) or starts a shadow simulation (if not, or if upstox.enabled=false
+     * entirely). The two are independent of each other — a decline reason for live
+     * trading doesn't block shadow simulation and vice versa.
      */
     private void attemptEntry(String nseSymbol, int rating) {
-        String instrumentKey = instrumentMap.get(nseSymbol);
-        if (instrumentKey == null) {
-            instrumentKey = searchInstrumentKey(nseSymbol);
-        }
-        if (instrumentKey == null) {
-            log.warn("[Upstox] Symbol '{}' not in instruments or search — skipping (live+shadow)", nseSymbol);
-            return;
+        String instrumentKey;
+        Double ltp;
+
+        PrefetchedQuote prefetch = ltpPrefetchCache.remove(nseSymbol);
+        boolean prefetchFresh = prefetch != null && System.currentTimeMillis() - prefetch.startedAtMs() < 15_000;
+        if (prefetchFresh) {
+            instrumentKey = prefetch.instrumentKey();
+            try {
+                // Should almost always already be complete by now — this is a short
+                // safety wait, not the primary fetch path.
+                ltp = prefetch.ltpFuture().get(2, TimeUnit.SECONDS);
+            } catch (Exception e) {
+                log.warn("[Upstox] Prefetched LTP for {} didn't complete in time, fetching fresh: {}", nseSymbol, e.getMessage());
+                ltp = getLtp(instrumentKey);
+            }
+        } else {
+            instrumentKey = resolveInstrumentKeyForSymbol(nseSymbol);
+            if (instrumentKey == null) {
+                log.warn("[Upstox] Symbol '{}' not in instruments or search — skipping (live+shadow)", nseSymbol);
+                return;
+            }
+            ltp = getLtp(instrumentKey);
         }
 
-        Double ltp = getLtp(instrumentKey);
         if (ltp == null || ltp <= 0) {
             log.warn("[Upstox] Could not fetch LTP for {} ({}) — skipping (live+shadow)", nseSymbol, instrumentKey);
             return;

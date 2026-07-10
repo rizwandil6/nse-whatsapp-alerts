@@ -228,6 +228,11 @@ public class AlertPoller {
                             : "";
                     AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
                     logger.info("New announcement: {}", title);
+                    // Kick off instrument resolution + an LTP fetch immediately — well
+                    // before the PDF-fetch/AI-rating chain below decides whether this
+                    // even qualifies to trade. Cheap to call speculatively for every
+                    // matched announcement; see UpstoxTradeService.prefetchQuote().
+                    upstoxTradeService.prefetchQuote(ctx.symbol());
                     String message = buildAnnouncementMessage(ctx);
                     logger.info("[MSG] {}", message);
                     telegramSender.send(message);
@@ -257,6 +262,19 @@ public class AlertPoller {
         AnalysisResult result = promptRatingService.analyze(
                 ctx.companyName(), ctx.subject(), ctx.link(), documentText);
 
+        // Fire the trade IMMEDIATELY on the raw AI rating — do NOT wait on the
+        // fundamentals/market-cap fetch here. That's a Screener.in scrape that can
+        // take several seconds, and every second here is a second of price movement
+        // that's already happened before the order goes out. The market-cap
+        // adjustment below still runs and still affects the alert message/logging,
+        // just not entry timing. Symbol resolution for known NSE-archive-vs-ticker
+        // mismatches (e.g. IONEXCHANGE vs IONEXCHANG) is now handled via
+        // UpstoxTradeService's manual alias map instead of waiting on a Screener
+        // lookup for the correct symbol — see MANUAL_SYMBOL_ALIASES.
+        if (result != null && result.getRating() >= 7.0) {
+            upstoxTradeService.executeIfEligible(ctx.symbol(), (int) Math.round(result.getRating()));
+        }
+
         FundamentalResult fr = null;
         try {
             fr = fundamentalsFuture.get(8, TimeUnit.SECONDS);
@@ -264,14 +282,7 @@ public class AlertPoller {
             logger.warn("[Fundamentals] fetch for {} did not complete in time: {}", ctx.companyName(), e.getMessage());
         }
 
-        result = adjustRatingForMarketCapImpact(result, fr);
-
-        // Fire intraday trade immediately if rating ≥ 7 (UpstoxTradeService decides
-        // live-vs-shadow based on market hours / eligibility from here)
-        if (result != null && result.getRating() >= 7.0) {
-            String tradeSymbol = resolveTradingSymbol(ctx.symbol(), fr);
-            upstoxTradeService.executeIfEligible(tradeSymbol, (int) Math.round(result.getRating()));
-        }
+        AnalysisResult displayResult = adjustRatingForMarketCapImpact(result, fr);
 
         StringBuilder sb = new StringBuilder();
 
@@ -281,8 +292,8 @@ public class AlertPoller {
         }
 
         // AI analysis block (company name, rating, order summary, verdict, source, scanner)
-        if (result != null && result.getWhatsappMessage() != null && !result.getWhatsappMessage().isBlank()) {
-            sb.append(result.getWhatsappMessage()).append("\n");
+        if (displayResult != null && displayResult.getWhatsappMessage() != null && !displayResult.getWhatsappMessage().isBlank()) {
+            sb.append(displayResult.getWhatsappMessage()).append("\n");
         } else {
             // Fallback header if AI unavailable
             sb.append(ctx.companyName()).append("\n");
@@ -306,22 +317,6 @@ public class AlertPoller {
         }
 
         return sb.toString();
-    }
-
-    /**
-     * NSE's own archive/PDF-link filename doesn't always match the company's real
-     * NSE trading symbol — e.g. "IONEXCHANGE" in the corporate-filing PDF path vs
-     * the real ticker "IONEXCHANG". UpstoxTradeService.searchInstrumentKey() already
-     * logs this exact class of mismatch when it can't resolve a symbol. Screener.in's
-     * company-name search (already run above for the fundamentals section, so this
-     * is free) resolves the correct symbol independently of the archive filename —
-     * prefer that when it's available instead of the raw archive-derived one.
-     */
-    private String resolveTradingSymbol(String archiveSymbol, FundamentalResult fr) {
-        if (fr != null && fr.isAvailable() && fr.getSymbol() != null && !fr.getSymbol().isBlank()) {
-            return fr.getSymbol();
-        }
-        return archiveSymbol;
     }
 
     /**
