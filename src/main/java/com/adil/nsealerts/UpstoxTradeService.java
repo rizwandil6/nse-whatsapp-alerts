@@ -75,9 +75,10 @@ public class UpstoxTradeService {
     @Value("${upstox.time-exit-minutes:45}")    private int     timeExitMinutes;
     @Value("${upstox.circuit-breaker-limit:2}") private int     circuitBreakerLimit;
 
-    private final TelegramSender telegram;
-    private final TradeLog       tradeLog;
-    private final ObjectMapper   mapper = new ObjectMapper();
+    private final TelegramSender      telegram;
+    private final TradeLog            tradeLog;
+    private final FundamentalScreener fundamentalScreener;
+    private final ObjectMapper        mapper = new ObjectMapper();
 
     /** NSE trading symbol (upper-case) → Upstox instrument key, e.g. "NSE_EQ|INE040A01034" or "NSE_SM|INE..." */
     private final Map<String, String>          instrumentMap    = new ConcurrentHashMap<>();
@@ -100,11 +101,26 @@ public class UpstoxTradeService {
     private final Map<String, PrefetchedQuote> ltpPrefetchCache = new ConcurrentHashMap<>();
 
     /**
-     * Known NSE-archive-filename-vs-real-trading-symbol mismatches (e.g. a corporate
-     * filing PDF path under "IONEXCHANGE" when the real NSE/Upstox ticker is
-     * "IONEXCHANG"). Checked before the slower company-name search fallback. Add to
-     * this as new mismatches are found in production logs
-     * ("not in instrument map ... add manual alias if needed").
+     * In-flight/recently-completed Screener.in company-name-search resolutions,
+     * keyed by the original (failed-to-resolve) archive symbol. This is the GENERAL
+     * fix for NSE-archive-filename-vs-real-trading-symbol mismatches (e.g. a filing
+     * PDF path under "IONEXCHANGE" when the real ticker is "IONEXCHANG", or
+     * "ADVAITENERGY" vs "ADVAIT") — Screener.in's own search already reliably maps
+     * company name -> real symbol (it's how ScreenerCheckService recovers from the
+     * exact same mismatch independently), so reuse that instead of hand-maintaining
+     * one alias per company as each new mismatch is discovered in production.
+     * Kicked off early by prefetchQuote() (parallel with the PDF-fetch/AI-rating
+     * chain, same timing as the LTP prefetch) specifically so it's a single
+     * lightweight search call — NOT the full fundamentals scrape — and has several
+     * seconds to complete in the background before attemptEntry() needs it.
+     */
+    private final Map<String, CompletableFuture<String>> symbolResolutionCache = new ConcurrentHashMap<>();
+
+    /**
+     * Fast-path cache for mismatches already confirmed in production — skips even
+     * the Screener.in search latency for repeat cases. Optional now that
+     * symbolResolutionCache provides a general fallback; this just avoids paying
+     * that lookup cost again for tickers we've already seen.
      */
     private static final Map<String, String> MANUAL_SYMBOL_ALIASES = Map.of(
             "IONEXCHANGE", "IONEXCHANG",
@@ -123,9 +139,10 @@ public class UpstoxTradeService {
             "https://assets.upstox.com/market-quote/instruments/exchange/complete.json.gz";
     private static final String    NIFTY_KEY        = "NSE_INDEX|Nifty 50";
 
-    public UpstoxTradeService(TelegramSender telegram, TradeLog tradeLog) {
+    public UpstoxTradeService(TelegramSender telegram, TradeLog tradeLog, FundamentalScreener fundamentalScreener) {
         this.telegram = telegram;
         this.tradeLog = tradeLog;
+        this.fundamentalScreener = fundamentalScreener;
     }
 
     // ─── Startup: load NSE instruments into memory ────────────────────────────
@@ -237,31 +254,43 @@ public class UpstoxTradeService {
      * known from the announcement metadata — well before the PDF-fetch/AI-rating
      * chain that decides whether this symbol is even eligible to trade has finished.
      * Fire-and-forget: safe to call for every matched announcement regardless of
-     * whether it ends up rating >= 7 (the cache entry is small and self-expires).
-     * By the time attemptEntry() runs (if the rating clears 7), the quote is usually
-     * already in hand, shaving a network round-trip off the critical entry path.
+     * whether it ends up meeting the rating threshold (the cache entries are small
+     * and self-expire). By the time attemptEntry() runs, the quote (and, for
+     * mismatched symbols, the corrected symbol) is usually already in hand.
+     *
+     * @param companyName used ONLY as a fallback when the archive-derived symbol
+     *                     doesn't resolve directly — see symbolResolutionCache.
      */
-    public void prefetchQuote(String nseSymbol) {
+    public void prefetchQuote(String nseSymbol, String companyName) {
         if (!enabled && !shadowEnabled) return;
         if (accessToken == null || accessToken.isBlank()) return;
         String symbol = nseSymbol.toUpperCase();
-        String instrumentKey = resolveInstrumentKeyForSymbol(symbol);
-        if (instrumentKey == null) return; // attemptEntry() will retry resolution + log as usual
-        String key = instrumentKey;
-        CompletableFuture<Double> ltpFuture = CompletableFuture.supplyAsync(() -> getLtp(key));
-        ltpPrefetchCache.put(symbol, new PrefetchedQuote(instrumentKey, ltpFuture, System.currentTimeMillis()));
+
+        String instrumentKey = resolveInstrumentKeyFast(symbol);
+        if (instrumentKey != null) {
+            String key = instrumentKey;
+            CompletableFuture<Double> ltpFuture = CompletableFuture.supplyAsync(() -> getLtp(key));
+            ltpPrefetchCache.put(symbol, new PrefetchedQuote(instrumentKey, ltpFuture, System.currentTimeMillis()));
+            return;
+        }
+
+        // Fast path missed — kick off a Screener.in company-name search in the
+        // background instead of giving up. This is the general fix for NSE
+        // archive-filename-vs-real-ticker mismatches: a single lightweight search
+        // call (not the full fundamentals scrape), started early enough to usually
+        // finish well before attemptEntry() needs it.
+        if (companyName != null && !companyName.isBlank()) {
+            symbolResolutionCache.put(symbol,
+                    CompletableFuture.supplyAsync(() -> fundamentalScreener.resolveScreenerSymbol(companyName)));
+        }
     }
 
-    /** instrumentMap lookup, then the known-mismatch alias map, then the company-name search fallback. */
-    private String resolveInstrumentKeyForSymbol(String symbol) {
+    /** instrumentMap lookup, then the known-mismatch alias map. No I/O — safe to call inline. */
+    private String resolveInstrumentKeyFast(String symbol) {
         String instrumentKey = instrumentMap.get(symbol);
         if (instrumentKey != null) return instrumentKey;
         String alias = MANUAL_SYMBOL_ALIASES.get(symbol);
-        if (alias != null) {
-            instrumentKey = instrumentMap.get(alias);
-            if (instrumentKey != null) return instrumentKey;
-        }
-        return searchInstrumentKey(symbol);
+        return alias != null ? instrumentMap.get(alias) : null;
     }
 
     /**
@@ -288,9 +317,12 @@ public class UpstoxTradeService {
                 ltp = getLtp(instrumentKey);
             }
         } else {
-            instrumentKey = resolveInstrumentKeyForSymbol(nseSymbol);
+            instrumentKey = resolveInstrumentKeyFast(nseSymbol);
             if (instrumentKey == null) {
-                log.warn("[Upstox] Symbol '{}' not in instruments or search — skipping (live+shadow)", nseSymbol);
+                instrumentKey = resolveViaScreenerSearch(nseSymbol);
+            }
+            if (instrumentKey == null) {
+                log.warn("[Upstox] Symbol '{}' not in instruments and Screener.in search didn't resolve it either — skipping (live+shadow)", nseSymbol);
                 return;
             }
             ltp = getLtp(instrumentKey);
@@ -703,16 +735,40 @@ public class UpstoxTradeService {
     }
 
     /**
-     * Upstox v2 has no instrument search API endpoint.
-     * Instead, loadInstruments() indexes both the trading symbol AND the first word of
-     * the company name so NSE archive symbols (e.g. "SATHLOKHAR") can match the
-     * Upstox trading symbol (e.g. "SSEGL") via the company name field.
-     * If still not found, log a clear message so the operator knows to check the mapping.
+     * Upstox v2 has no instrument search API of its own, so the general fix for
+     * "NSE archive symbol != real trading symbol" (e.g. "IONEXCHANGE" vs
+     * "IONEXCHANG", "ADVAITENERGY" vs "ADVAIT") is to reuse Screener.in's company-name
+     * search, kicked off early by prefetchQuote() and cached in symbolResolutionCache.
+     * By the time attemptEntry() gets here, that search has usually already had
+     * several seconds (the PDF-fetch/AI-rating chain's duration) to complete — this
+     * is a short bounded wait for the rare case it hasn't, not the primary latency
+     * source. Logs clearly either way so a genuinely unresolvable symbol is visible.
      */
-    private String searchInstrumentKey(String query) {
-        log.warn("[Upstox] '{}' not in instrument map (NSE archive symbol ≠ Upstox trading symbol). " +
-                 "Company name index also missed — add manual alias if needed.", query);
-        return null;
+    private String resolveViaScreenerSearch(String archiveSymbol) {
+        CompletableFuture<String> future = symbolResolutionCache.remove(archiveSymbol);
+        if (future == null) {
+            log.warn("[Upstox] '{}' not in instrument map, and no Screener.in resolution was in flight for it", archiveSymbol);
+            return null;
+        }
+        try {
+            String resolvedSymbol = future.get(3, TimeUnit.SECONDS);
+            if (resolvedSymbol == null || resolvedSymbol.isBlank()) {
+                log.warn("[Upstox] '{}' not in instrument map — Screener.in search found no match either", archiveSymbol);
+                return null;
+            }
+            String instrumentKey = instrumentMap.get(resolvedSymbol.toUpperCase());
+            if (instrumentKey == null) {
+                log.warn("[Upstox] '{}' -> Screener.in resolved '{}', but that's not in the Upstox instrument list either",
+                        archiveSymbol, resolvedSymbol);
+                return null;
+            }
+            log.info("[Upstox] '{}' resolved via Screener.in search -> '{}' — consider adding to MANUAL_SYMBOL_ALIASES",
+                    archiveSymbol, resolvedSymbol);
+            return instrumentKey;
+        } catch (Exception e) {
+            log.warn("[Upstox] Screener.in resolution for '{}' didn't complete in time: {}", archiveSymbol, e.getMessage());
+            return null;
+        }
     }
 
     /** True if current IST time is a weekday between 09:15 and 15:30. */

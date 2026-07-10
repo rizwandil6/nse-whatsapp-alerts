@@ -239,7 +239,7 @@ public class AlertPoller {
                     // before the PDF-fetch/AI-rating chain below decides whether this
                     // even qualifies to trade. Cheap to call speculatively for every
                     // matched announcement; see UpstoxTradeService.prefetchQuote().
-                    upstoxTradeService.prefetchQuote(ctx.symbol());
+                    upstoxTradeService.prefetchQuote(ctx.symbol(), ctx.companyName());
                     String message = buildAnnouncementMessage(ctx);
                     logger.info("[MSG] {}", message);
                     telegramSender.send(message);
