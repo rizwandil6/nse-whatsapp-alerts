@@ -107,7 +107,8 @@ public class UpstoxTradeService {
      * ("not in instrument map ... add manual alias if needed").
      */
     private static final Map<String, String> MANUAL_SYMBOL_ALIASES = Map.of(
-            "IONEXCHANGE", "IONEXCHANG"
+            "IONEXCHANGE", "IONEXCHANG",
+            "ADVAITENERGY", "ADVAIT"
     );
 
     private record QueuedSignal(String symbol, int rating, long queuedAtMs, long broadcastTimeMs) {}
