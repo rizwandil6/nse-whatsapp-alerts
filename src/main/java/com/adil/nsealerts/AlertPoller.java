@@ -46,6 +46,7 @@ public class AlertPoller {
     private final UpstoxTradeService upstoxTradeService;
     private final boolean screeningEnabled;
     private final boolean ignoreSme;
+    private final double tradeRatingThreshold;
 
     /** Symbols listed on NSE main board (loaded from EQUITY_L.csv at startup). Null = unavailable, don't filter. */
     private volatile Set<String> mainBoardSymbols = null;
@@ -75,6 +76,12 @@ public class AlertPoller {
         this.upstoxTradeService = upstoxTradeService;
         this.screeningEnabled = Boolean.parseBoolean(env.getProperty("screening.enabled", "true"));
         this.ignoreSme = Boolean.parseBoolean(env.getProperty("nse.ignore-sme", "true"));
+        // Backtest on real Apr-Jul 2026 NSE data (272 announcements) showed rating 5-6
+        // performs statistically indistinguishable from 7-8 (54.7% vs 52.6% win rate,
+        // +0.27% vs +0.33% avg P&L) while roughly 2.5x-ing trade count — the <5 bucket
+        // is the real cutoff that matters (-0.39% avg, 40% win rate). Lowered default
+        // from 7 to 5 accordingly; still overridable via env without a redeploy.
+        this.tradeRatingThreshold = Double.parseDouble(env.getProperty("nse.trade-rating-threshold", "5.0"));
 
         String[] watch = env.getProperty("nse.watchlist", String[].class);
         if (watch == null) {
@@ -271,7 +278,7 @@ public class AlertPoller {
         // mismatches (e.g. IONEXCHANGE vs IONEXCHANG) is now handled via
         // UpstoxTradeService's manual alias map instead of waiting on a Screener
         // lookup for the correct symbol — see MANUAL_SYMBOL_ALIASES.
-        if (result != null && result.getRating() >= 7.0) {
+        if (result != null && result.getRating() >= tradeRatingThreshold) {
             upstoxTradeService.executeIfEligible(ctx.symbol(), (int) Math.round(result.getRating()));
         }
 

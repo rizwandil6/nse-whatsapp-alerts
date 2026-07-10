@@ -53,7 +53,7 @@ screening:
 upstox:
   access-token: ${UPSTOX_ACCESS_TOKEN:}
   enabled: ${UPSTOX_ENABLED:false}
-  # Shadow mode simulates the same rules against real prices for every rating>=7
+  # Shadow mode simulates the same rules against real prices for every rating>=nse.trade-rating-threshold
   # signal that DOESN'T go live (or all of them, while enabled=false) and logs the
   # outcome via TradeLog — the recommended way to collect real performance data
   # before risking capital. Requires UPSTOX_ACCESS_TOKEN (for LTP + instrument list)

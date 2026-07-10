@@ -34,7 +34,7 @@ import java.util.zip.GZIPInputStream;
  *
  * Strategy (see TradeRules.java for the exact exit-decision logic, shared with
  * shadow-mode simulation so live and simulated trades can never drift apart):
- *   - Entry:          market buy immediately after AI rating ≥ 7
+ *   - Entry:          market buy immediately after AI rating ≥ nse.trade-rating-threshold (default 5)
  *   - Partial exit:   sell 50% at +2% target
  *   - Trailing stop:  remaining 50% exits when (peak - current) ≥ 1%
  *   - Hard stop:      sell all remaining at -1.5% from entry
@@ -183,7 +183,7 @@ public class UpstoxTradeService {
         t.start();
     }
 
-    // ─── Entry point called by AlertPoller after rating ≥ 7 ──────────────────
+    // ─── Entry point called by AlertPoller after rating ≥ nse.trade-rating-threshold ──────────────────
 
     public void executeIfEligible(String nseSymbol, int rating) {
         if (!enabled && !shadowEnabled) return;
