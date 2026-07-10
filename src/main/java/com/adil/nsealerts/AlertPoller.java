@@ -269,7 +269,8 @@ public class AlertPoller {
         // Fire intraday trade immediately if rating ≥ 7 (UpstoxTradeService decides
         // live-vs-shadow based on market hours / eligibility from here)
         if (result != null && result.getRating() >= 7.0) {
-            upstoxTradeService.executeIfEligible(ctx.symbol(), (int) Math.round(result.getRating()));
+            String tradeSymbol = resolveTradingSymbol(ctx.symbol(), fr);
+            upstoxTradeService.executeIfEligible(tradeSymbol, (int) Math.round(result.getRating()));
         }
 
         StringBuilder sb = new StringBuilder();
@@ -305,6 +306,22 @@ public class AlertPoller {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * NSE's own archive/PDF-link filename doesn't always match the company's real
+     * NSE trading symbol — e.g. "IONEXCHANGE" in the corporate-filing PDF path vs
+     * the real ticker "IONEXCHANG". UpstoxTradeService.searchInstrumentKey() already
+     * logs this exact class of mismatch when it can't resolve a symbol. Screener.in's
+     * company-name search (already run above for the fundamentals section, so this
+     * is free) resolves the correct symbol independently of the archive filename —
+     * prefer that when it's available instead of the raw archive-derived one.
+     */
+    private String resolveTradingSymbol(String archiveSymbol, FundamentalResult fr) {
+        if (fr != null && fr.isAvailable() && fr.getSymbol() != null && !fr.getSymbol().isBlank()) {
+            return fr.getSymbol();
+        }
+        return archiveSymbol;
     }
 
     /**
