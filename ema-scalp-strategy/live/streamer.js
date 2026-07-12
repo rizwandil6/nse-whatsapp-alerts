@@ -45,7 +45,7 @@ if (!TELEGRAM_TOKEN) {
   console.warn('WARNING: TELEGRAM_BOT_TOKEN not set. Alerts will be logged but not sent.');
 }
 
-const symbolMap = require('../symbols.json');
+const symbolMap = require('./symbols.json');
 const keyToSymbol = {};
 for (const [symbol, key] of Object.entries(symbolMap)) keyToSymbol[key] = symbol;
 

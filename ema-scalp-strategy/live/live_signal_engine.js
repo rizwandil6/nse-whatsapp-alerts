@@ -9,7 +9,7 @@
  * instead of a complete static array.
  */
 
-const { findDaySignalShortBigBarOnly } = require('../signals');
+const { findDaySignalShortBigBarOnly } = require('./signals');
 const IST_OFFSET_MS = 5.5 * 3600000;
 const TIME_CUTOFF_MINUTES = 15 * 60 + 20;
 
