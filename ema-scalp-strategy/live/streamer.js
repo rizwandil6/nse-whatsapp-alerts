@@ -153,72 +153,115 @@ function handleBar(symbol, bar) {
   }
 }
 
+/**
+ * Connects, subscribes, and streams until the WebSocket closes or errors.
+ * Resolves (not rejects) when the connection ends, so the caller can decide
+ * whether/how to retry — a stale token or a transient drop should never
+ * crash the process on a long-running host like Railway.
+ */
+function connectAndRun() {
+  return new Promise(async (resolve) => {
+    let wsUrl;
+    try {
+      wsUrl = await getMarketFeedUrl();
+    } catch (e) {
+      console.error('Could not get market feed URL (likely an expired/missing token):', e.message);
+      resolve({ reason: 'auth_failed' });
+      return;
+    }
+
+    console.log('Connecting to Upstox live feed...');
+    const ws = new WebSocket(wsUrl, { followRedirects: true });
+
+    const niftyAgg = new BarAggregator((bar) => { niftyCandles5m.push(bar); });
+    barAggregators[NIFTY_KEY] = niftyAgg;
+
+    let settled = false;
+    const finish = (reason) => {
+      if (settled) return;
+      settled = true;
+      resolve({ reason });
+    };
+
+    ws.on('open', () => {
+      console.log('Connected. Subscribing to', Object.keys(symbolMap).length, 'stocks + Nifty 50...');
+      setTimeout(() => {
+        const instrumentKeys = [NIFTY_KEY, ...Object.values(symbolMap)];
+        ws.send(Buffer.from(JSON.stringify({
+          guid: 'ema-scalp-live',
+          method: 'sub',
+          data: { mode: 'full', instrumentKeys },
+        })));
+        console.log('Subscription sent.');
+      }, 1000);
+    });
+
+    ws.on('message', (data) => {
+      let decoded;
+      try {
+        decoded = decodeProtobuf(data);
+      } catch (e) {
+        console.warn('Protobuf decode error:', e.message);
+        return;
+      }
+      if (!decoded || !decoded.feeds) return;
+
+      for (const [instrumentKey, feed] of Object.entries(decoded.feeds)) {
+        const oneMinCandles = extractOneMinCandles(feed);
+        if (oneMinCandles.length === 0) continue;
+
+        if (instrumentKey === NIFTY_KEY) {
+          for (const c of oneMinCandles) niftyAgg.push(c);
+          continue;
+        }
+
+        const symbol = keyToSymbol[instrumentKey];
+        if (!symbol) continue;
+
+        if (!barAggregators[symbol]) {
+          barAggregators[symbol] = new BarAggregator((bar) => handleBar(symbol, bar));
+        }
+        for (const c of oneMinCandles) barAggregators[symbol].push(c);
+      }
+    });
+
+    ws.on('close', () => {
+      console.log('Disconnected from feed.');
+      finish('closed');
+    });
+
+    ws.on('error', (err) => {
+      console.error('WebSocket error:', err.message);
+      finish('error');
+    });
+
+    process.once('SIGTERM', () => { finalizeDay(ws); finish('sigterm'); });
+    process.once('SIGINT', () => { finalizeDay(ws); finish('sigint'); });
+  });
+}
+
+/**
+ * Outer retry loop with exponential backoff (capped at 5 min). Keeps the
+ * process alive indefinitely rather than crash-exiting — expected to spend
+ * most of its time retrying harmlessly before market open / after an
+ * expired token, until a fresh UPSTOX_ACCESS_TOKEN is set and it connects.
+ */
 async function main() {
   console.log('Initializing protobuf schema...');
   await initProtobuf();
 
-  console.log('Requesting market feed URL...');
-  const wsUrl = await getMarketFeedUrl();
-
-  console.log('Connecting to Upstox live feed...');
-  const ws = new WebSocket(wsUrl, { followRedirects: true });
-
-  const niftyAgg = new BarAggregator((bar) => { niftyCandles5m.push(bar); });
-  barAggregators[NIFTY_KEY] = niftyAgg;
-
-  ws.on('open', () => {
-    console.log('Connected. Subscribing to', Object.keys(symbolMap).length, 'stocks + Nifty 50...');
-    setTimeout(() => {
-      const instrumentKeys = [NIFTY_KEY, ...Object.values(symbolMap)];
-      ws.send(Buffer.from(JSON.stringify({
-        guid: 'ema-scalp-live',
-        method: 'sub',
-        data: { mode: 'full', instrumentKeys },
-      })));
-      console.log('Subscription sent.');
-    }, 1000);
-  });
-
-  ws.on('message', (data) => {
-    let decoded;
-    try {
-      decoded = decodeProtobuf(data);
-    } catch (e) {
-      console.warn('Protobuf decode error:', e.message);
-      return;
+  let attempt = 0;
+  for (;;) {
+    const { reason } = await connectAndRun();
+    if (reason === 'sigterm' || reason === 'sigint') {
+      console.log('Shutting down (', reason, ').');
+      process.exit(0);
     }
-    if (!decoded || !decoded.feeds) return;
-
-    for (const [instrumentKey, feed] of Object.entries(decoded.feeds)) {
-      const oneMinCandles = extractOneMinCandles(feed);
-      if (oneMinCandles.length === 0) continue;
-
-      if (instrumentKey === NIFTY_KEY) {
-        for (const c of oneMinCandles) niftyAgg.push(c);
-        continue;
-      }
-
-      const symbol = keyToSymbol[instrumentKey];
-      if (!symbol) continue;
-
-      if (!barAggregators[symbol]) {
-        barAggregators[symbol] = new BarAggregator((bar) => handleBar(symbol, bar));
-      }
-      for (const c of oneMinCandles) barAggregators[symbol].push(c);
-    }
-  });
-
-  ws.on('close', () => {
-    console.log('Disconnected from feed.');
-  });
-
-  ws.on('error', (err) => {
-    console.error('WebSocket error:', err.message);
-  });
-
-  // End-of-day: flush any partial bars and force-resolve any still-open signals.
-  process.on('SIGTERM', () => finalizeDay(ws));
-  process.on('SIGINT', () => finalizeDay(ws));
+    attempt++;
+    const delayMs = Math.min(30000 * attempt, 300000); // 30s, 60s, ... capped at 5 min
+    console.log(`Connection ended (${reason}). Retrying in ${delayMs / 1000}s...`);
+    await new Promise((r) => setTimeout(r, delayMs));
+  }
 }
 
 function finalizeDay(ws) {
@@ -236,7 +279,7 @@ function finalizeDay(ws) {
     }
   }
   try { ws.close(); } catch (e) { /* already closed */ }
-  process.exit(0);
+  // Exit is handled by main()'s retry loop after connectAndRun() resolves with reason 'sigterm'/'sigint'.
 }
 
 main().catch((e) => {
