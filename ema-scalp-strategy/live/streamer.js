@@ -34,8 +34,19 @@ const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
 const NIFTY_KEY = 'NSE_INDEX|Nifty 50';
-const LOG_PATH = path.join(__dirname, 'live_trades_log.json');
+// LOG_DIR should point at a mounted Railway Volume (survives restarts/redeploys).
+// Falls back to __dirname for local testing, where persistence doesn't matter.
+const LOG_DIR = process.env.LOG_DIR || __dirname;
+const LOG_PATH = path.join(LOG_DIR, 'live_trades_log.json');
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
+
+if (process.env.LOG_DIR && !fs.existsSync(LOG_DIR)) {
+  console.error(`FATAL: LOG_DIR=${LOG_DIR} does not exist. Is the Railway Volume attached and mounted?`);
+  process.exit(1);
+}
+if (!process.env.LOG_DIR) {
+  console.warn(`WARNING: LOG_DIR not set — trade log will be written to ${LOG_PATH}, which does NOT survive a Railway restart/redeploy.`);
+}
 
 if (!UPSTOX_TOKEN) {
   console.error('FATAL: UPSTOX_ACCESS_TOKEN env var not set. Cannot start.');
