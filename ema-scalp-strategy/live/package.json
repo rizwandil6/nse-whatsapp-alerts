@@ -1,0 +1,13 @@
+{
+  "name": "ema-scalp-live-streamer",
+  "version": "1.0.0",
+  "description": "Live intraday signal streamer for the EMA scalp strategy (SHORT+BIG_BAR+14:30 cutoff), via Upstox's official V3 market-data WebSocket feed.",
+  "main": "streamer.js",
+  "scripts": {
+    "start": "node streamer.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "protobufjs": "^7.4.0"
+  }
+}
