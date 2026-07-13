@@ -5,7 +5,78 @@ A short-hold (single-day, ~25 min avg) intraday scalping strategy built on
 confirmation. **Independent of the announcement strategy (`backtest/`), the
 swing strategy (`swing-strategy/`), the Box strategy (`box-strategy/`), and
 the SMC strategy (`smc-strategy/`)** — separate signal source, separate code
-path, not wired into the live bot (`src/`). Backtest/research code only.
+path. Unlike the other three, this one **is live**: `live/streamer.js` is
+deployed as its own Railway service (`ema-scalp-live-streamer`), streaming
+Upstox's official V3 market-data WebSocket feed and alerting via Telegram.
+Alert-only — no real orders are placed anywhere in this project.
+
+## Stock universe — widened from 178 to 353 (2026-07-13)
+
+The strategy launched validated against a 178-stock Shariah-compliant
+universe (halal screen: no banks/NBFCs/alcohol/gambling/tobacco/high-debt
+companies, sourced from the Nifty 500). On 2026-07-13, the universe was
+rebuilt from scratch with a reproducible, file-backed screen (unlike the
+original, which wasn't recoverable — see "Universe screening methodology"
+below) and widened to **353 stocks**. `symbols.json` (and its copy in
+`live/`, used by the deployed streamer) now reflects this 353-stock list;
+the original 178 is preserved at `symbols_178_backup.json`.
+
+**Backtest comparison, 353 vs the original 178** (same signal rules, same
+data window):
+
+| | 178-stock (original) | 353-stock (current) |
+|---|---|---|
+| Trades | 157 | 330 |
+| Gross win / avg P&L | 70.1% / +0.471% | 67.6% / +0.454% |
+| Net win / avg P&L (after costs) | 68.2% / +0.389% | 66.4% / +0.372% |
+
+Splitting the 330 trades by origin: the 156 trades from the original
+176-overlap stocks perform almost identically to the original validation
+(69.9%/+0.471% gross — matches, since it's essentially the same signals
+minus 2 stocks that dropped out). The 174 trades from the **177 newly
+eligible stocks** (added by narrowing the debt screen to debt-to-assets
+< 33% instead of dropping it, then removing insurance companies) are real
+but meaningfully weaker: 65.5% win / +0.440% gross avg — still profitable,
+but roughly 4-5 points below the core set, plausibly because higher-leverage
+names (Vodafone Idea, Adani Green Energy, GMR Airports, etc., all newly
+eligible once the debt threshold was applied instead of removed) trend
+less cleanly than lower-debt names. Both universes still concentrate
+signals on the same 2 calendar days (2026-06-23, 2026-07-08) — widening
+the stock count doesn't change which days the market-wide condition fires,
+only how many stocks participate on those days.
+
+### Universe screening methodology (reproducible, unlike the original)
+
+1. Fetched the official Nifty 500 constituent list directly from NSE
+   (`nsearchives.nseindia.com/content/indices/ind_nifty500list.csv`) — 500
+   companies with NSE's own industry classification.
+2. Excluded by business/sector, using NSE's classification plus manual
+   company-name review within `Financial Services` (which mixes banks,
+   NBFCs, insurers, AMCs, and exchanges) and `Fast Moving Consumer Goods`
+   (alcohol/tobacco): 26 banks, 37 NBFCs, 4 alcohol producers, 2 tobacco
+   companies. No gambling/casino companies are currently in the Nifty 500.
+3. Excluded 13 insurance companies separately — not part of the user's
+   literal "banks/NBFCs" instruction, but excluded on request as a
+   business-model judgment call (note: all 13 had near-zero reported debt
+   and would have passed the debt screen regardless).
+4. For the remaining companies, fetched real debt-to-total-assets ratios
+   from Screener.in (authenticated scrape, same method as
+   `src/main/java/com/adil/nsealerts/FundamentalScreener.java`'s existing
+   live per-stock check) and kept only debt-to-assets < 33% — the same
+   threshold already used elsewhere in this project.
+5. Resolved each surviving symbol to its Upstox instrument key via the
+   full NSE_EQ instrument master (129,496 instruments checked; all 353
+   resolved cleanly, no manual fallback needed).
+
+Final count: 500 → 431 (business/sector screen) → 418 (minus insurance) →
+**353** (debt-to-assets < 33%). Cross-checked against the original 178:
+176 stocks overlap cleanly; 2 (BATAINDIA, TORNTPHARM) now fail the debt
+screen on freshly-fetched data (36.7% and 34.5% debt-to-assets — both
+were likely under the threshold when the original 178 was built, or were
+included for a different reason no longer recoverable); 177 are genuinely
+new. Full per-company data: see the scratchpad's `nifty500/` working
+directory for `debt_results.json`, `final_eligible.json`, and the full
+Nifty 500 pass/fail breakdown — none of this is committed to git.
 
 ## Translated from options to cash equity
 
@@ -255,9 +326,10 @@ win to a net loss/breakeven. Run `node apply_costs.js` to reproduce.
 | `sweep_cutoff.js` | Sweeps candidate entry-time cutoffs and reports win rate/avg P&L at each — the tool that surfaced the 3-day concentration confound |
 | `diagnose_wick.js` | Correlates trigger-candle lower-wick fraction with trade outcome directly (deciles, by exit reason) — the analysis behind the wick-filter finding |
 | `sweep_wick.js` | Sweeps candidate wick-tolerance thresholds and reports win rate/avg P&L at each — tested, not adopted (see README) |
-| `fetch_data.js` | Upstox fetcher: 1-min → 5-min aggregation for 178 stocks + Nifty 50 index |
-| `symbols.json` | Same 178-stock Shariah-compliant universe as the other three strategies |
-| `intraday_cache.json` | Cached 5-min candles for all 178 stocks (large — regeneratable via `fetch_data.js`) |
+| `fetch_data.js` | Upstox fetcher: 1-min → 5-min aggregation for the stock universe + Nifty 50 index |
+| `symbols.json` | **Current live universe — 353 stocks** (widened 2026-07-13, see above). Same list copied into `live/symbols.json` for the deployed streamer's self-contained build. |
+| `symbols_178_backup.json` | The original 178-stock universe used for every backtest number in this README except the 353-stock comparison table |
+| `intraday_cache.json` | Cached 5-min candles for the original 178-stock backtest (large — regeneratable via `fetch_data.js`) |
 | `nifty_cache.json` | Cached 5-min candles for the Nifty 50 index (`NSE_INDEX\|Nifty 50`) |
 | `trades.json` | Full 4-way trade list |
 | `trades_short_bigbar.json` | Narrowed SHORT+BIG_BAR trade list (gross) |
