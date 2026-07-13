@@ -56,6 +56,16 @@ function main() {
         stopLoss: result.stopLoss,
         target: result.target,
         targetSource: result.targetSource,
+        zoneScore: result.zone?.score?.total,
+        zoneFreshness: result.zone?.score?.freshness,
+        zoneStrength: result.zone?.score?.strength,
+        zoneTimeAtBase: result.zone?.score?.timeAtBase,
+        zoneBaseCount: result.zone?.baseCount,
+        rsiDaily: result.checks?.rsiValues?.daily,
+        rsiWeekly: result.checks?.rsiValues?.weekly,
+        rsiMonthly: result.checks?.rsiValues?.monthly,
+        recentGoldenCross: result.checks?.recentGoldenCross,
+        sectorApplicable: result.checks?.sectorApplicable,
         trade,
       });
     }
