@@ -1,0 +1,66 @@
+{
+  "TCS": "Nifty IT", "HCLTECH": "Nifty IT", "INFY": "Nifty IT", "TECHM": "Nifty IT",
+  "COFORGE": "Nifty IT", "MPHASIS": "Nifty IT", "PERSISTENT": "Nifty IT", "LTTS": "Nifty IT",
+  "KPITTECH": "Nifty IT", "BSOFT": "Nifty IT", "SONATSOFTW": "Nifty IT", "ECLERX": "Nifty IT",
+  "CYIENT": "Nifty IT", "SYRMA": "Nifty IT", "TATATECH": "Nifty IT", "NETWEB": "Nifty IT",
+  "FSL": "Nifty IT", "REDINGTON": "Nifty IT",
+
+  "SUNPHARMA": "Nifty Pharma", "CIPLA": "Nifty Pharma", "DRREDDY": "Nifty Pharma", "LUPIN": "Nifty Pharma",
+  "TORNTPHARM": "Nifty Pharma", "ZYDUSLIFE": "Nifty Pharma", "AUROPHARMA": "Nifty Pharma", "GLENMARK": "Nifty Pharma",
+  "ALKEM": "Nifty Pharma", "AJANTPHARM": "Nifty Pharma", "IPCALAB": "Nifty Pharma", "JBCHEPHARM": "Nifty Pharma",
+  "WOCKPHARMA": "Nifty Pharma", "NEULANDLAB": "Nifty Pharma", "SAILIFE": "Nifty Pharma", "EMCURE": "Nifty Pharma",
+  "JUBLPHARMA": "Nifty Pharma", "GRANULES": "Nifty Pharma", "SYNGENE": "Nifty Pharma", "CONCORDBIO": "Nifty Pharma",
+
+  "HEROMOTOCO": "Nifty Auto", "MOTHERSON": "Nifty Auto", "BALKRISIND": "Nifty Auto", "APOLLOTYRE": "Nifty Auto",
+  "MRF": "Nifty Auto", "EXIDEIND": "Nifty Auto", "ENDURANCE": "Nifty Auto", "UNOMINDA": "Nifty Auto",
+  "CEATLTD": "Nifty Auto", "GABRIEL": "Nifty Auto", "FORCEMOT": "Nifty Auto", "TIINDIA": "Nifty Auto",
+  "SCHAEFFLER": "Nifty Auto", "HYUNDAI": "Nifty Auto", "ARE&M": "Nifty Auto", "MSUMI": "Nifty Auto",
+
+  "HINDUNILVR": "Nifty FMCG", "BRITANNIA": "Nifty FMCG", "MARICO": "Nifty FMCG", "GODREJCP": "Nifty FMCG",
+  "TATACONSUM": "Nifty FMCG", "COLPAL": "Nifty FMCG", "GILLETTE": "Nifty FMCG", "EMAMILTD": "Nifty FMCG",
+  "PATANJALI": "Nifty FMCG", "BIKAJI": "Nifty FMCG", "ZYDUSWELL": "Nifty FMCG",
+
+  "HINDALCO": "Nifty Metal", "JINDALSTEL": "Nifty Metal", "NATIONALUM": "Nifty Metal", "JSL": "Nifty Metal",
+  "SAIL": "Nifty Metal", "HINDCOPPER": "Nifty Metal", "SHYAMMETL": "Nifty Metal", "GALLANTT": "Nifty Metal",
+  "JINDALSAW": "Nifty Metal", "USHAMART": "Nifty Metal", "GPIL": "Nifty Metal", "WELCORP": "Nifty Metal",
+  "APLAPOLLO": "Nifty Metal",
+
+  "ONGC": "NIFTY OIL AND GAS", "BPCL": "NIFTY OIL AND GAS", "GAIL": "NIFTY OIL AND GAS", "ATGL": "NIFTY OIL AND GAS",
+  "PETRONET": "NIFTY OIL AND GAS", "IGL": "NIFTY OIL AND GAS", "MGL": "NIFTY OIL AND GAS", "CHENNPETRO": "NIFTY OIL AND GAS",
+
+  "LODHA": "Nifty Realty", "SOBHA": "Nifty Realty", "ANANTRAJ": "Nifty Realty",
+
+  "NBCC": "Nifty Infra", "NCC": "Nifty Infra", "AFCONS": "Nifty Infra", "KEC": "Nifty Infra",
+  "RVNL": "Nifty Infra", "TITAGARH": "Nifty Infra", "RAILTEL": "Nifty Infra",
+
+  "MAXHEALTH": "NIFTY HEALTHCARE", "FORTIS": "NIFTY HEALTHCARE", "MEDANTA": "NIFTY HEALTHCARE", "ASTERDM": "NIFTY HEALTHCARE",
+
+  "TRENT": "Nifty Consumption", "SWIGGY": "Nifty Consumption", "PAGEIND": "Nifty Consumption", "VOLTAS": "Nifty Consumption",
+  "HAVELLS": "Nifty Consumption", "CROMPTON": "Nifty Consumption", "WHIRLPOOL": "Nifty Consumption",
+  "BLUESTARCO": "Nifty Consumption", "VMM": "Nifty Consumption", "DIXON": "Nifty Consumption", "AMBER": "Nifty Consumption",
+  "KAJARIACER": "Nifty Consumption",
+
+  "SRF": "Nifty Commodities", "DEEPAKNTR": "Nifty Commodities", "ATUL": "Nifty Commodities", "TATACHEM": "Nifty Commodities",
+  "FLUOROCHEM": "Nifty Commodities", "COROMANDEL": "Nifty Commodities", "CHAMBLFERT": "Nifty Commodities",
+  "PIDILITIND": "Nifty Commodities", "ASIANPAINT": "Nifty Commodities", "BERGEPAINT": "Nifty Commodities",
+  "BAYERCROP": "Nifty Commodities", "CASTROLIND": "Nifty Commodities", "LINDEINDIA": "Nifty Commodities",
+
+  "SUZLON": "Nifty Energy", "INOXWIND": "Nifty Energy", "BHEL": "Nifty Energy", "TORNTPOWER": "Nifty Energy",
+  "THERMAX": "Nifty Energy", "APARINDS": "Nifty Energy", "NAVA": "Nifty Energy", "TARIL": "Nifty Energy",
+
+  "DMART": "Nifty Consumption", "BATAINDIA": "Nifty Consumption", "PGEL": "Nifty Consumption", "FIRSTCRY": "Nifty Consumption",
+
+  "CUMMINSIND": "Nifty Auto", "OLECTRA": "Nifty Auto", "TIMKEN": "Nifty Auto", "CIEINDIA": "Nifty Auto",
+
+  "DOMS": "Nifty FMCG", "LTFOODS": "Nifty FMCG",
+
+  "GRAVITA": "Nifty Metal", "TEGA": "Nifty Metal", "HEG": "Nifty Metal", "RHIM": "Nifty Metal",
+
+  "SCI": "Nifty Infra", "ACE": "Nifty Infra", "JWL": "Nifty Infra",
+
+  "JUBLINGREA": "Nifty Commodities", "NUVOCO": "Nifty Commodities", "SPLPETRO": "Nifty Commodities",
+  "SUPREMEIND": "Nifty Commodities", "ASTRAL": "Nifty Commodities", "DALBHARAT": "Nifty Commodities",
+  "ULTRACEMCO": "Nifty Commodities",
+
+  "BLUEJET": "Nifty Pharma"
+}
