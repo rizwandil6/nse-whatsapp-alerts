@@ -5,6 +5,20 @@ intraday, both buy and sell, design left entirely to judgment. **Independent
 of every other strategy in this repo** — new universe, new mechanism, new
 capital pool.
 
+## Live deployment
+
+Deployed as Railway service `orb-live-streamer` (`live/streamer.js`), same
+WebSocket/Telegram pattern as the EMA scalp live streamer: connects to
+Upstox's V3 market-data feed, decodes real 1-minute bars (no 5-min
+aggregation — ORB needs raw 1-min, matching the backtest exactly), and runs
+one `ORBSymbolTracker` per stock (`live/orb_engine.js`) — opening-range
+computation, volume-confirmed breakout detection, target/stop/EOD-square-off
+tracking, one trade per stock per day. Verified against synthetic bar
+sequences (entry, target-hit, one-trade-per-day, day-rollover safety net)
+before deploying. Telegram alerts fire on entry (stock, direction, entry,
+stop-loss, target, breakout volume ratio) and exit (stock, direction, entry,
+exit, stop-loss, P&L) — alert only, no orders placed.
+
 ## The honest starting point
 
 The original ask was "1% net profit every day, guaranteed." That's not
