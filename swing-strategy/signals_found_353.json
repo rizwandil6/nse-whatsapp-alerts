@@ -1,0 +1,1784 @@
+[
+ {
+  "symbol": "ABBOTINDIA",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-01-01",
+  "signalPrice": 23327.25,
+  "stopLoss": 22000,
+  "target": 25981.75,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 25981.75,
+   "exitDayIndex": 623,
+   "holdDays": 8,
+   "entryPrice": 23450,
+   "pnlPct": 10.796375266524521
+  }
+ },
+ {
+  "symbol": "ABSLAMC",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2026-02-04",
+  "signalPrice": 809.75,
+  "stopLoss": 710.3,
+  "target": 1008.6500000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1008.6500000000001,
+   "exitDayIndex": 1095,
+   "holdDays": 21,
+   "entryPrice": 808.95,
+   "pnlPct": 24.68632177514062
+  }
+ },
+ {
+  "symbol": "ACC",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-06-11",
+  "signalPrice": 2624.4,
+  "stopLoss": 2331.55,
+  "target": 3210.1,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 2331.55,
+   "exitDayIndex": 765,
+   "holdDays": 40,
+   "entryPrice": 2642,
+   "pnlPct": -11.75056775170325
+  }
+ },
+ {
+  "symbol": "ACE",
+  "sector": "Nifty Infra",
+  "isNewStock": false,
+  "date": "2023-01-05",
+  "signalPrice": 312.3,
+  "stopLoss": 284.7,
+  "target": 367.50000000000006,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 367.50000000000006,
+   "exitDayIndex": 393,
+   "holdDays": 21,
+   "entryPrice": 315,
+   "pnlPct": 16.666666666666686
+  }
+ },
+ {
+  "symbol": "AMBUJACEM",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-10-10",
+  "signalPrice": 445.1,
+  "stopLoss": 420,
+  "target": 495.30000000000007,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 420,
+   "exitDayIndex": 566,
+   "holdDays": 7,
+   "entryPrice": 449,
+   "pnlPct": -6.45879732739421
+  }
+ },
+ {
+  "symbol": "ASAHIINDIA",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2022-11-10",
+  "signalPrice": 629.2,
+  "stopLoss": 612.5,
+  "target": 662.6000000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 612.5,
+   "exitDayIndex": 334,
+   "holdDays": 2,
+   "entryPrice": 630,
+   "pnlPct": -2.7777777777777777
+  }
+ },
+ {
+  "symbol": "ASAHIINDIA",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-11-11",
+  "signalPrice": 584.1,
+  "stopLoss": 532.7,
+  "target": 686.9,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 532.7,
+   "exitDayIndex": 633,
+   "holdDays": 52,
+   "entryPrice": 583.05,
+   "pnlPct": -8.635623016893906
+  }
+ },
+ {
+  "symbol": "ASAHIINDIA",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-11-03",
+  "signalPrice": 721.8,
+  "stopLoss": 663.7,
+  "target": 837.9999999999998,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 663.7,
+   "exitDayIndex": 830,
+   "holdDays": 6,
+   "entryPrice": 717,
+   "pnlPct": -7.433751743375168
+  }
+ },
+ {
+  "symbol": "ASAHIINDIA",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2026-07-07",
+  "signalPrice": 876.45,
+  "stopLoss": 841,
+  "target": 1028.3,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "DATA_EXHAUSTED",
+   "exitPrice": 891.55,
+   "exitDayIndex": 1237,
+   "holdDays": 0,
+   "entryPrice": 878.95,
+   "pnlPct": 1.4335286421298035
+  }
+ },
+ {
+  "symbol": "AUROPHARMA",
+  "sector": "Nifty Pharma",
+  "isNewStock": false,
+  "date": "2025-12-21",
+  "signalPrice": 1224.5,
+  "stopLoss": 1172.1,
+  "target": 1281.65,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 1172.1,
+   "exitDayIndex": 1111,
+   "holdDays": 6,
+   "entryPrice": 1230,
+   "pnlPct": -4.707317073170739
+  }
+ },
+ {
+  "symbol": "BBTC",
+  "sector": null,
+  "isNewStock": false,
+  "date": "2023-06-06",
+  "signalPrice": 965.6,
+  "stopLoss": 906.05,
+  "target": 1050.65,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1050.65,
+   "exitDayIndex": 476,
+   "holdDays": 3,
+   "entryPrice": 965.6,
+   "pnlPct": 8.80799502899752
+  }
+ },
+ {
+  "symbol": "BIOCON",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-08-25",
+  "signalPrice": 353.25,
+  "stopLoss": 332.65,
+  "target": 394.45000000000005,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 394.45000000000005,
+   "exitDayIndex": 782,
+   "holdDays": 7,
+   "entryPrice": 353.5,
+   "pnlPct": 11.584158415841598
+  }
+ },
+ {
+  "symbol": "BOSCHLTD",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2026-05-17",
+  "signalPrice": 37155,
+  "stopLoss": 35475,
+  "target": 40515,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 35475,
+   "exitDayIndex": 1204,
+   "holdDays": 2,
+   "entryPrice": 37205,
+   "pnlPct": -4.649912646149711
+  }
+ },
+ {
+  "symbol": "CAMS",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-11-11",
+  "signalPrice": 792.8,
+  "stopLoss": 743.6,
+  "target": 891.1999999999998,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 743.6,
+   "exitDayIndex": 1095,
+   "holdDays": 18,
+   "entryPrice": 790.9,
+   "pnlPct": -5.980528511821969
+  }
+ },
+ {
+  "symbol": "CAPLIPOINT",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-02-06",
+  "signalPrice": 2217.25,
+  "stopLoss": 1784.2,
+  "target": 3083.35,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 1784.2,
+   "exitDayIndex": 905,
+   "holdDays": 14,
+   "entryPrice": 2225,
+   "pnlPct": -19.811235955056176
+  }
+ },
+ {
+  "symbol": "CCL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-11-12",
+  "signalPrice": 633.35,
+  "stopLoss": 607,
+  "target": 686.0500000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 686.0500000000001,
+   "exitDayIndex": 634,
+   "holdDays": 52,
+   "entryPrice": 633.35,
+   "pnlPct": 8.320833662272053
+  }
+ },
+ {
+  "symbol": "CCL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-01-10",
+  "signalPrice": 641.15,
+  "stopLoss": 620.55,
+  "target": 682.35,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 682.35,
+   "exitDayIndex": 634,
+   "holdDays": 12,
+   "entryPrice": 641.15,
+   "pnlPct": 6.425953365047188
+  }
+ },
+ {
+  "symbol": "CCL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-01-23",
+  "signalPrice": 636.85,
+  "stopLoss": 620,
+  "target": 670.5500000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 670.5500000000001,
+   "exitDayIndex": 632,
+   "holdDays": 1,
+   "entryPrice": 640,
+   "pnlPct": 4.773437500000011
+  }
+ },
+ {
+  "symbol": "CDSL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2026-06-14",
+  "signalPrice": 1265.7,
+  "stopLoss": 1152.7,
+  "target": 1491.7,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "DATA_EXHAUSTED",
+   "exitPrice": 1346.5,
+   "exitDayIndex": 1237,
+   "holdDays": 16,
+   "entryPrice": 1272,
+   "pnlPct": 5.8569182389937104
+  }
+ },
+ {
+  "symbol": "COALINDIA",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-10-20",
+  "signalPrice": 391.1,
+  "stopLoss": 380.1,
+  "target": 414,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 380.1,
+   "exitDayIndex": 1067,
+   "holdDays": 4,
+   "entryPrice": 391.6,
+   "pnlPct": -2.936670071501532
+  }
+ },
+ {
+  "symbol": "COALINDIA",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2026-04-23",
+  "signalPrice": 456,
+  "stopLoss": 440.5,
+  "target": 487,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 487,
+   "exitDayIndex": 1190,
+   "holdDays": 3,
+   "entryPrice": 458.5,
+   "pnlPct": 6.2159214830970555
+  }
+ },
+ {
+  "symbol": "COHANCE",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-07-16",
+  "signalPrice": 488.1,
+  "stopLoss": 483.6,
+  "target": 515,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 483.6,
+   "exitDayIndex": 500,
+   "holdDays": 0,
+   "entryPrice": 486.5,
+   "pnlPct": -0.5960945529290806
+  }
+ },
+ {
+  "symbol": "COHANCE",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-04-15",
+  "signalPrice": 1195.7,
+  "stopLoss": 968.15,
+  "target": 1650.8000000000002,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 968.15,
+   "exitDayIndex": 983,
+   "holdDays": 49,
+   "entryPrice": 1195.7,
+   "pnlPct": -19.03069331772184
+  }
+ },
+ {
+  "symbol": "COROMANDEL",
+  "sector": "Nifty Commodities",
+  "isNewStock": false,
+  "date": "2025-02-04",
+  "signalPrice": 1884.1,
+  "stopLoss": 1665.2,
+  "target": 2321.8999999999996,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 1665.2,
+   "exitDayIndex": 897,
+   "holdDays": 8,
+   "entryPrice": 1884.1,
+   "pnlPct": -11.61827928453903
+  }
+ },
+ {
+  "symbol": "DABUR",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2022-09-29",
+  "signalPrice": 572.95,
+  "stopLoss": 540.05,
+  "target": 638.7500000000002,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 540.05,
+   "exitDayIndex": 308,
+   "holdDays": 3,
+   "entryPrice": 571.6,
+   "pnlPct": -5.5195941217634825
+  }
+ },
+ {
+  "symbol": "DELHIVERY",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-10-12",
+  "signalPrice": 473.8,
+  "stopLoss": 424.5,
+  "target": 572.4000000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 424.5,
+   "exitDayIndex": 860,
+   "holdDays": 17,
+   "entryPrice": 476.1,
+   "pnlPct": -10.838059231253942
+  }
+ },
+ {
+  "symbol": "DIXON",
+  "sector": "Nifty Consumption",
+  "isNewStock": false,
+  "date": "2025-06-30",
+  "signalPrice": 14716,
+  "stopLoss": 13862,
+  "target": 16424,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 16424,
+   "exitDayIndex": 996,
+   "holdDays": 10,
+   "entryPrice": 14716,
+   "pnlPct": 11.6064147866268
+  }
+ },
+ {
+  "symbol": "DLF",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-08-15",
+  "signalPrice": 866.9,
+  "stopLoss": 802.55,
+  "target": 995.6,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 802.55,
+   "exitDayIndex": 815,
+   "holdDays": 46,
+   "entryPrice": 869,
+   "pnlPct": -7.646720368239361
+  }
+ },
+ {
+  "symbol": "DMART",
+  "sector": "Nifty Consumption",
+  "isNewStock": false,
+  "date": "2025-06-04",
+  "signalPrice": 4153.5,
+  "stopLoss": 3991.8,
+  "target": 4476.9,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 3991.8,
+   "exitDayIndex": 970,
+   "holdDays": 2,
+   "entryPrice": 4166,
+   "pnlPct": -4.181469035045603
+  }
+ },
+ {
+  "symbol": "EICHERMOT",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-12-29",
+  "signalPrice": 4855.8,
+  "stopLoss": 4716.35,
+  "target": 4999,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 4999,
+   "exitDayIndex": 863,
+   "holdDays": 2,
+   "entryPrice": 4827,
+   "pnlPct": 3.563289828050549
+  }
+ },
+ {
+  "symbol": "EIHOTEL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-10-15",
+  "signalPrice": 387.2,
+  "stopLoss": 358,
+  "target": 445.59999999999997,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 358,
+   "exitDayIndex": 1102,
+   "holdDays": 42,
+   "entryPrice": 389,
+   "pnlPct": -7.969151670951156
+  }
+ },
+ {
+  "symbol": "ESCORTS",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-06-24",
+  "signalPrice": 3304.6,
+  "stopLoss": 2754.55,
+  "target": 4404.699999999999,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TIME_CAP",
+   "exitPrice": 3822.3,
+   "exitDayIndex": 1071,
+   "holdDays": 89,
+   "entryPrice": 3310,
+   "pnlPct": 15.477341389728103
+  }
+ },
+ {
+  "symbol": "EXIDEIND",
+  "sector": "Nifty Auto",
+  "isNewStock": false,
+  "date": "2025-05-14",
+  "signalPrice": 383.85,
+  "stopLoss": 361.65,
+  "target": 409.05,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 409.05,
+   "exitDayIndex": 971,
+   "holdDays": 18,
+   "entryPrice": 387,
+   "pnlPct": 5.697674418604654
+  }
+ },
+ {
+  "symbol": "FSL",
+  "sector": "Nifty IT",
+  "isNewStock": false,
+  "date": "2023-04-11",
+  "signalPrice": 113.85,
+  "stopLoss": 105.2,
+  "target": 125,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 125,
+   "exitDayIndex": 451,
+   "holdDays": 16,
+   "entryPrice": 113,
+   "pnlPct": 10.619469026548673
+  }
+ },
+ {
+  "symbol": "GESHIP",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2022-10-27",
+  "signalPrice": 548.95,
+  "stopLoss": 506,
+  "target": 634.8500000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 634.8500000000001,
+   "exitDayIndex": 336,
+   "holdDays": 13,
+   "entryPrice": 554,
+   "pnlPct": 14.593862815884501
+  }
+ },
+ {
+  "symbol": "GESHIP",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2026-06-23",
+  "signalPrice": 1497.2,
+  "stopLoss": 1362.1,
+  "target": 1648.6,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 1362.1,
+   "exitDayIndex": 1236,
+   "holdDays": 8,
+   "entryPrice": 1498,
+   "pnlPct": -9.0720961281709
+  }
+ },
+ {
+  "symbol": "GMDCLTD",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-06-18",
+  "signalPrice": 397.1,
+  "stopLoss": 328.8,
+  "target": 533.7,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 328.8,
+   "exitDayIndex": 803,
+   "holdDays": 74,
+   "entryPrice": 397.75,
+   "pnlPct": -17.33500942803268
+  }
+ },
+ {
+  "symbol": "GODREJPROP",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-08-27",
+  "signalPrice": 1631.5,
+  "stopLoss": 1478.7,
+  "target": 1937.1,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1937.1,
+   "exitDayIndex": 594,
+   "holdDays": 65,
+   "entryPrice": 1635.5,
+   "pnlPct": 18.440843778660955
+  }
+ },
+ {
+  "symbol": "HFCL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-04-02",
+  "signalPrice": 98.6,
+  "stopLoss": 89.95,
+  "target": 115.89999999999998,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 89.95,
+   "exitDayIndex": 687,
+   "holdDays": 9,
+   "entryPrice": 99.45,
+   "pnlPct": -9.55253896430367
+  }
+ },
+ {
+  "symbol": "HINDZINC",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-08-30",
+  "signalPrice": 318.15,
+  "stopLoss": 315.75,
+  "target": 322.94999999999993,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 322.94999999999993,
+   "exitDayIndex": 533,
+   "holdDays": 1,
+   "entryPrice": 318.15,
+   "pnlPct": 1.5087223008014945
+  }
+ },
+ {
+  "symbol": "INDHOTEL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-11-09",
+  "signalPrice": 409.45,
+  "stopLoss": 376.9,
+  "target": 474.55,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 474.55,
+   "exitDayIndex": 623,
+   "holdDays": 43,
+   "entryPrice": 413.5,
+   "pnlPct": 14.764207980652966
+  }
+ },
+ {
+  "symbol": "INDHOTEL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-02-03",
+  "signalPrice": 828.2,
+  "stopLoss": 732.9,
+  "target": 1018.8000000000002,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 732.9,
+   "exitDayIndex": 893,
+   "holdDays": 5,
+   "entryPrice": 828.2,
+   "pnlPct": -11.506882395556636
+  }
+ },
+ {
+  "symbol": "INDIACEM",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-10-14",
+  "signalPrice": 393.6,
+  "stopLoss": 385,
+  "target": 410.80000000000007,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 385,
+   "exitDayIndex": 1066,
+   "holdDays": 7,
+   "entryPrice": 394,
+   "pnlPct": -2.284263959390863
+  }
+ },
+ {
+  "symbol": "INTELLECT",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-10-26",
+  "signalPrice": 1044.75,
+  "stopLoss": 933,
+  "target": 1268.25,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 933,
+   "exitDayIndex": 1117,
+   "holdDays": 51,
+   "entryPrice": 1048,
+   "pnlPct": -10.973282442748092
+  }
+ },
+ {
+  "symbol": "IPCALAB",
+  "sector": "Nifty Pharma",
+  "isNewStock": false,
+  "date": "2026-02-15",
+  "signalPrice": 1495.1,
+  "stopLoss": 1403,
+  "target": 1588.15,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1588.15,
+   "exitDayIndex": 1162,
+   "holdDays": 19,
+   "entryPrice": 1510,
+   "pnlPct": 5.1754966887417275
+  }
+ },
+ {
+  "symbol": "JBCHEPHARM",
+  "sector": "Nifty Pharma",
+  "isNewStock": false,
+  "date": "2026-04-26",
+  "signalPrice": 2047.5,
+  "stopLoss": 1892.6,
+  "target": 2357.3,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 2357.3,
+   "exitDayIndex": 1233,
+   "holdDays": 45,
+   "entryPrice": 2064,
+   "pnlPct": 14.210271317829465
+  }
+ },
+ {
+  "symbol": "JSL",
+  "sector": "Nifty Metal",
+  "isNewStock": false,
+  "date": "2023-05-01",
+  "signalPrice": 285,
+  "stopLoss": 257.25,
+  "target": 340.5,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 340.5,
+   "exitDayIndex": 482,
+   "holdDays": 35,
+   "entryPrice": 285,
+   "pnlPct": 19.473684210526315
+  }
+ },
+ {
+  "symbol": "KEI",
+  "sector": null,
+  "isNewStock": false,
+  "date": "2024-10-09",
+  "signalPrice": 4528.8,
+  "stopLoss": 4190,
+  "target": 5206.400000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 4190,
+   "exitDayIndex": 810,
+   "holdDays": 3,
+   "entryPrice": 4563.75,
+   "pnlPct": -8.189537113119695
+  }
+ },
+ {
+  "symbol": "KEI",
+  "sector": null,
+  "isNewStock": false,
+  "date": "2026-04-08",
+  "signalPrice": 4416.9,
+  "stopLoss": 4063,
+  "target": 4789.5,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 4789.5,
+   "exitDayIndex": 1181,
+   "holdDays": 4,
+   "entryPrice": 4440.3,
+   "pnlPct": 7.864333490980336
+  }
+ },
+ {
+  "symbol": "LATENTVIEW",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-10-16",
+  "signalPrice": 431.95,
+  "stopLoss": 392.85,
+  "target": 510.1499999999999,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 510.1499999999999,
+   "exitDayIndex": 548,
+   "holdDays": 75,
+   "entryPrice": 435.9,
+   "pnlPct": 17.033723331039216
+  }
+ },
+ {
+  "symbol": "LATENTVIEW",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-06-29",
+  "signalPrice": 411.5,
+  "stopLoss": 396.8,
+  "target": 448.35,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 448.35,
+   "exitDayIndex": 897,
+   "holdDays": 2,
+   "entryPrice": 410,
+   "pnlPct": 9.353658536585371
+  }
+ },
+ {
+  "symbol": "LAURUSLABS",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-02-15",
+  "signalPrice": 399.85,
+  "stopLoss": 385,
+  "target": 429.55000000000007,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 385,
+   "exitDayIndex": 669,
+   "holdDays": 22,
+   "entryPrice": 399.85,
+   "pnlPct": -3.713892709766168
+  }
+ },
+ {
+  "symbol": "LAURUSLABS",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-04-15",
+  "signalPrice": 626.9,
+  "stopLoss": 518.2,
+  "target": 844.2999999999998,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 844.2999999999998,
+   "exitDayIndex": 1003,
+   "holdDays": 69,
+   "entryPrice": 626.8,
+   "pnlPct": 34.7000638162093
+  }
+ },
+ {
+  "symbol": "LAURUSLABS",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-05-28",
+  "signalPrice": 614.5,
+  "stopLoss": 575.95,
+  "target": 691.5999999999999,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 691.5999999999999,
+   "exitDayIndex": 983,
+   "holdDays": 20,
+   "entryPrice": 615,
+   "pnlPct": 12.455284552845514
+  }
+ },
+ {
+  "symbol": "LTM",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-10-10",
+  "signalPrice": 6410.95,
+  "stopLoss": 6103.1,
+  "target": 7026.649999999999,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 6103.1,
+   "exitDayIndex": 812,
+   "holdDays": 4,
+   "entryPrice": 6412,
+   "pnlPct": -4.817529631940107
+  }
+ },
+ {
+  "symbol": "MANKIND",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-05-15",
+  "signalPrice": 2572.7,
+  "stopLoss": 2316,
+  "target": 2839,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 2316,
+   "exitDayIndex": 526,
+   "holdDays": 23,
+   "entryPrice": 2580,
+   "pnlPct": -10.232558139534884
+  }
+ },
+ {
+  "symbol": "MANKIND",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-05-27",
+  "signalPrice": 2483.8,
+  "stopLoss": 2316,
+  "target": 2819.4000000000005,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 2316,
+   "exitDayIndex": 526,
+   "holdDays": 15,
+   "entryPrice": 2490,
+   "pnlPct": -6.987951807228916
+  }
+ },
+ {
+  "symbol": "MANKIND",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-09-01",
+  "signalPrice": 2543.3,
+  "stopLoss": 2478.2,
+  "target": 2673.500000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 2673.500000000001,
+   "exitDayIndex": 591,
+   "holdDays": 13,
+   "entryPrice": 2539.8,
+   "pnlPct": 5.2641940310260935
+  }
+ },
+ {
+  "symbol": "MARUTI",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-06-10",
+  "signalPrice": 12863.65,
+  "stopLoss": 11561.45,
+  "target": 15468.049999999997,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TIME_CAP",
+   "exitPrice": 12175.9,
+   "exitDayIndex": 813,
+   "holdDays": 89,
+   "entryPrice": 12863.65,
+   "pnlPct": -5.346460763469155
+  }
+ },
+ {
+  "symbol": "MARUTI",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-06-15",
+  "signalPrice": 12530,
+  "stopLoss": 12016,
+  "target": 13558,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 13558,
+   "exitDayIndex": 1018,
+   "holdDays": 43,
+   "entryPrice": 12529,
+   "pnlPct": 8.212945965360365
+  }
+ },
+ {
+  "symbol": "MAZDOCK",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-01-19",
+  "signalPrice": 2438.45,
+  "stopLoss": 2107.05,
+  "target": 3101.249999999999,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 2107.05,
+   "exitDayIndex": 881,
+   "holdDays": 5,
+   "entryPrice": 2460,
+   "pnlPct": -14.347560975609749
+  }
+ },
+ {
+  "symbol": "MEDANTA",
+  "sector": "NIFTY HEALTHCARE",
+  "isNewStock": false,
+  "date": "2025-10-07",
+  "signalPrice": 1386.4,
+  "stopLoss": 1307,
+  "target": 1471.45,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 1307,
+   "exitDayIndex": 735,
+   "holdDays": 15,
+   "entryPrice": 1390,
+   "pnlPct": -5.971223021582734
+  }
+ },
+ {
+  "symbol": "MGL",
+  "sector": "NIFTY OIL AND GAS",
+  "isNewStock": false,
+  "date": "2025-03-16",
+  "signalPrice": 1311.55,
+  "stopLoss": 1270.5,
+  "target": 1393.6499999999999,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1393.6499999999999,
+   "exitDayIndex": 919,
+   "holdDays": 4,
+   "entryPrice": 1313.95,
+   "pnlPct": 6.0656798203888895
+  }
+ },
+ {
+  "symbol": "MINDACORP",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-01-09",
+  "signalPrice": 220.85,
+  "stopLoss": 199.65,
+  "target": 263.25,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 199.65,
+   "exitDayIndex": 385,
+   "holdDays": 11,
+   "entryPrice": 221,
+   "pnlPct": -9.660633484162894
+  }
+ },
+ {
+  "symbol": "MINDACORP",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-10-10",
+  "signalPrice": 344.2,
+  "stopLoss": 318.05,
+  "target": 396.49999999999994,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 318.05,
+   "exitDayIndex": 567,
+   "holdDays": 8,
+   "entryPrice": 345.95,
+   "pnlPct": -8.064749241219824
+  }
+ },
+ {
+  "symbol": "MMTC",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-06-02",
+  "signalPrice": 73.25,
+  "stopLoss": 67,
+  "target": 85.75,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 67,
+   "exitDayIndex": 718,
+   "holdDays": 0,
+   "entryPrice": 73.25,
+   "pnlPct": -8.532423208191126
+  }
+ },
+ {
+  "symbol": "NAUKRI",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-03-21",
+  "signalPrice": 1048.5,
+  "stopLoss": 1000,
+  "target": 1098.5,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1098.5,
+   "exitDayIndex": 673,
+   "holdDays": 1,
+   "entryPrice": 1048.5,
+   "pnlPct": 4.768717215069147
+  }
+ },
+ {
+  "symbol": "NAVINFLUOR",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2026-03-09",
+  "signalPrice": 6540,
+  "stopLoss": 5715.5,
+  "target": 8189,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 5715.5,
+   "exitDayIndex": 1172,
+   "holdDays": 14,
+   "entryPrice": 6575,
+   "pnlPct": -13.072243346007603
+  }
+ },
+ {
+  "symbol": "OBEROIRLTY",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2026-05-25",
+  "signalPrice": 1693.7,
+  "stopLoss": 1571,
+  "target": 1939.1000000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1939.1000000000001,
+   "exitDayIndex": 1233,
+   "holdDays": 25,
+   "entryPrice": 1700,
+   "pnlPct": 14.064705882352948
+  }
+ },
+ {
+  "symbol": "OIL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-07-17",
+  "signalPrice": 447.9,
+  "stopLoss": 440.35,
+  "target": 465,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 440.35,
+   "exitDayIndex": 1003,
+   "holdDays": 4,
+   "entryPrice": 447,
+   "pnlPct": -1.4876957494407108
+  }
+ },
+ {
+  "symbol": "PERSISTENT",
+  "sector": "Nifty IT",
+  "isNewStock": false,
+  "date": "2023-01-09",
+  "signalPrice": 1981.55,
+  "stopLoss": 1902.5,
+  "target": 2139.6499999999996,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 2139.6499999999996,
+   "exitDayIndex": 381,
+   "holdDays": 7,
+   "entryPrice": 1975,
+   "pnlPct": 8.336708860759476
+  }
+ },
+ {
+  "symbol": "PHOENIXLTD",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-12-04",
+  "signalPrice": 1725.1,
+  "stopLoss": 1662.8,
+  "target": 1849.6999999999998,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1849.6999999999998,
+   "exitDayIndex": 1104,
+   "holdDays": 10,
+   "entryPrice": 1725,
+   "pnlPct": 7.228985507246366
+  }
+ },
+ {
+  "symbol": "PIIND",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-08-02",
+  "signalPrice": 3682.75,
+  "stopLoss": 3540.05,
+  "target": 3838.05,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 3838.05,
+   "exitDayIndex": 515,
+   "holdDays": 2,
+   "entryPrice": 3682.75,
+   "pnlPct": 4.216957436698125
+  }
+ },
+ {
+  "symbol": "PIIND",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-03-18",
+  "signalPrice": 3702.5,
+  "stopLoss": 3610.15,
+  "target": 3887.2,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 3887.2,
+   "exitDayIndex": 674,
+   "holdDays": 5,
+   "entryPrice": 3726.55,
+   "pnlPct": 4.310957856462402
+  }
+ },
+ {
+  "symbol": "POWERINDIA",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-04-25",
+  "signalPrice": 3289.15,
+  "stopLoss": 3084.05,
+  "target": 3699.35,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 3699.35,
+   "exitDayIndex": 449,
+   "holdDays": 5,
+   "entryPrice": 3300,
+   "pnlPct": 12.10151515151515
+  }
+ },
+ {
+  "symbol": "POWERINDIA",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-04-15",
+  "signalPrice": 12695,
+  "stopLoss": 10381.8,
+  "target": 17321.4,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 17321.4,
+   "exitDayIndex": 957,
+   "holdDays": 23,
+   "entryPrice": 12720,
+   "pnlPct": 36.1745283018868
+  }
+ },
+ {
+  "symbol": "RELIANCE",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-08-15",
+  "signalPrice": 1287.6,
+  "stopLoss": 1250.3,
+  "target": 1362.1999999999998,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 1250.3,
+   "exitDayIndex": 524,
+   "holdDays": 3,
+   "entryPrice": 1283.55,
+   "pnlPct": -2.5904717385376497
+  }
+ },
+ {
+  "symbol": "RELIANCE",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-06-06",
+  "signalPrice": 1469.95,
+  "stopLoss": 1345.75,
+  "target": 1718.3500000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 1345.75,
+   "exitDayIndex": 809,
+   "holdDays": 87,
+   "entryPrice": 1469.95,
+   "pnlPct": -8.449266981870135
+  }
+ },
+ {
+  "symbol": "SARDAEN",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-05-03",
+  "signalPrice": 114.95,
+  "stopLoss": 101.15,
+  "target": 142.55,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 142.55,
+   "exitDayIndex": 478,
+   "holdDays": 29,
+   "entryPrice": 114.9,
+   "pnlPct": 24.06440382941689
+  }
+ },
+ {
+  "symbol": "SHREECEM",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-01-11",
+  "signalPrice": 23854.85,
+  "stopLoss": 23055.4,
+  "target": 25453.749999999993,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 23055.4,
+   "exitDayIndex": 382,
+   "holdDays": 6,
+   "entryPrice": 23998,
+   "pnlPct": -3.9278273189432387
+  }
+ },
+ {
+  "symbol": "SONACOMS",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-08-19",
+  "signalPrice": 699.6,
+  "stopLoss": 648.7,
+  "target": 801.4,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 648.7,
+   "exitDayIndex": 811,
+   "holdDays": 40,
+   "entryPrice": 700,
+   "pnlPct": -7.328571428571422
+  }
+ },
+ {
+  "symbol": "SONATSOFTW",
+  "sector": "Nifty IT",
+  "isNewStock": false,
+  "date": "2023-01-01",
+  "signalPrice": 290,
+  "stopLoss": 263.5,
+  "target": 343,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 343,
+   "exitDayIndex": 399,
+   "holdDays": 31,
+   "entryPrice": 290,
+   "pnlPct": 18.275862068965516
+  }
+ },
+ {
+  "symbol": "SPLPETRO",
+  "sector": "Nifty Commodities",
+  "isNewStock": false,
+  "date": "2025-08-20",
+  "signalPrice": 824.6,
+  "stopLoss": 726.15,
+  "target": 1021.5000000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 726.15,
+   "exitDayIndex": 856,
+   "holdDays": 48,
+   "entryPrice": 827,
+   "pnlPct": -12.19467956469166
+  }
+ },
+ {
+  "symbol": "SUMICHEM",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-10-16",
+  "signalPrice": 566.15,
+  "stopLoss": 513.1,
+  "target": 672.2499999999999,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 513.1,
+   "exitDayIndex": 814,
+   "holdDays": 2,
+   "entryPrice": 562,
+   "pnlPct": -8.701067615658358
+  }
+ },
+ {
+  "symbol": "SYRMA",
+  "sector": "Nifty IT",
+  "isNewStock": false,
+  "date": "2026-03-24",
+  "signalPrice": 817.75,
+  "stopLoss": 750.75,
+  "target": 951.75,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 951.75,
+   "exitDayIndex": 900,
+   "holdDays": 11,
+   "entryPrice": 816.05,
+   "pnlPct": 16.628883034127817
+  }
+ },
+ {
+  "symbol": "TATASTEEL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-01-30",
+  "signalPrice": 135.95,
+  "stopLoss": 128.2,
+  "target": 151.45,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 151.45,
+   "exitDayIndex": 657,
+   "holdDays": 22,
+   "entryPrice": 136.4,
+   "pnlPct": 11.03372434017594
+  }
+ },
+ {
+  "symbol": "TATASTEEL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2024-03-21",
+  "signalPrice": 151.8,
+  "stopLoss": 139.4,
+  "target": 176.60000000000002,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 176.60000000000002,
+   "exitDayIndex": 711,
+   "holdDays": 39,
+   "entryPrice": 151.15,
+   "pnlPct": 16.83757856434007
+  }
+ },
+ {
+  "symbol": "TATASTEEL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-10-07",
+  "signalPrice": 171.94,
+  "stopLoss": 166.13,
+  "target": 183.56,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 183.56,
+   "exitDayIndex": 1067,
+   "holdDays": 13,
+   "entryPrice": 172.79,
+   "pnlPct": 6.232999594883969
+  }
+ },
+ {
+  "symbol": "TECHNOE",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-07-02",
+  "signalPrice": 368.6,
+  "stopLoss": 342.7,
+  "target": 420.4000000000001,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 420.4000000000001,
+   "exitDayIndex": 495,
+   "holdDays": 5,
+   "entryPrice": 371.9,
+   "pnlPct": 13.041140091422458
+  }
+ },
+ {
+  "symbol": "UNOMINDA",
+  "sector": "Nifty Auto",
+  "isNewStock": false,
+  "date": "2025-01-05",
+  "signalPrice": 1064.15,
+  "stopLoss": 1024,
+  "target": 1150,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 1024,
+   "exitDayIndex": 876,
+   "holdDays": 10,
+   "entryPrice": 1060,
+   "pnlPct": -3.3962264150943398
+  }
+ },
+ {
+  "symbol": "UNOMINDA",
+  "sector": "Nifty Auto",
+  "isNewStock": false,
+  "date": "2025-08-06",
+  "signalPrice": 1107.1,
+  "stopLoss": 1049.2,
+  "target": 1222.8999999999996,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1222.8999999999996,
+   "exitDayIndex": 1018,
+   "holdDays": 5,
+   "entryPrice": 1107.9,
+   "pnlPct": 10.37999819478288
+  }
+ },
+ {
+  "symbol": "UTIAMC",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-11-11",
+  "signalPrice": 786.35,
+  "stopLoss": 748.2,
+  "target": 925.45,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 925.45,
+   "exitDayIndex": 622,
+   "holdDays": 41,
+   "entryPrice": 789,
+   "pnlPct": 17.294043092522184
+  }
+ },
+ {
+  "symbol": "VEDL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2023-01-02",
+  "signalPrice": 297.55,
+  "stopLoss": 257.55,
+  "target": 338.4,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 257.55,
+   "exitDayIndex": 407,
+   "holdDays": 38,
+   "entryPrice": 296,
+   "pnlPct": -12.989864864864861
+  }
+ },
+ {
+  "symbol": "VEDL",
+  "sector": null,
+  "isNewStock": true,
+  "date": "2025-06-25",
+  "signalPrice": 455.5,
+  "stopLoss": 425.9,
+  "target": 514.7,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 425.9,
+   "exitDayIndex": 991,
+   "holdDays": 8,
+   "entryPrice": 459.45,
+   "pnlPct": -7.302209163129832
+  }
+ },
+ {
+  "symbol": "VOLTAS",
+  "sector": "Nifty Consumption",
+  "isNewStock": false,
+  "date": "2025-08-19",
+  "signalPrice": 1369.8,
+  "stopLoss": 1225.1,
+  "target": 1659.2,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "TIME_CAP",
+   "exitPrice": 1361.2,
+   "exitDayIndex": 1110,
+   "holdDays": 89,
+   "entryPrice": 1368.1,
+   "pnlPct": -0.5043490972882
+  }
+ },
+ {
+  "symbol": "VTL",
+  "sector": null,
+  "isNewStock": false,
+  "date": "2025-12-14",
+  "signalPrice": 449.9,
+  "stopLoss": 426.5,
+  "target": 496.69999999999993,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 426.5,
+   "exitDayIndex": 1114,
+   "holdDays": 14,
+   "entryPrice": 448,
+   "pnlPct": -4.799107142857143
+  }
+ },
+ {
+  "symbol": "WELCORP",
+  "sector": "Nifty Metal",
+  "isNewStock": false,
+  "date": "2025-02-10",
+  "signalPrice": 778.4,
+  "stopLoss": 676.7,
+  "target": 981.7999999999998,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 676.7,
+   "exitDayIndex": 905,
+   "holdDays": 12,
+   "entryPrice": 778.4,
+   "pnlPct": -13.065262076053436
+  }
+ },
+ {
+  "symbol": "ZYDUSLIFE",
+  "sector": "Nifty Pharma",
+  "isNewStock": false,
+  "date": "2025-08-13",
+  "signalPrice": 988.8,
+  "stopLoss": 960.5,
+  "target": 1057.35,
+  "targetSource": "SUPPLY_ZONE",
+  "trade": {
+   "action": "TARGET_HIT",
+   "exitPrice": 1057.35,
+   "exitDayIndex": 1041,
+   "holdDays": 23,
+   "entryPrice": 988.8,
+   "pnlPct": 6.932645631067958
+  }
+ },
+ {
+  "symbol": "ZYDUSLIFE",
+  "sector": "Nifty Pharma",
+  "isNewStock": false,
+  "date": "2025-10-22",
+  "signalPrice": 1009,
+  "stopLoss": 975,
+  "target": 1077,
+  "targetSource": "FIXED_RR",
+  "trade": {
+   "action": "STOP_LOSS",
+   "exitPrice": 975,
+   "exitDayIndex": 1069,
+   "holdDays": 5,
+   "entryPrice": 1008.95,
+   "pnlPct": -3.364884285643495
+  }
+ }
+]

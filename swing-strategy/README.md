@@ -7,7 +7,7 @@ NSE-announcement intraday strategy in `backtest/`** — separate capital pool,
 separate signal source, separate code path. Not wired into the live bot
 (`src/`) — this is backtest/research code only.
 
-## Final backtest result (as of this save)
+## Final backtest result (178-stock universe, the tuned/audited baseline)
 
 - **178 Nifty500 Shariah-compliant stocks**, ~4 years Daily/Weekly/Monthly history
 - **26 trades, 57.7% win rate, +3.64% avg P&L/trade, ~17.8 day avg hold**
@@ -15,6 +15,43 @@ separate signal source, separate code path. Not wired into the live bot
 
 Run `node scan_all.js` to reproduce (uses the cached candle data in this
 folder — no API calls needed unless the cache is deleted).
+
+## Stock universe widened to 353 (live deployment) — quality dilutes, unlike EMA scalp
+
+The live deployment now scans the same 353-stock halal-screened universe used
+by the EMA scalp strategy (see that strategy's README for the full screening
+methodology: Nifty 500 → business/sector exclusion → insurance exclusion →
+debt-to-assets < 33% via Screener.in). 176 of the original 178 stocks carry
+over unchanged; BATAINDIA (36.7% debt) and TORNTPHARM (34.5%) were dropped for
+now exceeding the debt threshold; 177 new stocks were added.
+
+**Unlike the EMA scalp strategy's 353-stock backtest (which was near-identical
+quality to its 178-stock baseline), this strategy's edge concentrates
+specifically in the originally-curated 176:**
+
+| Universe | n | Win rate | Avg P&L | Avg hold |
+|---|---|---|---|---|
+| Original 176 (176 of the 178, minus the 2 dropped) | 26 | 57.7% | +3.644% | 17.8d |
+| Newly added 177 stocks | 73 | 46.6% | +1.185% | 22.1d |
+| **Combined 353** | **99** | **49.5%** | **+1.831%** | **20.4d** |
+
+The new stocks were screened for halal-compliance (sector + debt), not for
+fit with this strategy's specific demand/supply-zone mechanics — the six
+rounds of RSI/slope/gap/base-candle/sector refinement in the section below
+were tuned against the original 178 only, never re-validated against the new
+177. The combined result is still net profitable after the ~0.25% round-trip
+cost estimate (+1.581% avg net), and the larger sample (99 vs 26) is itself
+valuable — but this is a real, not free, trade-off between sample size and
+per-trade edge. Deployed live as-is per direct instruction; if the added
+noise turns out not to be worth it, reverting `live/symbols.json` to
+`symbols_178_backup_before_353.json` restores the tighter, audited universe.
+
+New stocks have no sector classification yet (`sector_map.json` only covers
+the original 178, 158 of them confidently) — they pass through the
+sector-strength check unfiltered, same as the ~20 originally-unmapped stocks.
+
+Run `node scan_353.js` to reproduce (needs `mtf_candle_cache.json` to include
+the new 177 stocks — `node fetch_new_353_stocks.js` fetches any missing ones).
 
 ## Rules, as actually implemented (not just as originally worded)
 
