@@ -1,0 +1,16 @@
+{
+  "name": "orb-live-streamer",
+  "version": "1.0.0",
+  "private": true,
+  "main": "streamer.js",
+  "scripts": {
+    "start": "node streamer.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "protobufjs": "^7.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
