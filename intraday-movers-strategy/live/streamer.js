@@ -18,11 +18,20 @@ const protobuf = require('protobufjs');
 const path = require('path');
 
 const { ORBSymbolTracker } = require('./orb_engine');
+const { syncTradeLogFromRemote, recordTrade, pushTradeLogToGitHub } = require('./trade_log');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
+const IST_OFFSET_MS = (5 * 60 + 30) * 60 * 1000;
+const TRADE_LOG_PUSH_AFTER_MIN = 15 * 60 + 35; // 15:35 IST — after the 15:30 EOD square-off, once/day only (see trade_log.js)
+const TRADE_LOG_POLL_MS = 5 * 60 * 1000;
+
+function istMinutesAndDate() {
+  const ist = new Date(Date.now() + IST_OFFSET_MS);
+  return { minutesOfDay: ist.getUTCHours() * 60 + ist.getUTCMinutes(), dateStr: ist.toISOString().slice(0, 10) };
+}
 
 if (!UPSTOX_TOKEN) {
   console.error('FATAL: UPSTOX_ACCESS_TOKEN env var not set. Cannot start.');
@@ -137,8 +146,27 @@ function handleBar(symbol, bar) {
   const events = tracker.onNewBar(bar);
   for (const e of events) {
     if (e.type === 'ENTRY') sendTelegramAlert(formatEntryAlert(e));
-    else if (e.type === 'EXIT') sendTelegramAlert(formatExitAlert(e));
+    else if (e.type === 'EXIT') {
+      sendTelegramAlert(formatExitAlert(e));
+      recordTrade(e);
+    }
   }
+}
+
+/**
+ * Checks once per poll whether it's past today's push window and hasn't
+ * pushed yet — fires the trade log push once/day, well after the 15:30
+ * EOD square-off, never mid-session (see trade_log.js for why).
+ */
+function scheduleDailyTradeLogPush() {
+  let lastPushDate = null;
+  setInterval(() => {
+    const { minutesOfDay, dateStr } = istMinutesAndDate();
+    if (minutesOfDay >= TRADE_LOG_PUSH_AFTER_MIN && lastPushDate !== dateStr) {
+      lastPushDate = dateStr;
+      pushTradeLogToGitHub(dateStr).catch((e) => console.error('Trade log push threw:', e.message));
+    }
+  }, TRADE_LOG_POLL_MS);
 }
 
 /**
@@ -224,6 +252,8 @@ function connectAndRun() {
 async function main() {
   console.log('Initializing protobuf schema...');
   await initProtobuf();
+  await syncTradeLogFromRemote();
+  scheduleDailyTradeLogPush();
 
   let attempt = 0;
   for (;;) {

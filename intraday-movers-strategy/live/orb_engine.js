@@ -68,7 +68,7 @@ class ORBSymbolTracker {
       // (shouldn't normally happen if EOD square-off fires first, but this
       // is a safety net against a missed/late final bar).
       if (this.position) {
-        events.push(this._closePosition('EOD_SQUARE_OFF', this._lastPrice));
+        events.push(this._closePosition('EOD_SQUARE_OFF', this._lastPrice, bar.timestampMs));
       }
       this._resetDay(dateStr);
     }
@@ -100,11 +100,11 @@ class ORBSymbolTracker {
       const hitStop = direction === 'LONG' ? bar.low <= stop : bar.high >= stop;
       const hitTarget = direction === 'LONG' ? bar.high >= target : bar.low <= target;
       if (hitStop) {
-        events.push(this._closePosition('STOP_LOSS', stop));
+        events.push(this._closePosition('STOP_LOSS', stop, bar.timestampMs));
       } else if (hitTarget) {
-        events.push(this._closePosition('TARGET_HIT', target));
+        events.push(this._closePosition('TARGET_HIT', target, bar.timestampMs));
       } else if (minutesOfDay >= MARKET_CLOSE_MIN) {
-        events.push(this._closePosition('EOD_SQUARE_OFF', bar.close));
+        events.push(this._closePosition('EOD_SQUARE_OFF', bar.close, bar.timestampMs));
       }
       return events;
     }
@@ -141,6 +141,9 @@ class ORBSymbolTracker {
     // evaluate whether it correlates with which breakouts stop out.
     const obImbalance =
       bar.tbq != null && bar.tsq != null && bar.tbq + bar.tsq > 0 ? bar.tbq / (bar.tbq + bar.tsq) : null;
+    this.position.tbq = bar.tbq ?? null;
+    this.position.tsq = bar.tsq ?? null;
+    this.position.obImbalance = obImbalance;
     events.push({
       type: 'ENTRY',
       symbol: this.symbol,
@@ -152,14 +155,30 @@ class ORBSymbolTracker {
       tbq: bar.tbq ?? null,
       tsq: bar.tsq ?? null,
       obImbalance,
+      entryTimestampMs: bar.timestampMs,
     });
     return events;
   }
 
-  _closePosition(action, exitPrice) {
-    const { direction, entry, stop, target } = this.position;
+  _closePosition(action, exitPrice, exitTimestampMs) {
+    const { direction, entry, stop, target, tbq, tsq, obImbalance, entryTimestampMs } = this.position;
     const pnlPct = direction === 'LONG' ? ((exitPrice - entry) / entry) * 100 : ((entry - exitPrice) / entry) * 100;
-    const event = { type: 'EXIT', symbol: this.symbol, direction, entry, stop, target, action, exitPrice, pnlPct };
+    const event = {
+      type: 'EXIT',
+      symbol: this.symbol,
+      direction,
+      entry,
+      stop,
+      target,
+      action,
+      exitPrice,
+      pnlPct,
+      tbq,
+      tsq,
+      obImbalance,
+      entryTimestampMs,
+      exitTimestampMs: exitTimestampMs ?? entryTimestampMs,
+    };
     this.position = null;
     return event;
   }
