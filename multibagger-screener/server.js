@@ -114,7 +114,7 @@ async function runOnce() {
     fs.writeFileSync(LOG_PATH, JSON.stringify(log, null, 1));
   }
 
-  commitAndPushTrackedState(dateStr);
+  await commitAndPushTrackedState(dateStr);
   console.log(`=== Batch complete: ${new Date().toISOString()} ===`);
 }
 
