@@ -135,6 +135,12 @@ class ORBSymbolTracker {
 
     this.position = { direction, entry, stop, target, entryTimestampMs: bar.timestampMs };
     this.tradedToday = true;
+    // tbq/tsq (order-book buy/sell quantity at breakout) is logged only,
+    // not used to gate entry — see streamer.js's extractOneMinCandles for
+    // why, and the discussion in chat history for the eventual plan to
+    // evaluate whether it correlates with which breakouts stop out.
+    const obImbalance =
+      bar.tbq != null && bar.tsq != null && bar.tbq + bar.tsq > 0 ? bar.tbq / (bar.tbq + bar.tsq) : null;
     events.push({
       type: 'ENTRY',
       symbol: this.symbol,
@@ -143,6 +149,9 @@ class ORBSymbolTracker {
       stop,
       target,
       volumeRatio: bar.volume / this.avgORVolume,
+      tbq: bar.tbq ?? null,
+      tsq: bar.tsq ?? null,
+      obImbalance,
     });
     return events;
   }

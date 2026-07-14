@@ -63,11 +63,19 @@ function extractOneMinCandles(feed) {
   if (!fullFeed) return [];
   const inner = fullFeed.marketFF || fullFeed.indexFF;
   if (!inner || !inner.marketOHLC || !inner.marketOHLC.ohlc) return [];
+  // tbq/tsq (total buy/sell quantity resting in the order book) is a
+  // snapshot at message-arrival time, not a per-candle aggregate — only
+  // present on marketFF (equities), not indexFF. Logged alongside each
+  // candle as an order-flow-direction signal to evaluate, not yet used to
+  // gate entries — see orb_engine.js.
+  const tbq = fullFeed.marketFF ? fullFeed.marketFF.tbq : null;
+  const tsq = fullFeed.marketFF ? fullFeed.marketFF.tsq : null;
   return inner.marketOHLC.ohlc
     .filter((o) => o.interval === 'I1')
     .map((o) => ({
       timestampMs: Number(o.ts),
       open: o.open, high: o.high, low: o.low, close: o.close, volume: Number(o.vol || 0),
+      tbq, tsq,
     }));
 }
 
@@ -89,6 +97,10 @@ async function sendTelegramAlert(text) {
 }
 
 function formatEntryAlert(e) {
+  const obLine =
+    e.obImbalance != null
+      ? `Order book: TBQ ${e.tbq} / TSQ ${e.tsq} (${(e.obImbalance * 100).toFixed(0)}% buy-side) — logged only, not used for entry`
+      : 'Order book: n/a';
   return [
     '[ORB STRATEGY] New position entered',
     `Stock: ${e.symbol}`,
@@ -97,6 +109,7 @@ function formatEntryAlert(e) {
     `Stop-loss: ${e.stop.toFixed(2)}`,
     `Target: ${e.target.toFixed(2)}`,
     `Breakout volume: ${e.volumeRatio.toFixed(1)}x opening-range average`,
+    obLine,
     '(Intraday, squares off by close. Alert only — no order placed.)',
   ].join('\n');
 }
