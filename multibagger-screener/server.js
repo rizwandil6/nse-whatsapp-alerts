@@ -118,9 +118,13 @@ async function runOnce() {
   console.log(`=== Batch complete: ${new Date().toISOString()} ===`);
 }
 
+function fmtMinutes(m) {
+  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+}
+
 async function loop() {
   let lastRunDate = null;
-  console.log(`Multibagger screener: waiting for the next ${(TRIGGER_START_MIN / 60).toFixed(0)}:00-${(TRIGGER_END_MIN / 60).toFixed(0)}:${TRIGGER_END_MIN % 60} IST window...`);
+  console.log(`Multibagger screener: waiting for the next ${fmtMinutes(TRIGGER_START_MIN)}-${fmtMinutes(TRIGGER_END_MIN)} IST window...`);
   while (true) {
     const { minutesOfDay, dateStr } = istMinutesAndDate();
     if (minutesOfDay >= TRIGGER_START_MIN && minutesOfDay < TRIGGER_END_MIN && lastRunDate !== dateStr) {
