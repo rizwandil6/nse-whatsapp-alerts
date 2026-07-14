@@ -1,23 +1,36 @@
 'use strict';
 
 /**
- * Long-running process for the full-NSE-universe multibagger screen.
- * Triggers once a month (1st of the month, IST) — a full run takes hours
- * (2,052 stocks scraped at a polite pace to avoid Screener.in rate
- * limiting), so unlike the daily swing-strategy alerts this isn't a quick
- * in-and-out check. RUN_ONCE=1 runs immediately and exits, for manual
- * testing.
+ * Long-running process for the daily-rolling multibagger screen. Redesigned
+ * from an original once-a-month full-universe scan (too slow, too much
+ * scraping load in one sitting) to ~100 stocks/day via a persisted cursor
+ * position — the full ~2,052-stock universe cycles roughly every ~21 days,
+ * giving continuous rolling freshness instead of one big monthly burst,
+ * and each day's run only takes minutes rather than hours.
+ *
+ * RUN_ONCE=1 runs today's batch immediately and exits, for manual testing.
  */
 
 const fs = require('fs');
 const path = require('path');
+const { loginToScreener } = require('./fundamental_screener');
+const { runDailyBatch } = require('./scan_multibagger');
+const { diffAndUpdate } = require('./diff_tracker');
+const { formatNewCandidateAlert, formatLostQualificationAlert } = require('./format_alerts');
+const { commitAndPushTrackedState, syncFromRemote } = require('./git_state');
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
-const TRACKED_PATH = path.join(__dirname, 'tracked_multibaggers.json');
-const RAW_CHECKPOINT_PATH = path.join(__dirname, 'raw_fundamentals_checkpoint.json');
+const BATCH_SIZE = parseInt(process.env.BATCH_SIZE || '100', 10);
 const IST_OFFSET_MIN = 5 * 60 + 30;
-const POLL_MS = 60 * 60 * 1000; // check hourly — this only needs to fire once a month
+const TRIGGER_START_MIN = 20 * 60; // 20:00 IST, well after market close, low-traffic hours for scraping
+const TRIGGER_END_MIN = 20 * 60 + 30;
+const POLL_MS = 10 * 60 * 1000; // check every 10 min — only needs to fire once/day
+
+const UNIVERSE_PATH = path.join(__dirname, 'nse_universe.json');
+const CURSOR_PATH = path.join(__dirname, 'scan_cursor.json');
+const TRACKED_PATH = path.join(__dirname, 'tracked_multibaggers.json');
+const LOG_PATH = path.join(__dirname, 'forward_performance_log.json');
 
 async function sendTelegramAlert(text) {
   console.log('[ALERT]', text.replace(/\n/g, ' | '));
@@ -36,47 +49,53 @@ async function sendTelegramAlert(text) {
   }
 }
 
-function istMonthDayAndLabel() {
+function istMinutesAndDate() {
   const now = new Date();
   const ist = new Date(now.getTime() + IST_OFFSET_MIN * 60 * 1000);
   return {
-    dayOfMonth: ist.getUTCDate(),
-    monthLabel: ist.toISOString().slice(0, 7), // YYYY-MM
+    minutesOfDay: ist.getUTCHours() * 60 + ist.getUTCMinutes(),
+    dateStr: ist.toISOString().slice(0, 10),
   };
 }
 
-async function runOnce() {
-  const { monthLabel } = istMonthDayAndLabel();
-  console.log(`\n=== Multibagger scan starting: ${new Date().toISOString()} (month=${monthLabel}) ===`);
-
-  // Fresh universe each run (cheap — one API call) so delistings/new listings are picked up.
-  console.log('Refreshing NSE universe...');
-  require('child_process').execSync('node fetch_universe.js', { cwd: __dirname, stdio: 'inherit' });
-
-  // Clear the raw-fetch checkpoint if it's from a PRIOR month (a stale
-  // checkpoint from last month's run must not be reused as this month's
-  // data) — but keep it if it's from THIS month (resuming after a crash).
-  if (fs.existsSync(RAW_CHECKPOINT_PATH)) {
-    const stat = fs.statSync(RAW_CHECKPOINT_PATH);
-    const fileMonth = new Date(stat.mtime.getTime() + IST_OFFSET_MIN * 60 * 1000).toISOString().slice(0, 7);
-    if (fileMonth !== monthLabel) {
-      console.log(`Clearing stale checkpoint from ${fileMonth} (this run is ${monthLabel}).`);
-      fs.unlinkSync(RAW_CHECKPOINT_PATH);
-    } else {
-      console.log(`Resuming from this month's existing checkpoint.`);
-    }
+/** Picks the next BATCH_SIZE symbols starting at the persisted cursor, wrapping around the universe. */
+function pickTodaysBatch() {
+  const universe = Object.keys(JSON.parse(fs.readFileSync(UNIVERSE_PATH, 'utf8')));
+  let cursor = 0;
+  if (fs.existsSync(CURSOR_PATH)) {
+    const saved = JSON.parse(fs.readFileSync(CURSOR_PATH, 'utf8'));
+    if (typeof saved.cursor === 'number') cursor = saved.cursor % universe.length;
   }
+  const batch = [];
+  for (let i = 0; i < BATCH_SIZE && i < universe.length; i++) {
+    batch.push(universe[(cursor + i) % universe.length]);
+  }
+  const nextCursor = (cursor + batch.length) % universe.length;
+  return { batch, cursor, nextCursor, universeSize: universe.length };
+}
 
-  console.log('Running full scan (this takes hours)...');
-  require('child_process').execSync('node scan_multibagger.js', { cwd: __dirname, stdio: 'inherit' });
+async function runOnce() {
+  const { dateStr } = istMinutesAndDate();
+  console.log(`\n=== Multibagger daily batch: ${new Date().toISOString()} (${dateStr}) ===`);
 
-  const scanResults = JSON.parse(fs.readFileSync(path.join(__dirname, 'scan_results.json'), 'utf8'));
+  syncFromRemote(); // must happen before reading cursor/tracked/all_results below — see git_state.js
+
+  const { batch, cursor, nextCursor, universeSize } = pickTodaysBatch();
+  console.log(`Cursor ${cursor}/${universeSize}. Today's batch: ${batch.length} stocks.`);
+
+  const username = process.env.SCREENER_USERNAME;
+  const password = process.env.SCREENER_PASSWORD;
+  if (!username || !password) {
+    console.error('FATAL: SCREENER_USERNAME/SCREENER_PASSWORD not set.');
+    return;
+  }
+  const cookies = await loginToScreener(username, password);
+  console.log('Logged in to Screener.in.');
+
+  const { batchResults } = await runDailyBatch(batch, cookies);
+
   const tracked = fs.existsSync(TRACKED_PATH) ? JSON.parse(fs.readFileSync(TRACKED_PATH, 'utf8')) : {};
-
-  const { diffAndUpdate } = require('./diff_tracker');
-  const { formatNewCandidateAlert, formatLostQualificationAlert } = require('./format_alerts');
-  const { newAlerts, lostAlerts, updatedTracked } = diffAndUpdate(scanResults, tracked);
-
+  const { newAlerts, lostAlerts, updatedTracked, logEntries } = diffAndUpdate(batchResults, tracked);
   console.log(`New candidates: ${newAlerts.length}. Lost qualification: ${lostAlerts.length}.`);
 
   for (const { symbol, data } of newAlerts) {
@@ -87,41 +106,47 @@ async function runOnce() {
   }
 
   fs.writeFileSync(TRACKED_PATH, JSON.stringify(updatedTracked, null, 1));
+  fs.writeFileSync(CURSOR_PATH, JSON.stringify({ cursor: nextCursor, lastRunDate: dateStr }, null, 1));
 
-  const { commitAndPushTrackedState } = require('./git_state');
-  commitAndPushTrackedState(monthLabel);
+  if (logEntries.length > 0) {
+    const log = fs.existsSync(LOG_PATH) ? JSON.parse(fs.readFileSync(LOG_PATH, 'utf8')) : [];
+    log.push(...logEntries);
+    fs.writeFileSync(LOG_PATH, JSON.stringify(log, null, 1));
+  }
 
-  // Clean up this month's raw checkpoint now that the run completed successfully.
-  if (fs.existsSync(RAW_CHECKPOINT_PATH)) fs.unlinkSync(RAW_CHECKPOINT_PATH);
-
-  console.log(`=== Multibagger scan complete: ${new Date().toISOString()} ===`);
+  commitAndPushTrackedState(dateStr);
+  console.log(`=== Batch complete: ${new Date().toISOString()} ===`);
 }
 
 async function loop() {
-  let lastRunMonth = null;
-  console.log('Multibagger screener: waiting for the 1st of the month (IST)...');
+  let lastRunDate = null;
+  console.log(`Multibagger screener: waiting for the next ${(TRIGGER_START_MIN / 60).toFixed(0)}:00-${(TRIGGER_END_MIN / 60).toFixed(0)}:${TRIGGER_END_MIN % 60} IST window...`);
   while (true) {
-    const { dayOfMonth, monthLabel } = istMonthDayAndLabel();
-    if (dayOfMonth === 1 && lastRunMonth !== monthLabel) {
-      lastRunMonth = monthLabel;
+    const { minutesOfDay, dateStr } = istMinutesAndDate();
+    if (minutesOfDay >= TRIGGER_START_MIN && minutesOfDay < TRIGGER_END_MIN && lastRunDate !== dateStr) {
+      lastRunDate = dateStr;
       try {
         await runOnce();
       } catch (e) {
-        console.error('Monthly run failed:', e);
+        console.error('Daily batch failed:', e);
       }
-      console.log("Waiting for next month's run...");
+      console.log("Waiting for tomorrow's window...");
     }
     await new Promise((r) => setTimeout(r, POLL_MS));
   }
 }
 
-if (process.env.RUN_ONCE === '1') {
-  runOnce()
-    .then(() => process.exit(0))
-    .catch((e) => {
-      console.error(e);
-      process.exit(1);
-    });
-} else {
-  loop();
+module.exports = { pickTodaysBatch, runOnce };
+
+if (require.main === module) {
+  if (process.env.RUN_ONCE === '1') {
+    runOnce()
+      .then(() => process.exit(0))
+      .catch((e) => {
+        console.error(e);
+        process.exit(1);
+      });
+  } else {
+    loop();
+  }
 }

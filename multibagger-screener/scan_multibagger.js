@@ -1,12 +1,19 @@
 'use strict';
 
 /**
- * Full-NSE-universe multibagger scan. Checkpointed and resumable — at
- * ~2,052 stocks and a polite request pace (rate-limit risk is real at this
- * volume, confirmed by direct testing during the smaller 353-stock halal
- * screen earlier in this project), a full run takes hours, not minutes.
- * If interrupted, re-running skips symbols already present in the
- * checkpoint file rather than starting over.
+ * Daily rolling multibagger scan — redesigned from an original monthly
+ * full-batch design after direct feedback: scanning all ~2,052 stocks in
+ * one sitting takes hours and is a real rate-limit risk against
+ * Screener.in. Instead, ~100 stocks/day (see server.js for the cursor that
+ * picks which 100), so the full universe cycles roughly every ~21 days —
+ * continuous rolling freshness instead of one big monthly burst, and each
+ * day's run only takes minutes.
+ *
+ * `all_results.json` is a PERSISTENT, git-committed store (not
+ * regenerated from scratch each run) — every stock's most recent scan
+ * result lives here indefinitely, updated incrementally as its turn comes
+ * up in the rolling cycle. On any given day, most of the universe's data
+ * is up to ~21 days old and a small slice (today's batch) is fresh.
  *
  * Threshold checks — MISSING DATA CONVENTION: if a required parameter
  * can't be computed (scrape failure, or a divide-by-zero in a derived
@@ -15,21 +22,23 @@
  * always unavailable (see fundamental_screener.js) and is excluded from
  * the requirement entirely, per direct agreement.
  *
- * Industry PE substitute: computed as the average PE across ALL stocks in
- * the same Screener.in "Sector" tag (regardless of halal status — this
- * mirrors what a real "Industry PE" figure represents), precomputed ONCE
- * after the full batch is fetched, not per-stock.
+ * Industry PE substitute: average PE across ALL stocks currently in
+ * `all_results.json` sharing the same Screener.in "Sector" tag (a mix of
+ * today's-fresh and up-to-21-days-old data — accepted approximation, PE
+ * doesn't move wildly day to day for most stocks). Qualification is only
+ * RECOMPUTED for today's batch, not the whole store, so a stock's
+ * qualification status only changes when ITS OWN data is refreshed —
+ * avoids noisy state flips driven by small day-to-day sector-average
+ * drift rather than a real change in the stock's own fundamentals.
  */
 
 const fs = require('fs');
 const path = require('path');
-const { loginToScreener, fetchFundamentals } = require('./fundamental_screener');
+const { fetchFundamentals } = require('./fundamental_screener');
 
-const UNIVERSE_PATH = path.join(__dirname, 'nse_universe.json');
-const RAW_CHECKPOINT_PATH = path.join(__dirname, 'raw_fundamentals_checkpoint.json');
-const RESULTS_PATH = path.join(__dirname, 'scan_results.json');
+const ALL_RESULTS_PATH = path.join(__dirname, 'all_results.json');
+const BATCH_CHECKPOINT_PATH = path.join(__dirname, 'batch_checkpoint.json');
 const FETCH_DELAY_MS = parseInt(process.env.FETCH_DELAY_MS || '300', 10);
-const CHECKPOINT_EVERY = 50;
 
 const THRESHOLDS = {
   marketCapCr: { min: 1000 },
@@ -49,40 +58,32 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-async function fetchAllRaw(cookies) {
-  const universe = JSON.parse(fs.readFileSync(UNIVERSE_PATH, 'utf8'));
-  const symbols = Object.keys(universe);
-
-  let raw = {};
-  if (fs.existsSync(RAW_CHECKPOINT_PATH)) raw = JSON.parse(fs.readFileSync(RAW_CHECKPOINT_PATH, 'utf8'));
-
-  let fetched = 0;
-  let failed = 0;
-  for (const symbol of symbols) {
-    if (raw[symbol]) continue; // already have it from a prior partial run
-    try {
-      const result = await fetchFundamentals(symbol, cookies);
-      raw[symbol] = result || { failed: true };
-      if (!result) failed++;
-    } catch (e) {
-      raw[symbol] = { failed: true, error: e.message };
-      failed++;
-    }
-    fetched++;
-    if (fetched % CHECKPOINT_EVERY === 0) {
-      fs.writeFileSync(RAW_CHECKPOINT_PATH, JSON.stringify(raw));
-      console.log(`  ...${Object.keys(raw).length}/${symbols.length} done (${fetched} this run, ${failed} failed this run)`);
-    }
-    await sleep(FETCH_DELAY_MS);
-  }
-  fs.writeFileSync(RAW_CHECKPOINT_PATH, JSON.stringify(raw));
-  console.log(`Raw fetch complete. ${Object.keys(raw).length}/${symbols.length} total.`);
-  return raw;
+function loadAllResults() {
+  return fs.existsSync(ALL_RESULTS_PATH) ? JSON.parse(fs.readFileSync(ALL_RESULTS_PATH, 'utf8')) : {};
 }
 
-function computeSectorAveragePe(raw) {
+/** Fetches fresh data for exactly `symbols` (today's batch), checkpointing within the batch for crash-resume. */
+async function fetchBatch(symbols, cookies) {
+  let checkpoint = {};
+  if (fs.existsSync(BATCH_CHECKPOINT_PATH)) checkpoint = JSON.parse(fs.readFileSync(BATCH_CHECKPOINT_PATH, 'utf8'));
+
+  for (const symbol of symbols) {
+    if (checkpoint[symbol]) continue; // already fetched this batch (resumed after a crash)
+    try {
+      const result = await fetchFundamentals(symbol, cookies);
+      checkpoint[symbol] = result || { failed: true };
+    } catch (e) {
+      checkpoint[symbol] = { failed: true, error: e.message };
+    }
+    fs.writeFileSync(BATCH_CHECKPOINT_PATH, JSON.stringify(checkpoint));
+    await sleep(FETCH_DELAY_MS);
+  }
+  return checkpoint;
+}
+
+function computeSectorAveragePe(allResults) {
   const bySector = {};
-  for (const [symbol, r] of Object.entries(raw)) {
+  for (const [symbol, r] of Object.entries(allResults)) {
     if (!r || r.failed) continue;
     const sector = r.sectorTags?.['Sector'];
     if (!sector || r.pe == null) continue;
@@ -120,38 +121,42 @@ function checkQualification(r, sectorAvgPe) {
   return { qualifies, checks, industryPe };
 }
 
-async function main() {
-  // Env vars in the deployed container (Railway); fall back to the local
-  // .secrets/ files for manual/local testing only.
-  const username = process.env.SCREENER_USERNAME || fs.readFileSync(path.join(__dirname, '..', '.secrets', 'screener_username.txt'), 'utf8').trim();
-  const password = process.env.SCREENER_PASSWORD || fs.readFileSync(path.join(__dirname, '..', '.secrets', 'screener_password.txt'), 'utf8').trim();
-  const cookies = await loginToScreener(username, password);
-  console.log('Logged in to Screener.in.');
+/**
+ * Runs one day's batch: fetch fresh data for `symbols`, merge into the
+ * persistent store, recompute sector-average PE from the full store,
+ * recompute qualification for just this batch. Returns the full updated
+ * store plus the set of symbols whose qualification actually changed this
+ * run (for the caller to diff against the tracked-alerts list).
+ */
+async function runDailyBatch(symbols, cookies) {
+  const allResults = loadAllResults();
 
-  const raw = await fetchAllRaw(cookies);
-
-  const sectorAvgPe = computeSectorAveragePe(raw);
-  console.log(`Precomputed sector-average PE across ${Object.keys(sectorAvgPe).length} sectors.`);
-
-  const results = {};
-  let qualifyingCount = 0;
-  for (const [symbol, r] of Object.entries(raw)) {
-    if (!r || r.failed) continue;
-    const { qualifies, checks, industryPe } = checkQualification(r, sectorAvgPe);
-    results[symbol] = { ...r, industryPe, checks, qualifies };
-    if (qualifies) qualifyingCount++;
+  console.log(`Fetching ${symbols.length} stocks (today's batch)...`);
+  const batchRaw = await fetchBatch(symbols, cookies);
+  for (const [symbol, r] of Object.entries(batchRaw)) {
+    if (r && !r.failed) allResults[symbol] = r;
+    // failed fetches: leave any prior stored data as-is rather than overwrite with a failure.
   }
 
-  fs.writeFileSync(RESULTS_PATH, JSON.stringify(results, null, 1));
-  console.log(`Scan complete. ${qualifyingCount} stocks qualify out of ${Object.keys(results).length} scanned.`);
-  console.log(`Written ${RESULTS_PATH}`);
+  const sectorAvgPe = computeSectorAveragePe(allResults);
+  console.log(`Sector-average PE computed across ${Object.keys(sectorAvgPe).length} sectors (from full store).`);
+
+  const batchResults = {};
+  for (const symbol of symbols) {
+    const r = allResults[symbol];
+    if (!r || r.failed) continue;
+    const { qualifies, checks, industryPe } = checkQualification(r, sectorAvgPe);
+    allResults[symbol] = { ...r, industryPe, checks, qualifies };
+    batchResults[symbol] = allResults[symbol];
+  }
+
+  fs.writeFileSync(ALL_RESULTS_PATH, JSON.stringify(allResults, null, 1));
+  if (fs.existsSync(BATCH_CHECKPOINT_PATH)) fs.unlinkSync(BATCH_CHECKPOINT_PATH);
+
+  const qualifyingInBatch = Object.values(batchResults).filter((r) => r.qualifies).length;
+  console.log(`Batch complete. ${qualifyingInBatch}/${Object.keys(batchResults).length} in today's batch qualify.`);
+
+  return { allResults, batchResults };
 }
 
-module.exports = { checkQualification, computeSectorAveragePe, THRESHOLDS };
-
-if (require.main === module) {
-  main().catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
-}
+module.exports = { runDailyBatch, checkQualification, computeSectorAveragePe, loadAllResults, THRESHOLDS };

@@ -3,8 +3,21 @@
 A fundamental-only screen (no technical entry timing) across the **entire
 NSE equity universe** (~2,052 real companies, not just the Nifty 500/halal-
 353 universe used by the other strategies in this repo), checking 13
-requested parameters plus a fresh halal compliance check on every stock,
-every month.
+requested parameters plus a fresh halal compliance check on every stock.
+
+## Daily rolling scan, not monthly (redesigned after direct feedback)
+
+The original design scanned all ~2,052 stocks once a month — but that's
+hours of scraping in one sitting, a real rate-limit risk. Redesigned to
+~100 stocks/day via a persisted cursor (`scan_cursor.json`): each day picks
+the next slice of the universe, scans just those, and wraps back to the
+start once the whole universe has cycled (~21 days). Continuous rolling
+freshness instead of one big monthly burst; each day's run takes minutes,
+not hours. A stock's qualification status only changes when ITS OWN data
+is refreshed (its turn in the ~21-day cycle) — the sector-average PE used
+for the Industry PE substitute is recomputed from the full persistent
+store every day (a mix of today's-fresh and up-to-21-day-old data), but a
+stock's own checks aren't re-evaluated off that drift alone.
 
 ## Parameters checked
 
@@ -24,9 +37,9 @@ every month.
 | Price/Sales | < 10 | Derived: Market Cap ÷ TTM Sales |
 | EV/EBITDA | < 25 | Derived: (Market Cap + Debt) ÷ (TTM Sales × OPM%) |
 
-Plus a **halal recheck** on every stock, every month (not just at universe
-build time): business type (via Screener.in's own sector taxonomy) and
-debt-to-assets < 33%.
+Plus a **halal recheck** on every stock, every time its turn comes up in
+the ~21-day rolling cycle (not just at universe build time): business type
+(via Screener.in's own sector taxonomy) and debt-to-assets < 33%.
 
 ## Two parameters needed real substitutes (found by testing, not assumed)
 
@@ -77,15 +90,25 @@ list (`tracked_multibaggers.json`) and only alerts on a **state change**:
 
 ## Why this needs to push to GitHub
 
-Railway's Trial plan has no persistent volumes, and this state must survive
-a full month between runs (unlike the daily strategies, where losing
-in-memory state on a rare restart is a minor, accepted risk). The only
-durable option was committing `tracked_multibaggers.json` back to this repo
-after each run — which means the deployed container holds a `GITHUB_TOKEN`
-with write access to this one repo (fine-grained PAT, Contents: Read and
-write only). This was a deliberate, explicit decision, not a default.
+Railway's Trial plan has no persistent volumes, and this state (which
+stocks qualify, where the daily cursor is, the forward-performance log)
+must survive indefinitely between runs — unlike the daily technical
+strategies, where losing in-memory state on a rare restart is a minor,
+accepted risk. The only durable option was committing the state files back
+to this repo after each run — which means the deployed container holds a
+`GITHUB_TOKEN` with write access to this one repo (fine-grained PAT,
+Contents: Read and write only). This was a deliberate, explicit decision,
+not a default.
 
-## Scale and runtime — this is NOT a quick check
+**Real bug found and fixed before this ever ran twice**: the deployed
+container's git checkout is a fixed build-time snapshot. Without syncing
+first, the *second* day's push would be rejected as non-fast-forward the
+moment `origin/main` had moved past the container's stale local HEAD —
+which it always would, from the very first day's own successful push.
+`git_state.js`'s `syncFromRemote()` does a `git fetch` + hard reset to
+`origin/main` before reading any state file, every run, fixing this.
+
+## Scale — filtered by ISIN prefix, not name matching
 
 ~2,052 real equities (filtered from Upstox's instrument master by ISIN
 prefix — `INE` = real company, `INF` = mutual fund/ETF product, verified
@@ -93,12 +116,18 @@ directly; an earlier name-based regex attempt wrongly excluded "JETFREIGHT",
 a real logistics company, because its name contains the substring "ETF" —
 ISIN prefix has no such false-positive risk).
 
-At a polite scraping pace (avoiding Screener.in rate-limiting — a real risk
-at this volume, not hypothetical), a full monthly run takes **hours, not
-minutes**. `scan_multibagger.js` checkpoints every 50 stocks
-(`raw_fundamentals_checkpoint.json`, gitignored — local/ephemeral only) so
-an interrupted run resumes rather than restarting from scratch, as long as
-it resumes within the same calendar month; a new month always starts fresh.
+## Forward-performance tracking (the real validation, since backtesting isn't practical)
+
+A historical backtest would need Screener.in to expose historical ratio
+snapshots (PE/ROE/PEG at some past date) — it doesn't, only current-moment
+values. Instead: `forward_performance_log.json` is a permanent, append-only
+log of every QUALIFIED and LOST event (unlike `tracked_multibaggers.json`,
+which deletes a symbol once it loses qualification — the log keeps it
+forever). Run `node forward_performance.js` to fetch fresh current prices
+for every stock ever flagged and see its real price return since
+qualification — this is the actual, ongoing evidence for whether the
+screen works, accumulating as real time passes rather than reconstructed
+from history.
 
 ## Known limitations
 
@@ -115,9 +144,9 @@ it resumes within the same calendar month; a new month always starts fresh.
 - **~2,052 stocks, not the full BSE+NSE universe** — NSE main-board equities
   only (via Upstox's NSE_EQ segment), matching the halal investing
   constraint's existing scope in this project.
-- **Backtest is approximate** (see below) — annual-granularity
-  reconstruction, not true point-in-time monthly ratios, since Screener.in
-  doesn't expose historical ratio snapshots.
+- **Sector-average PE mixes fresh and stale data** — on any given day, most
+  of `all_results.json` is up to ~21 days old (see the daily-rolling design
+  above). Accepted trade-off, not a bug.
 - **Not wired to any live execution path.** Alert only — no order placed.
 
 ## File guide
@@ -127,10 +156,14 @@ it resumes within the same calendar month; a new month always starts fresh.
 | `fetch_universe.js` | Refreshes the ~2,052-stock universe from Upstox's public instrument master |
 | `fundamental_screener.js` | Screener.in login + per-stock fetch/parse (11 real parameters + sector tags) |
 | `halal_classifier.js` | Business-type exclusion (banks/NBFC/alcohol/tobacco/gambling) from Screener.in's sector taxonomy |
-| `scan_multibagger.js` | Full-batch orchestrator: fetch all, precompute sector-average PE, check all 13 parameters |
-| `diff_tracker.js` | New-vs-lost qualification diffing against the persisted tracked list |
+| `scan_multibagger.js` | Daily-batch orchestrator: fetch today's ~100, merge into the persistent store, precompute sector-average PE, check all 13 parameters for today's batch |
+| `diff_tracker.js` | New-vs-lost qualification diffing against the persisted tracked list, plus permanent log entries for forward-performance tracking |
 | `format_alerts.js` | Telegram message formatting (new-candidate full dump, lost-qualification diff) |
-| `git_state.js` | Commits/pushes the updated tracked list back to GitHub |
-| `server.js` | Long-running process, triggers the full pipeline on the 1st of each month (IST) |
+| `git_state.js` | Syncs from `origin/main` before each run, commits/pushes updated state after |
+| `forward_performance.js` | Run manually — real price-return report for every stock ever flagged, since qualification |
+| `server.js` | Long-running process, triggers one day's batch daily (~20:00-20:30 IST) via a persisted cursor |
 | `nse_universe.json` | Current stock universe snapshot (regeneratable) |
-| `tracked_multibaggers.json` | Persisted qualifying-stocks state (git-committed by the live service, not created here) |
+| `all_results.json` | Persistent fundamentals store for the whole universe (git-committed, updated incrementally) |
+| `scan_cursor.json` | Where the daily rolling scan left off (git-committed) |
+| `tracked_multibaggers.json` | Currently-qualifying stocks (git-committed, symbol removed once it loses qualification) |
+| `forward_performance_log.json` | Permanent append-only qualification/loss event log (git-committed, never deletes) |

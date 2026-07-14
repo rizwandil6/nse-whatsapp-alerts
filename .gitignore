@@ -1,5 +1,4 @@
 .secrets/
 node_modules/
 *_cache.json
-multibagger-screener/raw_fundamentals_checkpoint.json
-multibagger-screener/scan_results.json
+multibagger-screener/batch_checkpoint.json
