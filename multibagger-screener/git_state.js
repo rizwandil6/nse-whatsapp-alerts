@@ -1,19 +1,20 @@
 'use strict';
 
 /**
- * Persists screener state to GitHub via the REST Contents API (plain
- * fetch, no `git` binary) — the only durable persistence option available,
- * since Railway's Trial plan has no persistent volumes and this state must
- * survive indefinitely between runs. Requires a GITHUB_TOKEN env var (a
- * fine-grained PAT, Contents: Read and write, scoped to this one repo).
+ * Persists screener state to GitHub via the REST API (plain fetch, no
+ * `git` binary — see the comment history in this file's earlier version
+ * for why: Railway's Node buildpack runtime doesn't ship git, so a
+ * git-shell-out approach could never work here). Requires a GITHUB_TOKEN
+ * env var (a fine-grained PAT, Contents: Read and write, scoped to this
+ * one repo).
  *
- * REWRITTEN from a git-shell-out version after production logs showed
- * "/bin/sh: 1: git: not found" — Railway's Node buildpack (Railpack)
- * runtime image doesn't ship the git binary, so `execSync('git ...')`
- * could never work here no matter how correct the git logic was. This
- * never surfaced in local testing since the dev machine has git installed.
- * The REST API has no such dependency: every read/write is a plain HTTPS
- * call, so it works identically local vs. deployed.
+ * commitAndPushTrackedState bundles every changed state file into ONE
+ * commit via the Git Data API (blob -> tree -> commit -> ref update),
+ * not one Contents-API PUT per file. Each push to `main` redeploys every
+ * Railway service in this repo (including reactivating any explicitly
+ * paused ones, e.g. ema-scalp-live-streamer) — four separate commits per
+ * run meant four separate redeploy cycles for no reason. One commit per
+ * run, regardless of how many of the four state files actually changed.
  */
 
 const fs = require('fs');
@@ -40,6 +41,16 @@ function authHeaders(token) {
   };
 }
 
+/** Thin wrapper: JSON in, JSON out, throws with response body on non-2xx. */
+async function ghApi(url, token, opts = {}) {
+  const res = await fetch(url, {
+    ...opts,
+    headers: { ...authHeaders(token), ...(opts.body ? { 'Content-Type': 'application/json' } : {}), ...(opts.headers || {}) },
+  });
+  if (!res.ok) throw new Error(`${opts.method || 'GET'} ${url} failed: HTTP ${res.status} — ${await res.text()}`);
+  return res.status === 204 ? null : res.json();
+}
+
 /** Fetches one file's content+sha from the repo, or null if it doesn't exist yet on GitHub. */
 async function getRemoteFile(relPath, token) {
   const url = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${relPath}?ref=${BRANCH}`;
@@ -52,11 +63,11 @@ async function getRemoteFile(relPath, token) {
 
 /**
  * Pulls the latest version of every state file down from GitHub to local
- * disk, before this run reads any of them — must happen first, same reason
- * as the old git version: without this, a run would work off whatever was
- * baked into the container at build time instead of what previous runs
- * actually wrote. A state file that doesn't exist on GitHub yet (first run
- * ever) is left alone locally rather than treated as an error.
+ * disk, before this run reads any of them — same reasoning as the old git
+ * version: without this, a run would work off whatever was baked into the
+ * container at build time instead of what previous runs actually wrote. A
+ * state file that doesn't exist on GitHub yet (first run ever) is left
+ * alone locally rather than treated as an error.
  */
 async function syncFromRemote() {
   const token = process.env.GITHUB_TOKEN;
@@ -77,7 +88,12 @@ async function syncFromRemote() {
   }
 }
 
-/** Pushes every state file that exists locally and has actually changed up to GitHub, one commit per file. */
+/**
+ * Pushes every state file that actually changed up to GitHub as ONE
+ * commit (blob per changed file -> one new tree on top of main's current
+ * tree -> one commit -> fast-forward the main ref) — not one commit per
+ * file. No-ops (no commit at all) if nothing changed.
+ */
 async function commitAndPushTrackedState(dateLabel) {
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
@@ -85,30 +101,52 @@ async function commitAndPushTrackedState(dateLabel) {
     return { pushed: false, reason: 'no_token' };
   }
 
-  let pushedAny = false;
   try {
+    const changed = [];
     for (const { rel, local } of STATE_FILES) {
       if (!fs.existsSync(local)) continue;
       const localContent = fs.readFileSync(local, 'utf8');
       const remote = await getRemoteFile(rel, token);
-      if (remote && remote.content === localContent) continue; // unchanged, skip
-
-      const res = await fetch(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${rel}`, {
-        method: 'PUT',
-        headers: { ...authHeaders(token), 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: `Multibagger screen daily batch update (${dateLabel})`,
-          content: Buffer.from(localContent, 'utf8').toString('base64'),
-          branch: BRANCH,
-          ...(remote ? { sha: remote.sha } : {}),
-        }),
-      });
-      if (!res.ok) throw new Error(`PUT ${rel} failed: HTTP ${res.status} — ${await res.text()}`);
-      pushedAny = true;
+      if (remote && remote.content === localContent) continue;
+      changed.push({ rel, content: localContent });
     }
-    if (pushedAny) console.log('Pushed updated state files to GitHub.');
-    else console.log('No state changes — nothing to push.');
-    return { pushed: pushedAny };
+    if (changed.length === 0) {
+      console.log('No state changes — nothing to commit.');
+      return { pushed: false, reason: 'no_changes' };
+    }
+
+    const refUrl = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/git/refs/heads/${BRANCH}`;
+    const ref = await ghApi(refUrl, token);
+    const baseCommitSha = ref.object.sha;
+    const baseCommit = await ghApi(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/git/commits/${baseCommitSha}`, token);
+
+    const treeEntries = [];
+    for (const { rel, content } of changed) {
+      const blob = await ghApi(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/git/blobs`, token, {
+        method: 'POST',
+        body: JSON.stringify({ content: Buffer.from(content, 'utf8').toString('base64'), encoding: 'base64' }),
+      });
+      treeEntries.push({ path: rel, mode: '100644', type: 'blob', sha: blob.sha });
+    }
+
+    const newTree = await ghApi(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/git/trees`, token, {
+      method: 'POST',
+      body: JSON.stringify({ base_tree: baseCommit.tree.sha, tree: treeEntries }),
+    });
+
+    const newCommit = await ghApi(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/git/commits`, token, {
+      method: 'POST',
+      body: JSON.stringify({
+        message: `Multibagger screen daily batch update (${dateLabel})`,
+        tree: newTree.sha,
+        parents: [baseCommitSha],
+      }),
+    });
+
+    await ghApi(refUrl, token, { method: 'PATCH', body: JSON.stringify({ sha: newCommit.sha }) });
+
+    console.log(`Pushed updated state to GitHub in one commit (${changed.length} file(s): ${changed.map((c) => c.rel.split('/').pop()).join(', ')}).`);
+    return { pushed: true, filesChanged: changed.map((c) => c.rel) };
   } catch (e) {
     console.error('GitHub push failed:', e.message);
     return { pushed: false, reason: 'error', error: e.message };
