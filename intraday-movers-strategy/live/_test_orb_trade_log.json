@@ -1,0 +1,17 @@
+[
+ {
+  "symbol": "TESTX",
+  "direction": "LONG",
+  "entry": 100,
+  "stop": 99,
+  "target": 102,
+  "tbq": 500,
+  "tsq": 100,
+  "obImbalance": 0.83,
+  "action": "TARGET_HIT",
+  "exitPrice": 102,
+  "pnlPct": 2,
+  "entryTimestampMs": 1,
+  "exitTimestampMs": 2
+ }
+]
