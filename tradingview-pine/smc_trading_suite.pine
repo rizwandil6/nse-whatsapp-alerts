@@ -1,0 +1,347 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0
+//@version=6
+indicator("SMC Trading Suite — FVG, Order Blocks, Liquidity, MTF Trend, ATR SL", shorttitle="SMC Suite", overlay=true, max_boxes_count=500, max_lines_count=500, max_labels_count=500)
+
+// =====================================================================
+// This indicator implements the well-defined Smart Money Concepts from
+// the "Smart AI Trading Pro" reference doc, using standard/disclosed
+// definitions rather than reverse-engineering undocumented "proprietary"
+// or "AI" claims. Order Block / market-structure definitions are ported
+// directly from this repo's own smc-strategy/ (market_structure.js,
+// ltf_entry.js) for consistency with prior validated work — see that
+// folder's README for the real backtest results of those exact
+// definitions (net negative as a fully-automated strategy; this is a
+// discretionary visual tool, a different use case).
+//
+// Deliberately NOT implemented (see chat — undocumented/unfalsifiable
+// marketing claims, not real technical specs): the "Dynamic Trend Line"
+// proprietary formula, "Trading Cycles / Moon Cycle Insights", the
+// "Volatility Timer", and "AI Optimized SL" (replaced here with a real,
+// disclosed ATR-based stop calculation).
+// =====================================================================
+
+// ---------------------------------------------------------------------
+// INPUTS
+// ---------------------------------------------------------------------
+grpMode = "Trading Mode"
+tradingMode = input.string("Intraday", "Trading Mode (guidance only)", options = ["Intraday", "Swing", "Positional"], group = grpMode,
+     tooltip = "Informational only — suggests pivot-length / ATR-multiplier values for each style in the tooltips below, and reminds you to match your chart timeframe manually (Pine Script indicators cannot change it): Intraday -> 5m/15m + Swing Pivot ~10, Internal Pivot ~3, ATR Mult ~1.2. Swing -> 1H/4H + Swing Pivot ~20, Internal Pivot ~7, ATR Mult ~1.8. Positional -> Daily + Swing Pivot ~35, Internal Pivot ~12, ATR Mult ~2.5. The actual values used are always the explicit inputs below — this dropdown never silently overrides them.")
+
+grpFVG = "Fair Value Gap"
+showFVG        = input.bool(true, "Show Active Fair Value Gaps", group = grpFVG)
+fvgBullColor   = input.color(color.new(color.teal, 70), "Bullish FVG Color", group = grpFVG)
+fvgBearColor   = input.color(color.new(color.red, 70), "Bearish FVG Color", group = grpFVG)
+fvgMaxAgeBars  = input.int(300, "Max FVG Age (bars) Before Auto-Remove", minval = 10, group = grpFVG)
+
+grpOB = "Order Blocks"
+showSwingOB    = input.bool(true, "Show Swing Order Blocks", group = grpOB)
+showInternalOB = input.bool(true, "Show Internal Order Blocks", group = grpOB)
+swingLenInput    = input.int(15, "Swing Pivot Length", minval = 2, group = grpOB)
+internalLenInput = input.int(5, "Internal Pivot Length", minval = 2, group = grpOB)
+obBullColor    = input.color(color.new(color.blue, 75), "Bullish OB Color", group = grpOB)
+obBearColor    = input.color(color.new(color.orange, 75), "Bearish OB Color", group = grpOB)
+
+grpLiq = "Liquidity"
+showLiquidity         = input.bool(true, "Show BSL / SSL Liquidity Levels", group = grpLiq)
+showPendingLiquidity  = input.bool(true, "Show Pending Liquidity Markers", group = grpLiq)
+liqLenInput           = input.int(10, "Liquidity Pivot Length", minval = 2, group = grpLiq)
+
+grpSL = "Stop Loss"
+atrLen  = input.int(14, "ATR Length", minval = 1, group = grpSL)
+atrMultInput = input.float(1.5, "ATR Multiplier", minval = 0.1, step = 0.1, group = grpSL,
+     tooltip = "Real, disclosed calculation: SL = entry ± (ATR × multiplier). This replaces the reference tool's undocumented 'AI Optimized SL'.")
+
+grpTable = "Information Table"
+showInfoTable  = input.bool(true, "Show Information Table", group = grpTable)
+tablePosition  = input.string("top_right", "Table Position",
+     options = ["top_right", "top_left", "bottom_right", "bottom_left"], group = grpTable)
+
+// The explicit numeric inputs above are always what's actually used —
+// Trading Mode (above) only suggests values via its tooltip, it never
+// silently overrides these. Set the Swing/Internal Pivot Length and ATR
+// Multiplier inputs yourself to match your chosen style.
+swingLen    = swingLenInput
+internalLen = internalLenInput
+atrMult     = atrMultInput
+liqLen      = liqLenInput
+
+// ---------------------------------------------------------------------
+// FAIR VALUE GAP (FVG) — standard 3-candle ICT definition.
+// Bullish: gap between high[2] and low (current), impulsive middle candle.
+// Bearish: gap between low[2] and high (current).
+// "Active" = not yet mitigated (price hasn't traded back into the zone).
+// ---------------------------------------------------------------------
+var array<box>   bullFvgBoxes = array.new<box>()
+var array<float> bullFvgTop   = array.new<float>()
+var array<float> bullFvgBot   = array.new<float>()
+var array<int>   bullFvgBar   = array.new<int>()
+
+var array<box>   bearFvgBoxes = array.new<box>()
+var array<float> bearFvgTop   = array.new<float>()
+var array<float> bearFvgBot   = array.new<float>()
+var array<int>   bearFvgBar   = array.new<int>()
+
+bullFVG = low > high[2] and close[1] > high[2]
+bearFVG = high < low[2] and close[1] < low[2]
+
+if showFVG and bullFVG and not na(high[2])
+    top = low
+    bot = high[2]
+    b = box.new(bar_index[2], top, bar_index, bot, border_color = color.new(fvgBullColor, 0), bgcolor = fvgBullColor)
+    array.push(bullFvgBoxes, b)
+    array.push(bullFvgTop, top)
+    array.push(bullFvgBot, bot)
+    array.push(bullFvgBar, bar_index)
+
+if showFVG and bearFVG and not na(low[2])
+    top = low[2]
+    bot = high
+    b = box.new(bar_index[2], top, bar_index, bot, border_color = color.new(fvgBearColor, 0), bgcolor = fvgBearColor)
+    array.push(bearFvgBoxes, b)
+    array.push(bearFvgTop, top)
+    array.push(bearFvgBot, bot)
+    array.push(bearFvgBar, bar_index)
+
+// Maintain: extend active boxes to the current bar, delete mitigated or aged-out ones.
+if array.size(bullFvgBoxes) > 0
+    for i = array.size(bullFvgBoxes) - 1 to 0
+        top = array.get(bullFvgTop, i)
+        bot = array.get(bullFvgBot, i)
+        createdAt = array.get(bullFvgBar, i)
+        mitigated = low <= bot
+        aged = (bar_index - createdAt) > fvgMaxAgeBars
+        if mitigated or aged
+            box.delete(array.get(bullFvgBoxes, i))
+            array.remove(bullFvgBoxes, i)
+            array.remove(bullFvgTop, i)
+            array.remove(bullFvgBot, i)
+            array.remove(bullFvgBar, i)
+        else
+            box.set_right(array.get(bullFvgBoxes, i), bar_index)
+
+if array.size(bearFvgBoxes) > 0
+    for i = array.size(bearFvgBoxes) - 1 to 0
+        top = array.get(bearFvgTop, i)
+        bot = array.get(bearFvgBot, i)
+        createdAt = array.get(bearFvgBar, i)
+        mitigated = high >= top
+        aged = (bar_index - createdAt) > fvgMaxAgeBars
+        if mitigated or aged
+            box.delete(array.get(bearFvgBoxes, i))
+            array.remove(bearFvgBoxes, i)
+            array.remove(bearFvgTop, i)
+            array.remove(bearFvgBot, i)
+            array.remove(bearFvgBar, i)
+        else
+            box.set_right(array.get(bearFvgBoxes, i), bar_index)
+
+// ---------------------------------------------------------------------
+// MARKET STRUCTURE — symmetric fractal pivots (matches this repo's
+// smc-strategy/market_structure.js detectSwingPoints/computeStructure):
+// HH/HL = uptrend, LH/LL = downtrend. BOS = close breaks the last swing
+// in the trend's own direction (continuation). CHoCH = close breaks the
+// last swing AGAINST the trend (a shift) — this is what triggers an
+// Order Block search.
+// ---------------------------------------------------------------------
+f_structure(len) =>
+    var float lastSwingHigh = na
+    var float lastSwingLow  = na
+    var float prevSwingHigh = na
+    var float prevSwingLow  = na
+    var string trend = "UNKNOWN"
+    string event = na
+
+    ph = ta.pivothigh(len, len)
+    pl = ta.pivotlow(len, len)
+
+    if not na(ph)
+        prevSwingHigh := lastSwingHigh
+        lastSwingHigh := ph
+        if not na(prevSwingHigh)
+            newLabel = ph > prevSwingHigh ? "HH" : "LH"
+            trend := newLabel == "HH" ? "UP" : (trend == "UP" ? "UP" : "DOWN")
+
+    if not na(pl)
+        prevSwingLow := lastSwingLow
+        lastSwingLow := pl
+        if not na(prevSwingLow)
+            newLabel2 = pl > prevSwingLow ? "HL" : "LL"
+            trend := newLabel2 == "LL" ? "DOWN" : (trend == "DOWN" ? "DOWN" : "UP")
+
+    if trend == "UP" and not na(lastSwingLow)
+        if not na(lastSwingHigh) and close > lastSwingHigh
+            event := "BOS_UP"
+        else if close < lastSwingLow
+            event := "CHOCH_DOWN"
+
+    if trend == "DOWN" and not na(lastSwingHigh)
+        if not na(lastSwingLow) and close < lastSwingLow
+            event := "BOS_DOWN"
+        else if close > lastSwingHigh
+            event := "CHOCH_UP"
+
+    [trend, event]
+
+// ---------------------------------------------------------------------
+// ORDER BLOCKS — "the last opposite-colored candle before the impulsive
+// move that produced the CHoCH" (exact definition from smc-strategy/
+// ltf_entry.js findOrderBlockBefore, scanning back up to 10 bars).
+// ---------------------------------------------------------------------
+f_findOrderBlock(wantBearishCandle) =>
+    float obHigh = na
+    float obLow  = na
+    int obBarsBack = na
+    for i = 1 to 10
+        isBearish = close[i] < open[i]
+        if wantBearishCandle == isBearish
+            obHigh := high[i]
+            obLow := low[i]
+            obBarsBack := i
+            break
+    [obHigh, obLow, obBarsBack]
+
+[swingTrend, swingEvent] = f_structure(swingLen)
+[internalTrend, internalEvent] = f_structure(internalLen)
+
+if showSwingOB and swingEvent == "CHOCH_UP"
+    [obHigh, obLow, obBarsBack] = f_findOrderBlock(true)
+    if not na(obHigh)
+        box.new(bar_index - obBarsBack, obHigh, bar_index + 20, obLow, border_color = color.new(obBullColor, 0), border_width = 2, bgcolor = obBullColor, text = "Swing OB", text_size = size.tiny, text_color = color.white)
+
+if showSwingOB and swingEvent == "CHOCH_DOWN"
+    [obHigh, obLow, obBarsBack] = f_findOrderBlock(false)
+    if not na(obHigh)
+        box.new(bar_index - obBarsBack, obHigh, bar_index + 20, obLow, border_color = color.new(obBearColor, 0), border_width = 2, bgcolor = obBearColor, text = "Swing OB", text_size = size.tiny, text_color = color.white)
+
+if showInternalOB and internalEvent == "CHOCH_UP"
+    [obHigh, obLow, obBarsBack] = f_findOrderBlock(true)
+    if not na(obHigh)
+        box.new(bar_index - obBarsBack, obHigh, bar_index + 20, obLow, border_color = color.new(obBullColor, 40), bgcolor = color.new(obBullColor, 20), text = "Internal OB", text_size = size.tiny, text_color = color.white)
+
+if showInternalOB and internalEvent == "CHOCH_DOWN"
+    [obHigh, obLow, obBarsBack] = f_findOrderBlock(false)
+    if not na(obHigh)
+        box.new(bar_index - obBarsBack, obHigh, bar_index + 20, obLow, border_color = color.new(obBearColor, 40), bgcolor = color.new(obBearColor, 20), text = "Internal OB", text_size = size.tiny, text_color = color.white)
+
+// ---------------------------------------------------------------------
+// LIQUIDITY (BSL / SSL) — swing highs/lows are where stop clusters sit.
+// "Swept" = a wick pierces the level without closing beyond it (matches
+// smc-strategy/ltf_entry.js isLiquiditySweepHigh/Low). Pending = not yet
+// swept, marked with a blue dot per the reference doc.
+// ---------------------------------------------------------------------
+var float bslLevel = na
+var bool  bslSwept = true
+var line  bslLine  = na
+var label bslDot   = na
+
+var float sslLevel = na
+var bool  sslSwept = true
+var line  sslLine  = na
+var label sslDot   = na
+
+phLiq = ta.pivothigh(liqLen, liqLen)
+plLiq = ta.pivotlow(liqLen, liqLen)
+
+if showLiquidity and not na(phLiq)
+    bslLevel := phLiq
+    bslSwept := false
+    line.delete(bslLine)
+    bslLine := line.new(bar_index - liqLen, bslLevel, bar_index + 30, bslLevel, color = color.new(color.red, 30), width = 1, style = line.style_dashed)
+    label.delete(bslDot)
+    label.new(bar_index - liqLen, bslLevel, "BSL", style = label.style_label_down, color = color.new(color.red, 0), textcolor = color.white, size = size.tiny)
+    if showPendingLiquidity
+        bslDot := label.new(bar_index - liqLen, bslLevel, "●", style = label.style_none, textcolor = color.blue, size = size.small)
+
+if showLiquidity and not bslSwept and not na(bslLevel)
+    if high > bslLevel and close < bslLevel
+        bslSwept := true
+        line.set_color(bslLine, color.gray)
+        label.delete(bslDot)
+        label.new(bar_index, bslLevel, "BSL Swept", style = label.style_label_down, color = color.new(color.gray, 0), textcolor = color.white, size = size.tiny)
+    else
+        line.set_x2(bslLine, bar_index + 30)
+
+if showLiquidity and not na(plLiq)
+    sslLevel := plLiq
+    sslSwept := false
+    line.delete(sslLine)
+    sslLine := line.new(bar_index - liqLen, sslLevel, bar_index + 30, sslLevel, color = color.new(color.blue, 30), width = 1, style = line.style_dashed)
+    label.delete(sslDot)
+    label.new(bar_index - liqLen, sslLevel, "SSL", style = label.style_label_up, color = color.new(color.blue, 0), textcolor = color.white, size = size.tiny)
+    if showPendingLiquidity
+        sslDot := label.new(bar_index - liqLen, sslLevel, "●", style = label.style_none, textcolor = color.blue, size = size.small)
+
+if showLiquidity and not sslSwept and not na(sslLevel)
+    if low < sslLevel and close > sslLevel
+        sslSwept := true
+        line.set_color(sslLine, color.gray)
+        label.delete(sslDot)
+        label.new(bar_index, sslLevel, "SSL Swept", style = label.style_label_up, color = color.new(color.gray, 0), textcolor = color.white, size = size.tiny)
+    else
+        line.set_x2(sslLine, bar_index + 30)
+
+// ---------------------------------------------------------------------
+// ATR-BASED STOP LOSS — real, disclosed formula (not a black-box "AI").
+// ---------------------------------------------------------------------
+atrValue = ta.atr(atrLen)
+longSL  = close - atrValue * atrMult
+shortSL = close + atrValue * atrMult
+
+// ---------------------------------------------------------------------
+// MULTI-TIMEFRAME TREND — close vs EMA(50) on each timeframe, a simple,
+// disclosed, non-repainting (lookahead=off) trend classification.
+// ---------------------------------------------------------------------
+f_mtfTrend(tf) =>
+    request.security(syminfo.tickerid, tf, close > ta.ema(close, 50) ? 1 : -1, lookahead = barmerge.lookahead_off)
+
+trend1m  = f_mtfTrend("1")
+trend5m  = f_mtfTrend("5")
+trend15m = f_mtfTrend("15")
+trend1h  = f_mtfTrend("60")
+trend4h  = f_mtfTrend("240")
+trendD   = f_mtfTrend("1D")
+
+f_trendLabel(t) => t == 1 ? "Bullish" : "Bearish"
+f_trendColor(t) => t == 1 ? color.new(color.green, 0) : color.new(color.red, 0)
+
+// ---------------------------------------------------------------------
+// INFORMATION TABLE
+// ---------------------------------------------------------------------
+tablePos = switch tablePosition
+    "top_right"    => position.top_right
+    "top_left"     => position.top_left
+    "bottom_right" => position.bottom_right
+    "bottom_left"  => position.bottom_left
+    => position.top_right
+
+var table infoTable = na
+if showInfoTable and barstate.islast
+    table.delete(infoTable)
+    infoTable := table.new(tablePos, 2, 9, border_width = 1)
+    table.cell(infoTable, 0, 0, "SMC Trading Suite", text_color = color.white, bgcolor = color.new(color.blue, 20), text_size = size.small)
+    table.cell(infoTable, 1, 0, "", bgcolor = color.new(color.blue, 20))
+
+    table.cell(infoTable, 0, 1, "1m Trend", text_size = size.tiny)
+    table.cell(infoTable, 1, 1, f_trendLabel(trend1m), text_color = f_trendColor(trend1m), text_size = size.tiny)
+    table.cell(infoTable, 0, 2, "5m Trend", text_size = size.tiny)
+    table.cell(infoTable, 1, 2, f_trendLabel(trend5m), text_color = f_trendColor(trend5m), text_size = size.tiny)
+    table.cell(infoTable, 0, 3, "15m Trend", text_size = size.tiny)
+    table.cell(infoTable, 1, 3, f_trendLabel(trend15m), text_color = f_trendColor(trend15m), text_size = size.tiny)
+    table.cell(infoTable, 0, 4, "1H Trend", text_size = size.tiny)
+    table.cell(infoTable, 1, 4, f_trendLabel(trend1h), text_color = f_trendColor(trend1h), text_size = size.tiny)
+    table.cell(infoTable, 0, 5, "4H Trend", text_size = size.tiny)
+    table.cell(infoTable, 1, 5, f_trendLabel(trend4h), text_color = f_trendColor(trend4h), text_size = size.tiny)
+    table.cell(infoTable, 0, 6, "Daily Trend", text_size = size.tiny)
+    table.cell(infoTable, 1, 6, f_trendLabel(trendD), text_color = f_trendColor(trendD), text_size = size.tiny)
+
+    table.cell(infoTable, 0, 7, "ATR SL (Long)", text_size = size.tiny)
+    table.cell(infoTable, 1, 7, str.tostring(longSL, format.mintick), text_size = size.tiny)
+    table.cell(infoTable, 0, 8, "ATR SL (Short)", text_size = size.tiny)
+    table.cell(infoTable, 1, 8, str.tostring(shortSL, format.mintick), text_size = size.tiny)
+
+// ---------------------------------------------------------------------
+// Structure trend markers (small plotshapes, so trend flips are visible
+// without needing to read the table)
+// ---------------------------------------------------------------------
+plotshape(swingEvent == "CHOCH_UP", title = "Swing CHoCH Up", style = shape.labelup, location = location.belowbar, color = color.new(color.lime, 0), text = "CHoCH", textcolor = color.white, size = size.tiny)
+plotshape(swingEvent == "CHOCH_DOWN", title = "Swing CHoCH Down", style = shape.labeldown, location = location.abovebar, color = color.new(color.red, 0), text = "CHoCH", textcolor = color.white, size = size.tiny)
