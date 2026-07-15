@@ -10,5 +10,17 @@
   "symbol": "EMMVEE",
   "date": "2026-07-14",
   "price": 334
+ },
+ {
+  "type": "QUALIFIED",
+  "symbol": "VIKRAMSOLR",
+  "date": "2026-07-15",
+  "price": 194
+ },
+ {
+  "type": "QUALIFIED",
+  "symbol": "ARKADE",
+  "date": "2026-07-15",
+  "price": 139
  }
 ]
