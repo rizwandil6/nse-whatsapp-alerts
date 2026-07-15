@@ -18,9 +18,12 @@ const { runDailyBatch } = require('./scan_multibagger');
 const { diffAndUpdate } = require('./diff_tracker');
 const { formatNewCandidateAlert, formatLostQualificationAlert } = require('./format_alerts');
 const { commitAndPushTrackedState, syncFromRemote } = require('./git_state');
+const { generateBuffettAnalysis, chunkForTelegram } = require('./buffett_analysis');
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+const BUFFETT_CAPITAL_RUPEES = 100000; // Rs 1,00,000, per direct instruction
 const BATCH_SIZE = parseInt(process.env.BATCH_SIZE || '100', 10);
 const IST_OFFSET_MIN = 5 * 60 + 30;
 const TRIGGER_START_MIN = 20 * 60; // 20:00 IST, well after market close, low-traffic hours for scraping
@@ -46,6 +49,29 @@ async function sendTelegramAlert(text) {
     } catch (e) {
       console.warn(`  Telegram send error for chat ${chatId}: ${e.message}`);
     }
+  }
+}
+
+/**
+ * Deep qualitative analysis for a new candidate — best-effort, never blocks
+ * or fails the run: a Claude API error here (rate limit, credit issue,
+ * transient failure) should not stop the rest of today's alerts/state push.
+ */
+async function sendBuffettAnalysis(symbol, data) {
+  if (!ANTHROPIC_API_KEY) {
+    console.warn(`  ANTHROPIC_API_KEY not set — skipping Buffett analysis for ${symbol}.`);
+    return;
+  }
+  try {
+    const companyName = data.companyName || symbol;
+    const text = await generateBuffettAnalysis(companyName, symbol, BUFFETT_CAPITAL_RUPEES, ANTHROPIC_API_KEY);
+    const chunks = chunkForTelegram(text);
+    for (let i = 0; i < chunks.length; i++) {
+      const header = chunks.length > 1 ? `[BUFFETT ANALYSIS ${i + 1}/${chunks.length}] ${symbol}\n\n` : `[BUFFETT ANALYSIS] ${symbol}\n\n`;
+      await sendTelegramAlert(header + chunks[i]);
+    }
+  } catch (e) {
+    console.error(`  Buffett analysis failed for ${symbol}:`, e.message);
   }
 }
 
@@ -100,6 +126,7 @@ async function runOnce() {
 
   for (const { symbol, data } of newAlerts) {
     await sendTelegramAlert(formatNewCandidateAlert(symbol, data));
+    await sendBuffettAnalysis(symbol, data);
   }
   for (const { symbol, firstQualified, failedChecks, currentData, previousData } of lostAlerts) {
     await sendTelegramAlert(formatLostQualificationAlert(symbol, firstQualified, failedChecks, currentData, previousData));

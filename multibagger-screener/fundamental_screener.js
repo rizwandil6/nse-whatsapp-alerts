@@ -252,6 +252,7 @@ async function fetchFundamentals(companyNameOrSymbol, cookies) {
 
   const $ = cheerio.load(html);
   const ratios = parseTopRatios($);
+  const companyName = $('h1').first().text().trim() || screenerSymbol;
 
   const marketCapCr = parseNum(ratios['Market Cap'] ?? ratios['Mkt Cap']);
   const pe = parseNum(ratios['Stock P/E'] ?? ratios['P/E']);
@@ -283,6 +284,7 @@ async function fetchFundamentals(companyNameOrSymbol, cookies) {
 
   return {
     symbol: screenerSymbol,
+    companyName,
     sectorTags,
     halalBusiness: halal.halalBusiness, // true/false/null (null = couldn't classify)
     halalBusinessReason: halal.reason,
