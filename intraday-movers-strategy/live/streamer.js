@@ -4,9 +4,16 @@
  * Live intraday streamer for the Opening Range Breakout strategy (30x
  * volume confirmation, 2% target, 2% structural stop cap — the same
  * validated settings as the backtest). Connects to Upstox's official V3
- * market-data WebSocket feed, decodes 1-minute OHLC candles via Protobuf,
- * and feeds them directly (no 5-min aggregation — ORB needs raw 1-min bars,
- * matching the backtest) into one ORBSymbolTracker per stock.
+ * market-data WebSocket feed and builds 1-minute OHLCV bars ITSELF from
+ * raw LTPC ticks (see tick_bar_builder.js), then feeds them into one
+ * ORBSymbolTracker per stock.
+ *
+ * Does NOT use Upstox's own pre-aggregated `marketOHLC` "I1" candle field
+ * — live-diagnosed (2026-07-15) to lag their own tick stream by anywhere
+ * from ~1-2 minutes up to several HOURS during a live session (a real
+ * breakout at 09:42 wasn't alerted until 13:36 that day). The connection
+ * itself was never the problem — LTPC.ltt tracked wall-clock closely the
+ * whole time — only Upstox's server-side candle aggregation lagged.
  *
  * No live orders placed. Alert-only.
  *
@@ -18,6 +25,7 @@ const protobuf = require('protobufjs');
 const path = require('path');
 
 const { ORBSymbolTracker } = require('./orb_engine');
+const { TickBarBuilder } = require('./tick_bar_builder');
 const { syncTradeLogFromRemote, recordTrade, pushTradeLogToGitHub } = require('./trade_log');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
@@ -45,8 +53,11 @@ const symbolMap = require('./symbols.json');
 const keyToSymbol = {};
 for (const [symbol, key] of Object.entries(symbolMap)) keyToSymbol[key] = symbol;
 
+const FLUSH_POLL_MS = 15 * 1000; // how often to force-close forming bars whose minute has elapsed with no new tick (EOD, illiquid gaps)
+
 let protobufRoot = null;
 const trackers = {}; // symbol -> ORBSymbolTracker
+const tickBuilders = {}; // symbol -> TickBarBuilder
 
 async function getMarketFeedUrl() {
   const res = await fetch(AUTHORIZE_URL, {
@@ -67,25 +78,33 @@ function decodeProtobuf(buffer) {
   return FeedResponse.toObject(message, { longs: Number, enums: String, defaults: true });
 }
 
-function extractOneMinCandles(feed) {
+/**
+ * Extracts a raw tick from a feed message. Used to build 1-minute bars
+ * OURSELVES (see tick_bar_builder.js) rather than trusting Upstox's own
+ * pre-aggregated `marketOHLC` "I1" candle field, which was live-diagnosed
+ * (2026-07-15) to lag their own tick stream by anywhere from ~1-2 minutes
+ * up to several HOURS during a live session — the connection/transport
+ * was never the problem, `LTPC.ltt` tracked wall-clock closely (often to
+ * the exact second) the whole time; only their server-side candle
+ * aggregation lagged. Only marketFF (equities) carries LTPC/vtt/tbq/tsq —
+ * indexFF (indices) is not used by this ORB universe, returns null.
+ */
+function extractTick(feed) {
   const fullFeed = feed.fullFeed;
-  if (!fullFeed) return [];
-  const inner = fullFeed.marketFF || fullFeed.indexFF;
-  if (!inner || !inner.marketOHLC || !inner.marketOHLC.ohlc) return [];
-  // tbq/tsq (total buy/sell quantity resting in the order book) is a
-  // snapshot at message-arrival time, not a per-candle aggregate — only
-  // present on marketFF (equities), not indexFF. Logged alongside each
-  // candle as an order-flow-direction signal to evaluate, not yet used to
-  // gate entries — see orb_engine.js.
-  const tbq = fullFeed.marketFF ? fullFeed.marketFF.tbq : null;
-  const tsq = fullFeed.marketFF ? fullFeed.marketFF.tsq : null;
-  return inner.marketOHLC.ohlc
-    .filter((o) => o.interval === 'I1')
-    .map((o) => ({
-      timestampMs: Number(o.ts),
-      open: o.open, high: o.high, low: o.low, close: o.close, volume: Number(o.vol || 0),
-      tbq, tsq,
-    }));
+  const marketFF = fullFeed && fullFeed.marketFF;
+  if (!marketFF || !marketFF.ltpc) return null;
+  return {
+    ltp: marketFF.ltpc.ltp,
+    lttMs: Number(marketFF.ltpc.ltt),
+    vtt: Number(marketFF.vtt || 0),
+    tbq: marketFF.tbq,
+    tsq: marketFF.tsq,
+  };
+}
+
+function getOrCreateTickBuilder(symbol) {
+  if (!tickBuilders[symbol]) tickBuilders[symbol] = new TickBarBuilder();
+  return tickBuilders[symbol];
 }
 
 async function sendTelegramAlert(text) {
@@ -151,6 +170,23 @@ function handleBar(symbol, bar) {
       recordTrade(e);
     }
   }
+}
+
+/**
+ * Force-closes any forming bar whose minute has fully elapsed with no new
+ * tick since — needed because onTick() only closes a bar when a tick from
+ * the NEXT minute arrives. Without this, the last bar of the day (and any
+ * bar for an illiquid stock that goes quiet) would never close and never
+ * reach the ORB tracker.
+ */
+function scheduleBarFlush() {
+  setInterval(() => {
+    const now = Date.now();
+    for (const [symbol, builder] of Object.entries(tickBuilders)) {
+      const bar = builder.flushIfStale(now);
+      if (bar) handleBar(symbol, bar);
+    }
+  }, FLUSH_POLL_MS);
 }
 
 /**
@@ -222,8 +258,10 @@ function connectAndRun() {
       for (const [instrumentKey, feed] of Object.entries(decoded.feeds)) {
         const symbol = keyToSymbol[instrumentKey];
         if (!symbol) continue;
-        const oneMinCandles = extractOneMinCandles(feed);
-        for (const c of oneMinCandles) handleBar(symbol, c);
+        const tick = extractTick(feed);
+        if (!tick) continue;
+        const closedBar = getOrCreateTickBuilder(symbol).onTick(tick);
+        if (closedBar) handleBar(symbol, closedBar);
       }
     });
 
@@ -254,6 +292,7 @@ async function main() {
   await initProtobuf();
   await syncTradeLogFromRemote();
   scheduleDailyTradeLogPush();
+  scheduleBarFlush();
 
   let attempt = 0;
   for (;;) {
