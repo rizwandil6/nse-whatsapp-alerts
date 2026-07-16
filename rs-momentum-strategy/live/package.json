@@ -1,0 +1,15 @@
+{
+  "name": "rs-momentum-strategy-live",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=20.18.1"
+  }
+}
