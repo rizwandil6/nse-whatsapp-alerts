@@ -3,7 +3,9 @@
 Daily-cadence live version of `rs-momentum-strategy/`'s backtested RS
 ranking rules (see the parent folder's README for the full methodology,
 backtest results, and interpretation choices — this file only covers the
-live-specific additions).
+live-specific additions). **LONG-only** — no short-selling logic anywhere
+in this codebase; every alert is a buy (entry) or a sell-to-close (exit),
+confirmed directly and explicit in the Telegram alert text.
 
 ## Why daily, not rolling-batch like multibagger-screener
 

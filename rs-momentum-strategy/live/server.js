@@ -71,7 +71,7 @@ async function sendTelegramAlert(text) {
 
 function formatEntryAlert(c, fundamentals) {
   return [
-    '[RS MOMENTUM] New position entered',
+    '[RS MOMENTUM] New position entered — LONG',
     `Stock: ${c.symbol}${fundamentals.companyName ? ' (' + fundamentals.companyName + ')' : ''}`,
     `Entry: ₹${c.price.toFixed(2)}`,
     `RS Rank: ${c.rsRankAtEntry.toFixed(1)}/100 (>=80 required)`,

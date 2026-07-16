@@ -1,11 +1,15 @@
 # Relative Strength Momentum Strategy — v1
 
-A positional (multi-day to multi-year hold) momentum strategy: buy stocks
-outperforming Nifty strongly enough to rank in the top 20% of the universe,
-hold as long as that outperformance persists, exit when the stock's
-"character changes" from strong to weak. **Independent of the other three
-strategies in this repo** — own folder, own signal source. Not wired into
-any live bot — backtest/research only.
+A positional (multi-day to multi-year hold), **LONG-only** momentum
+strategy: buy stocks outperforming Nifty strongly enough to rank in the
+top 20% of the universe, hold as long as that outperformance persists,
+exit (sell to close) when the stock's "character changes" from strong to
+weak. There is no short-selling logic anywhere in this strategy — entry
+always means buy, exit always means sell-to-close, never open-a-short.
+**Independent of the other three strategies in this repo** — own folder,
+own signal source. Live version deployed as Railway service
+`rs-momentum-strategy-live` (see `live/README.md`) — this file covers the
+backtest.
 
 Reuses `swing-strategy/mtf_candle_cache.json` for stock Daily candles (355
 stocks); fetches its own Nifty 50 Daily benchmark (`nifty_daily_cache.json`,
