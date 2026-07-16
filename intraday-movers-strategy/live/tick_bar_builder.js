@@ -57,6 +57,21 @@ class TickBarBuilder {
     return null;
   }
 
+  /**
+   * Returns the single most recent observed price (the current, possibly
+   * still-forming bar's close) -- the freshest price available at any
+   * moment, more current than even the last CLOSED bar. Used to revise
+   * alert-time entry/stop/target against real price rather than a
+   * theoretical level that may already be stale by dispatch time (see
+   * streamer.js's reviseForLiveExecution) -- built after a real incident
+   * (ITI, 2026-07-16) where the alerted OR-boundary entry was already far
+   * behind actual price, and even the reported target had effectively
+   * already been hit before the alert was ever sent.
+   */
+  getLivePrice() {
+    return this.forming ? this.forming.close : null;
+  }
+
   /** Force-closes the current forming bar if its minute has fully elapsed per wall clock, even with no new tick since -- needed for EOD and illiquid-minute gaps. Call periodically. */
   flushIfStale(nowMs) {
     if (!this.forming) return null;

@@ -1,12 +1,15 @@
 'use strict';
 
 /**
- * Live intraday streamer for the Opening Range Breakout strategy (30x
- * volume confirmation, 2% target, 2% structural stop cap — the same
- * validated settings as the backtest). Connects to Upstox's official V3
- * market-data WebSocket feed and builds 1-minute OHLCV bars ITSELF from
- * raw LTPC ticks (see tick_bar_builder.js), then feeds them into one
- * ORBSymbolTracker per stock.
+ * Live intraday streamer for the Opening Range Breakout strategy — 30x
+ * volume confirmation, VWAP + Bollinger-middle-band trend confirmation,
+ * 2% structural stop cap, and a dynamic Bollinger-Band-hugging exit (no
+ * fixed target). See orb_engine.js for the full rules and the backtest
+ * that validated this combination (526 trades, 77.8% net win, +0.699%
+ * net avg — up from the original fixed-target version's 62.8%/+0.433%).
+ * Connects to Upstox's official V3 market-data WebSocket feed and builds
+ * 1-minute OHLCV bars ITSELF from raw LTPC ticks (see tick_bar_builder.js),
+ * then feeds them into one ORBSymbolTracker per stock.
  *
  * Does NOT use Upstox's own pre-aggregated `marketOHLC` "I1" candle field
  * — live-diagnosed (2026-07-15) to lag their own tick stream by anywhere
@@ -14,6 +17,11 @@
  * breakout at 09:42 wasn't alerted until 13:36 that day). The connection
  * itself was never the problem — LTPC.ltt tracked wall-clock closely the
  * whole time — only Upstox's server-side candle aggregation lagged.
+ *
+ * Also revises entry/stop against the freshest real price at alert-
+ * dispatch time (see execution_revision.js) — built after a real
+ * incident (ITI, 2026-07-16) where the theoretical OR-boundary entry was
+ * already far behind actual price by the time the alert sent.
  *
  * No live orders placed. Alert-only.
  *
@@ -26,6 +34,7 @@ const path = require('path');
 
 const { ORBSymbolTracker } = require('./orb_engine');
 const { TickBarBuilder } = require('./tick_bar_builder');
+const { reviseEntryForLiveExecution, reviseExitForLiveExecution } = require('./execution_revision');
 const { syncTradeLogFromRemote, recordTrade, pushTradeLogToGitHub } = require('./trade_log');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
@@ -58,6 +67,7 @@ const FLUSH_POLL_MS = 15 * 1000; // how often to force-close forming bars whose 
 let protobufRoot = null;
 const trackers = {}; // symbol -> ORBSymbolTracker
 const tickBuilders = {}; // symbol -> TickBarBuilder
+const revisedPositions = {}; // symbol -> { entry, stop, direction } -- the REAL numbers actually alerted, used for honest exit P&L
 
 async function getMarketFeedUrl() {
   const res = await fetch(AUTHORIZE_URL, {
@@ -124,32 +134,43 @@ async function sendTelegramAlert(text) {
   }
 }
 
-function formatEntryAlert(e) {
+function formatEntryAlert(e, revision) {
   const obLine =
     e.obImbalance != null
       ? `Order book: TBQ ${e.tbq} / TSQ ${e.tsq} (${(e.obImbalance * 100).toFixed(0)}% buy-side) — logged only, not used for entry`
       : 'Order book: n/a';
+  const driftLine =
+    Math.abs(revision.driftPct) >= 0.05
+      ? `⚠️ Price moved ${revision.driftPct >= 0 ? '+' : ''}${revision.driftPct.toFixed(2)}% from the breakout level (${revision.theoreticalEntry.toFixed(2)}) before this alert sent — entry/stop below are revised to real price.`
+      : `Breakout level: ${revision.theoreticalEntry.toFixed(2)} (negligible drift, entry matches closely)`;
+  const stopLine = revision.usedFallbackStop
+    ? `Stop-loss: ${revision.stop.toFixed(2)} (structural stop too wide after drift — using 2% cap instead)`
+    : `Stop-loss: ${revision.stop.toFixed(2)} (structural, opposite side of opening range)`;
+  const vs = e.direction === 'LONG' ? 'above' : 'below';
+  const confirmLine = `Confirmed: ${vs} VWAP (${e.vwap.toFixed(2)}) and ${vs} 20 SMA / Bollinger middle band (${e.bbMiddle.toFixed(2)})`;
   return [
     '[ORB STRATEGY] New position entered',
     `Stock: ${e.symbol}`,
     `Direction: ${e.direction}`,
-    `Entry: ${e.entry.toFixed(2)}`,
-    `Stop-loss: ${e.stop.toFixed(2)}`,
-    `Target: ${e.target.toFixed(2)}`,
+    driftLine,
+    `Entry: ${revision.entry.toFixed(2)}`,
+    stopLine,
+    'Target: dynamic — no fixed target, trails via Bollinger Band hugging exit',
+    confirmLine,
     `Breakout volume: ${e.volumeRatio.toFixed(1)}x opening-range average`,
     obLine,
     '(Intraday, squares off by close. Alert only — no order placed.)',
   ].join('\n');
 }
 
-function formatExitAlert(e) {
-  const pnlStr = (e.pnlPct >= 0 ? '+' : '') + e.pnlPct.toFixed(2) + '%';
+function formatExitAlert(e, revision) {
+  const pnlStr = (revision.pnlPct >= 0 ? '+' : '') + revision.pnlPct.toFixed(2) + '%';
   return [
     '[ORB STRATEGY] Position closed',
     `Stock: ${e.symbol}`,
     `Direction: ${e.direction}`,
-    `Entry: ${e.entry.toFixed(2)}`,
-    `Exit: ${e.exitPrice.toFixed(2)} (${e.action})`,
+    `Entry: ${revision.entry.toFixed(2)}`,
+    `Exit: ${revision.exitPrice.toFixed(2)} (${e.action}, real price at detection — not the stale trigger level)`,
     `Stop-loss was: ${e.stop.toFixed(2)}`,
     `P&L: ${pnlStr}`,
   ].join('\n');
@@ -164,10 +185,15 @@ function handleBar(symbol, bar) {
   const tracker = getOrCreateTracker(symbol);
   const events = tracker.onNewBar(bar);
   for (const e of events) {
-    if (e.type === 'ENTRY') sendTelegramAlert(formatEntryAlert(e));
-    else if (e.type === 'EXIT') {
-      sendTelegramAlert(formatExitAlert(e));
-      recordTrade(e);
+    if (e.type === 'ENTRY') {
+      const revision = reviseEntryForLiveExecution(e, tickBuilders[symbol]);
+      revisedPositions[symbol] = { entry: revision.entry, stop: revision.stop, direction: e.direction };
+      sendTelegramAlert(formatEntryAlert(e, revision));
+    } else if (e.type === 'EXIT') {
+      const revision = reviseExitForLiveExecution(e, tickBuilders[symbol], revisedPositions[symbol]);
+      sendTelegramAlert(formatExitAlert(e, revision));
+      recordTrade({ ...e, entry: revision.entry, exitPrice: revision.exitPrice, pnlPct: revision.pnlPct });
+      delete revisedPositions[symbol];
     }
   }
 }

@@ -71,7 +71,6 @@ function recordTrade(exitEvent) {
     direction: exitEvent.direction,
     entry: exitEvent.entry,
     stop: exitEvent.stop,
-    target: exitEvent.target,
     tbq: exitEvent.tbq ?? null,
     tsq: exitEvent.tsq ?? null,
     obImbalance: exitEvent.obImbalance ?? null,
