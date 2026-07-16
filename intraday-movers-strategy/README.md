@@ -12,12 +12,45 @@ WebSocket/Telegram pattern as the EMA scalp live streamer: connects to
 Upstox's V3 market-data feed, decodes real 1-minute bars (no 5-min
 aggregation — ORB needs raw 1-min, matching the backtest exactly), and runs
 one `ORBSymbolTracker` per stock (`live/orb_engine.js`) — opening-range
-computation, volume-confirmed breakout detection, target/stop/EOD-square-off
-tracking, one trade per stock per day. Verified against synthetic bar
-sequences (entry, target-hit, one-trade-per-day, day-rollover safety net)
-before deploying. Telegram alerts fire on entry (stock, direction, entry,
-stop-loss, target, breakout volume ratio) and exit (stock, direction, entry,
-exit, stop-loss, P&L) — alert only, no orders placed.
+computation, volume-confirmed breakout detection, one trade per stock per
+day. As of the 2026-07-16 upgrade (see below) there is no fixed target —
+exits are dynamic (Bollinger-Band-hugging or stop), and no new entries fire
+after 15:15 IST. Verified against synthetic bar sequences and a real
+historical-trade replay before deploying. Telegram alerts fire on entry
+(stock, direction, real-price-revised entry, stop-loss, breakout volume
+ratio, VWAP/Bollinger confirmation) and exit (stock, direction, entry, exit,
+P&L) — alert only, no orders placed.
+
+## Live upgrade (2026-07-16): stale-entry fix, VWAP + Bollinger Bands
+
+Two real production issues motivated this upgrade:
+
+1. **ITI incident** — an alert reported entry at the OR-boundary (287.40),
+   but by dispatch time the real price had already run ~5.6% past it on a
+   fast, explosive breakout, so the alerted entry was stale before the
+   message even sent. Fixed with `live/execution_revision.js`: entry/exit
+   are now revised against the freshest real observed price
+   (`tickBuilder.getLivePrice()`) at alert time, not the theoretical
+   OR-boundary. The stop keeps the structural level (opposite side of the
+   OR) if it's still within the strategy's own validated 2% cap from the
+   real entry, else falls back to a plain 2%-from-entry stop.
+2. **The fixed 2% target was leaving real edge on the table** — validated by
+   testing 3 concepts from a Bollinger-Bands-strategy source
+   (`scan_orb_bb_enhanced.js`) against ORB's own ambiguous entry/exit
+   points: VWAP confirmation, Bollinger middle-band (20 SMA) trend
+   confirmation, and a real Bollinger-Band-hugging exit (stay in while price
+   keeps touching the outer band; exit the moment a bar fails to). Also
+   added: no new entries after 15:15 IST (too little session left for a
+   hugging exit to develop before EOD square-off). Re-validated on the same
+   60-day/158-stock dataset: **526 trades, 77.8% net win, +0.699% net avg
+   P&L** — up from the original 814/62.8%/+0.433%. Cross-validated: a real
+   trade's actual 1-minute bars were replayed through the live
+   `ORBSymbolTracker` and matched the backtest exactly, to the full
+   floating-point digit.
+
+The original fixed-target 30x/2%/2% numbers throughout the rest of this
+README describe the backtest that was superseded by this upgrade — kept
+below as the documented baseline the upgrade was measured against.
 
 ## The honest starting point
 
@@ -176,3 +209,6 @@ will have very few or zero qualifying setups, others several.
 | `scan_today.js` | Runs the final recommended settings (30x/2%/2%) against a single specific day — `SCAN_DATE=YYYY-MM-DD node scan_today.js` |
 | `intraday_1min_cache.json` | Cached 1-minute candles for the 158-stock universe (gitignored, regeneratable) |
 | `trades_orb.json` | Full trade-level output of the last `scan_orb.js` run |
+| `scan_orb_bb_enhanced.js` | The VWAP + Bollinger Bands upgrade backtest — env vars `USE_VWAP_FILTER`, `USE_BB_TREND_FILTER`, `USE_BB_HUGGING_EXIT` (the validated combination), also `USE_TRAILING_EXIT`/`USE_EXTREME_EXIT` from earlier proxy iterations kept for reference |
+| `trades_orb_bb_enhanced.json` | Full trade-level output of the last `scan_orb_bb_enhanced.js` run (526 trades) |
+| `live/execution_revision.js` | Revises alerted entry/exit against the freshest real observed price — the ITI-incident fix |
