@@ -68,9 +68,13 @@ upstox:
   circuit-breaker-limit: 2   # pause after 2 consecutive stop-losses
 
 # CSV trade log (live + shadow trades) — see TradeLog.java for the durability caveat
-# on platforms without a persistent volume (e.g. Railway).
+# on platforms without a persistent volume (e.g. Railway). TradeLogGitSync commits
+# this file to GitHub once daily (15:35 IST) so it survives redeploys.
 tradelog:
   path: ${TRADELOG_PATH:trades.csv}
+
+github:
+  token: ${GITHUB_TOKEN:}
 
 # ── Daily Market Bulletin ─────────────────────────────────────────────────────
 # Sent every day at 7:30 AM IST via Telegram.
