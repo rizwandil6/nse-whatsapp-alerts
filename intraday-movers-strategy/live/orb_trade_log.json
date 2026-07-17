@@ -373,5 +373,33 @@
   "pnlPct": 2.000000000000009,
   "entryTimestampMs": 1784194020000,
   "exitTimestampMs": 1784195940000
+ },
+ {
+  "symbol": "INDHOTEL",
+  "direction": "SHORT",
+  "entry": 727.35,
+  "stop": 735.9,
+  "tbq": 210789,
+  "tsq": 280844,
+  "obImbalance": 0.42875274849328665,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 728.3,
+  "pnlPct": -0.13061112256821775,
+  "entryTimestampMs": 1784275140000,
+  "exitTimestampMs": 1784275260000
+ },
+ {
+  "symbol": "HAVELLS",
+  "direction": "SHORT",
+  "entry": 1153.1,
+  "stop": 1174,
+  "tbq": 99915,
+  "tsq": 139944,
+  "obImbalance": 0.41655722737108053,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 1145.8,
+  "pnlPct": 0.6330760558494454,
+  "entryTimestampMs": 1784278080000,
+  "exitTimestampMs": 1784278380000
  }
 ]
