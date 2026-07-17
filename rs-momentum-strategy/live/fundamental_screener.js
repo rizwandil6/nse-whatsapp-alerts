@@ -52,8 +52,30 @@ function cookieHeader(cookies) {
   return Object.entries(cookies).map(([k, v]) => `${k}=${v}`).join('; ');
 }
 
+/**
+ * Retries a fetch on transient network failures (ETIMEDOUT, ECONNRESET,
+ * etc.) — real incidents (multibagger-screener and rs-momentum-strategy-
+ * live, both 2026-07-17) showed a single dropped connection to Screener.in
+ * during login aborting an ENTIRE daily run, costing a full day's scan
+ * (or worse, multiple consecutive days) over what was almost certainly a
+ * one-off network blip, not a persistent outage. Does not retry on a
+ * successful HTTP response with an error status (4xx/5xx) — only on the
+ * fetch itself throwing, which is what ETIMEDOUT does.
+ */
+async function fetchWithRetry(url, options, retries = 3, delayMs = 3000) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await fetch(url, options);
+    } catch (e) {
+      if (attempt === retries) throw e;
+      console.warn(`  [Screener.in] fetch failed (attempt ${attempt}/${retries}): ${e.message} — retrying in ${delayMs}ms...`);
+      await new Promise((r) => setTimeout(r, delayMs));
+    }
+  }
+}
+
 async function loginToScreener(username, password) {
-  const loginPageRes = await fetch(LOGIN_URL, { headers: { 'User-Agent': USER_AGENT } });
+  const loginPageRes = await fetchWithRetry(LOGIN_URL, { headers: { 'User-Agent': USER_AGENT } });
   const loginPageHtml = await loginPageRes.text();
   const $ = cheerio.load(loginPageHtml);
   const csrfToken = $('input[name=csrfmiddlewaretoken]').attr('value');
@@ -61,7 +83,7 @@ async function loginToScreener(username, password) {
   const initialCookies = parseSetCookie(loginPageRes);
 
   const body = new URLSearchParams({ username, password, csrfmiddlewaretoken: csrfToken, next: '/' });
-  const loginRes = await fetch(LOGIN_URL, {
+  const loginRes = await fetchWithRetry(LOGIN_URL, {
     method: 'POST',
     headers: {
       'User-Agent': USER_AGENT,
