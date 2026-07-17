@@ -32,7 +32,7 @@ const WebSocket = require('ws');
 const protobuf = require('protobufjs');
 const path = require('path');
 
-const { ORBSymbolTracker } = require('./orb_engine');
+const { ORBSymbolTracker, MARKET_OPEN_MIN, OR_END_MIN } = require('./orb_engine');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { reviseEntryForLiveExecution, reviseExitForLiveExecution } = require('./execution_revision');
 const { syncTradeLogFromRemote, recordTrade, pushTradeLogToGitHub } = require('./trade_log');
@@ -182,6 +182,75 @@ function getOrCreateTracker(symbol) {
   return trackers[symbol];
 }
 
+const HISTORICAL_INTRADAY_BASE = 'https://api.upstox.com/v3/historical-candle/intraday';
+const BACKFILL_DELAY_MS = 250; // pacing between REST calls at startup, avoids hitting Upstox rate limits across 158 stocks
+
+async function fetchTodaysOneMinCandles(instrumentKey) {
+  const url = `${HISTORICAL_INTRADAY_BASE}/${encodeURIComponent(instrumentKey)}/minutes/1`;
+  const res = await fetch(url, { headers: { Authorization: `Bearer ${UPSTOX_TOKEN}`, Accept: 'application/json' } });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const body = await res.json();
+  if (body.status !== 'success') throw new Error(`Upstox status: ${body.status}`);
+  return (body.data.candles || [])
+    .map((c) => ({ timestampMs: new Date(c[0]).getTime(), open: c[1], high: c[2], low: c[3], close: c[4], volume: c[5] }))
+    .sort((a, b) => a.timestampMs - b.timestampMs);
+}
+
+/**
+ * One-time startup recovery for a mid-day restart. A freshly created
+ * ORBSymbolTracker has no memory of today's session — if the streamer
+ * restarts after 9:30 IST, orHigh/orLow stay null forever and entries are
+ * silently disabled for the rest of the day (the 2026-07-17 mid-day-
+ * restart incident this was built to fix). Also loses the VWAP/Bollinger
+ * warm-up (needs 20 bars) and same-day dedup (tradedToday), so even a
+ * fix scoped to just the opening range would leave the tracker running on
+ * incomplete state for a while after restart.
+ *
+ * Fetches each symbol's REAL today-so-far 1-min candles via Upstox's REST
+ * intraday endpoint and replays all of them (9:15 IST through just before
+ * now) through the tracker's normal onNewBar() path — the exact same
+ * code a live bar would go through, so OR/VWAP/BB/position state end up
+ * identical to what they'd be if the process had simply run continuously.
+ * Deliberately DISCARDS any ENTRY/EXIT events this replay produces —
+ * never sends an alert or writes a trade-log line for them. A trade that
+ * fully happened and closed during the outage is unrecoverable at its
+ * real price by definition, and alerting on it hours late would be
+ * exactly the kind of stale/misleading notification this project has
+ * already fixed twice this week (see execution_revision.js). The point
+ * here is only to make the tracker's internal state correct going
+ * forward — genuinely new breakouts detected on live ticks after this
+ * completes alert normally, through the regular handleBar() path.
+ */
+async function backfillTodaySessionIfNeeded() {
+  const { minutesOfDay } = istMinutesAndDate();
+  if (minutesOfDay < OR_END_MIN) {
+    console.log('Started before the OR window closed — no backfill needed, building OR live as normal.');
+    return;
+  }
+  const symbols = Object.entries(symbolMap);
+  console.log(`Started after OR close (minute ${minutesOfDay} > ${OR_END_MIN}) — backfilling today's session for ${symbols.length} stocks so OR/VWAP/BB state isn't silently empty for the rest of the day...`);
+  let recovered = 0, alreadyTradedToday = 0, failed = 0;
+  for (const [symbol, instrumentKey] of symbols) {
+    try {
+      const candles = await fetchTodaysOneMinCandles(instrumentKey);
+      const todaySoFar = candles.filter((c) => {
+        const ist = new Date(c.timestampMs + IST_OFFSET_MS);
+        const m = ist.getUTCHours() * 60 + ist.getUTCMinutes();
+        return m >= MARKET_OPEN_MIN && m < minutesOfDay;
+      });
+      const tracker = getOrCreateTracker(symbol);
+      for (const bar of todaySoFar) tracker.onNewBar(bar); // events discarded on purpose — see docstring above
+      if (todaySoFar.length > 0) recovered++;
+      if (tracker.tradedToday) alreadyTradedToday++;
+    } catch (e) {
+      failed++;
+      console.warn(`  Backfill failed for ${symbol}: ${e.message}`);
+    }
+    await new Promise((r) => setTimeout(r, BACKFILL_DELAY_MS));
+  }
+  console.log(`Backfill complete: ${recovered}/${symbols.length} stocks recovered today's session state (${alreadyTradedToday} already had their one trade for today, won't re-enter). ${failed} failed to fetch and will build OR live from here instead.`);
+}
+
 function handleBar(symbol, bar) {
   const tracker = getOrCreateTracker(symbol);
   const events = tracker.onNewBar(bar);
@@ -318,6 +387,7 @@ async function main() {
   console.log('Initializing protobuf schema...');
   await initProtobuf();
   await syncTradeLogFromRemote();
+  await backfillTodaySessionIfNeeded();
   scheduleDailyTradeLogPush();
   scheduleBarFlush();
 

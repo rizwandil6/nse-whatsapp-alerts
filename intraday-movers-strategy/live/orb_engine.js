@@ -249,4 +249,4 @@ class ORBSymbolTracker {
   }
 }
 
-module.exports = { ORBSymbolTracker, OR_MINUTES, MAX_STOP_PCT, VOLUME_MULT, BB_PERIOD, BB_STDDEV_MULT };
+module.exports = { ORBSymbolTracker, OR_MINUTES, MAX_STOP_PCT, VOLUME_MULT, BB_PERIOD, BB_STDDEV_MULT, MARKET_OPEN_MIN, OR_END_MIN };
