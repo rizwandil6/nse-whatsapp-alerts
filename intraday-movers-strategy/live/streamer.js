@@ -139,10 +139,11 @@ function formatEntryAlert(e, revision) {
     e.obImbalance != null
       ? `Order book: TBQ ${e.tbq} / TSQ ${e.tsq} (${(e.obImbalance * 100).toFixed(0)}% buy-side) — logged only, not used for entry`
       : 'Order book: n/a';
-  const driftLine =
-    Math.abs(revision.driftPct) >= 0.05
+  const driftLine = !revision.livePriceAvailable
+    ? `⚠️ No live price available (feed stale/quiet) — entry below is the unverified theoretical breakout level (${revision.theoreticalEntry.toFixed(2)}). Verify the real price manually before acting.`
+    : Math.abs(revision.driftPct) >= 0.05
       ? `⚠️ Price moved ${revision.driftPct >= 0 ? '+' : ''}${revision.driftPct.toFixed(2)}% from the breakout level (${revision.theoreticalEntry.toFixed(2)}) before this alert sent — entry/stop below are revised to real price.`
-      : `Breakout level: ${revision.theoreticalEntry.toFixed(2)} (negligible drift, entry matches closely)`;
+      : `Breakout level: ${revision.theoreticalEntry.toFixed(2)} (verified — negligible drift, entry matches closely)`;
   const stopLine = revision.usedFallbackStop
     ? `Stop-loss: ${revision.stop.toFixed(2)} (structural stop too wide after drift — using 2% cap instead)`
     : `Stop-loss: ${revision.stop.toFixed(2)} (structural, opposite side of opening range)`;

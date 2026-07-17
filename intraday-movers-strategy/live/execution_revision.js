@@ -34,7 +34,8 @@ const MAX_STOP_PCT = 0.02;
  */
 function reviseEntryForLiveExecution(event, tickBuilder) {
   const livePrice = tickBuilder && typeof tickBuilder.getLivePrice === 'function' ? tickBuilder.getLivePrice() : null;
-  const realEntry = livePrice != null ? livePrice : event.entry;
+  const livePriceAvailable = livePrice != null;
+  const realEntry = livePriceAvailable ? livePrice : event.entry;
   const { direction, stop: structuralStop } = event;
 
   let revisedStop;
@@ -57,6 +58,7 @@ function reviseEntryForLiveExecution(event, tickBuilder) {
     stop: revisedStop,
     driftPct,
     usedFallbackStop,
+    livePriceAvailable,
   };
 }
 
