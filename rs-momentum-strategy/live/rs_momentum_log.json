@@ -30,5 +30,23 @@
   "price": 574.4,
   "rsRankAtEntry": 82.19584569732937,
   "salesGrowth3Y": 36
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "BIOCON",
+  "date": "2026-07-16",
+  "price": 437.2,
+  "rsRankAtEntry": 81.31,
+  "salesGrowth3Y": 15,
+  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "EMCURE",
+  "date": "2026-07-16",
+  "price": 1783.2,
+  "rsRankAtEntry": 81.01,
+  "salesGrowth3Y": 15,
+  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
  }
 ]
