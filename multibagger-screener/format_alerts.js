@@ -33,7 +33,7 @@ function formatNewCandidateAlert(symbol, r) {
     `ROCE: ${fmtPct(r.roce)} (need >15%) ${mark(r.checks.roce)}`,
     `Debt/Equity: ${fmtNum(r.debtToEquity)} (need <0.5) ${mark(r.checks.debtToEquity)}`,
     `Promoter: ${fmtPct(r.promoterPct)} (need >50%) ${mark(r.checks.promoterPct)}`,
-    `Sales Gr 3Y: ${fmtPct(r.salesGrowth3Y)} (need >15%) ${mark(r.checks.salesGrowth3Y)}`,
+    `Sales Gr 3Y: ${fmtPct(r.salesGrowth3Y)} (need >=15%) ${mark(r.checks.salesGrowth3Y)}`,
     `Profit Gr 5Y: ${fmtPct(r.profitGrowth5Y)} (need >15%) ${mark(r.checks.profitGrowth5Y)}`,
     'Pledged: unavailable (not checked — see README)',
     `OPM: ${fmtPct(r.opmPct)} (need >15%) ${mark(r.checks.opmPct)}`,

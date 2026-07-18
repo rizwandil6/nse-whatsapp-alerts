@@ -12,7 +12,7 @@
  * Flow: sync state from GitHub -> fetch fresh ~14mo Nifty+universe data ->
  * compute today's RS ranks -> diff against tracked positions (new RS>=80
  * crossings, existing positions whose rank dropped below 50) -> gate new
- * candidates on Sales Growth 3Y >15% via Screener.in (the source's
+ * candidates on Sales Growth 3Y >=15% via Screener.in (the source's
  * fundamental confirmation, live-only per the backtest's documented
  * limitation — Screener.in has no historical point-in-time data) -> alert
  * on Telegram -> persist state.
@@ -75,7 +75,7 @@ function formatEntryAlert(c, fundamentals) {
     `Stock: ${c.symbol}${fundamentals.companyName ? ' (' + fundamentals.companyName + ')' : ''}`,
     `Entry: ₹${c.price.toFixed(2)}`,
     `RS Rank: ${c.rsRankAtEntry.toFixed(1)}/100 (>=80 required)`,
-    `Sales Growth 3Y: ${fundamentals.salesGrowth3Y}% (>15% required)`,
+    `Sales Growth 3Y: ${fundamentals.salesGrowth3Y}% (>=15% required)`,
     `Sector: ${fundamentals.sectorTags?.Industry || 'n/a'}`,
     'No fixed target/stop — holds while RS rank stays >=50, exits on relative weakness.',
     '(Positional, 1-2yr horizon. Alert only — no order placed.)',
@@ -129,7 +129,7 @@ async function runOnce() {
             console.log(`  ${c.symbol}: could not fetch fundamentals, skipping.`);
             continue;
           }
-          if (fundamentals.salesGrowth3Y == null || fundamentals.salesGrowth3Y <= SALES_GROWTH_MIN_PCT) {
+          if (fundamentals.salesGrowth3Y == null || fundamentals.salesGrowth3Y < SALES_GROWTH_MIN_PCT) {
             console.log(`  ${c.symbol}: RS>=80 but Sales Growth 3Y (${fundamentals.salesGrowth3Y}%) doesn't clear ${SALES_GROWTH_MIN_PCT}% — not tracked.`);
             continue;
           }

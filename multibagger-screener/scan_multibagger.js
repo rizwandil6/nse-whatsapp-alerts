@@ -110,7 +110,7 @@ function checkQualification(r, sectorAvgPe) {
   checks.roce = r.roce != null && r.roce > THRESHOLDS.roce.min;
   checks.debtToEquity = r.debtToEquity != null && r.debtToEquity < THRESHOLDS.debtToEquity.max;
   checks.promoterPct = r.promoterPct != null && r.promoterPct > THRESHOLDS.promoterPct.min;
-  checks.salesGrowth3Y = r.salesGrowth3Y != null && r.salesGrowth3Y > THRESHOLDS.salesGrowth3Y.min;
+  checks.salesGrowth3Y = r.salesGrowth3Y != null && r.salesGrowth3Y >= THRESHOLDS.salesGrowth3Y.min;
   checks.profitGrowth5Y = r.profitGrowth5Y != null && r.profitGrowth5Y > THRESHOLDS.profitGrowth5Y.min;
   checks.opmPct = r.opmPct != null && r.opmPct > THRESHOLDS.opmPct.min;
   checks.priceToSales = r.priceToSales != null && r.priceToSales < THRESHOLDS.priceToSales.max;
