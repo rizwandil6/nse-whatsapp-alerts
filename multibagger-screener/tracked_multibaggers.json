@@ -351,5 +351,76 @@
    },
    "qualifies": true
   }
+ },
+ "CRIZAC": {
+  "firstQualified": "2026-07-18",
+  "priceAtQualification": 186,
+  "lastChecked": "2026-07-18",
+  "lastChecks": {
+   "halalBusiness": true,
+   "halalDebt": true,
+   "marketCapCr": true,
+   "peg": true,
+   "peVsIndustry": true,
+   "roe": true,
+   "roce": true,
+   "debtToEquity": true,
+   "promoterPct": true,
+   "salesGrowth3Y": true,
+   "profitGrowth5Y": true,
+   "opmPct": true,
+   "priceToSales": true,
+   "evToEbitda": true
+  },
+  "lastData": {
+   "symbol": "CRIZAC",
+   "companyName": "Crizac Ltd",
+   "sectorTags": {
+    "Broad Sector": "Consumer Discretionary",
+    "Sector": "Consumer Services",
+    "Broad Industry": "Retailing",
+    "Industry": "Internet & Catalogue Retail"
+   },
+   "halalBusiness": true,
+   "halalBusinessReason": null,
+   "marketCapCr": 3250,
+   "pe": 14.8,
+   "roe": 40.3,
+   "roce": 52.3,
+   "bookValue": 33.4,
+   "currentPrice": 186,
+   "promoterPct": 79.94,
+   "salesGrowth3Y": 30,
+   "profitGrowth5Y": 60,
+   "opmPct": 24,
+   "totalDebtCr": 2,
+   "reservesCr": 550,
+   "totalAssetsCr": 876,
+   "debtToEquity": 0.0036363636363636364,
+   "debtToAssetsPct": 0.228310502283105,
+   "ttmSalesCr": 1043,
+   "priceToSales": 3.11601150527325,
+   "evToEbitda": 12.991371045062321,
+   "peg": 0.24666666666666667,
+   "pledgePct": null,
+   "industryPe": 307.26250000000005,
+   "checks": {
+    "halalBusiness": true,
+    "halalDebt": true,
+    "marketCapCr": true,
+    "peg": true,
+    "peVsIndustry": true,
+    "roe": true,
+    "roce": true,
+    "debtToEquity": true,
+    "promoterPct": true,
+    "salesGrowth3Y": true,
+    "profitGrowth5Y": true,
+    "opmPct": true,
+    "priceToSales": true,
+    "evToEbitda": true
+   },
+   "qualifies": true
+  }
  }
 }
