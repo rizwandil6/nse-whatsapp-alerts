@@ -280,5 +280,76 @@
    },
    "qualifies": true
   }
+ },
+ "WAAREEENER": {
+  "firstQualified": "2026-07-18",
+  "priceAtQualification": 2841,
+  "lastChecked": "2026-07-18",
+  "lastChecks": {
+   "halalBusiness": true,
+   "halalDebt": true,
+   "marketCapCr": true,
+   "peg": true,
+   "peVsIndustry": true,
+   "roe": true,
+   "roce": true,
+   "debtToEquity": true,
+   "promoterPct": true,
+   "salesGrowth3Y": true,
+   "profitGrowth5Y": true,
+   "opmPct": true,
+   "priceToSales": true,
+   "evToEbitda": true
+  },
+  "lastData": {
+   "symbol": "WAAREEENER",
+   "companyName": "Waaree Energies Ltd",
+   "sectorTags": {
+    "Broad Sector": "Industrials",
+    "Sector": "Capital Goods",
+    "Broad Industry": "Electrical Equipment",
+    "Industry": "Other Electrical Equipment"
+   },
+   "halalBusiness": true,
+   "halalBusinessReason": null,
+   "marketCapCr": 81713,
+   "pe": 20.8,
+   "roe": 32.8,
+   "roce": 38.8,
+   "bookValue": 502,
+   "currentPrice": 2841,
+   "promoterPct": 64.12,
+   "salesGrowth3Y": 58,
+   "profitGrowth5Y": 143,
+   "opmPct": 19,
+   "totalDebtCr": 3213,
+   "reservesCr": 14150,
+   "totalAssetsCr": 30115,
+   "debtToEquity": 0.22706713780918727,
+   "debtToAssetsPct": 10.669101776523329,
+   "ttmSalesCr": 26537,
+   "priceToSales": 3.0792101594000827,
+   "evToEbitda": 16.84361259254705,
+   "peg": 0.14545454545454545,
+   "pledgePct": null,
+   "industryPe": 66.10145833333335,
+   "checks": {
+    "halalBusiness": true,
+    "halalDebt": true,
+    "marketCapCr": true,
+    "peg": true,
+    "peVsIndustry": true,
+    "roe": true,
+    "roce": true,
+    "debtToEquity": true,
+    "promoterPct": true,
+    "salesGrowth3Y": true,
+    "profitGrowth5Y": true,
+    "opmPct": true,
+    "priceToSales": true,
+    "evToEbitda": true
+   },
+   "qualifies": true
+  }
  }
 }
