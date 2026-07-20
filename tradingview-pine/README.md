@@ -147,3 +147,28 @@ intrabar trail. It's accurate when the chart itself is 15m/5m, which is
 what the Breakout and Reversal setups are designed for. If the Pine
 Editor throws a compile error on paste, report the exact error back for
 a fix.
+
+## BB Intraday Equity Strategy — `bb_intraday_equity.pine`
+
+The intraday-only subset of `bb_options_strategy.pine`, for trading the
+equity/stock itself (buy/sell shares) rather than options. Requested
+specifically to strip out anything not intraday — so the Swing setup
+(Daily chart, held for days, per the source notes) is dropped entirely.
+What's left is exactly the source's intraday material:
+
+- **Intraday Breakout / Bottle Neck** (15m/5m) — same squeeze +
+  directional-break entry as the options version.
+- **Reversal** (gap/VWAP fade) — same gap-then-VWAP-reclaim entry, same
+  optional informational 9 EMA `Early?` marker.
+- Same exits: band-hugging loss, extreme-candle exhaustion, 15-minute
+  trailing stop.
+
+Functionally these calculations are identical to the corresponding
+sections of the options version — the underlying price chart doesn't
+change based on whether you click Buy on shares or an option contract.
+This file exists so the indicator's input list and status table only
+show what's actually relevant when you're not doing swing trades at all.
+
+Same undefined-in-source → operationalized-input table applies (see
+above). Same untested caveat applies — not compiled, manually reviewed
+only; report the exact compile error if TradingView's editor throws one.

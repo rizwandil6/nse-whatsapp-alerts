@@ -1,0 +1,285 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0
+//@version=6
+indicator("BB Intraday Equity Strategy — Bottle Neck Breakout & VWAP Reversal", shorttitle = "BB Intraday Equity", overlay = true, max_labels_count = 500, max_lines_count = 200)
+
+// =====================================================================
+// Intraday-only subset of bb_options_strategy.pine, for trading the
+// equity/stock itself (buy/sell shares) rather than options. The
+// source notes' Swing Trade setup (Daily chart, pullback-to-20SMA,
+// held for days) is deliberately dropped here — it isn't an intraday
+// rule, so it doesn't belong in an intraday-only tool. Everything below
+// is the source's intraday material only:
+//   - Intraday Breakout ("bottle neck" squeeze) entry, 15m/5m
+//   - Gap/VWAP Reversal fade entry
+//   - Band-hugging exit, extreme-candle exit, 15m-candle trailing stop
+// Same underlying calculations as the options version — the chart is
+// the equity's price either way, only the framing (shares vs. options
+// contracts) changes with what you actually click Buy/Sell on in your
+// broker.
+//
+// The source doc left some of this undefined (exact "bottle neck"
+// width, "decreasing volume" threshold, band-hugging distance,
+// "exceptionally large candle" size, 9 EMA confirmation). Each is an
+// explicit adjustable input rather than a hardcoded guess — see the
+// tooltips and bb_options_strategy.pine's README section for the full
+// list of what was operationalized and why.
+//
+// Untested — no Pine Script compiler available in this environment.
+// Written against known-correct Pine v6 patterns, manually re-checked
+// line by line for signature/type errors, but not compiled in
+// TradingView. If it throws a compile error on paste, report the exact
+// error back for a fix.
+// =====================================================================
+
+// ---------------------------------------------------------------------
+// INPUTS
+// ---------------------------------------------------------------------
+grpCore = "Core Indicators"
+bbLen    = input.int(20, "Bollinger Band Length", minval = 2, group = grpCore)
+bbMult   = input.float(2.0, "Bollinger Band StdDev Mult", minval = 0.1, step = 0.1, group = grpCore)
+ema9Len  = input.int(9, "EMA Length (early-entry helper)", minval = 1, group = grpCore)
+atrLen   = input.int(14, "ATR Length", minval = 1, group = grpCore)
+showBands = input.bool(true, "Plot Bollinger Bands", group = grpCore)
+showVwapEma = input.bool(true, "Plot VWAP / 9 EMA", group = grpCore)
+
+grpBreak = "Intraday Breakout / Bottle Neck (15m or 5m)"
+enableBreakout       = input.bool(true, "Enable Breakout Signals", group = grpBreak)
+squeezeLookback      = input.int(100, "Squeeze Percentile Lookback (bars)", minval = 20, group = grpBreak)
+squeezeThreshold     = input.float(20, "Squeeze Threshold (percentile, lower = tighter)", minval = 1, maxval = 100, group = grpBreak,
+     tooltip = "Band width must rank in the bottom X% of its own recent history to count as a 'bottle neck'. Source gives no fixed width — this is an operationalized proxy.")
+squeezeVolFactor     = input.float(0.8, "Squeeze Volume Factor (× 20-bar avg volume)", minval = 0.1, step = 0.1, group = grpBreak,
+     tooltip = "Volume must be below this fraction of its 20-bar average during the squeeze. Source says 'decreasing volume' with no threshold — operationalized proxy.")
+squeezeConfirmWindow = input.int(5, "Breakout Must Occur Within N Bars of Squeeze", minval = 1, group = grpBreak)
+
+grpReversal = "Reversal Setup (Gap Up/Down Fade)"
+enableReversal    = input.bool(true, "Enable Reversal Signals", group = grpReversal)
+gapATRMult        = input.float(0.5, "Min Distance Beyond Band to Count as 'Gap' (× ATR)", minval = 0.05, step = 0.05, group = grpReversal)
+reversalLookback  = input.int(15, "Max Bars to Wait for VWAP Reclaim After Gap", minval = 1, group = grpReversal)
+enable9EMAEarly   = input.bool(true, "Show 9 EMA 'Early?' Marker (informational only)", group = grpReversal,
+     tooltip = "Source mentions the 9 EMA as an optional early-entry tool but gives no confirmation rule. This plots a small informational marker only — it is not a tradeable signal on its own.")
+
+grpExit = "Exit Rules"
+enableBandHugExit    = input.bool(true, "Enable Band-Hugging Exit (Breakout trades)", group = grpExit)
+hugBufferATR         = input.float(0.15, "Band-Hug Buffer (× ATR)", minval = 0.01, step = 0.01, group = grpExit,
+     tooltip = "How far price must move away from the outer band, in ATR terms, before it counts as having 'left' the band. Source describes this visually with no number — operationalized proxy.")
+hugConfirmBars       = input.int(1, "Bars Beyond Buffer to Confirm Exit", minval = 1, group = grpExit)
+enableExtremeExit    = input.bool(true, "Enable Extreme-Candle Exit", group = grpExit)
+extremeMoveATRMult   = input.float(2.5, "Extreme Candle Range (× ATR)", minval = 0.5, step = 0.1, group = grpExit)
+enableTrail15m       = input.bool(true, "Enable 15m-Candle Trailing Stop", group = grpExit,
+     tooltip = "Source rule: trail intraday stops using the low (long) / high (short) of each 15-minute candle, regardless of your current chart timeframe.")
+
+grpStyle = "Label Style"
+lblSize = input.string(size.small, "Label Size", options = [size.tiny, size.small, size.normal, size.large], group = grpStyle)
+showSqueezeBg = input.bool(true, "Highlight Squeeze Background", group = grpStyle)
+
+// ---------------------------------------------------------------------
+// CORE CALCULATIONS
+// ---------------------------------------------------------------------
+sma20   = ta.sma(close, bbLen)
+dev     = bbMult * ta.stdev(close, bbLen)
+upperBB = sma20 + dev
+lowerBB = sma20 - dev
+vwapVal = ta.vwap(hlc3)
+ema9    = ta.ema(close, ema9Len)
+atrVal  = ta.atr(atrLen)
+volSma  = ta.sma(volume, 20)
+
+plot(showBands ? sma20 : na, "20 SMA (Middle Band)", color = color.new(color.orange, 0), linewidth = 1)
+p1 = plot(showBands ? upperBB : na, "Upper Band", color = color.new(color.gray, 30))
+p2 = plot(showBands ? lowerBB : na, "Lower Band", color = color.new(color.gray, 30))
+fill(p1, p2, color = color.new(color.gray, 92))
+plot(showVwapEma ? vwapVal : na, "VWAP", color = color.new(color.blue, 0), linewidth = 2)
+plot(showVwapEma ? ema9 : na, "9 EMA", color = color.new(color.purple, 40))
+
+// ---------------------------------------------------------------------
+// BOTTLE NECK (SQUEEZE) DETECTION
+// ---------------------------------------------------------------------
+bbWidthPct     = (upperBB - lowerBB) / sma20 * 100
+widthPctRank   = ta.percentrank(bbWidthPct, squeezeLookback)
+squeezeNow     = widthPctRank <= squeezeThreshold and volume < volSma * squeezeVolFactor
+barsSinceSqueeze = ta.barssince(squeezeNow)
+recentSqueeze  = not na(barsSinceSqueeze) and barsSinceSqueeze <= squeezeConfirmWindow
+
+bgcolor(showSqueezeBg and squeezeNow ? color.new(color.yellow, 85) : na, title = "Squeeze Zone")
+
+// ---------------------------------------------------------------------
+// 15-MINUTE TRAILING STOP
+// ---------------------------------------------------------------------
+trail15Low  = request.security(syminfo.tickerid, "15", low[1], lookahead = barmerge.lookahead_off)
+trail15High = request.security(syminfo.tickerid, "15", high[1], lookahead = barmerge.lookahead_off)
+
+// ---------------------------------------------------------------------
+// STATE — one active position per setup type at a time
+// ---------------------------------------------------------------------
+var bool  inBreakoutLong  = false
+var bool  inBreakoutShort = false
+var bool  inReversalLong  = false
+var bool  inReversalShort = false
+
+var int   hugAwayCountL = 0
+var int   hugAwayCountS = 0
+
+var float recentExtremeTopPrice = na
+var int   recentExtremeTopBar   = na
+var float recentExtremeBotPrice = na
+var int   recentExtremeBotBar   = na
+
+var float reversalLongSL  = na
+var float reversalShortSL = na
+
+// ---------------------------------------------------------------------
+// INTRADAY BREAKOUT — squeeze resolves with a directional break
+// ---------------------------------------------------------------------
+breakoutLongCond  = enableBreakout and recentSqueeze and ta.crossover(close, upperBB) and close > sma20 and close > vwapVal and not inBreakoutLong and not inBreakoutShort
+breakoutShortCond = enableBreakout and recentSqueeze and ta.crossunder(close, lowerBB) and close < sma20 and close < vwapVal and not inBreakoutLong and not inBreakoutShort
+
+if breakoutLongCond
+    inBreakoutLong := true
+    hugAwayCountL := 0
+    label.new(bar_index, low - atrVal * 0.5, "BUY\nBreakout", style = label.style_label_up,
+         color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
+
+if breakoutShortCond
+    inBreakoutShort := true
+    hugAwayCountS := 0
+    label.new(bar_index, high + atrVal * 0.5, "SELL\nBreakout", style = label.style_label_down,
+         color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
+
+// Breakout LONG exits
+if inBreakoutLong
+    extremeCandle = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
+    distFromBand  = upperBB - close
+    if distFromBand > hugBufferATR * atrVal
+        hugAwayCountL += 1
+    else
+        hugAwayCountL := 0
+    hugExit   = enableBandHugExit and hugAwayCountL >= hugConfirmBars
+    trailExit = enableTrail15m and close < trail15Low
+    if extremeCandle
+        label.new(bar_index, high + atrVal * 0.5, "EXIT\nExtreme Move", style = label.style_label_down,
+             color = color.new(color.orange, 0), textcolor = color.white, size = lblSize)
+        inBreakoutLong := false
+    else if hugExit
+        label.new(bar_index, high + atrVal * 0.5, "EXIT\nBand Loss", style = label.style_label_down,
+             color = color.new(color.gray, 0), textcolor = color.white, size = lblSize)
+        inBreakoutLong := false
+    else if trailExit
+        label.new(bar_index, high + atrVal * 0.5, "EXIT\n15m Trail SL", style = label.style_label_down,
+             color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
+        inBreakoutLong := false
+
+// Breakout SHORT exits
+if inBreakoutShort
+    extremeCandleS = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
+    distFromBandS  = close - lowerBB
+    if distFromBandS > hugBufferATR * atrVal
+        hugAwayCountS += 1
+    else
+        hugAwayCountS := 0
+    hugExitS   = enableBandHugExit and hugAwayCountS >= hugConfirmBars
+    trailExitS = enableTrail15m and close > trail15High
+    if extremeCandleS
+        label.new(bar_index, low - atrVal * 0.5, "EXIT\nExtreme Move", style = label.style_label_up,
+             color = color.new(color.orange, 0), textcolor = color.white, size = lblSize)
+        inBreakoutShort := false
+    else if hugExitS
+        label.new(bar_index, low - atrVal * 0.5, "EXIT\nBand Loss", style = label.style_label_up,
+             color = color.new(color.gray, 0), textcolor = color.white, size = lblSize)
+        inBreakoutShort := false
+    else if trailExitS
+        label.new(bar_index, low - atrVal * 0.5, "EXIT\n15m Trail SL", style = label.style_label_up,
+             color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
+        inBreakoutShort := false
+
+// ---------------------------------------------------------------------
+// REVERSAL — gap outside the bands, fade back through VWAP
+// ---------------------------------------------------------------------
+extremeHigh = high > upperBB + gapATRMult * atrVal
+extremeLow  = low < lowerBB - gapATRMult * atrVal
+
+if extremeHigh
+    recentExtremeTopPrice := high
+    recentExtremeTopBar   := bar_index
+if extremeLow
+    recentExtremeBotPrice := low
+    recentExtremeBotBar   := bar_index
+
+topStillValid = not na(recentExtremeTopBar) and (bar_index - recentExtremeTopBar) <= reversalLookback
+botStillValid = not na(recentExtremeBotBar) and (bar_index - recentExtremeBotBar) <= reversalLookback
+
+// informational-only early marker (9 EMA reclaim ahead of VWAP reclaim)
+if enable9EMAEarly and topStillValid and ta.crossunder(close, ema9) and not inReversalShort and not inReversalLong
+    label.new(bar_index, high + atrVal * 0.3, "Early?", style = label.style_label_down,
+         color = color.new(color.purple, 60), textcolor = color.white, size = size.tiny)
+if enable9EMAEarly and botStillValid and ta.crossover(close, ema9) and not inReversalShort and not inReversalLong
+    label.new(bar_index, low - atrVal * 0.3, "Early?", style = label.style_label_up,
+         color = color.new(color.purple, 60), textcolor = color.white, size = size.tiny)
+
+reversalShortCond = enableReversal and topStillValid and ta.crossunder(close, vwapVal) and not inReversalShort and not inReversalLong
+reversalLongCond  = enableReversal and botStillValid and ta.crossover(close, vwapVal) and not inReversalShort and not inReversalLong
+
+if reversalShortCond
+    inReversalShort := true
+    reversalShortSL := recentExtremeTopPrice
+    recentExtremeTopBar := na
+    label.new(bar_index, high + atrVal * 0.5, "SELL\nReversal", style = label.style_label_down,
+         color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
+
+if reversalLongCond
+    inReversalLong := true
+    reversalLongSL := recentExtremeBotPrice
+    recentExtremeBotBar := na
+    label.new(bar_index, low - atrVal * 0.5, "BUY\nReversal", style = label.style_label_up,
+         color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
+
+// Reversal LONG exit — SL at the recent gap-down low, or 15m trail
+if inReversalLong
+    slHitL = close < reversalLongSL
+    trailExitRL = enableTrail15m and close < trail15Low
+    if slHitL
+        label.new(bar_index, high + atrVal * 0.5, "SL\nReversal", style = label.style_label_down,
+             color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
+        inReversalLong := false
+    else if trailExitRL
+        label.new(bar_index, high + atrVal * 0.5, "EXIT\n15m Trail SL", style = label.style_label_down,
+             color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
+        inReversalLong := false
+
+// Reversal SHORT exit — SL at the recent gap-up high, or 15m trail
+if inReversalShort
+    slHitS = close > reversalShortSL
+    trailExitRS = enableTrail15m and close > trail15High
+    if slHitS
+        label.new(bar_index, low - atrVal * 0.5, "SL\nReversal", style = label.style_label_up,
+             color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
+        inReversalShort := false
+    else if trailExitRS
+        label.new(bar_index, low - atrVal * 0.5, "EXIT\n15m Trail SL", style = label.style_label_up,
+             color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
+        inReversalShort := false
+
+// ---------------------------------------------------------------------
+// STATUS TABLE
+// ---------------------------------------------------------------------
+var table statusTable = table.new(position.top_right, 2, 5, border_width = 1)
+if barstate.islast
+    table.cell(statusTable, 0, 0, "Setup", bgcolor = color.new(color.black, 0), text_color = color.white)
+    table.cell(statusTable, 1, 0, "State", bgcolor = color.new(color.black, 0), text_color = color.white)
+    table.cell(statusTable, 0, 1, "Squeeze")
+    table.cell(statusTable, 1, 1, squeezeNow ? "ACTIVE" : "—", text_color = squeezeNow ? color.orange : color.gray)
+    table.cell(statusTable, 0, 2, "Breakout")
+    table.cell(statusTable, 1, 2, inBreakoutLong ? "LONG" : inBreakoutShort ? "SHORT" : "flat",
+         text_color = inBreakoutLong ? color.green : inBreakoutShort ? color.red : color.gray)
+    table.cell(statusTable, 0, 3, "Reversal")
+    table.cell(statusTable, 1, 3, inReversalLong ? "LONG" : inReversalShort ? "SHORT" : "flat",
+         text_color = inReversalLong ? color.green : inReversalShort ? color.red : color.gray)
+    table.cell(statusTable, 0, 4, "BB Width %ile")
+    table.cell(statusTable, 1, 4, str.tostring(math.round(widthPctRank)) + "%")
+
+// ---------------------------------------------------------------------
+// ALERTS
+// ---------------------------------------------------------------------
+alertcondition(breakoutLongCond, "Breakout Buy", "BB Intraday Breakout Buy: squeeze resolved upward")
+alertcondition(breakoutShortCond, "Breakout Sell", "BB Intraday Breakout Sell: squeeze resolved downward")
+alertcondition(reversalLongCond, "Reversal Buy", "BB Intraday Reversal Buy: gap-down fade reclaiming VWAP")
+alertcondition(reversalShortCond, "Reversal Sell", "BB Intraday Reversal Sell: gap-up fade losing VWAP")
