@@ -17,12 +17,20 @@ indicator("BB Intraday Equity Strategy — Bottle Neck Breakout & VWAP Reversal"
 // contracts) changes with what you actually click Buy/Sell on in your
 // broker.
 //
+// Labels are deliberately plain: every entry AND exit prints only
+// "BUY" or "SELL" (green/red) — closing a long shows as SELL, closing
+// a short shows as BUY, same as what you'd actually click in your
+// broker. The underlying setup (breakout vs. reversal) and exit reason
+// (band loss / extreme candle / trailing stop) are still computed and
+// drive when the label fires, just not printed in the label text
+// anymore — see bb_options_strategy.pine if you want that detail back.
+//
 // The source doc left some of this undefined (exact "bottle neck"
 // width, "decreasing volume" threshold, band-hugging distance,
-// "exceptionally large candle" size, 9 EMA confirmation). Each is an
-// explicit adjustable input rather than a hardcoded guess — see the
-// tooltips and bb_options_strategy.pine's README section for the full
-// list of what was operationalized and why.
+// "exceptionally large candle" size). Each is an explicit adjustable
+// input rather than a hardcoded guess — see the tooltips and
+// bb_options_strategy.pine's README section for the full list of what
+// was operationalized and why.
 //
 // Untested — no Pine Script compiler available in this environment.
 // Written against known-correct Pine v6 patterns, manually re-checked
@@ -55,8 +63,6 @@ grpReversal = "Reversal Setup (Gap Up/Down Fade)"
 enableReversal    = input.bool(true, "Enable Reversal Signals", group = grpReversal)
 gapATRMult        = input.float(0.5, "Min Distance Beyond Band to Count as 'Gap' (× ATR)", minval = 0.05, step = 0.05, group = grpReversal)
 reversalLookback  = input.int(15, "Max Bars to Wait for VWAP Reclaim After Gap", minval = 1, group = grpReversal)
-enable9EMAEarly   = input.bool(true, "Show 9 EMA 'Early?' Marker (informational only)", group = grpReversal,
-     tooltip = "Source mentions the 9 EMA as an optional early-entry tool but gives no confirmation rule. This plots a small informational marker only — it is not a tradeable signal on its own.")
 
 grpExit = "Exit Rules"
 enableBandHugExit    = input.bool(true, "Enable Band-Hugging Exit (Breakout trades)", group = grpExit)
@@ -136,16 +142,16 @@ breakoutShortCond = enableBreakout and recentSqueeze and ta.crossunder(close, lo
 if breakoutLongCond
     inBreakoutLong := true
     hugAwayCountL := 0
-    label.new(bar_index, low - atrVal * 0.5, "BUY\nBreakout", style = label.style_label_up,
+    label.new(bar_index, low - atrVal * 0.5, "BUY", style = label.style_label_up,
          color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
 
 if breakoutShortCond
     inBreakoutShort := true
     hugAwayCountS := 0
-    label.new(bar_index, high + atrVal * 0.5, "SELL\nBreakout", style = label.style_label_down,
+    label.new(bar_index, high + atrVal * 0.5, "SELL", style = label.style_label_down,
          color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
 
-// Breakout LONG exits
+// Breakout LONG exits (closing a long = a SELL)
 if inBreakoutLong
     extremeCandle = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
     distFromBand  = upperBB - close
@@ -155,20 +161,12 @@ if inBreakoutLong
         hugAwayCountL := 0
     hugExit   = enableBandHugExit and hugAwayCountL >= hugConfirmBars
     trailExit = enableTrail15m and close < trail15Low
-    if extremeCandle
-        label.new(bar_index, high + atrVal * 0.5, "EXIT\nExtreme Move", style = label.style_label_down,
-             color = color.new(color.orange, 0), textcolor = color.white, size = lblSize)
-        inBreakoutLong := false
-    else if hugExit
-        label.new(bar_index, high + atrVal * 0.5, "EXIT\nBand Loss", style = label.style_label_down,
-             color = color.new(color.gray, 0), textcolor = color.white, size = lblSize)
-        inBreakoutLong := false
-    else if trailExit
-        label.new(bar_index, high + atrVal * 0.5, "EXIT\n15m Trail SL", style = label.style_label_down,
-             color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
+    if extremeCandle or hugExit or trailExit
+        label.new(bar_index, high + atrVal * 0.5, "SELL", style = label.style_label_down,
+             color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
         inBreakoutLong := false
 
-// Breakout SHORT exits
+// Breakout SHORT exits (closing a short = a BUY)
 if inBreakoutShort
     extremeCandleS = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
     distFromBandS  = close - lowerBB
@@ -178,17 +176,9 @@ if inBreakoutShort
         hugAwayCountS := 0
     hugExitS   = enableBandHugExit and hugAwayCountS >= hugConfirmBars
     trailExitS = enableTrail15m and close > trail15High
-    if extremeCandleS
-        label.new(bar_index, low - atrVal * 0.5, "EXIT\nExtreme Move", style = label.style_label_up,
-             color = color.new(color.orange, 0), textcolor = color.white, size = lblSize)
-        inBreakoutShort := false
-    else if hugExitS
-        label.new(bar_index, low - atrVal * 0.5, "EXIT\nBand Loss", style = label.style_label_up,
-             color = color.new(color.gray, 0), textcolor = color.white, size = lblSize)
-        inBreakoutShort := false
-    else if trailExitS
-        label.new(bar_index, low - atrVal * 0.5, "EXIT\n15m Trail SL", style = label.style_label_up,
-             color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
+    if extremeCandleS or hugExitS or trailExitS
+        label.new(bar_index, low - atrVal * 0.5, "BUY", style = label.style_label_up,
+             color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
         inBreakoutShort := false
 
 // ---------------------------------------------------------------------
@@ -207,14 +197,6 @@ if extremeLow
 topStillValid = not na(recentExtremeTopBar) and (bar_index - recentExtremeTopBar) <= reversalLookback
 botStillValid = not na(recentExtremeBotBar) and (bar_index - recentExtremeBotBar) <= reversalLookback
 
-// informational-only early marker (9 EMA reclaim ahead of VWAP reclaim)
-if enable9EMAEarly and topStillValid and ta.crossunder(close, ema9) and not inReversalShort and not inReversalLong
-    label.new(bar_index, high + atrVal * 0.3, "Early?", style = label.style_label_down,
-         color = color.new(color.purple, 60), textcolor = color.white, size = size.tiny)
-if enable9EMAEarly and botStillValid and ta.crossover(close, ema9) and not inReversalShort and not inReversalLong
-    label.new(bar_index, low - atrVal * 0.3, "Early?", style = label.style_label_up,
-         color = color.new(color.purple, 60), textcolor = color.white, size = size.tiny)
-
 reversalShortCond = enableReversal and topStillValid and ta.crossunder(close, vwapVal) and not inReversalShort and not inReversalLong
 reversalLongCond  = enableReversal and botStillValid and ta.crossover(close, vwapVal) and not inReversalShort and not inReversalLong
 
@@ -222,40 +204,32 @@ if reversalShortCond
     inReversalShort := true
     reversalShortSL := recentExtremeTopPrice
     recentExtremeTopBar := na
-    label.new(bar_index, high + atrVal * 0.5, "SELL\nReversal", style = label.style_label_down,
+    label.new(bar_index, high + atrVal * 0.5, "SELL", style = label.style_label_down,
          color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
 
 if reversalLongCond
     inReversalLong := true
     reversalLongSL := recentExtremeBotPrice
     recentExtremeBotBar := na
-    label.new(bar_index, low - atrVal * 0.5, "BUY\nReversal", style = label.style_label_up,
+    label.new(bar_index, low - atrVal * 0.5, "BUY", style = label.style_label_up,
          color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
 
-// Reversal LONG exit — SL at the recent gap-down low, or 15m trail
+// Reversal LONG exit — SL at the recent gap-down low, or 15m trail (closing a long = a SELL)
 if inReversalLong
     slHitL = close < reversalLongSL
     trailExitRL = enableTrail15m and close < trail15Low
-    if slHitL
-        label.new(bar_index, high + atrVal * 0.5, "SL\nReversal", style = label.style_label_down,
+    if slHitL or trailExitRL
+        label.new(bar_index, high + atrVal * 0.5, "SELL", style = label.style_label_down,
              color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
         inReversalLong := false
-    else if trailExitRL
-        label.new(bar_index, high + atrVal * 0.5, "EXIT\n15m Trail SL", style = label.style_label_down,
-             color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
-        inReversalLong := false
 
-// Reversal SHORT exit — SL at the recent gap-up high, or 15m trail
+// Reversal SHORT exit — SL at the recent gap-up high, or 15m trail (closing a short = a BUY)
 if inReversalShort
     slHitS = close > reversalShortSL
     trailExitRS = enableTrail15m and close > trail15High
-    if slHitS
-        label.new(bar_index, low - atrVal * 0.5, "SL\nReversal", style = label.style_label_up,
-             color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
-        inReversalShort := false
-    else if trailExitRS
-        label.new(bar_index, low - atrVal * 0.5, "EXIT\n15m Trail SL", style = label.style_label_up,
-             color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
+    if slHitS or trailExitRS
+        label.new(bar_index, low - atrVal * 0.5, "BUY", style = label.style_label_up,
+             color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
         inReversalShort := false
 
 // ---------------------------------------------------------------------
