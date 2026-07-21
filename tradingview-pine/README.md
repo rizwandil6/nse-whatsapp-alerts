@@ -288,3 +288,47 @@ other direction: a crossover while short prints `COVER` then `BUY`.
 Not compiled or run; no Pine interpreter available outside TradingView.
 If the Pine Editor throws a compile error on paste, report the exact
 error back for a fix.
+
+## RSI + Bollinger Bands Strategy — `rsi_bb_strategy.pine`
+
+A companion piece to BBMA — same "combine BB with another indicator"
+family, different rule: RSI overbought/oversold + price outside the
+Bollinger Bands, then wait for price to cross back through the
+**middle** band to enter. Source's own framing: RSI is a leading
+momentum indicator, Bollinger Bands is lagging — combining them spots
+reversals earlier than either alone.
+
+1. RSI < 30 (oversold) with price below the lower band → armed for a
+   long.
+2. RSI > 70 (overbought) with price above the upper band → armed for a
+   short.
+3. Price crosses back through the middle band while armed → `BUY` or
+   `SHORT`.
+
+### What was unspecified, and how it was handled
+
+- **Exit rule — genuinely absent from the source entirely**, unlike
+  BBMA which explicitly states "close on opposite crossover." Reused
+  that same idea here by default (`exitOnOppositeCross` input, on by
+  default): close on a crossing of the middle band in the opposite
+  direction. This is an invented default for a gap the source simply
+  doesn't address — not a disclosed rule. Turn it off if you'd rather
+  manage exits yourself.
+- **How long to stay "armed"** waiting for the middle-band cross after
+  RSI goes overbought/oversold with price outside the band — source
+  just says "wait," no bound given. Added an adjustable max-bars input,
+  same pattern as the BB+VWAP Reversal setup's identical gap elsewhere
+  in this folder.
+- **RSI length, BB length/multiplier** — not stated. Universal defaults
+  (RSI 14, BB 20/2.0), same assumption as this folder's other scripts.
+- **RSI isn't plotted as an overlay line** — Pine can't mix an overlay
+  price pane with a separate oscillator pane in one script, and RSI's
+  0-100 scale is meaningless stacked directly on price. Current RSI
+  value and overbought/oversold state are shown in the status table
+  instead.
+
+### Untested — same caveat as the rest of this folder
+
+Not compiled or run; no Pine interpreter available outside TradingView.
+If the Pine Editor throws a compile error on paste, report the exact
+error back for a fix.
