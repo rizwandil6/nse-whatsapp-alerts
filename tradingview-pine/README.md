@@ -162,6 +162,23 @@ already does), instead of a plain rolling SMA. Re-verified against the
 same SUZLON data after the fix: Continuation now correctly fires at
 09:50, `BUY @ 52.45`, inside the box.
 
+Applied the same session-reset principle to Reversal's gap-distance
+threshold (`gapATRMult × ATR`) — the shared 14-bar ATR blends in the
+prior session's range for roughly the first 70 minutes of a new day,
+the same class of issue that broke the volume filters. **Worth being
+precise about the difference, though:** the volume fix corrected a
+*confirmed* failure (Continuation literally couldn't fire without it).
+For Reversal's ATR, re-checking the same SUZLON day found 4 bars where
+the session-scoped version disagrees with the old shared-ATR version —
+but all 4 are in the afternoon (13:15–15:00), not near the session open
+where cross-day contamination would apply (by then the 14-bar window is
+entirely within the day's own bars). Those differences are just the
+normal, expected gap between a 14-bar rolling average and an all-day
+cumulative average — not a demonstrated bug. This one is a *preventive*
+consistency fix, applied because the same failure mode is plausible
+near a session open on some other stock/day, not because it was caught
+actually happening here.
+
 ### What was undefined in the source, and how it was operationalized
 
 The notes described several rules in visual/qualitative terms with no

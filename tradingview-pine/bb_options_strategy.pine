@@ -89,7 +89,8 @@ squeezeConfirmWindow = input.int(5, "Breakout Must Occur Within N Bars of Squeez
 
 grpReversal = "Reversal Setup (Gap Up/Down Fade)"
 enableReversal    = input.bool(true, "Enable Reversal Signals", group = grpReversal)
-gapATRMult        = input.float(0.5, "Min Distance Beyond Band to Count as 'Gap' (× ATR)", minval = 0.05, step = 0.05, group = grpReversal)
+gapATRMult        = input.float(0.5, "Min Distance Beyond Band to Count as 'Gap' (× session ATR)", minval = 0.05, step = 0.05, group = grpReversal,
+     tooltip = "Compared against a session-scoped ATR (resets daily), not the shared 14-bar atrVal used elsewhere in this script — the shared one blends in the prior day's range for roughly the first 70 minutes of a new session, which can distort 'is this an unusual gap' right when it matters most. Extreme-candle exit and hug buffer still use the shared multi-day ATR, since smoothing across days is more defensible for stop sizing than for a same-day gap judgment.")
 reversalLookback  = input.int(15, "Max Bars to Wait for VWAP Reclaim After Gap", minval = 1, group = grpReversal)
 
 grpContinuation = "Trend Continuation (no squeeze required — NOT in source)"
@@ -140,6 +141,27 @@ if newSession
 sessionVolSum   += volume
 sessionVolCount += 1
 sessionAvgVol = sessionVolSum / sessionVolCount
+
+// Session-scoped ATR, same reasoning applied to Reversal's gap-distance
+// threshold (gapATRMult * atr): the shared 14-bar atrVal above blends
+// in the prior session's range for roughly the first 70 minutes of a
+// new day (14 bars × 5m), so a big-range prior day can inflate "how big
+// a gap has to be to count" right when the new session opens — the same
+// class of cross-day contamination that broke the volume filters.
+// Deliberately scoped to Reversal's gap threshold only, not swapped in
+// for atrVal everywhere (extreme-candle exit, hug buffer, label
+// offsets) — those weren't the ones found broken, and ATR's usual
+// multi-day smoothing is more defensible for stop/exit sizing than for
+// a same-day "is this an unusual gap" judgment.
+trueRangeNow = na(close[1]) ? high - low : math.max(high - low, math.abs(high - close[1]), math.abs(low - close[1]))
+var float sessionTrSum   = 0.0
+var int   sessionTrCount = 0
+if newSession
+    sessionTrSum   := 0.0
+    sessionTrCount := 0
+sessionTrSum   += trueRangeNow
+sessionTrCount += 1
+sessionAtr = sessionTrSum / sessionTrCount
 
 plot(showBands ? sma20 : na, "20 SMA (Middle Band)", color = color.new(color.orange, 0), linewidth = 1)
 p1 = plot(showBands ? upperBB : na, "Upper Band", color = color.new(color.gray, 30))
@@ -308,8 +330,8 @@ if inContinuationShort and not continuationShortCond
 // ---------------------------------------------------------------------
 // REVERSAL — gap outside the bands, fade back through VWAP
 // ---------------------------------------------------------------------
-extremeHigh = high > upperBB + gapATRMult * atrVal
-extremeLow  = low < lowerBB - gapATRMult * atrVal
+extremeHigh = high > upperBB + gapATRMult * sessionAtr
+extremeLow  = low < lowerBB - gapATRMult * sessionAtr
 
 if extremeHigh
     recentExtremeTopPrice := high
