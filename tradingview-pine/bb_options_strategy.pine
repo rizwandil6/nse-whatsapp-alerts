@@ -19,12 +19,17 @@ indicator("BB Options Strategy — Swing & Intraday Bollinger Band Setups", shor
 // That's correct behavior for a strict "bottle neck" breakout, but it
 // means plain trend continuations without a preceding squeeze are
 // permanently out of scope for that setup. Trend Continuation below
-// fills that gap: same band/SMA/VWAP break, no squeeze required,
-// gated instead by above-average volume (expansion, not the squeeze's
-// contraction) so it doesn't fire on every ordinary band touch. It's
-// mutually exclusive with Breakout — if a squeeze DID precede the
-// break, Breakout claims it and Continuation stays silent, so a single
-// move never double-fires two entry labels.
+// fills that gap. Went through two live-validated iterations against
+// that same SUZLON move: v1 required a crossover of the band plus
+// above-average volume; v2 (current) simplified further to just price
+// already above the 20 SMA and VWAP (below both, for a short) and
+// touching the outer band — no crossover, no volume filter. v2 caught
+// the move a bar earlier (09:45 vs. 09:50) and, exiting purely on
+// band-hugging loss instead of also checking extreme-candle/15m-trail,
+// rode it further (to 10:20 vs. an earlier exit) — +1.43% captured in
+// one continuous trade. It's mutually exclusive with Breakout — if a
+// squeeze DID precede the break, Breakout claims it and Continuation
+// stays silent, so a single move never double-fires two entry labels.
 //
 // The source doc left several things undefined. Rather than silently
 // guessing, each one is implemented as an explicit, adjustable input
@@ -95,9 +100,7 @@ reversalLookback  = input.int(15, "Max Bars to Wait for VWAP Reclaim After Gap",
 
 grpContinuation = "Trend Continuation (no squeeze required — NOT in source)"
 enableContinuation    = input.bool(true, "Enable Trend Continuation Signals", group = grpContinuation,
-     tooltip = "Added after live validation showed the squeeze-gated Breakout setup misses plain trend continuations that never pause into a low-volatility squeeze. Same band/SMA/VWAP break as Breakout, minus the squeeze requirement, gated by volume expansion instead of contraction. Mutually exclusive with Breakout — a squeeze-preceded break is always claimed by Breakout, never both.")
-continuationVolFactor = input.float(1.2, "Continuation Volume Factor (× session avg volume)", minval = 0.1, step = 0.1, group = grpContinuation,
-     tooltip = "Volume must be above this multiple of today's session average on the breaking candle — confirms real participation behind the move, not just noise. Compared against a session-scoped average (resets daily), not a plain rolling SMA — found live that a rolling window carries over the prior day's volume regime and can make this filter impossible to satisfy after an unusually high-volume day. Not from the source — added to keep this setup from firing on every ordinary band touch.")
+     tooltip = "Added after live validation showed the squeeze-gated Breakout setup misses plain trend continuations that never pause into a low-volatility squeeze. Simplified after a second validation round: price already above the 20 SMA and VWAP (below both, for a short), touching the outer band — no crossover, no volume filter, no squeeze. Exits purely via band-hugging loss (no extreme-candle or 15m-trail exit) — tested against the real move this setup was built for and rode more of it than the crossover+volume version did. Mutually exclusive with Breakout — a squeeze-preceded break is always claimed by Breakout, never both.")
 
 grpExit = "Exit Rules"
 enableBandHugExit    = input.bool(true, "Enable Band-Hugging Exit (Breakout trades)", group = grpExit)
@@ -279,11 +282,14 @@ if inBreakoutShort and not breakoutShortCond
         inBreakoutShort := false
 
 // ---------------------------------------------------------------------
-// TREND CONTINUATION — same band/SMA/VWAP break as Breakout, but no
-// squeeze required; gated by volume expansion instead. Not in source.
+// TREND CONTINUATION — simplified per live validation: price already
+// above the 20 SMA and VWAP (below/below for short), touching the
+// outer band, no crossover/volume/squeeze gate required. Exits purely
+// on band-hugging loss — no extreme-candle or 15m-trail exit here, by
+// design (see input tooltip for why). Not in source.
 // ---------------------------------------------------------------------
-continuationLongCond  = enableContinuation and not recentSqueeze and ta.crossover(close, upperBB) and close > sma20 and close > vwapVal and volume > sessionAvgVol * continuationVolFactor and not inBreakoutLong and not inBreakoutShort and not inContinuationLong and not inContinuationShort and not inSwingLong
-continuationShortCond = enableContinuation and not recentSqueeze and ta.crossunder(close, lowerBB) and close < sma20 and close < vwapVal and volume > sessionAvgVol * continuationVolFactor and not inBreakoutLong and not inBreakoutShort and not inContinuationLong and not inContinuationShort
+continuationLongCond  = enableContinuation and not recentSqueeze and high >= upperBB and close > sma20 and close > vwapVal and not inBreakoutLong and not inBreakoutShort and not inContinuationLong and not inContinuationShort and not inSwingLong
+continuationShortCond = enableContinuation and not recentSqueeze and low <= lowerBB and close < sma20 and close < vwapVal and not inBreakoutLong and not inBreakoutShort and not inContinuationLong and not inContinuationShort
 
 if continuationLongCond
     inContinuationLong := true
@@ -297,32 +303,26 @@ if continuationShortCond
     label.new(bar_index, high + atrVal * 0.5, "SHORT", style = label.style_label_down,
          color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
 
-// Continuation LONG exits — closing a long prints SELL
+// Continuation LONG exit — band-hugging loss only; closing a long prints SELL
 if inContinuationLong and not continuationLongCond
-    extremeCandleC = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
     distFromBandCL = upperBB - close
     if distFromBandCL > hugBufferATR * atrVal
         hugAwayCountCL += 1
     else
         hugAwayCountCL := 0
-    hugExitCL   = enableBandHugExit and hugAwayCountCL >= hugConfirmBars
-    trailExitCL = enableTrail15m and close < trail15Low
-    if extremeCandleC or hugExitCL or trailExitCL
+    if enableBandHugExit and hugAwayCountCL >= hugConfirmBars
         label.new(bar_index, high + atrVal * 0.5, "SELL", style = label.style_label_down,
              color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
         inContinuationLong := false
 
-// Continuation SHORT exits — closing a short prints COVER
+// Continuation SHORT exit — band-hugging loss only; closing a short prints COVER
 if inContinuationShort and not continuationShortCond
-    extremeCandleCS = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
-    distFromBandCS  = close - lowerBB
+    distFromBandCS = close - lowerBB
     if distFromBandCS > hugBufferATR * atrVal
         hugAwayCountCS += 1
     else
         hugAwayCountCS := 0
-    hugExitCS   = enableBandHugExit and hugAwayCountCS >= hugConfirmBars
-    trailExitCS = enableTrail15m and close > trail15High
-    if extremeCandleCS or hugExitCS or trailExitCS
+    if enableBandHugExit and hugAwayCountCS >= hugConfirmBars
         label.new(bar_index, low - atrVal * 0.5, "COVER", style = label.style_label_up,
              color = color.new(color.teal, 0), textcolor = color.white, size = lblSize)
         inContinuationShort := false

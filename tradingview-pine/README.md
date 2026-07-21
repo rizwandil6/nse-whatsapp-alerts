@@ -128,15 +128,15 @@ label fires, they're just not printed in the label text.
    at all, because Breakout requires a squeeze in the preceding 5 bars
    and the bands were already wide from the prior day's close — no
    squeeze, so no breakout, even though the price action was real and
-   tradeable. This setup fires the same band/SMA/VWAP break as Breakout
-   but *without* requiring a prior squeeze, gated instead by
-   above-average volume (expansion, not the squeeze's contraction) so it
-   doesn't fire on every ordinary band touch. It's mutually exclusive
-   with Breakout: if a squeeze DID precede the break, Breakout claims it
-   and Continuation stays silent — one move never double-fires two
-   entry labels. Same `BUY`/`SHORT`/`SELL`/`COVER` labeling, same exit
-   logic (band-hugging loss, extreme-candle exhaustion, 15-minute
-   trailing stop) as Breakout.
+   tradeable. **Current version (v2, simplified):** price already above
+   the 20 SMA and VWAP (below both, for a short) and touching the outer
+   band → `BUY`/`SHORT` — no crossover, no volume filter, no squeeze
+   check beyond staying mutually exclusive with Breakout. Exits purely
+   on **band-hugging loss** (→ `SELL`/`COVER`) — no extreme-candle or
+   15m-trailing-stop exit for this setup, unlike Breakout. Still
+   mutually exclusive with Breakout: if a squeeze DID precede the break,
+   Breakout claims it and Continuation stays silent — one move never
+   double-fires two entry labels.
 
 One more fix worth knowing about: exit conditions used to also get
 checked on the very same bar as entry, which meant a strong breakout
@@ -179,6 +179,19 @@ consistency fix, applied because the same failure mode is plausible
 near a session open on some other stock/day, not because it was caught
 actually happening here.
 
+**Continuation v1 → v2, third live-validated iteration:** even after
+the volume-average fix above, v1 (crossover + volume-expansion filter)
+only caught the SUZLON move starting at 09:50. Simplified to v2 — drop
+the crossover requirement (just check price is already above/below
+both the 20 SMA and VWAP, touching the band) and drop the volume filter
+entirely, exiting purely on band-hugging loss instead of also checking
+extreme-candle/15m-trail. Re-verified against the same data: v2 catches
+the move a bar earlier (09:45 vs. 09:50) and rides it further (exits at
+10:20 instead of earlier) — **+1.43% captured in one continuous trade**,
+more of the move than v1 got. `continuationVolFactor` is gone; there's
+nothing left in Continuation's entry condition to operationalize a
+volume threshold for anymore.
+
 ### What was undefined in the source, and how it was operationalized
 
 The notes described several rules in visual/qualitative terms with no
@@ -192,7 +205,6 @@ groups) instead of a hardcoded assumption:
 | "Decreasing volume" during squeeze | Volume vs. today's session average (resets daily) | < 0.8× average |
 | Price "leaves" the band (hugging exit) | Distance from band vs. ATR, for N bars | 0.15×ATR buffer, 1 bar confirm |
 | "Exceptionally large candle" | Bar range vs. ATR | > 2.5×ATR |
-| Continuation's volume filter *(not in source at all — invented to keep this added setup from over-firing)* | Volume vs. today's session average (resets daily) | > 1.2× average |
 
 (The source's optional "9 EMA early entry" idea was dropped rather than
 operationalized — it had no confirmation rule at all, not even an
@@ -227,7 +239,8 @@ What's left is exactly the source's intraday material:
   directional-break entry as the options version.
 - **Reversal** (gap/VWAP fade) — same gap-then-VWAP-reclaim entry.
 - **Trend Continuation** — same not-in-source addition as the options
-  version, same squeeze-gap it fills, same volume-expansion filter.
+  version, same squeeze-gap it fills, same v2 (band-touch, no volume
+  filter) design, same band-hugging-only exit.
 - Same exits: band-hugging loss, extreme-candle exhaustion, 15-minute
   trailing stop.
 - Same `BUY`/`SELL`/`SHORT`/`COVER` labeling as the options version, and
