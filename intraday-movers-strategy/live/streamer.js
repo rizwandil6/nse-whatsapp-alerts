@@ -35,14 +35,19 @@ const path = require('path');
 const { ORBSymbolTracker, MARKET_OPEN_MIN, OR_END_MIN } = require('./orb_engine');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { reviseEntryForLiveExecution, reviseExitForLiveExecution } = require('./execution_revision');
-const { syncTradeLogFromRemote, recordTrade, pushTradeLogToGitHub } = require('./trade_log');
+const { syncTradeLogFromRemote, recordExitAndPush, pushTradeLogToGitHub } = require('./trade_log');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
 const IST_OFFSET_MS = (5 * 60 + 30) * 60 * 1000;
-const TRADE_LOG_PUSH_AFTER_MIN = 15 * 60 + 35; // 15:35 IST — after the 15:30 EOD square-off, once/day only (see trade_log.js)
+// Safety-net sweep only now (trade_log.js pushes to a dedicated data branch,
+// not `main`, so per-trade pushes in handleBar() below no longer risk a
+// self-inflicted mid-session redeploy — see trade_log.js docstring for the
+// 2026-07-21 incident this replaces). This daily check just catches any
+// single push that failed transiently during the day.
+const TRADE_LOG_PUSH_AFTER_MIN = 15 * 60 + 35; // 15:35 IST — after the 15:30 EOD square-off
 const TRADE_LOG_POLL_MS = 5 * 60 * 1000;
 
 function istMinutesAndDate() {
@@ -262,7 +267,9 @@ function handleBar(symbol, bar) {
     } else if (e.type === 'EXIT') {
       const revision = reviseExitForLiveExecution(e, tickBuilders[symbol], revisedPositions[symbol]);
       sendTelegramAlert(formatExitAlert(e, revision));
-      recordTrade({ ...e, entry: revision.entry, exitPrice: revision.exitPrice, pnlPct: revision.pnlPct });
+      const { dateStr } = istMinutesAndDate();
+      recordExitAndPush({ ...e, entry: revision.entry, exitPrice: revision.exitPrice, pnlPct: revision.pnlPct }, dateStr)
+        .catch((err) => console.error('recordExitAndPush threw:', err.message));
       delete revisedPositions[symbol];
     }
   }
