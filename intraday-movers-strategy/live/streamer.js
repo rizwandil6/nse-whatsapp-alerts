@@ -122,9 +122,15 @@ function getOrCreateTickBuilder(symbol) {
   return tickBuilders[symbol];
 }
 
+// Paused per user request (2026-07-21): ORB signals kept plenty of edge in
+// backtest but the user wants to stop acting on live Telegram alerts for
+// now while still accumulating trade-log data (recordExitAndPush() below
+// is untouched by this flag) -- flip back to true (or unset) to resume.
+const TELEGRAM_ALERTS_ENABLED = process.env.ORB_TELEGRAM_ENABLED !== 'false';
+
 async function sendTelegramAlert(text) {
-  console.log('[ALERT]', text.replace(/\n/g, ' | '));
-  if (!TELEGRAM_TOKEN) return;
+  console.log(TELEGRAM_ALERTS_ENABLED ? '[ALERT]' : '[ALERT-SUPPRESSED]', text.replace(/\n/g, ' | '));
+  if (!TELEGRAM_ALERTS_ENABLED || !TELEGRAM_TOKEN) return;
   for (const chatId of TELEGRAM_CHAT_IDS) {
     try {
       const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
