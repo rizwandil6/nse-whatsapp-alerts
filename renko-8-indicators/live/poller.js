@@ -135,11 +135,12 @@ async function pollSymbol(symbol, instrumentKey, atOrPastClose) {
   }
 
   for (const e of events) {
+    const { dateStr } = nowIst();
     if (e.type === 'ENTRY') {
       await sendTelegramAlert(formatEntryAlert(e));
+      await recordAndPush(e, dateStr);
     } else if (e.type === 'EXIT') {
       await sendTelegramAlert(formatExitAlert(e));
-      const { dateStr } = nowIst();
       await recordAndPush(e, dateStr);
     }
   }
