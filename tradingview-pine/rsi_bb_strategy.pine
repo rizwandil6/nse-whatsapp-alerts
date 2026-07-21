@@ -86,11 +86,25 @@ fill(p1, p2, color = color.new(color.gray, 92))
 // ---------------------------------------------------------------------
 // ARM / DISARM — RSI extreme + price outside the band
 // ---------------------------------------------------------------------
+// The armed lookback is measured in bar count, which doesn't know about
+// weekends/holidays — found live-testing against SUZLON that an
+// overbought arm from Friday afternoon survived the weekend (only ~7
+// bars apart in the data, since there's no trading Sat/Sun) and fired a
+// SHORT on Monday morning at RSI 50 — nowhere near overbought at the
+// actual moment of entry. Fixed by resetting both armed flags at the
+// start of every new session, so an arm from a prior day can never
+// carry into a new one regardless of the bar-count lookback.
+newSession = ta.change(time("D")) != 0
+
 oversoldNow   = rsiVal < rsiOversold and close < lowerBB
 overboughtNow = rsiVal > rsiOverbought and close > upperBB
 
 var int armedOversoldBar   = na
 var int armedOverboughtBar = na
+
+if newSession
+    armedOversoldBar   := na
+    armedOverboughtBar := na
 
 if oversoldNow
     armedOversoldBar := bar_index

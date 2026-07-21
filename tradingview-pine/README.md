@@ -327,6 +327,22 @@ reversals earlier than either alone.
   value and overbought/oversold state are shown in the status table
   instead.
 
+### Bug found and fixed via live validation
+
+The "armed" lookback (how long an RSI-extreme-plus-outside-band
+condition stays valid, waiting for the middle-band cross) is measured
+in bar count, which doesn't know about weekends or holidays. Running
+this against real SUZLON data caught it directly: an overbought arm
+from Friday afternoon (17-July) survived the weekend — only ~7 bars
+apart in the data, since there's no trading Saturday/Sunday — and fired
+a SHORT at Monday's very first bar (09:15) with RSI back down at a
+neutral 50, nowhere near overbought at the actual moment of entry.
+Fixed by resetting both armed flags at the start of every new session,
+so an arm from a prior day can never carry into a new one regardless of
+the bar-count lookback. Re-verified after the fix: that phantom SHORT
+is gone; the remaining signals are all genuinely armed and fired within
+the same session.
+
 ### Untested — same caveat as the rest of this folder
 
 Not compiled or run; no Pine interpreter available outside TradingView.
