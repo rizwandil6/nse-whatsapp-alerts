@@ -1,0 +1,26 @@
+Loading cache + symbols...
+352 symbols with data. Brick size: 0.50% of price.
+  ...50/352 symbols processed
+  ...100/352 symbols processed
+  ...150/352 symbols processed
+  ...200/352 symbols processed
+  ...250/352 symbols processed
+  ...300/352 symbols processed
+  ...350/352 symbols processed
+
+=== Results across 352 symbols, 0.5% brick size, 60 trading days ===
+
+Strategy                           Trades  GrossWin%   NetWin%  GrossAvg%   NetAvg%
+DarvasBox                           12424       44.5      44.5 +   0.5812 +  0.4751
+Stochastic                           6955       54.6      54.6 +   0.5628 +  0.4567
+Combo_ColorFlow_AO_Stoch             3690       50.2      50.2 +   0.5206 +  0.4145
+Combo_TrendMomentum_DMI50_Stoch      6990       49.6      49.6 +   0.5068 +  0.4006
+FibonacciRetracement                 4494       46.7      46.7 +   0.4972 +  0.3911
+DMI                                  7248       43.1      43.1 +   0.4903 +  0.3842
+AwesomeOscillator                   10625       41.3      41.3 +   0.4363 +  0.3302
+DonchianBands                        6032       33.0      33.0 +   0.3533 +  0.2471
+BollingerBands                      11823       31.4      31.4 +   0.2938 +  0.1877
+MovingAverages                       1773       21.8      21.8 +   0.0495  -0.0566
+Combo_MultiMA_Timing                 1773       21.8      21.8 +   0.0495  -0.0566
+
+Per-trade files: trades_<Strategy>.json. Summary: summary.json
