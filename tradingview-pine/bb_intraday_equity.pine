@@ -17,13 +17,17 @@ indicator("BB Intraday Equity Strategy — Bottle Neck Breakout & VWAP Reversal"
 // contracts) changes with what you actually click Buy/Sell on in your
 // broker.
 //
-// Labels are deliberately plain: every entry AND exit prints only
-// "BUY" or "SELL" (green/red) — closing a long shows as SELL, closing
-// a short shows as BUY, same as what you'd actually click in your
-// broker. The underlying setup (breakout vs. reversal) and exit reason
-// (band loss / extreme candle / trailing stop) are still computed and
-// drive when the label fires, just not printed in the label text
-// anymore — see bb_options_strategy.pine if you want that detail back.
+// Labels use plain trading terminology, unambiguous between opening and
+// closing a position: BUY = open long, SELL = close long, SHORT = open
+// short, COVER = close short. (An earlier version of this file used
+// just BUY/SELL for everything, which made a SELL genuinely impossible
+// to tell apart from "closing a long" vs "opening a short" by reading
+// the chart alone — fixed after that ambiguity caused real confusion
+// reading a live chart.) The underlying setup (breakout vs. reversal)
+// and exit reason (band loss / extreme candle / trailing stop) are
+// still computed and drive when the label fires, just not printed in
+// the label text — see bb_options_strategy.pine's README section if
+// you want that level of detail back.
 //
 // The source doc left some of this undefined (exact "bottle neck"
 // width, "decreasing volume" threshold, band-hugging distance,
@@ -148,11 +152,11 @@ if breakoutLongCond
 if breakoutShortCond
     inBreakoutShort := true
     hugAwayCountS := 0
-    label.new(bar_index, high + atrVal * 0.5, "SELL", style = label.style_label_down,
-         color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
+    label.new(bar_index, high + atrVal * 0.5, "SHORT", style = label.style_label_down,
+         color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
 
-// Breakout LONG exits (closing a long = a SELL)
-if inBreakoutLong
+// Breakout LONG exits — closing a long prints SELL
+if inBreakoutLong and not breakoutLongCond
     extremeCandle = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
     distFromBand  = upperBB - close
     if distFromBand > hugBufferATR * atrVal
@@ -166,8 +170,8 @@ if inBreakoutLong
              color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
         inBreakoutLong := false
 
-// Breakout SHORT exits (closing a short = a BUY)
-if inBreakoutShort
+// Breakout SHORT exits — closing a short prints COVER
+if inBreakoutShort and not breakoutShortCond
     extremeCandleS = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
     distFromBandS  = close - lowerBB
     if distFromBandS > hugBufferATR * atrVal
@@ -177,8 +181,8 @@ if inBreakoutShort
     hugExitS   = enableBandHugExit and hugAwayCountS >= hugConfirmBars
     trailExitS = enableTrail15m and close > trail15High
     if extremeCandleS or hugExitS or trailExitS
-        label.new(bar_index, low - atrVal * 0.5, "BUY", style = label.style_label_up,
-             color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
+        label.new(bar_index, low - atrVal * 0.5, "COVER", style = label.style_label_up,
+             color = color.new(color.teal, 0), textcolor = color.white, size = lblSize)
         inBreakoutShort := false
 
 // ---------------------------------------------------------------------
@@ -204,8 +208,8 @@ if reversalShortCond
     inReversalShort := true
     reversalShortSL := recentExtremeTopPrice
     recentExtremeTopBar := na
-    label.new(bar_index, high + atrVal * 0.5, "SELL", style = label.style_label_down,
-         color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
+    label.new(bar_index, high + atrVal * 0.5, "SHORT", style = label.style_label_down,
+         color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
 
 if reversalLongCond
     inReversalLong := true
@@ -214,8 +218,8 @@ if reversalLongCond
     label.new(bar_index, low - atrVal * 0.5, "BUY", style = label.style_label_up,
          color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
 
-// Reversal LONG exit — SL at the recent gap-down low, or 15m trail (closing a long = a SELL)
-if inReversalLong
+// Reversal LONG exit — SL at the recent gap-down low, or 15m trail — closing a long prints SELL
+if inReversalLong and not reversalLongCond
     slHitL = close < reversalLongSL
     trailExitRL = enableTrail15m and close < trail15Low
     if slHitL or trailExitRL
@@ -223,13 +227,13 @@ if inReversalLong
              color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
         inReversalLong := false
 
-// Reversal SHORT exit — SL at the recent gap-up high, or 15m trail (closing a short = a BUY)
-if inReversalShort
+// Reversal SHORT exit — SL at the recent gap-up high, or 15m trail — closing a short prints COVER
+if inReversalShort and not reversalShortCond
     slHitS = close > reversalShortSL
     trailExitRS = enableTrail15m and close > trail15High
     if slHitS or trailExitRS
-        label.new(bar_index, low - atrVal * 0.5, "BUY", style = label.style_label_up,
-             color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
+        label.new(bar_index, low - atrVal * 0.5, "COVER", style = label.style_label_up,
+             color = color.new(color.teal, 0), textcolor = color.white, size = lblSize)
         inReversalShort := false
 
 // ---------------------------------------------------------------------
@@ -254,6 +258,6 @@ if barstate.islast
 // ALERTS
 // ---------------------------------------------------------------------
 alertcondition(breakoutLongCond, "Breakout Buy", "BB Intraday Breakout Buy: squeeze resolved upward")
-alertcondition(breakoutShortCond, "Breakout Sell", "BB Intraday Breakout Sell: squeeze resolved downward")
+alertcondition(breakoutShortCond, "Breakout Short", "BB Intraday Breakout Short: squeeze resolved downward")
 alertcondition(reversalLongCond, "Reversal Buy", "BB Intraday Reversal Buy: gap-down fade reclaiming VWAP")
-alertcondition(reversalShortCond, "Reversal Sell", "BB Intraday Reversal Sell: gap-up fade losing VWAP")
+alertcondition(reversalShortCond, "Reversal Short", "BB Intraday Reversal Short: gap-up fade losing VWAP")

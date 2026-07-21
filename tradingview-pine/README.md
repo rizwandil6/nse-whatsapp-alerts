@@ -95,28 +95,39 @@ fix.
 Requested against a set of trading notes describing a discretionary
 Bollinger Band strategy for stock options: swing entries on the Daily
 chart, intraday "bottle neck" squeeze breakouts on 15m/5m, and gap/VWAP
-reversal fades. Plots plain BUY/SELL labels directly on the underlying's
-chart — it does not price or place trades on the option itself.
+reversal fades. Plots labels directly on the underlying's chart — it
+does not price or place trades on the option itself.
 
 ### Three setups, each independently toggleable
 
-Every entry AND exit prints only `BUY` (green) or `SELL` (red) — closing
-a long shows as SELL, closing a short shows as BUY, same as what you'd
-actually click in your broker. The setup type and exit reason still
-drive when a label fires, they're just not printed in the label text.
+Labels use plain, unambiguous trading terminology: `BUY` = open long,
+`SELL` = close long, `SHORT` = open short, `COVER` = close short. (An
+earlier version used just BUY/SELL for everything — a SELL was
+genuinely impossible to tell apart from "closing a long" vs. "opening a
+short" by reading the chart alone, which caused real confusion reading
+a live chart. Fixed.) The setup type and exit reason still drive when a
+label fires, they're just not printed in the label text.
 
 1. **Swing** (intended for Daily) — uptrend (20 SMA rising over N bars)
    + pullback that touches the 20 SMA + a green candle → `BUY`. Exit
    (→ `SELL`): a touch of the upper band (target) or a close below the
-   20 SMA (stop).
+   20 SMA (stop). Long-only, per the source.
 2. **Intraday Breakout / Bottle Neck** (intended for 15m/5m) — Bollinger
    Band width ranks in the bottom X% of its own recent history (the
    squeeze) with below-average volume, then price closes through a band
-   → `BUY`/`SELL`. Exit is band-hugging loss, an oversized candle
-   (profit-booking exhaustion), or the 15-minute trailing stop —
-   whichever fires first.
+   → `BUY` (long) or `SHORT`. Exit (→ `SELL`/`COVER`) is band-hugging
+   loss, an oversized candle (profit-booking exhaustion), or the
+   15-minute trailing stop — whichever fires first.
 3. **Reversal** (gap fade) — price gaps meaningfully beyond a band, then
-   closes back across VWAP → `BUY`/`SELL`, stop at the gap extreme.
+   closes back across VWAP → `BUY`/`SHORT`, exit (`SELL`/`COVER`) at the
+   gap extreme.
+
+One more fix worth knowing about: exit conditions used to also get
+checked on the very same bar as entry, which meant a strong breakout
+candle (large range, which is often *why* it broke out) could trigger
+its own extreme-candle exit on the same bar it opened — an
+entry-then-immediate-exit that defeated the point of the breakout.
+Fixed by skipping the exit check on the entry bar itself.
 
 ### What was undefined in the source, and how it was operationalized
 
@@ -166,8 +177,8 @@ What's left is exactly the source's intraday material:
 - **Reversal** (gap/VWAP fade) — same gap-then-VWAP-reclaim entry.
 - Same exits: band-hugging loss, extreme-candle exhaustion, 15-minute
   trailing stop.
-- Same plain `BUY`/`SELL`-only labeling as the options version — see
-  above.
+- Same `BUY`/`SELL`/`SHORT`/`COVER` labeling as the options version, and
+  the same same-bar-exit fix — see above.
 
 Functionally these calculations are identical to the corresponding
 sections of the options version — the underlying price chart doesn't
