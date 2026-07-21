@@ -1,0 +1,115 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0
+//@version=6
+indicator("BBMA Strategy — 50 EMA / Middle Bollinger Band Crossover", shorttitle = "BBMA Strategy", overlay = true, max_labels_count = 500)
+
+// =====================================================================
+// Implements exactly what the source describes, nothing more:
+//   - Plot a 50 EMA and Bollinger Bands.
+//   - BUY when the 50 EMA crosses over the middle Bollinger Band
+//     (the basis/SMA) to the upside.
+//   - SHORT when the 50 EMA crosses the middle Bollinger Band to the
+//     downside.
+//   - Close the position on a crossover in the opposite direction.
+// Because "close on opposite crossover" and "enter on that same
+// crossover" are the same event, this is a stop-and-reverse system —
+// there's no flat state once a first signal has fired. A crossunder
+// while long prints COVER-then... no: prints SELL (closing the long)
+// then, on the same bar, SHORT (opening the new short) — two labels,
+// same bar, reflecting close-then-reverse. Same idea in the other
+// direction: crossover while short prints COVER then BUY.
+//
+// What the source left unspecified, operationalized here:
+//   - Bollinger Band length/multiplier — not stated. Used the
+//     universal default (20, 2.0), same assumption as this folder's
+//     other Bollinger Band scripts.
+//   - Stop-loss / target / risk management — not mentioned at all
+//     beyond the opposite-crossover exit. Nothing added; the source
+//     genuinely doesn't specify anything else, so there's nothing to
+//     operationalize versus invent.
+//   - Timeframe — not specified (unlike the BB+VWAP source used
+//     elsewhere in this folder, which was explicit about Daily/15m/5m).
+//     Works on whatever timeframe you apply it to.
+//
+// Untested — no Pine Script compiler available in this environment.
+// Written against known-correct Pine v6 patterns, manually reviewed for
+// signature/type errors, but not compiled in TradingView. If it throws
+// a compile error on paste, report the exact error back for a fix.
+// =====================================================================
+
+// ---------------------------------------------------------------------
+// INPUTS
+// ---------------------------------------------------------------------
+grpCore = "Core Indicators"
+bbLen   = input.int(20, "Bollinger Band Length", minval = 2, group = grpCore,
+     tooltip = "Not specified by the source — using the universal default (20, 2.0 stdev).")
+bbMult  = input.float(2.0, "Bollinger Band StdDev Mult", minval = 0.1, step = 0.1, group = grpCore)
+emaLen  = input.int(50, "EMA Length", minval = 1, group = grpCore,
+     tooltip = "Source rule: 50 EMA specifically.")
+showBands = input.bool(true, "Plot Bollinger Bands", group = grpCore)
+showEma   = input.bool(true, "Plot 50 EMA (white, per source)", group = grpCore)
+
+grpStyle = "Label Style"
+lblSize = input.string(size.small, "Label Size", options = [size.tiny, size.small, size.normal, size.large], group = grpStyle)
+
+// ---------------------------------------------------------------------
+// CORE CALCULATIONS
+// ---------------------------------------------------------------------
+bbBasis = ta.sma(close, bbLen)
+bbDev   = bbMult * ta.stdev(close, bbLen)
+upperBB = bbBasis + bbDev
+lowerBB = bbBasis - bbDev
+emaVal  = ta.ema(close, emaLen)
+
+plot(showBands ? bbBasis : na, "Middle Bollinger Band", color = color.new(color.orange, 0), linewidth = 1)
+p1 = plot(showBands ? upperBB : na, "Upper Band", color = color.new(color.gray, 30))
+p2 = plot(showBands ? lowerBB : na, "Lower Band", color = color.new(color.gray, 30))
+fill(p1, p2, color = color.new(color.gray, 92))
+plot(showEma ? emaVal : na, "50 EMA", color = color.new(color.white, 0), linewidth = 2)
+
+// ---------------------------------------------------------------------
+// STOP-AND-REVERSE — 50 EMA crossing the middle Bollinger Band
+// ---------------------------------------------------------------------
+var bool inLong  = false
+var bool inShort = false
+
+emaCrossUp   = ta.crossover(emaVal, bbBasis)
+emaCrossDown = ta.crossunder(emaVal, bbBasis)
+
+// Close the existing position first (same bar the opposite crossover fires)
+if inLong and emaCrossDown
+    label.new(bar_index, high + (high - low) * 0.5, "SELL", style = label.style_label_down,
+         color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
+    inLong := false
+
+if inShort and emaCrossUp
+    label.new(bar_index, low - (high - low) * 0.5, "COVER", style = label.style_label_up,
+         color = color.new(color.teal, 0), textcolor = color.white, size = lblSize)
+    inShort := false
+
+// Then open the new side (same crossover, same bar — reversal, not a delayed re-entry)
+if emaCrossUp and not inLong
+    inLong := true
+    label.new(bar_index, low - (high - low) * 0.5, "BUY", style = label.style_label_up,
+         color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
+
+if emaCrossDown and not inShort
+    inShort := true
+    label.new(bar_index, high + (high - low) * 0.5, "SHORT", style = label.style_label_down,
+         color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
+
+// ---------------------------------------------------------------------
+// STATUS TABLE
+// ---------------------------------------------------------------------
+var table statusTable = table.new(position.top_right, 2, 2, border_width = 1)
+if barstate.islast
+    table.cell(statusTable, 0, 0, "Position", bgcolor = color.new(color.black, 0), text_color = color.white)
+    table.cell(statusTable, 1, 0, "State", bgcolor = color.new(color.black, 0), text_color = color.white)
+    table.cell(statusTable, 0, 1, "50 EMA vs BB Mid")
+    table.cell(statusTable, 1, 1, inLong ? "LONG" : inShort ? "SHORT" : "flat",
+         text_color = inLong ? color.green : inShort ? color.red : color.gray)
+
+// ---------------------------------------------------------------------
+// ALERTS
+// ---------------------------------------------------------------------
+alertcondition(emaCrossUp, "BBMA Buy", "BBMA Strategy: 50 EMA crossed over the middle Bollinger Band (upside)")
+alertcondition(emaCrossDown, "BBMA Short", "BBMA Strategy: 50 EMA crossed the middle Bollinger Band (downside)")

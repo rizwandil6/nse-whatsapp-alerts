@@ -255,3 +255,36 @@ show what's actually relevant when you're not doing swing trades at all.
 Same undefined-in-source → operationalized-input table applies (see
 above). Same untested caveat applies — not compiled, manually reviewed
 only; report the exact compile error if TradingView's editor throws one.
+
+## BBMA Strategy — `bbma_strategy.pine`
+
+A different, much simpler source than the BB+VWAP one above: just one
+rule — plot a 50 EMA and Bollinger Bands, `BUY` when the 50 EMA
+crosses over the middle Bollinger Band (the basis/SMA) to the upside,
+`SHORT` when it crosses to the downside, close the position on a
+crossover in the opposite direction.
+
+Because "close on the opposite crossover" and "enter on that same
+crossover" are literally the same event, this is a **stop-and-reverse**
+system — there's no flat state once a first signal has fired. A
+crossunder while long prints `SELL` (closing the long) then, same bar,
+`SHORT` (opening the new position) — two labels, one bar. Same idea the
+other direction: a crossover while short prints `COVER` then `BUY`.
+
+### What was unspecified, and how it was handled
+
+- **Bollinger Band length/multiplier** — not stated by the source.
+  Used the universal default (20, 2.0), same assumption as this
+  folder's other BB scripts.
+- **Risk management** — genuinely nothing beyond the opposite-crossover
+  exit. Nothing invented here; the source doesn't specify anything
+  else, so there's nothing to operationalize.
+- **Timeframe** — not specified (unlike the BB+VWAP source, which was
+  explicit about Daily/15m/5m). Works on whatever timeframe you apply
+  it to.
+
+### Untested — same caveat as the rest of this folder
+
+Not compiled or run; no Pine interpreter available outside TradingView.
+If the Pine Editor throws a compile error on paste, report the exact
+error back for a fix.
