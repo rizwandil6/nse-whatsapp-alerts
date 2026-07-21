@@ -145,6 +145,23 @@ its own extreme-candle exit on the same bar it opened — an
 entry-then-immediate-exit that defeated the point of the breakout.
 Fixed by skipping the exit check on the entry bar itself.
 
+A second, more consequential fix: **the volume baseline for both the
+squeeze filter and Continuation's volume filter was a plain 20-bar
+rolling average, which blends across day boundaries.** Live-checking
+Continuation against the exact SUZLON case it was built for
+(2026-07-20, 09:35–10:35) showed it still didn't fire even after being
+built — the 20-bar average sitting around 4M shares/bar while the
+actual breakout candles were only 1–2.2M. Root cause: 2026-07-17 traded
+111M shares that day vs. 51M on the 20th, and the trailing 20-bar
+window at 09:35 (only the 5th bar of the new session) was still mostly
+carryover from the 17th's unusually heavy volume, making the filter
+nearly impossible to satisfy right after a big-volume day — on *any*
+stock, not just this one. Fixed by switching both filters to a
+session-scoped volume average that resets each day (the same way VWAP
+already does), instead of a plain rolling SMA. Re-verified against the
+same SUZLON data after the fix: Continuation now correctly fires at
+09:50, `BUY @ 52.45`, inside the box.
+
 ### What was undefined in the source, and how it was operationalized
 
 The notes described several rules in visual/qualitative terms with no
@@ -155,10 +172,10 @@ groups) instead of a hardcoded assumption:
 | Undefined in source | Operationalized as | Default |
 |---|---|---|
 | "Bottle neck" width | BB width's percentile rank vs. its own lookback | bottom 20% of last 100 bars |
-| "Decreasing volume" during squeeze | Volume vs. its own 20-bar average | < 0.8× average |
+| "Decreasing volume" during squeeze | Volume vs. today's session average (resets daily) | < 0.8× average |
 | Price "leaves" the band (hugging exit) | Distance from band vs. ATR, for N bars | 0.15×ATR buffer, 1 bar confirm |
 | "Exceptionally large candle" | Bar range vs. ATR | > 2.5×ATR |
-| Continuation's volume filter *(not in source at all — invented to keep this added setup from over-firing)* | Volume vs. its own 20-bar average | > 1.2× average |
+| Continuation's volume filter *(not in source at all — invented to keep this added setup from over-firing)* | Volume vs. today's session average (resets daily) | > 1.2× average |
 
 (The source's optional "9 EMA early entry" idea was dropped rather than
 operationalized — it had no confirmation rule at all, not even an
