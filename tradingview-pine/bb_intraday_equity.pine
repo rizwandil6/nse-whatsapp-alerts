@@ -17,6 +17,23 @@ indicator("BB Intraday Equity Strategy — Bottle Neck Breakout & VWAP Reversal"
 // contracts) changes with what you actually click Buy/Sell on in your
 // broker.
 //
+// PLUS a fourth setup NOT in the source — Trend Continuation. Found
+// while validating this indicator against a real SUZLON chart
+// (2026-07-20, 09:35–10:35): a strong ~2.7% continuation rally that
+// broke above the upper band, above the 20 SMA, and above VWAP fired
+// no signal at all, because the Breakout setup requires a squeeze
+// (narrow bands) in the preceding 5 bars, and the bands were already
+// wide from the prior day's close — there was no squeeze to resolve.
+// That's correct behavior for a strict "bottle neck" breakout, but it
+// means plain trend continuations without a preceding squeeze are
+// permanently out of scope for that setup. Trend Continuation below
+// fills that gap: same band/SMA/VWAP break, no squeeze required,
+// gated instead by above-average volume (expansion, not the squeeze's
+// contraction) so it doesn't fire on every ordinary band touch. It's
+// mutually exclusive with Breakout — if a squeeze DID precede the
+// break, Breakout claims it and Continuation stays silent, so a single
+// move never double-fires two entry labels.
+//
 // Labels use plain trading terminology, unambiguous between opening and
 // closing a position: BUY = open long, SELL = close long, SHORT = open
 // short, COVER = close short. (An earlier version of this file used
@@ -67,6 +84,12 @@ grpReversal = "Reversal Setup (Gap Up/Down Fade)"
 enableReversal    = input.bool(true, "Enable Reversal Signals", group = grpReversal)
 gapATRMult        = input.float(0.5, "Min Distance Beyond Band to Count as 'Gap' (× ATR)", minval = 0.05, step = 0.05, group = grpReversal)
 reversalLookback  = input.int(15, "Max Bars to Wait for VWAP Reclaim After Gap", minval = 1, group = grpReversal)
+
+grpContinuation = "Trend Continuation (no squeeze required — NOT in source)"
+enableContinuation    = input.bool(true, "Enable Trend Continuation Signals", group = grpContinuation,
+     tooltip = "Added after live validation showed the squeeze-gated Breakout setup misses plain trend continuations that never pause into a low-volatility squeeze. Same band/SMA/VWAP break as Breakout, minus the squeeze requirement, gated by volume expansion instead of contraction. Mutually exclusive with Breakout — a squeeze-preceded break is always claimed by Breakout, never both.")
+continuationVolFactor = input.float(1.2, "Continuation Volume Factor (× 20-bar avg volume)", minval = 0.1, step = 0.1, group = grpContinuation,
+     tooltip = "Volume must be above this multiple of its 20-bar average on the breaking candle — confirms real participation behind the move, not just noise. Not from the source — added to keep this setup from firing on every ordinary band touch.")
 
 grpExit = "Exit Rules"
 enableBandHugExit    = input.bool(true, "Enable Band-Hugging Exit (Breakout trades)", group = grpExit)
@@ -121,13 +144,17 @@ trail15High = request.security(syminfo.tickerid, "15", high[1], lookahead = barm
 // ---------------------------------------------------------------------
 // STATE — one active position per setup type at a time
 // ---------------------------------------------------------------------
-var bool  inBreakoutLong  = false
-var bool  inBreakoutShort = false
-var bool  inReversalLong  = false
-var bool  inReversalShort = false
+var bool  inBreakoutLong     = false
+var bool  inBreakoutShort    = false
+var bool  inReversalLong     = false
+var bool  inReversalShort    = false
+var bool  inContinuationLong  = false
+var bool  inContinuationShort = false
 
-var int   hugAwayCountL = 0
-var int   hugAwayCountS = 0
+var int   hugAwayCountL  = 0
+var int   hugAwayCountS  = 0
+var int   hugAwayCountCL = 0
+var int   hugAwayCountCS = 0
 
 var float recentExtremeTopPrice = na
 var int   recentExtremeTopBar   = na
@@ -186,6 +213,55 @@ if inBreakoutShort and not breakoutShortCond
         inBreakoutShort := false
 
 // ---------------------------------------------------------------------
+// TREND CONTINUATION — same band/SMA/VWAP break as Breakout, but no
+// squeeze required; gated by volume expansion instead. Not in source.
+// ---------------------------------------------------------------------
+continuationLongCond  = enableContinuation and not recentSqueeze and ta.crossover(close, upperBB) and close > sma20 and close > vwapVal and volume > volSma * continuationVolFactor and not inBreakoutLong and not inBreakoutShort and not inContinuationLong and not inContinuationShort
+continuationShortCond = enableContinuation and not recentSqueeze and ta.crossunder(close, lowerBB) and close < sma20 and close < vwapVal and volume > volSma * continuationVolFactor and not inBreakoutLong and not inBreakoutShort and not inContinuationLong and not inContinuationShort
+
+if continuationLongCond
+    inContinuationLong := true
+    hugAwayCountCL := 0
+    label.new(bar_index, low - atrVal * 0.5, "BUY", style = label.style_label_up,
+         color = color.new(color.green, 0), textcolor = color.white, size = lblSize)
+
+if continuationShortCond
+    inContinuationShort := true
+    hugAwayCountCS := 0
+    label.new(bar_index, high + atrVal * 0.5, "SHORT", style = label.style_label_down,
+         color = color.new(color.maroon, 0), textcolor = color.white, size = lblSize)
+
+// Continuation LONG exits — closing a long prints SELL
+if inContinuationLong and not continuationLongCond
+    extremeCandleC = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
+    distFromBandCL = upperBB - close
+    if distFromBandCL > hugBufferATR * atrVal
+        hugAwayCountCL += 1
+    else
+        hugAwayCountCL := 0
+    hugExitCL   = enableBandHugExit and hugAwayCountCL >= hugConfirmBars
+    trailExitCL = enableTrail15m and close < trail15Low
+    if extremeCandleC or hugExitCL or trailExitCL
+        label.new(bar_index, high + atrVal * 0.5, "SELL", style = label.style_label_down,
+             color = color.new(color.red, 0), textcolor = color.white, size = lblSize)
+        inContinuationLong := false
+
+// Continuation SHORT exits — closing a short prints COVER
+if inContinuationShort and not continuationShortCond
+    extremeCandleCS = enableExtremeExit and (high - low) > extremeMoveATRMult * atrVal
+    distFromBandCS  = close - lowerBB
+    if distFromBandCS > hugBufferATR * atrVal
+        hugAwayCountCS += 1
+    else
+        hugAwayCountCS := 0
+    hugExitCS   = enableBandHugExit and hugAwayCountCS >= hugConfirmBars
+    trailExitCS = enableTrail15m and close > trail15High
+    if extremeCandleCS or hugExitCS or trailExitCS
+        label.new(bar_index, low - atrVal * 0.5, "COVER", style = label.style_label_up,
+             color = color.new(color.teal, 0), textcolor = color.white, size = lblSize)
+        inContinuationShort := false
+
+// ---------------------------------------------------------------------
 // REVERSAL — gap outside the bands, fade back through VWAP
 // ---------------------------------------------------------------------
 extremeHigh = high > upperBB + gapATRMult * atrVal
@@ -239,7 +315,7 @@ if inReversalShort and not reversalShortCond
 // ---------------------------------------------------------------------
 // STATUS TABLE
 // ---------------------------------------------------------------------
-var table statusTable = table.new(position.top_right, 2, 5, border_width = 1)
+var table statusTable = table.new(position.top_right, 2, 6, border_width = 1)
 if barstate.islast
     table.cell(statusTable, 0, 0, "Setup", bgcolor = color.new(color.black, 0), text_color = color.white)
     table.cell(statusTable, 1, 0, "State", bgcolor = color.new(color.black, 0), text_color = color.white)
@@ -248,16 +324,21 @@ if barstate.islast
     table.cell(statusTable, 0, 2, "Breakout")
     table.cell(statusTable, 1, 2, inBreakoutLong ? "LONG" : inBreakoutShort ? "SHORT" : "flat",
          text_color = inBreakoutLong ? color.green : inBreakoutShort ? color.red : color.gray)
-    table.cell(statusTable, 0, 3, "Reversal")
-    table.cell(statusTable, 1, 3, inReversalLong ? "LONG" : inReversalShort ? "SHORT" : "flat",
+    table.cell(statusTable, 0, 3, "Continuation")
+    table.cell(statusTable, 1, 3, inContinuationLong ? "LONG" : inContinuationShort ? "SHORT" : "flat",
+         text_color = inContinuationLong ? color.green : inContinuationShort ? color.red : color.gray)
+    table.cell(statusTable, 0, 4, "Reversal")
+    table.cell(statusTable, 1, 4, inReversalLong ? "LONG" : inReversalShort ? "SHORT" : "flat",
          text_color = inReversalLong ? color.green : inReversalShort ? color.red : color.gray)
-    table.cell(statusTable, 0, 4, "BB Width %ile")
-    table.cell(statusTable, 1, 4, str.tostring(math.round(widthPctRank)) + "%")
+    table.cell(statusTable, 0, 5, "BB Width %ile")
+    table.cell(statusTable, 1, 5, str.tostring(math.round(widthPctRank)) + "%")
 
 // ---------------------------------------------------------------------
 // ALERTS
 // ---------------------------------------------------------------------
 alertcondition(breakoutLongCond, "Breakout Buy", "BB Intraday Breakout Buy: squeeze resolved upward")
 alertcondition(breakoutShortCond, "Breakout Short", "BB Intraday Breakout Short: squeeze resolved downward")
+alertcondition(continuationLongCond, "Continuation Buy", "BB Intraday Continuation Buy: trend break without a prior squeeze")
+alertcondition(continuationShortCond, "Continuation Short", "BB Intraday Continuation Short: trend break without a prior squeeze")
 alertcondition(reversalLongCond, "Reversal Buy", "BB Intraday Reversal Buy: gap-down fade reclaiming VWAP")
 alertcondition(reversalShortCond, "Reversal Short", "BB Intraday Reversal Short: gap-up fade losing VWAP")

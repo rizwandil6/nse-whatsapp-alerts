@@ -98,7 +98,7 @@ chart, intraday "bottle neck" squeeze breakouts on 15m/5m, and gap/VWAP
 reversal fades. Plots labels directly on the underlying's chart — it
 does not price or place trades on the option itself.
 
-### Three setups, each independently toggleable
+### Four setups, each independently toggleable
 
 Labels use plain, unambiguous trading terminology: `BUY` = open long,
 `SELL` = close long, `SHORT` = open short, `COVER` = close short. (An
@@ -121,6 +121,22 @@ label fires, they're just not printed in the label text.
 3. **Reversal** (gap fade) — price gaps meaningfully beyond a band, then
    closes back across VWAP → `BUY`/`SHORT`, exit (`SELL`/`COVER`) at the
    gap extreme.
+4. **Trend Continuation** — **not in the source**, added after live
+   validation against a real SUZLON chart (2026-07-20, 09:35–10:35)
+   showed a genuine gap: a strong ~2.7% continuation rally broke above
+   the upper band, above the 20 SMA, and above VWAP, but fired no signal
+   at all, because Breakout requires a squeeze in the preceding 5 bars
+   and the bands were already wide from the prior day's close — no
+   squeeze, so no breakout, even though the price action was real and
+   tradeable. This setup fires the same band/SMA/VWAP break as Breakout
+   but *without* requiring a prior squeeze, gated instead by
+   above-average volume (expansion, not the squeeze's contraction) so it
+   doesn't fire on every ordinary band touch. It's mutually exclusive
+   with Breakout: if a squeeze DID precede the break, Breakout claims it
+   and Continuation stays silent — one move never double-fires two
+   entry labels. Same `BUY`/`SHORT`/`SELL`/`COVER` labeling, same exit
+   logic (band-hugging loss, extreme-candle exhaustion, 15-minute
+   trailing stop) as Breakout.
 
 One more fix worth knowing about: exit conditions used to also get
 checked on the very same bar as entry, which meant a strong breakout
@@ -142,6 +158,7 @@ groups) instead of a hardcoded assumption:
 | "Decreasing volume" during squeeze | Volume vs. its own 20-bar average | < 0.8× average |
 | Price "leaves" the band (hugging exit) | Distance from band vs. ATR, for N bars | 0.15×ATR buffer, 1 bar confirm |
 | "Exceptionally large candle" | Bar range vs. ATR | > 2.5×ATR |
+| Continuation's volume filter *(not in source at all — invented to keep this added setup from over-firing)* | Volume vs. its own 20-bar average | > 1.2× average |
 
 (The source's optional "9 EMA early entry" idea was dropped rather than
 operationalized — it had no confirmation rule at all, not even an
@@ -175,6 +192,8 @@ What's left is exactly the source's intraday material:
 - **Intraday Breakout / Bottle Neck** (15m/5m) — same squeeze +
   directional-break entry as the options version.
 - **Reversal** (gap/VWAP fade) — same gap-then-VWAP-reclaim entry.
+- **Trend Continuation** — same not-in-source addition as the options
+  version, same squeeze-gap it fills, same volume-expansion filter.
 - Same exits: band-hugging loss, extreme-candle exhaustion, 15-minute
   trailing stop.
 - Same `BUY`/`SELL`/`SHORT`/`COVER` labeling as the options version, and
