@@ -499,5 +499,19 @@
   "pnlPct": -0.10689470871192283,
   "entryTimestampMs": 1784699580000,
   "exitTimestampMs": 1784699700000
+ },
+ {
+  "symbol": "TATACONSUM",
+  "direction": "LONG",
+  "entry": 1086,
+  "stop": 1078.5,
+  "tbq": 130698,
+  "tsq": 95003,
+  "obImbalance": 0.579075856996646,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 1088.7,
+  "pnlPct": 0.24861878453039093,
+  "entryTimestampMs": 1784700300000,
+  "exitTimestampMs": 1784700780000
  }
 ]
