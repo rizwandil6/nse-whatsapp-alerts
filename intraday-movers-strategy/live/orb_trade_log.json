@@ -555,5 +555,19 @@
   "pnlPct": -0.058673968316057104,
   "entryTimestampMs": 1784708400000,
   "exitTimestampMs": 1784708700000
+ },
+ {
+  "symbol": "PAGEIND",
+  "direction": "SHORT",
+  "entry": 39750,
+  "stop": 40160,
+  "tbq": 2617,
+  "tsq": 3497,
+  "obImbalance": 0.42803402028132154,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 39755,
+  "pnlPct": -0.012578616352201257,
+  "entryTimestampMs": 1784707500000,
+  "exitTimestampMs": 1784708820000
  }
 ]
