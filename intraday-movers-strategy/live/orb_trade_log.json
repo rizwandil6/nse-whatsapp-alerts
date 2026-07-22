@@ -583,5 +583,19 @@
   "pnlPct": -0.049999999999992426,
   "entryTimestampMs": 1784708940000,
   "exitTimestampMs": 1784709180000
+ },
+ {
+  "symbol": "PIDILITIND",
+  "direction": "LONG",
+  "entry": 1601.3,
+  "stop": 1574.7,
+  "tbq": 100526,
+  "tsq": 73476,
+  "obImbalance": 0.577728991620786,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 1603.2,
+  "pnlPct": 0.11865359395491731,
+  "entryTimestampMs": 1784711700000,
+  "exitTimestampMs": 1784712060000
  }
 ]
