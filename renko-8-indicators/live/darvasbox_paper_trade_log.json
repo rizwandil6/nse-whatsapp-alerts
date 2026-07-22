@@ -112,5 +112,14 @@
   "pnlPct": -0.5154639175257764,
   "entryTimestampMs": 1784706000000,
   "exitTimestampMs": 1784707500000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 215.7918000000001,
+  "stop": 216.9216000000001,
+  "entryIdx": 8,
+  "timestampMs": 1784710500000
  }
 ]
