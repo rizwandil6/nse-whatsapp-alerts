@@ -121,5 +121,14 @@
   "stop": 216.9216000000001,
   "entryIdx": 8,
   "timestampMs": 1784710500000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SERVOTECH",
+  "direction": "SHORT",
+  "entry": 100.07049999999998,
+  "stop": 100.58899999999998,
+  "entryIdx": 18,
+  "timestampMs": 1784710800000
  }
 ]
