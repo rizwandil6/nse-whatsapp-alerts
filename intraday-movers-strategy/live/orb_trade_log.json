@@ -513,5 +513,19 @@
   "pnlPct": 0.24861878453039093,
   "entryTimestampMs": 1784700300000,
   "exitTimestampMs": 1784700780000
+ },
+ {
+  "symbol": "KAJARIACER",
+  "direction": "LONG",
+  "entry": 1230.8,
+  "stop": 1217.7,
+  "tbq": 35127,
+  "tsq": 31701,
+  "obImbalance": 0.5256329682169151,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 1226.5,
+  "pnlPct": -0.34936626584335023,
+  "entryTimestampMs": 1784701800000,
+  "exitTimestampMs": 1784701920000
  }
 ]
