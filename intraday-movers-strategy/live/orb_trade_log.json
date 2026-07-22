@@ -485,5 +485,19 @@
   "pnlPct": 0.07326007326007326,
   "entryTimestampMs": 1784698080000,
   "exitTimestampMs": 1784698560000
+ },
+ {
+  "symbol": "ITI",
+  "direction": "SHORT",
+  "entry": 280.65,
+  "stop": 285.5,
+  "tbq": 64561,
+  "tsq": 291408,
+  "obImbalance": 0.18136691678207933,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 280.95,
+  "pnlPct": -0.10689470871192283,
+  "entryTimestampMs": 1784699580000,
+  "exitTimestampMs": 1784699700000
  }
 ]
