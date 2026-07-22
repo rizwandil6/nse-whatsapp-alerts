@@ -100,5 +100,17 @@
   "stop": 101.10749999999999,
   "entryIdx": 13,
   "timestampMs": 1784706000000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SERVOTECH",
+  "direction": "SHORT",
+  "entry": 100.58899999999998,
+  "exitPrice": 101.10749999999999,
+  "action": "STOP_LOSS",
+  "barsHeld": 1,
+  "pnlPct": -0.5154639175257764,
+  "entryTimestampMs": 1784706000000,
+  "exitTimestampMs": 1784707500000
  }
 ]
