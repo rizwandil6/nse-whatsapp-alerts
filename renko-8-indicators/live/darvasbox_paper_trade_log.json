@@ -19,5 +19,14 @@
   "pnlPct": -0.5025125628140703,
   "entryTimestampMs": 1784694000000,
   "exitTimestampMs": 1784694900000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "STERTOOLS",
+  "direction": "LONG",
+  "entry": 251.25,
+  "stop": 250,
+  "entryIdx": 20,
+  "timestampMs": 1784694900000
  }
 ]
