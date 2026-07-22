@@ -49,5 +49,17 @@
   "stop": 247.5,
   "entryIdx": 26,
   "timestampMs": 1784695200000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "STERTOOLS",
+  "direction": "SHORT",
+  "entry": 246.25,
+  "exitPrice": 247.5,
+  "action": "STOP_LOSS",
+  "barsHeld": 1,
+  "pnlPct": -0.5076142131979695,
+  "entryTimestampMs": 1784695200000,
+  "exitTimestampMs": 1784695500000
  }
 ]
