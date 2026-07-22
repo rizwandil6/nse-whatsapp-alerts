@@ -541,5 +541,19 @@
   "pnlPct": -0.06993006993007257,
   "entryTimestampMs": 1784701440000,
   "exitTimestampMs": 1784702520000
+ },
+ {
+  "symbol": "GLAXO",
+  "direction": "LONG",
+  "entry": 2556.5,
+  "stop": 2467.4,
+  "tbq": 15889,
+  "tsq": 15521,
+  "obImbalance": 0.5058580070041389,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 2555,
+  "pnlPct": -0.058673968316057104,
+  "entryTimestampMs": 1784708400000,
+  "exitTimestampMs": 1784708700000
  }
 ]
