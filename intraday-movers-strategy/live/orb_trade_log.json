@@ -569,5 +569,19 @@
   "pnlPct": -0.012578616352201257,
   "entryTimestampMs": 1784707500000,
   "exitTimestampMs": 1784708820000
+ },
+ {
+  "symbol": "HAVELLS",
+  "direction": "SHORT",
+  "entry": 1200,
+  "stop": 1217.1,
+  "tbq": 136248,
+  "tsq": 160078,
+  "obImbalance": 0.4597909059616773,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 1200.6,
+  "pnlPct": -0.049999999999992426,
+  "entryTimestampMs": 1784708940000,
+  "exitTimestampMs": 1784709180000
  }
 ]
