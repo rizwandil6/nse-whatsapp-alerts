@@ -91,5 +91,14 @@
   "pnlPct": -0.500000000000003,
   "entryTimestampMs": 1784701200000,
   "exitTimestampMs": 1784701200000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SERVOTECH",
+  "direction": "SHORT",
+  "entry": 100.58899999999998,
+  "stop": 101.10749999999999,
+  "entryIdx": 13,
+  "timestampMs": 1784706000000
  }
 ]
