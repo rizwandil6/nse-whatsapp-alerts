@@ -70,5 +70,14 @@
   "stop": 103.1815,
   "entryIdx": 9,
   "timestampMs": 1784697600000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 37.03490000000001,
+  "stop": 37.22880000000001,
+  "entryIdx": 8,
+  "timestampMs": 1784697900000
  }
 ]
