@@ -415,5 +415,19 @@
   "pnlPct": 0.044745589363334184,
   "entryTimestampMs": 1784693100000,
   "exitTimestampMs": 1784693340000
+ },
+ {
+  "symbol": "VBL",
+  "direction": "SHORT",
+  "entry": 457.45,
+  "stop": 465.45,
+  "tbq": 469658,
+  "tsq": 515584,
+  "obImbalance": 0.476693035822671,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 456.7,
+  "pnlPct": 0.1639523445185266,
+  "entryTimestampMs": 1784693580000,
+  "exitTimestampMs": 1784694780000
  }
 ]
