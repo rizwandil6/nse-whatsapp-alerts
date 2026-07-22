@@ -429,5 +429,19 @@
   "pnlPct": 0.1639523445185266,
   "entryTimestampMs": 1784693580000,
   "exitTimestampMs": 1784694780000
+ },
+ {
+  "symbol": "3MINDIA",
+  "direction": "LONG",
+  "entry": 35425,
+  "stop": 35170,
+  "tbq": 1214,
+  "tsq": 1743,
+  "obImbalance": 0.4105512343591478,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 35400,
+  "pnlPct": -0.07057163020465773,
+  "entryTimestampMs": 1784695260000,
+  "exitTimestampMs": 1784695440000
  }
 ]
