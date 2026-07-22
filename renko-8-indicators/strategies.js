@@ -169,33 +169,90 @@ strategies.push({
 
 // ── 5. Darvas Box (box length 8) -- source DOES specify the stop here ──
 const DARVAS_LEN = 8;
+
+// Box confirmation requires this many consecutive bricks fully contained
+// within the box's range (no new high/low) before the box counts as real,
+// mirroring the classic weekly method's MIN_BOX_WEEKS=3 containment gate
+// (darvas_classic.js) instead of recomputing an unconfirmed rolling window
+// every single brick. The source spec for this Renko variant only says "Box
+// Length: 8" with no explicit confirmation count, so 3 is carried over from
+// the classic method for consistency rather than swept for best results.
+const DARVAS_MIN_CONTAINED = 3;
+
+/**
+ * Walks all bricks once building the box lifecycle (seeking/forming/
+ * confirmed), mirroring darvas_classic.js but per-brick and with no
+ * 52-brick-high gate to start forming (the pasted Renko spec doesn't call
+ * for one). series[i] holds the CONFIRMED box in effect strictly before
+ * brick i is processed (i.e. built only from bricks[0..i-1]), so comparing
+ * ctx.bricks[i] against series[i] has no lookahead -- same convention the
+ * old naive window used.
+ */
+function computeConfirmedBoxSeries(ctx) {
+  const bricks = ctx.bricks;
+  const series = new Array(bricks.length).fill(null);
+  let forming = null; // { top, bottom, containedCount }
+  let confirmed = null; // { top, bottom }
+
+  for (let i = 0; i < bricks.length; i++) {
+    series[i] = confirmed;
+    const b = bricks[i];
+
+    if (confirmed && (b.high > confirmed.top || b.low < confirmed.bottom)) {
+      // Breakout beyond the confirmed box -- it's spent; a fresh box starts
+      // forming seeded from this same breakout brick.
+      confirmed = null;
+      forming = { top: b.high, bottom: b.low, containedCount: 1 };
+      continue;
+    }
+
+    if (!forming) {
+      forming = { top: b.high, bottom: b.low, containedCount: 1 };
+    } else if (b.high > forming.top) {
+      forming.top = b.high;
+      forming.bottom = Math.min(forming.bottom, b.low);
+      forming.containedCount = 1;
+    } else if (b.low < forming.bottom) {
+      forming.bottom = b.low;
+      forming.containedCount = 1;
+    } else {
+      forming.containedCount += 1;
+      if (forming.containedCount >= DARVAS_MIN_CONTAINED) {
+        confirmed = { top: forming.top, bottom: forming.bottom };
+        forming = null;
+      }
+    }
+  }
+  return series;
+}
+
+function confirmedBoxAt(i, ctx) {
+  if (!ctx._darvasConfirmedBoxSeries) ctx._darvasConfirmedBoxSeries = computeConfirmedBoxSeries(ctx);
+  return ctx._darvasConfirmedBoxSeries[i] || null;
+}
+
 strategies.push({
   name: 'DarvasBox',
   getEntry(i, ctx) {
-    if (i < DARVAS_LEN) return null;
-    let boxTop = -Infinity, boxBottom = Infinity;
-    for (let j = i - DARVAS_LEN; j < i; j++) {
-      boxTop = Math.max(boxTop, ctx.bricks[j].high);
-      boxBottom = Math.min(boxBottom, ctx.bricks[j].low);
-    }
+    const box = confirmedBoxAt(i, ctx);
+    if (!box) return null;
     const c = ctx.bricks[i].close;
-    if (c > boxTop) return 'LONG';
-    if (c < boxBottom) return 'SHORT';
+    if (c > box.top) return 'LONG';
+    if (c < box.bottom) return 'SHORT';
     return null;
   },
   getExit(i, ctx, pos) {
-    // Trailing stop only (source: "implied trailing stop", "trail stops up as new boxes form").
-    let boxTop = -Infinity, boxBottom = Infinity;
-    const start = Math.max(0, i - DARVAS_LEN);
-    for (let j = start; j < i; j++) {
-      boxTop = Math.max(boxTop, ctx.bricks[j].high);
-      boxBottom = Math.min(boxBottom, ctx.bricks[j].low);
-    }
+    // Trailing stop only (source: "implied trailing stop", "trail stops up as new boxes form") --
+    // raised only when a genuinely NEW CONFIRMED box exists, not recalculated from a naive
+    // rolling window every single brick. See confirmedBoxAt()/computeConfirmedBoxSeries() docstring.
+    const box = confirmedBoxAt(i, ctx);
     if (pos.direction === 'LONG') {
-      pos.trailStop = pos.trailStop == null ? boxBottom : Math.max(pos.trailStop, boxBottom);
+      const candidate = box ? box.bottom : -Infinity;
+      pos.trailStop = pos.trailStop == null ? candidate : Math.max(pos.trailStop, candidate);
       if (ctx.bricks[i].close < pos.trailStop) return 'TRAILING_BOX_STOP';
     } else {
-      pos.trailStop = pos.trailStop == null ? boxTop : Math.min(pos.trailStop, boxTop);
+      const candidate = box ? box.top : Infinity;
+      pos.trailStop = pos.trailStop == null ? candidate : Math.min(pos.trailStop, candidate);
       if (ctx.bricks[i].close > pos.trailStop) return 'TRAILING_BOX_STOP';
     }
     return null;

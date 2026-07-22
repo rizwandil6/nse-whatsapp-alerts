@@ -40,7 +40,7 @@ const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-5338709046').split(',');
 const PAPER_ALERTS_ENABLED = process.env.DARVAS_TELEGRAM_ENABLED !== 'false';
-const BRICK_PCT = parseFloat(process.env.DARVAS_BRICK_PCT || '0.5') / 100;
+const BRICK_PCT = parseFloat(process.env.DARVAS_BRICK_PCT || '0.3') / 100;
 const POLL_MS = 5 * 60 * 1000; // 5 minutes -- matches the 5-min bar granularity bricks are built from
 const IST_OFFSET_MS = (5 * 60 + 30) * 60 * 1000;
 const MARKET_OPEN_MIN = 9 * 60 + 15;
