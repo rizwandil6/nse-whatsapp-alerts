@@ -41,6 +41,18 @@ public class TelegramSender {
     }
 
     public void send(String text) {
+        send(text, null);
+    }
+
+    /**
+     * @param parseMode Telegram parse_mode -- pass "Markdown" for legacy-Markdown bold and
+     *                  italic support, or null for plain text (the default every other caller
+     *                  in this app uses). Scoped per-call rather than changed globally, since
+     *                  switching the shared default risks breaking existing messages elsewhere
+     *                  that aren't Markdown-escaped (stray formatting characters from PDF or
+     *                  company text).
+     */
+    public void send(String text, String parseMode) {
         List<String> chatIds = loadChatIds();
         if (chatIds.isEmpty()) {
             logger.warn("No Telegram chat IDs configured; skipping send");
@@ -54,17 +66,20 @@ public class TelegramSender {
         List<String> chunks = splitMessage(text);
         for (String chatId : chatIds) {
             for (String chunk : chunks) {
-                sendChunk(chatId, chunk);
+                sendChunk(chatId, chunk, parseMode);
             }
         }
     }
 
-    private void sendChunk(String chatId, String text) {
+    private void sendChunk(String chatId, String text, String parseMode) {
         String url = String.format(API_URL, botToken);
 
         Map<String, String> payload = new HashMap<>();
         payload.put("chat_id", chatId);
         payload.put("text", text);
+        if (parseMode != null && !parseMode.isBlank()) {
+            payload.put("parse_mode", parseMode);
+        }
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

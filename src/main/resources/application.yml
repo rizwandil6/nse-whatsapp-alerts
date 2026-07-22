@@ -3,8 +3,33 @@ server:
 
 nse:
   watchlist:
-    - TCS
-    - INFY
+    - CONCOR
+    - HATHWAY
+    - NHPC
+    - JSWINFRA
+    - JKIL
+    - SUZLON
+    - WAAREEENER
+    - OLAELEC
+    - HINDCOPPER
+    - MHRIL
+    - RVNL
+    - RAILTEL
+    - GAIL
+    - ADSL
+    - ARE&M
+    - NCC
+    - STERTOOLS
+    - TEXRAIL
+    - TITAGARH
+    - MANINDS
+    - SERVOTECH
+    - IRCON
+  # Alert-only announcements (see alert-only-keywords below) for symbols on this
+  # watchlist always send. For everything else, only send if the AI-derived
+  # rating clears this bar -- avoids alert-only noise for 300+ non-watchlist
+  # stocks while still surfacing genuinely major results for anyone.
+  alert-only-rating-threshold: 8.0
   circular-keywords:
     - "orders"
     - "contracts"

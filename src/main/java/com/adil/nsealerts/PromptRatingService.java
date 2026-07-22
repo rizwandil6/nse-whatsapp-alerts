@@ -175,6 +175,128 @@ public class PromptRatingService {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
+    // Board-meeting-outcome analysis (results/financials) — separate from the
+    // order/contract rating above, which doesn't apply to this announcement
+    // category. Positives/Concerns/Overall Assessment only, deliberately no
+    // fundamentals (Screener.in) or technicals section — per explicit request,
+    // this alert type stays scoped to what's actually in the announcement PDF.
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /** message + rating (average of rating_low/rating_high, for threshold checks) -- null message means analysis unavailable. */
+    public record BoardMeetingAnalysis(String message, Double rating) {}
+
+    public BoardMeetingAnalysis analyzeBoardMeetingPdf(String companyName, String subject, String documentText) {
+        if (anthropicApiKey == null || anthropicApiKey.isBlank()) return new BoardMeetingAnalysis(null, null);
+        try {
+            String prompt = buildBoardMeetingPrompt(companyName, subject, documentText);
+
+            var rootNode = objectMapper.createObjectNode();
+            var messages = objectMapper.createArrayNode();
+            var message  = objectMapper.createObjectNode();
+            message.put("role", "user");
+            message.put("content", prompt);
+            messages.add(message);
+            rootNode.put("model", "claude-haiku-4-5-20251001");
+            rootNode.put("max_tokens", 700);
+            rootNode.set("messages", messages);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.anthropic.com/v1/messages"))
+                    .header("Content-Type", "application/json")
+                    .header("x-api-key", anthropicApiKey)
+                    .header("anthropic-version", "2023-06-01")
+                    .POST(HttpRequest.BodyPublishers.ofString(rootNode.toString(), StandardCharsets.UTF_8))
+                    .build();
+
+            HttpResponse<String> response = HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+
+            if (response.statusCode() != 200) {
+                logger.warn("[BoardMeeting] Anthropic API error: {} {}", response.statusCode(), response.body());
+                return new BoardMeetingAnalysis(null, null);
+            }
+
+            String content = objectMapper.readTree(response.body()).at("/content/0/text").asText();
+            return formatBoardMeetingResult(content);
+        } catch (Exception e) {
+            logger.warn("[BoardMeeting] Analysis failed: {}", e.getMessage());
+            return new BoardMeetingAnalysis(null, null);
+        }
+    }
+
+    private String buildBoardMeetingPrompt(String companyName, String subject, String documentText) {
+        return "You are analyzing an NSE \"Outcome of Board Meeting\" filing (typically quarterly/annual "
+            + "financial results) for an Indian listed company.\n\n"
+            + "Company: " + companyName + "\n"
+            + "Subject: " + subject + "\n"
+            + "Document: " + trimText(documentText, 4000) + "\n\n"
+            + "Reply with ONLY a JSON object (no markdown, no code blocks) with these exact fields:\n"
+            + "{\n"
+            + "  \"positives\": [\"<short factual positive point>\", ...],\n"
+            + "  \"concerns\": [\"<short factual concern/negative point>\", ...],\n"
+            + "  \"overall_label\": \"<short qualitative phrase, e.g. 'Positive with some margin pressure'>\",\n"
+            + "  \"rating_low\": <number 1-10>,\n"
+            + "  \"rating_high\": <number 1-10, >= rating_low>\n"
+            + "}\n\n"
+            + "Rules:\n"
+            + "- positives: 3-6 points, each one short plain sentence, based only on what's actually in the document\n"
+            + "- concerns: 2-5 points, same style — if there are genuinely none, return an empty array, don't invent one\n"
+            + "- Base everything strictly on the document text — revenue, profit, margins, costs, cash flow, "
+            + "  balance sheet items, auditor remarks, guidance, anything explicitly stated\n"
+            + "- Do not comment on the stock's valuation, technicals, or make a buy/sell recommendation — "
+            + "  positives/concerns about the RESULTS THEMSELVES only\n"
+            + "- No markdown formatting inside the point strings (no **, ##, bullets)";
+    }
+
+    private BoardMeetingAnalysis formatBoardMeetingResult(String content) {
+        try {
+            String json = content.trim();
+            if (json.startsWith("```")) {
+                int start = json.indexOf('\n') + 1;
+                int end   = json.lastIndexOf("```");
+                if (end > start) json = json.substring(start, end).trim();
+            }
+            JsonNode node = objectMapper.readTree(json);
+
+            StringBuilder sb = new StringBuilder();
+            JsonNode positives = node.path("positives");
+            if (positives.isArray() && positives.size() > 0) {
+                sb.append("*Positives*\n");
+                for (JsonNode p : positives) sb.append("✅ ").append(p.asText()).append("\n");
+                sb.append("\n");
+            }
+
+            JsonNode concerns = node.path("concerns");
+            if (concerns.isArray() && concerns.size() > 0) {
+                sb.append("*Concerns*\n");
+                for (JsonNode c : concerns) sb.append("⚠️ ").append(c.asText()).append("\n");
+                sb.append("\n");
+            }
+
+            Double rating = null;
+            String label = node.path("overall_label").asText("");
+            if (!label.isBlank()) {
+                double lo = node.path("rating_low").asDouble(0);
+                double hi = node.path("rating_high").asDouble(lo);
+                rating = (lo + hi) / 2.0;
+                String range = lo == hi ? trimTrailingZero(lo) : trimTrailingZero(lo) + "–" + trimTrailingZero(hi);
+                sb.append("*Overall Assessment*\n");
+                sb.append("*Rating:* ").append(label).append(" (").append(range).append("/10)");
+            }
+
+            String result = sb.toString().stripTrailing();
+            return new BoardMeetingAnalysis(result.isBlank() ? null : result, rating);
+        } catch (Exception e) {
+            logger.warn("[BoardMeeting] JSON parse failed: {}", e.getMessage());
+            return new BoardMeetingAnalysis(null, null);
+        }
+    }
+
+    private String trimTrailingZero(double v) {
+        return v == Math.floor(v) ? String.valueOf((int) v) : String.valueOf(v);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
     // Order size extraction — handles Indian rupee format (Rs. 27,06,04,323/-)
     // ─────────────────────────────────────────────────────────────────────────
 

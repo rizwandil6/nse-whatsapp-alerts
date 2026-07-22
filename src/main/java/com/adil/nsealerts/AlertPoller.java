@@ -48,6 +48,7 @@ public class AlertPoller {
     private final boolean screeningEnabled;
     private final boolean ignoreSme;
     private final double tradeRatingThreshold;
+    private final double alertOnlyRatingThreshold;
 
     /** Symbols listed on NSE main board (loaded from EQUITY_L.csv at startup). Null = unavailable, don't filter. */
     private volatile Set<String> mainBoardSymbols = null;
@@ -83,6 +84,7 @@ public class AlertPoller {
         // is the real cutoff that matters (-0.39% avg, 40% win rate). Lowered default
         // from 7 to 5 accordingly; still overridable via env without a redeploy.
         this.tradeRatingThreshold = Double.parseDouble(env.getProperty("nse.trade-rating-threshold", "5.0"));
+        this.alertOnlyRatingThreshold = Double.parseDouble(env.getProperty("nse.alert-only-rating-threshold", "8.0"));
 
         String[] watch = env.getProperty("nse.watchlist", String[].class);
         if (watch == null) {
@@ -266,7 +268,7 @@ public class AlertPoller {
                             : "";
                     AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
                     logger.info("New alert-only announcement: {}", title);
-                    telegramSender.send(buildAlertOnlyMessage(ctx));
+                    handleAlertOnlyAnnouncement(ctx);
                 }
             } catch (Exception e) {
                 logger.error("Error processing announcement entry", e);
@@ -275,18 +277,52 @@ public class AlertPoller {
     }
 
     /**
-     * Plain notification for alert-only categories (see nse.alert-only-keywords) --
-     * no PDF fetch, no AI rating, no fundamentals scrape, no trade pipeline. Just
-     * enough to know it happened and go read it yourself.
+     * For alert-only categories (see nse.alert-only-keywords): fetches the filed PDF
+     * and asks the AI for Positives/Concerns/Overall Assessment on the results
+     * themselves -- deliberately no fundamentals (Screener.in) or technicals
+     * section, and no order/contract trade pipeline (that rating prompt doesn't
+     * apply to results).
+     *
+     * Send gate: watchlist symbols (nse.watchlist) always send, regardless of
+     * rating -- these are the stocks actually being tracked, every board-meeting
+     * outcome matters. Everything else (300+ other NSE stocks that also file
+     * "Outcome of Board Meeting") only sends if the AI rating clears
+     * nse.alert-only-rating-threshold (default 8) -- otherwise this category
+     * would fire dozens of times a day for stocks nobody asked about.
      */
-    private String buildAlertOnlyMessage(AnnouncementContext ctx) {
+    private void handleAlertOnlyAnnouncement(AnnouncementContext ctx) {
+        boolean isWatchlisted = watchlist.stream().anyMatch(w -> w.equalsIgnoreCase(ctx.symbol()));
+
+        String pdfText = pdfExtractor.extractText(ctx.link());
+        String documentText = pdfText != null && !pdfText.isBlank() ? pdfText : ctx.subject();
+        PromptRatingService.BoardMeetingAnalysis analysis =
+                promptRatingService.analyzeBoardMeetingPdf(ctx.companyName(), ctx.subject(), documentText);
+
+        boolean clearsRatingBar = analysis.rating() != null && analysis.rating() >= alertOnlyRatingThreshold;
+        if (!isWatchlisted && !clearsRatingBar) {
+            logger.info("[AlertOnly] Suppressed (not on watchlist, rating {} < {}): {}",
+                    analysis.rating(), alertOnlyRatingThreshold, ctx.companyName());
+            return;
+        }
+
         StringBuilder sb = new StringBuilder();
-        sb.append("📄 ").append(ctx.companyName()).append(" — ").append(ctx.subject()).append("\n");
+        sb.append("📄 *").append(ctx.companyName()).append("* — ").append(ctx.subject()).append("\n");
         if (ctx.broadcastTime() != null && !ctx.broadcastTime().isBlank()) {
             sb.append("Broadcast: ").append(ctx.broadcastTime()).append("\n");
         }
+        sb.append("\n");
+
+        if (analysis.message() != null && !analysis.message().isBlank()) {
+            sb.append(analysis.message()).append("\n\n");
+        } else if (!isWatchlisted) {
+            // Non-watchlist stock with no usable analysis -- can't confirm it clears the
+            // rating bar, so don't send (matches the suppression path above).
+            logger.info("[AlertOnly] Suppressed (not on watchlist, analysis unavailable): {}", ctx.companyName());
+            return;
+        }
+
         sb.append("Source: ").append(ctx.link());
-        return sb.toString();
+        telegramSender.send(sb.toString(), "Markdown");
     }
 
     // ─────────────────────────────────────────────────────────────────────────
