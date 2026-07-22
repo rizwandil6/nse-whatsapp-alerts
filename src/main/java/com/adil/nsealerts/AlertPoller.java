@@ -86,15 +86,26 @@ public class AlertPoller {
         this.tradeRatingThreshold = Double.parseDouble(env.getProperty("nse.trade-rating-threshold", "5.0"));
         this.alertOnlyRatingThreshold = Double.parseDouble(env.getProperty("nse.alert-only-rating-threshold", "8.0"));
 
-        String[] watch = env.getProperty("nse.watchlist", String[].class);
-        if (watch == null) {
+        // env.getProperty("nse.watchlist", String[].class) does NOT reliably bind a
+        // YAML sequence in this Spring Boot setup -- confirmed live: this loaded as
+        // an empty list even with 22 real entries in application.yml (the comma-string
+        // fallback below never helps either, since a YAML list isn't a comma string
+        // property either). Pre-existing bug, silent since nothing ever depended on
+        // watchlist actually being non-empty until the alert-only rating gate today.
+        // Switched to the same indexed-property pattern already used successfully for
+        // announcementKeywords/alertOnlyKeywords below.
+        List<String> watchList = new ArrayList<>();
+        int watchIdx = 0; String w;
+        while ((w = env.getProperty("nse.watchlist[" + watchIdx + "]")) != null) {
+            watchList.add(w); watchIdx++;
+        }
+        if (watchList.isEmpty()) {
             String watchStr = env.getProperty("nse.watchlist");
-            if (watchStr != null && !watchStr.isEmpty()) {
-                watch = watchStr.split(",");
-                for (int i = 0; i < watch.length; i++) watch[i] = watch[i].trim();
+            if (watchStr != null && !watchStr.isBlank()) {
+                for (String s : watchStr.split(",")) watchList.add(s.trim());
             }
         }
-        this.watchlist = watch == null ? java.util.Collections.emptyList() : java.util.Arrays.asList(watch);
+        this.watchlist = watchList;
         logger.info("[AlertPoller] Loaded watchlist: {}", this.watchlist);
 
         String[] circulars = env.getProperty("nse.circular-keywords", String[].class);
