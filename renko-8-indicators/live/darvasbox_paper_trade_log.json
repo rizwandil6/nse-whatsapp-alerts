@@ -130,5 +130,14 @@
   "stop": 100.58899999999998,
   "entryIdx": 18,
   "timestampMs": 1784710800000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "STERTOOLS",
+  "direction": "SHORT",
+  "entry": 245,
+  "stop": 246.25,
+  "entryIdx": 53,
+  "timestampMs": 1784713200000
  }
 ]
