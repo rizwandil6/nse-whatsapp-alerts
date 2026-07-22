@@ -175,5 +175,17 @@
   "pnlPct": 0.5235602094240783,
   "entryTimestampMs": 1784710500000,
   "exitTimestampMs": 1784714100000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SERVOTECH",
+  "direction": "SHORT",
+  "entry": 100.07049999999998,
+  "exitPrice": 100.07049999999998,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 0,
+  "pnlPct": 0,
+  "entryTimestampMs": 1784710800000,
+  "exitTimestampMs": 1784710800000
  }
 ]
