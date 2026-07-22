@@ -163,5 +163,17 @@
   "pnlPct": 1.0471204188481635,
   "entryTimestampMs": 1784697900000,
   "exitTimestampMs": 1784713500000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 215.7918000000001,
+  "exitPrice": 214.66200000000012,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 9,
+  "pnlPct": 0.5235602094240783,
+  "entryTimestampMs": 1784710500000,
+  "exitTimestampMs": 1784714100000
  }
 ]
