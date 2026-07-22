@@ -457,5 +457,19 @@
   "pnlPct": 0,
   "entryTimestampMs": 1784697240000,
   "exitTimestampMs": 1784697540000
+ },
+ {
+  "symbol": "PETRONET",
+  "direction": "LONG",
+  "entry": 279.4,
+  "stop": 274.65,
+  "tbq": 492433,
+  "tsq": 249807,
+  "obImbalance": 0.6634417439103255,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 279.15,
+  "pnlPct": -0.0894774516821761,
+  "entryTimestampMs": 1784698380000,
+  "exitTimestampMs": 1784698500000
  }
 ]
