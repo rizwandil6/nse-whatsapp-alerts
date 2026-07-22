@@ -35,6 +35,7 @@ public class AlertPoller {
     private List<String> watchlist;
     private List<String> circularKeywords;
     private List<String> announcementKeywords;
+    private List<String> alertOnlyKeywords;
     private List<String> ignoredKeywords;
 
     private final NseClient nseClient;
@@ -111,6 +112,18 @@ public class AlertPoller {
         }
         this.announcementKeywords = annKeywords;
 
+        // Alert-only categories (e.g. "Outcome of Board Meeting", which is how NSE
+        // actually files results announcements -- see application.yml comment): sent
+        // to Telegram like any other announcement, but never reach the AI rating or
+        // Upstox trade pipeline below, since that prompt is built around order/contract
+        // sizing and doesn't apply here.
+        List<String> alertOnly = new ArrayList<>();
+        int alertOnlyIdx = 0;
+        while ((kw = env.getProperty("nse.alert-only-keywords[" + alertOnlyIdx + "]")) != null) {
+            alertOnly.add(kw); alertOnlyIdx++;
+        }
+        this.alertOnlyKeywords = alertOnly;
+
         List<String> ignored = new ArrayList<>();
         int ignoreIdx = 0;
         while ((kw = env.getProperty("nse.ignore-keywords[" + ignoreIdx + "]")) != null) {
@@ -119,6 +132,7 @@ public class AlertPoller {
         this.ignoredKeywords = ignored;
 
         logger.info("[AlertPoller] Announcement keywords: {}", this.announcementKeywords);
+        logger.info("[AlertPoller] Alert-only keywords: {}", this.alertOnlyKeywords);
     }
 
     @PostConstruct
@@ -228,6 +242,9 @@ public class AlertPoller {
                 boolean matches = !excluded && (announcementKeywords.isEmpty()
                         || announcementKeywords.stream()
                                 .anyMatch(k -> combinedText.contains(k.toLowerCase())));
+                boolean alertOnlyMatch = !excluded && !matches
+                        && alertOnlyKeywords.stream()
+                                .anyMatch(k -> combinedText.contains(k.toLowerCase()));
 
                 if (matches && seenIds.add(id)) {
                     String pubTime = entry.getPublishedDate() != null
@@ -243,11 +260,33 @@ public class AlertPoller {
                     String message = buildAnnouncementMessage(ctx);
                     logger.info("[MSG] {}", message);
                     telegramSender.send(message);
+                } else if (alertOnlyMatch && seenIds.add(id)) {
+                    String pubTime = entry.getPublishedDate() != null
+                            ? new java.text.SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(entry.getPublishedDate())
+                            : "";
+                    AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
+                    logger.info("New alert-only announcement: {}", title);
+                    telegramSender.send(buildAlertOnlyMessage(ctx));
                 }
             } catch (Exception e) {
                 logger.error("Error processing announcement entry", e);
             }
         }
+    }
+
+    /**
+     * Plain notification for alert-only categories (see nse.alert-only-keywords) --
+     * no PDF fetch, no AI rating, no fundamentals scrape, no trade pipeline. Just
+     * enough to know it happened and go read it yourself.
+     */
+    private String buildAlertOnlyMessage(AnnouncementContext ctx) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("📄 ").append(ctx.companyName()).append(" — ").append(ctx.subject()).append("\n");
+        if (ctx.broadcastTime() != null && !ctx.broadcastTime().isBlank()) {
+            sb.append("Broadcast: ").append(ctx.broadcastTime()).append("\n");
+        }
+        sb.append("Source: ").append(ctx.link());
+        return sb.toString();
     }
 
     // ─────────────────────────────────────────────────────────────────────────

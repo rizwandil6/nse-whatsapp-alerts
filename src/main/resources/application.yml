@@ -10,6 +10,15 @@ nse:
     - "contracts"
   announcement-keywords:
     - "Bagging/Receiving of orders/contracts"
+  # Alert-only categories: sent to Telegram like a normal announcement, but skip
+  # PDF-fetch, AI rating, and the Upstox trade pipeline entirely -- these aren't
+  # order/contract signals and the rating prompt (order-size-vs-market-cap) doesn't
+  # make sense applied to them. Added 2026-07-22 after JSWINFRA's quarterly results
+  # were missed: NSE files results under "Outcome of Board Meeting", not a
+  # "results"/"quarterly" label, so a plain keyword match on that category is what
+  # actually catches it.
+  alert-only-keywords:
+    - "Outcome of Board Meeting"
   ignore-keywords:
     - "Awarding or Bagging of Orders/Contracts-XBRL"
 
