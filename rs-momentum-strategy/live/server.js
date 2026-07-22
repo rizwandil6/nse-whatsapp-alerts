@@ -82,6 +82,39 @@ function formatEntryAlert(c, fundamentals) {
   ].join('\n');
 }
 
+// Used when Screener.in is unreachable at alert time (see runOnce): the RS
+// crossing is real and alerted immediately rather than silently dropped,
+// but the Sales Growth 3Y gate hasn't actually been checked yet -- flagged
+// explicitly so this isn't mistaken for a fully-confirmed entry.
+function formatPendingEntryAlert(c) {
+  return [
+    '[RS MOMENTUM] New position entered — LONG (fundamentals pending)',
+    `Stock: ${c.symbol}`,
+    `Entry: ₹${c.price.toFixed(2)}`,
+    `RS Rank: ${c.rsRankAtEntry.toFixed(1)}/100 (>=80 required)`,
+    'Sales Growth 3Y: NOT YET CHECKED — Screener.in unreachable at alert time.',
+    'Will auto-confirm (or retract) once Screener.in is reachable again.',
+    'No fixed target/stop — holds while RS rank stays >=50, exits on relative weakness.',
+    '(Positional, 1-2yr horizon. Alert only — no order placed.)',
+  ].join('\n');
+}
+
+function formatFundamentalsConfirmedAlert(symbol, fundamentals) {
+  return [
+    `[RS MOMENTUM] ${symbol}: fundamentals confirmed`,
+    `Sales Growth 3Y: ${fundamentals.salesGrowth3Y}% (>=15% required) — gate cleared.`,
+    'Position remains tracked, no action needed.',
+  ].join('\n');
+}
+
+function formatFundamentalsFailedAlert(symbol, fundamentals) {
+  return [
+    `[RS MOMENTUM] ${symbol}: retracted — fundamentals gate failed`,
+    `Sales Growth 3Y: ${fundamentals ? fundamentals.salesGrowth3Y + '%' : 'unavailable'} (>=15% required) — does not clear.`,
+    'This was alerted earlier as fundamentals-pending; no longer tracked.',
+  ].join('\n');
+}
+
 function formatExitAlert(e) {
   const pnlStr = (e.pnlPct >= 0 ? '+' : '') + e.pnlPct.toFixed(2) + '%';
   return [
@@ -115,35 +148,84 @@ async function runOnce() {
     logEntries.push({ type: 'EXIT', symbol: e.symbol, date: e.date, price: e.exitPrice, pnlPct: e.pnlPct });
   }
 
+  const username = process.env.SCREENER_USERNAME;
+  const password = process.env.SCREENER_PASSWORD;
+  let cookies = null;
+  if (!username || !password) {
+    console.error('SCREENER_USERNAME/SCREENER_PASSWORD not set — Sales Growth gate unavailable this run.');
+  } else {
+    try {
+      cookies = await loginToScreener(username, password);
+    } catch (e1) {
+      // Screener.in has been unreachable from Railway for extended stretches
+      // (ETIMEDOUT at connect, not a Screener.in outage -- see 2026-07-22
+      // investigation). This used to throw out of runOnce() entirely,
+      // silently dropping any RS>=80 crossing found the same day and also
+      // skipping the state commit for already-processed exits below. Now:
+      // treat it as "gate temporarily unavailable" rather than fatal.
+      console.warn(`Screener.in login failed (${e1.message}) — Sales Growth gate unavailable this run, alerting new candidates as fundamentals-pending.`);
+    }
+  }
+
   if (newCandidates.length > 0) {
-    const username = process.env.SCREENER_USERNAME;
-    const password = process.env.SCREENER_PASSWORD;
-    if (!username || !password) {
-      console.error('SCREENER_USERNAME/SCREENER_PASSWORD not set — skipping Sales Growth gate, no new entries will be tracked this run.');
-    } else {
-      const cookies = await loginToScreener(username, password);
-      for (const c of newCandidates) {
-        try {
-          const fundamentals = await fetchFundamentals(c.symbol, cookies);
-          if (!fundamentals) {
-            console.log(`  ${c.symbol}: could not fetch fundamentals, skipping.`);
-            continue;
-          }
-          if (fundamentals.salesGrowth3Y == null || fundamentals.salesGrowth3Y < SALES_GROWTH_MIN_PCT) {
-            console.log(`  ${c.symbol}: RS>=80 but Sales Growth 3Y (${fundamentals.salesGrowth3Y}%) doesn't clear ${SALES_GROWTH_MIN_PCT}% — not tracked.`);
-            continue;
-          }
-          updatedTracked[c.symbol] = {
-            entryDate: c.date,
-            entryPrice: c.price,
-            rsRankAtEntry: c.rsRankAtEntry,
-            salesGrowth3Y: fundamentals.salesGrowth3Y,
-          };
-          await sendTelegramAlert(formatEntryAlert(c, fundamentals));
-          logEntries.push({ type: 'ENTRY', symbol: c.symbol, date: c.date, price: c.price, rsRankAtEntry: c.rsRankAtEntry, salesGrowth3Y: fundamentals.salesGrowth3Y });
-        } catch (e2) {
-          console.warn(`  ${c.symbol}: fundamentals check failed (${e2.message}) — not tracked this run.`);
+    for (const c of newCandidates) {
+      if (!cookies) {
+        updatedTracked[c.symbol] = {
+          entryDate: c.date,
+          entryPrice: c.price,
+          rsRankAtEntry: c.rsRankAtEntry,
+          salesGrowth3Y: null,
+          fundamentalsPending: true,
+        };
+        await sendTelegramAlert(formatPendingEntryAlert(c));
+        logEntries.push({ type: 'ENTRY_PENDING', symbol: c.symbol, date: c.date, price: c.price, rsRankAtEntry: c.rsRankAtEntry });
+        continue;
+      }
+      try {
+        const fundamentals = await fetchFundamentals(c.symbol, cookies);
+        if (!fundamentals) {
+          console.log(`  ${c.symbol}: could not fetch fundamentals, skipping.`);
+          continue;
         }
+        if (fundamentals.salesGrowth3Y == null || fundamentals.salesGrowth3Y < SALES_GROWTH_MIN_PCT) {
+          console.log(`  ${c.symbol}: RS>=80 but Sales Growth 3Y (${fundamentals.salesGrowth3Y}%) doesn't clear ${SALES_GROWTH_MIN_PCT}% — not tracked.`);
+          continue;
+        }
+        updatedTracked[c.symbol] = {
+          entryDate: c.date,
+          entryPrice: c.price,
+          rsRankAtEntry: c.rsRankAtEntry,
+          salesGrowth3Y: fundamentals.salesGrowth3Y,
+        };
+        await sendTelegramAlert(formatEntryAlert(c, fundamentals));
+        logEntries.push({ type: 'ENTRY', symbol: c.symbol, date: c.date, price: c.price, rsRankAtEntry: c.rsRankAtEntry, salesGrowth3Y: fundamentals.salesGrowth3Y });
+      } catch (e2) {
+        console.warn(`  ${c.symbol}: fundamentals check failed (${e2.message}) — not tracked this run.`);
+      }
+    }
+  }
+
+  // Retry the Sales Growth gate for positions alerted earlier as
+  // fundamentals-pending (only possible once Screener.in is reachable
+  // again). Confirms them in place or retracts them -- either way the user
+  // gets a follow-up instead of an unconfirmed entry sitting silently.
+  if (cookies) {
+    const pendingSymbols = Object.keys(updatedTracked).filter((s) => updatedTracked[s].fundamentalsPending);
+    for (const symbol of pendingSymbols) {
+      try {
+        const fundamentals = await fetchFundamentals(symbol, cookies);
+        if (fundamentals && fundamentals.salesGrowth3Y != null && fundamentals.salesGrowth3Y >= SALES_GROWTH_MIN_PCT) {
+          updatedTracked[symbol].salesGrowth3Y = fundamentals.salesGrowth3Y;
+          delete updatedTracked[symbol].fundamentalsPending;
+          await sendTelegramAlert(formatFundamentalsConfirmedAlert(symbol, fundamentals));
+          logEntries.push({ type: 'FUNDAMENTALS_CONFIRMED', symbol, salesGrowth3Y: fundamentals.salesGrowth3Y });
+        } else {
+          await sendTelegramAlert(formatFundamentalsFailedAlert(symbol, fundamentals));
+          logEntries.push({ type: 'FUNDAMENTALS_FAILED', symbol });
+          delete updatedTracked[symbol];
+        }
+      } catch (e3) {
+        console.warn(`  ${symbol}: pending fundamentals retry failed (${e3.message}) — still pending.`);
       }
     }
   }
