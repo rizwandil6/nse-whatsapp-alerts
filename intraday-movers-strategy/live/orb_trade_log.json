@@ -471,5 +471,19 @@
   "pnlPct": -0.0894774516821761,
   "entryTimestampMs": 1784698380000,
   "exitTimestampMs": 1784698500000
+ },
+ {
+  "symbol": "MEDANTA",
+  "direction": "LONG",
+  "entry": 1365,
+  "stop": 1331.4,
+  "tbq": 28595,
+  "tsq": 46513,
+  "obImbalance": 0.38071843212440754,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 1366,
+  "pnlPct": 0.07326007326007326,
+  "entryTimestampMs": 1784698080000,
+  "exitTimestampMs": 1784698560000
  }
 ]
