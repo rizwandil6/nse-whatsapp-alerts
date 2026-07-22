@@ -527,5 +527,19 @@
   "pnlPct": -0.34936626584335023,
   "entryTimestampMs": 1784701800000,
   "exitTimestampMs": 1784701920000
+ },
+ {
+  "symbol": "COALINDIA",
+  "direction": "SHORT",
+  "entry": 429,
+  "stop": 431.65,
+  "tbq": 494913,
+  "tsq": 626905,
+  "obImbalance": 0.4411704928963522,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 429.3,
+  "pnlPct": -0.06993006993007257,
+  "entryTimestampMs": 1784701440000,
+  "exitTimestampMs": 1784702520000
  }
 ]
