@@ -469,5 +469,17 @@
   "pnlPct": 1.1857707509881332,
   "entryTimestampMs": 1784797200000,
   "exitTimestampMs": 1784799900000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 492.89650000000006,
+  "exitPrice": 491.43100000000004,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 1,
+  "pnlPct": 0.29732408325074733,
+  "entryTimestampMs": 1784793000000,
+  "exitTimestampMs": 1784799000000
  }
 ]
