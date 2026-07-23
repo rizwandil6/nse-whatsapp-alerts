@@ -385,5 +385,14 @@
   "pnlPct": 1.4822134387352006,
   "entryTimestampMs": 1784780700000,
   "exitTimestampMs": 1784795100000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "LONG",
+  "entry": 530.5873999999993,
+  "stop": 529.0509499999994,
+  "entryIdx": 17,
+  "timestampMs": 1784796600000
  }
 ]
