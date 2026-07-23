@@ -403,5 +403,14 @@
   "stop": 486.38845,
   "entryIdx": 9,
   "timestampMs": 1784797200000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 217.9630000000001,
+  "stop": 217.3300000000001,
+  "entryIdx": 32,
+  "timestampMs": 1784798400000
  }
 ]
