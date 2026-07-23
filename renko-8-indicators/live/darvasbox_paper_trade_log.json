@@ -526,5 +526,17 @@
   "pnlPct": 1.2072434607645661,
   "entryTimestampMs": 1784790600000,
   "exitTimestampMs": 1784800200000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 891.65225,
+  "exitPrice": 875.4567499999999,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 6,
+  "pnlPct": 1.8163471241170577,
+  "entryTimestampMs": 1784784900000,
+  "exitTimestampMs": 1784799000000
  }
 ]
