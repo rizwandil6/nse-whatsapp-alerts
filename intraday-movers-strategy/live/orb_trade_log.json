@@ -639,5 +639,19 @@
   "pnlPct": 0.013908205841446454,
   "entryTimestampMs": 1784781780000,
   "exitTimestampMs": 1784781840000
+ },
+ {
+  "symbol": "BOSCHLTD",
+  "direction": "LONG",
+  "entry": 42235,
+  "stop": 41140,
+  "tbq": 4606,
+  "tsq": 2425,
+  "obImbalance": 0.6550988479590385,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 42180,
+  "pnlPct": -0.1302237480762401,
+  "entryTimestampMs": 1784781780000,
+  "exitTimestampMs": 1784781900000
  }
 ]
