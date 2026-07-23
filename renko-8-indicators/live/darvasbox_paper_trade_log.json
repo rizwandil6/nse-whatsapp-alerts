@@ -868,5 +868,17 @@
   "stop": 894.3515,
   "entryIdx": 8,
   "timestampMs": 1784784900000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 891.65225,
+  "exitPrice": 875.4567499999999,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 6,
+  "pnlPct": 1.8163471241170577,
+  "entryTimestampMs": 1784784900000,
+  "exitTimestampMs": 1784799000000
  }
 ]
