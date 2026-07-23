@@ -667,5 +667,19 @@
   "pnlPct": 0.057751540041059,
   "entryTimestampMs": 1784781960000,
   "exitTimestampMs": 1784782020000
+ },
+ {
+  "symbol": "BAYERCROP",
+  "direction": "SHORT",
+  "entry": 4273.6,
+  "stop": 4307,
+  "tbq": 8587,
+  "tsq": 8839,
+  "obImbalance": 0.4927694249971307,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 4275.6,
+  "pnlPct": -0.046798951703481834,
+  "entryTimestampMs": 1784783160000,
+  "exitTimestampMs": 1784783340000
  }
 ]
