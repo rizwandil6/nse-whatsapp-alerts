@@ -943,5 +943,14 @@
   "pnlPct": 0,
   "entryTimestampMs": 1784796600000,
   "exitTimestampMs": 1784800500000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 125.71173,
+  "stop": 126.09,
+  "entryIdx": 8,
+  "timestampMs": 1784799000000
  }
 ]
