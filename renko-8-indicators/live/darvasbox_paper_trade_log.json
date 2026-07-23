@@ -658,5 +658,17 @@
   "stop": 328.2,
   "entryIdx": 6,
   "timestampMs": 1784782500000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 329.1846,
+  "exitPrice": 328.2,
+  "action": "STOP_LOSS",
+  "barsHeld": 3,
+  "pnlPct": -0.29910269192422745,
+  "entryTimestampMs": 1784782500000,
+  "exitTimestampMs": 1784785200000
  }
 ]
