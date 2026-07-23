@@ -502,5 +502,17 @@
   "stop": 224.10662,
   "entryIdx": 10,
   "timestampMs": 1784800500000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "LONG",
+  "entry": 224.77492999999998,
+  "exitPrice": 224.77492999999998,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 0,
+  "pnlPct": 0,
+  "entryTimestampMs": 1784800500000,
+  "exitTimestampMs": 1784800500000
  }
 ]
