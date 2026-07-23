@@ -433,5 +433,17 @@
   "pnlPct": 0.6018054162487532,
   "entryTimestampMs": 1784790900000,
   "exitTimestampMs": 1784797800000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 80.36934000000001,
+  "exitPrice": 80.36934000000001,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 4,
+  "pnlPct": 0,
+  "entryTimestampMs": 1784785500000,
+  "exitTimestampMs": 1784800200000
  }
 ]
