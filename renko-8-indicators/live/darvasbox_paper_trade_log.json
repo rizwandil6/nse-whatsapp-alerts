@@ -550,5 +550,17 @@
   "pnlPct": 0.30090270812438175,
   "entryTimestampMs": 1784792400000,
   "exitTimestampMs": 1784797500000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 110.03889000000001,
+  "exitPrice": 109.04556000000002,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 9,
+  "pnlPct": 0.9027081243731065,
+  "entryTimestampMs": 1784790000000,
+  "exitTimestampMs": 1784800500000
  }
 ]
