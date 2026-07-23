@@ -253,5 +253,17 @@
   "pnlPct": -0.29910269192422745,
   "entryTimestampMs": 1784782500000,
   "exitTimestampMs": 1784785200000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 80.84868000000002,
+  "exitPrice": 80.60901000000001,
+  "action": "STOP_LOSS",
+  "barsHeld": 3,
+  "pnlPct": -0.29644268774704025,
+  "entryTimestampMs": 1784784600000,
+  "exitTimestampMs": 1784785500000
  }
 ]
