@@ -196,5 +196,14 @@
   "stop": 212.89900000000003,
   "entryIdx": 7,
   "timestampMs": 1784780700000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 617.1043999999999,
+  "stop": 615.2696,
+  "entryIdx": 6,
+  "timestampMs": 1784781000000
  }
 ]
