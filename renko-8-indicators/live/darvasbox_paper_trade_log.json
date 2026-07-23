@@ -574,5 +574,17 @@
   "pnlPct": 0,
   "entryTimestampMs": 1784796600000,
   "exitTimestampMs": 1784800500000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 125.71173,
+  "exitPrice": 125.71173,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 0,
+  "pnlPct": 0,
+  "entryTimestampMs": 1784799000000,
+  "exitTimestampMs": 1784799000000
  }
 ]
