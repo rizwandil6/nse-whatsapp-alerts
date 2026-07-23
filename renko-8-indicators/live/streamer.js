@@ -36,7 +36,7 @@ const path = require('path');
 
 const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
-const { syncFromRemote, recordAndPush } = require('./trade_log');
+const { syncFromRemote, recordAndPush, isDuplicateEvent } = require('./trade_log');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min } = require('./bar_aggregator');
 
@@ -141,6 +141,15 @@ function formatExitAlert(e) {
 }
 
 function dispatchEvent(symbol, e) {
+  // Gap-backfill (backfillGapIfNeeded) deliberately re-processes bars that may
+  // already have been ingested once before the reconnect -- and, same as a
+  // full poller restart, brick reconstruction is deterministic, so a replay
+  // can re-derive an event already recorded. Skip both the alert and the log
+  // write for anything already in the log, not just the log write.
+  if (isDuplicateEvent(e)) {
+    console.log(`Skipping duplicate ${e.type} alert for ${symbol} -- already recorded (replay/backfill).`);
+    return;
+  }
   const { dateStr } = nowIst();
   if (e.type === 'ENTRY') {
     sendTelegramAlert(formatEntryAlert(e)).catch((err) => console.error('sendTelegramAlert threw:', err.message));
