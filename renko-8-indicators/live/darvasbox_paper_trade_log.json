@@ -817,5 +817,14 @@
   "pnlPct": 0,
   "entryTimestampMs": 1784800500000,
   "exitTimestampMs": 1784800500000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 291.3041999999999,
+  "stop": 290.44064999999995,
+  "entryIdx": 7,
+  "timestampMs": 1784788500000
  }
 ]
