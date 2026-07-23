@@ -562,5 +562,17 @@
   "pnlPct": 0.9027081243731065,
   "entryTimestampMs": 1784790000000,
   "exitTimestampMs": 1784800500000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "LONG",
+  "entry": 530.5873999999993,
+  "exitPrice": 530.5873999999993,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 10,
+  "pnlPct": 0,
+  "entryTimestampMs": 1784796600000,
+  "exitTimestampMs": 1784800500000
  }
 ]
