@@ -765,5 +765,19 @@
   "pnlPct": -0.03745318352059925,
   "entryTimestampMs": 1784788860000,
   "exitTimestampMs": 1784788920000
+ },
+ {
+  "symbol": "FLUOROCHEM",
+  "direction": "LONG",
+  "entry": 4619,
+  "stop": 4581.1,
+  "tbq": 14481,
+  "tsq": 14474,
+  "obImbalance": 0.5001208772232775,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 4612.2,
+  "pnlPct": -0.14721801255683442,
+  "entryTimestampMs": 1784789220000,
+  "exitTimestampMs": 1784789340000
  }
 ]
