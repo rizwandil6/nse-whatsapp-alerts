@@ -933,5 +933,19 @@
   "pnlPct": -0.11986557931461406,
   "entryTimestampMs": 1784797740000,
   "exitTimestampMs": 1784797920000
+ },
+ {
+  "symbol": "ANANDRATHI",
+  "direction": "SHORT",
+  "entry": 2073.6,
+  "stop": 2088.6,
+  "tbq": 25071,
+  "tsq": 38640,
+  "obImbalance": 0.3935113245750341,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 2068.3,
+  "pnlPct": 0.255594135802456,
+  "entryTimestampMs": 1784797260000,
+  "exitTimestampMs": 1784798040000
  }
 ]
