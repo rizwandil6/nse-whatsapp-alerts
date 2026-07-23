@@ -835,5 +835,19 @@
   "pnlPct": -0.05174912026495549,
   "entryTimestampMs": 1784792520000,
   "exitTimestampMs": 1784792640000
+ },
+ {
+  "symbol": "ACC",
+  "direction": "SHORT",
+  "entry": 1343.2,
+  "stop": 1358,
+  "tbq": 29968,
+  "tsq": 35647,
+  "obImbalance": 0.45672483426045873,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 1337,
+  "pnlPct": 0.4615842763549765,
+  "entryTimestampMs": 1784790720000,
+  "exitTimestampMs": 1784792940000
  }
 ]
