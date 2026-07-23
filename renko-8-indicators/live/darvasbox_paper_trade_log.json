@@ -493,5 +493,14 @@
   "pnlPct": -0.29041626331074977,
   "entryTimestampMs": 1784798400000,
   "exitTimestampMs": 1784800500000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "LONG",
+  "entry": 224.77492999999998,
+  "stop": 224.10662,
+  "entryIdx": 10,
+  "timestampMs": 1784800500000
  }
 ]
