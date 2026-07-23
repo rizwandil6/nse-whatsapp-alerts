@@ -313,5 +313,17 @@
   "pnlPct": -0.29732408325073895,
   "entryTimestampMs": 1784781000000,
   "exitTimestampMs": 1784790000000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 291.3041999999999,
+  "exitPrice": 290.44064999999995,
+  "action": "STOP_LOSS",
+  "barsHeld": 1,
+  "pnlPct": -0.29644268774702714,
+  "entryTimestampMs": 1784788500000,
+  "exitTimestampMs": 1784790600000
  }
 ]
