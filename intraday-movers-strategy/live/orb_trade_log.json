@@ -877,5 +877,19 @@
   "pnlPct": 0.3904693601083824,
   "entryTimestampMs": 1784794380000,
   "exitTimestampMs": 1784794740000
+ },
+ {
+  "symbol": "PIIND",
+  "direction": "LONG",
+  "entry": 2730,
+  "stop": 2676.1,
+  "tbq": 27156,
+  "tsq": 51428,
+  "obImbalance": 0.3455665275374122,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 2725.5,
+  "pnlPct": -0.16483516483516483,
+  "entryTimestampMs": 1784795700000,
+  "exitTimestampMs": 1784796420000
  }
 ]
