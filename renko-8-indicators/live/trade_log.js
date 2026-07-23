@@ -73,10 +73,46 @@ async function syncFromRemote() {
   }
 }
 
+/**
+ * Identifies a specific real ENTRY/EXIT event, independent of when it was
+ * recorded. Renko brick reconstruction is deterministic (see renko.js), so
+ * a poller/streamer restart mid-day replays the SAME historical bricks and
+ * re-derives the SAME entry/exit events for trades that already happened
+ * and were already logged before the restart -- confirmed live 2026-07-23,
+ * where two redeploys during the trading day left every early trade
+ * duplicated in the log. Same entry/exit price + same timestamps means
+ * same real trade, so this key is what recordTrade() below dedupes on.
+ */
+function eventKey(e) {
+  return e.type === 'ENTRY'
+    ? ['ENTRY', e.symbol, e.direction, e.entry, e.timestampMs].join('|')
+    : ['EXIT', e.symbol, e.direction, e.entry, e.exitPrice, e.action, e.entryTimestampMs, e.exitTimestampMs].join('|');
+}
+
+/**
+ * Pre-check so callers can skip sending a Telegram alert entirely for a
+ * replayed event, not just skip persisting it -- recordTrade() alone only
+ * dedupes the log file, but the alert send happens independently and
+ * earlier in poller.js/streamer.js, so it needs its own check against the
+ * same log before dispatching.
+ */
+function isDuplicateEvent(event) {
+  const log = fs.existsSync(LOCAL_PATH) ? JSON.parse(fs.readFileSync(LOCAL_PATH, 'utf8')) : [];
+  const key = eventKey(event);
+  return log.some((e) => eventKey(e) === key);
+}
+
+/** Returns true if the event was newly appended, false if it was a duplicate (and therefore skipped). */
 function recordTrade(exitEvent) {
   const log = fs.existsSync(LOCAL_PATH) ? JSON.parse(fs.readFileSync(LOCAL_PATH, 'utf8')) : [];
+  const key = eventKey(exitEvent);
+  if (log.some((e) => eventKey(e) === key)) {
+    console.log(`Skipping duplicate trade-log entry for ${exitEvent.symbol} (${exitEvent.type}${exitEvent.action ? ', ' + exitEvent.action : ''}) -- already recorded, likely a post-restart brick replay.`);
+    return false;
+  }
   log.push(exitEvent);
   fs.writeFileSync(LOCAL_PATH, JSON.stringify(log, null, 1));
+  return true;
 }
 
 async function pushToGitHub(dateLabel) {
@@ -108,8 +144,9 @@ async function pushToGitHub(dateLabel) {
 }
 
 async function recordAndPush(exitEvent, dateLabel) {
-  recordTrade(exitEvent);
+  const added = recordTrade(exitEvent);
+  if (!added) return { pushed: false, reason: 'duplicate' };
   return pushToGitHub(dateLabel).catch((e) => console.error('recordAndPush threw:', e.message));
 }
 
-module.exports = { syncFromRemote, recordAndPush };
+module.exports = { syncFromRemote, recordAndPush, isDuplicateEvent };
