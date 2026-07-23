@@ -343,5 +343,17 @@
   "stop": 483.9,
   "entryIdx": 4,
   "timestampMs": 1784790900000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.37252999999999,
+  "exitPrice": 37.48169999999999,
+  "action": "TRAILING_BOX_STOP",
+  "barsHeld": 15,
+  "pnlPct": 0.29211295034079554,
+  "entryTimestampMs": 1784782500000,
+  "exitTimestampMs": 1784791800000
  }
 ]
