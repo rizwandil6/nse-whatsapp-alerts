@@ -265,5 +265,14 @@
   "pnlPct": -0.29644268774704025,
   "entryTimestampMs": 1784784600000,
   "exitTimestampMs": 1784785500000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 80.36934000000001,
+  "stop": 80.60901000000001,
+  "entryIdx": 15,
+  "timestampMs": 1784785500000
  }
 ]
