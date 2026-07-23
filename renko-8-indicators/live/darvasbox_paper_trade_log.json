@@ -457,5 +457,17 @@
   "pnlPct": 0.9027081243731198,
   "entryTimestampMs": 1784785800000,
   "exitTimestampMs": 1784798700000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 487.83459999999997,
+  "exitPrice": 493.6191999999999,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 4,
+  "pnlPct": 1.1857707509881332,
+  "entryTimestampMs": 1784797200000,
+  "exitTimestampMs": 1784799900000
  }
 ]
