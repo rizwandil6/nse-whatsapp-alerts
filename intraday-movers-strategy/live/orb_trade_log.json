@@ -737,5 +737,19 @@
   "pnlPct": 0.20143884892086006,
   "entryTimestampMs": 1784787780000,
   "exitTimestampMs": 1784787900000
+ },
+ {
+  "symbol": "CIPLA",
+  "direction": "SHORT",
+  "entry": 1391.2,
+  "stop": 1410,
+  "tbq": 73684,
+  "tsq": 99738,
+  "obImbalance": 0.42488265617972343,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 1404,
+  "pnlPct": -0.9200690051753848,
+  "entryTimestampMs": 1784788020000,
+  "exitTimestampMs": 1784788080000
  }
 ]
