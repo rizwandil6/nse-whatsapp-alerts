@@ -821,5 +821,19 @@
   "pnlPct": -0.39538714991762397,
   "entryTimestampMs": 1784790780000,
   "exitTimestampMs": 1784791860000
+ },
+ {
+  "symbol": "INDGN",
+  "direction": "SHORT",
+  "entry": 483.1,
+  "stop": 494,
+  "tbq": 53155,
+  "tsq": 64658,
+  "obImbalance": 0.45118110904569103,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 483.35,
+  "pnlPct": -0.05174912026495549,
+  "entryTimestampMs": 1784792520000,
+  "exitTimestampMs": 1784792640000
  }
 ]
