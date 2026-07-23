@@ -763,5 +763,17 @@
   "stop": 212.89900000000003,
   "entryIdx": 7,
   "timestampMs": 1784780700000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 213.53200000000004,
+  "exitPrice": 216.6970000000001,
+  "action": "TRAILING_BOX_STOP",
+  "barsHeld": 19,
+  "pnlPct": 1.4822134387352006,
+  "entryTimestampMs": 1784780700000,
+  "exitTimestampMs": 1784795100000
  }
 ]
