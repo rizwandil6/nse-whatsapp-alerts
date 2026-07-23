@@ -691,5 +691,14 @@
   "pnlPct": 0.9027081243731198,
   "entryTimestampMs": 1784785800000,
   "exitTimestampMs": 1784798700000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 487.83459999999997,
+  "stop": 486.38845,
+  "entryIdx": 9,
+  "timestampMs": 1784797200000
  }
 ]
