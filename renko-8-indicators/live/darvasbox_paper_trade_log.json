@@ -889,5 +889,17 @@
   "stop": 137.19,
   "entryIdx": 4,
   "timestampMs": 1784792400000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 136.77843,
+  "exitPrice": 136.36685999999997,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 1,
+  "pnlPct": 0.30090270812438175,
+  "entryTimestampMs": 1784792400000,
+  "exitTimestampMs": 1784797500000
  }
 ]
