@@ -223,5 +223,14 @@
   "stop": 37.26335999999999,
   "entryIdx": 12,
   "timestampMs": 1784782500000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 80.84868000000002,
+  "stop": 80.60901000000001,
+  "entryIdx": 11,
+  "timestampMs": 1784784600000
  }
 ]
