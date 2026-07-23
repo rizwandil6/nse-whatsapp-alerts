@@ -784,5 +784,17 @@
   "stop": 217.3300000000001,
   "entryIdx": 32,
   "timestampMs": 1784798400000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 217.9630000000001,
+  "exitPrice": 217.3300000000001,
+  "action": "STOP_LOSS",
+  "barsHeld": 1,
+  "pnlPct": -0.29041626331074977,
+  "entryTimestampMs": 1784798400000,
+  "exitTimestampMs": 1784800500000
  }
 ]
