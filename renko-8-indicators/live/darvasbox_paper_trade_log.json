@@ -412,5 +412,14 @@
   "stop": 217.3300000000001,
   "entryIdx": 32,
   "timestampMs": 1784798400000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 125.71173,
+  "stop": 126.09,
+  "entryIdx": 8,
+  "timestampMs": 1784799000000
  }
 ]
