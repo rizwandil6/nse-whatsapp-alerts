@@ -421,5 +421,17 @@
   "stop": 126.09,
   "entryIdx": 8,
   "timestampMs": 1784799000000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 482.44829999999996,
+  "exitPrice": 479.5448999999999,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 2,
+  "pnlPct": 0.6018054162487532,
+  "entryTimestampMs": 1784790900000,
+  "exitTimestampMs": 1784797800000
  }
 ]
