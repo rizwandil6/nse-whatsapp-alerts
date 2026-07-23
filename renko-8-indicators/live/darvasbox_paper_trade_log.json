@@ -859,5 +859,14 @@
   "pnlPct": 1.2072434607645661,
   "entryTimestampMs": 1784790600000,
   "exitTimestampMs": 1784800200000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 891.65225,
+  "stop": 894.3515,
+  "entryIdx": 8,
+  "timestampMs": 1784784900000
  }
 ]
