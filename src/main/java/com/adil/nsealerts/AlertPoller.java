@@ -45,6 +45,7 @@ public class AlertPoller {
     private final PdfExtractor pdfExtractor;
     private final ScreenerCheckService screenerCheckService;
     private final UpstoxTradeService upstoxTradeService;
+    private final AlertLogService alertLogService;
     private final boolean screeningEnabled;
     private final boolean ignoreSme;
     private final double tradeRatingThreshold;
@@ -68,6 +69,7 @@ public class AlertPoller {
                        PdfExtractor pdfExtractor,
                        ScreenerCheckService screenerCheckService,
                        UpstoxTradeService upstoxTradeService,
+                       AlertLogService alertLogService,
                        org.springframework.core.env.Environment env) {
         this.nseClient = nseClient;
         this.telegramSender = telegramSender;
@@ -76,6 +78,7 @@ public class AlertPoller {
         this.pdfExtractor = pdfExtractor;
         this.screenerCheckService = screenerCheckService;
         this.upstoxTradeService = upstoxTradeService;
+        this.alertLogService = alertLogService;
         this.screeningEnabled = Boolean.parseBoolean(env.getProperty("screening.enabled", "true"));
         this.ignoreSme = Boolean.parseBoolean(env.getProperty("nse.ignore-sme", "true"));
         // Backtest on real Apr-Jul 2026 NSE data (272 announcements) showed rating 5-6
@@ -273,6 +276,7 @@ public class AlertPoller {
                     String message = buildAnnouncementMessage(ctx);
                     logger.info("[MSG] {}", message);
                     telegramSender.send(message);
+                    alertLogService.logAnnouncement(ctx.symbol(), ctx.companyName(), ctx.subject(), "TRADE_SIGNAL", message);
                 } else if (alertOnlyMatch && seenIds.add(id)) {
                     String pubTime = entry.getPublishedDate() != null
                             ? new java.text.SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(entry.getPublishedDate())
@@ -333,7 +337,9 @@ public class AlertPoller {
         }
 
         sb.append("Source: ").append(ctx.link());
-        telegramSender.send(sb.toString(), "Markdown");
+        String message = sb.toString();
+        telegramSender.send(message, "Markdown");
+        alertLogService.logAnnouncement(ctx.symbol(), ctx.companyName(), ctx.subject(), "ALERT_ONLY", message);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -512,6 +518,7 @@ public class AlertPoller {
                         .anyMatch(k -> subject.toLowerCase().contains(k.toLowerCase()));
                 if (matches && !containsAnyIgnoreKeyword(subject, "") && seenIds.add(id)) {
                     telegramSender.send("NSE Circular: " + subject);
+                    alertLogService.logAnnouncement("", "", subject, "CIRCULAR", "NSE Circular: " + subject);
                 }
             }
         } catch (Exception e) {

@@ -42,6 +42,7 @@ public class NewsPoller {
     private String anthropicApiKey;
 
     private final TelegramSender telegramSender;
+    private final AlertLogService alertLogService;
 
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(15))
@@ -73,8 +74,9 @@ public class NewsPoller {
     private static final DateTimeFormatter RFC_822_NO_DOW =
             DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 
-    public NewsPoller(TelegramSender telegramSender) {
+    public NewsPoller(TelegramSender telegramSender, AlertLogService alertLogService) {
         this.telegramSender = telegramSender;
+        this.alertLogService = alertLogService;
     }
 
     record NewsItem(String title, String description, String url, String source, String publishedAt) {}
@@ -223,6 +225,7 @@ public class NewsPoller {
 
             String message = buildMessage(result, item);
             telegramSender.send(message);
+            alertLogService.logMarketNews(item.title(), result.path("market_impact").asText(""), item.source(), item.publishedAt(), score);
             logger.info("[News] Alert sent: {}", item.title());
 
         } catch (Exception e) {

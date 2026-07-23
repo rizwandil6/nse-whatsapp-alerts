@@ -110,6 +110,12 @@ tradelog:
 github:
   token: ${GITHUB_TOKEN:}
 
+# Shared password gating /dashboard and /api/dashboard/** (see
+# DashboardAuthInterceptor). Must be set via Railway env var -- if blank,
+# LoginController refuses every login attempt rather than defaulting open.
+dashboard:
+  password: ${DASHBOARD_PASSWORD:}
+
 # ── Daily Market Bulletin ─────────────────────────────────────────────────────
 # Sent every day at 7:30 AM IST via Telegram.
 bulletin:

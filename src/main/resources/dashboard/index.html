@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alerts Dashboard</title>
+<style>
+  :root {
+    --bg: #F1F3F6; --surface: #FFFFFF; --surface-2: #F7F8FA;
+    --ink: #1B2430; --ink-muted: #5B6472; --ink-faint: #8891A0;
+    --accent: #2C3E6B; --accent-soft: #E4E8F2;
+    --win: #1F7A52; --win-bg: #E5F3EC;
+    --loss: #B3402E; --loss-bg: #FBEAE6;
+    --amber: #9A6B14; --amber-bg: #FBF1DD;
+    --border: #DDE1E8; --border-strong: #C6CBD4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12151C; --surface: #1A1E27; --surface-2: #1F2430;
+      --ink: #E7EAF0; --ink-muted: #9AA3B2; --ink-faint: #6B7180;
+      --accent: #8DA0DE; --accent-soft: #212843;
+      --win: #4FBE8D; --win-bg: #16281F;
+      --loss: #E27B69; --loss-bg: #2E1A17;
+      --amber: #E0B34D; --amber-bg: #302509;
+      --border: #2A2F3B; --border-strong: #3A4152;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { padding: clamp(16px, 4vw, 40px) clamp(12px, 3vw, 24px) 60px; }
+  .sheet { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+  header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(22px, 4vw, 30px); margin: 0; }
+  .refresh-note { font-size: 12px; color: var(--ink-faint); }
+
+  .tabs { display: flex; gap: 6px; overflow-x: auto; border-bottom: 1px solid var(--border); padding-bottom: 0; }
+  .tab-btn {
+    font-family: inherit; font-size: 13px; font-weight: 600; color: var(--ink-muted); background: none;
+    border: none; border-bottom: 2px solid transparent; padding: 10px 4px; margin-right: 14px; cursor: pointer; white-space: nowrap;
+  }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn .count { font-size: 11px; color: var(--ink-faint); margin-left: 4px; }
+
+  .panel { display: none; flex-direction: column; gap: 10px; }
+  .panel.active { display: flex; }
+
+  .state-msg { color: var(--ink-faint); font-size: 13px; padding: 24px 4px; text-align: center; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .card-title { font-weight: 700; font-size: 14.5px; }
+  .card-sub { font-size: 12.5px; color: var(--ink-muted); }
+  .card-time { font-size: 11.5px; color: var(--ink-faint); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .card-body { font-size: 13px; color: var(--ink-muted); line-height: 1.5; white-space: pre-wrap; }
+  .card-meta { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+  .card-meta b { color: var(--ink); }
+
+  .badge { font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
+  .badge.win { color: var(--win); background: var(--win-bg); }
+  .badge.loss { color: var(--loss); background: var(--loss-bg); }
+  .badge.amber { color: var(--amber); background: var(--amber-bg); }
+  .badge.neutral { color: var(--accent); background: var(--accent-soft); }
+
+  .pnl.win { color: var(--win); font-weight: 700; }
+  .pnl.loss { color: var(--loss); font-weight: 700; }
+
+  details summary { cursor: pointer; font-size: 12.5px; color: var(--accent); list-style: none; }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] summary { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div>
+      <div class="eyebrow">Private</div>
+      <h1>Alerts Dashboard</h1>
+    </div>
+    <div class="refresh-note" id="refreshNote"></div>
+  </header>
+
+  <div class="tabs" id="tabs">
+    <button class="tab-btn active" data-tab="news">Market News <span class="count" id="count-news"></span></button>
+    <button class="tab-btn" data-tab="announcements">Announcements <span class="count" id="count-announcements"></span></button>
+    <button class="tab-btn" data-tab="rs-momentum">RS Momentum <span class="count" id="count-rs-momentum"></span></button>
+    <button class="tab-btn" data-tab="multibagger">Multibagger <span class="count" id="count-multibagger"></span></button>
+    <button class="tab-btn" data-tab="darvasbox">Today's DarvasBox <span class="count" id="count-darvasbox"></span></button>
+  </div>
+
+  <div class="panel active" id="panel-news"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-announcements"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-rs-momentum"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-multibagger"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-darvasbox"><div class="state-msg">Loading…</div></div>
+</div>
+
+<script>
+  const TABS = {
+    news: { url: '/api/dashboard/market-news', render: renderNews },
+    announcements: { url: '/api/dashboard/announcements', render: renderAnnouncements },
+    'rs-momentum': { url: '/api/dashboard/rs-momentum', render: renderRsMomentum },
+    multibagger: { url: '/api/dashboard/multibagger', render: renderMultibagger },
+    darvasbox: { url: '/api/dashboard/darvasbox-today', render: renderDarvasbox },
+  };
+  const loaded = {};
+
+  function fmtTime(iso) {
+    if (!iso) return '';
+    return iso.replace('T', ' ').slice(0, 16);
+  }
+  function fmtMs(ms) {
+    if (!ms) return '';
+    const d = new Date(Number(ms));
+    return d.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+  }
+  function esc(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+  function fmtPct(v) {
+    if (v == null || isNaN(v)) return '—';
+    return (v >= 0 ? '+' : '') + Number(v).toFixed(2) + '%';
+  }
+
+  async function loadTab(key) {
+    const panel = document.getElementById('panel-' + key);
+    try {
+      const res = await fetch(TABS[key].url);
+      if (res.status === 401) { window.location.href = '/login'; return; }
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      document.getElementById('count-' + key).textContent = data.length ? data.length : '';
+      if (!data.length) {
+        panel.innerHTML = '<div class="state-msg">No alerts yet.</div>';
+        return;
+      }
+      panel.innerHTML = '';
+      TABS[key].render(data, panel);
+    } catch (e) {
+      panel.innerHTML = '<div class="state-msg">Failed to load — ' + esc(e.message) + '</div>';
+    }
+  }
+
+  function renderNews(items, panel) {
+    for (const n of items) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-title">${esc(n.title)}</div>
+          <div class="card-time">${fmtTime(n.timestamp)}</div>
+        </div>
+        <div class="card-meta"><span class="badge neutral">Impact ${esc(n.score)}/10</span>${n.source ? `<span>${esc(n.source)}</span>` : ''}</div>
+        ${n.impact ? `<div class="card-body">${esc(n.impact)}</div>` : ''}
+      `;
+      panel.appendChild(card);
+    }
+  }
+
+  function renderAnnouncements(items, panel) {
+    const catBadge = { TRADE_SIGNAL: 'win', ALERT_ONLY: 'neutral', CIRCULAR: 'amber' };
+    for (const a of items) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-title">${esc(a.symbol) || esc(a.companyName) || 'NSE'}${a.companyName && a.symbol ? ` <span class="card-sub">(${esc(a.companyName)})</span>` : ''}</div>
+          <div class="card-time">${fmtTime(a.timestamp)}</div>
+        </div>
+        <div class="card-meta"><span class="badge ${catBadge[a.category] || 'neutral'}">${esc(a.category || '')}</span></div>
+        <div class="card-body">${esc(a.subject)}</div>
+        ${a.message ? `<details><summary>Full alert</summary><div class="card-body">${esc(a.message)}</div></details>` : ''}
+      `;
+      panel.appendChild(card);
+    }
+  }
+
+  function renderRsMomentum(items, panel) {
+    const badge = { ENTRY: 'win', EXIT: 'neutral', ENTRY_PENDING: 'amber', FUNDAMENTALS_CONFIRMED: 'win', FUNDAMENTALS_FAILED: 'loss' };
+    const label = { ENTRY: 'Entry', EXIT: 'Exit', ENTRY_PENDING: 'Entry (pending)', FUNDAMENTALS_CONFIRMED: 'Confirmed', FUNDAMENTALS_FAILED: 'Retracted' };
+    for (const r of items) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const pnl = r.pnlPct != null ? `<span class="pnl ${r.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(r.pnlPct)}</span>` : '';
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-title">${esc(r.symbol)}</div>
+          <div class="card-time">${esc(r.date)}</div>
+        </div>
+        <div class="card-meta">
+          <span class="badge ${badge[r.type] || 'neutral'}">${label[r.type] || esc(r.type)}</span>
+          ${r.price != null ? `<span>Price <b>₹${esc(r.price)}</b></span>` : ''}
+          ${r.rsRankAtEntry != null ? `<span>RS Rank <b>${Number(r.rsRankAtEntry).toFixed(1)}</b></span>` : ''}
+          ${r.salesGrowth3Y != null ? `<span>Sales Growth 3Y <b>${esc(r.salesGrowth3Y)}%</b></span>` : ''}
+          ${pnl}
+        </div>
+      `;
+      panel.appendChild(card);
+    }
+  }
+
+  function renderMultibagger(items, panel) {
+    const badge = { QUALIFIED: 'win', LOST: 'loss' };
+    const label = { QUALIFIED: 'Qualified', LOST: 'Lost qualification' };
+    for (const m of items) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-title">${esc(m.symbol)}</div>
+          <div class="card-time">${esc(m.date)}</div>
+        </div>
+        <div class="card-meta">
+          <span class="badge ${badge[m.type] || 'neutral'}">${label[m.type] || esc(m.type)}</span>
+          ${m.price != null ? `<span>Price <b>₹${esc(m.price)}</b></span>` : ''}
+          ${m.priceAtQualification != null ? `<span>At qualification <b>₹${esc(m.priceAtQualification)}</b> (${esc(m.qualifiedDate)})</span>` : ''}
+        </div>
+      `;
+      panel.appendChild(card);
+    }
+  }
+
+  function renderDarvasbox(items, panel) {
+    for (const t of items) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const isExit = t.type === 'EXIT';
+      const dirBadge = t.direction === 'LONG' ? 'win' : 'loss';
+      const time = isExit ? fmtMs(t.exitTimestampMs) : fmtMs(t.timestampMs);
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-title">${esc(t.symbol)}</div>
+          <div class="card-time">${time} IST</div>
+        </div>
+        <div class="card-meta">
+          <span class="badge ${dirBadge}">${esc(t.direction)}</span>
+          <span class="badge neutral">${t.type === 'EXIT' ? 'Exit' : 'Entry'}</span>
+          <span>Entry <b>₹${esc(t.entry)}</b></span>
+          ${isExit ? `<span>Exit <b>₹${esc(t.exitPrice)}</b></span><span>${esc(t.action)}</span><span class="pnl ${t.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(t.pnlPct)}</span>` : `<span>Stop <b>₹${esc(t.stop)}</b></span>`}
+        </div>
+      `;
+      panel.appendChild(card);
+    }
+  }
+
+  document.getElementById('tabs').addEventListener('click', (e) => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    const key = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.panel').forEach((p) => p.classList.toggle('active', p.id === 'panel-' + key));
+    if (!loaded[key]) { loaded[key] = true; loadTab(key); }
+  });
+
+  document.getElementById('refreshNote').textContent = 'Loaded ' + new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }) + ' IST';
+  loaded.news = true;
+  loadTab('news');
+</script>
+</body>
+</html>
