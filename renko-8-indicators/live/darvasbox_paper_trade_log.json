@@ -847,5 +847,17 @@
   "stop": 115.57224000000001,
   "entryIdx": 9,
   "timestampMs": 1784790600000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 115.22448000000001,
+  "exitPrice": 113.83344000000004,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 4,
+  "pnlPct": 1.2072434607645661,
+  "entryTimestampMs": 1784790600000,
+  "exitTimestampMs": 1784800200000
  }
 ]
