@@ -712,5 +712,14 @@
   "pnlPct": 1.1857707509881332,
   "entryTimestampMs": 1784797200000,
   "exitTimestampMs": 1784799900000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.37252999999999,
+  "stop": 37.26335999999999,
+  "entryIdx": 12,
+  "timestampMs": 1784782500000
  }
 ]
