@@ -301,5 +301,17 @@
   "stop": 110.37,
   "entryIdx": 8,
   "timestampMs": 1784790000000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 617.1043999999999,
+  "exitPrice": 615.2696,
+  "action": "STOP_LOSS",
+  "barsHeld": 1,
+  "pnlPct": -0.29732408325073895,
+  "entryTimestampMs": 1784781000000,
+  "exitTimestampMs": 1784790000000
  }
 ]
