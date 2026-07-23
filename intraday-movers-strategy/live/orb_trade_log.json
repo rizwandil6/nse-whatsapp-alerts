@@ -863,5 +863,19 @@
   "pnlPct": -0.05157829585310502,
   "entryTimestampMs": 1784793660000,
   "exitTimestampMs": 1784794140000
+ },
+ {
+  "symbol": "BIKAJI",
+  "direction": "SHORT",
+  "entry": 627.45,
+  "stop": 640.3,
+  "tbq": 23745,
+  "tsq": 31578,
+  "obImbalance": 0.4292066590748875,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 625,
+  "pnlPct": 0.3904693601083824,
+  "entryTimestampMs": 1784794380000,
+  "exitTimestampMs": 1784794740000
  }
 ]
