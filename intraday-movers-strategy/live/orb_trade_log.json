@@ -751,5 +751,19 @@
   "pnlPct": -0.9200690051753848,
   "entryTimestampMs": 1784788020000,
   "exitTimestampMs": 1784788080000
+ },
+ {
+  "symbol": "SRF",
+  "direction": "SHORT",
+  "entry": 2670,
+  "stop": 2864,
+  "tbq": 40765,
+  "tsq": 109050,
+  "obImbalance": 0.2721022594533258,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 2671,
+  "pnlPct": -0.03745318352059925,
+  "entryTimestampMs": 1784788860000,
+  "exitTimestampMs": 1784788920000
  }
 ]
