@@ -34,7 +34,7 @@ const fs = require('fs');
 const path = require('path');
 const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
-const { syncFromRemote, recordAndPush } = require('./trade_log');
+const { syncFromRemote, recordAndPush, isDuplicateEvent } = require('./trade_log');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -144,6 +144,13 @@ async function pollSymbol(symbol, instrumentKey, atOrPastClose) {
 
   for (const e of events) {
     const { dateStr } = nowIst();
+    // A restart mid-day replays the whole day's deterministic bricks, re-deriving
+    // events for trades already recorded before the restart -- skip the alert
+    // AND the log write for those, not just the log write (see trade_log.js).
+    if (isDuplicateEvent(e)) {
+      console.log(`Skipping duplicate ${e.type} alert for ${e.symbol} -- already recorded (post-restart replay).`);
+      continue;
+    }
     if (e.type === 'ENTRY') {
       await sendTelegramAlert(formatEntryAlert(e));
       await recordAndPush(e, dateStr);
