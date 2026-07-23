@@ -891,5 +891,19 @@
   "pnlPct": -0.16483516483516483,
   "entryTimestampMs": 1784795700000,
   "exitTimestampMs": 1784796420000
+ },
+ {
+  "symbol": "CGPOWER",
+  "direction": "SHORT",
+  "entry": 892.7,
+  "stop": 915,
+  "tbq": 219206,
+  "tsq": 456039,
+  "obImbalance": 0.32463180030951727,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 892.15,
+  "pnlPct": 0.06161084350846512,
+  "entryTimestampMs": 1784796840000,
+  "exitTimestampMs": 1784796900000
  }
 ]
