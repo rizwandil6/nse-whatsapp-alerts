@@ -48,5 +48,19 @@
   "rsRankAtEntry": 81.01,
   "salesGrowth3Y": 15,
   "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "BAJAJ-AUTO",
+  "date": "2026-07-21",
+  "price": 10998.5,
+  "rsRankAtEntry": 80.76923076923077
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "POLYCAB",
+  "date": "2026-07-21",
+  "price": 9090.5,
+  "rsRankAtEntry": 81.95266272189349
  }
 ]

@@ -36,5 +36,19 @@
   "rsRankAtEntry": 81.01,
   "salesGrowth3Y": 15,
   "note": "Manually added 2026-07-18 — genuinely qualified (RS>=80, Sales Growth 3Y=15%) but never fired as a fresh crossing since it was already >=80 the day before; added directly per user request rather than waiting for a dip-and-recross."
+ },
+ "BAJAJ-AUTO": {
+  "entryDate": "2026-07-21",
+  "entryPrice": 10998.5,
+  "rsRankAtEntry": 80.76923076923077,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "POLYCAB": {
+  "entryDate": "2026-07-21",
+  "entryPrice": 9090.5,
+  "rsRankAtEntry": 81.95266272189349,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
