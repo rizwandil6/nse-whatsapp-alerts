@@ -129,6 +129,14 @@ async function pollSymbol(symbol, instrumentKey, atOrPastClose) {
   const tracker = trackers[symbol];
   const events = tracker.processBricks(bricks);
 
+  // Catches real stop hits the brick-based check above can miss or badly lag
+  // (close-only, 2x-reversal Renko bricks vs actual bar lows/highs) -- see
+  // checkIntrabarStop()'s docstring for the TRITURBINE incident that motivated
+  // this. Runs after processBricks so a position entered this same poll is
+  // still checked against its own entry bar's wick.
+  const intrabarEvent = tracker.checkIntrabarStop(fiveMin);
+  if (intrabarEvent) events.push(intrabarEvent);
+
   if (atOrPastClose) {
     const eodEvent = tracker.forceEodClose(bricks);
     if (eodEvent) events.push(eodEvent);
