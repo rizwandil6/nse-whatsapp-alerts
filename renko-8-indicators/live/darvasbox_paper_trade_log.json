@@ -586,5 +586,14 @@
   "pnlPct": 0,
   "entryTimestampMs": 1784799000000,
   "exitTimestampMs": 1784799000000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 482.44829999999996,
+  "stop": 483.9,
+  "entryIdx": 4,
+  "timestampMs": 1784790900000
  }
 ]
