@@ -793,5 +793,19 @@
   "pnlPct": -0.109335576114378,
   "entryTimestampMs": 1784790360000,
   "exitTimestampMs": 1784791200000
+ },
+ {
+  "symbol": "ASIANPAINT",
+  "direction": "SHORT",
+  "entry": 2661.9,
+  "stop": 2685.8,
+  "tbq": 56372,
+  "tsq": 70265,
+  "obImbalance": 0.4451463632271769,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 2661.5,
+  "pnlPct": 0.015026860513170703,
+  "entryTimestampMs": 1784791200000,
+  "exitTimestampMs": 1784791440000
  }
 ]
