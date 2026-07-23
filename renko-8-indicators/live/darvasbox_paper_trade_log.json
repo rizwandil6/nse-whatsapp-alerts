@@ -931,5 +931,17 @@
   "stop": 529.0509499999994,
   "entryIdx": 17,
   "timestampMs": 1784796600000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "LONG",
+  "entry": 530.5873999999993,
+  "exitPrice": 530.5873999999993,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 10,
+  "pnlPct": 0,
+  "entryTimestampMs": 1784796600000,
+  "exitTimestampMs": 1784800500000
  }
 ]
