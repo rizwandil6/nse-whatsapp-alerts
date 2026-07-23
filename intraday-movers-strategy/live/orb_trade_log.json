@@ -709,5 +709,19 @@
   "pnlPct": 0.07511266900350526,
   "entryTimestampMs": 1784783880000,
   "exitTimestampMs": 1784784120000
+ },
+ {
+  "symbol": "GILLETTE",
+  "direction": "SHORT",
+  "entry": 7851.5,
+  "stop": 7899,
+  "tbq": 4370,
+  "tsq": 5261,
+  "obImbalance": 0.45374312117121796,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 7862.5,
+  "pnlPct": -0.14010061771635993,
+  "entryTimestampMs": 1784786940000,
+  "exitTimestampMs": 1784787060000
  }
 ]
