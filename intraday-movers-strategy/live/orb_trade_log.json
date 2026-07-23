@@ -779,5 +779,19 @@
   "pnlPct": -0.14721801255683442,
   "entryTimestampMs": 1784789220000,
   "exitTimestampMs": 1784789340000
+ },
+ {
+  "symbol": "BLUEDART",
+  "direction": "SHORT",
+  "entry": 4756,
+  "stop": 4809.1,
+  "tbq": 5729,
+  "tsq": 4126,
+  "obImbalance": 0.5813292744799594,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 4761.2,
+  "pnlPct": -0.109335576114378,
+  "entryTimestampMs": 1784790360000,
+  "exitTimestampMs": 1784791200000
  }
 ]
