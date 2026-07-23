@@ -880,5 +880,14 @@
   "pnlPct": 1.8163471241170577,
   "entryTimestampMs": 1784784900000,
   "exitTimestampMs": 1784799000000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 136.77843,
+  "stop": 137.19,
+  "entryIdx": 4,
+  "timestampMs": 1784792400000
  }
 ]
