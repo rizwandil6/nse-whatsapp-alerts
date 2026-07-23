@@ -653,5 +653,19 @@
   "pnlPct": -0.1302237480762401,
   "entryTimestampMs": 1784781780000,
   "exitTimestampMs": 1784781900000
+ },
+ {
+  "symbol": "WHIRLPOOL",
+  "direction": "LONG",
+  "entry": 779.2,
+  "stop": 755.15,
+  "tbq": 91697,
+  "tsq": 48301,
+  "obImbalance": 0.6549879283989771,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 779.65,
+  "pnlPct": 0.057751540041059,
+  "entryTimestampMs": 1784781960000,
+  "exitTimestampMs": 1784782020000
  }
 ]
