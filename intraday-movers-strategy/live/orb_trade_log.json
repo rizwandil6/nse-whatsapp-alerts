@@ -919,5 +919,19 @@
   "pnlPct": -0.03274572941111767,
   "entryTimestampMs": 1784796780000,
   "exitTimestampMs": 1784796900000
+ },
+ {
+  "symbol": "PFIZER",
+  "direction": "LONG",
+  "entry": 4671.9,
+  "stop": 4569,
+  "tbq": 6769,
+  "tsq": 10238,
+  "obImbalance": 0.3980125830540366,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 4666.3,
+  "pnlPct": -0.11986557931461406,
+  "entryTimestampMs": 1784797740000,
+  "exitTimestampMs": 1784797920000
  }
 ]
