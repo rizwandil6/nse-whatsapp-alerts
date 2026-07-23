@@ -679,5 +679,17 @@
   "stop": 328.2,
   "entryIdx": 10,
   "timestampMs": 1784785800000
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 327.2154,
+  "exitPrice": 324.2616,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 9,
+  "pnlPct": 0.9027081243731198,
+  "entryTimestampMs": 1784785800000,
+  "exitTimestampMs": 1784798700000
  }
 ]
