@@ -232,5 +232,14 @@
   "stop": 80.60901000000001,
   "entryIdx": 11,
   "timestampMs": 1784784600000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 891.65225,
+  "stop": 894.3515,
+  "entryIdx": 8,
+  "timestampMs": 1784784900000
  }
 ]
