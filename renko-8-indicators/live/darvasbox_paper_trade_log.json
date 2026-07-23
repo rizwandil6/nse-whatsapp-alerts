@@ -292,5 +292,14 @@
   "stop": 290.44064999999995,
   "entryIdx": 7,
   "timestampMs": 1784788500000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 110.03889000000001,
+  "stop": 110.37,
+  "entryIdx": 8,
+  "timestampMs": 1784790000000
  }
 ]
