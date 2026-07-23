@@ -53,13 +53,17 @@ public class DashboardDataController {
 
     @GetMapping(value = "/api/dashboard/rs-momentum", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<JsonNode> rsMomentum() {
-        JsonNode node = cachedRead("rs-momentum", "main", "rs-momentum-strategy/live/rs_momentum_log.json");
+        // rs-momentum-strategy-live moved its state push off `main` onto this
+        // dedicated branch 2026-07-23 (was redeploying every Railway service
+        // on every daily run) -- see git_state.js.
+        JsonNode node = cachedRead("rs-momentum", "data/rs-momentum-log", "rs-momentum-strategy/live/rs_momentum_log.json");
         return reversedArray(node);
     }
 
     @GetMapping(value = "/api/dashboard/multibagger", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<JsonNode> multibagger() {
-        JsonNode node = cachedRead("multibagger", "main", "multibagger-screener/forward_performance_log.json");
+        // Same fix, same date -- multibagger-screener/git_state.js.
+        JsonNode node = cachedRead("multibagger", "data/multibagger-log", "multibagger-screener/forward_performance_log.json");
         return reversedArray(node);
     }
 

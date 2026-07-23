@@ -15,6 +15,12 @@
  * paused ones, e.g. ema-scalp-live-streamer) — four separate commits per
  * run meant four separate redeploy cycles for no reason. One commit per
  * run, regardless of how many of the four state files actually changed.
+ *
+ * Pushed to a DEDICATED DATA BRANCH (see BRANCH below), never `main` --
+ * one commit per run was still landing on `main` and redeploying every
+ * other Railway service daily for no reason related to any of them; fixed
+ * 2026-07-23 using the same dedicated-branch pattern already applied to
+ * orb-live-streamer and darvasbox-live's trade logs.
  */
 
 const fs = require('fs');
@@ -22,7 +28,8 @@ const path = require('path');
 
 const REPO_OWNER = 'rizwandil6';
 const REPO_NAME = 'nse-whatsapp-alerts';
-const BRANCH = 'main';
+const BRANCH = 'data/multibagger-log'; // dedicated, non-deploy-triggering branch
+const SOURCE_BRANCH = 'main'; // only used to seed BRANCH if it doesn't exist yet
 const GITHUB_API = 'https://api.github.com';
 
 const STATE_FILES = [
@@ -59,6 +66,30 @@ async function getRemoteFile(relPath, token) {
   if (!res.ok) throw new Error(`GET ${relPath} failed: HTTP ${res.status} — ${await res.text()}`);
   const body = await res.json();
   return { content: Buffer.from(body.content, 'base64').toString('utf8'), sha: body.sha };
+}
+
+/** Creates BRANCH pointing at SOURCE_BRANCH's current HEAD, if it doesn't already exist. Idempotent. */
+async function ensureDataBranchExists(token) {
+  const refUrl = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/git/ref/heads/${BRANCH}`;
+  const existing = await fetch(refUrl, { headers: authHeaders(token) });
+  if (existing.status === 200) return;
+  if (existing.status !== 404) {
+    throw new Error(`Checking ${BRANCH} failed: HTTP ${existing.status} — ${await existing.text()}`);
+  }
+
+  const sourceRefUrl = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/git/ref/heads/${SOURCE_BRANCH}`;
+  const sourceRes = await fetch(sourceRefUrl, { headers: authHeaders(token) });
+  if (!sourceRes.ok) throw new Error(`Reading ${SOURCE_BRANCH} ref failed: HTTP ${sourceRes.status} — ${await sourceRes.text()}`);
+  const sourceRef = await sourceRes.json();
+
+  const createUrl = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/git/refs`;
+  const createRes = await fetch(createUrl, {
+    method: 'POST',
+    headers: { ...authHeaders(token), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ref: `refs/heads/${BRANCH}`, sha: sourceRef.object.sha }),
+  });
+  if (!createRes.ok) throw new Error(`Creating ${BRANCH} failed: HTTP ${createRes.status} — ${await createRes.text()}`);
+  console.log(`Created ${BRANCH} branch (seeded from ${SOURCE_BRANCH}).`);
 }
 
 /**
@@ -114,6 +145,8 @@ async function commitAndPushTrackedState(dateLabel) {
       console.log('No state changes — nothing to commit.');
       return { pushed: false, reason: 'no_changes' };
     }
+
+    await ensureDataBranchExists(token);
 
     const refUrl = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/git/refs/heads/${BRANCH}`;
     const ref = await ghApi(refUrl, token);
