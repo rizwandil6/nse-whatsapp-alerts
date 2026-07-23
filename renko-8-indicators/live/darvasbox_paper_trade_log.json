@@ -670,5 +670,14 @@
   "pnlPct": -0.29910269192422745,
   "entryTimestampMs": 1784782500000,
   "exitTimestampMs": 1784785200000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 327.2154,
+  "stop": 328.2,
+  "entryIdx": 10,
+  "timestampMs": 1784785800000
  }
 ]
