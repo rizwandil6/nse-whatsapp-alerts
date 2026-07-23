@@ -334,5 +334,14 @@
   "stop": 115.57224000000001,
   "entryIdx": 9,
   "timestampMs": 1784790600000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 482.44829999999996,
+  "stop": 483.9,
+  "entryIdx": 4,
+  "timestampMs": 1784790900000
  }
 ]
