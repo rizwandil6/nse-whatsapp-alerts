@@ -905,5 +905,19 @@
   "pnlPct": 0.06161084350846512,
   "entryTimestampMs": 1784796840000,
   "exitTimestampMs": 1784796900000
+ },
+ {
+  "symbol": "RAMCOCEM",
+  "direction": "LONG",
+  "entry": 916.15,
+  "stop": 906.3,
+  "tbq": 19259,
+  "tsq": 24112,
+  "obImbalance": 0.4440524774618985,
+  "action": "BAND_DISTANCE_EXIT",
+  "exitPrice": 915.85,
+  "pnlPct": -0.03274572941111767,
+  "entryTimestampMs": 1784796780000,
+  "exitTimestampMs": 1784796900000
  }
 ]
