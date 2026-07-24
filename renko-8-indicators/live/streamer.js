@@ -362,19 +362,28 @@ function connectAndRun() {
         maybeResetForNewDay(Date.now());
 
         for (const [instrumentKey, feed] of Object.entries(decoded.feeds)) {
-          const symbol = keyToSymbol[instrumentKey];
-          if (!symbol) continue;
-          const tick = extractTick(feed);
-          if (!tick) continue;
-          lastGoodTickMs = Date.now();
+          try {
+            const symbol = keyToSymbol[instrumentKey];
+            if (!symbol) continue;
+            const tick = extractTick(feed);
+            if (!tick) continue;
+            lastGoodTickMs = Date.now();
 
-          for (const { label } of BRICK_PCTS) {
-            const tickEvent = trackers[symbol][label].checkTickStop(tick);
-            if (tickEvent) dispatchEvent(symbol, tickEvent, label);
+            for (const { label } of BRICK_PCTS) {
+              const tickEvent = trackers[symbol][label].checkTickStop(tick);
+              if (tickEvent) dispatchEvent(symbol, tickEvent, label);
+            }
+
+            const closedBar = getOrCreateTickBuilder(symbol).onTick(tick);
+            if (closedBar) ingestOneMinBar(symbol, closedBar, false);
+          } catch (e) {
+            // A thrown error here would otherwise propagate up through ws's internal
+            // frame receiver, which can silently stop delivering further messages on
+            // an otherwise-healthy, still-ESTABLISHED TCP connection -- exactly the
+            // "connected, subscribed, then permanently silent" symptom this is guarding
+            // against. Log loudly and keep processing the rest of this feed batch.
+            console.error(`Tick processing threw for ${instrumentKey}:`, e.message, e.stack);
           }
-
-          const closedBar = getOrCreateTickBuilder(symbol).onTick(tick);
-          if (closedBar) ingestOneMinBar(symbol, closedBar, false);
         }
       });
 
