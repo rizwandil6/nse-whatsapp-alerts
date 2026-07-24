@@ -1522,5 +1522,18 @@
   "entryTimestampMs": 1784883900000,
   "exitTimestampMs": 1784884458981,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 137.04762000000002,
+  "exitPrice": 137.25381000000002,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.15045135406218094,
+  "entryTimestampMs": 1784883900000,
+  "exitTimestampMs": 1784884474116,
+  "brickPct": "0.15"
  }
 ]
