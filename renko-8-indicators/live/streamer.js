@@ -374,6 +374,7 @@ function connectAndRun() {
         }, 1000);
       });
 
+      let diagMsgCount = 0;
       ws.on('message', (data) => {
         let decoded;
         try {
@@ -381,6 +382,10 @@ function connectAndRun() {
         } catch (e) {
           console.warn('Protobuf decode error:', e.message);
           return;
+        }
+        diagMsgCount++;
+        if (diagMsgCount <= 5 || diagMsgCount % 20 === 0) {
+          console.log(`[diag] message #${diagMsgCount} type=${decoded && decoded.type} feeds=${decoded && decoded.feeds ? Object.keys(decoded.feeds).length : 'n/a'}`);
         }
         if (!decoded || !decoded.feeds) return;
         maybeResetForNewDay(Date.now());
