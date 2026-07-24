@@ -1705,5 +1705,25 @@
   "entryTimestampMs": 1784885100000,
   "exitTimestampMs": 1784886342573,
   "brickPct": "0.20"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 285.72029999999995,
+  "stop": 285.15,
+  "entryIdx": 6,
+  "timestampMs": 1784886300000,
+  "brickPct": "0.20"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 110.31117500000002,
+  "stop": 110.14694000000001,
+  "entryIdx": 8,
+  "timestampMs": 1784886300000,
+  "brickPct": "0.15"
  }
 ]
