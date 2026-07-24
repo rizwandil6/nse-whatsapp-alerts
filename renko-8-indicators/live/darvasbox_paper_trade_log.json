@@ -1041,5 +1041,18 @@
   "entryIdx": 7,
   "timestampMs": 1784879460000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 114.66387999999999,
+  "exitPrice": 114.49291,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1491053677932379,
+  "entryTimestampMs": 1784879460000,
+  "exitTimestampMs": 1784879623051,
+  "brickPct": "0.15"
  }
 ]
