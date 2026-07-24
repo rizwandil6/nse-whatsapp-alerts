@@ -1120,5 +1120,35 @@
   "entryTimestampMs": 1784880600000,
   "exitTimestampMs": 1784881092661,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 114.83484999999999,
+  "stop": 114.66387999999999,
+  "entryIdx": 14,
+  "timestampMs": 1784881920000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 114.89183999999999,
+  "stop": 114.66387999999999,
+  "entryIdx": 7,
+  "timestampMs": 1784881920000,
+  "brickPct": "0.20"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 52.39848,
+  "stop": 52.32,
+  "entryIdx": 4,
+  "timestampMs": 1784881800000,
+  "brickPct": "0.15"
  }
 ]
