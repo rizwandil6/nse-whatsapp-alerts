@@ -1064,5 +1064,15 @@
   "entryIdx": 7,
   "timestampMs": 1784879880000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 873.12275,
+  "stop": 874.436375,
+  "entryIdx": 5,
+  "timestampMs": 1784880000000,
+  "brickPct": "0.15"
  }
 ]
