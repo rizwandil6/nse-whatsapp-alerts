@@ -1669,5 +1669,15 @@
   "entryIdx": 39,
   "timestampMs": 1784885100000,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 285.577725,
+  "stop": 285.15,
+  "entryIdx": 8,
+  "timestampMs": 1784886000000,
+  "brickPct": "0.15"
  }
 ]
