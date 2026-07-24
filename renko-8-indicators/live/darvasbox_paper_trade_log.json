@@ -1018,5 +1018,18 @@
   "entryIdx": 4,
   "timestampMs": 1784877600000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 218.327,
+  "exitPrice": 218,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1497753369945074,
+  "entryTimestampMs": 1784877600000,
+  "exitTimestampMs": 1784878449783,
+  "brickPct": "0.15"
  }
 ]
