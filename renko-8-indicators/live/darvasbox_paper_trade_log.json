@@ -1176,5 +1176,15 @@
   "entryTimestampMs": 1784880000000,
   "exitTimestampMs": 1784882089238,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 52.424640000000004,
+  "stop": 52.32,
+  "entryIdx": 4,
+  "timestampMs": 1784881800000,
+  "brickPct": "0.20"
  }
 ]
