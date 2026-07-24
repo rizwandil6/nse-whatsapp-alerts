@@ -303,6 +303,33 @@ async function backfillGapIfNeeded() {
   }
 }
 
+/**
+ * Wall-clock-driven EOD sweep, independent of whether any new bar ever arrives.
+ * The normal EOD path (ingestOneMinBar's forceEodClose call, below) only runs
+ * when a bar actually closes at/after MARKET_CLOSE_MIN -- so if the live feed
+ * goes quiet right at/before close (ticks simply stop arriving, which appears
+ * to be normal Upstox behavior right at 15:30) and no further bar for the day
+ * ever forms, forceEodClose is never invoked and positions stay open in memory
+ * indefinitely. Confirmed live 2026-07-24: 18 positions still open 7+ minutes
+ * after close, zero ticks/CPU/network activity in that window. This fires
+ * purely off Date.now(), reusing whatever bars have already been collected so
+ * far to build bricks and force-close, without needing a new bar to trigger it.
+ * Idempotent -- forceEodClose() is a no-op once a position is already closed.
+ */
+function checkEodSweep() {
+  const { minutesOfDay } = nowIst();
+  if (minutesOfDay < MARKET_CLOSE_MIN) return;
+  for (const symbol of Object.keys(symbols)) {
+    const fiveMin = aggregateTo5Min(oneMinBars[symbol]);
+    if (fiveMin.length === 0) continue;
+    for (const { label, pct } of BRICK_PCTS) {
+      const bricks = buildRenkoBricks(fiveMin, pct);
+      const eodEvent = trackers[symbol][label].forceEodClose(bricks);
+      if (eodEvent) dispatchEvent(symbol, eodEvent, label);
+    }
+  }
+}
+
 /** Force-closes any forming 1-min bar whose minute has fully elapsed with no new tick (illiquid symbols, EOD). */
 function scheduleBarFlush() {
   setInterval(() => {
@@ -311,6 +338,7 @@ function scheduleBarFlush() {
       const bar = builder.flushIfStale(now);
       if (bar) ingestOneMinBar(symbol, bar, false);
     }
+    checkEodSweep();
   }, FLUSH_POLL_MS);
 }
 
