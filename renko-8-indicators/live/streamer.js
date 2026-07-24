@@ -28,6 +28,16 @@
  *
  * Requires UPSTOX_ACCESS_TOKEN and (optionally) TELEGRAM_BOT_TOKEN env
  * vars, same as poller.js.
+ *
+ * Brick-size forward test (2026-07-24, one week): runs BRICK_PCTS (default
+ * 0.15/0.20/0.25/0.30%) in full parallel, per symbol -- 21 symbols x 4 sizes
+ * = 84 independent DarvasLiveTracker lanes, each with its own position/stop
+ * state, sharing only the underlying tick stream and 1-min bars (bar
+ * construction doesn't depend on brick size; Renko construction and every
+ * downstream check does). Every alert/log entry is tagged with its brick
+ * size (`e.brickPct`) so the week's results can be split apart and compared
+ * to pick one going forward -- see trade_log.js's eventKey for why brickPct
+ * had to be added to the dedup key too, not just the alert text.
  */
 
 const WebSocket = require('ws');
@@ -44,21 +54,37 @@ const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-5338709046').split(',');
 const PAPER_ALERTS_ENABLED = process.env.DARVAS_TELEGRAM_ENABLED !== 'false';
-const BRICK_PCT = parseFloat(process.env.DARVAS_BRICK_PCT || '0.3') / 100;
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
 const HISTORICAL_INTRADAY_BASE = 'https://api.upstox.com/v3/historical-candle/intraday';
 const FLUSH_POLL_MS = 15 * 1000; // force-close forming bars whose minute elapsed with no new tick (EOD, illiquid gaps)
 const BACKFILL_DELAY_MS = 150; // pacing between REST calls across symbols, avoids Upstox rate limits
 
+/**
+ * Brick-size forward test (started 2026-07-24, one week): 4 brick sizes run
+ * in full parallel per symbol, sharing the same tick/1-min-bar feed but each
+ * building its OWN Renko bricks and running its own independent DarvasBox
+ * entry/exit/stop logic -- so each brick size has its own real, independently
+ * timed trades, not a re-derivation of one "true" set. Every alert is tagged
+ * with its brick size so the week's results can be told apart and compared
+ * to pick one going forward. Override via DARVAS_BRICK_PCTS (comma-separated
+ * percents) if the set needs to change; defaults to the test's 4 sizes.
+ */
+const BRICK_PCTS = (process.env.DARVAS_BRICK_PCTS || '0.15,0.20,0.25,0.30')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
+  .map((label) => ({ label, pct: parseFloat(label) / 100 }));
+
 const symbols = require('./symbols.json');
 const keyToSymbol = {};
 for (const [symbol, key] of Object.entries(symbols)) keyToSymbol[key] = symbol;
 
-const trackers = {}; // symbol -> DarvasLiveTracker
-const tickBuilders = {}; // symbol -> TickBarBuilder
-const oneMinBars = {}; // symbol -> today's closed 1-min bars, in-memory only
+const trackers = {}; // symbol -> { [brickLabel]: DarvasLiveTracker }
+const tickBuilders = {}; // symbol -> TickBarBuilder (ONE per symbol, shared across all brick sizes -- bar construction is brick-size-independent)
+const oneMinBars = {}; // symbol -> today's closed 1-min bars, in-memory only, shared across brick sizes
 for (const symbol of Object.keys(symbols)) {
-  trackers[symbol] = new DarvasLiveTracker(symbol);
+  trackers[symbol] = {};
+  for (const { label } of BRICK_PCTS) trackers[symbol][label] = new DarvasLiveTracker(symbol);
   oneMinBars[symbol] = [];
 }
 let currentDate = null;
@@ -133,21 +159,27 @@ async function sendTelegramAlert(text) {
 
 function formatEntryAlert(e) {
   const arrow = e.direction === 'LONG' ? '↑' : '↓';
-  return `📝 PAPER ALERT — DarvasBox (unvalidated, not a trade signal)\n${arrow} ${e.direction}: ${e.symbol}\nEntry: ₹${e.entry.toFixed(2)}\nStop: ₹${e.stop.toFixed(2)}\nNo target — trailing box stop`;
+  return `📝 PAPER ALERT — DarvasBox [${e.brickPct}% brick] (unvalidated, not a trade signal)\n${arrow} ${e.direction}: ${e.symbol}\nEntry: ₹${e.entry.toFixed(2)}\nStop: ₹${e.stop.toFixed(2)}\nNo target — trailing box stop`;
 }
 function formatExitAlert(e) {
   const sign = e.pnlPct >= 0 ? '+' : '';
-  return `📝 PAPER ALERT — DarvasBox position closed (unvalidated)\n${e.symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit: ₹${e.exitPrice.toFixed(2)}\nReason: ${e.action}\nP&L: ${sign}${e.pnlPct.toFixed(2)}% (gross, no costs applied)`;
+  return `📝 PAPER ALERT — DarvasBox [${e.brickPct}% brick] position closed (unvalidated)\n${e.symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit: ₹${e.exitPrice.toFixed(2)}\nReason: ${e.action}\nP&L: ${sign}${e.pnlPct.toFixed(2)}% (gross, no costs applied)`;
 }
 
-function dispatchEvent(symbol, e) {
+function dispatchEvent(symbol, e, brickLabel) {
+  // Tag every event with which of the 4 forward-test brick sizes produced it
+  // -- required so the week's trade log can be split apart and compared at
+  // the end, and so isDuplicateEvent() (which keys on symbol/direction/
+  // prices/timestamps) can't conflate two different brick sizes' events
+  // that happen to land on the exact same entry/exit price and timestamp.
+  e.brickPct = brickLabel;
   // Gap-backfill (backfillGapIfNeeded) deliberately re-processes bars that may
   // already have been ingested once before the reconnect -- and, same as a
   // full poller restart, brick reconstruction is deterministic, so a replay
   // can re-derive an event already recorded. Skip both the alert and the log
   // write for anything already in the log, not just the log write.
   if (isDuplicateEvent(e)) {
-    console.log(`Skipping duplicate ${e.type} alert for ${symbol} -- already recorded (replay/backfill).`);
+    console.log(`Skipping duplicate ${e.type} alert for ${symbol} [${brickLabel}%] -- already recorded (replay/backfill).`);
     return;
   }
   const { dateStr } = nowIst();
@@ -166,39 +198,43 @@ function maybeResetForNewDay(nowMs) {
   currentDate = dateStr;
   for (const symbol of Object.keys(symbols)) {
     oneMinBars[symbol] = [];
-    trackers[symbol].resetForNewDay();
+    for (const { label } of BRICK_PCTS) trackers[symbol][label].resetForNewDay();
   }
-  console.log(`New trading day: ${dateStr}. Trackers + in-memory 1-min bar buffers reset.`);
+  console.log(`New trading day: ${dateStr}. Trackers (all ${BRICK_PCTS.length} brick sizes) + in-memory 1-min bar buffers reset.`);
 }
 
 /**
- * Feeds one closed 1-min bar through the 5-min Renko/entry pipeline --
- * UNCHANGED logic from poller.js's pollSymbol, just triggered per closed
- * 1-min bar instead of every 5 minutes. `silent` suppresses alert/log-push
- * dispatch (used by startup backfill, where a trade that fully happened
- * before this process started isn't actionable now); gap-backfill after a
- * mid-day reconnect does NOT suppress -- those alerts fire normally, since
- * closing exactly that kind of detection gap is the point of this project.
+ * Feeds one closed 1-min bar through the 5-min Renko/entry pipeline, once
+ * per brick size in the forward test -- UNCHANGED per-brick-size logic from
+ * poller.js's pollSymbol, just (a) triggered per closed 1-min bar instead of
+ * every 5 minutes, and (b) run 4 times, once per BRICK_PCTS entry, each with
+ * its own independent tracker/position/stop state. `silent` suppresses
+ * alert/log-push dispatch (used by startup backfill, where a trade that
+ * fully happened before this process started isn't actionable now);
+ * gap-backfill after a mid-day reconnect does NOT suppress -- those alerts
+ * fire normally, since closing exactly that kind of detection gap is the
+ * point of this project.
  */
 function ingestOneMinBar(symbol, bar, silent) {
   const minutesOfDay = istMinutesOfDay(bar.timestampMs);
   if (minutesOfDay < MARKET_OPEN_MIN || minutesOfDay > MARKET_CLOSE_MIN + 15) return;
 
   oneMinBars[symbol].push(bar);
-  const fiveMin = aggregateTo5Min(oneMinBars[symbol]);
+  const fiveMin = aggregateTo5Min(oneMinBars[symbol]); // shared across brick sizes -- 5-min aggregation doesn't depend on brick size
   if (fiveMin.length === 0) return;
 
-  const bricks = buildRenkoBricks(fiveMin, BRICK_PCT);
-  const tracker = trackers[symbol];
-  const events = tracker.processBricks(bricks);
-  const intrabarEvent = tracker.checkIntrabarStop(fiveMin);
-  if (intrabarEvent) events.push(intrabarEvent);
-  if (minutesOfDay >= MARKET_CLOSE_MIN) {
-    const eodEvent = tracker.forceEodClose(bricks);
-    if (eodEvent) events.push(eodEvent);
+  for (const { label, pct } of BRICK_PCTS) {
+    const bricks = buildRenkoBricks(fiveMin, pct);
+    const tracker = trackers[symbol][label];
+    const events = tracker.processBricks(bricks);
+    const intrabarEvent = tracker.checkIntrabarStop(fiveMin);
+    if (intrabarEvent) events.push(intrabarEvent);
+    if (minutesOfDay >= MARKET_CLOSE_MIN) {
+      const eodEvent = tracker.forceEodClose(bricks);
+      if (eodEvent) events.push(eodEvent);
+    }
+    if (!silent) for (const e of events) dispatchEvent(symbol, e, label);
   }
-
-  if (!silent) for (const e of events) dispatchEvent(symbol, e);
 }
 
 /**
@@ -322,8 +358,10 @@ function connectAndRun() {
           if (!tick) continue;
           lastGoodTickMs = Date.now();
 
-          const tickEvent = trackers[symbol].checkTickStop(tick);
-          if (tickEvent) dispatchEvent(symbol, tickEvent);
+          for (const { label } of BRICK_PCTS) {
+            const tickEvent = trackers[symbol][label].checkTickStop(tick);
+            if (tickEvent) dispatchEvent(symbol, tickEvent, label);
+          }
 
           const closedBar = getOrCreateTickBuilder(symbol).onTick(tick);
           if (closedBar) ingestOneMinBar(symbol, closedBar, false);
@@ -352,7 +390,7 @@ async function main() {
     console.error('UPSTOX_ACCESS_TOKEN not set — cannot start.');
     process.exit(1);
   }
-  console.log(`DarvasBox TICK streamer starting. ${Object.keys(symbols).length} symbols, brick size ${(BRICK_PCT * 100).toFixed(2)}%.`);
+  console.log(`DarvasBox TICK streamer starting. ${Object.keys(symbols).length} symbols, brick sizes: ${BRICK_PCTS.map((b) => b.label + '%').join(', ')} (forward test, started 2026-07-24).`);
   console.log(`Telegram alerts: ${PAPER_ALERTS_ENABLED ? 'ENABLED (paper-labeled)' : 'SUPPRESSED (logging only)'}`);
 
   await initProtobuf();

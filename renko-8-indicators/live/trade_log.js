@@ -82,11 +82,17 @@ async function syncFromRemote() {
  * where two redeploys during the trading day left every early trade
  * duplicated in the log. Same entry/exit price + same timestamps means
  * same real trade, so this key is what recordTrade() below dedupes on.
+ *
+ * Includes brickPct (added for the 2026-07-24 multi-brick-size forward
+ * test, streamer.js) since 4 independent brick sizes now run per symbol --
+ * without it, two different brick sizes' events that happen to land on the
+ * exact same entry/exit price and timestamp would be misidentified as the
+ * same trade and one would get silently dropped as a "duplicate".
  */
 function eventKey(e) {
   return e.type === 'ENTRY'
-    ? ['ENTRY', e.symbol, e.direction, e.entry, e.timestampMs].join('|')
-    : ['EXIT', e.symbol, e.direction, e.entry, e.exitPrice, e.action, e.entryTimestampMs, e.exitTimestampMs].join('|');
+    ? ['ENTRY', e.symbol, e.direction, e.entry, e.timestampMs, e.brickPct].join('|')
+    : ['EXIT', e.symbol, e.direction, e.entry, e.exitPrice, e.action, e.entryTimestampMs, e.exitTimestampMs, e.brickPct].join('|');
 }
 
 /**
