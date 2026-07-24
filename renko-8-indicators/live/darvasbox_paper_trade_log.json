@@ -1623,5 +1623,31 @@
   "entryTimestampMs": 1784883300000,
   "exitTimestampMs": 1784885089309,
   "brickPct": "0.20"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 36.98060999999999,
+  "exitPrice": 37.03591499999999,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1495513459621057,
+  "entryTimestampMs": 1784883900000,
+  "exitTimestampMs": 1784885105270,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 36.94374,
+  "exitPrice": 37.01748,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1996007984031958,
+  "entryTimestampMs": 1784883900000,
+  "exitTimestampMs": 1784885105270,
+  "brickPct": "0.20"
  }
 ]
