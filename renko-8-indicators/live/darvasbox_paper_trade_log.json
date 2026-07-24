@@ -1054,5 +1054,15 @@
   "entryTimestampMs": 1784879460000,
   "exitTimestampMs": 1784879623051,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 114.66387999999999,
+  "stop": 114.49291,
+  "entryIdx": 7,
+  "timestampMs": 1784879880000,
+  "brickPct": "0.15"
  }
 ]
