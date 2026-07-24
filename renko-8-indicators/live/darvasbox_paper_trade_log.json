@@ -985,5 +985,15 @@
   "pnlPct": -0.29732408325073895,
   "entryTimestampMs": 1784781000000,
   "exitTimestampMs": 1784790000000
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 10.6477,
+  "stop": 10.6318,
+  "entryIdx": 6,
+  "timestampMs": 1784875500000,
+  "brickPct": "0.15"
  }
 ]
