@@ -1324,5 +1324,25 @@
   "entryIdx": 6,
   "timestampMs": 1784883300000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 224.372935,
+  "stop": 224.71,
+  "entryIdx": 6,
+  "timestampMs": 1784883300000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 224.26058,
+  "stop": 224.71,
+  "entryIdx": 4,
+  "timestampMs": 1784883300000,
+  "brickPct": "0.20"
  }
 ]
