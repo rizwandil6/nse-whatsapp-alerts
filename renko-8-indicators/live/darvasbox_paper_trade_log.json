@@ -1764,5 +1764,65 @@
   "entryTimestampMs": 1784886300000,
   "exitTimestampMs": 1784886401980,
   "brickPct": "0.20"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.091219999999986,
+  "stop": 37.03591499999999,
+  "entryIdx": 21,
+  "timestampMs": 1784886600000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.09122,
+  "stop": 37.01748,
+  "entryIdx": 16,
+  "timestampMs": 1784886600000,
+  "brickPct": "0.20"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 485.27682500000003,
+  "stop": 484.55,
+  "entryIdx": 10,
+  "timestampMs": 1784886600000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 485.51910000000004,
+  "stop": 484.55,
+  "entryIdx": 6,
+  "timestampMs": 1784886600000,
+  "brickPct": "0.20"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 485.761375,
+  "stop": 484.55,
+  "entryIdx": 6,
+  "timestampMs": 1784886600000,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 486.00365,
+  "stop": 484.55,
+  "entryIdx": 4,
+  "timestampMs": 1784886600000,
+  "brickPct": "0.30"
  }
 ]
