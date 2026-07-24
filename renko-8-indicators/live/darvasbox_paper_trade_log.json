@@ -1738,5 +1738,31 @@
   "entryTimestampMs": 1784886300000,
   "exitTimestampMs": 1784886392917,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 285.577725,
+  "exitPrice": 285.15,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.14977533699451157,
+  "entryTimestampMs": 1784886000000,
+  "exitTimestampMs": 1784886401980,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 285.72029999999995,
+  "exitPrice": 285.15,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1996007984031848,
+  "entryTimestampMs": 1784886300000,
+  "exitTimestampMs": 1784886401980,
+  "brickPct": "0.20"
  }
 ]
