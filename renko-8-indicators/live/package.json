@@ -2,10 +2,15 @@
   "name": "darvasbox-live-poller",
   "version": "1.0.0",
   "private": true,
-  "description": "PAPER-ALERT DarvasBox Renko poller for the 23-stock watchlist -- unvalidated, no orders placed.",
+  "description": "PAPER-ALERT DarvasBox Renko poller for the 23-stock watchlist -- unvalidated, no orders placed. streamer.js (tick-WebSocket stop detection) is under validation -- keep \"start\" on poller.js until that validation period is done; run streamer.js manually via \"npm run start:streamer\" until then.",
   "main": "poller.js",
   "scripts": {
-    "start": "node poller.js"
+    "start": "node poller.js",
+    "start:streamer": "node streamer.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "protobufjs": "^7.4.0"
   },
   "engines": {
     "node": ">=18"

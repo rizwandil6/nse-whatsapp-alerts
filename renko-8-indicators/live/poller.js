@@ -35,6 +35,7 @@ const path = require('path');
 const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
 const { syncFromRemote, recordAndPush, isDuplicateEvent } = require('./trade_log');
+const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min } = require('./bar_aggregator');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -42,27 +43,11 @@ const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-
 const PAPER_ALERTS_ENABLED = process.env.DARVAS_TELEGRAM_ENABLED !== 'false';
 const BRICK_PCT = parseFloat(process.env.DARVAS_BRICK_PCT || '0.3') / 100;
 const POLL_MS = 5 * 60 * 1000; // 5 minutes -- matches the 5-min bar granularity bricks are built from
-const IST_OFFSET_MS = (5 * 60 + 30) * 60 * 1000;
-const MARKET_OPEN_MIN = 9 * 60 + 15;
-const MARKET_CLOSE_MIN = 15 * 60 + 30;
 
 const symbols = require('./symbols.json');
 const trackers = {};
 for (const symbol of Object.keys(symbols)) trackers[symbol] = new DarvasLiveTracker(symbol);
 let currentDate = null;
-
-function istMinutesOfDay(ms) {
-  const ist = new Date(ms + IST_OFFSET_MS);
-  return ist.getUTCHours() * 60 + ist.getUTCMinutes();
-}
-function istDateStr(ms) {
-  const ist = new Date(ms + IST_OFFSET_MS);
-  return ist.toISOString().slice(0, 10);
-}
-function nowIst() {
-  const now = Date.now();
-  return { minutesOfDay: istMinutesOfDay(now), dateStr: istDateStr(now) };
-}
 
 async function fetchTodaysOneMinCandles(instrumentKey) {
   const url = `https://api.upstox.com/v3/historical-candle/intraday/${encodeURIComponent(instrumentKey)}/minutes/1`;
@@ -73,26 +58,6 @@ async function fetchTodaysOneMinCandles(instrumentKey) {
   return (body.data.candles || [])
     .map((c) => ({ timestampMs: new Date(c[0]).getTime(), open: c[1], high: c[2], low: c[3], close: c[4], volume: c[5] }))
     .sort((a, b) => a.timestampMs - b.timestampMs);
-}
-
-function aggregateTo5Min(oneMinCandles) {
-  const buckets = new Map();
-  for (const c of oneMinCandles) {
-    const min = istMinutesOfDay(c.timestampMs);
-    if (min < MARKET_OPEN_MIN) continue;
-    const bucketIdx = Math.floor((min - MARKET_OPEN_MIN) / 5);
-    const key = String(bucketIdx);
-    if (!buckets.has(key)) {
-      buckets.set(key, { open: c.open, high: c.high, low: c.low, close: c.close, volume: c.volume, timestampMs: c.timestampMs });
-    } else {
-      const b = buckets.get(key);
-      b.high = Math.max(b.high, c.high);
-      b.low = Math.min(b.low, c.low);
-      b.close = c.close;
-      b.volume += c.volume;
-    }
-  }
-  return [...buckets.values()].sort((a, b) => a.timestampMs - b.timestampMs);
 }
 
 async function sendTelegramAlert(text) {

@@ -137,6 +137,56 @@ class DarvasLiveTracker {
     return null;
   }
 
+  /**
+   * Checks a single live tick's LTP against the current stop/trailing-stop
+   * -- the fastest possible stop detection this tracker supports, since a
+   * tick is checked the instant it arrives instead of waiting for a bar or
+   * brick boundary (see streamer.js). Unlike checkIntrabarStop, a tick is
+   * consumed exactly once and never replayed, so no resumability counter
+   * is needed here.
+   *
+   * `tick` = { ltp, lttMs }. Skips ticks at/before entryTimestampMs for the
+   * same reason checkIntrabarStop excludes the entry bar -- a tick can't be
+   * trusted to postdate the entry signal otherwise (e.g. a backfilled/
+   * replayed tick during reconnect-gap recovery). Touch-based (LTP crossing
+   * the level), same philosophy as checkIntrabarStop's bar low/high check
+   * -- deliberately more aggressive than the brick trailing-stop's
+   * close-cross rule (strategies.js TRAILING_BOX_STOP), since the entire
+   * point is not waiting for confirmation.
+   */
+  checkTickStop(tick) {
+    if (!this.position) return null;
+    const pos = this.position;
+    if (tick.lttMs <= pos.entryTimestampMs) return null;
+
+    let hitPrice = null;
+    if (pos.direction === 'LONG') {
+      if (tick.ltp <= pos.stop) hitPrice = pos.stop;
+      else if (pos.trailStop != null && tick.ltp <= pos.trailStop) hitPrice = pos.trailStop;
+    } else {
+      if (tick.ltp >= pos.stop) hitPrice = pos.stop;
+      else if (pos.trailStop != null && tick.ltp >= pos.trailStop) hitPrice = pos.trailStop;
+    }
+    if (hitPrice == null) return null;
+
+    const pnlPct = pos.direction === 'LONG'
+      ? ((hitPrice - pos.entry) / pos.entry) * 100
+      : ((pos.entry - hitPrice) / pos.entry) * 100;
+    this.position = null;
+    return {
+      type: 'EXIT',
+      symbol: this.symbol,
+      direction: pos.direction,
+      entry: pos.entry,
+      exitPrice: hitPrice,
+      action: 'TICK_STOP_LOSS',
+      barsHeld: null,
+      pnlPct,
+      entryTimestampMs: pos.entryTimestampMs,
+      exitTimestampMs: tick.lttMs,
+    };
+  }
+
   /** Called at/after 15:30 IST if a position is still open -- forced EOD square-off. */
   forceEodClose(bricks) {
     if (!this.position || bricks.length === 0) return null;
