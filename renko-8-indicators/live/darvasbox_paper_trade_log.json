@@ -1427,5 +1427,25 @@
   "entryIdx": 12,
   "timestampMs": 1784883900000,
   "brickPct": "0.20"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 528.675,
+  "stop": 530,
+  "entryIdx": 6,
+  "timestampMs": 1784883900000,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 528.41,
+  "stop": 530,
+  "entryIdx": 4,
+  "timestampMs": 1784883900000,
+  "brickPct": "0.30"
  }
 ]
