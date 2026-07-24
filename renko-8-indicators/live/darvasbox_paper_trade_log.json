@@ -1008,5 +1008,15 @@
   "entryTimestampMs": 1784875500000,
   "exitTimestampMs": 1784875992728,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 218.327,
+  "stop": 218,
+  "entryIdx": 4,
+  "timestampMs": 1784877600000,
+  "brickPct": "0.15"
  }
 ]
