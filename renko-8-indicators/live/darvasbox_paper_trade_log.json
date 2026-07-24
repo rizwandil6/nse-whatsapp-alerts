@@ -1357,5 +1357,35 @@
   "entryTimestampMs": 1784883300000,
   "exitTimestampMs": 1784883763816,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 137.04762000000002,
+  "stop": 137.25381000000002,
+  "entryIdx": 5,
+  "timestampMs": 1784883900000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 530,
+  "stop": 531.06,
+  "entryIdx": 9,
+  "timestampMs": 1784883900000,
+  "brickPct": "0.20"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 609.8912500000001,
+  "stop": 610.8130000000001,
+  "entryIdx": 8,
+  "timestampMs": 1784883900000,
+  "brickPct": "0.15"
  }
 ]
