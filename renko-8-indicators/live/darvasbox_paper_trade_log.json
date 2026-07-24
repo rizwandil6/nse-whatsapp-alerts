@@ -1904,5 +1904,15 @@
   "entryIdx": 9,
   "timestampMs": 1784886600000,
   "brickPct": "0.30"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 126.219045,
+  "stop": 126.03,
+  "entryIdx": 4,
+  "timestampMs": 1784886900000,
+  "brickPct": "0.15"
  }
 ]
