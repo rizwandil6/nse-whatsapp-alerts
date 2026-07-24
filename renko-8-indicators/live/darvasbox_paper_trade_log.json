@@ -2336,5 +2336,70 @@
   "entryTimestampMs": 1784886900000,
   "exitTimestampMs": 1784888078156,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 485.27682500000003,
+  "exitPrice": 490,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": null,
+  "pnlPct": 0.9732949847749207,
+  "entryTimestampMs": 1784886600000,
+  "exitTimestampMs": 1784887140000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 485.51910000000004,
+  "exitPrice": 490,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": null,
+  "pnlPct": 0.9229091090340138,
+  "entryTimestampMs": 1784886600000,
+  "exitTimestampMs": 1784887140000,
+  "brickPct": "0.20"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 485.761375,
+  "exitPrice": 490,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": null,
+  "pnlPct": 0.8725734935182966,
+  "entryTimestampMs": 1784886600000,
+  "exitTimestampMs": 1784887140000,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JKIL",
+  "direction": "LONG",
+  "entry": 486.00365,
+  "exitPrice": 490,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": null,
+  "pnlPct": 0.8222880630629024,
+  "entryTimestampMs": 1784886600000,
+  "exitTimestampMs": 1784887140000,
+  "brickPct": "0.30"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 875.75,
+  "exitPrice": 877,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": null,
+  "pnlPct": 0.14273479874393377,
+  "entryTimestampMs": 1784886600000,
+  "exitTimestampMs": 1784887140000,
+  "brickPct": "0.20"
  }
 ]
