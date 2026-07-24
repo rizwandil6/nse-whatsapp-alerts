@@ -1447,5 +1447,31 @@
   "entryIdx": 4,
   "timestampMs": 1784883900000,
   "brickPct": "0.30"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 609.8912500000001,
+  "exitPrice": 610.8130000000001,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.15113350125944164,
+  "entryTimestampMs": 1784883900000,
+  "exitTimestampMs": 1784884306886,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 609.5839999999998,
+  "exitPrice": 610.8129999999999,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.20161290322581338,
+  "entryTimestampMs": 1784883900000,
+  "exitTimestampMs": 1784884306886,
+  "brickPct": "0.20"
  }
 ]
