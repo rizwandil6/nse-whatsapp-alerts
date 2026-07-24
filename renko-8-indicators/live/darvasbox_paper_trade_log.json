@@ -1976,5 +1976,25 @@
   "entryTimestampMs": 1784886900000,
   "exitTimestampMs": 1784887132713,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 285.862875,
+  "stop": 285.15,
+  "entryIdx": 4,
+  "timestampMs": 1784886900000,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 117.62735999999994,
+  "stop": 117.85531999999994,
+  "entryIdx": 63,
+  "timestampMs": 1784886900000,
+  "brickPct": "0.20"
  }
 ]
