@@ -1196,5 +1196,25 @@
   "entryIdx": 10,
   "timestampMs": 1784881800000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.091219999999986,
+  "stop": 37.03591499999999,
+  "entryIdx": 11,
+  "timestampMs": 1784882100000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.09122,
+  "stop": 37.01748,
+  "entryIdx": 8,
+  "timestampMs": 1784882100000,
+  "brickPct": "0.20"
  }
 ]
