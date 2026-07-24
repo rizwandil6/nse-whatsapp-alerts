@@ -1,0 +1,52 @@
+CONCOR: only 27 bricks -- below 100 warm-up minimum, skipped
+HATHWAY: only 69 bricks -- below 100 warm-up minimum, skipped
+NHPC: only 29 bricks -- below 100 warm-up minimum, skipped
+JSWINFRA: only 69 bricks -- below 100 warm-up minimum, skipped
+JKIL: only 38 bricks -- below 100 warm-up minimum, skipped
+SUZLON: only 38 bricks -- below 100 warm-up minimum, skipped
+WAAREEENER: only 17 bricks -- below 100 warm-up minimum, skipped
+OLAELEC: 144 bricks, 20 trades
+HINDCOPPER: only 23 bricks -- below 100 warm-up minimum, skipped
+MHRIL: only 57 bricks -- below 100 warm-up minimum, skipped
+RVNL: only 27 bricks -- below 100 warm-up minimum, skipped
+RAILTEL: only 34 bricks -- below 100 warm-up minimum, skipped
+GAIL: only 20 bricks -- below 100 warm-up minimum, skipped
+ADSL: only 74 bricks -- below 100 warm-up minimum, skipped
+ARE&M: only 46 bricks -- below 100 warm-up minimum, skipped
+NCC: only 26 bricks -- below 100 warm-up minimum, skipped
+STERTOOLS: 121 bricks, 14 trades
+TEXRAIL: only 51 bricks -- below 100 warm-up minimum, skipped
+TITAGARH: only 62 bricks -- below 100 warm-up minimum, skipped
+MANINDS: 102 bricks, 14 trades
+SERVOTECH: 108 bricks, 14 trades
+IRCON: only 22 bricks -- below 100 warm-up minimum, skipped
+TRITURBINE: only 80 bricks -- below 100 warm-up minimum, skipped
+
+=== DarvasBox @ 1.5% brick, 23-stock watchlist ===
+
+Trades: 62  Net win rate: 29.0%  Gross avg: +0.316%  Net avg: +0.209%  Net sum: +12.99%
+
+Per symbol:
+  CONCOR       -- no data/skipped
+  HATHWAY      -- no data/skipped
+  NHPC         -- no data/skipped
+  JSWINFRA     -- no data/skipped
+  JKIL         -- no data/skipped
+  SUZLON       -- no data/skipped
+  WAAREEENER   -- no data/skipped
+  OLAELEC      n= 20  netWin%= 45.0  netAvg=+0.447%
+  HINDCOPPER   -- no data/skipped
+  MHRIL        -- no data/skipped
+  RVNL         -- no data/skipped
+  RAILTEL      -- no data/skipped
+  GAIL         -- no data/skipped
+  ADSL         -- no data/skipped
+  ARE&M        -- no data/skipped
+  NCC          -- no data/skipped
+  STERTOOLS    n= 14  netWin%= 21.4  netAvg=+0.032%
+  TEXRAIL      -- no data/skipped
+  TITAGARH     -- no data/skipped
+  MANINDS      n= 14  netWin%= 14.3  netAvg=-0.196%
+  SERVOTECH    n= 14  netWin%= 28.6  netAvg=+0.453%
+  IRCON        -- no data/skipped
+  TRITURBINE   -- no data/skipped

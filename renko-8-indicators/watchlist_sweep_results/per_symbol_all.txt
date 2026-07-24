@@ -1,0 +1,130 @@
+--- out_0.3.txt ---
+Per symbol:
+  CONCOR       n= 47  netWin%= 53.2  netAvg=+0.345%
+  HATHWAY      n= 65  netWin%= 56.9  netAvg=+0.756%
+  NHPC         n= 41  netWin%= 56.1  netAvg=+0.456%
+  JSWINFRA     n= 84  netWin%= 38.1  netAvg=+0.346%
+  JKIL         n= 72  netWin%= 29.2  netAvg=+0.150%
+  SUZLON       n= 68  netWin%= 50.0  netAvg=+0.360%
+  WAAREEENER   n= 50  netWin%= 38.0  netAvg=+0.146%
+  OLAELEC      n=146  netWin%= 50.0  netAvg=+0.586%
+  HINDCOPPER   n= 52  netWin%= 46.2  netAvg=+0.279%
+  MHRIL        n= 72  netWin%= 38.9  netAvg=+0.445%
+  RVNL         n= 49  netWin%= 46.9  netAvg=+0.488%
+  RAILTEL      n= 55  netWin%= 52.7  netAvg=+0.369%
+  GAIL         n= 53  netWin%= 34.0  netAvg=+0.198%
+  ADSL         n= 74  netWin%= 45.9  netAvg=+0.641%
+  ARE&M        n= 66  netWin%= 48.5  netAvg=+0.381%
+  NCC          n= 58  netWin%= 36.2  netAvg=+0.229%
+  STERTOOLS    n=248  netWin%= 21.4  netAvg=+0.104%
+  TEXRAIL      n= 81  netWin%= 42.0  netAvg=+0.397%
+  TITAGARH     n= 73  netWin%= 52.1  netAvg=+0.581%
+  MANINDS      n= 92  netWin%= 52.2  netAvg=+0.917%
+  SERVOTECH    n=104  netWin%= 42.3  netAvg=+0.575%
+  IRCON        n= 48  netWin%= 41.7  netAvg=+0.228%
+  TRITURBINE   n= 76  netWin%= 52.6  netAvg=+0.880%
+
+--- out_0.5.txt ---
+Per symbol:
+  CONCOR       n= 21  netWin%= 52.4  netAvg=+0.756%
+  HATHWAY      n= 48  netWin%= 47.9  netAvg=+0.532%
+  NHPC         n= 21  netWin%= 57.1  netAvg=+0.632%
+  JSWINFRA     n= 44  netWin%= 43.2  netAvg=+0.510%
+  JKIL         n= 31  netWin%= 51.6  netAvg=+0.350%
+  SUZLON       n= 36  netWin%= 44.4  netAvg=+0.353%
+  WAAREEENER   n= 27  netWin%= 25.9  netAvg=+0.025%
+  OLAELEC      n= 84  netWin%= 42.9  netAvg=+0.595%
+  HINDCOPPER   n= 28  netWin%= 21.4  netAvg=+0.003%
+  MHRIL        n= 38  netWin%= 50.0  netAvg=+0.575%
+  RVNL         n= 23  netWin%= 56.5  netAvg=+0.477%
+  RAILTEL      n= 29  netWin%= 48.3  netAvg=+0.309%
+  GAIL         n= 24  netWin%= 41.7  netAvg=+0.209%
+  ADSL         n= 46  netWin%= 56.5  netAvg=+0.708%
+  ARE&M        n= 32  netWin%= 59.4  netAvg=+0.487%
+  NCC          n= 32  netWin%= 25.0  netAvg=+0.070%
+  STERTOOLS    n=108  netWin%= 25.0  netAvg=+0.088%
+  TEXRAIL      n= 40  netWin%= 52.5  netAvg=+0.555%
+  TITAGARH     n= 41  netWin%= 61.0  netAvg=+0.767%
+  MANINDS      n= 56  netWin%= 57.1  netAvg=+0.952%
+  SERVOTECH    n= 57  netWin%= 49.1  netAvg=+0.683%
+  IRCON        n= 23  netWin%= 39.1  netAvg=+0.126%
+  TRITURBINE   n= 42  netWin%= 66.7  netAvg=+1.156%
+
+--- out_0.75.txt ---
+Per symbol:
+  CONCOR       -- no data/skipped
+  HATHWAY      n= 22  netWin%= 54.5  netAvg=+0.791%
+  NHPC         -- no data/skipped
+  JSWINFRA     n= 28  netWin%= 46.4  netAvg=+0.684%
+  JKIL         n= 17  netWin%= 41.2  netAvg=+0.491%
+  SUZLON       n= 20  netWin%= 40.0  netAvg=+0.356%
+  WAAREEENER   -- no data/skipped
+  OLAELEC      n= 54  netWin%= 44.4  netAvg=+0.514%
+  HINDCOPPER   n= 10  netWin%= 30.0  netAvg=+0.044%
+  MHRIL        n= 19  netWin%= 47.4  netAvg=+0.589%
+  RVNL         n= 14  netWin%= 35.7  netAvg=+0.324%
+  RAILTEL      n= 15  netWin%= 46.7  netAvg=+0.316%
+  GAIL         -- no data/skipped
+  ADSL         n= 31  netWin%= 32.3  netAvg=+0.480%
+  ARE&M        n= 23  netWin%= 34.8  netAvg=+0.208%
+  NCC          n= 14  netWin%= 35.7  netAvg=+0.280%
+  STERTOOLS    n= 51  netWin%= 23.5  netAvg=+0.162%
+  TEXRAIL      n= 24  netWin%= 37.5  netAvg=+0.525%
+  TITAGARH     n= 29  netWin%= 44.8  netAvg=+0.385%
+  MANINDS      n= 35  netWin%= 51.4  netAvg=+0.872%
+  SERVOTECH    n= 36  netWin%= 47.2  netAvg=+0.721%
+  IRCON        -- no data/skipped
+  TRITURBINE   n= 34  netWin%= 35.3  netAvg=+0.602%
+
+--- out_1.0.txt ---
+Per symbol:
+  CONCOR       -- no data/skipped
+  HATHWAY      n= 16  netWin%= 56.3  netAvg=+0.734%
+  NHPC         -- no data/skipped
+  JSWINFRA     n= 16  netWin%= 56.3  netAvg=+0.823%
+  JKIL         -- no data/skipped
+  SUZLON       -- no data/skipped
+  WAAREEENER   -- no data/skipped
+  OLAELEC      n= 33  netWin%= 45.5  netAvg=+0.713%
+  HINDCOPPER   -- no data/skipped
+  MHRIL        n= 13  netWin%= 23.1  netAvg=+0.207%
+  RVNL         -- no data/skipped
+  RAILTEL      -- no data/skipped
+  GAIL         -- no data/skipped
+  ADSL         n= 16  netWin%= 56.3  netAvg=+0.724%
+  ARE&M        -- no data/skipped
+  NCC          -- no data/skipped
+  STERTOOLS    n= 31  netWin%= 25.8  netAvg=+0.178%
+  TEXRAIL      n= 15  netWin%= 40.0  netAvg=+0.717%
+  TITAGARH     n= 20  netWin%= 40.0  netAvg=+0.162%
+  MANINDS      n= 25  netWin%= 44.0  netAvg=+0.497%
+  SERVOTECH    n= 23  netWin%= 43.5  netAvg=+0.603%
+  IRCON        -- no data/skipped
+  TRITURBINE   n= 23  netWin%= 34.8  netAvg=+0.595%
+
+--- out_1.5.txt ---
+Per symbol:
+  CONCOR       -- no data/skipped
+  HATHWAY      -- no data/skipped
+  NHPC         -- no data/skipped
+  JSWINFRA     -- no data/skipped
+  JKIL         -- no data/skipped
+  SUZLON       -- no data/skipped
+  WAAREEENER   -- no data/skipped
+  OLAELEC      n= 20  netWin%= 45.0  netAvg=+0.447%
+  HINDCOPPER   -- no data/skipped
+  MHRIL        -- no data/skipped
+  RVNL         -- no data/skipped
+  RAILTEL      -- no data/skipped
+  GAIL         -- no data/skipped
+  ADSL         -- no data/skipped
+  ARE&M        -- no data/skipped
+  NCC          -- no data/skipped
+  STERTOOLS    n= 14  netWin%= 21.4  netAvg=+0.032%
+  TEXRAIL      -- no data/skipped
+  TITAGARH     -- no data/skipped
+  MANINDS      n= 14  netWin%= 14.3  netAvg=-0.196%
+  SERVOTECH    n= 14  netWin%= 28.6  netAvg=+0.453%
+  IRCON        -- no data/skipped
+  TRITURBINE   -- no data/skipped
+
