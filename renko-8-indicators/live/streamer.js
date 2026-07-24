@@ -378,8 +378,13 @@ function connectAndRun() {
         finish('error');
       });
 
-      process.once('SIGTERM', () => finish('sigterm'));
-      process.once('SIGINT', () => finish('sigint'));
+      // Send a real WS close handshake before exiting, not just process.exit() --
+      // otherwise Upstox's backend never sees this session end (its socket is just
+      // yanked), which can leave it considering the feed still "attached" to this
+      // access token across a redeploy. A brief delay lets the close frame actually
+      // reach the wire before the process dies.
+      process.once('SIGTERM', () => { console.log('SIGTERM: closing feed connection...'); ws.close(); setTimeout(() => finish('sigterm'), 500); });
+      process.once('SIGINT', () => { console.log('SIGINT: closing feed connection...'); ws.close(); setTimeout(() => finish('sigint'), 500); });
     })();
   });
 }
