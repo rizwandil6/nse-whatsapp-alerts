@@ -1387,5 +1387,15 @@
   "entryIdx": 8,
   "timestampMs": 1784883900000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 609.5839999999998,
+  "stop": 610.8129999999999,
+  "entryIdx": 7,
+  "timestampMs": 1784883900000,
+  "brickPct": "0.20"
  }
 ]
