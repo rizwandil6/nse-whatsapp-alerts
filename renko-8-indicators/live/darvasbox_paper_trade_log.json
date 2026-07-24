@@ -1924,5 +1924,31 @@
   "entryIdx": 6,
   "timestampMs": 1784886900000,
   "brickPct": "0.20"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 117.74133999999994,
+  "exitPrice": 117.57036999999994,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1452081316553702,
+  "entryTimestampMs": 1784884800000,
+  "exitTimestampMs": 1784887066704,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 117.96929999999993,
+  "exitPrice": 117.68434999999994,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.2415458937198026,
+  "entryTimestampMs": 1784885100000,
+  "exitTimestampMs": 1784887066704,
+  "brickPct": "0.25"
  }
 ]
