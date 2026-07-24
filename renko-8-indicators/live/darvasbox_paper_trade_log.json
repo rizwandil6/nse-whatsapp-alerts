@@ -1097,5 +1097,15 @@
   "entryTimestampMs": 1784879880000,
   "exitTimestampMs": 1784880341280,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 137.04762000000002,
+  "stop": 137.25381000000002,
+  "entryIdx": 5,
+  "timestampMs": 1784880600000,
+  "brickPct": "0.15"
  }
 ]
