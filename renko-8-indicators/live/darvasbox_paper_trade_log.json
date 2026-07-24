@@ -1314,5 +1314,15 @@
   "entryIdx": 8,
   "timestampMs": 1784883300000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 79.35130500000001,
+  "stop": 79.47087,
+  "entryIdx": 6,
+  "timestampMs": 1784883300000,
+  "brickPct": "0.15"
  }
 ]
