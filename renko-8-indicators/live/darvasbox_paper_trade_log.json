@@ -995,5 +995,18 @@
   "entryIdx": 6,
   "timestampMs": 1784875500000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 10.6477,
+  "exitPrice": 10.6318,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.14932802389248614,
+  "entryTimestampMs": 1784875500000,
+  "exitTimestampMs": 1784875992728,
+  "brickPct": "0.15"
  }
 ]
