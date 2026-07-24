@@ -1824,5 +1824,35 @@
   "entryIdx": 4,
   "timestampMs": 1784886600000,
   "brickPct": "0.30"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 875.75,
+  "stop": 874.436375,
+  "entryIdx": 11,
+  "timestampMs": 1784886600000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 875.75,
+  "stop": 873.9985,
+  "entryIdx": 9,
+  "timestampMs": 1784886600000,
+  "brickPct": "0.20"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 529.205,
+  "stop": 530,
+  "entryIdx": 24,
+  "timestampMs": 1784886600000,
+  "brickPct": "0.15"
  }
 ]
