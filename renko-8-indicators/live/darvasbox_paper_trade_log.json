@@ -1226,5 +1226,31 @@
   "entryIdx": 7,
   "timestampMs": 1784882160000,
   "brickPct": "0.20"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 52.39848,
+  "exitPrice": 52.32,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.14977533699450632,
+  "entryTimestampMs": 1784881800000,
+  "exitTimestampMs": 1784882918545,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 52.424640000000004,
+  "exitPrice": 52.32,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.19960079840320005,
+  "entryTimestampMs": 1784881800000,
+  "exitTimestampMs": 1784882918545,
+  "brickPct": "0.20"
  }
 ]
