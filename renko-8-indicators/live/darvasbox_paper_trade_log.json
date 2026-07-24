@@ -1584,5 +1584,18 @@
   "entryIdx": 77,
   "timestampMs": 1784884800000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 530,
+  "exitPrice": 531.06,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.19999999999998969,
+  "entryTimestampMs": 1784883900000,
+  "exitTimestampMs": 1784885079853,
+  "brickPct": "0.20"
  }
 ]
