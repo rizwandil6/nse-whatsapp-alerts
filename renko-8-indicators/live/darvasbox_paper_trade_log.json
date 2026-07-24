@@ -1150,5 +1150,18 @@
   "entryIdx": 4,
   "timestampMs": 1784881800000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 872.2470000000001,
+  "exitPrice": 873.9985,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.2008032128514015,
+  "entryTimestampMs": 1784880000000,
+  "exitTimestampMs": 1784882048091,
+  "brickPct": "0.20"
  }
 ]
