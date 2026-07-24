@@ -2009,5 +2009,55 @@
   "entryTimestampMs": 1784886900000,
   "exitTimestampMs": 1784887167192,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 137.46,
+  "stop": 137.25381000000002,
+  "entryIdx": 9,
+  "timestampMs": 1784886900000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 286.00545,
+  "stop": 285.15,
+  "entryIdx": 4,
+  "timestampMs": 1784886900000,
+  "brickPct": "0.30"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 117.39939999999994,
+  "stop": 117.57036999999994,
+  "entryIdx": 91,
+  "timestampMs": 1784886900000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 117.39939999999994,
+  "stop": 117.68434999999994,
+  "entryIdx": 47,
+  "timestampMs": 1784886900000,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 117.39939999999994,
+  "stop": 117.74133999999994,
+  "entryIdx": 35,
+  "timestampMs": 1784886900000,
+  "brickPct": "0.30"
  }
 ]
