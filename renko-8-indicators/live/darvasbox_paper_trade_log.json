@@ -1963,5 +1963,18 @@
   "entryTimestampMs": 1784886600000,
   "exitTimestampMs": 1784887074705,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 126.219045,
+  "exitPrice": 126.03,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1497753369945027,
+  "entryTimestampMs": 1784886900000,
+  "exitTimestampMs": 1784887132713,
+  "brickPct": "0.15"
  }
 ]
