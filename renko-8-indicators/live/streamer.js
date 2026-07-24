@@ -342,7 +342,7 @@ function connectAndRun() {
         setTimeout(() => {
           const instrumentKeys = Object.values(symbols);
           ws.send(Buffer.from(JSON.stringify({
-            guid: 'darvasbox-live',
+            guid: `darvasbox-live-${Date.now()}`,
             method: 'sub',
             data: { mode: 'full', instrumentKeys },
           })));
