@@ -1344,5 +1344,18 @@
   "entryIdx": 4,
   "timestampMs": 1784883300000,
   "brickPct": "0.20"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 79.35130500000001,
+  "exitPrice": 79.47087,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1506780512305303,
+  "entryTimestampMs": 1784883300000,
+  "exitTimestampMs": 1784883763816,
+  "brickPct": "0.15"
  }
 ]
