@@ -339,30 +339,6 @@ function connectAndRun() {
 
       ws.on('open', () => {
         console.log('Connected. Subscribing to', Object.keys(symbols).length, 'symbols...');
-
-        // TEMPORARY diagnostic: today's WS connection has repeatedly connected and
-        // subscribed successfully, then received literally zero messages, with no
-        // error/close event -- while ad-hoc test connections from the same
-        // container always worked instantly. This instruments below ws's own
-        // message-framing layer to see whether raw bytes ever reach the socket at
-        // all, isolating "nothing arrives" from "ws fails to parse what arrives".
-        if (ws._socket) {
-          let rawBytes = 0, rawChunks = 0;
-          ws._socket.on('data', (chunk) => {
-            rawBytes += chunk.length;
-            rawChunks++;
-            if (rawChunks <= 5 || rawChunks % 50 === 0) {
-              console.log(`[diag] raw socket data #${rawChunks}: +${chunk.length}B (total ${rawBytes}B)`);
-            }
-          });
-          ws._socket.on('end', () => console.log('[diag] raw socket END event'));
-        } else {
-          console.log('[diag] ws._socket not available to instrument');
-        }
-        ws.on('ping', () => console.log('[diag] WS ping received'));
-        ws.on('pong', () => console.log('[diag] WS pong received'));
-        ws.on('unexpected-response', (req, res) => console.log('[diag] unexpected-response', res.statusCode));
-
         setTimeout(() => {
           const instrumentKeys = Object.values(symbols);
           ws.send(Buffer.from(JSON.stringify({
@@ -374,7 +350,6 @@ function connectAndRun() {
         }, 1000);
       });
 
-      let diagMsgCount = 0;
       ws.on('message', (data) => {
         let decoded;
         try {
@@ -382,10 +357,6 @@ function connectAndRun() {
         } catch (e) {
           console.warn('Protobuf decode error:', e.message);
           return;
-        }
-        diagMsgCount++;
-        if (diagMsgCount <= 5 || diagMsgCount % 20 === 0) {
-          console.log(`[diag] message #${diagMsgCount} type=${decoded && decoded.type} feeds=${decoded && decoded.feeds ? Object.keys(decoded.feeds).length : 'n/a'}`);
         }
         if (!decoded || !decoded.feeds) return;
         maybeResetForNewDay(Date.now());
