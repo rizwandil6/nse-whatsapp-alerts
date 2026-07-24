@@ -396,7 +396,23 @@ function connectAndRun() {
  * project's code (see chat history for the community-forum evidence) —
  * this loop is the correct mitigation, not a workaround for a bug here.
  */
+/**
+ * Hard service-level pause, distinct from ORB_TELEGRAM_ENABLED (which only
+ * suppresses the Telegram alert send while still running the strategy and
+ * writing the trade log). This one stops the process from doing ANYTHING --
+ * no Upstox connection, no GitHub sync, no trade-log writes -- and exits
+ * immediately, before touching any external service. Checked first thing in
+ * main() specifically so that a `git push` (which redeploys every Railway
+ * service in this repo, not just this one) or any other redeploy/restart
+ * can never bring ORB back online on its own: each restart just re-hits
+ * this check and exits again. Resume by setting ORB_SERVICE_ENABLED back to
+ * unset/true (or deleting the var) and redeploying.
+ */
 async function main() {
+  if (process.env.ORB_SERVICE_ENABLED === 'false') {
+    console.log('ORB_SERVICE_ENABLED=false -- service paused. Exiting immediately without connecting to Upstox, Telegram, or GitHub. Unset ORB_SERVICE_ENABLED (or set it to anything but "false") and redeploy to resume.');
+    return;
+  }
   console.log('Initializing protobuf schema...');
   await initProtobuf();
   await syncTradeLogFromRemote();
