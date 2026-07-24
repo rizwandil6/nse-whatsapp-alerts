@@ -1597,5 +1597,31 @@
   "entryTimestampMs": 1784883900000,
   "exitTimestampMs": 1784885079853,
   "brickPct": "0.20"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 224.372935,
+  "exitPrice": 224.71,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1502253380070085,
+  "entryTimestampMs": 1784883300000,
+  "exitTimestampMs": 1784885089309,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 224.26058,
+  "exitPrice": 224.71,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.20040080160320795,
+  "entryTimestampMs": 1784883300000,
+  "exitTimestampMs": 1784885089309,
+  "brickPct": "0.20"
  }
 ]
