@@ -1679,5 +1679,18 @@
   "entryIdx": 8,
   "timestampMs": 1784886000000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 52.24152,
+  "exitPrice": 52.32,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1502253380070086,
+  "entryTimestampMs": 1784883300000,
+  "exitTimestampMs": 1784886326630,
+  "brickPct": "0.15"
  }
 ]
