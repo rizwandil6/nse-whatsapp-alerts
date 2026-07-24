@@ -2147,5 +2147,18 @@
   "entryTimestampMs": 1784886600000,
   "exitTimestampMs": 1784887801419,
   "brickPct": "0.30"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 110.31117500000002,
+  "exitPrice": 110.14694000000001,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.14888337468983082,
+  "entryTimestampMs": 1784886900000,
+  "exitTimestampMs": 1784887807829,
+  "brickPct": "0.15"
  }
 ]
