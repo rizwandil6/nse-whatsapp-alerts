@@ -422,5 +422,76 @@
    },
    "qualifies": true
   }
+ },
+ "MONARCH": {
+  "firstQualified": "2026-07-24",
+  "priceAtQualification": 356,
+  "lastChecked": "2026-07-24",
+  "lastChecks": {
+   "halalBusiness": true,
+   "halalDebt": true,
+   "marketCapCr": true,
+   "peg": true,
+   "peVsIndustry": true,
+   "roe": true,
+   "roce": true,
+   "debtToEquity": true,
+   "promoterPct": true,
+   "salesGrowth3Y": true,
+   "profitGrowth5Y": true,
+   "opmPct": true,
+   "priceToSales": true,
+   "evToEbitda": true
+  },
+  "lastData": {
+   "symbol": "MONARCH",
+   "companyName": "Monarch Networth Capital Ltd",
+   "sectorTags": {
+    "Broad Sector": "Financial Services",
+    "Sector": "Financial Services",
+    "Broad Industry": "Capital Markets",
+    "Industry": "Stockbroking & Allied"
+   },
+   "halalBusiness": true,
+   "halalBusinessReason": null,
+   "marketCapCr": 2825,
+   "pe": 15.6,
+   "roe": 20.5,
+   "roce": 27.7,
+   "bookValue": 123,
+   "currentPrice": 356,
+   "promoterPct": 53.83,
+   "salesGrowth3Y": 32,
+   "profitGrowth5Y": 46,
+   "opmPct": 68,
+   "totalDebtCr": 37,
+   "reservesCr": 892,
+   "totalAssetsCr": 1572,
+   "debtToEquity": 0.04147982062780269,
+   "debtToAssetsPct": 2.3536895674300253,
+   "ttmSalesCr": 372,
+   "priceToSales": 7.594086021505376,
+   "evToEbitda": 11.31404174573055,
+   "peg": 0.3391304347826087,
+   "pledgePct": null,
+   "industryPe": 39.22933333333334,
+   "checks": {
+    "halalBusiness": true,
+    "halalDebt": true,
+    "marketCapCr": true,
+    "peg": true,
+    "peVsIndustry": true,
+    "roe": true,
+    "roce": true,
+    "debtToEquity": true,
+    "promoterPct": true,
+    "salesGrowth3Y": true,
+    "profitGrowth5Y": true,
+    "opmPct": true,
+    "priceToSales": true,
+    "evToEbitda": true
+   },
+   "qualifies": true
+  }
  }
 }
