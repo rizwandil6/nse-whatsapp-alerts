@@ -1252,5 +1252,31 @@
   "entryTimestampMs": 1784881800000,
   "exitTimestampMs": 1784882918545,
   "brickPct": "0.20"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "LONG",
+  "entry": 533.9749999999998,
+  "exitPrice": 533.1799999999998,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1488833746898187,
+  "entryTimestampMs": 1784881800000,
+  "exitTimestampMs": 1784883186710,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "LONG",
+  "entry": 534.2399999999998,
+  "exitPrice": 533.1799999999998,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.1984126984126883,
+  "entryTimestampMs": 1784882160000,
+  "exitTimestampMs": 1784883186710,
+  "brickPct": "0.20"
  }
 ]
