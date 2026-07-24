@@ -96,8 +96,18 @@ function getOrCreateTickBuilder(symbol) {
   return tickBuilders[symbol];
 }
 
+const FETCH_TIMEOUT_MS = 10 * 1000;
+
+/** Upstox REST calls have no built-in timeout -- a single stalled request would otherwise
+ *  block startup (backfill loops over 21 symbols sequentially) or a reconnect forever. */
+function fetchWithTimeout(url, options) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
 async function getMarketFeedUrl() {
-  const res = await fetch(AUTHORIZE_URL, {
+  const res = await fetchWithTimeout(AUTHORIZE_URL, {
     headers: { Accept: 'application/json', Authorization: `Bearer ${UPSTOX_TOKEN}` },
   });
   if (!res.ok) throw new Error(`Authorize failed: HTTP ${res.status} — ${await res.text()}`);
@@ -131,7 +141,7 @@ function extractTick(feed) {
 
 async function fetchTodaysOneMinCandles(instrumentKey) {
   const url = `${HISTORICAL_INTRADAY_BASE}/${encodeURIComponent(instrumentKey)}/minutes/1`;
-  const res = await fetch(url, { headers: { Authorization: `Bearer ${UPSTOX_TOKEN}`, Accept: 'application/json' } });
+  const res = await fetchWithTimeout(url, { headers: { Authorization: `Bearer ${UPSTOX_TOKEN}`, Accept: 'application/json' } });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const body = await res.json();
   if (body.status !== 'success') throw new Error(`Upstox status: ${body.status}`);
