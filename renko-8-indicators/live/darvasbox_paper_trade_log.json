@@ -1407,5 +1407,25 @@
   "entryIdx": 15,
   "timestampMs": 1784883900000,
   "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 79.35130500000001,
+  "stop": 79.47087,
+  "entryIdx": 6,
+  "timestampMs": 1784883900000,
+  "brickPct": "0.15"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 36.94374,
+  "stop": 37.01748,
+  "entryIdx": 12,
+  "timestampMs": 1784883900000,
+  "brickPct": "0.20"
  }
 ]
