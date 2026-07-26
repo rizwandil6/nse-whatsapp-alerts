@@ -50,7 +50,7 @@ const { COMBOS, COMBOS_BY_BRICK_PCT, WINNING_COMBO_ID } = require('./combos');
 const { costRupees } = require('./costs');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { FiveMinBarAggregator } = require('./five_min_aggregator');
-const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, nowIst } = require('./bar_aggregator');
+const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst } = require('./bar_aggregator');
 const { loadSeedCandles } = require('./seed_loader');
 const { fillGap } = require('./historical_gap_fill');
 const { syncFromRemote, recordAndPush, isDuplicateEvent } = require('./trade_log');
@@ -216,9 +216,24 @@ function seedCandleSilently(symbol, candle) {
   }
 }
 
+/**
+ * Confirmed live bug (2026-07-26): Upstox's WS feed sends a stale snapshot
+ * tick per instrument immediately on subscribe -- tagged with that
+ * symbol's actual LAST REAL TRADE time (e.g. Friday 15:40 IST), which is
+ * NOT "now". A time-of-day-only guard (is 15:40 between 09:15 and 15:45?)
+ * happily lets a stale FRIDAY tick through as if it were live data,
+ * because it only checks the clock, never the calendar date -- this fired
+ * real Telegram alerts off days-old data while the market was closed.
+ * Fixed by also requiring the bar's IST calendar date to match today's.
+ */
+function isLiveMarketBar(timestampMs) {
+  const minutesOfDay = istMinutesOfDay(timestampMs);
+  if (minutesOfDay < MARKET_OPEN_MIN || minutesOfDay > MARKET_CLOSE_MIN + 15) return false;
+  return istDateStr(timestampMs) === istDateStr(Date.now());
+}
+
 function ingestOneMinBar(symbol, bar) {
-  const minutesOfDay = istMinutesOfDay(bar.timestampMs);
-  if (minutesOfDay < MARKET_OPEN_MIN || minutesOfDay > MARKET_CLOSE_MIN + 15) return;
+  if (!isLiveMarketBar(bar.timestampMs)) return;
   const completed = fiveMinAggs[symbol].onOneMinBar(bar);
   if (completed) processFiveMinBar(symbol, completed);
 }
