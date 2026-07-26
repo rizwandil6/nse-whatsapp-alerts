@@ -1,0 +1,5042 @@
+{
+ "savedAtMs": 1785077287635,
+ "state": {
+  "CONCOR": {
+   "builders": {
+    "0.15": {
+     "lastClose": 480.75501220998024,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 480.7767884895293,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 480.2677446111033,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 481.31713567684244,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "NHPC": {
+   "builders": {
+    "0.15": {
+     "lastClose": 79.38044465306287,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784883360000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 79.35087724751857,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784883420000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 79.40975293879876,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784880660000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 79.32531964730818,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784884140000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "JSWINFRA": {
+   "builders": {
+    "0.15": {
+     "lastClose": 323.5822546476461,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 14,
+     "lastBrickTimestampMs": 1784886960000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 323.466809819455,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 10,
+     "lastBrickTimestampMs": 1784886900000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 323.74468291613897,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 8,
+     "lastBrickTimestampMs": 1784886960000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 323.3715989679297,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1784886900000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "JKIL": {
+   "builders": {
+    "0.15": {
+     "lastClose": 489.5720445429498,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 489.82978892342504,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 9,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 489.64988528502715,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 7,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 489.64075609187904,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "SUZLON": {
+   "builders": {
+    "0.15": {
+     "lastClose": 52.33863583777159,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784886360000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 52.17498074677919,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784883360000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 52.20940639918328,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784883360000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 52.37318612697843,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784881980000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "WAAREEENER": {
+   "builders": {
+    "0.15": {
+     "lastClose": 2707.637218412078,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784886540000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 2708.051778157541,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784886540000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 2698.8953368419902,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784880900000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 2695.6325116286603,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784883900000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "OLAELEC": {
+   "builders": {
+    "0.15": {
+     "lastClose": 37.38029917061053,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 10,
+     "lastBrickTimestampMs": 1784886900000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 37.34848276798319,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 7,
+     "lastBrickTimestampMs": 1784886900000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 37.361465512159725,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1784886900000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 37.31431196613068,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1784886900000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "HINDCOPPER": {
+   "builders": {
+    "0.15": {
+     "lastClose": 483.3287060951924,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784886060000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 481.99212967962507,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784885580000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 483.09184122782614,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784877480000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 482.7470587721651,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784877180000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "MHRIL": {
+   "builders": {
+    "0.15": {
+     "lastClose": 218.71631430115022,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1784883120000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 218.81966262176743,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1784883120000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 218.75601667684725,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784883120000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 218.53633903373358,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784883180000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "RVNL": {
+   "builders": {
+    "0.15": {
+     "lastClose": 224.91973485896565,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784886600000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 224.3632891755881,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784883480000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 224.64501530619003,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784883360000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 224.25666865515308,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784883480000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "RAILTEL": {
+   "builders": {
+    "0.15": {
+     "lastClose": 286.00199926883425,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 286.0997939841452,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 285.8803685349816,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784887080000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 285.7838289796579,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784886300000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "GAIL": {
+   "builders": {
+    "0.15": {
+     "lastClose": 170.05142264353907,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784876340000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 169.798538173664,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784875020000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 169.73293183954516,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784875020000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 169.90089122596714,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784874840000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "ADSL": {
+   "builders": {
+    "0.15": {
+     "lastClose": 117.69913357516359,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 7,
+     "lastBrickTimestampMs": 1784887080000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 117.68127127919988,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1784887080000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 117.57029988264094,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1784887080000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 117.65432484164003,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784887080000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "ARE&M": {
+   "builders": {
+    "0.15": {
+     "lastClose": 876.3995851289712,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1784886840000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 875.6491525531651,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784886720000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 875.534266951405,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784886720000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 876.1184153023534,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784886720000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "NCC": {
+   "builders": {
+    "0.15": {
+     "lastClose": 137.4842235616755,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 136.9560669129402,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784883900000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 137.4304492012986,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 137.38007330829197,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1784876340000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "TEXRAIL": {
+   "builders": {
+    "0.15": {
+     "lastClose": 110.27146409979167,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784886300000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 110.26155461368023,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784886300000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 110.35540243636001,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784886300000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 110.2031799512458,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 10,
+     "lastBrickTimestampMs": 1784882040000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "TITAGARH": {
+   "builders": {
+    "0.15": {
+     "lastClose": 822.1764236975336,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 819.3327446059816,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784887080000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 822.3039853639801,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 14,
+     "lastBrickTimestampMs": 1784886540000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 822.6297148007368,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 12,
+     "lastBrickTimestampMs": 1784886540000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "MANINDS": {
+   "builders": {
+    "0.15": {
+     "lastClose": 526.3549400237279,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 524.8444647788924,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1784887020000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 525.0866003753115,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1784886960000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 525.3961222894793,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1784886960000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "IRCON": {
+   "builders": {
+    "0.15": {
+     "lastClose": null,
+     "direction": 0,
+     "runDirection": 0,
+     "runLength": 0,
+     "lastBrickTimestampMs": null,
+     "seeded": false
+    },
+    "0.2": {
+     "lastClose": null,
+     "direction": 0,
+     "runDirection": 0,
+     "runLength": 0,
+     "lastBrickTimestampMs": null,
+     "seeded": false
+    },
+    "0.25": {
+     "lastClose": null,
+     "direction": 0,
+     "runDirection": 0,
+     "runLength": 0,
+     "lastBrickTimestampMs": null,
+     "seeded": false
+    },
+    "0.3": {
+     "lastClose": null,
+     "direction": 0,
+     "runDirection": 0,
+     "runLength": 0,
+     "lastBrickTimestampMs": null,
+     "seeded": false
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": null
+  },
+  "TRITURBINE": {
+   "builders": {
+    "0.15": {
+     "lastClose": null,
+     "direction": 0,
+     "runDirection": 0,
+     "runLength": 0,
+     "lastBrickTimestampMs": null,
+     "seeded": false
+    },
+    "0.2": {
+     "lastClose": null,
+     "direction": 0,
+     "runDirection": 0,
+     "runLength": 0,
+     "lastBrickTimestampMs": null,
+     "seeded": false
+    },
+    "0.25": {
+     "lastClose": null,
+     "direction": 0,
+     "runDirection": 0,
+     "runLength": 0,
+     "lastBrickTimestampMs": null,
+     "seeded": false
+    },
+    "0.3": {
+     "lastClose": null,
+     "direction": 0,
+     "runDirection": 0,
+     "runLength": 0,
+     "lastBrickTimestampMs": null,
+     "seeded": false
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": null
+  },
+  "HATHWAY": {
+   "builders": {
+    "0.15": {
+     "lastClose": 10.786422697595915,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784887080000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 10.795238495328938,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1784887080000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 10.829588775466302,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1784887020000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 10.8207352145417,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 8,
+     "lastBrickTimestampMs": 1784887020000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "ORIENTELEC": {
+   "builders": {
+    "0.15": {
+     "lastClose": 169.720631661663,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 16,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 169.68359096410273,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 12,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 169.96228800474637,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 9,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 169.70547227241116,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 8,
+     "lastBrickTimestampMs": 1784887140000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  },
+  "STERTOOLS": {
+   "builders": {
+    "0.15": {
+     "lastClose": 242.4356958030015,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1784886360000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 242.53866528961498,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1784886360000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 242.29212753954792,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784886360000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 242.32462201596798,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1784886360000,
+     "seeded": true
+    }
+   },
+   "trackers": {
+    "1": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "2": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "3": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "4": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "5": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "6": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "7": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "8": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "9": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "10": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "11": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "12": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "13": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "14": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "15": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "16": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "17": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "18": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "19": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "20": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "21": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "22": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "23": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "24": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "25": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "26": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "27": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "28": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "29": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "30": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "31": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "32": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "33": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "34": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "35": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    },
+    "36": {
+     "position": null,
+     "reachedProfit": false,
+     "consecutiveOpposite": 0
+    }
+   },
+   "lastCandleTimestampMs": 1784887140000
+  }
+ }
+}
