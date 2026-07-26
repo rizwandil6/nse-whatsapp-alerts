@@ -50,6 +50,7 @@ async function ensureBranchExists(token, branch) {
     headers: { ...authHeaders(token), 'Content-Type': 'application/json' },
     body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: sourceRef.object.sha }),
   });
+  if (createRes.status === 422) return; // another concurrent caller created it in the race window between our GET and this POST -- fine, branch exists either way
   if (!createRes.ok) throw new Error(`Creating ${branch} failed: HTTP ${createRes.status} — ${await createRes.text()}`);
   console.log(`Created ${branch} branch.`);
 }

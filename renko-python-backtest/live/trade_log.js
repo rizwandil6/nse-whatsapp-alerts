@@ -68,7 +68,30 @@ function recordTrade(exitEvent) {
   return true;
 }
 
-async function pushToGitHub(dateLabel) {
+// Serializes every push -- a burst of near-simultaneous trades (e.g. many
+// combos whose inherited run-length from seeded history already satisfies
+// their entry_confirm_n on the very first live brick, all firing ENTRY in
+// the same synchronous dispatch loop) previously raced on branch creation
+// and stale-SHA writes to the same file (confirmed live: many "Reference
+// already exists"/"Reference update failed" errors from concurrent
+// ensureBranchExists + PUT calls). recordTrade() itself is safe (sync
+// fs read/write, so local writes from a tight loop are never lost) --
+// only the async GitHub push needed serializing. Chaining onto
+// pushChain (rather than skipping when one is already in flight) means
+// every call still gets ITS OWN fresh read-of-local-file when its turn
+// comes, so no distinct trade's data is ever dropped from the eventual
+// push -- unlike state_store.js's checkpoint debounce, missing a trade
+// push isn't recoverable by "the next periodic tick," so skip-if-busy
+// isn't safe here.
+let pushChain = Promise.resolve();
+
+function pushToGitHub(dateLabel) {
+  const run = () => doPush(dateLabel);
+  pushChain = pushChain.then(run, run);
+  return pushChain;
+}
+
+async function doPush(dateLabel) {
   const token = process.env.GITHUB_TOKEN;
   if (!token) return { pushed: false, reason: 'no_token' };
   if (!fs.existsSync(LOCAL_PATH)) return { pushed: false, reason: 'no_file' };
