@@ -1,0 +1,18 @@
+{
+  "name": "renko-combo-live-forward-test",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PAPER-ALERT live forward test of the Python Renko backtest engine's validated 36-combo grid (renko-python-backtest/). Tracks all 36 combos per symbol; Telegram alerts only for the winning combo (brick_pct=0.15%, entry_confirm_n=1, sl_rejection_n=1, comboId 1). Paper-only, no orders placed.",
+  "main": "streamer.js",
+  "scripts": {
+    "start": "node streamer.js",
+    "verify:parity": "node verify_parity.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "protobufjs": "^7.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

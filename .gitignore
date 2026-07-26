@@ -2,3 +2,11 @@
 node_modules/
 *_cache.json
 multibagger-screener/batch_checkpoint.json
+
+# renko-python-backtest: regenerable outputs and runtime state, not source
+renko-python-backtest/output/
+renko-python-backtest/live/node_modules/
+renko-python-backtest/live/state_checkpoint.json
+renko-python-backtest/live/renko_live_paper_trade_log.json
+renko-python-backtest/.DS_Store
+renko-python-backtest/**/.DS_Store
