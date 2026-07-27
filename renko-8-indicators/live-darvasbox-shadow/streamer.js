@@ -56,6 +56,16 @@ const BRICK_PCT = 0.0025; // 0.25%, deliberate -- see module docstring
 const BRICK_LABEL = '0.25';
 const STOP_PCT = 0.01; // flat 1%, deliberate -- see module docstring
 
+// Real held qty per symbol -- same figures as the portfolio backtest's HOLDINGS
+// (renko-8-indicators/portfolio_sell_high_buy_low_intrabar.js), so rupee P&L
+// here reflects your actual position size, not a flat notional.
+const QUANTITIES = {
+  CONCOR: 23, GAIL: 75, HATHWAY: 58, HINDCOPPER: 42, JKIL: 25, JSWINFRA: 66,
+  MANINDS: 71, MHRIL: 52, NHPC: 350, OLAELEC: 3059, ORIENTELEC: 226, RAILTEL: 14,
+  RVNL: 961, SUZLON: 615, WAAREEENER: 56, ADSL: 52, 'ARE&M': 15, NCC: 61,
+  STERTOOLS: 28, TEXRAIL: 76, TITAGARH: 16,
+};
+
 const symbols = require('./symbols.json');
 const keyToSymbol = {};
 for (const [symbol, key] of Object.entries(symbols)) keyToSymbol[key] = symbol;
@@ -73,6 +83,15 @@ for (const symbol of Object.keys(symbols)) {
 let currentDate = null;
 let protobufRoot = null;
 let lastGoodTickMs = null;
+
+// Realtime running P&L for the day -- updated on every EXIT (including EOD
+// square-offs), so "day so far" is always current, not something pieced
+// together afterward from individual alerts. Reset each new trading day.
+// eodSummarySent guards the one-time EOD summary broadcast (checkEodSweep
+// runs every FLUSH_POLL_MS after close, so without a guard it would resend
+// on every poll once all positions are flat).
+let dayStats = { trades: 0, wins: 0, totalPnlPct: 0, totalPnlRs: 0, hasRupees: false };
+let eodSummarySent = false;
 
 function getOrCreateTickBuilder(symbol) {
   if (!tickBuilders[symbol]) tickBuilders[symbol] = new TickBarBuilder();
@@ -154,12 +173,36 @@ function formatEntryAlert(e) {
     : '';
   return `🌗 SHADOW TRADE — DarvasBox [0.25% brick, 1% SL] (paper, not a real order)\n${arrow} ${e.direction}: ${e.symbol}\nEntry (LTP): ₹${e.entry.toFixed(2)}${driftNote}\nStop: ₹${e.stop.toFixed(2)} (flat 1%)`;
 }
-function formatExitAlert(e) {
+function formatExitAlert(e, runningTotal) {
   const sign = e.pnlPct >= 0 ? '+' : '';
   const driftNote = e.livePriceAvailable && e.theoreticalExit != null && e.theoreticalExit !== e.exitPrice
     ? ` (brick close was ₹${e.theoreticalExit.toFixed(2)})`
     : '';
-  return `🌗 SHADOW TRADE — DarvasBox [0.25% brick, 1% SL] position closed (paper)\n${e.symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit (LTP): ₹${e.exitPrice.toFixed(2)}${driftNote}\nReason: ${e.action}\nP&L: ${sign}${e.pnlPct.toFixed(2)}% (gross, no costs applied)`;
+  const rsNote = runningTotal.hasRupees ? ` / ${e.rsSign}₹${Math.abs(e.pnlRs).toFixed(0)}` : '';
+  const totalRsNote = runningTotal.hasRupees ? ` / ${runningTotal.totalPnlRs >= 0 ? '+' : '−'}₹${Math.abs(runningTotal.totalPnlRs).toFixed(0)}` : '';
+  return `🌗 SHADOW TRADE — DarvasBox [0.25% brick, 1% SL] position closed (paper)\n${e.symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit (LTP): ₹${e.exitPrice.toFixed(2)}${driftNote}\nReason: ${e.action}\nP&L: ${sign}${e.pnlPct.toFixed(2)}%${rsNote} (gross, no costs applied)\n\n📊 Day so far: ${runningTotal.trades} trades, ${runningTotal.wins} wins, total ${runningTotal.totalPnlPct >= 0 ? '+' : ''}${runningTotal.totalPnlPct.toFixed(2)}%${totalRsNote}`;
+}
+
+/** Realtime day-total update -- called on every EXIT (including EOD square-offs), so "day so far" is always current. */
+function updateDayStats(e) {
+  const qty = QUANTITIES[e.symbol];
+  dayStats.trades += 1;
+  if (e.pnlPct > 0) dayStats.wins += 1;
+  dayStats.totalPnlPct += e.pnlPct;
+  if (qty != null) {
+    dayStats.hasRupees = true;
+    const pnlRs = e.direction === 'LONG' ? (e.exitPrice - e.entry) * qty : (e.entry - e.exitPrice) * qty;
+    e.pnlRs = pnlRs;
+    e.rsSign = pnlRs >= 0 ? '+' : '−';
+    dayStats.totalPnlRs += pnlRs;
+  }
+}
+
+function formatEodSummary() {
+  const s = dayStats;
+  const winRate = s.trades > 0 ? ((s.wins / s.trades) * 100).toFixed(1) : '0.0';
+  const rsLine = s.hasRupees ? `\nTotal P&L (₹, real holding sizes): ${s.totalPnlRs >= 0 ? '+' : '−'}₹${Math.abs(s.totalPnlRs).toFixed(0)}` : '';
+  return `🌗 EOD SUMMARY — DarvasBox shadow trade [0.25% brick, 1% SL], ${currentDate}\nTrades: ${s.trades} | Wins: ${s.wins} (${winRate}%)\nTotal gross P&L: ${s.totalPnlPct >= 0 ? '+' : ''}${s.totalPnlPct.toFixed(2)}%${rsLine}\n(gross, no costs applied)`;
 }
 
 function dispatchEvent(symbol, e) {
@@ -173,7 +216,8 @@ function dispatchEvent(symbol, e) {
     sendTelegramAlert(formatEntryAlert(e)).catch((err) => console.error('sendTelegramAlert threw:', err.message));
     recordAndPush(e, dateStr).catch((err) => console.error('recordAndPush threw:', err.message));
   } else if (e.type === 'EXIT') {
-    sendTelegramAlert(formatExitAlert(e)).catch((err) => console.error('sendTelegramAlert threw:', err.message));
+    updateDayStats(e);
+    sendTelegramAlert(formatExitAlert(e, dayStats)).catch((err) => console.error('sendTelegramAlert threw:', err.message));
     recordAndPush(e, dateStr).catch((err) => console.error('recordAndPush threw:', err.message));
   }
 }
@@ -182,11 +226,22 @@ function maybeResetForNewDay(nowMs) {
   const dateStr = istDateStr(nowMs);
   if (dateStr === currentDate) return;
   currentDate = dateStr;
+  dayStats = { trades: 0, wins: 0, totalPnlPct: 0, totalPnlRs: 0, hasRupees: false };
+  eodSummarySent = false;
   for (const symbol of Object.keys(symbols)) {
     oneMinBars[symbol] = [];
     trackers[symbol].resetForNewDay();
   }
-  console.log(`New trading day: ${dateStr}. Tracker + in-memory 1-min bar buffers reset.`);
+  console.log(`New trading day: ${dateStr}. Tracker + in-memory 1-min bar buffers + day stats reset.`);
+}
+
+/** Sends the one-time EOD summary once every open position has been swept closed, guarded so a 15s-poll checkEodSweep doesn't resend it. */
+function maybeSendEodSummary() {
+  if (eodSummarySent) return;
+  const anyOpen = Object.values(trackers).some((t) => t.position != null);
+  if (anyOpen) return; // wait for checkEodSweep to finish closing everything first
+  eodSummarySent = true;
+  sendTelegramAlert(formatEodSummary()).catch((err) => console.error('sendTelegramAlert threw:', err.message));
 }
 
 function ingestOneMinBar(symbol, bar, silent) {
@@ -206,7 +261,10 @@ function ingestOneMinBar(symbol, bar, silent) {
     const eodEvent = tracker.forceEodClose(bricks);
     if (eodEvent) events.push(eodEvent);
   }
-  if (!silent) for (const e of events) dispatchEvent(symbol, e);
+  if (!silent) {
+    for (const e of events) dispatchEvent(symbol, e);
+    if (minutesOfDay >= MARKET_CLOSE_MIN) maybeSendEodSummary();
+  }
 }
 
 async function startupBackfillIfNeeded() {
@@ -258,6 +316,7 @@ function checkEodSweep() {
     const eodEvent = trackers[symbol].forceEodClose(bricks);
     if (eodEvent) dispatchEvent(symbol, eodEvent);
   }
+  maybeSendEodSummary();
 }
 
 function scheduleBarFlush() {
