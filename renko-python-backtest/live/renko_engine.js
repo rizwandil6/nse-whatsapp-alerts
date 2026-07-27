@@ -85,6 +85,27 @@ class DynamicRenkoBuilder {
     return bricks;
   }
 
+  /**
+   * Dry-run check for real-time "early heads-up" alerts ONLY -- does NOT
+   * mutate state, does NOT form an official brick. Official bricks still
+   * only ever come from confirmed 5-min candle closes (pushCandleClose),
+   * preserving exact parity with the validated backtest; this just answers
+   * "if a tick at this price landed right now, would at least one brick
+   * form?" so a fast notification can fire well before the candle
+   * genuinely closes. Mirrors only the FIRST threshold check of the real
+   * while-loop (whether multiple bricks would cascade doesn't matter for
+   * an early-warning ping). Returns 1 (up), -1 (down), or null (no brick yet).
+   */
+  peekNextBrickDirection(price) {
+    if (!this.seeded) return null;
+    const size = this.lastClose * this.pct;
+    if (this.direction !== -1 && price >= this.lastClose + size) return 1;
+    if (this.direction !== 1 && price <= this.lastClose - size) return -1;
+    if (this.direction === 1 && price <= this.lastClose - 2 * size) return -1;
+    if (this.direction === -1 && price >= this.lastClose + 2 * size) return 1;
+    return null;
+  }
+
   _formBrick(open, close, direction, timestampMs) {
     this.lastClose = close;
     this.direction = direction;

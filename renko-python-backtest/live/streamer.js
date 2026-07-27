@@ -46,7 +46,7 @@ const path = require('path');
 
 const { DynamicRenkoBuilder } = require('./renko_engine');
 const { ComboTracker } = require('./combo_signal_engine');
-const { COMBOS, COMBOS_BY_BRICK_PCT, WINNING_COMBO_ID } = require('./combos');
+const { COMBOS, COMBOS_BY_BRICK_PCT, WINNING_COMBO_ID, WINNING_COMBO_FIELDS } = require('./combos');
 const { costRupees } = require('./costs');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { FiveMinBarAggregator } = require('./five_min_aggregator');
@@ -78,6 +78,7 @@ const fiveMinAggs = {}; // symbol -> FiveMinBarAggregator
 const renkoBuilders = {}; // symbol -> { [brickPct]: DynamicRenkoBuilder }
 const comboTrackers = {}; // symbol -> { [comboId]: ComboTracker }
 const lastCandleTimestampMs = {}; // symbol -> ms of the last 5-min candle fed to the builders (for gap-fill resume point)
+const lastEarlyAlertDir = {}; // symbol -> 1 | -1 | null -- dedup state for the tick-driven early heads-up (see checkEarlySignal)
 
 for (const symbol of Object.keys(symbols)) {
   tickBuilders[symbol] = new TickBarBuilder();
@@ -87,6 +88,7 @@ for (const symbol of Object.keys(symbols)) {
   for (const brickPct of BRICK_PCTS) renkoBuilders[symbol][brickPct] = new DynamicRenkoBuilder(brickPct);
   for (const c of COMBOS) comboTrackers[symbol][c.comboId] = new ComboTracker(c.comboId, c.entryConfirmN, c.slRejectionN);
   lastCandleTimestampMs[symbol] = null;
+  lastEarlyAlertDir[symbol] = null;
 }
 
 let protobufRoot = null;
@@ -169,6 +171,50 @@ function formatExitAlert(symbol, e, qty) {
   return `📉 RENKO LIVE — combo ${comboLabel(e.comboId)} position closed (paper only)\n${symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit: ₹${e.exitPrice.toFixed(2)}\nReason: ${e.action}\nP&L %: ${sign}${e.pnlPct.toFixed(2)}%${costLine}`;
 }
 
+function formatEarlySignalAlert(symbol, dir, price, isEntry) {
+  const arrow = dir === 1 ? '↑' : '↓';
+  const kind = isEntry ? `ENTRY (${dir === 1 ? 'LONG' : 'SHORT'})` : 'EXIT (reversal)';
+  return `⚡ EARLY HEADS-UP — combo ${comboLabel(WINNING_COMBO_ID)} — ${symbol}\n${arrow} price just crossed the ${kind} threshold near ₹${price.toFixed(2)}\nNOT the official trade yet -- that confirms only when this 5-min candle closes (price can still reverse before then).`;
+}
+
+/**
+ * Real-time, tick-driven early-warning check for the Telegram-alerted combo
+ * ONLY (WINNING_COMBO_ID) -- fires the instant a live tick crosses what
+ * would become a brick threshold, well before the 5-min candle that forms
+ * the OFFICIAL, logged entry/exit actually closes. Purely a faster
+ * notification; does not touch combo state, does not get logged, and the
+ * real entry/exit (with its real price) still only comes from
+ * processFiveMinBar's confirmed 5-min-close pipeline -- so P&L tracking
+ * stays exactly parity-matched with the validated backtest. Deduped via
+ * lastEarlyAlertDir so a price hovering right at the threshold doesn't spam
+ * repeat alerts; reset to null once the official brick actually confirms
+ * (processFiveMinBar) so the next pending move can trigger a fresh ping.
+ */
+function checkEarlySignal(symbol, price) {
+  const builder = renkoBuilders[symbol][WINNING_COMBO_FIELDS.brickPct];
+  const dir = builder.peekNextBrickDirection(price);
+  if (dir === null) {
+    lastEarlyAlertDir[symbol] = null;
+    return;
+  }
+  if (dir === lastEarlyAlertDir[symbol]) return; // already alerted for this pending threshold
+  lastEarlyAlertDir[symbol] = dir;
+
+  const tracker = comboTrackers[symbol][WINNING_COMBO_ID];
+  let isEntry, relevant;
+  if (!tracker.position) {
+    isEntry = true;
+    relevant = true; // flat -- any direction is a potential entry
+  } else {
+    isEntry = false;
+    const positionDir = tracker.position.direction === 'LONG' ? 1 : -1;
+    relevant = dir !== positionDir; // in-position -- only the OPPOSITE direction threatens an exit (K=1: any opposite brick exits)
+  }
+  if (!relevant) return;
+
+  sendTelegramAlert(formatEarlySignalAlert(symbol, dir, price, isEntry)).catch((err) => console.error('sendTelegramAlert (early) threw:', err.message));
+}
+
 function dispatchEvent(symbol, e) {
   e.symbol = symbol;
   // Renko/combo state is deterministic, so a restart-triggered replay (checkpoint
@@ -206,6 +252,10 @@ function processFiveMinBar(symbol, bar) {
       }
     }
   }
+  // Official brick(s) just confirmed -- re-arm the early-signal watch so the
+  // next pending move (relative to the now-updated builder state) can fire
+  // a fresh heads-up instead of staying suppressed by a stale dedup flag.
+  lastEarlyAlertDir[symbol] = null;
 }
 
 /** Feeds a candle through the Renko builders ONLY -- no combo-tracker/event dispatch. Used purely to reconstruct correct brick/run state from history; positions always start flat (see module docstring / plan). */
@@ -389,6 +439,13 @@ function connectAndRun() {
             const tick = extractTick(feed);
             if (!tick) continue;
             lastGoodTickMs = Date.now();
+
+            // Same stale-tick guard as isLiveMarketBar (Upstox sends a stale
+            // subscribe-time snapshot tagged with the last REAL trade time,
+            // not "now") -- checked here too since the early-signal check
+            // below runs directly off raw ticks, upstream of the 1-min/5-min
+            // bar pipeline where the equivalent guard normally lives.
+            if (isLiveMarketBar(tick.lttMs)) checkEarlySignal(symbol, tick.ltp);
 
             const closedBar = tickBuilders[symbol].onTick(tick);
             if (closedBar) ingestOneMinBar(symbol, closedBar);
