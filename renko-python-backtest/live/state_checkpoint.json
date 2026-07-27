@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785143713852,
+ "savedAtMs": 1785143818852,
  "state": {
   "CONCOR": {
    "builders": {
@@ -6149,7 +6149,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785143400000
+   "lastCandleTimestampMs": 1785143640000
   },
   "IRCON": {
    "builders": {
@@ -6484,7 +6484,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785143400000
+   "lastCandleTimestampMs": 1785143640000
   },
   "TRITURBINE": {
    "builders": {
