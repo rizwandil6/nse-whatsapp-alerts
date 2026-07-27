@@ -34414,5 +34414,16 @@
   "livePriceAtDispatch": 238.31,
   "slippagePct": -1.130118492491424,
   "slippagePoints": -2.723969462077065
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 27,
+  "direction": "LONG",
+  "entry": 140.901598962995,
+  "timestampMs": 1785132300000,
+  "symbol": "NCC",
+  "livePriceAtDispatch": 141.29,
+  "slippagePct": 0.2756541017728281,
+  "slippagePoints": 0.3884010370049964
  }
 ]
