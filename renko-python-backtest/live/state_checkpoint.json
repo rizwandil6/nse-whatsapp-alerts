@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785126010017,
+ "savedAtMs": 1785126114792,
  "state": {
   "CONCOR": {
    "builders": {
@@ -2954,7 +2954,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785125700000
+   "lastCandleTimestampMs": 1785125940000
   },
   "RVNL": {
    "builders": {
@@ -4378,7 +4378,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785125700000
+   "lastCandleTimestampMs": 1785125880000
   },
   "ARE&M": {
    "builders": {
@@ -6408,7 +6408,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785125700000
+   "lastCandleTimestampMs": 1785125940000
   },
   "TRITURBINE": {
    "builders": {
@@ -7098,7 +7098,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785125700000
+   "lastCandleTimestampMs": 1785125940000
   },
   "ORIENTELEC": {
    "builders": {
@@ -7461,7 +7461,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785125700000
+   "lastCandleTimestampMs": 1785125940000
   },
   "STERTOOLS": {
    "builders": {
@@ -7824,7 +7824,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785125760000
+   "lastCandleTimestampMs": 1785125940000
   }
  }
 }
