@@ -48124,5 +48124,38 @@
   "livePriceAtDispatch": null,
   "slippagePct": null,
   "slippagePoints": null
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 16,
+  "direction": "SHORT",
+  "entry": 170.81731851933162,
+  "timestampMs": 1785137100000,
+  "symbol": "GAIL",
+  "livePriceAtDispatch": 170.77,
+  "slippagePct": -0.027701242322367998,
+  "slippagePoints": -0.04731851933161124
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 17,
+  "direction": "SHORT",
+  "entry": 170.81731851933162,
+  "timestampMs": 1785137100000,
+  "symbol": "GAIL",
+  "livePriceAtDispatch": 170.77,
+  "slippagePct": -0.027701242322367998,
+  "slippagePoints": -0.04731851933161124
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 18,
+  "direction": "SHORT",
+  "entry": 170.81731851933162,
+  "timestampMs": 1785137100000,
+  "symbol": "GAIL",
+  "livePriceAtDispatch": 170.77,
+  "slippagePct": -0.027701242322367998,
+  "slippagePoints": -0.04731851933161124
  }
 ]
