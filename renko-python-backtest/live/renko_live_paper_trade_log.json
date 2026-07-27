@@ -10319,5 +10319,216 @@
   "entry": 611.5542959617999,
   "timestampMs": 1785125400000,
   "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 1,
+  "direction": "LONG",
+  "entry": 79.49951532004246,
+  "exitPrice": 79.499336446133,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.00022499999998999368,
+  "pnlPoints": -0.00017887390946214055,
+  "entryTimestampMs": 1785124500000,
+  "exitTimestampMs": 1785125700000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 2,
+  "direction": "LONG",
+  "entry": 79.49951532004246,
+  "exitPrice": 79.499336446133,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.00022499999998999368,
+  "pnlPoints": -0.00017887390946214055,
+  "entryTimestampMs": 1785124500000,
+  "exitTimestampMs": 1785125700000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 3,
+  "direction": "LONG",
+  "entry": 79.49951532004246,
+  "exitPrice": 79.499336446133,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.00022499999998999368,
+  "pnlPoints": -0.00017887390946214055,
+  "entryTimestampMs": 1785124500000,
+  "exitTimestampMs": 1785125700000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 4,
+  "direction": "LONG",
+  "entry": 79.61876459302253,
+  "exitPrice": 79.499336446133,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.14999999999999852,
+  "pnlPoints": -0.11942814688953263,
+  "entryTimestampMs": 1785124500000,
+  "exitTimestampMs": 1785125700000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "SHORT",
+  "entry": 79.3800874414638,
+  "timestampMs": 1785125700000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 2,
+  "direction": "SHORT",
+  "entry": 79.3800874414638,
+  "timestampMs": 1785125700000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "SHORT",
+  "entry": 79.3800874414638,
+  "timestampMs": 1785125700000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 4,
+  "direction": "SHORT",
+  "entry": 79.3800874414638,
+  "timestampMs": 1785125700000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 5,
+  "direction": "LONG",
+  "entry": 79.61876459302253,
+  "exitPrice": 79.3800874414638,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.29977499999999924,
+  "pnlPoints": -0.2386771515587327,
+  "entryTimestampMs": 1785124500000,
+  "exitTimestampMs": 1785125700000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 25,
+  "direction": "SHORT",
+  "entry": 489.64070440705876,
+  "timestampMs": 1785125700000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 26,
+  "direction": "SHORT",
+  "entry": 489.64070440705876,
+  "timestampMs": 1785125700000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 27,
+  "direction": "SHORT",
+  "entry": 489.64070440705876,
+  "timestampMs": 1785125700000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 34,
+  "direction": "SHORT",
+  "entry": 489.62753591044697,
+  "timestampMs": 1785125700000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 35,
+  "direction": "SHORT",
+  "entry": 489.62753591044697,
+  "timestampMs": 1785125700000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 36,
+  "direction": "SHORT",
+  "entry": 489.62753591044697,
+  "timestampMs": 1785125700000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 11,
+  "direction": "LONG",
+  "entry": 538.6510699717684,
+  "timestampMs": 1785125700000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 12,
+  "direction": "SHORT",
+  "entry": 535.4320482144468,
+  "exitPrice": 538.6510699717684,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.601200799999987,
+  "pnlPoints": -3.2190217573215705,
+  "entryTimestampMs": 1785124800000,
+  "exitTimestampMs": 1785125700000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 14,
+  "direction": "LONG",
+  "entry": 538.6510699717684,
+  "timestampMs": 1785125700000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 15,
+  "direction": "SHORT",
+  "entry": 535.4320482144468,
+  "exitPrice": 538.6510699717684,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.601200799999987,
+  "pnlPoints": -3.2190217573215705,
+  "entryTimestampMs": 1785124800000,
+  "exitTimestampMs": 1785125700000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 16,
+  "direction": "LONG",
+  "entry": 538.6510699717684,
+  "timestampMs": 1785125700000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 17,
+  "direction": "LONG",
+  "entry": 538.6510699717684,
+  "timestampMs": 1785125700000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 18,
+  "direction": "LONG",
+  "entry": 538.6510699717684,
+  "timestampMs": 1785125700000,
+  "symbol": "MANINDS"
  }
 ]
