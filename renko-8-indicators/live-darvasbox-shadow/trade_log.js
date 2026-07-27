@@ -67,6 +67,21 @@ function readLocalLog() {
   }
 }
 
+/**
+ * Rebuilds today's already-recorded EXIT events -- used at startup to
+ * restore the in-memory running day-total (dayStats in streamer.js) after
+ * any restart. Without this, a mid-day restart (redeploy, crash-recover,
+ * a token update) would silently reset "day so far" to zero and could
+ * even trigger a premature EOD summary showing 0 trades if positions
+ * happened to all be flat at that exact moment. dateStr = IST calendar
+ * date (bar_aggregator.js's istDateStr format), matched against each
+ * EXIT's exitTimestampMs.
+ */
+function getTodaysExits(dateStr, istDateStrFn) {
+  const log = readLocalLog();
+  return log.filter((e) => e.type === 'EXIT' && istDateStrFn(e.exitTimestampMs) === dateStr);
+}
+
 /** Pre-check so callers can skip sending a Telegram alert entirely for a replayed event, not just skip persisting it. */
 function isDuplicateEvent(event) {
   const log = readLocalLog();
@@ -123,4 +138,4 @@ async function recordAndPush(exitEvent, dateLabel) {
   return pushToGitHub(dateLabel).catch((e) => console.error('recordAndPush threw:', e.message));
 }
 
-module.exports = { syncFromRemote, recordAndPush, isDuplicateEvent };
+module.exports = { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits };

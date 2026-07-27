@@ -39,7 +39,7 @@ const path = require('path');
 
 const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
-const { syncFromRemote, recordAndPush, isDuplicateEvent } = require('./trade_log');
+const { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits } = require('./trade_log');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min } = require('./bar_aggregator');
 
@@ -421,6 +421,20 @@ async function main() {
 
   await initProtobuf();
   await syncFromRemote();
+
+  // Rebuild today's running P&L from the persisted log BEFORE anything else --
+  // startupBackfillIfNeeded() replays bricks silently (by design, so a restart
+  // never re-alerts something that already happened), so it does NOT repopulate
+  // dayStats on its own. Without this, any mid-day restart (redeploy, crash-
+  // recover, a token refresh) would silently reset "day so far" to zero and
+  // could even fire a premature EOD summary showing 0 trades.
+  const { dateStr: todayStr } = nowIst();
+  currentDate = todayStr; // set BEFORE the first tick so maybeResetForNewDay doesn't immediately wipe what we just rebuilt
+  for (const e of getTodaysExits(todayStr, istDateStr)) updateDayStats(e);
+  if (dayStats.trades > 0) {
+    console.log(`Restored today's running P&L from the persisted log: ${dayStats.trades} trades, ${dayStats.wins} wins, total ${dayStats.totalPnlPct.toFixed(2)}% so far.`);
+  }
+
   await startupBackfillIfNeeded();
   scheduleBarFlush();
 
