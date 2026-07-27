@@ -185,18 +185,22 @@ function formatEarlySignalAlert(symbol, dir, price, isEntry) {
  * notification; does not touch combo state, does not get logged, and the
  * real entry/exit (with its real price) still only comes from
  * processFiveMinBar's confirmed 5-min-close pipeline -- so P&L tracking
- * stays exactly parity-matched with the validated backtest. Deduped via
- * lastEarlyAlertDir so a price hovering right at the threshold doesn't spam
- * repeat alerts; reset to null once the official brick actually confirms
- * (processFiveMinBar) so the next pending move can trigger a fresh ping.
+ * stays exactly parity-matched with the validated backtest.
+ *
+ * Deduped via lastEarlyAlertDir, reset ONLY when the official brick
+ * confirms (processFiveMinBar), NOT when price merely dips back below the
+ * threshold mid-candle. Confirmed live (2026-07-27): resetting on every
+ * retreat caused 3 near-duplicate alerts for CONCOR within seconds --
+ * price was chopping back and forth right at the threshold within the
+ * SAME still-forming 5-min candle, and each re-crossing re-armed and
+ * re-fired. Since the official confirm/reject for that whole candle can
+ * only go one way once it actually closes, one heads-up per pending
+ * candle is the right granularity -- not one per tick-level wiggle.
  */
 function checkEarlySignal(symbol, price) {
   const builder = renkoBuilders[symbol][WINNING_COMBO_FIELDS.brickPct];
   const dir = builder.peekNextBrickDirection(price);
-  if (dir === null) {
-    lastEarlyAlertDir[symbol] = null;
-    return;
-  }
+  if (dir === null) return; // below threshold right now -- NOT reset here (see below), just nothing to alert on this tick
   if (dir === lastEarlyAlertDir[symbol]) return; // already alerted for this pending threshold
   lastEarlyAlertDir[symbol] = dir;
 
