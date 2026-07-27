@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785128104318,
+ "savedAtMs": 1785128208417,
  "state": {
   "CONCOR": {
    "builders": {
@@ -996,7 +996,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785127800000
+   "lastCandleTimestampMs": 1785128040000
   },
   "JKIL": {
    "builders": {
@@ -3712,7 +3712,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785127800000
+   "lastCandleTimestampMs": 1785128040000
   },
   "GAIL": {
    "builders": {
@@ -4438,7 +4438,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785127800000
+   "lastCandleTimestampMs": 1785128040000
   },
   "ARE&M": {
    "builders": {
@@ -5491,7 +5491,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785127800000
+   "lastCandleTimestampMs": 1785128040000
   },
   "TITAGARH": {
    "builders": {
@@ -5830,7 +5830,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785127800000
+   "lastCandleTimestampMs": 1785128040000
   },
   "MANINDS": {
    "builders": {
@@ -6193,7 +6193,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785127800000
+   "lastCandleTimestampMs": 1785128040000
   },
   "IRCON": {
    "builders": {
@@ -6843,7 +6843,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785127800000
+   "lastCandleTimestampMs": 1785128040000
   },
   "HATHWAY": {
    "builders": {
@@ -7888,7 +7888,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785127800000
+   "lastCandleTimestampMs": 1785128040000
   }
  }
 }
