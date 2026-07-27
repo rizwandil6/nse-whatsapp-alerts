@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785135010783,
+ "savedAtMs": 1785135114839,
  "state": {
   "CONCOR": {
    "builders": {
@@ -677,7 +677,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785134700000
+   "lastCandleTimestampMs": 1785134940000
   },
   "JSWINFRA": {
    "builders": {
@@ -3796,7 +3796,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785134700000
+   "lastCandleTimestampMs": 1785134820000
   },
   "GAIL": {
    "builders": {
@@ -4510,7 +4510,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785134700000
+   "lastCandleTimestampMs": 1785134940000
   },
   "ARE&M": {
    "builders": {
@@ -5539,7 +5539,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785134700000
+   "lastCandleTimestampMs": 1785134940000
   },
   "TITAGARH": {
    "builders": {
@@ -6245,7 +6245,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785134700000
+   "lastCandleTimestampMs": 1785134940000
   },
   "IRCON": {
    "builders": {
@@ -7250,7 +7250,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785134700000
+   "lastCandleTimestampMs": 1785134940000
   },
   "ORIENTELEC": {
    "builders": {
