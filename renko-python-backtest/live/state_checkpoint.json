@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785134739832,
+ "savedAtMs": 1785134829833,
  "state": {
   "CONCOR": {
    "builders": {
@@ -3134,7 +3134,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785134400000
+   "lastCandleTimestampMs": 1785134640000
   },
   "RVNL": {
    "builders": {
@@ -7250,7 +7250,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785134520000
+   "lastCandleTimestampMs": 1785134640000
   },
   "ORIENTELEC": {
    "builders": {
