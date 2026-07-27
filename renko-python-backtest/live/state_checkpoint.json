@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785132624792,
+ "savedAtMs": 1785132714793,
  "state": {
   "CONCOR": {
    "builders": {
@@ -4546,7 +4546,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785132360000
+   "lastCandleTimestampMs": 1785132420000
   },
   "ARE&M": {
    "builders": {
@@ -7992,7 +7992,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785132300000
+   "lastCandleTimestampMs": 1785132420000
   }
  }
 }
