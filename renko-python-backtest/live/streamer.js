@@ -54,6 +54,7 @@ const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst }
 const { loadSeedCandles } = require('./seed_loader');
 const { fillGap } = require('./historical_gap_fill');
 const { syncFromRemote, recordAndPush, isDuplicateEvent } = require('./trade_log');
+const { measureSlippage } = require('./slippage_tracking');
 const stateStore = require('./state_store');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
@@ -154,9 +155,16 @@ function comboLabel(comboId) {
   return `#${comboId} (${c.brickPct}% brick, N=${c.entryConfirmN}, K=${c.slRejectionN})`;
 }
 
+/** Non-empty only when measureSlippage() found a fresh live tick to compare against (see slippage_tracking.js) -- absent, not zero, when no recent tick exists. */
+function slippageLine(e) {
+  if (e.livePriceAtDispatch == null) return '';
+  const sign = e.slippagePct >= 0 ? '+' : '';
+  return `\nLive @ dispatch: ₹${e.livePriceAtDispatch.toFixed(2)} (slippage ${sign}${e.slippagePct.toFixed(2)}% vs recorded brick price)`;
+}
+
 function formatEntryAlert(symbol, e) {
   const arrow = e.direction === 'LONG' ? '↑' : '↓';
-  return `📈 RENKO LIVE — combo ${comboLabel(e.comboId)} (validated winner, paper only)\n${arrow} ${e.direction}: ${symbol}\nEntry: ₹${e.entry.toFixed(2)}\nNo fixed stop — exit is a confirmed brick reversal or rejection-SL`;
+  return `📈 RENKO LIVE — combo ${comboLabel(e.comboId)} (validated winner, paper only)\n${arrow} ${e.direction}: ${symbol}\nEntry: ₹${e.entry.toFixed(2)}\nNo fixed stop — exit is a confirmed brick reversal or rejection-SL${slippageLine(e)}`;
 }
 
 function formatExitAlert(symbol, e, qty) {
@@ -168,7 +176,7 @@ function formatExitAlert(symbol, e, qty) {
     const netRs = grossRs - cost;
     costLine = `\nP&L ₹: ${netRs >= 0 ? '+' : ''}${netRs.toFixed(0)} net (gross ${grossRs >= 0 ? '+' : ''}${grossRs.toFixed(0)}, cost ₹${cost.toFixed(0)}, qty ${qty})`;
   }
-  return `📉 RENKO LIVE — combo ${comboLabel(e.comboId)} position closed (paper only)\n${symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit: ₹${e.exitPrice.toFixed(2)}\nReason: ${e.action}\nP&L %: ${sign}${e.pnlPct.toFixed(2)}%${costLine}`;
+  return `📉 RENKO LIVE — combo ${comboLabel(e.comboId)} position closed (paper only)\n${symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit: ₹${e.exitPrice.toFixed(2)}\nReason: ${e.action}\nP&L %: ${sign}${e.pnlPct.toFixed(2)}%${costLine}${slippageLine(e)}`;
 }
 
 function formatEarlySignalAlert(symbol, dir, price, isEntry) {
@@ -228,6 +236,11 @@ function dispatchEvent(symbol, e) {
     console.log(`Skipping duplicate ${e.type} for ${symbol} combo ${e.comboId} -- already recorded (replay/restart).`);
     return;
   }
+  // Measured, not applied -- the official entry/exit price above is untouched
+  // (stays parity-matched with the backtest); this just records how far the
+  // real live price was from it at this same moment, for every combo, so
+  // slippage becomes actual data over time instead of a one-off observation.
+  Object.assign(e, measureSlippage(e, tickBuilders[symbol]));
   const { dateStr } = nowIst();
   const qty = holdings[symbol];
   if (e.type === 'ENTRY') {
