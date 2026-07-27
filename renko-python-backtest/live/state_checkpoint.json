@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785137410030,
+ "savedAtMs": 1785137514881,
  "state": {
   "CONCOR": {
    "builders": {
@@ -1375,7 +1375,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785137160000
+   "lastCandleTimestampMs": 1785137340000
   },
   "SUZLON": {
    "builders": {
@@ -3780,7 +3780,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785137160000
+   "lastCandleTimestampMs": 1785137340000
   },
   "GAIL": {
    "builders": {
@@ -6536,7 +6536,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785137100000
+   "lastCandleTimestampMs": 1785137340000
   },
   "TRITURBINE": {
    "builders": {
