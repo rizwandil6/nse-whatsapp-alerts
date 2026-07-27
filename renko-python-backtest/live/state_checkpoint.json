@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785124810150,
+ "savedAtMs": 1785124914748,
  "state": {
   "CONCOR": {
    "builders": {
@@ -6615,7 +6615,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785124500000
+   "lastCandleTimestampMs": 1785124740000
   },
   "HATHWAY": {
    "builders": {
@@ -7317,7 +7317,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785124500000
+   "lastCandleTimestampMs": 1785124740000
   },
   "STERTOOLS": {
    "builders": {
