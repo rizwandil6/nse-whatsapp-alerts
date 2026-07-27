@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785129911372,
+ "savedAtMs": 1785130014746,
  "state": {
   "CONCOR": {
    "builders": {
@@ -1004,7 +1004,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785129600000
+   "lastCandleTimestampMs": 1785129840000
   },
   "JKIL": {
    "builders": {
@@ -3054,7 +3054,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785129780000
+   "lastCandleTimestampMs": 1785129840000
   },
   "RVNL": {
    "builders": {
@@ -7788,7 +7788,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785129600000
+   "lastCandleTimestampMs": 1785129840000
   }
  }
 }
