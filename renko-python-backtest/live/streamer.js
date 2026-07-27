@@ -155,16 +155,35 @@ function comboLabel(comboId) {
   return `#${comboId} (${c.brickPct}% brick, N=${c.entryConfirmN}, K=${c.slRejectionN})`;
 }
 
-/** Non-empty only when measureSlippage() found a fresh live tick to compare against (see slippage_tracking.js) -- absent, not zero, when no recent tick exists. */
-function slippageLine(e) {
+const IST_OFFSET_MS_DISPLAY = 5.5 * 60 * 60 * 1000;
+/** HH:MM (candle label) or HH:MM:SS (real dispatch instant, includeSeconds=true) in IST. */
+function formatIstTime(ms, includeSeconds) {
+  const d = new Date(ms + IST_OFFSET_MS_DISPLAY);
+  const pad = (n) => String(n).padStart(2, '0');
+  const base = `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`;
+  return includeSeconds ? `${base}:${pad(d.getUTCSeconds())}` : base;
+}
+
+/**
+ * Pairs the freshest live tick price with the REAL wall-clock instant it
+ * was sampled (e.dispatchAtMs, set in dispatchEvent) -- deliberately
+ * separate from the brick's own candle-label time (which is the candle's
+ * OPEN, not when it confirmed; see isLiveMarketBar's docstring). Built
+ * after a real live confusion (NHPC, 2026-07-27): a brick labeled 09:25
+ * only actually confirmed at 09:30, and with no dispatch time shown in the
+ * alert at all, that gap looked like an unexplained 5-minute lag. Now time
+ * and price shown together are always genuinely the same instant. Empty
+ * string (not a placeholder) when no fresh tick was available.
+ */
+function liveCheckLine(e) {
   if (e.livePriceAtDispatch == null) return '';
   const sign = e.slippagePct >= 0 ? '+' : '';
-  return `\nLive @ dispatch: ₹${e.livePriceAtDispatch.toFixed(2)} (slippage ${sign}${e.slippagePct.toFixed(2)}% vs recorded brick price)`;
+  return `\nLive check @ ${formatIstTime(e.dispatchAtMs, true)} IST: ₹${e.livePriceAtDispatch.toFixed(2)} (slippage ${sign}${e.slippagePct.toFixed(2)}% vs brick price)`;
 }
 
 function formatEntryAlert(symbol, e) {
   const arrow = e.direction === 'LONG' ? '↑' : '↓';
-  return `📈 RENKO LIVE — combo ${comboLabel(e.comboId)} (validated winner, paper only)\n${arrow} ${e.direction}: ${symbol}\nEntry: ₹${e.entry.toFixed(2)}\nNo fixed stop — exit is a confirmed brick reversal or rejection-SL${slippageLine(e)}`;
+  return `📈 RENKO LIVE — combo ${comboLabel(e.comboId)} (validated winner, paper only)\n${arrow} ${e.direction}: ${symbol}\nEntry (brick candle ${formatIstTime(e.timestampMs)} IST): ₹${e.entry.toFixed(2)}${liveCheckLine(e)}\nNo fixed stop — exit is a confirmed brick reversal or rejection-SL`;
 }
 
 function formatExitAlert(symbol, e, qty) {
@@ -176,7 +195,7 @@ function formatExitAlert(symbol, e, qty) {
     const netRs = grossRs - cost;
     costLine = `\nP&L ₹: ${netRs >= 0 ? '+' : ''}${netRs.toFixed(0)} net (gross ${grossRs >= 0 ? '+' : ''}${grossRs.toFixed(0)}, cost ₹${cost.toFixed(0)}, qty ${qty})`;
   }
-  return `📉 RENKO LIVE — combo ${comboLabel(e.comboId)} position closed (paper only)\n${symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit: ₹${e.exitPrice.toFixed(2)}\nReason: ${e.action}\nP&L %: ${sign}${e.pnlPct.toFixed(2)}%${costLine}${slippageLine(e)}`;
+  return `📉 RENKO LIVE — combo ${comboLabel(e.comboId)} position closed (paper only)\n${symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit (brick candle ${formatIstTime(e.exitTimestampMs)} IST): ₹${e.exitPrice.toFixed(2)}${liveCheckLine(e)}\nReason: ${e.action}\nP&L %: ${sign}${e.pnlPct.toFixed(2)}%${costLine}`;
 }
 
 function formatEarlySignalAlert(symbol, dir, price, isEntry) {
@@ -240,6 +259,7 @@ function dispatchEvent(symbol, e) {
   // (stays parity-matched with the backtest); this just records how far the
   // real live price was from it at this same moment, for every combo, so
   // slippage becomes actual data over time instead of a one-off observation.
+  e.dispatchAtMs = Date.now(); // real wall-clock instant, paired with livePriceAtDispatch below -- see liveCheckLine's docstring
   Object.assign(e, measureSlippage(e, tickBuilders[symbol]));
   const { dateStr } = nowIst();
   const qty = holdings[symbol];
