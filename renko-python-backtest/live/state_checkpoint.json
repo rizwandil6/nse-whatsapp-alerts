@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785138714908,
+ "savedAtMs": 1785138754122,
  "state": {
   "CONCOR": {
    "builders": {
@@ -350,40 +350,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "NHPC": {
    "builders": {
     "0.15": {
-     "lastClose": 79.49808434003572,
+     "lastClose": 79.37883721352567,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785135900000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785138660000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 79.50830685638248,
+     "lastClose": 79.34929024266971,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785135300000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785138660000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 79.8063004263409,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785133800000,
+     "lastClose": 79.40776771358686,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785138660000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 79.80126727519941,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785133800000,
+     "lastClose": 79.32317788295369,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785138660000,
      "seeded": true
     }
    },
@@ -689,7 +689,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "JSWINFRA": {
    "builders": {
@@ -1028,7 +1028,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "JKIL": {
    "builders": {
@@ -1379,7 +1379,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138540000
+   "lastCandleTimestampMs": 1785138660000
   },
   "SUZLON": {
    "builders": {
@@ -1742,7 +1742,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "WAAREEENER": {
    "builders": {
@@ -2085,16 +2085,16 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "OLAELEC": {
    "builders": {
     "0.15": {
-     "lastClose": 37.10036934095068,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 5,
-     "lastBrickTimestampMs": 1785135900000,
+     "lastClose": 37.21175392480455,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785138420000,
      "seeded": true
     },
     "0.2": {
@@ -2412,7 +2412,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "HINDCOPPER": {
    "builders": {
@@ -2775,7 +2775,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "MHRIL": {
    "builders": {
@@ -3126,7 +3126,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138540000
+   "lastCandleTimestampMs": 1785138660000
   },
   "RVNL": {
    "builders": {
@@ -3469,7 +3469,7 @@
      "consecutiveOpposite": 2
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "RAILTEL": {
    "builders": {
@@ -3772,7 +3772,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "GAIL": {
    "builders": {
@@ -4099,7 +4099,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "ADSL": {
    "builders": {
@@ -4426,7 +4426,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138540000
+   "lastCandleTimestampMs": 1785138660000
   },
   "ARE&M": {
    "builders": {
@@ -4745,7 +4745,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "NCC": {
    "builders": {
@@ -5108,7 +5108,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "TEXRAIL": {
    "builders": {
@@ -5459,7 +5459,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "TITAGARH": {
    "builders": {
@@ -5798,7 +5798,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "MANINDS": {
    "builders": {
@@ -5811,11 +5811,11 @@
      "seeded": true
     },
     "0.2": {
-     "lastClose": 527.9702666779558,
+     "lastClose": 529.0262072113118,
      "direction": 1,
      "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785137400000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785138660000,
      "seeded": true
     },
     "0.25": {
@@ -6137,7 +6137,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138540000
+   "lastCandleTimestampMs": 1785138660000
   },
   "IRCON": {
    "builders": {
@@ -6472,7 +6472,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138540000
+   "lastCandleTimestampMs": 1785138660000
   },
   "TRITURBINE": {
    "builders": {
@@ -6815,7 +6815,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "HATHWAY": {
    "builders": {
@@ -7134,7 +7134,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138360000
+   "lastCandleTimestampMs": 1785138660000
   },
   "ORIENTELEC": {
    "builders": {
@@ -7497,7 +7497,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785138300000
+   "lastCandleTimestampMs": 1785138660000
   },
   "STERTOOLS": {
    "builders": {
