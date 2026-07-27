@@ -6,6 +6,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -16,11 +19,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * Backs the 5 dashboard tabs. Two tabs (market news, announcements) read
  * from this same service's own AlertLogService; the other three read a
  * SIBLING Railway service's alert log from GitHub, since rs-momentum-strategy-
- * live, multibagger-screener, and the Renko live forward test each persist
- * their own state to their own branch/path and there's no shared filesystem
- * or database between services. Cross-branch reads are cached briefly (60s)
- * so opening the dashboard or switching tabs repeatedly doesn't hammer the
- * GitHub API.
+ * live, multibagger-screener, and the DarvasBox shadow-trade service each
+ * persist their own state to their own branch/path and there's no shared
+ * filesystem or database between services. Cross-branch reads are cached
+ * briefly (60s) so opening the dashboard or switching tabs repeatedly
+ * doesn't hammer the GitHub API.
  */
 @RestController
 public class DashboardDataController {
@@ -65,24 +68,30 @@ public class DashboardDataController {
         return reversedArray(node);
     }
 
-    @GetMapping(value = "/api/dashboard/renko", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JsonNode> renko() {
-        // Live forward test of the Python Renko backtest engine's validated
-        // 36-combo grid (renko-python-backtest/live/) -- every combo is paper-
-        // traded and logged, but Telegram only alerts on comboId 1 (see
-        // combos.js::WINNING_COMBO_ID). Shows CLOSED trades only (EXIT events
-        // -- an ENTRY alone has no P&L to show yet), across all 36 combos so
-        // this reflects the full forward test, not just the alerting scope.
-        // Not restricted to "today" like the old DarvasBox tab was -- this
-        // forward test runs continuously across days by design (continuous
-        // brick/run state, never reset), so multi-day results belong here too.
-        JsonNode node = cachedRead("renko", "data/renko-live-paper-trade-log", "renko-python-backtest/live/renko_live_paper_trade_log.json");
+    @GetMapping(value = "/api/dashboard/darvasbox-today", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<JsonNode> darvasboxToday() {
+        // DarvasBox SHADOW trade (renko-8-indicators/live-darvasbox-shadow/) --
+        // 0.25% brick, flat 1% stop, LTP-confirmed entries/exits, both directions.
+        // The old Renko N/K-grid forward test (renko-python-backtest/live/) was
+        // stopped 2026-07-27 in favor of this; this tab replaces that one.
+        // Restricted to TODAY (IST) like the original pre-Renko DarvasBox tab
+        // was -- this service resets its own tracker state daily (unlike the
+        // Renko forward test's continuous multi-day brick/run state), so
+        // "today" is the natural scope here.
+        JsonNode node = cachedRead("darvasbox", "data/darvasbox-shadow-0.25pct-1pctSL-trade-log", "renko-8-indicators/live-darvasbox-shadow/darvasbox_shadow_trade_log.json");
+        String today = LocalDate.now(ZoneId.of("Asia/Kolkata")).toString();
         List<JsonNode> all = reversedArray(node);
-        List<JsonNode> closedOnly = new ArrayList<>();
+        List<JsonNode> todayOnly = new ArrayList<>();
+        DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
         for (JsonNode t : all) {
-            if ("EXIT".equals(t.path("type").asText(""))) closedOnly.add(t);
+            long ms = t.path("entryTimestampMs").isMissingNode() || t.path("entryTimestampMs").asLong(0) == 0
+                    ? t.path("timestampMs").asLong(0)
+                    : t.path("entryTimestampMs").asLong(0);
+            if (ms == 0) continue;
+            String date = java.time.Instant.ofEpochMilli(ms).atZone(ZoneId.of("Asia/Kolkata")).format(fmt);
+            if (today.equals(date)) todayOnly.add(t);
         }
-        return closedOnly;
+        return todayOnly;
     }
 
     private List<JsonNode> reversedArray(JsonNode node) {
