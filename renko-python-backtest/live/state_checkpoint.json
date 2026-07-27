@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785129612061,
+ "savedAtMs": 1785129714741,
  "state": {
   "CONCOR": {
    "builders": {
@@ -3720,7 +3720,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785129300000
+   "lastCandleTimestampMs": 1785129540000
   },
   "GAIL": {
    "builders": {
@@ -4434,7 +4434,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785129300000
+   "lastCandleTimestampMs": 1785129540000
   },
   "ARE&M": {
    "builders": {
@@ -5770,7 +5770,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785129300000
+   "lastCandleTimestampMs": 1785129540000
   },
   "MANINDS": {
    "builders": {
@@ -7373,7 +7373,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785129300000
+   "lastCandleTimestampMs": 1785129540000
   },
   "STERTOOLS": {
    "builders": {
