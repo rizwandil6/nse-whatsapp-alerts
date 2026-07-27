@@ -18,3 +18,5 @@ timestamp,mode,event,symbol,instrument_key,rating,price,qty,gain_pct,reason,late
 2026-07-23T05:57:20.582557351Z,shadow,partial_exit,PTCINDUSTRIES,,,18279.0000,,2.0090,,
 2026-07-23T06:01:31.584389435Z,shadow,exit,SUZLON1,,,52.9600,,-0.2824,Time exit (45 min),
 2026-07-23T06:19:05.276231018Z,shadow,exit,PTCINDUSTRIES,,,18397.0000,,2.6676,Trail stop (peak:+3.77% -> now:+2.67%),
+2026-07-27T09:17:50.923860722Z,shadow,entry,PAM,NSE_EQ|INE018A01030,5,3826.6000,1,,UPSTOX_ENABLED=false,62923
+2026-07-27T10:02:51.200828154Z,shadow,exit,PAM,,,3808.0000,,-0.4861,Time exit (45 min),
