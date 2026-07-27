@@ -13213,5 +13213,335 @@
   "entry": 172.78006277634995,
   "timestampMs": 1785126000000,
   "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 5,
+  "direction": "SHORT",
+  "entry": 79.26101731030161,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 6,
+  "direction": "LONG",
+  "entry": 79.61876459302253,
+  "exitPrice": 79.26101731030161,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.4493253374999913,
+  "pnlPoints": -0.35774728272092204,
+  "entryTimestampMs": 1785124500000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 7,
+  "direction": "SHORT",
+  "entry": 79.26101731030161,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 8,
+  "direction": "SHORT",
+  "entry": 79.26101731030161,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 9,
+  "direction": "SHORT",
+  "entry": 79.26101731030161,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 19,
+  "direction": "SHORT",
+  "entry": 79.21122855645176,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 20,
+  "direction": "SHORT",
+  "entry": 79.21122855645176,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 21,
+  "direction": "SHORT",
+  "entry": 79.21122855645176,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 22,
+  "direction": "SHORT",
+  "entry": 79.21122855645176,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 23,
+  "direction": "SHORT",
+  "entry": 79.21122855645176,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 24,
+  "direction": "SHORT",
+  "entry": 79.21122855645176,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 25,
+  "direction": "SHORT",
+  "entry": 79.21122855645176,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 26,
+  "direction": "SHORT",
+  "entry": 79.21122855645176,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 27,
+  "direction": "SHORT",
+  "entry": 79.21122855645176,
+  "timestampMs": 1785126300000,
+  "symbol": "NHPC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 7,
+  "direction": "SHORT",
+  "entry": 37.380046854158834,
+  "timestampMs": 1785126300000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 8,
+  "direction": "SHORT",
+  "entry": 37.380046854158834,
+  "timestampMs": 1785126300000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 9,
+  "direction": "SHORT",
+  "entry": 37.380046854158834,
+  "timestampMs": 1785126300000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 25,
+  "direction": "SHORT",
+  "entry": 222.60890465847015,
+  "timestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 26,
+  "direction": "SHORT",
+  "entry": 222.60890465847015,
+  "timestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 27,
+  "direction": "SHORT",
+  "entry": 222.60890465847015,
+  "timestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 28,
+  "direction": "LONG",
+  "entry": 219.19194805083478,
+  "exitPrice": 223.16510415501264,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8126377996587766,
+  "pnlPoints": 3.9731561041778605,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 29,
+  "direction": "LONG",
+  "entry": 219.19194805083478,
+  "exitPrice": 223.16510415501264,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8126377996587766,
+  "pnlPoints": 3.9731561041778605,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 30,
+  "direction": "LONG",
+  "entry": 219.19194805083478,
+  "exitPrice": 223.16510415501264,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8126377996587766,
+  "pnlPoints": 3.9731561041778605,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 31,
+  "direction": "LONG",
+  "entry": 219.8495238949873,
+  "exitPrice": 223.16510415501264,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.5081134592809275,
+  "pnlPoints": 3.3155802600253423,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 32,
+  "direction": "LONG",
+  "entry": 219.8495238949873,
+  "exitPrice": 223.16510415501264,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.5081134592809275,
+  "pnlPoints": 3.3155802600253423,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 33,
+  "direction": "LONG",
+  "entry": 219.8495238949873,
+  "exitPrice": 223.16510415501264,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.5081134592809275,
+  "pnlPoints": 3.3155802600253423,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 34,
+  "direction": "LONG",
+  "entry": 220.50907246667225,
+  "exitPrice": 223.16510415501264,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.2044999594027246,
+  "pnlPoints": 2.6560316883403914,
+  "entryTimestampMs": 1785124500000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 35,
+  "direction": "LONG",
+  "entry": 220.50907246667225,
+  "exitPrice": 223.16510415501264,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.2044999594027246,
+  "pnlPoints": 2.6560316883403914,
+  "entryTimestampMs": 1785124500000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 36,
+  "direction": "LONG",
+  "entry": 220.50907246667225,
+  "exitPrice": 223.16510415501264,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.2044999594027246,
+  "pnlPoints": 2.6560316883403914,
+  "entryTimestampMs": 1785124500000,
+  "exitTimestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 28,
+  "direction": "SHORT",
+  "entry": 222.4956088425476,
+  "timestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 29,
+  "direction": "SHORT",
+  "entry": 222.4956088425476,
+  "timestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 30,
+  "direction": "SHORT",
+  "entry": 222.4956088425476,
+  "timestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 31,
+  "direction": "SHORT",
+  "entry": 222.4956088425476,
+  "timestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 32,
+  "direction": "SHORT",
+  "entry": 222.4956088425476,
+  "timestampMs": 1785126300000,
+  "symbol": "MHRIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 33,
+  "direction": "SHORT",
+  "entry": 222.4956088425476,
+  "timestampMs": 1785126300000,
+  "symbol": "MHRIL"
  }
 ]
