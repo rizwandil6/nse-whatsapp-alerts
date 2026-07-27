@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785140413818,
+ "savedAtMs": 1785140518793,
  "state": {
   "CONCOR": {
    "builders": {
@@ -3788,7 +3788,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785140160000
+   "lastCandleTimestampMs": 1785140280000
   },
   "GAIL": {
    "builders": {
@@ -5507,7 +5507,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785140280000
+   "lastCandleTimestampMs": 1785140340000
   },
   "TITAGARH": {
    "builders": {
@@ -6185,7 +6185,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785140280000
+   "lastCandleTimestampMs": 1785140340000
   },
   "IRCON": {
    "builders": {
@@ -6520,7 +6520,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785140280000
+   "lastCandleTimestampMs": 1785140340000
   },
   "TRITURBINE": {
    "builders": {
@@ -7908,7 +7908,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785140100000
+   "lastCandleTimestampMs": 1785140280000
   }
  }
 }
