@@ -4536,5 +4536,89 @@
   "livePriceAtDispatch": 224.42,
   "slippagePct": -0.06981883617391425,
   "slippagePoints": -0.15679690591636586
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "SHORT",
+  "entry": 318.7568495724339,
+  "timestampMs": 1785140280000,
+  "symbol": "JSWINFRA",
+  "dispatchAtMs": 1785140413803,
+  "livePriceAtDispatch": 318.6,
+  "slippagePct": -0.0492066516042794,
+  "slippagePoints": -0.15684957243388453
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 6,
+  "direction": "SHORT",
+  "entry": 318.7568495724339,
+  "timestampMs": 1785140280000,
+  "symbol": "JSWINFRA",
+  "dispatchAtMs": 1785140413805,
+  "livePriceAtDispatch": 318.6,
+  "slippagePct": -0.0492066516042794,
+  "slippagePoints": -0.15684957243388453
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "SHORT",
+  "entry": 2740.2629650405343,
+  "timestampMs": 1785140280000,
+  "symbol": "WAAREEENER",
+  "dispatchAtMs": 1785140413808,
+  "livePriceAtDispatch": 2739,
+  "slippagePct": -0.046089191316555735,
+  "slippagePoints": -1.2629650405342545
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 6,
+  "direction": "SHORT",
+  "entry": 2740.2629650405343,
+  "timestampMs": 1785140280000,
+  "symbol": "WAAREEENER",
+  "dispatchAtMs": 1785140413810,
+  "livePriceAtDispatch": 2739,
+  "slippagePct": -0.046089191316555735,
+  "slippagePoints": -1.2629650405342545
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 16,
+  "direction": "SHORT",
+  "entry": 2740.6784281366135,
+  "timestampMs": 1785140280000,
+  "symbol": "WAAREEENER",
+  "dispatchAtMs": 1785140413812,
+  "livePriceAtDispatch": 2739,
+  "slippagePct": -0.0612413378885428,
+  "slippagePoints": -1.6784281366135474
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 17,
+  "direction": "SHORT",
+  "entry": 2740.6784281366135,
+  "timestampMs": 1785140280000,
+  "symbol": "WAAREEENER",
+  "dispatchAtMs": 1785140413814,
+  "livePriceAtDispatch": 2739,
+  "slippagePct": -0.0612413378885428,
+  "slippagePoints": -1.6784281366135474
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 18,
+  "direction": "SHORT",
+  "entry": 2740.6784281366135,
+  "timestampMs": 1785140280000,
+  "symbol": "WAAREEENER",
+  "dispatchAtMs": 1785140413816,
+  "livePriceAtDispatch": 2739,
+  "slippagePct": -0.0612413378885428,
+  "slippagePoints": -1.6784281366135474
  }
 ]
