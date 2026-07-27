@@ -61,6 +61,12 @@ const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-5338709046').split(',');
 const PAPER_ALERTS_ENABLED = process.env.DARVAS_TELEGRAM_ENABLED !== 'false';
+// Separate toggle from PAPER_ALERTS_ENABLED -- off by default (2026-07-27, per
+// explicit request): the early heads-up DETECTION keeps running either way
+// (still logged to Railway console, still updates lastEarlyAlertDir), only
+// the Telegram send is gated here. Set RENKO_EARLY_SIGNAL_TELEGRAM=true to
+// re-enable without a code change.
+const EARLY_SIGNAL_TELEGRAM_ENABLED = process.env.RENKO_EARLY_SIGNAL_TELEGRAM === 'true';
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
 const FLUSH_POLL_MS = 15 * 1000;
 const SEED_DELAY_MS = 150; // pacing between symbols' historical fetches, avoids Upstox rate limits
@@ -243,7 +249,13 @@ function checkEarlySignal(symbol, price) {
   }
   if (!relevant) return;
 
-  sendTelegramAlert(formatEarlySignalAlert(symbol, dir, price, isEntry)).catch((err) => console.error('sendTelegramAlert (early) threw:', err.message));
+  const text = formatEarlySignalAlert(symbol, dir, price, isEntry);
+  if (EARLY_SIGNAL_TELEGRAM_ENABLED) {
+    sendTelegramAlert(text).catch((err) => console.error('sendTelegramAlert (early) threw:', err.message));
+  } else {
+    // Detection still tracked/visible in Railway logs even with Telegram off.
+    console.log('[RENKO-EARLY-TRACKED-ONLY]', text.replace(/\n/g, ' | '));
+  }
 }
 
 function dispatchEvent(symbol, e) {
