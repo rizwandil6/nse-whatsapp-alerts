@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785137715476,
+ "savedAtMs": 1785137814886,
  "state": {
   "CONCOR": {
    "builders": {
@@ -1375,7 +1375,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785137400000
+   "lastCandleTimestampMs": 1785137640000
   },
   "SUZLON": {
    "builders": {
@@ -4446,7 +4446,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785137400000
+   "lastCandleTimestampMs": 1785137460000
   },
   "ARE&M": {
    "builders": {
@@ -6173,7 +6173,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785137400000
+   "lastCandleTimestampMs": 1785137640000
   },
   "IRCON": {
    "builders": {
@@ -7170,7 +7170,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785137400000
+   "lastCandleTimestampMs": 1785137640000
   },
   "ORIENTELEC": {
    "builders": {
