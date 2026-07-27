@@ -48,16 +48,37 @@ function eventKey(e) {
     : ['EXIT', e.symbol, e.direction, e.entry, e.exitPrice, e.action, e.entryTimestampMs, e.exitTimestampMs, e.comboId].join('|');
 }
 
+/**
+ * Fails safe rather than crashing on empty/corrupt local content -- this
+ * DID happen in production (2026-07-27: a >1MB remote file silently came
+ * back empty from the Contents API, see github_contents.js's fix) and
+ * crashed the whole process on the very next JSON.parse, which then
+ * crash-looped since every restart re-synced the same bad content. If
+ * this still fires after that fix, something else is wrong -- the loud
+ * console.error is intentional, not swallowed.
+ */
+function readLocalLog() {
+  if (!fs.existsSync(LOCAL_PATH)) return [];
+  const raw = fs.readFileSync(LOCAL_PATH, 'utf8');
+  if (!raw.trim()) return [];
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    console.error(`Trade log at ${LOCAL_PATH} is corrupt/unparseable (${e.message}) -- treating as empty rather than crashing. Investigate if this recurs.`);
+    return [];
+  }
+}
+
 /** Pre-check so callers can skip sending a Telegram alert entirely for a replayed event, not just skip persisting it. */
 function isDuplicateEvent(event) {
-  const log = fs.existsSync(LOCAL_PATH) ? JSON.parse(fs.readFileSync(LOCAL_PATH, 'utf8')) : [];
+  const log = readLocalLog();
   const key = eventKey(event);
   return log.some((e) => eventKey(e) === key);
 }
 
 /** Returns true if the event was newly appended, false if it was a duplicate (and therefore skipped). */
 function recordTrade(exitEvent) {
-  const log = fs.existsSync(LOCAL_PATH) ? JSON.parse(fs.readFileSync(LOCAL_PATH, 'utf8')) : [];
+  const log = readLocalLog();
   const key = eventKey(exitEvent);
   if (log.some((e) => eventKey(e) === key)) {
     console.log(`Skipping duplicate trade-log entry for ${exitEvent.symbol} combo ${exitEvent.comboId} (${exitEvent.type}${exitEvent.action ? ', ' + exitEvent.action : ''}) -- already recorded, likely a post-restart brick replay.`);

@@ -24,13 +24,36 @@ function authHeaders(token) {
   };
 }
 
+/**
+ * CONFIRMED PRODUCTION BUG (2026-07-27): the Contents API only inlines
+ * `content` for files under ~1MB -- past that it returns the file's
+ * metadata (including `size` and `sha`) but `content: ""` with
+ * `encoding: "none"`, NOT an error. The trade log crossed that threshold
+ * (1,096,370 bytes), so this silently returned an empty string as if the
+ * log were genuinely empty, which trade_log.js then wrote to disk,
+ * wiping local history and crash-looping the next JSON.parse. Fix: when
+ * the Contents API doesn't inline the content, fall back to
+ * raw.githubusercontent.com, which has no such size limit. The metadata
+ * call is kept either way since it's the only source for `sha` (needed
+ * for the subsequent PUT's optimistic-concurrency check).
+ */
 async function getRemoteFile(token, repoRelPath, branch) {
-  const url = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${repoRelPath}?ref=${branch}`;
-  const res = await fetch(url, { headers: authHeaders(token) });
-  if (res.status === 404) return null;
-  if (!res.ok) throw new Error(`GET ${repoRelPath}@${branch} failed: HTTP ${res.status} — ${await res.text()}`);
-  const body = await res.json();
-  return { content: Buffer.from(body.content, 'base64').toString('utf8'), sha: body.sha };
+  const metaUrl = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${repoRelPath}?ref=${branch}`;
+  const metaRes = await fetch(metaUrl, { headers: authHeaders(token) });
+  if (metaRes.status === 404) return null;
+  if (!metaRes.ok) throw new Error(`GET ${repoRelPath}@${branch} metadata failed: HTTP ${metaRes.status} — ${await metaRes.text()}`);
+  const meta = await metaRes.json();
+
+  let content;
+  if (meta.encoding === 'base64' && meta.content) {
+    content = Buffer.from(meta.content, 'base64').toString('utf8');
+  } else {
+    const rawUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${branch}/${repoRelPath}`;
+    const rawRes = await fetch(rawUrl, { headers: { 'User-Agent': 'renko-combo-live-forward-test' } });
+    if (!rawRes.ok) throw new Error(`GET raw ${repoRelPath}@${branch} failed: HTTP ${rawRes.status}`);
+    content = await rawRes.text();
+  }
+  return { content, sha: meta.sha };
 }
 
 /** Creates `branch` off `main` if it doesn't already exist. Never touches `main` itself. */
