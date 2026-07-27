@@ -25345,5 +25345,59 @@
   "livePriceAtDispatch": 238.15,
   "slippagePct": -0.8150587798880421,
   "slippagePoints": -1.957013292971311
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "LONG",
+  "entry": 2748.5146560757457,
+  "timestampMs": 1785129000000,
+  "symbol": "WAAREEENER",
+  "livePriceAtDispatch": 2748.2,
+  "slippagePct": -0.011448222589985128,
+  "slippagePoints": -0.3146560757459156
+ },
+ {
+  "type": "EXIT",
+  "comboId": 2,
+  "direction": "SHORT",
+  "entry": 2723.9073737672575,
+  "exitPrice": 2748.5146560757457,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.9033817575982971,
+  "pnlPoints": -24.607282308488266,
+  "entryTimestampMs": 1785125400000,
+  "exitTimestampMs": 1785129000000,
+  "symbol": "WAAREEENER",
+  "livePriceAtDispatch": 2748.2,
+  "slippagePct": -0.011448222589985128,
+  "slippagePoints": -0.3146560757459156
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 4,
+  "direction": "LONG",
+  "entry": 2748.5146560757457,
+  "timestampMs": 1785129000000,
+  "symbol": "WAAREEENER",
+  "livePriceAtDispatch": 2748.2,
+  "slippagePct": -0.011448222589985128,
+  "slippagePoints": -0.3146560757459156
+ },
+ {
+  "type": "EXIT",
+  "comboId": 5,
+  "direction": "SHORT",
+  "entry": 2723.9073737672575,
+  "exitPrice": 2748.5146560757457,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.9033817575982971,
+  "pnlPoints": -24.607282308488266,
+  "entryTimestampMs": 1785125400000,
+  "exitTimestampMs": 1785129000000,
+  "symbol": "WAAREEENER",
+  "livePriceAtDispatch": 2748.2,
+  "slippagePct": -0.011448222589985128,
+  "slippagePoints": -0.3146560757459156
  }
 ]
