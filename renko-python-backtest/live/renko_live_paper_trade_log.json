@@ -4174,5 +4174,1936 @@
   "entry": 243.05159588201587,
   "timestampMs": 1785124020000,
   "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "SHORT",
+  "entry": 323.09688126567465,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 2,
+  "direction": "SHORT",
+  "entry": 323.09688126567465,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "SHORT",
+  "entry": 323.09688126567465,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 4,
+  "direction": "SHORT",
+  "entry": 322.6122359437761,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 5,
+  "direction": "SHORT",
+  "entry": 322.6122359437761,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 6,
+  "direction": "SHORT",
+  "entry": 322.6122359437761,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 7,
+  "direction": "SHORT",
+  "entry": 322.12831758986044,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 8,
+  "direction": "SHORT",
+  "entry": 322.12831758986044,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 9,
+  "direction": "SHORT",
+  "entry": 322.12831758986044,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 10,
+  "direction": "SHORT",
+  "entry": 322.8198761998161,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 11,
+  "direction": "SHORT",
+  "entry": 322.8198761998161,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 12,
+  "direction": "SHORT",
+  "entry": 322.8198761998161,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 13,
+  "direction": "SHORT",
+  "entry": 322.1742364474165,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 14,
+  "direction": "SHORT",
+  "entry": 322.1742364474165,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 15,
+  "direction": "SHORT",
+  "entry": 322.1742364474165,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 19,
+  "direction": "SHORT",
+  "entry": 322.9353212088486,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 20,
+  "direction": "SHORT",
+  "entry": 322.9353212088486,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 21,
+  "direction": "SHORT",
+  "entry": 322.9353212088486,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 22,
+  "direction": "SHORT",
+  "entry": 322.1279829058265,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 23,
+  "direction": "SHORT",
+  "entry": 322.1279829058265,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 24,
+  "direction": "SHORT",
+  "entry": 322.1279829058265,
+  "timestampMs": 1785124200000,
+  "symbol": "JSWINFRA"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "LONG",
+  "entry": 490.30640260976423,
+  "timestampMs": 1785124200000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 2,
+  "direction": "LONG",
+  "entry": 490.30640260976423,
+  "timestampMs": 1785124200000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "LONG",
+  "entry": 490.30640260976423,
+  "timestampMs": 1785124200000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 4,
+  "direction": "LONG",
+  "entry": 490.30640260976423,
+  "timestampMs": 1785124200000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 5,
+  "direction": "LONG",
+  "entry": 490.30640260976423,
+  "timestampMs": 1785124200000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 6,
+  "direction": "LONG",
+  "entry": 490.30640260976423,
+  "timestampMs": 1785124200000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 7,
+  "direction": "LONG",
+  "entry": 490.30640260976423,
+  "timestampMs": 1785124200000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 8,
+  "direction": "LONG",
+  "entry": 490.30640260976423,
+  "timestampMs": 1785124200000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 9,
+  "direction": "LONG",
+  "entry": 490.30640260976423,
+  "timestampMs": 1785124200000,
+  "symbol": "JKIL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "LONG",
+  "entry": 37.436369619366445,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 2,
+  "direction": "LONG",
+  "entry": 37.436369619366445,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "LONG",
+  "entry": 37.436369619366445,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 4,
+  "direction": "LONG",
+  "entry": 37.436369619366445,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 5,
+  "direction": "LONG",
+  "entry": 37.436369619366445,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 6,
+  "direction": "LONG",
+  "entry": 37.436369619366445,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 7,
+  "direction": "LONG",
+  "entry": 37.436369619366445,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 8,
+  "direction": "LONG",
+  "entry": 37.436369619366445,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 9,
+  "direction": "LONG",
+  "entry": 37.436369619366445,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 19,
+  "direction": "LONG",
+  "entry": 37.454869175940125,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 20,
+  "direction": "LONG",
+  "entry": 37.454869175940125,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 21,
+  "direction": "LONG",
+  "entry": 37.454869175940125,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 22,
+  "direction": "LONG",
+  "entry": 37.454869175940125,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 23,
+  "direction": "LONG",
+  "entry": 37.454869175940125,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 24,
+  "direction": "LONG",
+  "entry": 37.454869175940125,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 25,
+  "direction": "LONG",
+  "entry": 37.454869175940125,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 26,
+  "direction": "LONG",
+  "entry": 37.454869175940125,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 27,
+  "direction": "LONG",
+  "entry": 37.454869175940125,
+  "timestampMs": 1785124200000,
+  "symbol": "OLAELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 25,
+  "direction": "LONG",
+  "entry": 226.33406852510183,
+  "timestampMs": 1785124200000,
+  "symbol": "RVNL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 26,
+  "direction": "LONG",
+  "entry": 226.33406852510183,
+  "timestampMs": 1785124200000,
+  "symbol": "RVNL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 27,
+  "direction": "LONG",
+  "entry": 226.33406852510183,
+  "timestampMs": 1785124200000,
+  "symbol": "RVNL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "LONG",
+  "entry": 117.87568227552633,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 2,
+  "direction": "LONG",
+  "entry": 117.87568227552633,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "LONG",
+  "entry": 117.87568227552633,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 4,
+  "direction": "LONG",
+  "entry": 118.05249579893962,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 5,
+  "direction": "LONG",
+  "entry": 118.05249579893962,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 6,
+  "direction": "LONG",
+  "entry": 118.05249579893962,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 10,
+  "direction": "LONG",
+  "entry": 117.91663382175828,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 11,
+  "direction": "LONG",
+  "entry": 117.91663382175828,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 12,
+  "direction": "LONG",
+  "entry": 117.91663382175828,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 13,
+  "direction": "LONG",
+  "entry": 118.1524670894018,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 14,
+  "direction": "LONG",
+  "entry": 118.1524670894018,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 15,
+  "direction": "LONG",
+  "entry": 118.1524670894018,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 19,
+  "direction": "LONG",
+  "entry": 117.86422563234754,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 20,
+  "direction": "LONG",
+  "entry": 117.86422563234754,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 21,
+  "direction": "LONG",
+  "entry": 117.86422563234754,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 22,
+  "direction": "LONG",
+  "entry": 118.15888619642841,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 23,
+  "direction": "LONG",
+  "entry": 118.15888619642841,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 24,
+  "direction": "LONG",
+  "entry": 118.15888619642841,
+  "timestampMs": 1785124200000,
+  "symbol": "ADSL"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 1,
+  "direction": "LONG",
+  "entry": 527.9351891424141,
+  "exitPrice": 537.5156048277644,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8146954176161074,
+  "pnlPoints": 9.580415685350317,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 2,
+  "direction": "LONG",
+  "entry": 527.9351891424141,
+  "exitPrice": 537.5156048277644,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8146954176161074,
+  "pnlPoints": 9.580415685350317,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 3,
+  "direction": "LONG",
+  "entry": 527.9351891424141,
+  "exitPrice": 537.5156048277644,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8146954176161074,
+  "pnlPoints": 9.580415685350317,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 4,
+  "direction": "LONG",
+  "entry": 527.9351891424141,
+  "exitPrice": 537.5156048277644,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8146954176161074,
+  "pnlPoints": 9.580415685350317,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 5,
+  "direction": "LONG",
+  "entry": 527.9351891424141,
+  "exitPrice": 537.5156048277644,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8146954176161074,
+  "pnlPoints": 9.580415685350317,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 6,
+  "direction": "LONG",
+  "entry": 527.9351891424141,
+  "exitPrice": 537.5156048277644,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8146954176161074,
+  "pnlPoints": 9.580415685350317,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 7,
+  "direction": "LONG",
+  "entry": 527.9351891424141,
+  "exitPrice": 537.5156048277644,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8146954176161074,
+  "pnlPoints": 9.580415685350317,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 8,
+  "direction": "LONG",
+  "entry": 527.9351891424141,
+  "exitPrice": 537.5156048277644,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8146954176161074,
+  "pnlPoints": 9.580415685350317,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 9,
+  "direction": "LONG",
+  "entry": 527.9351891424141,
+  "exitPrice": 537.5156048277644,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 1.8146954176161074,
+  "pnlPoints": 9.580415685350317,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "SHORT",
+  "entry": 536.7093314205227,
+  "timestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 2,
+  "direction": "SHORT",
+  "entry": 536.7093314205227,
+  "timestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "SHORT",
+  "entry": 536.7093314205227,
+  "timestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 4,
+  "direction": "SHORT",
+  "entry": 536.7093314205227,
+  "timestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 5,
+  "direction": "SHORT",
+  "entry": 536.7093314205227,
+  "timestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 6,
+  "direction": "SHORT",
+  "entry": 536.7093314205227,
+  "timestampMs": 1785124200000,
+  "symbol": "MANINDS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "LONG",
+  "entry": 127.360755,
+  "timestampMs": 1785124200000,
+  "symbol": "IRCON"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 2,
+  "direction": "LONG",
+  "entry": 127.360755,
+  "timestampMs": 1785124200000,
+  "symbol": "IRCON"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "LONG",
+  "entry": 127.360755,
+  "timestampMs": 1785124200000,
+  "symbol": "IRCON"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 10,
+  "direction": "LONG",
+  "entry": 127.42434,
+  "timestampMs": 1785124200000,
+  "symbol": "IRCON"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 11,
+  "direction": "LONG",
+  "entry": 127.42434,
+  "timestampMs": 1785124200000,
+  "symbol": "IRCON"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 12,
+  "direction": "LONG",
+  "entry": 127.42434,
+  "timestampMs": 1785124200000,
+  "symbol": "IRCON"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 19,
+  "direction": "LONG",
+  "entry": 127.487925,
+  "timestampMs": 1785124200000,
+  "symbol": "IRCON"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 20,
+  "direction": "LONG",
+  "entry": 127.487925,
+  "timestampMs": 1785124200000,
+  "symbol": "IRCON"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 21,
+  "direction": "LONG",
+  "entry": 127.487925,
+  "timestampMs": 1785124200000,
+  "symbol": "IRCON"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 1,
+  "direction": "LONG",
+  "entry": 614.3201,
+  "exitPrice": 614.318717779775,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.00022499999999486876,
+  "pnlPoints": -0.0013822202249684779,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 2,
+  "direction": "LONG",
+  "entry": 614.3201,
+  "exitPrice": 614.318717779775,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.00022499999999486876,
+  "pnlPoints": -0.0013822202249684779,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 3,
+  "direction": "LONG",
+  "entry": 614.3201,
+  "exitPrice": 614.318717779775,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.00022499999999486876,
+  "pnlPoints": -0.0013822202249684779,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 4,
+  "direction": "LONG",
+  "entry": 615.24158015,
+  "exitPrice": 614.318717779775,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.14999999999999153,
+  "pnlPoints": -0.9228623702249479,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "SHORT",
+  "entry": 613.3972397031054,
+  "timestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 2,
+  "direction": "SHORT",
+  "entry": 613.3972397031054,
+  "timestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "SHORT",
+  "entry": 613.3972397031054,
+  "timestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 4,
+  "direction": "SHORT",
+  "entry": 613.3972397031054,
+  "timestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 5,
+  "direction": "LONG",
+  "entry": 615.24158015,
+  "exitPrice": 613.3972397031054,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.2997749999999977,
+  "pnlPoints": -1.8443404468946483,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 10,
+  "direction": "LONG",
+  "entry": 614.6268,
+  "exitPrice": 614.6243414928,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0004000000000005895,
+  "pnlPoints": -0.0024585072000036234,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 11,
+  "direction": "LONG",
+  "entry": 614.6268,
+  "exitPrice": 614.6243414928,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0004000000000005895,
+  "pnlPoints": -0.0024585072000036234,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 12,
+  "direction": "LONG",
+  "entry": 614.6268,
+  "exitPrice": 614.6243414928,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0004000000000005895,
+  "pnlPoints": -0.0024585072000036234,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 13,
+  "direction": "LONG",
+  "entry": 615.8560536,
+  "exitPrice": 614.6243414928,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.1999999999999994,
+  "pnlPoints": -1.2317121071999964,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 10,
+  "direction": "SHORT",
+  "entry": 613.3950928098144,
+  "timestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 11,
+  "direction": "SHORT",
+  "entry": 613.3950928098144,
+  "timestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 12,
+  "direction": "SHORT",
+  "entry": 613.3950928098144,
+  "timestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 13,
+  "direction": "SHORT",
+  "entry": 613.3950928098144,
+  "timestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 14,
+  "direction": "LONG",
+  "entry": 615.8560536,
+  "exitPrice": 613.3950928098144,
+  "action": "SL_REJECTION",
+  "pnlPct": -0.3995999999999993,
+  "pnlPoints": -2.460960790185595,
+  "entryTimestampMs": 1785123900000,
+  "exitTimestampMs": 1785124200000,
+  "symbol": "TRITURBINE"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 7,
+  "direction": "LONG",
+  "entry": 170.48552069121132,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 8,
+  "direction": "LONG",
+  "entry": 170.48552069121132,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 9,
+  "direction": "LONG",
+  "entry": 170.48552069121132,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 10,
+  "direction": "LONG",
+  "entry": 170.02295814603093,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 11,
+  "direction": "LONG",
+  "entry": 170.02295814603093,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 12,
+  "direction": "LONG",
+  "entry": 170.02295814603093,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 13,
+  "direction": "LONG",
+  "entry": 170.363004062323,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 14,
+  "direction": "LONG",
+  "entry": 170.363004062323,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 15,
+  "direction": "LONG",
+  "entry": 170.363004062323,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 16,
+  "direction": "LONG",
+  "entry": 170.70373007044765,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 17,
+  "direction": "LONG",
+  "entry": 170.70373007044765,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 18,
+  "direction": "LONG",
+  "entry": 170.70373007044765,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 19,
+  "direction": "LONG",
+  "entry": 170.38719372475825,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 20,
+  "direction": "LONG",
+  "entry": 170.38719372475825,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 21,
+  "direction": "LONG",
+  "entry": 170.38719372475825,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 22,
+  "direction": "LONG",
+  "entry": 170.81316170907013,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 23,
+  "direction": "LONG",
+  "entry": 170.81316170907013,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 24,
+  "direction": "LONG",
+  "entry": 170.81316170907013,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 28,
+  "direction": "LONG",
+  "entry": 170.21458868922838,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 29,
+  "direction": "LONG",
+  "entry": 170.21458868922838,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 30,
+  "direction": "LONG",
+  "entry": 170.21458868922838,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 31,
+  "direction": "LONG",
+  "entry": 170.72523245529607,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 32,
+  "direction": "LONG",
+  "entry": 170.72523245529607,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 33,
+  "direction": "LONG",
+  "entry": 170.72523245529607,
+  "timestampMs": 1785124200000,
+  "symbol": "ORIENTELEC"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 1,
+  "direction": "LONG",
+  "entry": 242.799349346706,
+  "exitPrice": 243.52774575462132,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.29999932449373934,
+  "pnlPoints": 0.7283964079153122,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 2,
+  "direction": "LONG",
+  "entry": 242.799349346706,
+  "exitPrice": 243.52774575462132,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.29999932449373934,
+  "pnlPoints": 0.7283964079153122,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 3,
+  "direction": "LONG",
+  "entry": 242.799349346706,
+  "exitPrice": 243.52774575462132,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.29999932449373934,
+  "pnlPoints": 0.7283964079153122,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 4,
+  "direction": "LONG",
+  "entry": 242.799349346706,
+  "exitPrice": 243.52774575462132,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.29999932449373934,
+  "pnlPoints": 0.7283964079153122,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 5,
+  "direction": "LONG",
+  "entry": 242.799349346706,
+  "exitPrice": 243.52774575462132,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.29999932449373934,
+  "pnlPoints": 0.7283964079153122,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 6,
+  "direction": "LONG",
+  "entry": 242.799349346706,
+  "exitPrice": 243.52774575462132,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.29999932449373934,
+  "pnlPoints": 0.7283964079153122,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 7,
+  "direction": "LONG",
+  "entry": 242.799349346706,
+  "exitPrice": 243.52774575462132,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.29999932449373934,
+  "pnlPoints": 0.7283964079153122,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 8,
+  "direction": "LONG",
+  "entry": 242.799349346706,
+  "exitPrice": 243.52774575462132,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.29999932449373934,
+  "pnlPoints": 0.7283964079153122,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 9,
+  "direction": "LONG",
+  "entry": 242.799349346706,
+  "exitPrice": 243.52774575462132,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.29999932449373934,
+  "pnlPoints": 0.7283964079153122,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 1,
+  "direction": "SHORT",
+  "entry": 243.16245413598938,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 2,
+  "direction": "SHORT",
+  "entry": 243.16245413598938,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 3,
+  "direction": "SHORT",
+  "entry": 243.16245413598938,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 4,
+  "direction": "SHORT",
+  "entry": 243.16245413598938,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 5,
+  "direction": "SHORT",
+  "entry": 243.16245413598938,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 6,
+  "direction": "SHORT",
+  "entry": 243.16245413598938,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 7,
+  "direction": "SHORT",
+  "entry": 242.7977104547854,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 8,
+  "direction": "SHORT",
+  "entry": 242.7977104547854,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 9,
+  "direction": "SHORT",
+  "entry": 242.7977104547854,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 10,
+  "direction": "LONG",
+  "entry": 243.0237426201942,
+  "exitPrice": 243.5088160662742,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.19959920000000544,
+  "pnlPoints": 0.48507344607997993,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 11,
+  "direction": "LONG",
+  "entry": 243.0237426201942,
+  "exitPrice": 243.5088160662742,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.19959920000000544,
+  "pnlPoints": 0.48507344607997993,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 12,
+  "direction": "LONG",
+  "entry": 243.0237426201942,
+  "exitPrice": 243.5088160662742,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.19959920000000544,
+  "pnlPoints": 0.48507344607997993,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 13,
+  "direction": "LONG",
+  "entry": 243.0237426201942,
+  "exitPrice": 243.5088160662742,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.19959920000000544,
+  "pnlPoints": 0.48507344607997993,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 14,
+  "direction": "LONG",
+  "entry": 243.0237426201942,
+  "exitPrice": 243.5088160662742,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.19959920000000544,
+  "pnlPoints": 0.48507344607997993,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 15,
+  "direction": "LONG",
+  "entry": 243.0237426201942,
+  "exitPrice": 243.5088160662742,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.19959920000000544,
+  "pnlPoints": 0.48507344607997993,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 16,
+  "direction": "LONG",
+  "entry": 243.0237426201942,
+  "exitPrice": 243.5088160662742,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.19959920000000544,
+  "pnlPoints": 0.48507344607997993,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 17,
+  "direction": "LONG",
+  "entry": 243.0237426201942,
+  "exitPrice": 243.5088160662742,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.19959920000000544,
+  "pnlPoints": 0.48507344607997993,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 18,
+  "direction": "LONG",
+  "entry": 243.0237426201942,
+  "exitPrice": 243.5088160662742,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": 0.19959920000000544,
+  "pnlPoints": 0.48507344607997993,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 10,
+  "direction": "SHORT",
+  "entry": 243.02179843414166,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 11,
+  "direction": "SHORT",
+  "entry": 243.02179843414166,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 12,
+  "direction": "SHORT",
+  "entry": 243.02179843414166,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 13,
+  "direction": "SHORT",
+  "entry": 243.02179843414166,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 14,
+  "direction": "SHORT",
+  "entry": 243.02179843414166,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 15,
+  "direction": "SHORT",
+  "entry": 243.02179843414166,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 16,
+  "direction": "SHORT",
+  "entry": 242.53575483727337,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 17,
+  "direction": "SHORT",
+  "entry": 242.53575483727337,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 18,
+  "direction": "SHORT",
+  "entry": 242.53575483727337,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 19,
+  "direction": "LONG",
+  "entry": 242.89785785839678,
+  "exitPrice": 242.89633974678515,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0006250000000065777,
+  "pnlPoints": -0.0015181116116309568,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 20,
+  "direction": "LONG",
+  "entry": 242.89785785839678,
+  "exitPrice": 242.89633974678515,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0006250000000065777,
+  "pnlPoints": -0.0015181116116309568,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 21,
+  "direction": "LONG",
+  "entry": 242.89785785839678,
+  "exitPrice": 242.89633974678515,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0006250000000065777,
+  "pnlPoints": -0.0015181116116309568,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 22,
+  "direction": "LONG",
+  "entry": 242.89785785839678,
+  "exitPrice": 242.89633974678515,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0006250000000065777,
+  "pnlPoints": -0.0015181116116309568,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 23,
+  "direction": "LONG",
+  "entry": 242.89785785839678,
+  "exitPrice": 242.89633974678515,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0006250000000065777,
+  "pnlPoints": -0.0015181116116309568,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 24,
+  "direction": "LONG",
+  "entry": 242.89785785839678,
+  "exitPrice": 242.89633974678515,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0006250000000065777,
+  "pnlPoints": -0.0015181116116309568,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 25,
+  "direction": "LONG",
+  "entry": 242.89785785839678,
+  "exitPrice": 242.89633974678515,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0006250000000065777,
+  "pnlPoints": -0.0015181116116309568,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 26,
+  "direction": "LONG",
+  "entry": 242.89785785839678,
+  "exitPrice": 242.89633974678515,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0006250000000065777,
+  "pnlPoints": -0.0015181116116309568,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 27,
+  "direction": "LONG",
+  "entry": 242.89785785839678,
+  "exitPrice": 242.89633974678515,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0006250000000065777,
+  "pnlPoints": -0.0015181116116309568,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 19,
+  "direction": "SHORT",
+  "entry": 242.28909889741817,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 20,
+  "direction": "SHORT",
+  "entry": 242.28909889741817,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 21,
+  "direction": "SHORT",
+  "entry": 242.28909889741817,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 22,
+  "direction": "SHORT",
+  "entry": 242.28909889741817,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 23,
+  "direction": "SHORT",
+  "entry": 242.28909889741817,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 24,
+  "direction": "SHORT",
+  "entry": 242.28909889741817,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 25,
+  "direction": "SHORT",
+  "entry": 241.68337615017464,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 26,
+  "direction": "SHORT",
+  "entry": 241.68337615017464,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 27,
+  "direction": "SHORT",
+  "entry": 241.68337615017464,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 28,
+  "direction": "LONG",
+  "entry": 243.05159588201587,
+  "exitPrice": 243.04940841765296,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0008999999999921012,
+  "pnlPoints": -0.002187464362918945,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 29,
+  "direction": "LONG",
+  "entry": 243.05159588201587,
+  "exitPrice": 243.04940841765296,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0008999999999921012,
+  "pnlPoints": -0.002187464362918945,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 30,
+  "direction": "LONG",
+  "entry": 243.05159588201587,
+  "exitPrice": 243.04940841765296,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0008999999999921012,
+  "pnlPoints": -0.002187464362918945,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 31,
+  "direction": "LONG",
+  "entry": 243.05159588201587,
+  "exitPrice": 243.04940841765296,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0008999999999921012,
+  "pnlPoints": -0.002187464362918945,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 32,
+  "direction": "LONG",
+  "entry": 243.05159588201587,
+  "exitPrice": 243.04940841765296,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0008999999999921012,
+  "pnlPoints": -0.002187464362918945,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 33,
+  "direction": "LONG",
+  "entry": 243.05159588201587,
+  "exitPrice": 243.04940841765296,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0008999999999921012,
+  "pnlPoints": -0.002187464362918945,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 34,
+  "direction": "LONG",
+  "entry": 243.05159588201587,
+  "exitPrice": 243.04940841765296,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0008999999999921012,
+  "pnlPoints": -0.002187464362918945,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 35,
+  "direction": "LONG",
+  "entry": 243.05159588201587,
+  "exitPrice": 243.04940841765296,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0008999999999921012,
+  "pnlPoints": -0.002187464362918945,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "EXIT",
+  "comboId": 36,
+  "direction": "LONG",
+  "entry": 243.05159588201587,
+  "exitPrice": 243.04940841765296,
+  "action": "REVERSAL_EXIT",
+  "pnlPct": -0.0008999999999921012,
+  "pnlPoints": -0.002187464362918945,
+  "entryTimestampMs": 1785124020000,
+  "exitTimestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 28,
+  "direction": "SHORT",
+  "entry": 242.32026019239999,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 29,
+  "direction": "SHORT",
+  "entry": 242.32026019239999,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 30,
+  "direction": "SHORT",
+  "entry": 242.32026019239999,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 31,
+  "direction": "SHORT",
+  "entry": 242.32026019239999,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 32,
+  "direction": "SHORT",
+  "entry": 242.32026019239999,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 33,
+  "direction": "SHORT",
+  "entry": 242.32026019239999,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 34,
+  "direction": "SHORT",
+  "entry": 241.59329941182278,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 35,
+  "direction": "SHORT",
+  "entry": 241.59329941182278,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
+ },
+ {
+  "type": "ENTRY",
+  "comboId": 36,
+  "direction": "SHORT",
+  "entry": 241.59329941182278,
+  "timestampMs": 1785124320000,
+  "symbol": "STERTOOLS"
  }
 ]
