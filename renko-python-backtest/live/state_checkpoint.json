@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785128964727,
+ "savedAtMs": 1785129054729,
  "state": {
   "CONCOR": {
    "builders": {
@@ -338,7 +338,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "NHPC": {
    "builders": {
@@ -359,11 +359,11 @@
      "seeded": true
     },
     "0.25": {
-     "lastClose": 79.21122855645176,
+     "lastClose": 79.01320048506062,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785126300000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.3": {
@@ -508,7 +508,7 @@
       "entryPrice": 79.21122855645176,
       "entryTimestampMs": 1785126300000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "20": {
@@ -517,7 +517,7 @@
       "entryPrice": 79.21122855645176,
       "entryTimestampMs": 1785126300000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "21": {
@@ -526,7 +526,7 @@
       "entryPrice": 79.21122855645176,
       "entryTimestampMs": 1785126300000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "22": {
@@ -535,7 +535,7 @@
       "entryPrice": 79.21122855645176,
       "entryTimestampMs": 1785126300000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "23": {
@@ -544,7 +544,7 @@
       "entryPrice": 79.21122855645176,
       "entryTimestampMs": 1785126300000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "24": {
@@ -553,7 +553,7 @@
       "entryPrice": 79.21122855645176,
       "entryTimestampMs": 1785126300000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "25": {
@@ -562,7 +562,7 @@
       "entryPrice": 79.21122855645176,
       "entryTimestampMs": 1785126300000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "26": {
@@ -571,7 +571,7 @@
       "entryPrice": 79.21122855645176,
       "entryTimestampMs": 1785126300000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "27": {
@@ -580,7 +580,7 @@
       "entryPrice": 79.21122855645176,
       "entryTimestampMs": 1785126300000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "28": {
@@ -665,7 +665,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "JSWINFRA": {
    "builders": {
@@ -1004,7 +1004,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "JKIL": {
    "builders": {
@@ -1367,7 +1367,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128580000
+   "lastCandleTimestampMs": 1785128940000
   },
   "SUZLON": {
    "builders": {
@@ -1646,7 +1646,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "WAAREEENER": {
    "builders": {
@@ -2001,7 +2001,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "OLAELEC": {
    "builders": {
@@ -2352,32 +2352,32 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "HINDCOPPER": {
    "builders": {
     "0.15": {
-     "lastClose": 487.6928148302186,
+     "lastClose": 486.9612756079733,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785128220000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 488.7806420620689,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 7,
-     "lastBrickTimestampMs": 1785125400000,
+     "lastClose": 486.8274746163889,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 489.1607580607519,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 8,
-     "lastBrickTimestampMs": 1785127440000,
+     "lastClose": 486.718011525186,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.3": {
@@ -2391,246 +2391,186 @@
    },
    "trackers": {
     "1": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.05369915433516,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "2": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.05369915433516,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "3": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.05369915433516,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "4": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.05369915433516,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "5": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.05369915433516,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "6": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.05369915433516,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "7": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.05369915433516,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "8": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.05369915433516,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "9": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.05369915433516,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "10": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 482.9561139389843,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.8274746163889,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "11": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 482.9561139389843,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.8274746163889,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "12": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 482.9561139389843,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.8274746163889,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "13": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 483.9220261668623,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.8274746163889,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "14": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 483.9220261668623,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.8274746163889,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "15": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 483.9220261668623,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.8274746163889,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "16": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.889870219196,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "17": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.889870219196,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "18": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.889870219196,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "19": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 484.2995708308957,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.718011525186,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "20": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 484.2995708308957,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.718011525186,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "21": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 484.2995708308957,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.718011525186,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "22": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 484.2995708308957,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.718011525186,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "23": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 484.2995708308957,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.718011525186,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "24": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 484.2995708308957,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 486.718011525186,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "25": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.2995708308957,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "26": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.2995708308957,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "27": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 484.2995708308957,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "28": {
@@ -2715,7 +2655,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "MHRIL": {
    "builders": {
@@ -3066,7 +3006,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "RVNL": {
    "builders": {
@@ -3417,16 +3357,16 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "RAILTEL": {
    "builders": {
     "0.15": {
-     "lastClose": 288.1502172563174,
+     "lastClose": 287.7179919304329,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 5,
-     "lastBrickTimestampMs": 1785128100000,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.2": {
@@ -3515,7 +3455,7 @@
       "entryPrice": 288.5830918941586,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "8": {
@@ -3524,7 +3464,7 @@
       "entryPrice": 288.5830918941586,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "9": {
@@ -3533,7 +3473,7 @@
       "entryPrice": 288.5830918941586,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "10": {
@@ -3756,7 +3696,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "GAIL": {
    "builders": {
@@ -4119,7 +4059,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "ADSL": {
    "builders": {
@@ -4132,11 +4072,11 @@
      "seeded": true
     },
     "0.2": {
-     "lastClose": 116.7412407894625,
+     "lastClose": 116.50775830788356,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 7,
-     "lastBrickTimestampMs": 1785127800000,
+     "runLength": 8,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.25": {
@@ -4482,114 +4422,82 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128640000
+   "lastCandleTimestampMs": 1785128940000
   },
   "ARE&M": {
    "builders": {
     "0.15": {
-     "lastClose": 875.0771100129867,
+     "lastClose": 873.7644943479672,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785128220000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 877.4004508582714,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785125400000,
+     "lastClose": 873.8943586566418,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 877.7231026187835,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785125400000,
+     "lastClose": 873.3399728750809,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 878.7467705482604,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785125400000,
+     "lastClose": 873.4821986459058,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     }
    },
    "trackers": {
     "1": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 875.081047873272,
-      "entryTimestampMs": 1785124800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "2": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 875.081047873272,
-      "entryTimestampMs": 1785124800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "3": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 875.081047873272,
-      "entryTimestampMs": 1785124800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "4": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 875.081047873272,
-      "entryTimestampMs": 1785124800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "5": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 875.081047873272,
-      "entryTimestampMs": 1785124800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "6": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 875.081047873272,
-      "entryTimestampMs": 1785124800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "7": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 876.393669445082,
-      "entryTimestampMs": 1785125100000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "8": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 876.393669445082,
-      "entryTimestampMs": 1785125100000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "9": {
@@ -4599,23 +4507,19 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 1
     },
     "10": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 877.4004508582714,
-      "entryTimestampMs": 1785125400000
+      "direction": "SHORT",
+      "entryPrice": 873.8943586566418,
+      "entryTimestampMs": 1785128700000
      },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "11": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 877.4004508582714,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -4626,23 +4530,19 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 2
     },
     "13": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 877.4004508582714,
-      "entryTimestampMs": 1785125400000
+      "direction": "SHORT",
+      "entryPrice": 873.8943586566418,
+      "entryTimestampMs": 1785128700000
      },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "14": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 877.4004508582714,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -4653,23 +4553,15 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 2
     },
     "16": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 877.4004508582714,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "17": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 877.4004508582714,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -4680,23 +4572,19 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 2
     },
     "19": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 877.7231026187835,
-      "entryTimestampMs": 1785125400000
+      "direction": "SHORT",
+      "entryPrice": 873.3399728750809,
+      "entryTimestampMs": 1785128700000
      },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "20": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 877.7231026187835,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -4707,23 +4595,19 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 2
     },
     "22": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 877.7231026187835,
-      "entryTimestampMs": 1785125400000
+      "direction": "SHORT",
+      "entryPrice": 873.3399728750809,
+      "entryTimestampMs": 1785128700000
      },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "23": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 877.7231026187835,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -4734,23 +4618,15 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 2
     },
     "25": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 877.7231026187835,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "26": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 877.7231026187835,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -4761,23 +4637,19 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 2
     },
     "28": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 878.7467705482604,
-      "entryTimestampMs": 1785125400000
+      "direction": "SHORT",
+      "entryPrice": 873.4821986459058,
+      "entryTimestampMs": 1785128700000
      },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "29": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 878.7467705482604,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -4788,23 +4660,19 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 2
     },
     "31": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 878.7467705482604,
-      "entryTimestampMs": 1785125400000
+      "direction": "SHORT",
+      "entryPrice": 873.4821986459058,
+      "entryTimestampMs": 1785128700000
      },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "32": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 878.7467705482604,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -4815,23 +4683,15 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 2
     },
     "34": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 878.7467705482604,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "35": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 878.7467705482604,
-      "entryTimestampMs": 1785125400000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -4842,10 +4702,10 @@
       "entryTimestampMs": 1785125400000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 2
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "NCC": {
    "builders": {
@@ -5172,24 +5032,24 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128940000
   },
   "TEXRAIL": {
    "builders": {
     "0.15": {
-     "lastClose": 111.26613428566384,
+     "lastClose": 111.09923508423535,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 6,
-     "lastBrickTimestampMs": 1785128100000,
+     "runLength": 7,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 111.3668075650105,
+     "lastClose": 111.14407394988048,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785127500000,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.25": {
@@ -5351,7 +5211,7 @@
       "entryPrice": 111.3668075650105,
       "entryTimestampMs": 1785127500000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "17": {
@@ -5360,7 +5220,7 @@
       "entryPrice": 111.3668075650105,
       "entryTimestampMs": 1785127500000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "18": {
@@ -5369,7 +5229,7 @@
       "entryPrice": 111.3668075650105,
       "entryTimestampMs": 1785127500000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "19": {
@@ -5535,40 +5395,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "TITAGARH": {
    "builders": {
     "0.15": {
-     "lastClose": 823.4004250157712,
+     "lastClose": 822.1653243782476,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 5,
-     "lastBrickTimestampMs": 1785128160000,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 824.2486885578235,
+     "lastClose": 822.6001911807078,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785127800000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 824.349440862775,
+     "lastClose": 822.2885672606182,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785127800000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 825.0827522551008,
+     "lastClose": 822.6075039983355,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785127800000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     }
    },
@@ -5579,7 +5439,7 @@
       "entryPrice": 824.6373810874023,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "2": {
@@ -5588,7 +5448,7 @@
       "entryPrice": 824.6373810874023,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "3": {
@@ -5597,7 +5457,7 @@
       "entryPrice": 824.6373810874023,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "4": {
@@ -5606,7 +5466,7 @@
       "entryPrice": 824.6373810874023,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "5": {
@@ -5615,7 +5475,7 @@
       "entryPrice": 824.6373810874023,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "6": {
@@ -5624,7 +5484,7 @@
       "entryPrice": 824.6373810874023,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "7": {
@@ -5633,7 +5493,7 @@
       "entryPrice": 824.6373810874023,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "8": {
@@ -5642,7 +5502,7 @@
       "entryPrice": 824.6373810874023,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "9": {
@@ -5651,7 +5511,7 @@
       "entryPrice": 824.6373810874023,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "10": {
@@ -5714,7 +5574,7 @@
       "entryPrice": 824.2486885578235,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "17": {
@@ -5723,7 +5583,7 @@
       "entryPrice": 824.2486885578235,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "18": {
@@ -5732,7 +5592,7 @@
       "entryPrice": 824.2486885578235,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "19": {
@@ -5741,7 +5601,7 @@
       "entryPrice": 824.349440862775,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "20": {
@@ -5750,7 +5610,7 @@
       "entryPrice": 824.349440862775,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "21": {
@@ -5759,7 +5619,7 @@
       "entryPrice": 824.349440862775,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "22": {
@@ -5768,7 +5628,7 @@
       "entryPrice": 824.349440862775,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "23": {
@@ -5777,7 +5637,7 @@
       "entryPrice": 824.349440862775,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "24": {
@@ -5786,21 +5646,33 @@
       "entryPrice": 824.349440862775,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "25": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 822.2885672606182,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "26": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 822.2885672606182,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "27": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 822.2885672606182,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -5810,7 +5682,7 @@
       "entryPrice": 825.0827522551008,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "29": {
@@ -5819,7 +5691,7 @@
       "entryPrice": 825.0827522551008,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "30": {
@@ -5828,7 +5700,7 @@
       "entryPrice": 825.0827522551008,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "31": {
@@ -5837,7 +5709,7 @@
       "entryPrice": 825.0827522551008,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "32": {
@@ -5846,7 +5718,7 @@
       "entryPrice": 825.0827522551008,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "33": {
@@ -5855,51 +5727,63 @@
       "entryPrice": 825.0827522551008,
       "entryTimestampMs": 1785127800000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "34": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 822.6075039983355,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "35": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 822.6075039983355,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "36": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 822.6075039983355,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "MANINDS": {
    "builders": {
     "0.15": {
-     "lastClose": 528.7068684788861,
+     "lastClose": 527.1219374639036,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 13,
-     "lastBrickTimestampMs": 1785128400000,
+     "runLength": 15,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 529.0325555765851,
+     "lastClose": 527.9744904654319,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 9,
-     "lastBrickTimestampMs": 1785128400000,
+     "runLength": 10,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 529.0048460038614,
+     "lastClose": 527.6823338888518,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 7,
-     "lastBrickTimestampMs": 1785128400000,
+     "runLength": 8,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.3": {
@@ -6071,7 +5955,7 @@
       "entryPrice": 531.1550511610245,
       "entryTimestampMs": 1785127500000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "19": {
@@ -6237,16 +6121,16 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128700000
   },
   "IRCON": {
    "builders": {
     "0.15": {
-     "lastClose": 126.40841065928487,
+     "lastClose": 126.21879804329595,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 5,
-     "lastBrickTimestampMs": 1785128460000,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.2": {
@@ -6258,11 +6142,11 @@
      "seeded": true
     },
     "0.25": {
-     "lastClose": 126.53415396909492,
+     "lastClose": 126.21781858417218,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785127980000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.3": {
@@ -6438,11 +6322,7 @@
      "consecutiveOpposite": 0
     },
     "19": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 127.487925,
-      "entryTimestampMs": 1785124200000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -6453,7 +6333,7 @@
       "entryTimestampMs": 1785124200000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 1
     },
     "21": {
      "position": {
@@ -6462,35 +6342,59 @@
       "entryTimestampMs": 1785124200000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 1
     },
     "22": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 126.21781858417218,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "23": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 126.21781858417218,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "24": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 126.21781858417218,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "25": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 126.21781858417218,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "26": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 126.21781858417218,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "27": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 126.21781858417218,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -6564,7 +6468,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128640000
+   "lastCandleTimestampMs": 1785128700000
   },
   "TRITURBINE": {
    "builders": {
@@ -6577,11 +6481,11 @@
      "seeded": true
     },
     "0.2": {
-     "lastClose": 613.3754644416434,
+     "lastClose": 612.1487135127602,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785128460000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.25": {
@@ -6684,27 +6588,47 @@
      "consecutiveOpposite": 0
     },
     "10": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 612.1487135127602,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "11": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 612.1487135127602,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "12": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 612.1487135127602,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "13": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 612.1487135127602,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "14": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 612.1487135127602,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -6714,22 +6638,22 @@
       "entryPrice": 613.3754644416434,
       "entryTimestampMs": 1785128460000
      },
-     "reachedProfit": false,
+     "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "16": {
-     "position": null,
+     "position": {
+      "direction": "SHORT",
+      "entryPrice": 612.1487135127602,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "17": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 614.6169660302041,
-      "entryTimestampMs": 1785126600000
-     },
+     "position": null,
      "reachedProfit": false,
-     "consecutiveOpposite": 1
+     "consecutiveOpposite": 0
     },
     "18": {
      "position": {
@@ -6738,7 +6662,7 @@
       "entryTimestampMs": 1785126600000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 1
+     "consecutiveOpposite": 2
     },
     "19": {
      "position": {
@@ -6875,379 +6799,283 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128940000
   },
   "HATHWAY": {
    "builders": {
     "0.15": {
-     "lastClose": 10.834936929511596,
+     "lastClose": 10.818684524117328,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785128400000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 10.838332569232918,
+     "lastClose": 10.816655904094452,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785128400000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 10.883668357143575,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785124200000,
+     "lastClose": 10.82931803828509,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 10.885757012445882,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 10,
-     "lastBrickTimestampMs": 1785124200000,
+     "lastClose": 10.82054044218432,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     }
    },
    "trackers": {
     "1": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.786398428144846,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "2": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.786398428144846,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "3": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.786398428144846,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "4": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.802578025787064,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "5": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.802578025787064,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "6": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.802578025787064,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "7": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.818781892825744,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "8": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.818781892825744,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "9": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.818781892825744,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "10": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.795195314374956,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "11": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.795195314374956,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "12": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.795195314374956,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "13": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.816785705003706,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "14": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.816785705003706,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "15": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.816785705003706,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "16": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.838419276413713,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "17": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.838419276413713,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "18": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.838419276413713,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "19": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.802447287810114,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82931803828509,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "20": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.802447287810114,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82931803828509,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "21": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.802447287810114,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82931803828509,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "22": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.82945340602964,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82931803828509,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "23": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.82945340602964,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82931803828509,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "24": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.82945340602964,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82931803828509,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "25": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.856527039544714,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "26": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.856527039544714,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "27": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.856527039544714,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "28": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.853197420185326,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82054044218432,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "29": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.853197420185326,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82054044218432,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "30": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.853197420185326,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82054044218432,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "31": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.853197420185326,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82054044218432,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "32": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.853197420185326,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82054044218432,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "33": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 10.853197420185326,
-      "entryTimestampMs": 1785123900000
+      "direction": "SHORT",
+      "entryPrice": 10.82054044218432,
+      "entryTimestampMs": 1785128700000
      },
-     "reachedProfit": true,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "34": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.853197420185326,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "35": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.853197420185326,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "36": {
-     "position": {
-      "direction": "LONG",
-      "entryPrice": 10.853197420185326,
-      "entryTimestampMs": 1785123900000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128400000
+   "lastCandleTimestampMs": 1785128700000
   },
   "ORIENTELEC": {
    "builders": {
     "0.15": {
-     "lastClose": 172.7974338018753,
+     "lastClose": 173.0566299525781,
      "direction": 1,
      "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785128400000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785128700000,
      "seeded": true
     },
     "0.2": {
@@ -7277,65 +7105,37 @@
    },
    "trackers": {
     "1": {
-     "position": {
-      "direction": "SHORT",
-      "entryPrice": 173.05779809008686,
-      "entryTimestampMs": 1785127800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "2": {
-     "position": {
-      "direction": "SHORT",
-      "entryPrice": 173.05779809008686,
-      "entryTimestampMs": 1785127800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "3": {
-     "position": {
-      "direction": "SHORT",
-      "entryPrice": 173.05779809008686,
-      "entryTimestampMs": 1785127800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "4": {
-     "position": {
-      "direction": "SHORT",
-      "entryPrice": 173.05779809008686,
-      "entryTimestampMs": 1785127800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "5": {
-     "position": {
-      "direction": "SHORT",
-      "entryPrice": 173.05779809008686,
-      "entryTimestampMs": 1785127800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "6": {
-     "position": {
-      "direction": "SHORT",
-      "entryPrice": 173.05779809008686,
-      "entryTimestampMs": 1785127800000
-     },
-     "reachedProfit": true,
+     "position": null,
+     "reachedProfit": false,
      "consecutiveOpposite": 0
     },
     "7": {
-     "position": {
-      "direction": "SHORT",
-      "entryPrice": 172.79821139295174,
-      "entryTimestampMs": 1785127800000
-     },
+     "position": null,
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -7346,10 +7146,14 @@
       "entryTimestampMs": 1785127800000
      },
      "reachedProfit": false,
-     "consecutiveOpposite": 0
+     "consecutiveOpposite": 1
     },
     "9": {
-     "position": null,
+     "position": {
+      "direction": "LONG",
+      "entryPrice": 173.0566299525781,
+      "entryTimestampMs": 1785128700000
+     },
      "reachedProfit": false,
      "consecutiveOpposite": 0
     },
@@ -7557,370 +7361,370 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128580000
+   "lastCandleTimestampMs": 1785128700000
   },
   "STERTOOLS": {
    "builders": {
     "0.15": {
-     "lastClose": 242.77585961956456,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 13,
-     "lastBrickTimestampMs": 1785128400000,
+     "lastClose": 238.44176670741368,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 12,
+     "lastBrickTimestampMs": 1785128940000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 242.50859229953699,
-     "direction": 1,
-     "runDirection": 1,
+     "lastClose": 238.17819639758326,
+     "direction": -1,
+     "runDirection": -1,
      "runLength": 9,
-     "lastBrickTimestampMs": 1785128400000,
+     "lastBrickTimestampMs": 1785128940000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 242.86142579834052,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 8,
-     "lastBrickTimestampMs": 1785128400000,
+     "lastClose": 238.64309392570283,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 7,
+     "lastBrickTimestampMs": 1785128940000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 242.28100731317969,
-     "direction": 1,
-     "runDirection": 1,
+     "lastClose": 238.66853217633312,
+     "direction": -1,
+     "runDirection": -1,
      "runLength": 5,
-     "lastBrickTimestampMs": 1785128400000,
+     "lastBrickTimestampMs": 1785128940000,
      "seeded": true
     }
    },
    "trackers": {
     "1": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.03086419806752,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 242.04807828639002,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "2": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.03086419806752,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 242.04807828639002,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "3": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.03086419806752,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 242.04807828639002,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "4": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.03086419806752,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 242.04807828639002,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "5": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.03086419806752,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 242.04807828639002,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "6": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.03086419806752,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 242.04807828639002,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "7": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.3864104943646,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.68500616896043,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "8": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.3864104943646,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.68500616896043,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "9": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.3864104943646,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.68500616896043,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "10": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.2473132114985,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.53952796470801,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "11": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.2473132114985,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.53952796470801,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "12": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.2473132114985,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.53952796470801,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "13": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.2473132114985,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.53952796470801,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "14": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.2473132114985,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.53952796470801,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "15": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.2473132114985,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.53952796470801,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "16": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.7218078379215,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.0564489087786,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "17": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.7218078379215,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.0564489087786,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "18": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.7218078379215,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.0564489087786,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "19": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.47808484070055,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.64863655326005,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "20": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.47808484070055,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.64863655326005,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "21": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.47808484070055,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.64863655326005,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "22": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.47808484070055,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.64863655326005,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "23": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.47808484070055,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.64863655326005,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "24": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.47808484070055,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.64863655326005,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "25": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 238.0717800528023,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.0445149618769,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "26": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 238.0717800528023,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.0445149618769,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "27": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 238.6669595029343,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 241.0445149618769,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "28": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.98036877944097,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 240.8295017983664,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "29": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.98036877944097,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 240.8295017983664,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "30": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.98036877944097,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 240.8295017983664,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "31": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.98036877944097,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 240.8295017983664,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "32": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.98036877944097,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 240.8295017983664,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "33": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 237.98036877944097,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 240.8295017983664,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "34": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 238.6943098857793,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 240.10701329297132,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "35": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 238.6943098857793,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 240.10701329297132,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     },
     "36": {
      "position": {
-      "direction": "LONG",
-      "entryPrice": 239.41039281543664,
-      "entryTimestampMs": 1785127560000
+      "direction": "SHORT",
+      "entryPrice": 240.10701329297132,
+      "entryTimestampMs": 1785128940000
      },
      "reachedProfit": true,
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785128460000
+   "lastCandleTimestampMs": 1785128940000
   }
  }
 }
