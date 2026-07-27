@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785132912008,
+ "savedAtMs": 1785133014797,
  "state": {
   "CONCOR": {
    "builders": {
@@ -1335,7 +1335,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785132600000
+   "lastCandleTimestampMs": 1785132720000
   },
   "SUZLON": {
    "builders": {
@@ -3784,7 +3784,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785132600000
+   "lastCandleTimestampMs": 1785132840000
   },
   "GAIL": {
    "builders": {
@@ -4510,7 +4510,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785132660000
+   "lastCandleTimestampMs": 1785132840000
   },
   "ARE&M": {
    "builders": {
@@ -7258,7 +7258,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785132600000
+   "lastCandleTimestampMs": 1785132840000
   },
   "ORIENTELEC": {
    "builders": {
@@ -7621,7 +7621,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785132600000
+   "lastCandleTimestampMs": 1785132840000
   },
   "STERTOOLS": {
    "builders": {
