@@ -1,0 +1,68 @@
+[
+ {
+  "symbol": "IKS",
+  "entryDate": "2026-07-16",
+  "entryPrice": 1897.1,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 1829,
+  "returnSinceEntry": -3.5896895261188084
+ },
+ {
+  "symbol": "KALYANKJIL",
+  "entryDate": "2026-07-16",
+  "entryPrice": 574.4,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 564.6,
+  "returnSinceEntry": -1.7061281337047276
+ },
+ {
+  "symbol": "BIOCON",
+  "entryDate": "2026-07-16",
+  "entryPrice": 437.2,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 436.25,
+  "returnSinceEntry": -0.2172918572735564
+ },
+ {
+  "symbol": "EMCURE",
+  "entryDate": "2026-07-16",
+  "entryPrice": 1783.2,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 1924.8,
+  "returnSinceEntry": 7.940780619111703
+ },
+ {
+  "symbol": "TRITURBINE",
+  "entryDate": "2026-07-14",
+  "entryPrice": 639.25,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 623.4,
+  "returnSinceEntry": -2.479468126710993
+ },
+ {
+  "symbol": "ZYDUSLIFE",
+  "entryDate": "2026-07-14",
+  "entryPrice": 1156.9,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 1108.2,
+  "returnSinceEntry": -4.209525455959897
+ }
+]
