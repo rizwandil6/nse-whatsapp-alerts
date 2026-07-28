@@ -50,23 +50,16 @@ function summarizeLog(log) {
   return summaries;
 }
 
-async function main() {
-  if (!fs.existsSync(LOG_PATH)) {
-    console.log('No forward_performance_log.json yet — no stock has been flagged as a candidate so far.');
-    return;
-  }
-  const log = JSON.parse(fs.readFileSync(LOG_PATH, 'utf8'));
+/**
+ * Fetches fresh current prices (via Screener.in, reusing an already-obtained
+ * `cookies` session) for every ever-flagged symbol and computes return
+ * since qualification. Pulled out as its own function (not just inline in
+ * main()) so server.js's daily job can call it directly with the cookies
+ * it already logged in with -- no separate login, no separate CLI run
+ * needed to keep the dashboard's forward-performance data current.
+ */
+async function computeForwardPerformance(log, cookies) {
   const summaries = summarizeLog(log);
-  if (summaries.length === 0) {
-    console.log('Log exists but has no qualification events yet.');
-    return;
-  }
-
-  const username = process.env.SCREENER_USERNAME || fs.readFileSync(path.join(__dirname, '..', '.secrets', 'screener_username.txt'), 'utf8').trim();
-  const password = process.env.SCREENER_PASSWORD || fs.readFileSync(path.join(__dirname, '..', '.secrets', 'screener_password.txt'), 'utf8').trim();
-  const cookies = await loginToScreener(username, password);
-
-  console.log(`Fetching current prices for ${summaries.length} ever-flagged stock(s)...\n`);
   const rows = [];
   for (const s of summaries) {
     let currentPrice = null;
@@ -87,6 +80,27 @@ async function main() {
 
     rows.push({ ...s, currentPrice, returnSinceQualification, returnWhileQualifying });
   }
+  return rows;
+}
+
+async function main() {
+  if (!fs.existsSync(LOG_PATH)) {
+    console.log('No forward_performance_log.json yet — no stock has been flagged as a candidate so far.');
+    return;
+  }
+  const log = JSON.parse(fs.readFileSync(LOG_PATH, 'utf8'));
+  const summaries = summarizeLog(log);
+  if (summaries.length === 0) {
+    console.log('Log exists but has no qualification events yet.');
+    return;
+  }
+
+  const username = process.env.SCREENER_USERNAME || fs.readFileSync(path.join(__dirname, '..', '.secrets', 'screener_username.txt'), 'utf8').trim();
+  const password = process.env.SCREENER_PASSWORD || fs.readFileSync(path.join(__dirname, '..', '.secrets', 'screener_password.txt'), 'utf8').trim();
+  const cookies = await loginToScreener(username, password);
+
+  console.log(`Fetching current prices for ${summaries.length} ever-flagged stock(s)...\n`);
+  const rows = await computeForwardPerformance(log, cookies);
 
   console.log('\n=== Forward Performance Report ===\n');
   for (const r of rows) {
@@ -119,4 +133,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { summarizeLog };
+module.exports = { summarizeLog, computeForwardPerformance };

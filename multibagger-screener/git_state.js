@@ -37,6 +37,7 @@ const STATE_FILES = [
   { rel: 'multibagger-screener/all_results.json', local: path.join(__dirname, 'all_results.json') },
   { rel: 'multibagger-screener/scan_cursor.json', local: path.join(__dirname, 'scan_cursor.json') },
   { rel: 'multibagger-screener/forward_performance_log.json', local: path.join(__dirname, 'forward_performance_log.json') },
+  { rel: 'multibagger-screener/forward_performance_summary.json', local: path.join(__dirname, 'forward_performance_summary.json') },
 ];
 
 function authHeaders(token) {

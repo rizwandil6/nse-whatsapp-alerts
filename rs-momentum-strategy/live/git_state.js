@@ -29,6 +29,7 @@ const GITHUB_API = 'https://api.github.com';
 const STATE_FILES = [
   { rel: 'rs-momentum-strategy/live/tracked_rs_momentum.json', local: path.join(__dirname, 'tracked_rs_momentum.json') },
   { rel: 'rs-momentum-strategy/live/rs_momentum_log.json', local: path.join(__dirname, 'rs_momentum_log.json') },
+  { rel: 'rs-momentum-strategy/live/rs_momentum_forward_performance.json', local: path.join(__dirname, 'rs_momentum_forward_performance.json') },
 ];
 
 function authHeaders(token) {

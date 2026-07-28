@@ -27,6 +27,7 @@ const { computeTodayRanks } = require('./today_ranks');
 const { diffRsMomentum } = require('./diff_tracker');
 const { loginToScreener, fetchFundamentals } = require('./fundamental_screener');
 const { syncFromRemote, commitAndPushTrackedState } = require('./git_state');
+const { computeForwardPerformance } = require('./forward_performance');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -40,6 +41,7 @@ const IST_OFFSET_MIN = 5 * 60 + 30;
 
 const TRACKED_PATH = path.join(__dirname, 'tracked_rs_momentum.json');
 const LOG_PATH = path.join(__dirname, 'rs_momentum_log.json');
+const FORWARD_PERF_PATH = path.join(__dirname, 'rs_momentum_forward_performance.json');
 
 if (!UPSTOX_TOKEN) {
   console.error('FATAL: UPSTOX_ACCESS_TOKEN env var not set. Cannot start.');
@@ -231,11 +233,18 @@ async function runOnce() {
   }
 
   fs.writeFileSync(TRACKED_PATH, JSON.stringify(updatedTracked, null, 1));
+  let fullLog = fs.existsSync(LOG_PATH) ? JSON.parse(fs.readFileSync(LOG_PATH, 'utf8')) : [];
   if (logEntries.length > 0) {
-    const log = fs.existsSync(LOG_PATH) ? JSON.parse(fs.readFileSync(LOG_PATH, 'utf8')) : [];
-    log.push(...logEntries);
-    fs.writeFileSync(LOG_PATH, JSON.stringify(log, null, 1));
+    fullLog = [...fullLog, ...logEntries];
+    fs.writeFileSync(LOG_PATH, JSON.stringify(fullLog, null, 1));
   }
+
+  // "How did it do after we alerted it" -- reuses the universe data already
+  // fetched above (no extra Upstox calls), shown on the dashboard. See
+  // forward_performance.js's docstring.
+  const forwardPerformance = computeForwardPerformance(fullLog, universe.bySymbol);
+  fs.writeFileSync(FORWARD_PERF_PATH, JSON.stringify(forwardPerformance, null, 1));
+  console.log(`Forward performance computed for ${forwardPerformance.length} symbol(s).`);
 
   await commitAndPushTrackedState(dateStr);
   console.log(`=== Run complete: ${new Date().toISOString()} ===`);

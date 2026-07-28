@@ -11,6 +11,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -58,14 +59,43 @@ public class DashboardDataController {
         // dedicated branch 2026-07-23 (was redeploying every Railway service
         // on every daily run) -- see git_state.js.
         JsonNode node = cachedRead("rs-momentum", "data/rs-momentum-log", "rs-momentum-strategy/live/rs_momentum_log.json");
-        return reversedArray(node);
+        List<JsonNode> events = reversedArray(node);
+        // "How did it do after we alerted it" (2026-07-28) -- a per-symbol
+        // rollup computed daily by server.js/forward_performance.js, same
+        // branch/commit as the log above. Attached onto every event for that
+        // symbol (not just its most recent) since it's a live "as of today"
+        // figure, not tied to any specific past event.
+        JsonNode perf = cachedRead("rs-momentum-perf", "data/rs-momentum-log", "rs-momentum-strategy/live/rs_momentum_forward_performance.json");
+        attachForwardPerformance(events, perf, "returnSinceEntry");
+        return events;
     }
 
     @GetMapping(value = "/api/dashboard/multibagger", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<JsonNode> multibagger() {
         // Same fix, same date -- multibagger-screener/git_state.js.
         JsonNode node = cachedRead("multibagger", "data/multibagger-log", "multibagger-screener/forward_performance_log.json");
-        return reversedArray(node);
+        List<JsonNode> events = reversedArray(node);
+        // Same addition as rsMomentum() above, sourced from
+        // multibagger-screener/forward_performance.js's daily computation.
+        JsonNode perf = cachedRead("multibagger-perf", "data/multibagger-log", "multibagger-screener/forward_performance_summary.json");
+        attachForwardPerformance(events, perf, "returnSinceQualification");
+        return events;
+    }
+
+    /** Merges a per-symbol forward-performance summary row (currentPrice + the named return field, as "returnSinceAlert") onto every event belonging to that symbol. */
+    private void attachForwardPerformance(List<JsonNode> events, JsonNode perfArray, String returnFieldName) {
+        if (perfArray == null || !perfArray.isArray()) return;
+        Map<String, JsonNode> bySymbol = new HashMap<>();
+        for (JsonNode row : perfArray) {
+            bySymbol.put(row.path("symbol").asText(""), row);
+        }
+        for (JsonNode event : events) {
+            if (!(event instanceof ObjectNode obj)) continue;
+            JsonNode perf = bySymbol.get(obj.path("symbol").asText(""));
+            if (perf == null) continue;
+            if (perf.has("currentPrice") && !perf.get("currentPrice").isNull()) obj.set("currentPrice", perf.get("currentPrice"));
+            if (perf.has(returnFieldName) && !perf.get(returnFieldName).isNull()) obj.set("returnSinceAlert", perf.get(returnFieldName));
+        }
     }
 
     @GetMapping(value = "/api/dashboard/darvasbox-today", produces = MediaType.APPLICATION_JSON_VALUE)

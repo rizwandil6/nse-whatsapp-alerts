@@ -177,6 +177,15 @@
     }
   }
 
+  function forwardPerfMeta(item) {
+    // "How did it do after we alerted it" -- a live, as-of-today figure computed
+    // daily server-side (see DashboardDataController::attachForwardPerformance),
+    // not tied to this specific past event, so it's shown the same on every
+    // card for that symbol.
+    if (item.returnSinceAlert == null) return '';
+    return `<span>Now <b>₹${esc(item.currentPrice)}</b></span><span class="pnl ${item.returnSinceAlert >= 0 ? 'win' : 'loss'}">Since alert: ${fmtPct(item.returnSinceAlert)}</span>`;
+  }
+
   function renderRsMomentum(items, panel) {
     const badge = { ENTRY: 'win', EXIT: 'neutral', ENTRY_PENDING: 'amber', FUNDAMENTALS_CONFIRMED: 'win', FUNDAMENTALS_FAILED: 'loss' };
     const label = { ENTRY: 'Entry', EXIT: 'Exit', ENTRY_PENDING: 'Entry (pending)', FUNDAMENTALS_CONFIRMED: 'Confirmed', FUNDAMENTALS_FAILED: 'Retracted' };
@@ -195,6 +204,7 @@
           ${r.rsRankAtEntry != null ? `<span>RS Rank <b>${Number(r.rsRankAtEntry).toFixed(1)}</b></span>` : ''}
           ${r.salesGrowth3Y != null ? `<span>Sales Growth 3Y <b>${esc(r.salesGrowth3Y)}%</b></span>` : ''}
           ${pnl}
+          ${forwardPerfMeta(r)}
         </div>
       `;
       panel.appendChild(card);
@@ -216,6 +226,7 @@
           <span class="badge ${badge[m.type] || 'neutral'}">${label[m.type] || esc(m.type)}</span>
           ${m.price != null ? `<span>Price <b>₹${esc(m.price)}</b></span>` : ''}
           ${m.priceAtQualification != null ? `<span>At qualification <b>₹${esc(m.priceAtQualification)}</b> (${esc(m.qualifiedDate)})</span>` : ''}
+          ${forwardPerfMeta(m)}
         </div>
       `;
       panel.appendChild(card);

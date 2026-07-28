@@ -19,6 +19,7 @@ const { diffAndUpdate } = require('./diff_tracker');
 const { formatNewCandidateAlert, formatLostQualificationAlert } = require('./format_alerts');
 const { commitAndPushTrackedState, syncFromRemote } = require('./git_state');
 const { generateBuffettAnalysis, chunkForTelegram } = require('./buffett_analysis');
+const { computeForwardPerformance } = require('./forward_performance');
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
@@ -34,6 +35,7 @@ const UNIVERSE_PATH = path.join(__dirname, 'nse_universe.json');
 const CURSOR_PATH = path.join(__dirname, 'scan_cursor.json');
 const TRACKED_PATH = path.join(__dirname, 'tracked_multibaggers.json');
 const LOG_PATH = path.join(__dirname, 'forward_performance_log.json');
+const FORWARD_PERF_SUMMARY_PATH = path.join(__dirname, 'forward_performance_summary.json');
 
 async function sendTelegramAlert(text) {
   console.log('[ALERT]', text.replace(/\n/g, ' | '));
@@ -135,10 +137,21 @@ async function runOnce() {
   fs.writeFileSync(TRACKED_PATH, JSON.stringify(updatedTracked, null, 1));
   fs.writeFileSync(CURSOR_PATH, JSON.stringify({ cursor: nextCursor, lastRunDate: dateStr }, null, 1));
 
+  let fullLog = fs.existsSync(LOG_PATH) ? JSON.parse(fs.readFileSync(LOG_PATH, 'utf8')) : [];
   if (logEntries.length > 0) {
-    const log = fs.existsSync(LOG_PATH) ? JSON.parse(fs.readFileSync(LOG_PATH, 'utf8')) : [];
-    log.push(...logEntries);
-    fs.writeFileSync(LOG_PATH, JSON.stringify(log, null, 1));
+    fullLog = [...fullLog, ...logEntries];
+    fs.writeFileSync(LOG_PATH, JSON.stringify(fullLog, null, 1));
+  }
+
+  // "How did it do after we flagged it" -- reuses the Screener.in session
+  // already logged into above, so no separate login needed to keep the
+  // dashboard's forward-performance data current. Best-effort: a fetch
+  // failure for one symbol (handled inside computeForwardPerformance) never
+  // blocks the rest of today's run.
+  if (fullLog.length > 0) {
+    const forwardPerformance = await computeForwardPerformance(fullLog, cookies);
+    fs.writeFileSync(FORWARD_PERF_SUMMARY_PATH, JSON.stringify(forwardPerformance, null, 1));
+    console.log(`Forward performance computed for ${forwardPerformance.length} symbol(s).`);
   }
 
   await commitAndPushTrackedState(dateStr);
