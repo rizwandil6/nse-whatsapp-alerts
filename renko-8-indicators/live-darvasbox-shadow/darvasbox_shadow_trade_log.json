@@ -414,5 +414,20 @@
   "timestampMs": 1785222840000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 520.4,
+  "exitPrice": 523.7072499999999,
+  "action": "INTRABAR_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": 0.635520753266709,
+  "entryTimestampMs": 1785217800000,
+  "exitTimestampMs": 1785223260000,
+  "brickPct": "0.25",
+  "pnlRs": 76.06674999999893,
+  "rsSign": "+"
  }
 ]
