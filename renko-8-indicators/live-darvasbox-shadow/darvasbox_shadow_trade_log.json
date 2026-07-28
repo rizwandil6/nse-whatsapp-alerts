@@ -429,5 +429,17 @@
   "brickPct": "0.25",
   "pnlRs": 76.06674999999893,
   "rsSign": "+"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 319.4,
+  "theoreticalEntry": 319.2750000000001,
+  "stop": 322.594,
+  "entryIdx": 9,
+  "timestampMs": 1785223800000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
