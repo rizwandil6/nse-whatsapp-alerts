@@ -509,5 +509,17 @@
   "timestampMs": 1785227400000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2733,
+  "theoreticalEntry": 2734.2185,
+  "stop": 2760.33,
+  "entryIdx": 18,
+  "timestampMs": 1785227700000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
