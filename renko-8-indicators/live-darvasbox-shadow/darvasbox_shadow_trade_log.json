@@ -366,5 +366,17 @@
   "brickPct": "0.25",
   "pnlRs": -52.51400000000126,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 288.6,
+  "theoreticalEntry": 288.16862499999996,
+  "stop": 285.714,
+  "entryIdx": 4,
+  "timestampMs": 1785219660000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
