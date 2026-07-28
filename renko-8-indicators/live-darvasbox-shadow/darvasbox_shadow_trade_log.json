@@ -339,5 +339,17 @@
   "brickPct": "0.25",
   "pnlRs": -376.90349999999864,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 520.4,
+  "theoreticalEntry": 519.847,
+  "stop": 515.196,
+  "entryIdx": 25,
+  "timestampMs": 1785217800000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
