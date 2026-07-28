@@ -473,5 +473,17 @@
   "brickPct": "0.25",
   "pnlRs": -16.100000000000477,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 51.67,
+  "theoreticalEntry": 51.66967499999999,
+  "stop": 52.1867,
+  "entryIdx": 10,
+  "timestampMs": 1785226260000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
