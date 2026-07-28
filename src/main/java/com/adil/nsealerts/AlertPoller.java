@@ -306,7 +306,7 @@ public class AlertPoller {
      * would fire dozens of times a day for stocks nobody asked about.
      */
     private void handleAlertOnlyAnnouncement(AnnouncementContext ctx) {
-        boolean isWatchlisted = watchlist.stream().anyMatch(w -> w.equalsIgnoreCase(ctx.symbol()));
+        boolean isWatchlisted = watchlist.stream().anyMatch(w -> matchesWatchlistSymbol(w, ctx.symbol()));
 
         String pdfText = pdfExtractor.extractText(ctx.link());
         String documentText = pdfText != null && !pdfText.isBlank() ? pdfText : ctx.subject();
@@ -628,6 +628,35 @@ public class AlertPoller {
 
     private boolean containsWholeWord(String text, String term) {
         return Pattern.compile("(?i)(?<![A-Z0-9])" + Pattern.quote(term) + "(?![A-Z0-9])").matcher(text).find();
+    }
+
+    /**
+     * Real incident, 2026-07-28: SUZLON's quarterly results ("Outcome of Board
+     * Meeting", alert-only category) never sent, despite SUZLON being on
+     * nse.watchlist. Root cause: the symbol is extracted from the NSE archive
+     * PDF filename (extractAnnouncementContext's SYMBOL_FROM_LINK-style regex),
+     * and NSE consistently files Suzlon's PDFs under the internal code
+     * "SUZLON1" (trailing digit), not the plain ticker "SUZLON" -- confirmed
+     * against the actual announcements log, where every past Suzlon entry was
+     * already stored as "SUZLON1". A plain equalsIgnoreCase watchlist check
+     * silently failed on that extra digit and fell through to the AI-rating
+     * gate instead, which this particular filing didn't clear.
+     *
+     * Fix: also match when the extracted symbol is the watchlist entry plus a
+     * purely-numeric suffix (handles this NSE filer-code quirk generically,
+     * not just for SUZLON specifically, without loosening the match enough to
+     * confuse genuinely different symbols that happen to share a prefix).
+     */
+    private boolean matchesWatchlistSymbol(String watchlistEntry, String extractedSymbol) {
+        if (watchlistEntry == null || extractedSymbol == null) return false;
+        if (watchlistEntry.equalsIgnoreCase(extractedSymbol)) return true;
+        String w = watchlistEntry.toUpperCase(Locale.ROOT);
+        String s = extractedSymbol.toUpperCase(Locale.ROOT);
+        if (s.length() > w.length() && s.startsWith(w)) {
+            String suffix = s.substring(w.length());
+            return suffix.chars().allMatch(Character::isDigit);
+        }
+        return false;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
