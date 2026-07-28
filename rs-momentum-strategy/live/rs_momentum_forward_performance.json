@@ -1,5 +1,60 @@
 [
  {
+  "symbol": "LODHA",
+  "entryDate": "2026-07-26",
+  "entryPrice": 1198.7,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 1198.7,
+  "returnSinceEntry": 0
+ },
+ {
+  "symbol": "LALPATHLAB",
+  "entryDate": "2026-07-23",
+  "entryPrice": 1759.2,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 1827.2,
+  "returnSinceEntry": 3.865393360618463
+ },
+ {
+  "symbol": "HINDCOPPER",
+  "entryDate": "2026-07-22",
+  "entryPrice": 491.8,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 482.4,
+  "returnSinceEntry": -1.9113460756405112
+ },
+ {
+  "symbol": "BAJAJ-AUTO",
+  "entryDate": "2026-07-21",
+  "entryPrice": 10998.5,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 11183.5,
+  "returnSinceEntry": 1.6820475519389009
+ },
+ {
+  "symbol": "POLYCAB",
+  "entryDate": "2026-07-21",
+  "entryPrice": 9090.5,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 9010,
+  "returnSinceEntry": -0.8855398492932182
+ },
+ {
   "symbol": "IKS",
   "entryDate": "2026-07-16",
   "entryPrice": 1897.1,
