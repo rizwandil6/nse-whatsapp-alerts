@@ -285,5 +285,20 @@
   "timestampMs": 1785215280000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 117.65249999999997,
+  "exitPrice": 117.07149999999999,
+  "action": "INTRABAR_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.4938271604938178,
+  "entryTimestampMs": 1785212040000,
+  "exitTimestampMs": 1785215760000,
+  "brickPct": "0.25",
+  "pnlRs": -30.21199999999942,
+  "rsSign": "−"
  }
 ]
