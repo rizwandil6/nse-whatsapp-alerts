@@ -10,7 +10,12 @@
  * equivalent (which needs a dedicated Screener.in fetch since its universe
  * data doesn't carry price).
  *
- * One summary row per symbol (its most recent ENTRY episode): current
+ * One summary row per symbol (its most recent ENTRY or ENTRY_PENDING
+ * episode -- a fundamentals-pending alert already has a real price/date
+ * the instant it's logged, same as a confirmed ENTRY, so it gets the same
+ * "how's it doing since alert" treatment rather than waiting for
+ * confirmation). Skipped if a FUNDAMENTALS_FAILED retraction came after
+ * it, since a retracted alert was never a real tracked position. Current
  * price = universe's latest daily close. If a later EXIT exists, also
  * reports the realized return while the position was actually open
  * (reusing the EXIT event's own logged pnlPct, not recomputed) alongside
@@ -29,8 +34,10 @@ function computeForwardPerformance(log, universeBySymbol) {
   const summaries = [];
   for (const [symbol, events] of Object.entries(bySymbol)) {
     const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
-    const lastEntry = [...sorted].reverse().find((e) => e.type === 'ENTRY');
+    const lastEntry = [...sorted].reverse().find((e) => e.type === 'ENTRY' || e.type === 'ENTRY_PENDING');
     if (!lastEntry) continue;
+    const retractedAfter = sorted.find((e) => e.type === 'FUNDAMENTALS_FAILED' && e.date >= lastEntry.date);
+    if (retractedAfter) continue;
     const exitAfter = sorted.find((e) => e.type === 'EXIT' && e.date >= lastEntry.date);
 
     const candles = universeBySymbol[symbol];
