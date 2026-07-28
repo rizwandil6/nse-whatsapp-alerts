@@ -217,5 +217,20 @@
   "brickPct": "0.25",
   "pnlRs": -50.69399999999973,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.58,
+  "exitPrice": 37.2042,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.9999999999999951,
+  "entryTimestampMs": 1785211800000,
+  "exitTimestampMs": 1785212554703,
+  "brickPct": "0.25",
+  "pnlRs": -1149.5721999999944,
+  "rsSign": "−"
  }
 ]
