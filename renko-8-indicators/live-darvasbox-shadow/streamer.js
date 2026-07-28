@@ -235,9 +235,20 @@ function maybeResetForNewDay(nowMs) {
   console.log(`New trading day: ${dateStr}. Tracker + in-memory 1-min bar buffers + day stats reset.`);
 }
 
-/** Sends the one-time EOD summary once every open position has been swept closed, guarded so a 15s-poll checkEodSweep doesn't resend it. */
+/**
+ * Sends the one-time EOD summary once every open position has been swept
+ * closed, guarded so a 15s-poll checkEodSweep doesn't resend it. Checks
+ * MARKET_CLOSE_MIN itself (not just at the two call sites) as defense in
+ * depth -- a real, unexplained early-fire was observed once (2026-07-28,
+ * ~08:00 IST, "Trades: 0" message sent well before market open) that
+ * couldn't be reproduced or root-caused via direct testing of the call
+ * sites' own gates (both verified correct in isolation). Redundant gating
+ * here closes the risk regardless of the actual cause.
+ */
 function maybeSendEodSummary() {
   if (eodSummarySent) return;
+  const { minutesOfDay } = nowIst();
+  if (minutesOfDay < MARKET_CLOSE_MIN) return;
   const anyOpen = Object.values(trackers).some((t) => t.position != null);
   if (anyOpen) return; // wait for checkEodSweep to finish closing everything first
   eodSummarySent = true;
