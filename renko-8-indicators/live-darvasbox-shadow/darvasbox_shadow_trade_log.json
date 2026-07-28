@@ -441,5 +441,22 @@
   "timestampMs": 1785223800000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "theoreticalExit": 174.58967499999997,
+  "livePriceAvailable": true,
+  "entry": 174.28,
+  "exitPrice": 174.5,
+  "action": "TRAILING_BOX_STOP",
+  "barsHeld": 13,
+  "pnlPct": 0.12623364700481918,
+  "entryTimestampMs": 1785214800000,
+  "exitTimestampMs": 1785223860000,
+  "brickPct": "0.25",
+  "pnlRs": 16.499999999999915,
+  "rsSign": "+"
  }
 ]
