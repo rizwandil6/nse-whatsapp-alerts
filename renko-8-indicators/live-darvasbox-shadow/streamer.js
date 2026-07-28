@@ -29,6 +29,14 @@
  * (checkIntrabarStop, checkTickStop) are unchanged -- they already fill at
  * a real, specific stop price level, not a brick close.
  *
+ * Bricks are built from CONFIRMED 1-minute bars, not 5-minute ones (fixed
+ * 2026-07-28, see ingestOneMinBar's docstring for the real incident this
+ * closes -- a 5-min bucket's still-forming rolling close briefly touching
+ * a price it never actually closed at was enough to lock in a phantom
+ * brick and a real entry off it). 1-minute, not 5-minute, is also just
+ * faster: reacting on every confirmed close instead of waiting up to 5x
+ * longer for enough 1-min bars to accumulate into one bucket.
+ *
  * Requires UPSTOX_ACCESS_TOKEN, GITHUB_TOKEN, and (optionally)
  * TELEGRAM_BOT_TOKEN env vars.
  */
@@ -41,7 +49,7 @@ const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
 const { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits } = require('./trade_log');
 const { TickBarBuilder } = require('./tick_bar_builder');
-const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min } = require('./bar_aggregator');
+const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst } = require('./bar_aggregator');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -255,18 +263,41 @@ function maybeSendEodSummary() {
   sendTelegramAlert(formatEodSummary()).catch((err) => console.error('sendTelegramAlert threw:', err.message));
 }
 
+/**
+ * Only ever called with a bar that's ALREADY CLOSED (TickBarBuilder.onTick
+ * returns null until a minute genuinely finishes, and flushIfStale only
+ * force-closes a bar whose minute has fully elapsed) -- so every entry in
+ * oneMinBars[symbol] is a confirmed candle, never a still-forming one.
+ *
+ * FIXED (2026-07-28, real incident: OLAELEC ENTRY at 09:40 IST citing a
+ * brick close of 37.5436 that never existed -- the 5-min bucket's real
+ * final close was 37.430, only its ROLLING close touched 37.54 mid-
+ * formation): bricks used to be built from aggregateTo5Min(oneMinBars),
+ * which included the CURRENTLY-FORMING 5-min bucket -- its `close` field
+ * was just whatever the latest 1-min bar happened to be, re-evaluated
+ * every single minute as if it were a final close. That let a brick (and
+ * the entry it triggered) lock in off a price the 5-min candle never
+ * actually confirmed once it finished forming, and since darvas_tracker.js
+ * never re-examines an already-processed brick index, the phantom trade
+ * stuck even after the bucket's real close proved it wrong.
+ *
+ * Fix: build bricks directly from oneMinBars -- every element is already a
+ * genuinely confirmed close, so there's no unconfirmed candle in the array
+ * at all, at any point. This also moves brick confirmation from every 5
+ * minutes to every 1 minute (faster reaction), while still only ever
+ * reacting to a candle that has truly closed -- never a partial one.
+ */
 function ingestOneMinBar(symbol, bar, silent) {
   const minutesOfDay = istMinutesOfDay(bar.timestampMs);
   if (minutesOfDay < MARKET_OPEN_MIN || minutesOfDay > MARKET_CLOSE_MIN + 15) return;
 
   oneMinBars[symbol].push(bar);
-  const fiveMin = aggregateTo5Min(oneMinBars[symbol]);
-  if (fiveMin.length === 0) return;
+  const bars = oneMinBars[symbol];
 
-  const bricks = buildRenkoBricks(fiveMin, BRICK_PCT);
+  const bricks = buildRenkoBricks(bars, BRICK_PCT);
   const tracker = trackers[symbol];
   const events = tracker.processBricks(bricks);
-  const intrabarEvent = tracker.checkIntrabarStop(fiveMin);
+  const intrabarEvent = tracker.checkIntrabarStop(bars);
   if (intrabarEvent) events.push(intrabarEvent);
   if (minutesOfDay >= MARKET_CLOSE_MIN) {
     const eodEvent = tracker.forceEodClose(bricks);
@@ -321,9 +352,9 @@ function checkEodSweep() {
   const { minutesOfDay } = nowIst();
   if (minutesOfDay < MARKET_CLOSE_MIN) return;
   for (const symbol of Object.keys(symbols)) {
-    const fiveMin = aggregateTo5Min(oneMinBars[symbol]);
-    if (fiveMin.length === 0) continue;
-    const bricks = buildRenkoBricks(fiveMin, BRICK_PCT);
+    const bars = oneMinBars[symbol];
+    if (bars.length === 0) continue;
+    const bricks = buildRenkoBricks(bars, BRICK_PCT);
     const eodEvent = trackers[symbol].forceEodClose(bricks);
     if (eodEvent) dispatchEvent(symbol, eodEvent);
   }
