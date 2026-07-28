@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785233244608,
+ "savedAtMs": 1785256264685,
  "state": {
   "CONCOR": {
    "builders": {
@@ -3508,11 +3508,11 @@
   "TITAGARH": {
    "builders": {
     "0.15": {
-     "lastClose": 807.458762616318,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785232740000,
+     "lastClose": 809.8829556863828,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785233400000,
      "seeded": true
     },
     "0.2": {
@@ -3722,7 +3722,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785232740000
+   "lastCandleTimestampMs": 1785233400000
   },
   "MANINDS": {
    "builders": {
@@ -3941,7 +3941,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785232740000
+   "lastCandleTimestampMs": 1785233700000
   },
   "IRCON": {
    "builders": {
@@ -4160,7 +4160,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785232740000
+   "lastCandleTimestampMs": 1785233520000
   },
   "TRITURBINE": {
    "builders": {
