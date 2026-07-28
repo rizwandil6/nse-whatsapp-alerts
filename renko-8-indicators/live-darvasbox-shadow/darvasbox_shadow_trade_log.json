@@ -232,5 +232,17 @@
   "brickPct": "0.25",
   "pnlRs": -1149.5721999999944,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 37.06,
+  "theoreticalEntry": 37.07549999999999,
+  "stop": 37.430600000000005,
+  "entryIdx": 9,
+  "timestampMs": 1785213000000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
