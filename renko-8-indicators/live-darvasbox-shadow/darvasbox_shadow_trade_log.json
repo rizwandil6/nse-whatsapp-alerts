@@ -521,5 +521,20 @@
   "timestampMs": 1785227700000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 876.25,
+  "exitPrice": 867.4875,
+  "action": "TICK_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -1.0000000000000053,
+  "entryTimestampMs": 1785221400000,
+  "exitTimestampMs": 1785229404260,
+  "brickPct": "0.25",
+  "pnlRs": -131.43750000000068,
+  "rsSign": "−"
  }
 ]
