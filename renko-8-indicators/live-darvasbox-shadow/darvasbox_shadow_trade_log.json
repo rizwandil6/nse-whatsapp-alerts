@@ -602,5 +602,22 @@
   "brickPct": "0.25",
   "pnlRs": -10.5,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "theoreticalExit": 524.9939999999999,
+  "livePriceAvailable": true,
+  "entry": 521.75,
+  "exitPrice": 524.85,
+  "action": "TRAILING_BOX_STOP",
+  "barsHeld": 4,
+  "pnlPct": -0.5941542884523283,
+  "entryTimestampMs": 1785231360000,
+  "exitTimestampMs": 1785232500000,
+  "brickPct": "0.25",
+  "pnlRs": -71.30000000000052,
+  "rsSign": "−"
  }
 ]
