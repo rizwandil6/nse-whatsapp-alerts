@@ -1,0 +1,79 @@
+[
+ {
+  "symbol": "CEINSYS",
+  "qualifiedDate": "2026-07-14",
+  "priceAtQualification": 916,
+  "status": "still_qualifying",
+  "lostDate": null,
+  "priceAtLoss": null,
+  "currentPrice": null,
+  "returnSinceQualification": null,
+  "returnWhileQualifying": null
+ },
+ {
+  "symbol": "EMMVEE",
+  "qualifiedDate": "2026-07-14",
+  "priceAtQualification": 334,
+  "status": "still_qualifying",
+  "lostDate": null,
+  "priceAtLoss": null,
+  "currentPrice": 329,
+  "returnSinceQualification": -1.4970059880239521,
+  "returnWhileQualifying": null
+ },
+ {
+  "symbol": "VIKRAMSOLR",
+  "qualifiedDate": "2026-07-15",
+  "priceAtQualification": 194,
+  "status": "still_qualifying",
+  "lostDate": null,
+  "priceAtLoss": null,
+  "currentPrice": null,
+  "returnSinceQualification": null,
+  "returnWhileQualifying": null
+ },
+ {
+  "symbol": "ARKADE",
+  "qualifiedDate": "2026-07-15",
+  "priceAtQualification": 139,
+  "status": "still_qualifying",
+  "lostDate": null,
+  "priceAtLoss": null,
+  "currentPrice": null,
+  "returnSinceQualification": null,
+  "returnWhileQualifying": null
+ },
+ {
+  "symbol": "WAAREEENER",
+  "qualifiedDate": "2026-07-18",
+  "priceAtQualification": 2841,
+  "status": "still_qualifying",
+  "lostDate": null,
+  "priceAtLoss": null,
+  "currentPrice": 2694,
+  "returnSinceQualification": -5.174234424498416,
+  "returnWhileQualifying": null
+ },
+ {
+  "symbol": "CRIZAC",
+  "qualifiedDate": "2026-07-18",
+  "priceAtQualification": 186,
+  "status": "still_qualifying",
+  "lostDate": null,
+  "priceAtLoss": null,
+  "currentPrice": null,
+  "returnSinceQualification": null,
+  "returnWhileQualifying": null
+ },
+ {
+  "symbol": "MONARCH",
+  "qualifiedDate": "2026-07-24",
+  "priceAtQualification": 356,
+  "status": "still_qualifying",
+  "lostDate": null,
+  "priceAtLoss": null,
+  "currentPrice": null,
+  "returnSinceQualification": null,
+  "returnWhileQualifying": null
+ }
+]
