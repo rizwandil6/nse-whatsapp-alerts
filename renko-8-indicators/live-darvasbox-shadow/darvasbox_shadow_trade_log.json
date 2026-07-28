@@ -244,5 +244,22 @@
   "timestampMs": 1785213000000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "theoreticalExit": 37.403275,
+  "livePriceAvailable": true,
+  "entry": 37.216725000000004,
+  "exitPrice": 37.43,
+  "action": "TRAILING_BOX_STOP",
+  "barsHeld": 4,
+  "pnlPct": -0.573062245536102,
+  "entryTimestampMs": 1785212520000,
+  "exitTimestampMs": 1785214020000,
+  "brickPct": "0.25",
+  "pnlRs": -652.4082249999874,
+  "rsSign": "−"
  }
 ]
