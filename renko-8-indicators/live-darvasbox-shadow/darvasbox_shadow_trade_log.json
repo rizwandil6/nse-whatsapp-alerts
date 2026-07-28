@@ -390,5 +390,17 @@
   "timestampMs": 1785220800000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 876.25,
+  "theoreticalEntry": 874.631125,
+  "stop": 867.4875,
+  "entryIdx": 4,
+  "timestampMs": 1785221400000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
