@@ -202,5 +202,20 @@
   "timestampMs": 1785211800000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "STERTOOLS",
+  "direction": "SHORT",
+  "entry": 239.63,
+  "exitPrice": 241.4405,
+  "action": "INTRABAR_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.7555397905103661,
+  "entryTimestampMs": 1785211800000,
+  "exitTimestampMs": 1785212400000,
+  "brickPct": "0.25",
+  "pnlRs": -50.69399999999973,
+  "rsSign": "−"
  }
 ]
