@@ -55,19 +55,27 @@ function cookieHeader(cookies) {
 /**
  * Retries a fetch on transient network failures (ETIMEDOUT, ECONNRESET,
  * etc.) — real incidents (multibagger-screener and rs-momentum-strategy-
- * live, both 2026-07-17) showed a single dropped connection to Screener.in
- * during login aborting an ENTIRE daily run, costing a full day's scan
- * (or worse, multiple consecutive days) over what was almost certainly a
- * one-off network blip, not a persistent outage. Does not retry on a
- * successful HTTP response with an error status (4xx/5xx) — only on the
- * fetch itself throwing, which is what ETIMEDOUT does.
+ * live, 2026-07-17 and again 2026-07-26 to 2026-07-28) showed a dropped
+ * connection to Screener.in during login aborting an ENTIRE daily run,
+ * costing a full day's scan (or worse, multiple consecutive days) over
+ * what was almost certainly a one-off network blip, not a persistent
+ * outage (re-tested live 2026-07-28: the same credentials logged in fine
+ * moments after a run had failed all 3 of the old, shorter retries).
+ * Widened 2026-07-28 from 3 attempts/3s fixed delay (~9s of tolerance,
+ * clearly not enough) to 6 attempts with exponential backoff starting at
+ * 5s (5/10/20/40/80s between attempts, ~2.6 minutes of total tolerance)
+ * to actually ride out a multi-minute blip instead of just a few seconds
+ * of one. Does not retry on a successful HTTP response with an error
+ * status (4xx/5xx) — only on the fetch itself throwing, which is what
+ * ETIMEDOUT does.
  */
-async function fetchWithRetry(url, options, retries = 3, delayMs = 3000) {
+async function fetchWithRetry(url, options, retries = 6, initialDelayMs = 5000) {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       return await fetch(url, options);
     } catch (e) {
       if (attempt === retries) throw e;
+      const delayMs = initialDelayMs * 2 ** (attempt - 1);
       console.warn(`  [Screener.in] fetch failed (attempt ${attempt}/${retries}): ${e.message} — retrying in ${delayMs}ms...`);
       await new Promise((r) => setTimeout(r, delayMs));
     }

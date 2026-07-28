@@ -173,6 +173,14 @@ async function loop() {
         await runOnce();
       } catch (e) {
         console.error('Daily batch failed:', e);
+        // A failure here means NOTHING happened today -- no new candidates
+        // scanned, no forward-performance dashboard update, nothing pushed
+        // -- and the daily cadence means that can go unnoticed for days
+        // (real incident: a Screener.in connection blip on 2026-07-27/28
+        // silently cost 2 consecutive days before anyone checked the
+        // dashboard). Alert immediately instead of relying on someone
+        // noticing a stale dashboard.
+        await sendTelegramAlert(`⚠️ Multibagger screener: today's daily batch FAILED entirely — no scan, no dashboard update.\n${e.message}`).catch((err) => console.error('Failure alert itself failed:', err.message));
       }
       console.log("Waiting for tomorrow's window...");
     }
