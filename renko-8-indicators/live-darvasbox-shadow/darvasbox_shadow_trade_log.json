@@ -378,5 +378,17 @@
   "timestampMs": 1785219660000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 116.73,
+  "theoreticalEntry": 116.78099999999999,
+  "stop": 117.8973,
+  "entryIdx": 23,
+  "timestampMs": 1785220800000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
