@@ -167,7 +167,8 @@ strategies.push({
   },
 });
 
-// ── 5. Darvas Box (box length 8) -- source DOES specify the stop here ──
+// ── 5. Darvas Box (box length 8) -- entry only; see getExit's docstring below
+// for why exits moved entirely out of this box-confirmation machinery ──
 const DARVAS_LEN = 8;
 
 // Box confirmation requires this many consecutive bricks fully contained
@@ -241,23 +242,18 @@ strategies.push({
     if (c < box.bottom) return 'SHORT';
     return null;
   },
-  getExit(i, ctx, pos) {
-    // Trailing stop only (source: "implied trailing stop", "trail stops up as new boxes form") --
-    // raised only when a genuinely NEW CONFIRMED box exists, not recalculated from a naive
-    // rolling window every single brick. See confirmedBoxAt()/computeConfirmedBoxSeries() docstring.
-    const box = confirmedBoxAt(i, ctx);
-    if (pos.direction === 'LONG') {
-      const candidate = box ? box.bottom : -Infinity;
-      pos.trailStop = pos.trailStop == null ? candidate : Math.max(pos.trailStop, candidate);
-      if (ctx.bricks[i].close < pos.trailStop) return 'TRAILING_BOX_STOP';
-    } else {
-      const candidate = box ? box.top : Infinity;
-      pos.trailStop = pos.trailStop == null ? candidate : Math.min(pos.trailStop, candidate);
-      if (ctx.bricks[i].close > pos.trailStop) return 'TRAILING_BOX_STOP';
-    }
+  // Exit is no longer decided here at all (revised 2026-07-28): the brick-
+  // based flat/box/chandelier stop ratchet was scrapped entirely in favor of
+  // a 9/20 EMA crossover on 5-minute bars, which lives in darvas_tracker.js's
+  // checkEmaCrossExit() -- a wholly separate, bar-driven mechanism (bricks
+  // are 1-min/price-triggered; the EMA cross is evaluated on a fixed 5-min
+  // schedule, so it can't be expressed as a per-brick getExit check). This
+  // is intentionally a no-op so DarvasBox still satisfies the strategies.js
+  // interface shape.
+  getExit() {
     return null;
   },
-  getStop: prevBrickStop, // initial hard backstop only; trailing box stop (above) is the real exit mechanism
+  getStop: prevBrickStop, // unused by darvas_tracker.js now; kept only for interface-shape consistency
 });
 
 // ── 6. DMI (14), state-transition (crossover) entry ──

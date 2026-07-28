@@ -1,8 +1,8 @@
 {
-  "name": "darvasbox-shadow-0.25pct-1pctSL",
+  "name": "darvasbox-shadow-0.25pctbrick-ema920exit",
   "version": "1.0.0",
   "private": true,
-  "description": "SHADOW-TRADE (paper) DarvasBox on the real 21-holding portfolio -- 0.25% brick, flat 1% stop-loss, LTP-confirmed entries/exits. Single deliberate combo, not a forward-test grid.",
+  "description": "SHADOW-TRADE (paper) DarvasBox on the real 21-holding portfolio -- 0.25% brick entries (Renko, 1-min), 9/20 EMA-crossover exit (5-min bars), no stop-loss. LTP-confirmed entries/exits. Single deliberate combo, not a forward-test grid.",
   "main": "streamer.js",
   "scripts": {
     "start": "node streamer.js",

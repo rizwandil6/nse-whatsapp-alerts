@@ -11,50 +11,69 @@
  * (events for brick indices before the restart are naturally re-derived
  * identically, since the walk is deterministic).
  *
- * Reuses the DarvasBox entry/exit rules directly from ../strategies.js
- * (this directory's own fresh backtest code, already validated against
- * the 352-stock and watchlist runs) -- NOT duplicated or reimplemented
- * here, so live and backtest can never silently drift apart on what
- * counts as a signal.
+ * Reuses the DarvasBox ENTRY rule directly from ../strategies.js (this
+ * directory's own fresh backtest code, already validated against the
+ * 352-stock and watchlist runs) -- NOT duplicated or reimplemented here,
+ * so live and backtest can never silently drift apart on what counts as a
+ * signal.
  *
- * FORK for the 0.25%-brick / flat-1%-stop / LTP-confirmed shadow trade
- * (2026-07-27): two deliberate deviations from the original tracker this
- * was copied from --
- *   1. Stop is a flat stopPct off the REAL entry price (see below), not
- *      strategies.js's darvas.getStop/prevBrickStop (brick-size-derived).
- *      Per explicit request, uniform risk per trade regardless of brick size.
- *   2. Brick-CONFIRMED entries/exits (getEntry, getExit's TRAILING_BOX_STOP)
- *      are priced at the live LTP at confirmation time, not the theoretical
- *      brick close -- same reasoning as execution_revision.js on the ORB
- *      project and the LTP-vs-brick-price analysis done on the Renko N/K
- *      grid: a brick's close can already be stale by the time it's
- *      confirmed and dispatched. Falls back to the theoretical brick close
- *      if no live price is available (getLivePriceFn returns null/undefined
- *      or isn't provided). The already-real-time stop mechanisms
- *      (stopHit's brick low/high check below, checkIntrabarStop,
- *      checkTickStop) are UNCHANGED -- they already fill at a real,
- *      specific stop price level, not a brick close, so there's nothing to
- *      revise there.
+ * FORK for the 0.25%-brick / LTP-confirmed shadow trade (2026-07-27),
+ * exit mechanism REPLACED 2026-07-28 -- deliberate deviations from the
+ * original tracker this was copied from --
+ *   1. Brick-CONFIRMED entries are priced at the live LTP at confirmation
+ *      time, not the theoretical brick close -- same reasoning as
+ *      execution_revision.js on the ORB project and the LTP-vs-brick-price
+ *      analysis done on the Renko N/K grid: a brick's close can already be
+ *      stale by the time it's confirmed and dispatched. Falls back to the
+ *      theoretical brick close if no live price is available (getLivePriceFn
+ *      returns null/undefined or isn't provided).
+ *   2. Exit is ENTIRELY a 9/20 EMA crossover on 5-minute bars
+ *      (checkEmaCrossExit, below), not brick-driven at all -- the flat/
+ *      box/chandelier stop ratchet that used to live in strategies.js's
+ *      DarvasBox getExit was scrapped outright (backtest 2026-07-28 showed
+ *      the EMA-cross exit beating the actual booked flat-1%-stop result on
+ *      real trades: +2,885 vs +2,828 on 1-min EMAs, +3,181 vs +2,828 on
+ *      5-min EMAs -- 5-min chosen here). There is deliberately NO stop-loss
+ *      of any kind anymore: a losing trade rides until the EMAs cross or
+ *      the forced EOD square-off, whichever comes first. getExit() in
+ *      strategies.js is now a permanent no-op for DarvasBox; entries still
+ *      go through it (box-breakout logic unchanged), but no code path here
+ *      ever calls getExit or getStop.
  */
 
 const { strategies } = require('./strategies');
 const darvas = strategies.find((s) => s.name === 'DarvasBox');
 if (!darvas) throw new Error('DarvasBox strategy not found in strategies.js');
 
+const EMA_FAST = 9;
+const EMA_SLOW = 20;
+
+/** Standard exponential moving average, seeded with a simple average over the first `period` values. Returns null for indices before the seed point. */
+function computeEma(closes, period) {
+  const k = 2 / (period + 1);
+  const out = new Array(closes.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < closes.length; i++) {
+    if (i < period - 1) { sum += closes[i]; continue; }
+    if (i === period - 1) { sum += closes[i]; out[i] = sum / period; continue; }
+    out[i] = closes[i] * k + out[i - 1] * (1 - k);
+  }
+  return out;
+}
+
 class DarvasLiveTracker {
-  constructor(symbol, stopPct, getLivePriceFn) {
+  constructor(symbol, getLivePriceFn) {
     this.symbol = symbol;
-    this.stopPct = stopPct;
     this.getLivePriceFn = getLivePriceFn || (() => null);
     this.position = null;
     this.processedBrickCount = 0;
-    this.processedBarCount = 0;
+    this.processedBar5Count = 0;
   }
 
   resetForNewDay() {
     this.position = null;
     this.processedBrickCount = 0;
-    this.processedBarCount = 0;
+    this.processedBar5Count = 0;
   }
 
   _liveOrTheoretical(theoreticalPrice) {
@@ -62,38 +81,21 @@ class DarvasLiveTracker {
     return { price: live != null ? live : theoreticalPrice, livePriceAvailable: live != null, theoreticalPrice };
   }
 
-  /** bricks = ALL of today's bricks so far (rebuilt fresh each poll, single trading day only). Returns new events since the last call. */
+  /** bricks = ALL of today's bricks so far (rebuilt fresh each poll). Entries only -- see module docstring. Returns new ENTRY events since the last call. */
   processBricks(bricks) {
     const ctx = { bricks };
     const events = [];
     const start = Math.max(1, this.processedBrickCount);
 
     for (let i = start; i < bricks.length; i++) {
-      if (this.position) {
-        const b = bricks[i];
-        const stopHit = this.position.direction === 'LONG'
-          ? (b.direction === 'down' && b.low <= this.position.stop)
-          : (b.direction === 'up' && b.high >= this.position.stop);
-        if (stopHit) {
-          events.push(this._close(bricks, i, 'STOP_LOSS', this.position.stop, this.position.stop));
-          continue;
-        }
-        const exitReason = darvas.getExit(i, ctx, this.position);
-        if (exitReason) {
-          const { price: realExit, livePriceAvailable } = this._liveOrTheoretical(b.close);
-          events.push(this._close(bricks, i, exitReason, realExit, b.close, livePriceAvailable));
-          continue;
-        }
-      }
       if (!this.position) {
         const direction = darvas.getEntry(i, ctx);
         if (direction) {
           const theoreticalEntry = bricks[i].close;
           const { price: realEntry, livePriceAvailable } = this._liveOrTheoretical(theoreticalEntry);
-          const stop = direction === 'LONG' ? realEntry * (1 - this.stopPct) : realEntry * (1 + this.stopPct);
-          this.position = { direction, entry: realEntry, entryIdx: i, stop, entryTimestampMs: bricks[i].timestampMs };
+          this.position = { direction, entry: realEntry, entryIdx: i, entryTimestampMs: bricks[i].timestampMs };
           events.push({
-            type: 'ENTRY', symbol: this.symbol, direction, entry: realEntry, theoreticalEntry, stop,
+            type: 'ENTRY', symbol: this.symbol, direction, entry: realEntry, theoreticalEntry,
             entryIdx: i, timestampMs: bricks[i].timestampMs, livePriceAvailable,
           });
         }
@@ -104,117 +106,59 @@ class DarvasLiveTracker {
   }
 
   /**
-   * Checks the REAL 5-min bar lows/highs (not a brick's synthetic low/high,
-   * which is just min/max(open,close) of that brick -- see renko.js) against
-   * the current stop and trailing-stop, independent of whether a Renko brick
-   * has confirmed anything yet.
+   * The ONLY exit mechanism: a 9/20 EMA crossover on 5-minute bars. LONG
+   * exits on a bearish cross (EMA9 was >= EMA20, now <), SHORT exits on a
+   * bullish cross (EMA9 was <= EMA20, now >). No stop-loss -- see module
+   * docstring for why this was deliberately scrapped.
    *
-   * Why this exists: the brick-based check alone can lag a real stop hit by
-   * hours. Confirmed live 2026-07-23 on TRITURBINE -- real price touched the
-   * stop at 10:15 IST, but the close-only, 2x-reversal-confirmed brick logic
-   * didn't register the exit until 12:30 IST, because 5-min closes kept
-   * missing the threshold needed to flip a down brick. A real SL order on
-   * the exchange would have filled at 10:15, not 12:30.
-   *
-   * `bars` = ALL of today's 5-min bars so far (same array processBricks'
-   * caller builds bricks from). Only scans bars not yet checked
-   * (processedBarCount), mirroring processBricks' own resumability
-   * convention, and only fires once a position exists to check against.
-   * Call this AFTER processBricks() each poll, so a position entered this
-   * same cycle is still checked against its own entry bar's wick.
+   * `bars5` = ALL of today's 5-minute bars so far (aggregate 1-min bars via
+   * bar_aggregator.js::aggregateTo5Min before calling this -- same pattern
+   * as processBricks: rebuilt fresh each poll, recomputing the EMA series
+   * from scratch each call since a day's worth of 5-min bars is tiny
+   * (~75 max) and EMA is a cheap recursive scan). Only bars strictly after
+   * entryTimestampMs are eligible, same "skip the entry bar" convention the
+   * old checkIntrabarStop used, since a bar at/before entry can't be
+   * trusted to postdate the signal. Call this AFTER processBricks() each
+   * poll, mirroring streamer.js's existing cadence.
    */
-  checkIntrabarStop(bars) {
-    const start = this.processedBarCount;
-    this.processedBarCount = bars.length;
+  checkEmaCrossExit(bars5) {
+    const start = Math.max(1, this.processedBar5Count);
+    this.processedBar5Count = bars5.length;
     if (!this.position) return null;
 
-    for (let i = start; i < bars.length; i++) {
-      const bar = bars[i];
-      const pos = this.position;
-      // A bar's OHLC doesn't tell us whether its low/high came before or
-      // after a price move within that same bar -- so a bar at/before the
-      // entry bar can't be judged (its low may predate the entry signal
-      // entirely, e.g. TRITURBINE 2026-07-23: the entry bar's own low was
-      // below the freshly-set stop, but only because of price action
-      // BEFORE that bar rallied into the breakout). Only bars strictly
-      // after the entry bar are eligible.
-      if (bar.timestampMs <= pos.entryTimestampMs) continue;
-      let hitPrice = null;
-      if (pos.direction === 'LONG') {
-        if (bar.low <= pos.stop) hitPrice = pos.stop;
-        else if (pos.trailStop != null && bar.low <= pos.trailStop) hitPrice = pos.trailStop;
-      } else {
-        if (bar.high >= pos.stop) hitPrice = pos.stop;
-        else if (pos.trailStop != null && bar.high >= pos.trailStop) hitPrice = pos.trailStop;
-      }
-      if (hitPrice != null) {
-        const pnlPct = pos.direction === 'LONG' ? ((hitPrice - pos.entry) / pos.entry) * 100 : ((pos.entry - hitPrice) / pos.entry) * 100;
+    const closes = bars5.map((b) => b.close);
+    const emaFast = computeEma(closes, EMA_FAST);
+    const emaSlow = computeEma(closes, EMA_SLOW);
+    const pos = this.position;
+
+    for (let i = start; i < bars5.length; i++) {
+      if (bars5[i].timestampMs <= pos.entryTimestampMs) continue;
+      if (emaFast[i] == null || emaSlow[i] == null || emaFast[i - 1] == null || emaSlow[i - 1] == null) continue;
+      const bearishCross = emaFast[i - 1] >= emaSlow[i - 1] && emaFast[i] < emaSlow[i];
+      const bullishCross = emaFast[i - 1] <= emaSlow[i - 1] && emaFast[i] > emaSlow[i];
+      if ((pos.direction === 'LONG' && bearishCross) || (pos.direction === 'SHORT' && bullishCross)) {
+        const { price: realExit, livePriceAvailable } = this._liveOrTheoretical(bars5[i].close);
+        const pnlPct = pos.direction === 'LONG'
+          ? ((realExit - pos.entry) / pos.entry) * 100
+          : ((pos.entry - realExit) / pos.entry) * 100;
         this.position = null;
         return {
           type: 'EXIT',
           symbol: this.symbol,
           direction: pos.direction,
           entry: pos.entry,
-          exitPrice: hitPrice,
-          action: 'INTRABAR_STOP_LOSS',
+          exitPrice: realExit,
+          theoreticalExit: bars5[i].close,
+          livePriceAvailable,
+          action: 'EMA_9_20_CROSS',
           barsHeld: null,
           pnlPct,
           entryTimestampMs: pos.entryTimestampMs,
-          exitTimestampMs: bar.timestampMs,
+          exitTimestampMs: bars5[i].timestampMs,
         };
       }
     }
     return null;
-  }
-
-  /**
-   * Checks a single live tick's LTP against the current stop/trailing-stop
-   * -- the fastest possible stop detection this tracker supports, since a
-   * tick is checked the instant it arrives instead of waiting for a bar or
-   * brick boundary (see streamer.js). Unlike checkIntrabarStop, a tick is
-   * consumed exactly once and never replayed, so no resumability counter
-   * is needed here.
-   *
-   * `tick` = { ltp, lttMs }. Skips ticks at/before entryTimestampMs for the
-   * same reason checkIntrabarStop excludes the entry bar -- a tick can't be
-   * trusted to postdate the entry signal otherwise (e.g. a backfilled/
-   * replayed tick during reconnect-gap recovery). Touch-based (LTP crossing
-   * the level), same philosophy as checkIntrabarStop's bar low/high check
-   * -- deliberately more aggressive than the brick trailing-stop's
-   * close-cross rule (strategies.js TRAILING_BOX_STOP), since the entire
-   * point is not waiting for confirmation.
-   */
-  checkTickStop(tick) {
-    if (!this.position) return null;
-    const pos = this.position;
-    if (tick.lttMs <= pos.entryTimestampMs) return null;
-
-    let hitPrice = null;
-    if (pos.direction === 'LONG') {
-      if (tick.ltp <= pos.stop) hitPrice = pos.stop;
-      else if (pos.trailStop != null && tick.ltp <= pos.trailStop) hitPrice = pos.trailStop;
-    } else {
-      if (tick.ltp >= pos.stop) hitPrice = pos.stop;
-      else if (pos.trailStop != null && tick.ltp >= pos.trailStop) hitPrice = pos.trailStop;
-    }
-    if (hitPrice == null) return null;
-
-    const pnlPct = pos.direction === 'LONG'
-      ? ((hitPrice - pos.entry) / pos.entry) * 100
-      : ((pos.entry - hitPrice) / pos.entry) * 100;
-    this.position = null;
-    return {
-      type: 'EXIT',
-      symbol: this.symbol,
-      direction: pos.direction,
-      entry: pos.entry,
-      exitPrice: hitPrice,
-      action: 'TICK_STOP_LOSS',
-      barsHeld: null,
-      pnlPct,
-      entryTimestampMs: pos.entryTimestampMs,
-      exitTimestampMs: tick.lttMs,
-    };
   }
 
   /** Called at/after 15:30 IST if a position is still open -- forced EOD square-off. */

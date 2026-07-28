@@ -2,13 +2,23 @@
 
 /**
  * DarvasBox SHADOW-TRADE tick streamer -- one deliberate, already-vetted
- * combo (not a forward-test grid): 0.25% brick, flat 1% stop-loss off the
- * real entry (not brick-size-derived), BOTH directions (DarvasBox's
+ * combo (not a forward-test grid): 0.25% brick, BOTH directions (DarvasBox's
  * getEntry is symmetric -- LONG on a confirmed-box breakout above, SHORT
- * on a breakdown below; see strategies.js). Chosen from the stop-loss
- * sweep run 2026-07-27 across the real 21-holding portfolio: 0.25% brick /
- * 1% stop was the single best combined (LONG+SHORT) net P&L point in that
- * sweep.
+ * on a breakdown below; see strategies.js). Brick size chosen from the
+ * stop-loss sweep run 2026-07-27 across the real 21-holding portfolio.
+ *
+ * Exit mechanism REPLACED 2026-07-28: entries still come from Renko box
+ * breakouts on 1-minute-bar-built bricks (unchanged), but ALL stop-loss
+ * logic -- flat %, box-trail, chandelier -- was scrapped outright. Exit is
+ * now purely a 9/20 EMA crossover computed on 5-minute bars (aggregated
+ * from the same confirmed 1-min bars via bar_aggregator.js::aggregateTo5Min),
+ * checked in DarvasLiveTracker::checkEmaCrossExit. There is deliberately NO
+ * stop-loss of any kind: a losing trade rides until the EMAs cross or the
+ * forced EOD square-off, whichever comes first. Chosen from a same-day
+ * backtest against today's actual 23 booked trades: 9/20 EMA on 5-min bars
+ * beat the real flat-1%-stop result (+3,181 vs +2,828); see
+ * darvas_tracker.js's fork docstring for the full comparison and the
+ * earlier 1-min variants that were tried and rejected.
  *
  * Built on the same tick-WebSocket architecture as
  * ../live/streamer.js (auth flow, protobuf decode, reconnect/backoff,
@@ -18,24 +28,24 @@
  * docstring in the sibling directories for why).
  *
  * THE key deliberate difference from ../live/streamer.js: brick-CONFIRMED
- * entries and exits (getEntry, getExit's TRAILING_BOX_STOP) are priced at
- * the live LTP at confirmation time, not the theoretical brick close --
- * built into DarvasLiveTracker itself (see darvas_tracker.js's 2026-07-27
- * fork docstring), not bolted on afterward. This directly reflects the
- * lesson from tonight's LTP-vs-brick-price analysis on the Renko N/K grid:
- * a brick's close can already be stale by the time it's confirmed and
- * dispatched, and measuring that gap after the fact (as the N/K grid did)
- * isn't the same as trading on it. The already-real-time stop mechanisms
- * (checkIntrabarStop, checkTickStop) are unchanged -- they already fill at
- * a real, specific stop price level, not a brick close.
+ * entries are priced at the live LTP at confirmation time, not the
+ * theoretical brick close -- built into DarvasLiveTracker itself, not
+ * bolted on afterward. This directly reflects the lesson from the
+ * LTP-vs-brick-price analysis done on the Renko N/K grid: a brick's close
+ * can already be stale by the time it's confirmed and dispatched, and
+ * measuring that gap after the fact isn't the same as trading on it. The
+ * EMA-cross exit is priced the same way (LTP at confirmation, falling back
+ * to the 5-min bar's close).
  *
  * Bricks are built from CONFIRMED 1-minute bars, not 5-minute ones (fixed
  * 2026-07-28, see ingestOneMinBar's docstring for the real incident this
  * closes -- a 5-min bucket's still-forming rolling close briefly touching
  * a price it never actually closed at was enough to lock in a phantom
  * brick and a real entry off it). 1-minute, not 5-minute, is also just
- * faster: reacting on every confirmed close instead of waiting up to 5x
- * longer for enough 1-min bars to accumulate into one bucket.
+ * faster for entries: reacting on every confirmed close instead of waiting
+ * up to 5x longer for enough 1-min bars to accumulate into one bucket. The
+ * EXIT check, unlike entries, deliberately DOES use 5-min bars -- that's
+ * the EMA period the backtest validated, not an inconsistency.
  *
  * Requires UPSTOX_ACCESS_TOKEN, GITHUB_TOKEN, and (optionally)
  * TELEGRAM_BOT_TOKEN env vars.
@@ -49,7 +59,7 @@ const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
 const { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits } = require('./trade_log');
 const { TickBarBuilder } = require('./tick_bar_builder');
-const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst } = require('./bar_aggregator');
+const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min } = require('./bar_aggregator');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -62,7 +72,7 @@ const BACKFILL_DELAY_MS = 150;
 
 const BRICK_PCT = 0.0025; // 0.25%, deliberate -- see module docstring
 const BRICK_LABEL = '0.25';
-const STOP_PCT = 0.01; // flat 1%, deliberate -- see module docstring
+const EXIT_LABEL = '9/20 EMA cross (5-min), no stop-loss'; // revised 2026-07-28 -- see module docstring
 
 // Real held qty per symbol -- same figures as the portfolio backtest's HOLDINGS
 // (renko-8-indicators/portfolio_sell_high_buy_low_intrabar.js), so rupee P&L
@@ -83,7 +93,7 @@ const oneMinBars = {};   // symbol -> today's closed 1-min bars, in-memory only
 const trackers = {};     // symbol -> DarvasLiveTracker
 for (const symbol of Object.keys(symbols)) {
   oneMinBars[symbol] = [];
-  trackers[symbol] = new DarvasLiveTracker(symbol, STOP_PCT, () => {
+  trackers[symbol] = new DarvasLiveTracker(symbol, () => {
     const b = tickBuilders[symbol];
     return b ? b.getLivePrice() : null;
   });
@@ -179,16 +189,16 @@ function formatEntryAlert(e) {
   const driftNote = e.livePriceAvailable && e.theoreticalEntry !== e.entry
     ? ` (brick close was ₹${e.theoreticalEntry.toFixed(2)})`
     : '';
-  return `🌗 SHADOW TRADE — DarvasBox [0.25% brick, 1% SL] (paper, not a real order)\n${arrow} ${e.direction}: ${e.symbol}\nEntry (LTP): ₹${e.entry.toFixed(2)}${driftNote}\nStop: ₹${e.stop.toFixed(2)} (flat 1%)`;
+  return `🌗 SHADOW TRADE — DarvasBox [0.25% brick, ${EXIT_LABEL}] (paper, not a real order)\n${arrow} ${e.direction}: ${e.symbol}\nEntry (LTP): ₹${e.entry.toFixed(2)}${driftNote}`;
 }
 function formatExitAlert(e, runningTotal) {
   const sign = e.pnlPct >= 0 ? '+' : '';
   const driftNote = e.livePriceAvailable && e.theoreticalExit != null && e.theoreticalExit !== e.exitPrice
-    ? ` (brick close was ₹${e.theoreticalExit.toFixed(2)})`
+    ? ` (5-min bar close was ₹${e.theoreticalExit.toFixed(2)})`
     : '';
   const rsNote = runningTotal.hasRupees ? ` / ${e.rsSign}₹${Math.abs(e.pnlRs).toFixed(0)}` : '';
   const totalRsNote = runningTotal.hasRupees ? ` / ${runningTotal.totalPnlRs >= 0 ? '+' : '−'}₹${Math.abs(runningTotal.totalPnlRs).toFixed(0)}` : '';
-  return `🌗 SHADOW TRADE — DarvasBox [0.25% brick, 1% SL] position closed (paper)\n${e.symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit (LTP): ₹${e.exitPrice.toFixed(2)}${driftNote}\nReason: ${e.action}\nP&L: ${sign}${e.pnlPct.toFixed(2)}%${rsNote} (gross, no costs applied)\n\n📊 Day so far: ${runningTotal.trades} trades, ${runningTotal.wins} wins, total ${runningTotal.totalPnlPct >= 0 ? '+' : ''}${runningTotal.totalPnlPct.toFixed(2)}%${totalRsNote}`;
+  return `🌗 SHADOW TRADE — DarvasBox [0.25% brick, ${EXIT_LABEL}] position closed (paper)\n${e.symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit (LTP): ₹${e.exitPrice.toFixed(2)}${driftNote}\nReason: ${e.action}\nP&L: ${sign}${e.pnlPct.toFixed(2)}%${rsNote} (gross, no costs applied)\n\n📊 Day so far: ${runningTotal.trades} trades, ${runningTotal.wins} wins, total ${runningTotal.totalPnlPct >= 0 ? '+' : ''}${runningTotal.totalPnlPct.toFixed(2)}%${totalRsNote}`;
 }
 
 /** Realtime day-total update -- called on every EXIT (including EOD square-offs), so "day so far" is always current. */
@@ -210,7 +220,7 @@ function formatEodSummary() {
   const s = dayStats;
   const winRate = s.trades > 0 ? ((s.wins / s.trades) * 100).toFixed(1) : '0.0';
   const rsLine = s.hasRupees ? `\nTotal P&L (₹, real holding sizes): ${s.totalPnlRs >= 0 ? '+' : '−'}₹${Math.abs(s.totalPnlRs).toFixed(0)}` : '';
-  return `🌗 EOD SUMMARY — DarvasBox shadow trade [0.25% brick, 1% SL], ${currentDate}\nTrades: ${s.trades} | Wins: ${s.wins} (${winRate}%)\nTotal gross P&L: ${s.totalPnlPct >= 0 ? '+' : ''}${s.totalPnlPct.toFixed(2)}%${rsLine}\n(gross, no costs applied)`;
+  return `🌗 EOD SUMMARY — DarvasBox shadow trade [0.25% brick, ${EXIT_LABEL}], ${currentDate}\nTrades: ${s.trades} | Wins: ${s.wins} (${winRate}%)\nTotal gross P&L: ${s.totalPnlPct >= 0 ? '+' : ''}${s.totalPnlPct.toFixed(2)}%${rsLine}\n(gross, no costs applied)`;
 }
 
 function dispatchEvent(symbol, e) {
@@ -297,8 +307,9 @@ function ingestOneMinBar(symbol, bar, silent) {
   const bricks = buildRenkoBricks(bars, BRICK_PCT);
   const tracker = trackers[symbol];
   const events = tracker.processBricks(bricks);
-  const intrabarEvent = tracker.checkIntrabarStop(bars);
-  if (intrabarEvent) events.push(intrabarEvent);
+  const bars5 = aggregateTo5Min(bars);
+  const emaCrossEvent = tracker.checkEmaCrossExit(bars5);
+  if (emaCrossEvent) events.push(emaCrossEvent);
   if (minutesOfDay >= MARKET_CLOSE_MIN) {
     const eodEvent = tracker.forceEodClose(bricks);
     if (eodEvent) events.push(eodEvent);
@@ -426,9 +437,6 @@ function connectAndRun() {
             if (!tick) continue;
             lastGoodTickMs = Date.now();
 
-            const tickEvent = trackers[symbol].checkTickStop(tick);
-            if (tickEvent) dispatchEvent(symbol, tickEvent);
-
             const closedBar = getOrCreateTickBuilder(symbol).onTick(tick);
             if (closedBar) ingestOneMinBar(symbol, closedBar, false);
           } catch (e) {
@@ -458,7 +466,7 @@ async function main() {
     console.error('UPSTOX_ACCESS_TOKEN not set — cannot start.');
     process.exit(1);
   }
-  console.log(`DarvasBox SHADOW streamer starting. ${Object.keys(symbols).length} symbols, 0.25% brick, flat 1% stop, LTP-confirmed entries/exits.`);
+  console.log(`DarvasBox SHADOW streamer starting. ${Object.keys(symbols).length} symbols, 0.25% brick, ${EXIT_LABEL}, LTP-confirmed entries/exits.`);
   console.log(`Telegram alerts: ${PAPER_ALERTS_ENABLED ? 'ENABLED (paper-labeled)' : 'SUPPRESSED (logging only)'}`);
 
   await initProtobuf();
