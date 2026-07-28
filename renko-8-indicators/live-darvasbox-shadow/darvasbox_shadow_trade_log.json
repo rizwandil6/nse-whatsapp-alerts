@@ -300,5 +300,17 @@
   "brickPct": "0.25",
   "pnlRs": -30.21199999999942,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 78.8,
+  "theoreticalEntry": 78.77415,
+  "stop": 79.588,
+  "entryIdx": 5,
+  "timestampMs": 1785216780000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
