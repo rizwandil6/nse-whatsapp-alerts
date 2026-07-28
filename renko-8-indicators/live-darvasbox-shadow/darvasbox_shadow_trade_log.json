@@ -587,5 +587,20 @@
   "brickPct": "0.25",
   "pnlRs": -85.28250000000241,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 286.7,
+  "exitPrice": 287.45,
+  "action": "INTRABAR_STOP_LOSS",
+  "barsHeld": null,
+  "pnlPct": -0.2615974886641088,
+  "entryTimestampMs": 1785227400000,
+  "exitTimestampMs": 1785232440000,
+  "brickPct": "0.25",
+  "pnlRs": -10.5,
+  "rsSign": "−"
  }
 ]
