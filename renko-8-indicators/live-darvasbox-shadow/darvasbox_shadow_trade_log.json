@@ -536,5 +536,17 @@
   "brickPct": "0.25",
   "pnlRs": -131.43750000000068,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "STERTOOLS",
+  "direction": "SHORT",
+  "entry": 239.1,
+  "theoreticalEntry": 239.51812499999994,
+  "stop": 241.49099999999999,
+  "entryIdx": 62,
+  "timestampMs": 1785229680000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
