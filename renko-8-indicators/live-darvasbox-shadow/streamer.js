@@ -361,11 +361,12 @@ function ingestOneMinBar(symbol, bar, silent) {
 
   const bricks = buildRenkoBricks(bars, BRICK_PCT);
   const tracker = trackers[symbol];
-  const events = tracker.processBricks(bricks);
   // Historical prefix (fixed length within a day) + today's growing portion --
-  // gives checkEmaCrossExit a continuously-converged EMA instead of a cold
-  // start every morning. See historicalBars5's declaration for why.
+  // gives both the entry trend-filter and checkEmaCrossExit a continuously-
+  // converged EMA instead of a cold start every morning. See
+  // historicalBars5's declaration for why. Computed once, shared by both.
   const bars5 = historicalBars5[symbol].concat(aggregateTo5Min(bars));
+  const events = tracker.processBricks(bricks, bars5);
   const emaCrossEvent = tracker.checkEmaCrossExit(bars5);
   if (emaCrossEvent) events.push(emaCrossEvent);
   if (minutesOfDay >= MARKET_CLOSE_MIN) {

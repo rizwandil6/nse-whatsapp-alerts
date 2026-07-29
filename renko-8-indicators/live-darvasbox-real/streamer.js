@@ -292,8 +292,8 @@ async function ingestOneMinBar(symbol, bar, silent) {
 
   const events = [];
   if (LIVE_TRADING_ENABLED) {
-    events.push(...await tracker.processBricks(bricks));
     const bars5 = historicalBars5[symbol].concat(aggregateTo5Min(bars));
+    events.push(...await tracker.processBricks(bricks, bars5));
     const emaCrossEvent = await tracker.checkEmaCrossExit(bars5);
     if (emaCrossEvent) events.push(emaCrossEvent);
     const catastrophicEvent = await tracker.checkCatastrophicStop(bars);

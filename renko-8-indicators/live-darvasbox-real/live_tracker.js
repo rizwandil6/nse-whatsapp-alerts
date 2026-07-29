@@ -22,6 +22,13 @@
  *      alerts loudly and leaves `exitAttemptPending` set so a human
  *      checks Upstox directly. Entries follow the same non-retry
  *      philosophy for the same reason.
+ *   5. Entry gained the SAME trend-alignment filter as the paper tracker
+ *      (2026-07-29): a box breakout only places a real order if EMA9/EMA20
+ *      (5-min bars) already agree with the breakout direction. See
+ *      live-darvasbox-shadow/darvas_tracker.js's fork note (3) for the full
+ *      reasoning/backtest. Fails OPEN (places the order) if EMA data isn't
+ *      available -- a missing warm-up fetch must not silently block a
+ *      symbol from ever trading that day.
  */
 
 const { strategies } = require('./strategies');
@@ -75,11 +82,19 @@ class LiveDarvasTracker {
     this.processedBarCount = 0;
   }
 
-  /** bricks = ALL of today's bricks so far. Entries only -- exits are checkEmaCrossExit/checkCatastrophicStop/forceEodClose. Async: places a real order on a signal. */
-  async processBricks(bricks) {
+  /**
+   * bricks = ALL of today's bricks so far. Entries only -- exits are
+   * checkEmaCrossExit/checkCatastrophicStop/forceEodClose. bars5 = the SAME
+   * historical+today 5-min series passed to checkEmaCrossExit (defaults to
+   * [], fails open -- see fork note 5). Async: places a real order on a signal.
+   */
+  async processBricks(bricks, bars5 = []) {
     const ctx = { bricks };
     const events = [];
     const start = Math.max(1, this.processedBrickCount);
+    const closes = bars5.map((b) => b.close);
+    const emaFast = computeEma(closes, EMA_FAST);
+    const emaSlow = computeEma(closes, EMA_SLOW);
 
     for (let i = start; i < bricks.length; i++) {
       if (this.position) continue; // one position at a time per symbol; never re-check entries while open
@@ -89,11 +104,26 @@ class LiveDarvasTracker {
         console.log(`  [${this.symbol}] Entry signal (${direction}) suppressed -- risk manager circuit breaker tripped: ${this.riskManager.trippedReason}`);
         continue;
       }
+      if (!this._trendAligned(direction, bricks[i].timestampMs, bars5, emaFast, emaSlow)) continue;
       const event = await this._enter(direction, bricks[i]);
       if (event) events.push(event);
     }
     this.processedBrickCount = bricks.length;
     return events;
+  }
+
+  /** True if EMA9/EMA20 (as of the last 5-min bar at/before brickTimestampMs) agree with `direction`, or if no EMA data is available yet (fails open). */
+  _trendAligned(direction, brickTimestampMs, bars5, emaFast, emaSlow) {
+    let idx = -1;
+    for (let j = 0; j < bars5.length; j++) {
+      if (bars5[j].timestampMs <= brickTimestampMs) idx = j; else break;
+    }
+    if (idx === -1 || emaFast[idx] == null || emaSlow[idx] == null) return true;
+    const aligned = direction === 'LONG' ? emaFast[idx] > emaSlow[idx] : emaFast[idx] < emaSlow[idx];
+    if (!aligned) {
+      console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- EMA9 (${emaFast[idx].toFixed(3)}) vs EMA20 (${emaSlow[idx].toFixed(3)}) is counter-trend.`);
+    }
+    return aligned;
   }
 
   async _enter(direction, entryBrick) {

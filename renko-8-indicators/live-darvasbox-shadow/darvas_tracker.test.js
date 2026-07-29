@@ -92,6 +92,71 @@ test('checkEmaCrossExit: no-op with no open position', () => {
   assert.equal(tr.checkEmaCrossExit(buildBearishCrossBars()), null);
 });
 
+// --- processBricks entry trend-alignment filter (2026-07-29) ---
+
+function bricksForEntry(direction, breakoutTimestampMs) {
+  const c = direction === 'LONG' ? [110, 110, 100] : [90, 100, 90]; // [close, high, low] of the breakout brick
+  return [
+    b(100, 100, 105, 100, 'up', 0),
+    b(100, 100, 105, 100, 'down', 1),
+    b(100, 100, 105, 100, 'up', 2), // box {top:105,bottom:100} confirms as of index 3
+    b(100, c[0], c[1], c[2], direction === 'LONG' ? 'up' : 'down', breakoutTimestampMs),
+  ];
+}
+
+// In buildBearishCrossBars(): index 30 (t=9,000,000ms) has EMA9(113.806) > EMA20(113.656)
+// -- an uptrend, aligned for a LONG. Index 34 (t=10,200,000ms) has EMA9(104.282) <
+// EMA20(108.532) -- a downtrend, aligned for a SHORT. Verified analytically (same
+// fixture the checkEmaCrossExit tests above already rely on).
+const UPTREND_TIMESTAMP_MS = 30 * 5 * 60 * 1000;
+const DOWNTREND_TIMESTAMP_MS = 34 * 5 * 60 * 1000;
+
+test('processBricks: LONG breakout is taken when EMA9 > EMA20 at that moment (trend-aligned)', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('LONG', UPTREND_TIMESTAMP_MS + 1);
+  const events = tr.processBricks(bricks, buildBearishCrossBars());
+  assert.ok(events.find((e) => e.type === 'ENTRY'), `expected an ENTRY, got: ${JSON.stringify(events)}`);
+  assert.ok(tr.position);
+});
+
+test('processBricks: LONG breakout is suppressed when EMA9 < EMA20 at that moment (counter-trend) -- confirmed live on SUZLON 2026-07-29', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('LONG', DOWNTREND_TIMESTAMP_MS + 1);
+  const events = tr.processBricks(bricks, buildBearishCrossBars());
+  assert.equal(events.length, 0, `expected no events, got: ${JSON.stringify(events)}`);
+  assert.equal(tr.position, null, 'no position should have been opened');
+});
+
+test('processBricks: SHORT breakout is taken when EMA9 < EMA20 at that moment (trend-aligned)', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('SHORT', DOWNTREND_TIMESTAMP_MS + 1);
+  const events = tr.processBricks(bricks, buildBearishCrossBars());
+  assert.ok(events.find((e) => e.type === 'ENTRY'), `expected an ENTRY, got: ${JSON.stringify(events)}`);
+  assert.ok(tr.position);
+});
+
+test('processBricks: SHORT breakout is suppressed when EMA9 > EMA20 at that moment (counter-trend)', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('SHORT', UPTREND_TIMESTAMP_MS + 1);
+  const events = tr.processBricks(bricks, buildBearishCrossBars());
+  assert.equal(events.length, 0, `expected no events, got: ${JSON.stringify(events)}`);
+  assert.equal(tr.position, null);
+});
+
+test('processBricks: fails OPEN (allows the entry) when bars5 is not supplied at all', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('LONG', DOWNTREND_TIMESTAMP_MS + 1); // would be counter-trend if EMA data existed
+  const events = tr.processBricks(bricks); // no bars5 argument
+  assert.ok(events.find((e) => e.type === 'ENTRY'), 'missing EMA data must not block the entry');
+});
+
+test('processBricks: fails OPEN when the breakout predates all available bars5 (EMA not seeded yet)', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('LONG', -1); // before bars5[0]'s timestamp entirely
+  const events = tr.processBricks(bricks, buildBearishCrossBars());
+  assert.ok(events.find((e) => e.type === 'ENTRY'), 'no EMA state yet must not block the entry');
+});
+
 test('checkEmaCrossExit: LONG exits on the bearish 9/20 cross, priced at the bar close (no live price)', () => {
   const bars = buildBearishCrossBars();
   const tr = new DarvasLiveTracker('TEST', () => null);

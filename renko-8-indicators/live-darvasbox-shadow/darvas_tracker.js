@@ -39,6 +39,24 @@
  *      strategies.js is now a permanent no-op for DarvasBox; entries still
  *      go through it (box-breakout logic unchanged), but no code path here
  *      ever calls getExit or getStop.
+ *   3. Entry gained a trend-alignment filter 2026-07-29: a box breakout
+ *      only becomes a real entry if the CURRENT 9/20 EMA relationship (5-min
+ *      bars, same EMA_WARMUP-backed series checkEmaCrossExit uses) already
+ *      agrees with the breakout's direction -- EMA9 > EMA20 for a LONG,
+ *      EMA9 < EMA20 for a SHORT. Confirmed live same day: SUZLON's LONG
+ *      breakout fired with EMA9 (48.11) already BELOW EMA20 (48.74) -- a
+ *      counter-trend entry that sat underwater the whole session. Backtest
+ *      against that day's 19 real entries: the 5 this filter would have
+ *      skipped included zero realized winners (3 closed losers, 2 troubled
+ *      opens) versus 14 aligned entries realizing -3.32% themselves --
+ *      directionally supportive, not a multi-day statistical proof. This
+ *      check lives here (not in strategies.js's getEntry) for the same
+ *      reason the EMA-cross exit does: getEntry stays the pure, reusable
+ *      Darvas-box signal; this tracker is where real-world trading
+ *      considerations layer on top of it. If EMA data isn't available yet
+ *      (bars5 empty/not passed, e.g. a warm-up fetch failure for one
+ *      symbol) this fails OPEN -- allows the entry rather than silently
+ *      blocking a symbol from ever trading that day over a data outage.
  */
 
 const { strategies } = require('./strategies');
@@ -81,16 +99,29 @@ class DarvasLiveTracker {
     return { price: live != null ? live : theoreticalPrice, livePriceAvailable: live != null, theoreticalPrice };
   }
 
-  /** bricks = ALL of today's bricks so far (rebuilt fresh each poll). Entries only -- see module docstring. Returns new ENTRY events since the last call. */
-  processBricks(bricks) {
+  /**
+   * bricks = ALL of today's bricks so far (rebuilt fresh each poll). Entries
+   * only -- see module docstring. bars5 = the SAME historical+today 5-min
+   * bar series passed to checkEmaCrossExit (defaults to [] so callers that
+   * don't care about the trend filter, e.g. existing unit tests, don't need
+   * to supply it -- an empty/missing bars5 fails OPEN, see fork note (3)).
+   * Returns new ENTRY events since the last call.
+   */
+  processBricks(bricks, bars5 = []) {
     const ctx = { bricks };
     const events = [];
     const start = Math.max(1, this.processedBrickCount);
+    const closes = bars5.map((b) => b.close);
+    const emaFast = computeEma(closes, EMA_FAST);
+    const emaSlow = computeEma(closes, EMA_SLOW);
 
     for (let i = start; i < bricks.length; i++) {
       if (!this.position) {
         const direction = darvas.getEntry(i, ctx);
         if (direction) {
+          if (!this._trendAligned(direction, bricks[i].timestampMs, bars5, emaFast, emaSlow)) {
+            continue;
+          }
           const theoreticalEntry = bricks[i].close;
           const { price: realEntry, livePriceAvailable } = this._liveOrTheoretical(theoreticalEntry);
           this.position = { direction, entry: realEntry, entryIdx: i, entryTimestampMs: bricks[i].timestampMs };
@@ -103,6 +134,20 @@ class DarvasLiveTracker {
     }
     this.processedBrickCount = bricks.length;
     return events;
+  }
+
+  /** True if EMA9/EMA20 (as of the last 5-min bar at/before brickTimestampMs) agree with `direction`, or if no EMA data is available at all (fails open -- see module docstring fork note 3). */
+  _trendAligned(direction, brickTimestampMs, bars5, emaFast, emaSlow) {
+    let idx = -1;
+    for (let j = 0; j < bars5.length; j++) {
+      if (bars5[j].timestampMs <= brickTimestampMs) idx = j; else break;
+    }
+    if (idx === -1 || emaFast[idx] == null || emaSlow[idx] == null) return true; // no EMA data yet -- fail open
+    const aligned = direction === 'LONG' ? emaFast[idx] > emaSlow[idx] : emaFast[idx] < emaSlow[idx];
+    if (!aligned) {
+      console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- EMA9 (${emaFast[idx].toFixed(3)}) vs EMA20 (${emaSlow[idx].toFixed(3)}) is counter-trend.`);
+    }
+    return aligned;
   }
 
   /**

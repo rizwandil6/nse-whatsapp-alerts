@@ -120,6 +120,76 @@ test('entry: does not re-check for a new signal while already in a position', as
   assert.equal(oc.calls.length, 2, 'no additional order calls while a position is open');
 });
 
+// --- entry trend-alignment filter (2026-07-29, same as live-darvasbox-shadow) ---
+
+function buildBearishCrossBars() {
+  const bars = [];
+  for (let i = 0; i < 25; i++) bars.push(bar5(100 + i, i));
+  for (let i = 1; i <= 10; i++) bars.push(bar5(124 - i * 3, 24 + i));
+  return bars;
+}
+function bricksForEntry(direction, breakoutTimestampMs) {
+  const c = direction === 'LONG' ? [110, 110, 100] : [90, 100, 90];
+  return [
+    b(100, 100, 105, 100, 'up', 0),
+    b(100, 100, 105, 100, 'down', 1),
+    b(100, 100, 105, 100, 'up', 2),
+    b(100, c[0], c[1], c[2], direction === 'LONG' ? 'up' : 'down', breakoutTimestampMs),
+  ];
+}
+// Same fixture/verified indices as darvas_tracker.test.js: index 30 -> EMA9>EMA20 (uptrend), index 34 -> EMA9<EMA20 (downtrend).
+const UPTREND_TIMESTAMP_MS = 30 * 5 * 60 * 1000;
+const DOWNTREND_TIMESTAMP_MS = 34 * 5 * 60 * 1000;
+
+test('entry: LONG breakout places a real order when EMA9 > EMA20 (trend-aligned)', async () => {
+  const oc = mockOrderClient({ placeOrderResults: ['ORDER1'], waitForFillResults: [{ status: 'complete', avgPrice: 111, filledQty: 10 }] });
+  const rm = new RiskManager(50000);
+  const tr = new LiveDarvasTracker('TEST', 'NSE_EQ|X', 10, oc, rm);
+  const bricks = bricksForEntry('LONG', UPTREND_TIMESTAMP_MS + 1);
+  const events = await tr.processBricks(bricks, buildBearishCrossBars());
+  assert.ok(events.find((e) => e.type === 'ENTRY'));
+  assert.ok(tr.position);
+});
+
+test('entry: LONG breakout places NO order when EMA9 < EMA20 (counter-trend) -- same case as SUZLON 2026-07-29', async () => {
+  const oc = mockOrderClient({ placeOrderResults: ['ORDER1'], waitForFillResults: [{ status: 'complete', avgPrice: 111, filledQty: 10 }] });
+  const rm = new RiskManager(50000);
+  const tr = new LiveDarvasTracker('TEST', 'NSE_EQ|X', 10, oc, rm);
+  const bricks = bricksForEntry('LONG', DOWNTREND_TIMESTAMP_MS + 1);
+  const events = await tr.processBricks(bricks, buildBearishCrossBars());
+  assert.equal(events.length, 0);
+  assert.equal(tr.position, null);
+  assert.equal(oc.calls.length, 0, 'no order should have been placed at all');
+});
+
+test('entry: SHORT breakout places a real order when EMA9 < EMA20 (trend-aligned)', async () => {
+  const oc = mockOrderClient({ placeOrderResults: ['ORDER1'], waitForFillResults: [{ status: 'complete', avgPrice: 100, filledQty: 10 }] });
+  const rm = new RiskManager(50000);
+  const tr = new LiveDarvasTracker('TEST', 'NSE_EQ|X', 10, oc, rm);
+  const bricks = bricksForEntry('SHORT', DOWNTREND_TIMESTAMP_MS + 1);
+  const events = await tr.processBricks(bricks, buildBearishCrossBars());
+  assert.ok(events.find((e) => e.type === 'ENTRY'));
+});
+
+test('entry: SHORT breakout places NO order when EMA9 > EMA20 (counter-trend)', async () => {
+  const oc = mockOrderClient({ placeOrderResults: ['ORDER1'], waitForFillResults: [{ status: 'complete', avgPrice: 100, filledQty: 10 }] });
+  const rm = new RiskManager(50000);
+  const tr = new LiveDarvasTracker('TEST', 'NSE_EQ|X', 10, oc, rm);
+  const bricks = bricksForEntry('SHORT', UPTREND_TIMESTAMP_MS + 1);
+  const events = await tr.processBricks(bricks, buildBearishCrossBars());
+  assert.equal(events.length, 0);
+  assert.equal(oc.calls.length, 0);
+});
+
+test('entry: fails OPEN (places the order) when bars5 is not supplied', async () => {
+  const oc = mockOrderClient({ placeOrderResults: ['ORDER1'], waitForFillResults: [{ status: 'complete', avgPrice: 111, filledQty: 10 }] });
+  const rm = new RiskManager(50000);
+  const tr = new LiveDarvasTracker('TEST', 'NSE_EQ|X', 10, oc, rm);
+  const bricks = bricksForEntry('LONG', DOWNTREND_TIMESTAMP_MS + 1); // would be counter-trend if EMA data existed
+  const events = await tr.processBricks(bricks); // no bars5 argument
+  assert.ok(events.find((e) => e.type === 'ENTRY'), 'missing EMA data must not block a real order');
+});
+
 test('EMA cross exit: places a real closing order and computes P&L from the confirmed fill price', async () => {
   const oc = mockOrderClient({
     placeOrderResults: ['ENTRY_ORDER', 'EXIT_ORDER'],
