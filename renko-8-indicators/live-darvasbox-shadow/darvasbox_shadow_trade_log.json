@@ -1440,5 +1440,22 @@
   "brickPct": "0.25",
   "pnlRs": -70.27999999999338,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "STERTOOLS",
+  "direction": "LONG",
+  "entry": 239.37,
+  "exitPrice": 237,
+  "theoreticalExit": 237,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.990099009900992,
+  "entryTimestampMs": 1785309240000,
+  "exitTimestampMs": 1785312120000,
+  "brickPct": "0.25",
+  "pnlRs": -66.36000000000013,
+  "rsSign": "−"
  }
 ]
