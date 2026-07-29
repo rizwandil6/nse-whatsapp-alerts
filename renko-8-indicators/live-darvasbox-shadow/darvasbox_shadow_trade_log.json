@@ -1607,5 +1607,16 @@
   "timestampMs": 1785318720000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "STERTOOLS",
+  "direction": "SHORT",
+  "entry": 237,
+  "theoreticalEntry": 238.185,
+  "entryIdx": 137,
+  "timestampMs": 1785318780000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
