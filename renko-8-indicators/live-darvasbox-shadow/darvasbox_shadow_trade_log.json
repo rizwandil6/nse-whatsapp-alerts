@@ -1322,5 +1322,22 @@
   "brickPct": "0.25",
   "pnlRs": -4.900000000000318,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 528.5,
+  "exitPrice": 530.45,
+  "theoreticalExit": 530.45,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.36896877956481466,
+  "entryTimestampMs": 1785302760000,
+  "exitTimestampMs": 1785307200000,
+  "brickPct": "0.25",
+  "pnlRs": -138.45000000000323,
+  "rsSign": "−"
  }
 ]
