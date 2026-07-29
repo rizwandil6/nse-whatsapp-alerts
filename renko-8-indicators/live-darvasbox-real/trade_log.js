@@ -1,0 +1,145 @@
+'use strict';
+
+/**
+ * Persistent trade log for the REAL-MONEY DarvasBox live trade (0.25%
+ * brick entries, 9/20 EMA-cross exit + catastrophic-stop/daily-circuit-
+ * breaker safety net -- see live_tracker.js), pushed to a dedicated
+ * GitHub branch (never `main`) after every completed trade -- same
+ * reasoning as every other live/ strategy in this repo: a push to `main`
+ * redeploys every Railway service, so a strategy's own trade-log commits
+ * must never land there. Ported unchanged from live-darvasbox-shadow's
+ * trade_log.js, just pointed at a separate file/branch so real and paper
+ * trade history can never be confused with each other.
+ *
+ * Built with two fixes from day one, both learned tonight the hard way on
+ * the sibling renko-python-backtest/live/ service:
+ *   1. getRemoteFile (github_contents.js) falls back to
+ *      raw.githubusercontent.com once the log exceeds the Contents API's
+ *      ~1MB inline-content limit, instead of silently treating a large
+ *      file as empty.
+ *   2. readLocalLog() fails safe (logs loudly, returns []) instead of
+ *      crashing on corrupt/empty local content -- defense in depth in case
+ *      (1) is ever bypassed some other way.
+ */
+
+const fs = require('fs');
+const path = require('path');
+const { getRemoteFile, ensureBranchExists, putFile } = require('./github_contents');
+
+const REPO_REL_PATH = 'renko-8-indicators/live-darvasbox-real/darvasbox_real_trade_log.json';
+const DATA_BRANCH = 'data/darvasbox-real-trade-log';
+const LOCAL_PATH = path.join(__dirname, 'darvasbox_real_trade_log.json');
+
+async function syncFromRemote() {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) { console.warn('GITHUB_TOKEN not set — trade log local-only.'); return; }
+  try {
+    const remote = await getRemoteFile(token, REPO_REL_PATH, DATA_BRANCH).catch(() => null);
+    if (remote) fs.writeFileSync(LOCAL_PATH, remote.content);
+    console.log(`Synced DarvasBox REAL trade log from GitHub (${DATA_BRANCH}).`);
+  } catch (e) {
+    console.error('Trade log sync failed, proceeding with on-disk log as-is:', e.message);
+  }
+}
+
+/**
+ * Identifies a specific real ENTRY/EXIT event, independent of when it was
+ * recorded. Renko brick reconstruction is deterministic, so a restart
+ * mid-day replays the same bricks and re-derives the same events for
+ * trades that already happened and were already logged -- same class of
+ * bug as DarvasBox's original live tracker hit (two redeploys duplicating
+ * early trades). Single brick size / single stop level here (no combo grid
+ * to disambiguate), so the key is simpler than the N/K-grid or
+ * multi-brick-size forward test's.
+ */
+function eventKey(e) {
+  return e.type === 'ENTRY'
+    ? ['ENTRY', e.symbol, e.direction, e.entry, e.timestampMs].join('|')
+    : ['EXIT', e.symbol, e.direction, e.entry, e.exitPrice, e.action, e.entryTimestampMs, e.exitTimestampMs].join('|');
+}
+
+/** Fails safe rather than crashing on empty/corrupt local content -- see module docstring. */
+function readLocalLog() {
+  if (!fs.existsSync(LOCAL_PATH)) return [];
+  const raw = fs.readFileSync(LOCAL_PATH, 'utf8');
+  if (!raw.trim()) return [];
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    console.error(`Trade log at ${LOCAL_PATH} is corrupt/unparseable (${e.message}) -- treating as empty rather than crashing. Investigate if this recurs.`);
+    return [];
+  }
+}
+
+/**
+ * Rebuilds today's already-recorded EXIT events -- used at startup to
+ * restore the in-memory running day-total (dayStats in streamer.js) after
+ * any restart. Without this, a mid-day restart (redeploy, crash-recover,
+ * a token update) would silently reset "day so far" to zero and could
+ * even trigger a premature EOD summary showing 0 trades if positions
+ * happened to all be flat at that exact moment. dateStr = IST calendar
+ * date (bar_aggregator.js's istDateStr format), matched against each
+ * EXIT's exitTimestampMs.
+ */
+function getTodaysExits(dateStr, istDateStrFn) {
+  const log = readLocalLog();
+  return log.filter((e) => e.type === 'EXIT' && istDateStrFn(e.exitTimestampMs) === dateStr);
+}
+
+/** Pre-check so callers can skip sending a Telegram alert entirely for a replayed event, not just skip persisting it. */
+function isDuplicateEvent(event) {
+  const log = readLocalLog();
+  const key = eventKey(event);
+  return log.some((e) => eventKey(e) === key);
+}
+
+/** Returns true if the event was newly appended, false if it was a duplicate (and therefore skipped). */
+function recordTrade(exitEvent) {
+  const log = readLocalLog();
+  const key = eventKey(exitEvent);
+  if (log.some((e) => eventKey(e) === key)) {
+    console.log(`Skipping duplicate trade-log entry for ${exitEvent.symbol} (${exitEvent.type}${exitEvent.action ? ', ' + exitEvent.action : ''}) -- already recorded, likely a post-restart brick replay.`);
+    return false;
+  }
+  log.push(exitEvent);
+  fs.writeFileSync(LOCAL_PATH, JSON.stringify(log, null, 1));
+  return true;
+}
+
+// Serializes every push -- same reasoning as renko-python-backtest/live/trade_log.js:
+// recordTrade() itself is safe (sync fs read/write), only the async GitHub push needs
+// serializing so a burst of near-simultaneous events can't race on branch creation /
+// stale-SHA writes.
+let pushChain = Promise.resolve();
+
+function pushToGitHub(dateLabel) {
+  const run = () => doPush(dateLabel);
+  pushChain = pushChain.then(run, run);
+  return pushChain;
+}
+
+async function doPush(dateLabel) {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) return { pushed: false, reason: 'no_token' };
+  if (!fs.existsSync(LOCAL_PATH)) return { pushed: false, reason: 'no_file' };
+  try {
+    await ensureBranchExists(token, DATA_BRANCH);
+    const localContent = fs.readFileSync(LOCAL_PATH, 'utf8');
+    const remote = await getRemoteFile(token, REPO_REL_PATH, DATA_BRANCH);
+    if (remote && remote.content === localContent) return { pushed: false, reason: 'no_changes' };
+    await putFile(token, REPO_REL_PATH, DATA_BRANCH, localContent, `DarvasBox REAL trade log update (${dateLabel})`, remote ? remote.sha : undefined);
+    console.log(`Pushed DarvasBox REAL trade log to GitHub (${DATA_BRANCH}).`);
+    return { pushed: true };
+  } catch (e) {
+    console.error('Trade log push failed:', e.message);
+    return { pushed: false, reason: 'error', error: e.message };
+  }
+}
+
+async function recordAndPush(exitEvent, dateLabel) {
+  const added = recordTrade(exitEvent);
+  if (!added) return { pushed: false, reason: 'duplicate' };
+  return pushToGitHub(dateLabel).catch((e) => console.error('recordAndPush threw:', e.message));
+}
+
+module.exports = { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits };

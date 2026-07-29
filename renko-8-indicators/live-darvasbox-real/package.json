@@ -1,0 +1,18 @@
+{
+  "name": "darvasbox-real-0.25pctbrick-ema920exit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "REAL-MONEY DarvasBox trade on the real 21-holding portfolio -- 0.25% brick entries (Renko, 1-min), 9/20 EMA-crossover exit (5-min bars), catastrophic-stop backstop + daily max-loss circuit breaker. LIVE_TRADING_ENABLED defaults to false (inert -- detects but never orders) until explicitly set true.",
+  "main": "streamer.js",
+  "scripts": {
+    "start": "node streamer.js",
+    "test": "node --test *.test.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "protobufjs": "^7.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
