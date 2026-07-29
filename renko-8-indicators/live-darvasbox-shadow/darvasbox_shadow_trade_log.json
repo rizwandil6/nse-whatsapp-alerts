@@ -1474,5 +1474,16 @@
   "brickPct": "0.25",
   "pnlRs": 96.99170000000049,
   "rsSign": "+"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 174.9,
+  "theoreticalEntry": 173.10389999999995,
+  "entryIdx": 13,
+  "timestampMs": 1785313500000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
