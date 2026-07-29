@@ -1367,5 +1367,16 @@
   "timestampMs": 1785308580000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 312.4,
+  "theoreticalEntry": 312.86587499999996,
+  "entryIdx": 10,
+  "timestampMs": 1785308640000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
