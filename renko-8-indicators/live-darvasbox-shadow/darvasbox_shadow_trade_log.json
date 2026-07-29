@@ -1160,5 +1160,16 @@
   "timestampMs": 1785298800000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 292.95,
+  "theoreticalEntry": 292.930625,
+  "entryIdx": 16,
+  "timestampMs": 1785299160000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
