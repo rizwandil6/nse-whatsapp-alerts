@@ -1182,5 +1182,16 @@
   "timestampMs": 1785299280000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 528.5,
+  "theoreticalEntry": 528.6802499999999,
+  "entryIdx": 13,
+  "timestampMs": 1785302760000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
