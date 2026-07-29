@@ -1193,5 +1193,16 @@
   "timestampMs": 1785302760000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 175.64,
+  "theoreticalEntry": 175.407425,
+  "entryIdx": 6,
+  "timestampMs": 1785303360000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
