@@ -1305,5 +1305,22 @@
   "timestampMs": 1785306720000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 292.95,
+  "exitPrice": 293.3,
+  "theoreticalExit": 293.3,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.11947431302270788,
+  "entryTimestampMs": 1785299160000,
+  "exitTimestampMs": 1785306900000,
+  "brickPct": "0.25",
+  "pnlRs": -4.900000000000318,
+  "rsSign": "−"
  }
 ]
