@@ -59,7 +59,7 @@ const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
 const { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits } = require('./trade_log');
 const { TickBarBuilder } = require('./tick_bar_builder');
-const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min } = require('./bar_aggregator');
+const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min, aggregateTo5MinMultiDay } = require('./bar_aggregator');
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -67,8 +67,10 @@ const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-
 const PAPER_ALERTS_ENABLED = process.env.DARVAS_TELEGRAM_ENABLED !== 'false';
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
 const HISTORICAL_INTRADAY_BASE = 'https://api.upstox.com/v3/historical-candle/intraday';
+const HISTORICAL_RANGE_BASE = 'https://api.upstox.com/v3/historical-candle'; // date-ranged (non-today) candles, for EMA warm-up
 const FLUSH_POLL_MS = 15 * 1000;
 const BACKFILL_DELAY_MS = 150;
+const EMA_WARMUP_LOOKBACK_DAYS = 12; // calendar days back (~8 trading days) -- comfortably converges EMA(9)/EMA(20) before today's first bar; see bar_aggregator.js's aggregateTo5MinMultiDay docstring
 
 const BRICK_PCT = 0.0025; // 0.25%, deliberate -- see module docstring
 const BRICK_LABEL = '0.25';
@@ -91,8 +93,17 @@ for (const [symbol, key] of Object.entries(symbols)) keyToSymbol[key] = symbol;
 const tickBuilders = {}; // symbol -> TickBarBuilder
 const oneMinBars = {};   // symbol -> today's closed 1-min bars, in-memory only
 const trackers = {};     // symbol -> DarvasLiveTracker
+// symbol -> 5-min bars from BEFORE today (EMA_WARMUP_LOOKBACK_DAYS calendar
+// days), fetched once/day and never mutated intraday. Prepended to today's
+// growing bars5 before every checkEmaCrossExit call so EMA(9)/EMA(20) are
+// already fully converged at market open instead of needing ~100 minutes
+// to produce a first value -- see bar_aggregator.js's aggregateTo5MinMultiDay
+// docstring for the full reasoning (this fixes a confirmed real bug, not
+// just a cosmetic mismatch with charting platforms).
+const historicalBars5 = {};
 for (const symbol of Object.keys(symbols)) {
   oneMinBars[symbol] = [];
+  historicalBars5[symbol] = [];
   trackers[symbol] = new DarvasLiveTracker(symbol, () => {
     const b = tickBuilders[symbol];
     return b ? b.getLivePrice() : null;
@@ -165,6 +176,45 @@ async function fetchTodaysOneMinCandles(instrumentKey) {
   return (body.data.candles || [])
     .map((c) => ({ timestampMs: new Date(c[0]).getTime(), open: c[1], high: c[2], low: c[3], close: c[4], volume: c[5] }))
     .sort((a, b) => a.timestampMs - b.timestampMs);
+}
+
+function isoDaysAgo(days) {
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() - days);
+  return d.toISOString().slice(0, 10);
+}
+
+/** Past EMA_WARMUP_LOOKBACK_DAYS calendar days of 1-min candles (up to yesterday -- today comes from the live/intraday path), aggregated to multi-day-safe 5-min bars. */
+async function fetchHistorical5MinBars(instrumentKey) {
+  const to = isoDaysAgo(1);
+  const from = isoDaysAgo(EMA_WARMUP_LOOKBACK_DAYS);
+  const url = `${HISTORICAL_RANGE_BASE}/${encodeURIComponent(instrumentKey)}/minutes/1/${to}/${from}`;
+  const res = await fetchWithTimeout(url, { headers: { Authorization: `Bearer ${UPSTOX_TOKEN}`, Accept: 'application/json' } });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const body = await res.json();
+  if (body.status !== 'success') throw new Error(`Upstox status: ${body.status}`);
+  const candles = (body.data.candles || [])
+    .map((c) => ({ timestampMs: new Date(c[0]).getTime(), open: c[1], high: c[2], low: c[3], close: c[4], volume: c[5] }))
+    .sort((a, b) => a.timestampMs - b.timestampMs);
+  return aggregateTo5MinMultiDay(candles);
+}
+
+/** Loads historicalBars5 for every symbol -- called once at startup and once per new trading day. A per-symbol failure falls back to an empty (cold-start) warm-up for that symbol rather than blocking the others. */
+async function loadEmaWarmup() {
+  console.log(`Fetching ${EMA_WARMUP_LOOKBACK_DAYS} calendar days of history for continuous EMA warm-up (${Object.keys(symbols).length} symbols)...`);
+  let ok = 0, failed = 0;
+  for (const symbol of Object.keys(symbols)) {
+    try {
+      historicalBars5[symbol] = await fetchHistorical5MinBars(symbols[symbol]);
+      ok++;
+    } catch (e) {
+      console.warn(`  EMA warm-up fetch failed for ${symbol}: ${e.message} -- falling back to cold-start (no warm-up) for this symbol today.`);
+      historicalBars5[symbol] = [];
+      failed++;
+    }
+    await new Promise((r) => setTimeout(r, BACKFILL_DELAY_MS));
+  }
+  console.log(`EMA warm-up history loaded: ${ok}/${Object.keys(symbols).length} symbols (${failed} failed).`);
 }
 
 async function sendTelegramAlert(text) {
@@ -251,6 +301,11 @@ function maybeResetForNewDay(nowMs) {
     trackers[symbol].resetForNewDay();
   }
   console.log(`New trading day: ${dateStr}. Tracker + in-memory 1-min bar buffers + day stats reset.`);
+  // Fire-and-forget: yesterday's historicalBars5 stays in place (only one
+  // day stale, negligible given the multi-day convergence window) until
+  // this completes -- not awaited so a slow multi-symbol refetch can never
+  // block live tick processing.
+  loadEmaWarmup().catch((e) => console.error('EMA warm-up reload for the new day failed:', e.message));
 }
 
 /**
@@ -307,7 +362,10 @@ function ingestOneMinBar(symbol, bar, silent) {
   const bricks = buildRenkoBricks(bars, BRICK_PCT);
   const tracker = trackers[symbol];
   const events = tracker.processBricks(bricks);
-  const bars5 = aggregateTo5Min(bars);
+  // Historical prefix (fixed length within a day) + today's growing portion --
+  // gives checkEmaCrossExit a continuously-converged EMA instead of a cold
+  // start every morning. See historicalBars5's declaration for why.
+  const bars5 = historicalBars5[symbol].concat(aggregateTo5Min(bars));
   const emaCrossEvent = tracker.checkEmaCrossExit(bars5);
   if (emaCrossEvent) events.push(emaCrossEvent);
   if (minutesOfDay >= MARKET_CLOSE_MIN) {
@@ -485,6 +543,11 @@ async function main() {
     console.log(`Restored today's running P&L from the persisted log: ${dayStats.trades} trades, ${dayStats.wins} wins, total ${dayStats.totalPnlPct.toFixed(2)}% so far.`);
   }
 
+  // Awaited here (unlike maybeResetForNewDay's fire-and-forget reload) --
+  // startupBackfillIfNeeded() replays today's bricks through the same
+  // checkEmaCrossExit path a live tick would, so it needs a real warm-up
+  // prefix in place BEFORE that replay runs, not an empty one.
+  await loadEmaWarmup();
   await startupBackfillIfNeeded();
   scheduleBarFlush();
 

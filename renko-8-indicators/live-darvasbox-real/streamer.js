@@ -31,15 +31,17 @@ const { RiskManager } = require('./risk_manager');
 const { LiveDarvasTracker } = require('./live_tracker');
 const { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits } = require('./trade_log');
 const { TickBarBuilder } = require('./tick_bar_builder');
-const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min } = require('./bar_aggregator');
+const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min, aggregateTo5MinMultiDay } = require('./bar_aggregator');
 
 const UPSTOX_TOKEN_ENV = 'UPSTOX_ACCESS_TOKEN'; // read fresh each call, not cached -- token is refreshed daily
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-5338709046').split(',');
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
 const HISTORICAL_INTRADAY_BASE = 'https://api.upstox.com/v3/historical-candle/intraday';
+const HISTORICAL_RANGE_BASE = 'https://api.upstox.com/v3/historical-candle'; // date-ranged (non-today) candles, for EMA warm-up
 const FLUSH_POLL_MS = 15 * 1000;
 const BACKFILL_DELAY_MS = 150;
+const EMA_WARMUP_LOOKBACK_DAYS = 12; // see live-darvasbox-shadow/bar_aggregator.js's aggregateTo5MinMultiDay docstring -- same fix, ported here for consistency
 
 const BRICK_PCT = 0.0025; // 0.25%, same as live-darvasbox-shadow
 const CATASTROPHIC_STOP_PCT = 0.03; // 3%, wide backstop -- see live_tracker.js
@@ -67,10 +69,14 @@ const riskManager = new RiskManager(DAILY_MAX_LOSS_RS);
 const tickBuilders = {}; // symbol -> TickBarBuilder
 const oneMinBars = {};   // symbol -> today's closed 1-min bars, in-memory only
 const trackers = {};     // symbol -> LiveDarvasTracker
+// symbol -> 5-min bars from BEFORE today, fetched once/day -- see
+// live-darvasbox-shadow/streamer.js's identical field for the full reasoning.
+const historicalBars5 = {};
 for (const [symbol, instrumentKey] of Object.entries(symbols)) {
   const qty = QUANTITIES[symbol];
   if (!qty) { console.warn(`No QUANTITIES entry for ${symbol} -- skipping (would not know what size to order).`); continue; }
   oneMinBars[symbol] = [];
+  historicalBars5[symbol] = [];
   trackers[symbol] = new LiveDarvasTracker(symbol, instrumentKey, qty, orderClient, riskManager, { catastrophicStopPct: CATASTROPHIC_STOP_PCT });
 }
 let currentDate = null;
@@ -128,6 +134,44 @@ async function fetchTodaysOneMinCandles(instrumentKey) {
   return (body.data.candles || [])
     .map((c) => ({ timestampMs: new Date(c[0]).getTime(), open: c[1], high: c[2], low: c[3], close: c[4], volume: c[5] }))
     .sort((a, b) => a.timestampMs - b.timestampMs);
+}
+
+function isoDaysAgo(days) {
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() - days);
+  return d.toISOString().slice(0, 10);
+}
+
+/** Past EMA_WARMUP_LOOKBACK_DAYS calendar days of 1-min candles, aggregated to multi-day-safe 5-min bars -- see live-darvasbox-shadow/streamer.js's identical function. */
+async function fetchHistorical5MinBars(instrumentKey) {
+  const to = isoDaysAgo(1);
+  const from = isoDaysAgo(EMA_WARMUP_LOOKBACK_DAYS);
+  const url = `${HISTORICAL_RANGE_BASE}/${encodeURIComponent(instrumentKey)}/minutes/1/${to}/${from}`;
+  const res = await fetchWithTimeout(url, { headers: { Authorization: `Bearer ${process.env[UPSTOX_TOKEN_ENV]}`, Accept: 'application/json' } });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const body = await res.json();
+  if (body.status !== 'success') throw new Error(`Upstox status: ${body.status}`);
+  const candles = (body.data.candles || [])
+    .map((c) => ({ timestampMs: new Date(c[0]).getTime(), open: c[1], high: c[2], low: c[3], close: c[4], volume: c[5] }))
+    .sort((a, b) => a.timestampMs - b.timestampMs);
+  return aggregateTo5MinMultiDay(candles);
+}
+
+async function loadEmaWarmup() {
+  console.log(`Fetching ${EMA_WARMUP_LOOKBACK_DAYS} calendar days of history for continuous EMA warm-up (${Object.keys(trackers).length} symbols)...`);
+  let ok = 0, failed = 0;
+  for (const symbol of Object.keys(trackers)) {
+    try {
+      historicalBars5[symbol] = await fetchHistorical5MinBars(symbols[symbol]);
+      ok++;
+    } catch (e) {
+      console.warn(`  EMA warm-up fetch failed for ${symbol}: ${e.message} -- falling back to cold-start for this symbol today.`);
+      historicalBars5[symbol] = [];
+      failed++;
+    }
+    await new Promise((r) => setTimeout(r, BACKFILL_DELAY_MS));
+  }
+  console.log(`EMA warm-up history loaded: ${ok}/${Object.keys(trackers).length} symbols (${failed} failed).`);
 }
 
 async function sendTelegramAlert(text) {
@@ -219,6 +263,7 @@ function maybeResetForNewDay(nowMs) {
     trackers[symbol].resetForNewDay();
   }
   console.log(`New trading day: ${dateStr}. Trackers + risk manager + in-memory bar buffers + day stats reset.`);
+  loadEmaWarmup().catch((e) => console.error('EMA warm-up reload for the new day failed:', e.message));
 }
 
 function maybeSendEodSummary() {
@@ -248,7 +293,7 @@ async function ingestOneMinBar(symbol, bar, silent) {
   const events = [];
   if (LIVE_TRADING_ENABLED) {
     events.push(...await tracker.processBricks(bricks));
-    const bars5 = aggregateTo5Min(bars);
+    const bars5 = historicalBars5[symbol].concat(aggregateTo5Min(bars));
     const emaCrossEvent = await tracker.checkEmaCrossExit(bars5);
     if (emaCrossEvent) events.push(emaCrossEvent);
     const catastrophicEvent = await tracker.checkCatastrophicStop(bars);
@@ -260,7 +305,7 @@ async function ingestOneMinBar(symbol, bar, silent) {
   } else {
     // Disabled: still run entry/exit detection so logs show what WOULD happen, but never call OrderClient.
     tracker.processedBrickCount = bricks.length;
-    tracker.processedBar5Count = aggregateTo5Min(bars).length;
+    tracker.processedBar5Count = historicalBars5[symbol].length + aggregateTo5Min(bars).length;
     tracker.processedBarCount = bars.length;
   }
 
@@ -441,6 +486,7 @@ async function main() {
     console.log(`Restored today's running P&L from the persisted log: ${dayStats.trades} trades, ${dayStats.wins} wins, total ${dayStats.totalPnlPct.toFixed(2)}% so far.`);
   }
 
+  await loadEmaWarmup();
   await startupBackfillIfNeeded();
   scheduleBarFlush();
 

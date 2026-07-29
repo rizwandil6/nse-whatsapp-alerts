@@ -6,7 +6,7 @@
   "main": "streamer.js",
   "scripts": {
     "start": "node streamer.js",
-    "test": "node --test darvas_tracker.test.js"
+    "test": "node --test *.test.js"
   },
   "dependencies": {
     "ws": "^8.18.0",
