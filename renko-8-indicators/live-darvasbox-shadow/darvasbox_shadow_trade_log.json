@@ -1266,5 +1266,22 @@
   "brickPct": "0.25",
   "pnlRs": -120,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 112.64,
+  "exitPrice": 111.99,
+  "theoreticalExit": 111.85,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.5770596590909142,
+  "entryTimestampMs": 1785297960000,
+  "exitTimestampMs": 1785305700000,
+  "brickPct": "0.25",
+  "pnlRs": -49.40000000000043,
+  "rsSign": "−"
  }
 ]
