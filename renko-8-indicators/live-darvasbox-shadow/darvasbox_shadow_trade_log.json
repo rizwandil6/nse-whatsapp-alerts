@@ -1423,5 +1423,22 @@
   "brickPct": "0.25",
   "pnlRs": -22.72399999999942,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 834.0424999999996,
+  "exitPrice": 829.65,
+  "theoreticalExit": 829.65,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.5266518193017249,
+  "entryTimestampMs": 1785297840000,
+  "exitTimestampMs": 1785312000000,
+  "brickPct": "0.25",
+  "pnlRs": -70.27999999999338,
+  "rsSign": "−"
  }
 ]
