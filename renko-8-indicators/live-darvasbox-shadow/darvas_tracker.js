@@ -57,14 +57,39 @@
  *      (bars5 empty/not passed, e.g. a warm-up fetch failure for one
  *      symbol) this fails OPEN -- allows the entry rather than silently
  *      blocking a symbol from ever trading that day over a data outage.
+ *   4. Entry gained a volume-spike filter 2026-07-29: a box breakout is
+ *      suppressed if the entry brick's volume (the underlying 1-min
+ *      candle's volume, same value renko.js stamps onto the brick) is
+ *      >= VOLUME_SPIKE_THRESHOLD (6.0x) the trailing same-day 20-bar
+ *      average 1-min volume. Root cause: the user spotted a recurring
+ *      chart pattern across several losing trades -- an isolated, oversized
+ *      volume print right at the breakout, with normal/thin volume on
+ *      either side, rather than volume building steadily into the move.
+ *      That signature (a single outsized print, not sustained elevated
+ *      volume) usually means a one-off block/algo print clearing the book
+ *      -- exhaustion, not the broad participation a genuine breakout needs.
+ *      Verified against the real trade log (git branch
+ *      data/darvasbox-shadow-0.25pct-1pctSL-trade-log, 62 analyzable
+ *      trades across 2026-07-27..29): entries with a >=6x volume spike had
+ *      a 14% win rate / -0.36% avg P&L versus 60-83% win rate for
+ *      below-to-normal volume entries (Spearman correlation -0.345
+ *      between spike ratio and P&L). Small sample (3 trading days) --
+ *      treat 6.0x as a reasonable starting threshold, not a precisely
+ *      tuned optimum. Same fail-OPEN philosophy as (3): fewer than
+ *      VOLUME_MIN_TRAILING_BARS same-day prior bars (e.g. first few
+ *      minutes of the session) allows the entry rather than blocking it.
  */
 
 const { strategies } = require('./strategies');
+const { istDateStr } = require('./bar_aggregator');
 const darvas = strategies.find((s) => s.name === 'DarvasBox');
 if (!darvas) throw new Error('DarvasBox strategy not found in strategies.js');
 
 const EMA_FAST = 9;
 const EMA_SLOW = 20;
+const VOLUME_LOOKBACK_BARS = 20;
+const VOLUME_MIN_TRAILING_BARS = 5;
+const VOLUME_SPIKE_THRESHOLD = 6.0;
 
 /** Standard exponential moving average, seeded with a simple average over the first `period` values. Returns null for indices before the seed point. */
 function computeEma(closes, period) {
@@ -105,9 +130,11 @@ class DarvasLiveTracker {
    * bar series passed to checkEmaCrossExit (defaults to [] so callers that
    * don't care about the trend filter, e.g. existing unit tests, don't need
    * to supply it -- an empty/missing bars5 fails OPEN, see fork note (3)).
-   * Returns new ENTRY events since the last call.
+   * bars1m = today's raw 1-min bars (same array bricks were built from --
+   * defaults to [] so the volume-spike filter fails OPEN too, see fork
+   * note (4)). Returns new ENTRY events since the last call.
    */
-  processBricks(bricks, bars5 = []) {
+  processBricks(bricks, bars5 = [], bars1m = []) {
     const ctx = { bricks };
     const events = [];
     const start = Math.max(1, this.processedBrickCount);
@@ -120,6 +147,9 @@ class DarvasLiveTracker {
         const direction = darvas.getEntry(i, ctx);
         if (direction) {
           if (!this._trendAligned(direction, bricks[i].timestampMs, bars5, emaFast, emaSlow)) {
+            continue;
+          }
+          if (!this._volumeSpikeOk(direction, bricks[i].timestampMs, bricks[i].volume, bars1m)) {
             continue;
           }
           const theoreticalEntry = bricks[i].close;
@@ -148,6 +178,41 @@ class DarvasLiveTracker {
       console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- EMA9 (${emaFast[idx].toFixed(3)}) vs EMA20 (${emaSlow[idx].toFixed(3)}) is counter-trend.`);
     }
     return aligned;
+  }
+
+  /**
+   * True unless the entry brick's volume is an extreme spike relative to
+   * the trailing same-day 1-min volume -- see module docstring fork note
+   * (4). Fails OPEN (allows the entry) when bars1m is empty/not supplied,
+   * when the entry bar can't be located in it, or when fewer than
+   * VOLUME_MIN_TRAILING_BARS same-day bars precede it (e.g. the first few
+   * minutes of the session) -- same philosophy as _trendAligned.
+   */
+  _volumeSpikeOk(direction, brickTimestampMs, brickVolume, bars1m) {
+    if (!bars1m || bars1m.length === 0) return true;
+    let idx = -1;
+    for (let j = 0; j < bars1m.length; j++) {
+      if (bars1m[j].timestampMs <= brickTimestampMs) idx = j; else break;
+    }
+    if (idx === -1) return true;
+
+    const entryDate = istDateStr(bars1m[idx].timestampMs);
+    const trailing = [];
+    for (let j = idx - 1; j >= 0 && trailing.length < VOLUME_LOOKBACK_BARS; j--) {
+      if (istDateStr(bars1m[j].timestampMs) !== entryDate) break;
+      trailing.push(bars1m[j].volume);
+    }
+    if (trailing.length < VOLUME_MIN_TRAILING_BARS) return true;
+
+    const trailingAvg = trailing.reduce((a, b) => a + b, 0) / trailing.length;
+    if (trailingAvg <= 0) return true;
+
+    const spikeRatio = brickVolume / trailingAvg;
+    const ok = spikeRatio < VOLUME_SPIKE_THRESHOLD;
+    if (!ok) {
+      console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- entry volume ${brickVolume} is ${spikeRatio.toFixed(1)}x the trailing ${trailing.length}-bar average (${trailingAvg.toFixed(1)}) -- extreme spike, likely exhaustion not confirmation.`);
+    }
+    return ok;
   }
 
   /**

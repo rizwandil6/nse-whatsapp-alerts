@@ -80,10 +80,10 @@ const EXIT_LABEL = '9/20 EMA cross (5-min), no stop-loss'; // revised 2026-07-28
 // (renko-8-indicators/portfolio_sell_high_buy_low_intrabar.js), so rupee P&L
 // here reflects your actual position size, not a flat notional.
 const QUANTITIES = {
-  CONCOR: 23, GAIL: 75, HATHWAY: 58, HINDCOPPER: 42, JKIL: 25, JSWINFRA: 66,
-  MANINDS: 71, MHRIL: 52, NHPC: 350, OLAELEC: 3059, ORIENTELEC: 226, RAILTEL: 14,
+  CONCOR: 23, GAIL: 75, HATHWAY: 58, HINDCOPPER: 42, JSWINFRA: 66,
+  MHRIL: 52, NHPC: 350, OLAELEC: 3059, ORIENTELEC: 226, RAILTEL: 14,
   RVNL: 961, SUZLON: 615, WAAREEENER: 56, ADSL: 52, 'ARE&M': 15, NCC: 61,
-  STERTOOLS: 28, TEXRAIL: 76, TITAGARH: 16,
+  TEXRAIL: 76, TITAGARH: 16,
 };
 
 const symbols = require('./symbols.json');
@@ -366,7 +366,7 @@ function ingestOneMinBar(symbol, bar, silent) {
   // converged EMA instead of a cold start every morning. See
   // historicalBars5's declaration for why. Computed once, shared by both.
   const bars5 = historicalBars5[symbol].concat(aggregateTo5Min(bars));
-  const events = tracker.processBricks(bricks, bars5);
+  const events = tracker.processBricks(bricks, bars5, bars);
   const emaCrossEvent = tracker.checkEmaCrossExit(bars5);
   if (emaCrossEvent) events.push(emaCrossEvent);
   if (minutesOfDay >= MARKET_CLOSE_MIN) {

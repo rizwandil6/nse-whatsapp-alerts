@@ -224,6 +224,56 @@ test('checkEmaCrossExit: does not fire while EMAs never cross', () => {
 
 // --- forceEodClose: unchanged, still brick-driven ---
 
+// --- processBricks entry volume-spike filter (2026-07-29) ---
+
+function bar1m(volume, idxMinutes) {
+  return { timestampMs: idxMinutes * 60 * 1000, volume, open: 0, high: 0, low: 0, close: 0 };
+}
+
+// 20 same-day 1-min bars (minutes 0..19) at a steady volume of 100 each -- trailing
+// average is exactly 100. The breakout brick lands at minute 20.
+function buildSteadyVolumeBars1m() {
+  const bars = [];
+  for (let i = 0; i < 20; i++) bars.push(bar1m(100, i));
+  return bars;
+}
+const ENTRY_MINUTE_MS = 20 * 60 * 1000;
+
+test('processBricks: entry taken when volume is a MODEST multiple of trailing average (below 6x threshold)', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('LONG', ENTRY_MINUTE_MS);
+  bricks[3].volume = 300; // 3x the trailing 100 average -- under VOLUME_SPIKE_THRESHOLD
+  const events = tr.processBricks(bricks, [], buildSteadyVolumeBars1m());
+  assert.ok(events.find((e) => e.type === 'ENTRY'), `expected an ENTRY, got: ${JSON.stringify(events)}`);
+  assert.ok(tr.position);
+});
+
+test('processBricks: entry suppressed when volume is >= 6x trailing average (extreme spike)', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('LONG', ENTRY_MINUTE_MS);
+  bricks[3].volume = 700; // 7x the trailing 100 average -- over VOLUME_SPIKE_THRESHOLD
+  const events = tr.processBricks(bricks, [], buildSteadyVolumeBars1m());
+  assert.equal(events.length, 0, `expected no events, got: ${JSON.stringify(events)}`);
+  assert.equal(tr.position, null, 'no position should have been opened');
+});
+
+test('processBricks: fails OPEN (allows the entry) when bars1m is not supplied at all', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('LONG', ENTRY_MINUTE_MS);
+  bricks[3].volume = 100000; // would be an enormous spike if bars1m existed
+  const events = tr.processBricks(bricks, []); // no bars1m argument
+  assert.ok(events.find((e) => e.type === 'ENTRY'), 'missing volume data must not block the entry');
+});
+
+test('processBricks: fails OPEN when fewer than 5 same-day trailing bars are available', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  const bricks = bricksForEntry('LONG', 3 * 60 * 1000); // only 3 prior bars exist (minutes 0-2)
+  bricks[3].volume = 100000;
+  const thinBars1m = [bar1m(100, 0), bar1m(100, 1), bar1m(100, 2)];
+  const events = tr.processBricks(bricks, [], thinBars1m);
+  assert.ok(events.find((e) => e.type === 'ENTRY'), 'insufficient trailing history must not block the entry');
+});
+
 test('forceEodClose: closes an open position at the last brick close', () => {
   const bricks = [
     b(100, 100, 105, 100, 'up', 0),

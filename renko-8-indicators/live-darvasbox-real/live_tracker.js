@@ -29,14 +29,26 @@
  *      reasoning/backtest. Fails OPEN (places the order) if EMA data isn't
  *      available -- a missing warm-up fetch must not silently block a
  *      symbol from ever trading that day.
+ *   6. Entry gained the SAME volume-spike filter as the paper tracker
+ *      (2026-07-29): a box breakout is suppressed (no real order placed) if
+ *      the entry brick's volume is >= VOLUME_SPIKE_THRESHOLD (6.0x) the
+ *      trailing same-day 20-bar average 1-min volume. See
+ *      live-darvasbox-shadow/darvas_tracker.js's fork note (4) for the full
+ *      reasoning/backtest (62 real trades, 14% win rate on >=6x-spike
+ *      entries vs 60-83% otherwise). Fails OPEN if there's insufficient
+ *      trailing volume history yet.
  */
 
 const { strategies } = require('./strategies');
+const { istDateStr } = require('./bar_aggregator');
 const darvas = strategies.find((s) => s.name === 'DarvasBox');
 if (!darvas) throw new Error('DarvasBox strategy not found in strategies.js');
 
 const EMA_FAST = 9;
 const EMA_SLOW = 20;
+const VOLUME_LOOKBACK_BARS = 20;
+const VOLUME_MIN_TRAILING_BARS = 5;
+const VOLUME_SPIKE_THRESHOLD = 6.0;
 
 function computeEma(closes, period) {
   const k = 2 / (period + 1);
@@ -86,9 +98,11 @@ class LiveDarvasTracker {
    * bricks = ALL of today's bricks so far. Entries only -- exits are
    * checkEmaCrossExit/checkCatastrophicStop/forceEodClose. bars5 = the SAME
    * historical+today 5-min series passed to checkEmaCrossExit (defaults to
-   * [], fails open -- see fork note 5). Async: places a real order on a signal.
+   * [], fails open -- see fork note 5). bars1m = today's raw 1-min bars
+   * (defaults to [], fails open -- see fork note 6). Async: places a real
+   * order on a signal.
    */
-  async processBricks(bricks, bars5 = []) {
+  async processBricks(bricks, bars5 = [], bars1m = []) {
     const ctx = { bricks };
     const events = [];
     const start = Math.max(1, this.processedBrickCount);
@@ -105,6 +119,7 @@ class LiveDarvasTracker {
         continue;
       }
       if (!this._trendAligned(direction, bricks[i].timestampMs, bars5, emaFast, emaSlow)) continue;
+      if (!this._volumeSpikeOk(direction, bricks[i].timestampMs, bricks[i].volume, bars1m)) continue;
       const event = await this._enter(direction, bricks[i]);
       if (event) events.push(event);
     }
@@ -124,6 +139,34 @@ class LiveDarvasTracker {
       console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- EMA9 (${emaFast[idx].toFixed(3)}) vs EMA20 (${emaSlow[idx].toFixed(3)}) is counter-trend.`);
     }
     return aligned;
+  }
+
+  /** True unless the entry brick's volume is an extreme spike relative to the trailing same-day 1-min volume (fails open with insufficient history) -- see fork note (6). */
+  _volumeSpikeOk(direction, brickTimestampMs, brickVolume, bars1m) {
+    if (!bars1m || bars1m.length === 0) return true;
+    let idx = -1;
+    for (let j = 0; j < bars1m.length; j++) {
+      if (bars1m[j].timestampMs <= brickTimestampMs) idx = j; else break;
+    }
+    if (idx === -1) return true;
+
+    const entryDate = istDateStr(bars1m[idx].timestampMs);
+    const trailing = [];
+    for (let j = idx - 1; j >= 0 && trailing.length < VOLUME_LOOKBACK_BARS; j--) {
+      if (istDateStr(bars1m[j].timestampMs) !== entryDate) break;
+      trailing.push(bars1m[j].volume);
+    }
+    if (trailing.length < VOLUME_MIN_TRAILING_BARS) return true;
+
+    const trailingAvg = trailing.reduce((a, b) => a + b, 0) / trailing.length;
+    if (trailingAvg <= 0) return true;
+
+    const spikeRatio = brickVolume / trailingAvg;
+    const ok = spikeRatio < VOLUME_SPIKE_THRESHOLD;
+    if (!ok) {
+      console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- entry volume ${brickVolume} is ${spikeRatio.toFixed(1)}x the trailing ${trailing.length}-bar average (${trailingAvg.toFixed(1)}) -- extreme spike, likely exhaustion not confirmation.`);
+    }
+    return ok;
   }
 
   async _enter(direction, entryBrick) {

@@ -190,6 +190,51 @@ test('entry: fails OPEN (places the order) when bars5 is not supplied', async ()
   assert.ok(events.find((e) => e.type === 'ENTRY'), 'missing EMA data must not block a real order');
 });
 
+// --- entry volume-spike filter (2026-07-29, same as live-darvasbox-shadow) ---
+
+function bar1m(volume, idxMinutes) {
+  return { timestampMs: idxMinutes * 60 * 1000, volume, open: 0, high: 0, low: 0, close: 0 };
+}
+function buildSteadyVolumeBars1m() {
+  const bars = [];
+  for (let i = 0; i < 20; i++) bars.push(bar1m(100, i));
+  return bars;
+}
+const ENTRY_MINUTE_MS = 20 * 60 * 1000;
+
+test('entry: places a real order when volume is a MODEST multiple of trailing average (below 6x threshold)', async () => {
+  const oc = mockOrderClient({ placeOrderResults: ['ORDER1'], waitForFillResults: [{ status: 'complete', avgPrice: 111, filledQty: 10 }] });
+  const rm = new RiskManager(50000);
+  const tr = new LiveDarvasTracker('TEST', 'NSE_EQ|X', 10, oc, rm);
+  const bricks = bricksForEntry('LONG', ENTRY_MINUTE_MS);
+  bricks[3].volume = 300; // 3x the trailing 100 average -- under VOLUME_SPIKE_THRESHOLD
+  const events = await tr.processBricks(bricks, [], buildSteadyVolumeBars1m());
+  assert.ok(events.find((e) => e.type === 'ENTRY'));
+  assert.ok(tr.position);
+});
+
+test('entry: places NO order when volume is >= 6x trailing average (extreme spike)', async () => {
+  const oc = mockOrderClient({ placeOrderResults: ['ORDER1'], waitForFillResults: [{ status: 'complete', avgPrice: 111, filledQty: 10 }] });
+  const rm = new RiskManager(50000);
+  const tr = new LiveDarvasTracker('TEST', 'NSE_EQ|X', 10, oc, rm);
+  const bricks = bricksForEntry('LONG', ENTRY_MINUTE_MS);
+  bricks[3].volume = 700; // 7x the trailing 100 average -- over VOLUME_SPIKE_THRESHOLD
+  const events = await tr.processBricks(bricks, [], buildSteadyVolumeBars1m());
+  assert.equal(events.length, 0);
+  assert.equal(tr.position, null);
+  assert.equal(oc.calls.length, 0, 'no order should have been placed at all');
+});
+
+test('entry: fails OPEN (places the order) when bars1m is not supplied', async () => {
+  const oc = mockOrderClient({ placeOrderResults: ['ORDER1'], waitForFillResults: [{ status: 'complete', avgPrice: 111, filledQty: 10 }] });
+  const rm = new RiskManager(50000);
+  const tr = new LiveDarvasTracker('TEST', 'NSE_EQ|X', 10, oc, rm);
+  const bricks = bricksForEntry('LONG', ENTRY_MINUTE_MS);
+  bricks[3].volume = 100000; // would be an enormous spike if bars1m existed
+  const events = await tr.processBricks(bricks, []); // no bars1m argument
+  assert.ok(events.find((e) => e.type === 'ENTRY'), 'missing volume data must not block a real order');
+});
+
 test('EMA cross exit: places a real closing order and computes P&L from the confirmed fill price', async () => {
   const oc = mockOrderClient({
     placeOrderResults: ['ENTRY_ORDER', 'EXIT_ORDER'],

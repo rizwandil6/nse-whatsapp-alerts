@@ -53,10 +53,10 @@ const LIVE_TRADING_ENABLED = process.env.LIVE_TRADING_ENABLED === 'true'; // mas
 // review before enabling: it reuses real-holdings size, not a capital-per-trade
 // or risk-per-trade formula. See live_tracker.js's constructor docstring.
 const QUANTITIES = {
-  CONCOR: 23, GAIL: 75, HATHWAY: 58, HINDCOPPER: 42, JKIL: 25, JSWINFRA: 66,
-  MANINDS: 71, MHRIL: 52, NHPC: 350, OLAELEC: 3059, ORIENTELEC: 226, RAILTEL: 14,
+  CONCOR: 23, GAIL: 75, HATHWAY: 58, HINDCOPPER: 42, JSWINFRA: 66,
+  MHRIL: 52, NHPC: 350, OLAELEC: 3059, ORIENTELEC: 226, RAILTEL: 14,
   RVNL: 961, SUZLON: 615, WAAREEENER: 56, ADSL: 52, 'ARE&M': 15, NCC: 61,
-  STERTOOLS: 28, TEXRAIL: 76, TITAGARH: 16,
+  TEXRAIL: 76, TITAGARH: 16,
 };
 
 const symbols = require('./symbols.json');
@@ -293,7 +293,7 @@ async function ingestOneMinBar(symbol, bar, silent) {
   const events = [];
   if (LIVE_TRADING_ENABLED) {
     const bars5 = historicalBars5[symbol].concat(aggregateTo5Min(bars));
-    events.push(...await tracker.processBricks(bricks, bars5));
+    events.push(...await tracker.processBricks(bricks, bars5, bars));
     const emaCrossEvent = await tracker.checkEmaCrossExit(bars5);
     if (emaCrossEvent) events.push(emaCrossEvent);
     const catastrophicEvent = await tracker.checkCatastrophicStop(bars);
