@@ -1389,5 +1389,39 @@
   "timestampMs": 1785309240000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "LONG",
+  "entry": 227.25,
+  "exitPrice": 225.61,
+  "theoreticalExit": 225.56,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.7216721672167157,
+  "entryTimestampMs": 1785307500000,
+  "exitTimestampMs": 1785311700000,
+  "brickPct": "0.25",
+  "pnlRs": -1576.0399999999868,
+  "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 112.25899999999999,
+  "exitPrice": 111.96,
+  "theoreticalExit": 111.96,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.2663483551430107,
+  "entryTimestampMs": 1785297960000,
+  "exitTimestampMs": 1785311700000,
+  "brickPct": "0.25",
+  "pnlRs": -22.72399999999942,
+  "rsSign": "−"
  }
 ]
