@@ -1496,5 +1496,16 @@
   "timestampMs": 1785314580000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 835.6,
+  "theoreticalEntry": 834.0424999999996,
+  "entryIdx": 27,
+  "timestampMs": 1785315540000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
