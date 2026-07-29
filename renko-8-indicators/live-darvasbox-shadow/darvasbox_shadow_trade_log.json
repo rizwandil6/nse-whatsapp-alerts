@@ -1394,5 +1394,21 @@
   "exitTimestampMs": 1785302700000,
   "reconciled": true,
   "reconciledReason": "EMA warm-up fix (2026-07-29): corrected EMA cross fell before the redeploy and was silently applied in-memory during startup backfill; this restores the missing trade-log record."
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "theoreticalExit": 114.67,
+  "livePriceAvailable": false,
+  "entry": 115.57,
+  "exitPrice": 114.67,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.778748810244866,
+  "entryTimestampMs": 1785298440000,
+  "exitTimestampMs": 1785303900000,
+  "reconciled": true,
+  "reconciledReason": "EMA warm-up fix (2026-07-29): corrected EMA cross fell before the redeploy and was silently applied in-memory during startup backfill; this restores the missing trade-log record."
  }
 ]
