@@ -1507,5 +1507,33 @@
   "timestampMs": 1785315540000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 112.94,
+  "theoreticalEntry": 112.81199999999998,
+  "entryIdx": 33,
+  "timestampMs": 1785315600000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 525.6825,
+  "exitPrice": 526.9,
+  "theoreticalExit": 526.9,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.23160367712449487,
+  "entryTimestampMs": 1785308580000,
+  "exitTimestampMs": 1785315600000,
+  "brickPct": "0.25",
+  "pnlRs": -28.002499999999372,
+  "rsSign": "−"
  }
 ]
