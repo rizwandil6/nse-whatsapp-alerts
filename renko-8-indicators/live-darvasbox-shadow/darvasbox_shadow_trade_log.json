@@ -1378,5 +1378,21 @@
   "timestampMs": 1785308640000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "theoreticalExit": 2707.8,
+  "livePriceAvailable": false,
+  "entry": 2689.3,
+  "exitPrice": 2707.8,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.6879113523965343,
+  "entryTimestampMs": 1785297660000,
+  "exitTimestampMs": 1785302700000,
+  "reconciled": true,
+  "reconciledReason": "EMA warm-up fix (2026-07-29): corrected EMA cross fell before the redeploy and was silently applied in-memory during startup backfill; this restores the missing trade-log record."
  }
 ]
