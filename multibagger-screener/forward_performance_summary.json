@@ -6,8 +6,8 @@
   "status": "still_qualifying",
   "lostDate": null,
   "priceAtLoss": null,
-  "currentPrice": null,
-  "returnSinceQualification": null,
+  "currentPrice": 840,
+  "returnSinceQualification": -8.296943231441048,
   "returnWhileQualifying": null
  },
  {
@@ -17,8 +17,8 @@
   "status": "still_qualifying",
   "lostDate": null,
   "priceAtLoss": null,
-  "currentPrice": 329,
-  "returnSinceQualification": -1.4970059880239521,
+  "currentPrice": 307,
+  "returnSinceQualification": -8.08383233532934,
   "returnWhileQualifying": null
  },
  {
@@ -28,8 +28,8 @@
   "status": "still_qualifying",
   "lostDate": null,
   "priceAtLoss": null,
-  "currentPrice": null,
-  "returnSinceQualification": null,
+  "currentPrice": 176,
+  "returnSinceQualification": -9.278350515463918,
   "returnWhileQualifying": null
  },
  {
@@ -39,8 +39,8 @@
   "status": "still_qualifying",
   "lostDate": null,
   "priceAtLoss": null,
-  "currentPrice": null,
-  "returnSinceQualification": null,
+  "currentPrice": 141,
+  "returnSinceQualification": 1.4388489208633095,
   "returnWhileQualifying": null
  },
  {
@@ -50,8 +50,8 @@
   "status": "still_qualifying",
   "lostDate": null,
   "priceAtLoss": null,
-  "currentPrice": 2694,
-  "returnSinceQualification": -5.174234424498416,
+  "currentPrice": 2625,
+  "returnSinceQualification": -7.602956705385427,
   "returnWhileQualifying": null
  },
  {
@@ -61,8 +61,8 @@
   "status": "still_qualifying",
   "lostDate": null,
   "priceAtLoss": null,
-  "currentPrice": null,
-  "returnSinceQualification": null,
+  "currentPrice": 192,
+  "returnSinceQualification": 3.225806451612903,
   "returnWhileQualifying": null
  },
  {
