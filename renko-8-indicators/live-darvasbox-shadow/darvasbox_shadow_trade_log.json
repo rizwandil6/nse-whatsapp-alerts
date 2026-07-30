@@ -2103,5 +2103,23 @@
   "pnlRs": 81.90000000000191,
   "rsSign": "+",
   "reconciled": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 175.64,
+  "exitPrice": 175.16,
+  "theoreticalExit": 175.16,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.2732862673650591,
+  "entryTimestampMs": 1785303360000,
+  "exitTimestampMs": 1785308100000,
+  "brickPct": "0.25",
+  "pnlRs": -35.99999999999923,
+  "rsSign": "−",
+  "reconciled": true
  }
 ]
