@@ -38,7 +38,7 @@
   "price": 437.2,
   "rsRankAtEntry": 81.31,
   "salesGrowth3Y": 15,
-  "note": "manual add 2026-07-18 \u2014 no fresh crossing, already >=80 the day before"
+  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
  },
  {
   "type": "ENTRY",
@@ -47,7 +47,7 @@
   "price": 1783.2,
   "rsRankAtEntry": 81.01,
   "salesGrowth3Y": 15,
-  "note": "manual add 2026-07-18 \u2014 no fresh crossing, already >=80 the day before"
+  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
  },
  {
   "type": "ENTRY_PENDING",
@@ -164,5 +164,13 @@
   "date": "2026-07-27",
   "price": 512.3,
   "rsRankAtEntry": 81.65680473372781
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MEDANTA",
+  "date": "2026-07-28",
+  "price": 1432.9,
+  "rsRankAtEntry": 81.65680473372781,
+  "salesGrowth3Y": 18
  }
 ]
