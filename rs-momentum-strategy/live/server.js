@@ -34,6 +34,20 @@ const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
 const SALES_GROWTH_MIN_PCT = 15; // matches multibagger-screener's own Sales Growth 3Y threshold
 
+// Added 2026-07-30: this batch loop used to fire every Screener.in fetch
+// back-to-back with zero delay -- a burst of N unpaced requests right after
+// login. Root-caused a run of consecutive "fetch failed" (connection-level,
+// not an HTTP error) login failures on Railway that left symbols stuck
+// fundamentalsPending for over a week, while the NSE-announcements Java
+// service (same Railway project, same account) kept working fine doing one
+// sparse, event-driven lookup at a time. Can't prove Screener.in's exact
+// rate-limiting rule from here, but "burst vs trickle" is the one confirmed
+// difference between the two -- pacing every fetch is the cheap, already-
+// precedented fix (matches the DarvasBox streamer's 150ms delay between
+// symbols during backfill), not a guaranteed one.
+const SCREENER_FETCH_DELAY_MS = 2000;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
 const TRIGGER_START_MIN = 20 * 60; // 20:00 IST
 const TRIGGER_END_MIN = 20 * 60 + 30; // 20:30 IST
 const POLL_MS = 10 * 60 * 1000;
@@ -184,6 +198,7 @@ async function runOnce() {
         continue;
       }
       try {
+        await sleep(SCREENER_FETCH_DELAY_MS);
         const fundamentals = await fetchFundamentals(c.symbol, cookies);
         if (!fundamentals) {
           console.log(`  ${c.symbol}: could not fetch fundamentals, skipping.`);
@@ -215,6 +230,7 @@ async function runOnce() {
     const pendingSymbols = Object.keys(updatedTracked).filter((s) => updatedTracked[s].fundamentalsPending);
     for (const symbol of pendingSymbols) {
       try {
+        await sleep(SCREENER_FETCH_DELAY_MS);
         const fundamentals = await fetchFundamentals(symbol, cookies);
         if (fundamentals && fundamentals.salesGrowth3Y != null && fundamentals.salesGrowth3Y >= SALES_GROWTH_MIN_PCT) {
           updatedTracked[symbol].salesGrowth3Y = fundamentals.salesGrowth3Y;
