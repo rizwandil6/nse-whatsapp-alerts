@@ -46,6 +46,7 @@ public class AlertPoller {
     private final ScreenerCheckService screenerCheckService;
     private final UpstoxTradeService upstoxTradeService;
     private final AlertLogService alertLogService;
+    private final QuarterlyResultsService quarterlyResultsService;
     private final boolean screeningEnabled;
     private final boolean ignoreSme;
     private final double tradeRatingThreshold;
@@ -70,6 +71,7 @@ public class AlertPoller {
                        ScreenerCheckService screenerCheckService,
                        UpstoxTradeService upstoxTradeService,
                        AlertLogService alertLogService,
+                       QuarterlyResultsService quarterlyResultsService,
                        org.springframework.core.env.Environment env) {
         this.nseClient = nseClient;
         this.telegramSender = telegramSender;
@@ -79,6 +81,7 @@ public class AlertPoller {
         this.screenerCheckService = screenerCheckService;
         this.upstoxTradeService = upstoxTradeService;
         this.alertLogService = alertLogService;
+        this.quarterlyResultsService = quarterlyResultsService;
         this.screeningEnabled = Boolean.parseBoolean(env.getProperty("screening.enabled", "true"));
         this.ignoreSme = Boolean.parseBoolean(env.getProperty("nse.ignore-sme", "true"));
         // Backtest on real Apr-Jul 2026 NSE data (272 announcements) showed rating 5-6
@@ -304,19 +307,67 @@ public class AlertPoller {
      * "Outcome of Board Meeting") only sends if the AI rating clears
      * nse.alert-only-rating-threshold (default 8) -- otherwise this category
      * would fire dozens of times a day for stocks nobody asked about.
+     *
+     * EXCEPTION (2026-07-30): when the filing specifically looks like a
+     * quarterly results announcement (RESULTS_KEYWORDS), the rating fallback
+     * is dropped entirely -- Telegram only fires for watchlist holdings. Every
+     * company's results still get scraped (Screener.in) and persisted to
+     * Postgres either way, since the Quarterly Results dashboard tab is meant
+     * to cover the whole market, not just your holdings -- only the Telegram
+     * alert itself is holdings-only.
      */
+    // "Outcome of Board Meeting" covers far more than results (buybacks, dividends,
+    // appointments, mergers...) -- gate the Screener.in quarterly fetch on the
+    // filed document actually reading like a results filing, both so the
+    // quarterly_results table doesn't fill with irrelevant board-meeting outcomes
+    // and so this doesn't add MORE Screener.in load on top of what already runs
+    // for the TRADE_SIGNAL path (see today's whole rate-limiting investigation).
+    private static final List<String> RESULTS_KEYWORDS = java.util.Arrays.asList(
+            "financial results", "quarterly results", "results for the quarter",
+            "unaudited financial results", "audited financial results", "quarter ended");
+
     private void handleAlertOnlyAnnouncement(AnnouncementContext ctx) {
         boolean isWatchlisted = watchlist.stream().anyMatch(w -> matchesWatchlistSymbol(w, ctx.symbol()));
 
         String pdfText = pdfExtractor.extractText(ctx.link());
         String documentText = pdfText != null && !pdfText.isBlank() ? pdfText : ctx.subject();
+
+        // Computed unconditionally (not just under screeningEnabled) since it also
+        // drives the Telegram send-gate below, independent of whether the Screener.in
+        // fetch itself ran.
+        String lower = (ctx.subject() + " " + documentText).toLowerCase();
+        boolean looksLikeResults = RESULTS_KEYWORDS.stream().anyMatch(lower::contains);
+
+        if (screeningEnabled && looksLikeResults) {
+            try {
+                FundamentalResult fr = fundamentalScreener.analyze(ctx.companyName());
+                java.time.OffsetDateTime announcementDate = ctx.broadcastTimeMs() > 0
+                        ? java.time.Instant.ofEpochMilli(ctx.broadcastTimeMs()).atOffset(java.time.ZoneOffset.UTC)
+                        : java.time.OffsetDateTime.now(java.time.ZoneOffset.UTC);
+                // Stored for EVERY company that files results, regardless of watchlist --
+                // the Quarterly Results dashboard tab is meant to cover the whole market,
+                // not just your holdings. Only the TELEGRAM alert below is holdings-only.
+                quarterlyResultsService.recordIfAvailable(ctx.symbol(), ctx.companyName(), fr,
+                        "Outcome of Board Meeting", announcementDate, ctx.link());
+            } catch (Exception e) {
+                logger.warn("[QuarterlyResults] fetch/record failed for {}: {}", ctx.companyName(), e.getMessage());
+            }
+        }
+
         PromptRatingService.BoardMeetingAnalysis analysis =
                 promptRatingService.analyzeBoardMeetingPdf(ctx.companyName(), ctx.subject(), documentText);
 
         boolean clearsRatingBar = analysis.rating() != null && analysis.rating() >= alertOnlyRatingThreshold;
-        if (!isWatchlisted && !clearsRatingBar) {
-            logger.info("[AlertOnly] Suppressed (not on watchlist, rating {} < {}): {}",
-                    analysis.rating(), alertOnlyRatingThreshold, ctx.companyName());
+        // Results specifically: alert ONLY on holdings (nse.watchlist) -- the AI-rating
+        // fallback that lets other high-rated alert-only categories (dividends,
+        // buybacks, etc.) through for non-watchlist stocks deliberately does NOT apply
+        // here, since results are stored for every company in Postgres/the dashboard
+        // tab regardless -- Telegram is reserved for what you actually hold.
+        boolean suppressed = looksLikeResults ? !isWatchlisted : (!isWatchlisted && !clearsRatingBar);
+        if (suppressed) {
+            logger.info("[AlertOnly] Suppressed ({}, not on watchlist{}): {}",
+                    looksLikeResults ? "results" : "rating " + analysis.rating() + " < " + alertOnlyRatingThreshold,
+                    looksLikeResults ? "" : " and rating too low", ctx.companyName());
             return;
         }
 

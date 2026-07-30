@@ -30,6 +30,17 @@ public class FundamentalResult {
     private List<Double> quarterlyNetProfitCr = new ArrayList<>();
     private String quarterlyNetProfitTrend;
 
+    // Full quarter series (all columns Screener.in's #quarters table has, typically
+    // ~12), paired with their header labels (e.g. "Mar 2026") in the same order --
+    // added for the quarterly-results Postgres log's YoY lookup, which needs the
+    // SAME quarter a year ago (a label match), not just the last 3 values the
+    // fields above keep for the existing Telegram alert text. Same length/order
+    // for quarterLabels/quarterlyRevenueCrFull/quarterlyNetProfitCrFull.
+    private List<String> quarterLabels = new ArrayList<>();
+    private List<java.time.LocalDate> quarterEndDates = new ArrayList<>(); // from each header th's data-date-key -- exact, no text parsing needed
+    private List<Double> quarterlyRevenueCrFull = new ArrayList<>();
+    private List<Double> quarterlyNetProfitCrFull = new ArrayList<>();
+
     private Double trailingEps;
 
     private Double promoterHoldingPercent;
@@ -221,6 +232,38 @@ public class FundamentalResult {
 
     public void setQuarterlyNetProfitTrend(String quarterlyNetProfitTrend) {
         this.quarterlyNetProfitTrend = quarterlyNetProfitTrend;
+    }
+
+    public List<String> getQuarterLabels() {
+        return quarterLabels;
+    }
+
+    public void setQuarterLabels(List<String> quarterLabels) {
+        this.quarterLabels = quarterLabels;
+    }
+
+    public List<java.time.LocalDate> getQuarterEndDates() {
+        return quarterEndDates;
+    }
+
+    public void setQuarterEndDates(List<java.time.LocalDate> quarterEndDates) {
+        this.quarterEndDates = quarterEndDates;
+    }
+
+    public List<Double> getQuarterlyRevenueCrFull() {
+        return quarterlyRevenueCrFull;
+    }
+
+    public void setQuarterlyRevenueCrFull(List<Double> quarterlyRevenueCrFull) {
+        this.quarterlyRevenueCrFull = quarterlyRevenueCrFull;
+    }
+
+    public List<Double> getQuarterlyNetProfitCrFull() {
+        return quarterlyNetProfitCrFull;
+    }
+
+    public void setQuarterlyNetProfitCrFull(List<Double> quarterlyNetProfitCrFull) {
+        this.quarterlyNetProfitCrFull = quarterlyNetProfitCrFull;
     }
 
     public Double getTrailingEps() {

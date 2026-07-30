@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -317,9 +319,39 @@ public class FundamentalScreener {
         return ratios;
     }
 
+    /**
+     * Verified against a real fetched page (TCS consolidated, 2026-07-30):
+     * each header th carries data-date-key="2026-03-31" (ISO quarter-end
+     * date) alongside its visible label ("Mar 2026") -- read directly
+     * rather than parsed out of the label text, which would be fragile.
+     * Screener's #quarters table typically has ~12 quarter columns; the
+     * FULL series + labels/dates are kept (quarterLabels/quarterEndDates/
+     * quarterly*CrFull) for the quarterly-results Postgres log's YoY
+     * lookup, alongside the existing last-3-values fields the Telegram
+     * alert text already relies on (unchanged, for backward compat).
+     */
     private void parseQuarterlyResults(Document doc, FundamentalResult result) {
         Element section = doc.getElementById("quarters");
         if (section == null) return;
+
+        List<String> labels = new ArrayList<>();
+        List<LocalDate> dates = new ArrayList<>();
+        for (Element th : section.select("table.data-table thead tr th")) {
+            String label = th.ownText().trim();
+            if (label.isBlank()) continue; // the first, empty corner header cell
+            labels.add(label);
+            String dateKey = th.attr("data-date-key");
+            LocalDate date = null;
+            if (!dateKey.isBlank()) {
+                try {
+                    date = LocalDate.parse(dateKey);
+                } catch (DateTimeParseException ignored) {
+                    // leave null -- quarter_end_date is nullable exactly for this case
+                }
+            }
+            dates.add(date);
+        }
+
         for (Element row : section.select("table.data-table tbody tr")) {
             Elements cells = row.select("td");
             if (cells.isEmpty()) continue;
@@ -330,13 +362,31 @@ public class FundamentalScreener {
                     result.setQuarterlyRevenueCr(vals);
                     result.setQuarterlyRevenueTrend(isIncreasing(vals) ? "✅ Growing" : "⚠️ Declining");
                 }
+                List<Double> full = allValues(cells);
+                if (!full.isEmpty()) {
+                    result.setQuarterlyRevenueCrFull(full);
+                    setLabelsAndDatesIfEmpty(result, labels, dates);
+                }
             } else if (label.startsWith("net profit") || label.startsWith("profit after tax")) {
                 List<Double> vals = lastThreeValues(cells);
                 if (!vals.isEmpty()) {
                     result.setQuarterlyNetProfitCr(vals);
                     result.setQuarterlyNetProfitTrend(isIncreasing(vals) ? "✅ Growing" : "⚠️ Declining");
                 }
+                List<Double> full = allValues(cells);
+                if (!full.isEmpty()) {
+                    result.setQuarterlyNetProfitCrFull(full);
+                    setLabelsAndDatesIfEmpty(result, labels, dates);
+                }
             }
+        }
+    }
+
+    /** labels/dates are the SAME header row for both revenue and net profit rows -- only set once. */
+    private void setLabelsAndDatesIfEmpty(FundamentalResult result, List<String> labels, List<LocalDate> dates) {
+        if (result.getQuarterLabels().isEmpty() && !labels.isEmpty()) {
+            result.setQuarterLabels(labels);
+            result.setQuarterEndDates(dates);
         }
     }
 
@@ -545,13 +595,25 @@ public class FundamentalScreener {
     // ── Parse helpers ─────────────────────────────────────────────────────────
 
     private List<Double> lastThreeValues(Elements cells) {
+        // allValues() keeps nulls positional (needed for label alignment below) --
+        // this method's original contract never surfaced nulls, so filter them
+        // back out here rather than changing what the existing alert-text trend
+        // logic (isIncreasing) has always received.
+        List<Double> nonNull = new ArrayList<>();
+        for (Double v : allValues(cells)) {
+            if (v != null) nonNull.add(v);
+        }
+        if (nonNull.size() < 2) return Collections.emptyList();
+        return nonNull.subList(Math.max(0, nonNull.size() - 3), nonNull.size());
+    }
+
+    /** Every numeric data cell in the row (column 0 is the row label, e.g. "Sales"), left to right, oldest quarter first -- same order as the header labels/dates parseQuarterlyResults reads separately. */
+    private List<Double> allValues(Elements cells) {
         List<Double> all = new ArrayList<>();
         for (int i = 1; i < cells.size(); i++) {
-            Double v = parseNum(cells.get(i).text().trim());
-            if (v != null) all.add(v);
+            all.add(parseNum(cells.get(i).text().trim())); // keep nulls positional -- a gap must not shift later quarters out of alignment with their labels
         }
-        if (all.size() < 2) return Collections.emptyList();
-        return all.subList(Math.max(0, all.size() - 3), all.size());
+        return all;
     }
 
     private Double latestValue(Elements cells) {

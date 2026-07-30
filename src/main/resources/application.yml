@@ -1,6 +1,23 @@
 server:
   port: ${PORT:8080}
 
+# Railway Postgres addon (2026-07-30) -- scoped to just the new quarterly-results
+# log, which is naturally tabular and needs a same-quarter-last-year lookup; every
+# other log in this project stays on the existing GitHub-JSON-branch pattern (see
+# AlertLogService's docstring) rather than a wholesale migration. Individual PG*
+# vars (not DATABASE_URL) referenced from the Postgres service, since DATABASE_URL
+# isn't jdbc:-prefixed and Spring's datasource URL needs that scheme.
+spring:
+  datasource:
+    url: jdbc:postgresql://${PGHOST:localhost}:${PGPORT:5432}/${PGDATABASE:railway}
+    username: ${PGUSER:postgres}
+    password: ${PGPASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+
 nse:
   watchlist:
     - CONCOR

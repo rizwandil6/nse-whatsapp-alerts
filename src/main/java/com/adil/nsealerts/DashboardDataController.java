@@ -31,12 +31,23 @@ public class DashboardDataController {
 
     private final AlertLogService alertLogService;
     private final GithubJsonStore githubJsonStore;
+    private final QuarterlyResultsService quarterlyResultsService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
 
-    public DashboardDataController(AlertLogService alertLogService, GithubJsonStore githubJsonStore) {
+    public DashboardDataController(AlertLogService alertLogService, GithubJsonStore githubJsonStore,
+                                    QuarterlyResultsService quarterlyResultsService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
+        this.quarterlyResultsService = quarterlyResultsService;
+    }
+
+    // Unlike the other 4 tabs, this reads straight from Postgres (this same
+    // service) instead of a cross-branch GitHub read -- no cache needed, it's
+    // already a fast local query.
+    @GetMapping(value = "/api/dashboard/quarterly-results", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String, Object>> quarterlyResults() {
+        return quarterlyResultsService.recentResults(200);
     }
 
     @GetMapping(value = "/api/dashboard/market-news", produces = MediaType.APPLICATION_JSON_VALUE)
