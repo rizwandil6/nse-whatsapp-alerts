@@ -2184,5 +2184,22 @@
   "brickPct": "0.25",
   "pnlRs": -20.929999999999268,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 47.147575,
+  "exitPrice": 47.28,
+  "theoreticalExit": 47.3,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": 0.2808734065325688,
+  "entryTimestampMs": 1785390840000,
+  "exitTimestampMs": 1785398400000,
+  "brickPct": "0.25",
+  "pnlRs": 81.44137499999864,
+  "rsSign": "+"
  }
 ]
