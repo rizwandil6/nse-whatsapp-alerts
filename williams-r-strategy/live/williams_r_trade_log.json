@@ -249,5 +249,18 @@
   "entryTimestampMs": 1785391500000,
   "exitTimestampMs": 1785397500000,
   "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 141.28,
+  "exitPrice": 141,
+  "theoreticalExit": 141,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.1981879954699895,
+  "entryTimestampMs": 1785398100000,
+  "exitTimestampMs": 1785405300000,
+  "livePriceAvailable": false
  }
 ]
