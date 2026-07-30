@@ -7,18 +7,31 @@
  * on a breakdown below; see strategies.js). Brick size chosen from the
  * stop-loss sweep run 2026-07-27 across the real 21-holding portfolio.
  *
- * Exit mechanism REPLACED 2026-07-28: entries still come from Renko box
- * breakouts on 1-minute-bar-built bricks (unchanged), but ALL stop-loss
- * logic -- flat %, box-trail, chandelier -- was scrapped outright. Exit is
- * now purely a 9/20 EMA crossover computed on 5-minute bars (aggregated
- * from the same confirmed 1-min bars via bar_aggregator.js::aggregateTo5Min),
- * checked in DarvasLiveTracker::checkEmaCrossExit. There is deliberately NO
- * stop-loss of any kind: a losing trade rides until the EMAs cross or the
- * forced EOD square-off, whichever comes first. Chosen from a same-day
- * backtest against today's actual 23 booked trades: 9/20 EMA on 5-min bars
- * beat the real flat-1%-stop result (+3,181 vs +2,828); see
- * darvas_tracker.js's fork docstring for the full comparison and the
- * earlier 1-min variants that were tried and rejected.
+ * Exit mechanism REPLACED 2026-07-28: ALL stop-loss logic -- flat %,
+ * box-trail, chandelier -- was scrapped outright. Exit is now purely a
+ * 9/20 EMA crossover computed on 5-minute bars, checked in
+ * DarvasLiveTracker::checkEmaCrossExit. There is deliberately NO stop-loss
+ * of any kind: a losing trade rides until the EMAs cross or the forced EOD
+ * square-off, whichever comes first. Chosen from a same-day backtest
+ * against that day's actual 23 booked trades: 9/20 EMA on 5-min bars beat
+ * the real flat-1%-stop result (+3,181 vs +2,828); see darvas_tracker.js's
+ * fork docstring for the full comparison and the earlier 1-min variants
+ * that were tried and rejected.
+ *
+ * Entry-brick granularity CHANGED 2026-07-30: bricks now build from
+ * COMPLETED 5-minute bars instead of 1-minute bars (see
+ * completedFiveMinBars' docstring for why "completed" matters and how a
+ * naive switch would have reintroduced the exact phantom-brick bug the
+ * 2026-07-28 1-min-bar fix closed). Chosen from a same-day backtest run
+ * across all 18 symbols isolating brick granularity from the exit EMA
+ * period (both held at EMA(9,20)): 5-min-brick entries returned +2.37%
+ * (7 trades, 57% win rate) vs 1-min-brick entries' -2.20% (30 trades, 33%
+ * win rate) on 2026-07-30's actual price action -- the 1-min bricks were
+ * generating far more, noisier breakout signals that the EMA exit then had
+ * to unwind at a loss. Flagged: this is a single trading day's sample (7
+ * trades), and 4 of those 7 wins were EOD square-offs rather than genuine
+ * EMA-cross exits, so treat this as a promising lead worth monitoring
+ * forward, not a settled result.
  *
  * Built on the same tick-WebSocket architecture as
  * ../live/streamer.js (auth flow, protobuf decode, reconnect/backoff,
@@ -36,16 +49,6 @@
  * measuring that gap after the fact isn't the same as trading on it. The
  * EMA-cross exit is priced the same way (LTP at confirmation, falling back
  * to the 5-min bar's close).
- *
- * Bricks are built from CONFIRMED 1-minute bars, not 5-minute ones (fixed
- * 2026-07-28, see ingestOneMinBar's docstring for the real incident this
- * closes -- a 5-min bucket's still-forming rolling close briefly touching
- * a price it never actually closed at was enough to lock in a phantom
- * brick and a real entry off it). 1-minute, not 5-minute, is also just
- * faster for entries: reacting on every confirmed close instead of waiting
- * up to 5x longer for enough 1-min bars to accumulate into one bucket. The
- * EXIT check, unlike entries, deliberately DOES use 5-min bars -- that's
- * the EMA period the backtest validated, not an inconsistency.
  *
  * Requires UPSTOX_ACCESS_TOKEN, GITHUB_TOKEN, and (optionally)
  * TELEGRAM_BOT_TOKEN env vars.
@@ -74,6 +77,7 @@ const EMA_WARMUP_LOOKBACK_DAYS = 12; // calendar days back (~8 trading days) -- 
 
 const BRICK_PCT = 0.0025; // 0.25%, deliberate -- see module docstring
 const BRICK_LABEL = '0.25';
+const ENTRY_LABEL = '0.25% brick (5-min)'; // entry granularity changed 2026-07-30 -- see module docstring
 const EXIT_LABEL = '9/20 EMA cross (5-min), no stop-loss'; // revised 2026-07-28 -- see module docstring
 
 // Real held qty per symbol -- same figures as the portfolio backtest's HOLDINGS
@@ -256,7 +260,7 @@ function formatEntryAlert(e) {
   const driftNote = e.livePriceAvailable && e.theoreticalEntry !== e.entry
     ? ` (brick close was ₹${e.theoreticalEntry.toFixed(2)})`
     : '';
-  return `🌗 SHADOW TRADE — DarvasBox [0.25% brick, ${EXIT_LABEL}] (paper, not a real order)\n${arrow} ${e.direction}: ${e.symbol}\nEntry (LTP): ₹${e.entry.toFixed(2)}${driftNote}`;
+  return `🌗 SHADOW TRADE — DarvasBox [${ENTRY_LABEL}, ${EXIT_LABEL}] (paper, not a real order)\n${arrow} ${e.direction}: ${e.symbol}\nEntry (LTP): ₹${e.entry.toFixed(2)}${driftNote}`;
 }
 function formatExitAlert(e, runningTotal) {
   const sign = e.pnlPct >= 0 ? '+' : '';
@@ -265,7 +269,7 @@ function formatExitAlert(e, runningTotal) {
     : '';
   const rsNote = runningTotal.hasRupees ? ` / ${e.rsSign}₹${Math.abs(e.pnlRs).toFixed(0)}` : '';
   const totalRsNote = runningTotal.hasRupees ? ` / ${runningTotal.totalPnlRs >= 0 ? '+' : '−'}₹${Math.abs(runningTotal.totalPnlRs).toFixed(0)}` : '';
-  return `🌗 SHADOW TRADE — DarvasBox [0.25% brick, ${EXIT_LABEL}] position closed (paper)\n${e.symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit (LTP): ₹${e.exitPrice.toFixed(2)}${driftNote}\nReason: ${e.action}\nP&L: ${sign}${e.pnlPct.toFixed(2)}%${rsNote} (gross, no costs applied)\n\n📊 Day so far: ${runningTotal.trades} trades, ${runningTotal.wins} wins, total ${runningTotal.totalPnlPct >= 0 ? '+' : ''}${runningTotal.totalPnlPct.toFixed(2)}%${totalRsNote}`;
+  return `🌗 SHADOW TRADE — DarvasBox [${ENTRY_LABEL}, ${EXIT_LABEL}] position closed (paper)\n${e.symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit (LTP): ₹${e.exitPrice.toFixed(2)}${driftNote}\nReason: ${e.action}\nP&L: ${sign}${e.pnlPct.toFixed(2)}%${rsNote} (gross, no costs applied)\n\n📊 Day so far: ${runningTotal.trades} trades, ${runningTotal.wins} wins, total ${runningTotal.totalPnlPct >= 0 ? '+' : ''}${runningTotal.totalPnlPct.toFixed(2)}%${totalRsNote}`;
 }
 
 /** Realtime day-total update -- called on every EXIT (including EOD square-offs), so "day so far" is always current. */
@@ -287,7 +291,7 @@ function formatEodSummary() {
   const s = dayStats;
   const winRate = s.trades > 0 ? ((s.wins / s.trades) * 100).toFixed(1) : '0.0';
   const rsLine = s.hasRupees ? `\nTotal P&L (₹, real holding sizes): ${s.totalPnlRs >= 0 ? '+' : '−'}₹${Math.abs(s.totalPnlRs).toFixed(0)}` : '';
-  return `🌗 EOD SUMMARY — DarvasBox shadow trade [0.25% brick, ${EXIT_LABEL}], ${currentDate}\nTrades: ${s.trades} | Wins: ${s.wins} (${winRate}%)\nTotal gross P&L: ${s.totalPnlPct >= 0 ? '+' : ''}${s.totalPnlPct.toFixed(2)}%${rsLine}\n(gross, no costs applied)`;
+  return `🌗 EOD SUMMARY — DarvasBox shadow trade [${ENTRY_LABEL}, ${EXIT_LABEL}], ${currentDate}\nTrades: ${s.trades} | Wins: ${s.wins} (${winRate}%)\nTotal gross P&L: ${s.totalPnlPct >= 0 ? '+' : ''}${s.totalPnlPct.toFixed(2)}%${rsLine}\n(gross, no costs applied)`;
 }
 
 function dispatchEvent(symbol, e) {
@@ -346,28 +350,35 @@ function maybeSendEodSummary() {
 }
 
 /**
+ * aggregateTo5Min's last returned bucket is whatever 1-min bars have arrived
+ * so far for that 5-min window -- genuinely complete only once a bar from
+ * the NEXT window has been seen. Feeding that still-forming bucket straight
+ * into brick construction would reintroduce the exact bug the 2026-07-28
+ * fix closed for 1-min bars (see this file's module docstring and the
+ * OLAELEC incident it describes): a brick locking in off a rolling close
+ * the 5-min candle never actually finished at. Completeness test: the
+ * latest 1-min bar's own minute-of-day must land on a 5-min bucket boundary
+ * (offset 4 mod 5, e.g. 09:19 completes the 09:15-09:19 bucket) -- if not,
+ * the last bucket is still forming and gets dropped.
+ */
+function completedFiveMinBars(bars) {
+  if (bars.length === 0) return [];
+  const buckets = aggregateTo5Min(bars);
+  const latestMin = istMinutesOfDay(bars[bars.length - 1].timestampMs);
+  const lastBucketComplete = (latestMin - MARKET_OPEN_MIN) % 5 === 4;
+  return lastBucketComplete ? buckets : buckets.slice(0, -1);
+}
+
+/**
  * Only ever called with a bar that's ALREADY CLOSED (TickBarBuilder.onTick
  * returns null until a minute genuinely finishes, and flushIfStale only
  * force-closes a bar whose minute has fully elapsed) -- so every entry in
  * oneMinBars[symbol] is a confirmed candle, never a still-forming one.
  *
- * FIXED (2026-07-28, real incident: OLAELEC ENTRY at 09:40 IST citing a
- * brick close of 37.5436 that never existed -- the 5-min bucket's real
- * final close was 37.430, only its ROLLING close touched 37.54 mid-
- * formation): bricks used to be built from aggregateTo5Min(oneMinBars),
- * which included the CURRENTLY-FORMING 5-min bucket -- its `close` field
- * was just whatever the latest 1-min bar happened to be, re-evaluated
- * every single minute as if it were a final close. That let a brick (and
- * the entry it triggered) lock in off a price the 5-min candle never
- * actually confirmed once it finished forming, and since darvas_tracker.js
- * never re-examines an already-processed brick index, the phantom trade
- * stuck even after the bucket's real close proved it wrong.
- *
- * Fix: build bricks directly from oneMinBars -- every element is already a
- * genuinely confirmed close, so there's no unconfirmed candle in the array
- * at all, at any point. This also moves brick confirmation from every 5
- * minutes to every 1 minute (faster reaction), while still only ever
- * reacting to a candle that has truly closed -- never a partial one.
+ * Entry bricks build from COMPLETED 5-minute bars (changed 2026-07-30, see
+ * module docstring for the backtest that motivated this and
+ * completedFiveMinBars' docstring for why "completed" -- not just
+ * aggregated -- matters here).
  */
 function ingestOneMinBar(symbol, bar, silent) {
   const minutesOfDay = istMinutesOfDay(bar.timestampMs);
@@ -375,15 +386,24 @@ function ingestOneMinBar(symbol, bar, silent) {
 
   oneMinBars[symbol].push(bar);
   const bars = oneMinBars[symbol];
+  const bars5Today = completedFiveMinBars(bars);
 
-  const bricks = buildRenkoBricks(bars, BRICK_PCT);
+  const bricks = buildRenkoBricks(bars5Today, BRICK_PCT);
   const tracker = trackers[symbol];
   // Historical prefix (fixed length within a day) + today's growing portion --
   // gives both the entry trend-filter and checkEmaCrossExit a continuously-
   // converged EMA instead of a cold start every morning. See
-  // historicalBars5's declaration for why. Computed once, shared by both.
+  // historicalBars5's declaration for why. EMA deliberately still uses the
+  // full (possibly still-forming) aggregateTo5Min output, unlike the bricks
+  // above -- a continuously-updating EMA on a forming bar is normal (any
+  // live chart does this), it's only brick CONFIRMATION that can't tolerate
+  // a rolling close.
   const bars5 = historicalBars5[symbol].concat(aggregateTo5Min(bars));
-  const events = tracker.processBricks(bricks, bars5, bars);
+  // entryBars must be the SAME granularity bricks were built from (5-min,
+  // not the raw 1-min `bars`) -- otherwise the volume-spike filter compares
+  // a 5-min brick's volume against a 1-min trailing average and every entry
+  // reads as a false spike. See darvas_tracker.js's processBricks docstring.
+  const events = tracker.processBricks(bricks, bars5, bars5Today);
   const emaCrossEvent = tracker.checkEmaCrossExit(bars5);
   if (emaCrossEvent) events.push(emaCrossEvent);
   if (minutesOfDay >= MARKET_CLOSE_MIN) {
@@ -441,7 +461,10 @@ function checkEodSweep() {
   for (const symbol of Object.keys(symbols)) {
     const bars = oneMinBars[symbol];
     if (bars.length === 0) continue;
-    const bricks = buildRenkoBricks(bars, BRICK_PCT);
+    // Trading hours (09:15-15:30) divide evenly into 5-min buckets, so by
+    // MARKET_CLOSE_MIN the last bucket is always complete -- same helper as
+    // ingestOneMinBar for consistency, not just a safety margin.
+    const bricks = buildRenkoBricks(completedFiveMinBars(bars), BRICK_PCT);
     const eodEvent = trackers[symbol].forceEodClose(bricks);
     if (eodEvent) dispatchEvent(symbol, eodEvent);
   }
@@ -570,7 +593,7 @@ async function main() {
     console.error('UPSTOX_ACCESS_TOKEN not set — cannot start.');
     process.exit(1);
   }
-  console.log(`DarvasBox SHADOW streamer starting. ${Object.keys(symbols).length} symbols, 0.25% brick, ${EXIT_LABEL}, LTP-confirmed entries/exits.`);
+  console.log(`DarvasBox SHADOW streamer starting. ${Object.keys(symbols).length} symbols, ${ENTRY_LABEL}, ${EXIT_LABEL}, LTP-confirmed entries/exits.`);
   console.log(`Telegram alerts: ${PAPER_ALERTS_ENABLED ? 'ENABLED (paper-labeled)' : 'SUPPRESSED (logging only)'}`);
 
   await initProtobuf();

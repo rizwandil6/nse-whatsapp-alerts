@@ -58,10 +58,16 @@
  *      symbol) this fails OPEN -- allows the entry rather than silently
  *      blocking a symbol from ever trading that day over a data outage.
  *   4. Entry gained a volume-spike filter 2026-07-29: a box breakout is
- *      suppressed if the entry brick's volume (the underlying 1-min
- *      candle's volume, same value renko.js stamps onto the brick) is
- *      >= VOLUME_SPIKE_THRESHOLD (6.0x) the trailing same-day 20-bar
- *      average 1-min volume. Root cause: the user spotted a recurring
+ *      suppressed if the entry brick's volume (the underlying candle's
+ *      volume, same value renko.js stamps onto the brick -- a 1-min
+ *      candle's volume until 2026-07-30, a 5-min candle's since the
+ *      entry-brick granularity change) is >= VOLUME_SPIKE_THRESHOLD
+ *      (6.0x) the trailing same-day 20-bar average at THAT SAME
+ *      granularity (entryBars, the same series bricks were built from --
+ *      comparing brick volume against a different-granularity trailing
+ *      window would make nearly every entry look like a false spike,
+ *      since a 5-min candle's volume is routinely ~5x a 1-min candle's).
+ *      Root cause: the user spotted a recurring
  *      chart pattern across several losing trades -- an isolated, oversized
  *      volume print right at the breakout, with normal/thin volume on
  *      either side, rather than volume building steadily into the move.
@@ -130,11 +136,12 @@ class DarvasLiveTracker {
    * bar series passed to checkEmaCrossExit (defaults to [] so callers that
    * don't care about the trend filter, e.g. existing unit tests, don't need
    * to supply it -- an empty/missing bars5 fails OPEN, see fork note (3)).
-   * bars1m = today's raw 1-min bars (same array bricks were built from --
-   * defaults to [] so the volume-spike filter fails OPEN too, see fork
-   * note (4)). Returns new ENTRY events since the last call.
+   * entryBars = today's raw bars at the SAME granularity bricks were built
+   * from (5-min since the 2026-07-30 entry-brick granularity change, 1-min
+   * before it) -- defaults to [] so the volume-spike filter fails OPEN too,
+   * see fork note (4). Returns new ENTRY events since the last call.
    */
-  processBricks(bricks, bars5 = [], bars1m = []) {
+  processBricks(bricks, bars5 = [], entryBars = []) {
     const ctx = { bricks };
     const events = [];
     const start = Math.max(1, this.processedBrickCount);
@@ -149,7 +156,7 @@ class DarvasLiveTracker {
           if (!this._trendAligned(direction, bricks[i].timestampMs, bars5, emaFast, emaSlow)) {
             continue;
           }
-          if (!this._volumeSpikeOk(direction, bricks[i].timestampMs, bricks[i].volume, bars1m)) {
+          if (!this._volumeSpikeOk(direction, bricks[i].timestampMs, bricks[i].volume, entryBars)) {
             continue;
           }
           const theoreticalEntry = bricks[i].close;
@@ -182,25 +189,26 @@ class DarvasLiveTracker {
 
   /**
    * True unless the entry brick's volume is an extreme spike relative to
-   * the trailing same-day 1-min volume -- see module docstring fork note
-   * (4). Fails OPEN (allows the entry) when bars1m is empty/not supplied,
+   * the trailing same-day volume at entryBars' own granularity -- see
+   * module docstring fork note (4). Fails OPEN (allows the entry) when
+   * entryBars is empty/not supplied,
    * when the entry bar can't be located in it, or when fewer than
    * VOLUME_MIN_TRAILING_BARS same-day bars precede it (e.g. the first few
    * minutes of the session) -- same philosophy as _trendAligned.
    */
-  _volumeSpikeOk(direction, brickTimestampMs, brickVolume, bars1m) {
-    if (!bars1m || bars1m.length === 0) return true;
+  _volumeSpikeOk(direction, brickTimestampMs, brickVolume, entryBars) {
+    if (!entryBars || entryBars.length === 0) return true;
     let idx = -1;
-    for (let j = 0; j < bars1m.length; j++) {
-      if (bars1m[j].timestampMs <= brickTimestampMs) idx = j; else break;
+    for (let j = 0; j < entryBars.length; j++) {
+      if (entryBars[j].timestampMs <= brickTimestampMs) idx = j; else break;
     }
     if (idx === -1) return true;
 
-    const entryDate = istDateStr(bars1m[idx].timestampMs);
+    const entryDate = istDateStr(entryBars[idx].timestampMs);
     const trailing = [];
     for (let j = idx - 1; j >= 0 && trailing.length < VOLUME_LOOKBACK_BARS; j--) {
-      if (istDateStr(bars1m[j].timestampMs) !== entryDate) break;
-      trailing.push(bars1m[j].volume);
+      if (istDateStr(entryBars[j].timestampMs) !== entryDate) break;
+      trailing.push(entryBars[j].volume);
     }
     if (trailing.length < VOLUME_MIN_TRAILING_BARS) return true;
 
