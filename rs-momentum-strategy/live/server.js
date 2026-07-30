@@ -231,15 +231,29 @@ async function runOnce() {
     for (const symbol of pendingSymbols) {
       try {
         await sleep(SCREENER_FETCH_DELAY_MS);
+        // Captured before mutating/deleting updatedTracked[symbol] below --
+        // both outcomes need the ORIGINAL pending entry's rsRankAtEntry/price
+        // carried forward, or the dashboard card for this event has nothing
+        // to show (see fix note on the log entries just below).
+        const { rsRankAtEntry, entryPrice } = updatedTracked[symbol];
         const fundamentals = await fetchFundamentals(symbol, cookies);
         if (fundamentals && fundamentals.salesGrowth3Y != null && fundamentals.salesGrowth3Y >= SALES_GROWTH_MIN_PCT) {
           updatedTracked[symbol].salesGrowth3Y = fundamentals.salesGrowth3Y;
           delete updatedTracked[symbol].fundamentalsPending;
           await sendTelegramAlert(formatFundamentalsConfirmedAlert(symbol, fundamentals));
-          logEntries.push({ type: 'FUNDAMENTALS_CONFIRMED', symbol, salesGrowth3Y: fundamentals.salesGrowth3Y });
+          // date/rsRankAtEntry/price were missing here previously -- the
+          // dashboard's renderRsMomentum renders one card per raw log event
+          // (index.html reads r.rsRankAtEntry/r.date directly off THIS
+          // object, not a per-symbol summary), so a FUNDAMENTALS_CONFIRMED/
+          // FAILED event with neither showed a card with no RS Rank and no
+          // date at all -- reported 2026-07-30.
+          logEntries.push({
+            type: 'FUNDAMENTALS_CONFIRMED', symbol, date: dateStr, price: entryPrice,
+            rsRankAtEntry, salesGrowth3Y: fundamentals.salesGrowth3Y,
+          });
         } else {
           await sendTelegramAlert(formatFundamentalsFailedAlert(symbol, fundamentals));
-          logEntries.push({ type: 'FUNDAMENTALS_FAILED', symbol });
+          logEntries.push({ type: 'FUNDAMENTALS_FAILED', symbol, date: dateStr, price: entryPrice, rsRankAtEntry });
           delete updatedTracked[symbol];
         }
       } catch (e3) {

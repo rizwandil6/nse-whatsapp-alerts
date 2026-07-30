@@ -40,6 +40,7 @@ const { syncFromRemote, commitAndPushTrackedState } = require('./git_state');
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
 const SALES_GROWTH_MIN_PCT = 15; // matches server.js's own threshold exactly
+const SCREENER_FETCH_DELAY_MS = 2000; // matches server.js's own pacing fix -- see its note on why
 
 const TRACKED_PATH = path.join(__dirname, 'tracked_rs_momentum.json');
 const LOG_PATH = path.join(__dirname, 'rs_momentum_log.json');
@@ -99,19 +100,30 @@ async function main() {
   const cookies = await loginToScreener(username, password);
   console.log('Login OK.');
 
+  const todayDateStr = new Date(Date.now() + 5.5 * 60 * 60 * 1000).toISOString().slice(0, 10);
   const logEntries = [];
   for (const symbol of pendingSymbols) {
     try {
+      await new Promise((r) => setTimeout(r, SCREENER_FETCH_DELAY_MS)); // same pacing fix as server.js -- see its own note
+      // Captured before mutating/deleting tracked[symbol] below -- both
+      // outcomes need these carried forward, or the dashboard's per-event
+      // card (index.html's renderRsMomentum reads r.rsRankAtEntry/r.date
+      // straight off this log object) has nothing to show. Was missing
+      // here and in server.js's own retry loop -- reported 2026-07-30.
+      const { rsRankAtEntry, entryPrice } = tracked[symbol];
       const fundamentals = await fetchFundamentals(symbol, cookies);
       if (fundamentals && fundamentals.salesGrowth3Y != null && fundamentals.salesGrowth3Y >= SALES_GROWTH_MIN_PCT) {
         tracked[symbol].salesGrowth3Y = fundamentals.salesGrowth3Y;
         delete tracked[symbol].fundamentalsPending;
         await sendTelegramAlert(formatFundamentalsConfirmedAlert(symbol, fundamentals));
-        logEntries.push({ type: 'FUNDAMENTALS_CONFIRMED', symbol, salesGrowth3Y: fundamentals.salesGrowth3Y });
+        logEntries.push({
+          type: 'FUNDAMENTALS_CONFIRMED', symbol, date: todayDateStr, price: entryPrice,
+          rsRankAtEntry, salesGrowth3Y: fundamentals.salesGrowth3Y,
+        });
         console.log(`  ${symbol}: CONFIRMED (Sales Growth 3Y ${fundamentals.salesGrowth3Y}%)`);
       } else {
         await sendTelegramAlert(formatFundamentalsFailedAlert(symbol, fundamentals));
-        logEntries.push({ type: 'FUNDAMENTALS_FAILED', symbol });
+        logEntries.push({ type: 'FUNDAMENTALS_FAILED', symbol, date: todayDateStr, price: entryPrice, rsRankAtEntry });
         delete tracked[symbol];
         console.log(`  ${symbol}: RETRACTED (Sales Growth 3Y ${fundamentals ? fundamentals.salesGrowth3Y : 'n/a'}%)`);
       }
