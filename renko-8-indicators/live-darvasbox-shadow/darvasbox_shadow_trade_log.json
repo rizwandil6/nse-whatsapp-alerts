@@ -2056,5 +2056,16 @@
   "brickPct": "0.25",
   "pnlRs": -2234.400000000005,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "SHORT",
+  "entry": 174.3,
+  "theoreticalEntry": 174.34305,
+  "entryIdx": 4,
+  "timestampMs": 1785394200000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
