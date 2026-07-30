@@ -2139,5 +2139,22 @@
   "pnlRs": -34.29999999999984,
   "rsSign": "−",
   "reconciled": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.723125,
+  "exitPrice": 10.75,
+  "theoreticalExit": 10.75,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.2506265664160441,
+  "entryTimestampMs": 1785385080000,
+  "exitTimestampMs": 1785396000000,
+  "brickPct": "0.25",
+  "pnlRs": -1.5587500000000247,
+  "rsSign": "−"
  }
 ]
