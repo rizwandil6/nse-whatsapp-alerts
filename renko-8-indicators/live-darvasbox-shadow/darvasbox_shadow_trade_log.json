@@ -2201,5 +2201,16 @@
   "brickPct": "0.25",
   "pnlRs": 81.44137499999864,
   "rsSign": "+"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 142.3,
+  "theoreticalEntry": 142.30937500000002,
+  "entryIdx": 6,
+  "timestampMs": 1785399480000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
