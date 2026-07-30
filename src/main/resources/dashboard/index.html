@@ -268,21 +268,26 @@
     if (v == null || isNaN(v)) return '—';
     return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 }) + ' Cr';
   }
-  // YoY figure for one metric: a swing label takes priority over a raw % (see
-  // QuarterlyResultsService.profitSwingType -- a raw % across a loss<->profit
-  // sign flip is either undefined or misleading, e.g. -10 -> +5 is a genuine
-  // turnaround, not "-150%").
-  function yoyMeta(label, current, yoyValue, yoyPct, swingType) {
-    if (current == null) return '';
-    let yoyPart;
+  // One comparison badge (YoY or QoQ): a swing label takes priority over a raw
+  // % (see QuarterlyResultsService.profitSwingType -- a raw % across a
+  // loss<->profit sign flip is either undefined or misleading, e.g. -10 -> +5
+  // is a genuine turnaround, not "-150%").
+  function comparisonBadge(type, baseValue, pct, swingType) {
     if (swingType) {
-      yoyPart = `<span class="badge ${swingType === 'LOSS_TO_PROFIT' ? 'win' : 'loss'}">${swingType === 'LOSS_TO_PROFIT' ? 'Loss → Profit' : 'Profit → Loss'}</span>`;
-    } else if (yoyPct != null) {
-      yoyPart = `<span class="pnl ${yoyPct >= 0 ? 'win' : 'loss'}">YoY ${fmtPct(yoyPct)}</span>`;
-    } else {
-      yoyPart = `<span class="card-sub">YoY n/a</span>`;
+      return `<span class="badge ${swingType === 'LOSS_TO_PROFIT' ? 'win' : 'loss'}" title="vs ${fmtCr(baseValue)}">${type} ${swingType === 'LOSS_TO_PROFIT' ? 'Loss → Profit' : 'Profit → Loss'}</span>`;
     }
-    return `<span>${label} <b>${fmtCr(current)}</b>${yoyValue != null ? ` <span class="card-sub">(vs ${fmtCr(yoyValue)} same qtr last yr)</span>` : ''} ${yoyPart}</span>`;
+    if (pct != null) {
+      return `<span class="pnl ${pct >= 0 ? 'win' : 'loss'}" title="vs ${fmtCr(baseValue)}">${type} ${fmtPct(pct)}</span>`;
+    }
+    return `<span class="card-sub">${type} n/a</span>`;
+  }
+
+  // A metric line: current value, plus its YoY and QoQ badges (hover a badge for the compared-quarter's actual figure).
+  function metricMeta(label, current, yoyValue, yoyPct, yoySwing, qoqValue, qoqPct, qoqSwing) {
+    if (current == null) return '';
+    return `<span>${label} <b>${fmtCr(current)}</b> ` +
+        `${comparisonBadge('YoY', yoyValue, yoyPct, yoySwing)} ` +
+        `${comparisonBadge('QoQ', qoqValue, qoqPct, qoqSwing)}</span>`;
   }
 
   function renderQuarterlyResults(items, panel) {
@@ -296,8 +301,8 @@
         </div>
         <div class="card-meta">
           <span class="badge neutral">${esc(r.quarterLabel)}</span>
-          ${yoyMeta('Revenue', r.revenueCr, r.revenueYoyCr, r.revenueYoyPct, null)}
-          ${yoyMeta('Net Profit', r.netProfitCr, r.netProfitYoyCr, r.netProfitYoyPct, r.profitSwingType)}
+          ${metricMeta('Revenue', r.revenueCr, r.revenueYoyCr, r.revenueYoyPct, null, r.revenueQoqCr, r.revenueQoqPct, null)}
+          ${metricMeta('Net Profit', r.netProfitCr, r.netProfitYoyCr, r.netProfitYoyPct, r.profitYoySwingType, r.netProfitQoqCr, r.netProfitQoqPct, r.profitQoqSwingType)}
         </div>
       `;
       panel.appendChild(card);

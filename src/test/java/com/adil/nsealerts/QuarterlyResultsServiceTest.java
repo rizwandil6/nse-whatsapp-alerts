@@ -91,4 +91,40 @@ class QuarterlyResultsServiceTest {
                 LocalDate.parse("2025-12-31"), LocalDate.parse("2026-03-31"));
         assertNull(service.findYoyIndex(dates, LocalDate.parse("2026-03-31")));
     }
+
+    // --- QoQ (added 2026-07-30, after WAAREEENER's real Jun 2026 filing showed YoY
+    // alone hides a real sequential decline -- see QuarterlyResultsService docstring) ---
+
+    @Test
+    void findQoqIndexIsImmediatelyPrecedingQuarter() {
+        List<LocalDate> dates = Arrays.asList(
+                LocalDate.parse("2025-09-30"), LocalDate.parse("2025-12-31"),
+                LocalDate.parse("2026-03-31"), LocalDate.parse("2026-06-30"));
+        assertEquals(2, service.findQoqIndex(dates, 3)); // Jun 2026 -> Mar 2026
+    }
+
+    @Test
+    void findQoqIndexNullAtTheStartOfTheSeries() {
+        List<LocalDate> dates = Arrays.asList(LocalDate.parse("2026-06-30"));
+        assertNull(service.findQoqIndex(dates, 0));
+    }
+
+    @Test
+    void findQoqIndexNullWhenTheGapIsTooLargeForAQuarter() {
+        // Simulates a missing quarter in Screener's series -- "index-1" would silently
+        // be a HALF-year-ago quarter, not the true immediately-preceding one.
+        List<LocalDate> dates = Arrays.asList(
+                LocalDate.parse("2025-12-31"), LocalDate.parse("2026-06-30")); // Mar 2026 missing
+        assertNull(service.findQoqIndex(dates, 1));
+    }
+
+    @Test
+    void realWaareeenerJun2026QoqRevealsASequentialDeclineYoyHides() {
+        // Real data (2026-07-30 verification run): YoY alone reads as unambiguous growth
+        // (+79% revenue, +15% profit) -- QoQ shows both metrics actually declined from
+        // the immediately preceding quarter. This is the whole reason QoQ was added.
+        assertEquals(-6.462264150943396, service.yoyPct(7932.0, 8480.0), 1e-9); // reuses the same base-relative formula
+        assertEquals(-20.781527531083483, service.yoyPct(892.0, 1126.0), 1e-9);
+        assertNull(service.profitSwingType(892.0, 1126.0)); // both profitable -- no swing
+    }
 }
