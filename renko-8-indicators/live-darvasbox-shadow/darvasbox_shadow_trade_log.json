@@ -2494,5 +2494,19 @@
   "entryTimestampMs": 1785297000000,
   "exitTimestampMs": 1785318900000,
   "reconciled": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2689.3,
+  "exitPrice": 2707.8,
+  "theoreticalExit": 2707.8,
+  "livePriceAvailable": false,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.6879113523965343,
+  "entryTimestampMs": 1785297660000,
+  "exitTimestampMs": 1785302700000,
+  "reconciled": true
  }
 ]
