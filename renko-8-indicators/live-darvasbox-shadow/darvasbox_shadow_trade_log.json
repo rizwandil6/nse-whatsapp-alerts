@@ -2536,5 +2536,19 @@
   "entryTimestampMs": 1785298440000,
   "exitTimestampMs": 1785303900000,
   "reconciled": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "STERTOOLS",
+  "direction": "SHORT",
+  "entry": 235.1,
+  "exitPrice": 239.99,
+  "theoreticalExit": 239.99,
+  "livePriceAvailable": false,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -2.0799659719268457,
+  "entryTimestampMs": 1785306240000,
+  "exitTimestampMs": 1785308100000,
+  "reconciled": true
  }
 ]
