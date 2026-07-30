@@ -2156,5 +2156,16 @@
   "brickPct": "0.25",
   "pnlRs": -1.5587500000000247,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2636,
+  "theoreticalEntry": 2634.5250000000005,
+  "entryIdx": 36,
+  "timestampMs": 1785396720000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
