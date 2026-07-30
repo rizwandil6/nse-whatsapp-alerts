@@ -69,6 +69,23 @@
   details summary { cursor: pointer; font-size: 12.5px; color: var(--accent); list-style: none; }
   details summary::-webkit-details-marker { display: none; }
   details[open] summary { margin-bottom: 6px; }
+
+  .tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .tile {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 10px; cursor: pointer; text-align: left;
+    font-family: inherit; transition: border-color 0.15s, transform 0.1s;
+  }
+  .tile:hover { border-color: var(--accent); }
+  .tile:active { transform: scale(0.99); }
+  .tile-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .tile-title { font-weight: 700; font-size: 14px; }
+  .tile-count { font-size: 11px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+  .tile-preview { display: flex; flex-direction: column; gap: 3px; min-height: 36px; justify-content: center; }
+  .tile-preview-title { font-size: 12.5px; color: var(--ink); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tile-preview-sub { font-size: 11.5px; color: var(--ink-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tile-preview-time { font-size: 11px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+  .tile-empty { font-size: 12px; color: var(--ink-faint); font-style: italic; }
 </style>
 </head>
 <body>
@@ -82,7 +99,8 @@
   </header>
 
   <div class="tabs" id="tabs">
-    <button class="tab-btn active" data-tab="news">Market News <span class="count" id="count-news"></span></button>
+    <button class="tab-btn active" data-tab="home">Home</button>
+    <button class="tab-btn" data-tab="news">Market News <span class="count" id="count-news"></span></button>
     <button class="tab-btn" data-tab="announcements">Announcements <span class="count" id="count-announcements"></span></button>
     <button class="tab-btn" data-tab="rs-momentum">RS Momentum <span class="count" id="count-rs-momentum"></span></button>
     <button class="tab-btn" data-tab="multibagger">Multibagger <span class="count" id="count-multibagger"></span></button>
@@ -90,7 +108,8 @@
     <button class="tab-btn" data-tab="quarterly-results">Quarterly Results <span class="count" id="count-quarterly-results"></span></button>
   </div>
 
-  <div class="panel active" id="panel-news"><div class="state-msg">Loading…</div></div>
+  <div class="panel active" id="panel-home"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-news"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-announcements"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-rs-momentum"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-multibagger"><div class="state-msg">Loading…</div></div>
@@ -108,6 +127,15 @@
     'quarterly-results': { url: '/api/dashboard/quarterly-results', render: renderQuarterlyResults },
   };
   const loaded = {};
+  const dataCache = {};
+  const TILE_LABELS = {
+    news: 'Market News',
+    announcements: 'Announcements',
+    'rs-momentum': 'RS Momentum',
+    multibagger: 'Multibagger',
+    darvasbox: "Today's DarvasBox",
+    'quarterly-results': 'Quarterly Results',
+  };
 
   function fmtTime(iso) {
     if (!iso) return '';
@@ -127,13 +155,20 @@
     return (v >= 0 ? '+' : '') + Number(v).toFixed(2) + '%';
   }
 
+  async function fetchTabData(key) {
+    if (dataCache[key]) return dataCache[key];
+    const res = await fetch(TABS[key].url);
+    if (res.status === 401) { window.location.href = '/login'; throw new Error('unauthorized'); }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    dataCache[key] = data;
+    return data;
+  }
+
   async function loadTab(key) {
     const panel = document.getElementById('panel-' + key);
     try {
-      const res = await fetch(TABS[key].url);
-      if (res.status === 401) { window.location.href = '/login'; return; }
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
+      const data = await fetchTabData(key);
       document.getElementById('count-' + key).textContent = data.length ? data.length : '';
       if (!data.length) {
         panel.innerHTML = '<div class="state-msg">No alerts yet.</div>';
@@ -144,6 +179,78 @@
     } catch (e) {
       panel.innerHTML = '<div class="state-msg">Failed to load — ' + esc(e.message) + '</div>';
     }
+  }
+
+  // One condensed preview line per category, for the home tile grid -- reuses
+  // the same field names as that category's full render function above, just
+  // trimmed to the single most recent item (data[0], since every endpoint
+  // already sorts newest-first for its own tab view).
+  function tilePreviewHtml(key, item) {
+    switch (key) {
+      case 'news':
+        return `<div class="tile-preview-title">${esc(item.title)}</div><div class="tile-preview-time">${fmtTime(item.timestamp)}</div>`;
+      case 'announcements':
+        return `<div class="tile-preview-title">${esc(item.symbol) || esc(item.companyName) || 'NSE'}</div>` +
+          `<div class="tile-preview-sub">${esc(item.subject)}</div>` +
+          `<div class="tile-preview-time">${fmtTime(item.timestamp)}</div>`;
+      case 'rs-momentum': {
+        const label = { ENTRY: 'Entry', EXIT: 'Exit', ENTRY_PENDING: 'Entry (pending)', FUNDAMENTALS_CONFIRMED: 'Confirmed', FUNDAMENTALS_FAILED: 'Retracted' };
+        return `<div class="tile-preview-title">${esc(item.symbol)} — ${label[item.type] || esc(item.type)}</div><div class="tile-preview-time">${esc(item.date)}</div>`;
+      }
+      case 'multibagger': {
+        const label = { QUALIFIED: 'Qualified', LOST: 'Lost qualification' };
+        return `<div class="tile-preview-title">${esc(item.symbol)} — ${label[item.type] || esc(item.type)}</div><div class="tile-preview-time">${esc(item.date)}</div>`;
+      }
+      case 'darvasbox': {
+        const isExit = item.type === 'EXIT';
+        const time = isExit ? fmtMs(item.exitTimestampMs) : fmtMs(item.timestampMs);
+        return `<div class="tile-preview-title">${esc(item.symbol)} ${esc(item.direction)} — ${isExit ? 'Exit' : 'Entry'}</div><div class="tile-preview-time">${time} IST</div>`;
+      }
+      case 'quarterly-results':
+        return `<div class="tile-preview-title">${esc(item.symbol)} — ${esc(item.quarterLabel)}</div>` +
+          `<div class="tile-preview-sub">Revenue ${fmtCr(item.revenueCr)}</div>` +
+          `<div class="tile-preview-time">${fmtTime(item.announcementDate)}</div>`;
+      default:
+        return '';
+    }
+  }
+
+  async function loadHome() {
+    const panel = document.getElementById('panel-home');
+    panel.innerHTML = '<div class="tile-grid" id="tileGrid"></div>';
+    const grid = document.getElementById('tileGrid');
+    for (const key of Object.keys(TABS)) {
+      const tile = document.createElement('button');
+      tile.className = 'tile';
+      tile.dataset.tab = key;
+      tile.innerHTML = `
+        <div class="tile-top">
+          <div class="tile-title">${esc(TILE_LABELS[key])}</div>
+          <span class="tile-count" id="tile-count-${key}"></span>
+        </div>
+        <div class="tile-preview" id="tile-preview-${key}"><div class="tile-empty">Loading…</div></div>
+      `;
+      grid.appendChild(tile);
+    }
+    await Promise.all(Object.keys(TABS).map(async (key) => {
+      const countEl = document.getElementById('tile-count-' + key);
+      const previewEl = document.getElementById('tile-preview-' + key);
+      try {
+        const data = await fetchTabData(key);
+        const count = data.length ? String(data.length) : '';
+        countEl.textContent = count;
+        document.getElementById('count-' + key).textContent = count;
+        previewEl.innerHTML = data.length ? tilePreviewHtml(key, data[0]) : '<div class="tile-empty">No alerts yet.</div>';
+      } catch (e) {
+        previewEl.innerHTML = '<div class="tile-empty">Failed to load.</div>';
+      }
+    }));
+  }
+
+  function selectTab(key) {
+    document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === key));
+    document.querySelectorAll('.panel').forEach((p) => p.classList.toggle('active', p.id === 'panel-' + key));
+    if (key !== 'home' && !loaded[key]) { loaded[key] = true; loadTab(key); }
   }
 
   function renderNews(items, panel) {
@@ -313,15 +420,18 @@
   document.getElementById('tabs').addEventListener('click', (e) => {
     const btn = e.target.closest('.tab-btn');
     if (!btn) return;
-    const key = btn.dataset.tab;
-    document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b === btn));
-    document.querySelectorAll('.panel').forEach((p) => p.classList.toggle('active', p.id === 'panel-' + key));
-    if (!loaded[key]) { loaded[key] = true; loadTab(key); }
+    selectTab(btn.dataset.tab);
+  });
+
+  document.getElementById('panel-home').addEventListener('click', (e) => {
+    const tile = e.target.closest('.tile');
+    if (!tile) return;
+    selectTab(tile.dataset.tab);
   });
 
   document.getElementById('refreshNote').textContent = 'Loaded ' + new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }) + ' IST';
-  loaded.news = true;
-  loadTab('news');
+  loaded.home = true;
+  loadHome();
 </script>
 </body>
 </html>
