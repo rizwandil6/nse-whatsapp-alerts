@@ -2229,5 +2229,16 @@
   "brickPct": "0.25",
   "pnlRs": -869.4000000000306,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 110.36,
+  "theoreticalEntry": 110.395775,
+  "entryIdx": 12,
+  "timestampMs": 1785400140000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
