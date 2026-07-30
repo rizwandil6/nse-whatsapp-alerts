@@ -11,6 +11,17 @@
   "returnSinceEntry": 0
  },
  {
+  "symbol": "DIVISLAB",
+  "entryDate": "2026-07-28",
+  "entryPrice": 7784.5,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 7784.5,
+  "returnSinceEntry": 0
+ },
+ {
   "symbol": "EICHERMOT",
   "entryDate": "2026-07-27",
   "entryPrice": 7836,
