@@ -2466,5 +2466,19 @@
   "brickPct": "0.25",
   "pnlRs": -8.767225000001076,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 37.06,
+  "exitPrice": 37.42,
+  "theoreticalExit": 37.42,
+  "livePriceAvailable": false,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.9713977334052871,
+  "entryTimestampMs": 1785213000000,
+  "exitTimestampMs": 1785214500000,
+  "reconciled": true
  }
 ]
