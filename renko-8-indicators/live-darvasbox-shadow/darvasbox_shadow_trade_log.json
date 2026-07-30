@@ -2022,5 +2022,22 @@
   "brickPct": "0.25",
   "pnlRs": -305.90000000000435,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 528.65,
+  "exitPrice": 525.55,
+  "theoreticalExit": 525.25,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.58639931902015,
+  "entryTimestampMs": 1785388860000,
+  "exitTimestampMs": 1785391800000,
+  "brickPct": "0.25",
+  "pnlRs": -71.30000000000052,
+  "rsSign": "−"
  }
 ]
