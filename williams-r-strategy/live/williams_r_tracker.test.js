@@ -212,3 +212,74 @@ test('watch state resets if %R climbs back above oversold before confirming (no 
   assert.equal(tr.longWatch, false);
   assert.equal(tr.position, null);
 });
+
+// --- forceEodClose (added 2026-07-30, user's explicit choice -- diverges from
+// the exact backtest, which doesn't day-scope trades at all) ---
+
+test('forceEodClose closes an open position at the last bar\'s own close, tagged EOD_SQUARE_OFF', () => {
+  const bars = warmup(PERIOD, 100);
+  bars.push(bar(93, 93, PERIOD));
+  bars.push(bar(91, 91, PERIOD + 1));
+  bars.push(bar(91.5, 91.5, PERIOD + 2));
+  bars.push(bar(91.8, 91.8, PERIOD + 3));
+  bars.push(bar(94, 96, PERIOD + 4)); // LONG entry at 94, last bar's close=96
+
+  const tr = new WilliamsRLiveTracker('TEST', () => null);
+  tr.processBars(bars);
+  assert.ok(tr.position);
+
+  const eodEvent = tr.forceEodClose(bars);
+  assert.ok(eodEvent);
+  assert.equal(eodEvent.type, 'EXIT');
+  assert.equal(eodEvent.action, 'EOD_SQUARE_OFF');
+  assert.equal(eodEvent.exitPrice, 96); // last bar's close
+  assert.equal(eodEvent.theoreticalExit, 96);
+  assert.ok(eodEvent.pnlPct > 0, 'entry 94 -> exit 96 should be a winning LONG');
+  assert.equal(tr.position, null, 'position must be cleared after EOD close');
+});
+
+test('forceEodClose is a no-op when no position is open', () => {
+  const bars = warmup(PERIOD, 100);
+  const tr = new WilliamsRLiveTracker('TEST', () => null);
+  tr.processBars(bars);
+  assert.equal(tr.position, null);
+  assert.equal(tr.forceEodClose(bars), null);
+});
+
+test('forceEodClose uses live LTP when available, same as a normal exit', () => {
+  const bars = warmup(PERIOD, 100);
+  bars.push(bar(93, 93, PERIOD));
+  bars.push(bar(91, 91, PERIOD + 1));
+  bars.push(bar(91.5, 91.5, PERIOD + 2));
+  bars.push(bar(91.8, 91.8, PERIOD + 3));
+  bars.push(bar(94, 96, PERIOD + 4));
+
+  const tr = new WilliamsRLiveTracker('TEST', () => 95.25);
+  tr.processBars(bars);
+  const eodEvent = tr.forceEodClose(bars);
+  assert.equal(eodEvent.exitPrice, 95.25); // live LTP, not the theoretical close (96)
+  assert.equal(eodEvent.theoreticalExit, 96);
+  assert.equal(eodEvent.livePriceAvailable, true);
+});
+
+test('forceEodClose does NOT reset pendingEntry/watch-state -- only the open position is cleared', () => {
+  const bars = warmup(PERIOD, 100);
+  bars.push(bar(93, 93, PERIOD));
+  bars.push(bar(91, 91, PERIOD + 1));
+  bars.push(bar(91.5, 91.5, PERIOD + 2));
+  bars.push(bar(91.8, 91.8, PERIOD + 3));
+  bars.push(bar(94, 96, PERIOD + 4)); // LONG entry -- position open
+
+  const tr = new WilliamsRLiveTracker('TEST', () => null);
+  tr.processBars(bars);
+  assert.ok(tr.position);
+
+  // Manually seed some watch-state to prove forceEodClose leaves it alone.
+  tr.shortWatch = true;
+  tr.shortDownStreak = 1;
+
+  tr.forceEodClose(bars);
+  assert.equal(tr.position, null);
+  assert.equal(tr.shortWatch, true, 'watch-state must survive EOD close -- only exposure is closed, not indicator state');
+  assert.equal(tr.shortDownStreak, 1);
+});

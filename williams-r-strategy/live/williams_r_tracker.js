@@ -23,12 +23,17 @@
  *   SHORT entry/exit: exact mirror at the overbought/oversold boundary.
  *   No stop-loss of any kind (user's explicit choice) -- a losing trade
  *                rides until the opposite %R threshold, however long that
- *                takes. Unlike DarvasBox, there is NO forced EOD
- *                square-off either -- the backtest itself doesn't day-scope
- *                trades (a position can span multiple days), so this
- *                doesn't either. See streamer.js for how that shapes restart
- *                persistence (positions/watch-state must survive a
- *                restart, not just reset daily).
+ *                takes within the SAME trading day.
+ *   Forced EOD square-off (added 2026-07-30, user's explicit choice,
+ *                DIVERGING from the exact backtest here on purpose): any
+ *                open position is force-closed at market close, same as
+ *                DarvasBox -- caps overnight/weekend gap exposure that the
+ *                pure %R exit alone doesn't. See forceEodClose(). Only the
+ *                POSITION is closed at EOD -- pendingEntry/watch-state/
+ *                streaks are left running into the next day untouched,
+ *                since those track the INDICATOR's own state (continuous,
+ *                like %R itself), not open exposure, and resetting them
+ *                wasn't part of what was asked for.
  *
  * LIVE-SPECIFIC ADDITIONS (this project's established convention, same as
  * DarvasBox's shadow tracker):
@@ -39,13 +44,14 @@
  *     deterministically at their own theoretical prices.
  *   - Incremental by TIMESTAMP, not array index: unlike DarvasBox (which
  *     rebuilds its brick series fresh every day and can safely track "how
- *     many bricks processed so far" as a plain count), this tracker's
- *     position can span many days, so a restart re-fetches a FRESH
- *     lookback window of unknown/different length -- an index-based cursor
- *     would silently misalign. lastProcessedTimestampMs is persisted
- *     instead (see toJSON/fromJSON), and every call filters bars5 to
- *     strictly-after that timestamp, so re-running with a differently
- *     sized bars5 array is always safe.
+ *     many bricks processed so far" as a plain count), a restart here
+ *     re-fetches a FRESH lookback window of unknown/different length -- an
+ *     index-based cursor would silently misalign. lastProcessedTimestampMs
+ *     is persisted instead (see toJSON/fromJSON), and every call filters
+ *     bars5 to strictly-after that timestamp, so re-running with a
+ *     differently sized bars5 array is always safe. Still needed even with
+ *     EOD square-off added: a position can still be open mid-day across a
+ *     restart, same as every other live/ service here.
  */
 
 const PERIOD = 14;
@@ -196,6 +202,32 @@ class WilliamsRLiveTracker {
 
     if (n > 0) this.lastProcessedTimestampMs = bars5[n - 1].timestampMs;
     return events;
+  }
+
+  /**
+   * Force-closes an open position at market close, priced at LIVE LTP if
+   * available (else the last bar's own close) -- added 2026-07-30, see
+   * module docstring for why this diverges from the exact backtest.
+   * Returns null if no position is open or bars5 is empty. Does NOT touch
+   * pendingEntry/watch-state/streaks -- those carry into the next day.
+   */
+  forceEodClose(bars5) {
+    if (!this.position || bars5.length === 0) return null;
+    const last = bars5[bars5.length - 1];
+    const theoreticalExit = last.close;
+    const { price: exitPrice, livePriceAvailable } = this._liveOrTheoretical(theoreticalExit);
+    const direction = this.position.direction;
+    const pnlPct = direction === 'LONG'
+      ? ((exitPrice - this.position.entry) / this.position.entry) * 100
+      : ((this.position.entry - exitPrice) / this.position.entry) * 100;
+    const event = {
+      type: 'EXIT', symbol: this.symbol, direction, entry: this.position.entry,
+      exitPrice, theoreticalExit, action: 'EOD_SQUARE_OFF', pnlPct,
+      entryTimestampMs: this.position.entryTimestampMs, exitTimestampMs: last.timestampMs,
+      livePriceAvailable,
+    };
+    this.position = null;
+    return event;
   }
 
   toJSON() {

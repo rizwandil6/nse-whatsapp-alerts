@@ -11,21 +11,26 @@
  * 21-holding portfolio: 13 trades, 84.6% win rate, +₹1,492 that day).
  *
  * KEY ARCHITECTURAL DIFFERENCE FROM EVERY OTHER live/ SERVICE IN THIS
- * REPO: no daily reset, no forced EOD square-off. The backtest itself
- * doesn't day-scope trades (a position can span multiple days), so this
- * doesn't either -- a losing trade rides until the opposite %R threshold,
- * however long that takes, even across weekends. That means, unlike
- * DarvasBox (rebuilds its tracker fresh every morning) or RS-momentum
- * (pure daily batch, no live ticks at all), THIS service's open
- * position + in-progress watch-state must survive a restart -- see
- * tracked_state.js / git_state.js. oneMinBars per symbol is a single,
- * never-daily-reset growing array (periodically trimmed to a trailing
- * window purely to bound memory, NOT on a day boundary), and bars5 is
- * recomputed fresh from it via aggregateTo5MinMultiDay on every new bar --
- * simpler and safer than DarvasBox's historical-prefix + today's-growing-
- * suffix split (that split was an optimization DarvasBox needed for its
- * OWN reasons; recomputing the whole (bounded, modest-sized) 5-min series
- * every 1-5 minutes is cheap enough here not to bother).
+ * REPO: no daily RESET of watch/confirm state, but a FORCED EOD
+ * SQUARE-OFF was added 2026-07-30 (user's explicit choice, diverging from
+ * the exact backtest, which doesn't day-scope trades at all) -- caps
+ * overnight/weekend gap exposure the pure %R exit alone doesn't provide.
+ * See checkEodSweep()/williams_r_tracker.js's forceEodClose(). Only the
+ * OPEN POSITION is force-closed at market close; pendingEntry/watch-state/
+ * streaks are untouched and carry into the next day, since those track
+ * the indicator's own continuous state, not exposure. That means, unlike
+ * DarvasBox (rebuilds its ENTIRE tracker fresh every morning) or
+ * RS-momentum (pure daily batch, no live ticks at all), THIS service's
+ * open position (which can still exist mid-day across a restart, same as
+ * every other live/ service here) + in-progress watch-state must survive
+ * a restart -- see tracked_state.js / git_state.js. oneMinBars per symbol
+ * is a single, never-daily-reset growing array (periodically trimmed to a
+ * trailing window purely to bound memory, NOT on a day boundary), and
+ * bars5 is recomputed fresh from it via aggregateTo5MinMultiDay on every
+ * new bar -- simpler and safer than DarvasBox's historical-prefix +
+ * today's-growing-suffix split (that split was an optimization DarvasBox
+ * needed for its OWN reasons; recomputing the whole (bounded, modest-sized)
+ * 5-min series every 1-5 minutes is cheap enough here not to bother).
  *
  * Same tick-WebSocket architecture as the sibling live/ services (auth
  * flow, protobuf decode, reconnect/backoff, TickBarBuilder) -- copied
@@ -237,6 +242,11 @@ function processSymbol(symbol) {
   trimOldBars(symbol);
   const bars5 = aggregateTo5MinMultiDay(oneMinBars[symbol]);
   const events = trackers[symbol].processBars(bars5);
+  const { minutesOfDay } = nowIst();
+  if (minutesOfDay >= MARKET_CLOSE_MIN) {
+    const eodEvent = trackers[symbol].forceEodClose(bars5);
+    if (eodEvent) events.push(eodEvent);
+  }
   if (events.length > 0) dispatchEvents(symbol, events);
 }
 
@@ -245,6 +255,30 @@ function ingestOneMinBar(symbol, bar) {
   if (minutesOfDay < MARKET_OPEN_MIN || minutesOfDay > MARKET_CLOSE_MIN + 15) return;
   oneMinBars[symbol].push(bar);
   processSymbol(symbol);
+}
+
+/**
+ * Redundant coverage for forceEodClose (added 2026-07-30, see
+ * williams_r_tracker.js's module docstring) -- processSymbol() only checks
+ * EOD when a NEW bar arrives, but ticks can go quiet right at market close
+ * (thin end-of-day liquidity), so this runs independently every
+ * FLUSH_POLL_MS via scheduleBarFlush to guarantee the sweep fires even with
+ * no fresh bar, same redundancy DarvasBox's checkEodSweep uses.
+ */
+function checkEodSweep() {
+  const { minutesOfDay } = nowIst();
+  if (minutesOfDay < MARKET_CLOSE_MIN) return false;
+  let anyClosed = false;
+  for (const symbol of Object.keys(symbols)) {
+    if (!oneMinBars[symbol] || oneMinBars[symbol].length === 0) continue;
+    const bars5 = aggregateTo5MinMultiDay(oneMinBars[symbol]);
+    const eodEvent = trackers[symbol].forceEodClose(bars5);
+    if (eodEvent) {
+      dispatchEvents(symbol, [eodEvent]);
+      anyClosed = true;
+    }
+  }
+  return anyClosed;
 }
 
 /**
@@ -350,7 +384,8 @@ function scheduleBarFlush() {
         anyNew = true;
       }
     }
-    if (anyNew) {
+    const anyEodClosed = checkEodSweep();
+    if (anyNew || anyEodClosed) {
       persistTrackedState();
       await commitAndPushState(nowIst().dateStr).catch((e) => console.error('Periodic state push failed:', e.message));
     }

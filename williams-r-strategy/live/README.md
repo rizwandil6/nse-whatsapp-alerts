@@ -20,20 +20,26 @@ one explicitly chosen to go live.
   neutral.
 - **SHORT entry/exit**: exact mirror at the overbought/oversold boundary.
 - **No stop-loss of any kind** — a losing trade rides until the opposite
-  %R threshold, however long that takes.
+  %R threshold, however long that takes within the same trading day.
+- **Forced EOD square-off** (added 2026-07-30, user's explicit choice,
+  diverging from the exact backtest on purpose): any open position is
+  force-closed at market close, same as DarvasBox — caps overnight/weekend
+  gap exposure the pure %R exit alone doesn't provide. Only the position
+  is closed; `pendingEntry`/watch-state/streaks are untouched and carry
+  into the next day, since those track the indicator's own continuous
+  state, not open exposure.
 
 ## Key architectural difference from every other `live/` service here
 
-**No daily reset, no forced EOD square-off.** The backtest itself doesn't
-day-scope trades — a position can span multiple days, even weekends — so
-this doesn't either. That means, unlike DarvasBox (rebuilds its tracker
-fresh every morning) or RS-momentum (pure daily batch, no live ticks at
-all), this service's **open position and in-progress watch-state must
-survive a restart**, not just reset daily. See `tracked_state.js` /
-`git_state.js` — a persisted `tracked_williams_r.json` (per-symbol
-position + watch flags + streaks + `lastProcessedTimestampMs`) makes a
-restart resume exactly where it left off, restored via
-`WilliamsRLiveTracker.fromJSON`.
+**No daily RESET of watch/confirm state**, even though positions ARE now
+force-closed at EOD. Unlike DarvasBox (rebuilds its ENTIRE tracker fresh
+every morning) or RS-momentum (pure daily batch, no live ticks at all),
+this service's open position (which can still exist mid-day across a
+restart, same as every other live/ service here) + in-progress watch-state
+must survive a restart. See `tracked_state.js` / `git_state.js` — a
+persisted `tracked_williams_r.json` (per-symbol position + watch flags +
+streaks + `lastProcessedTimestampMs`) makes a restart resume exactly where
+it left off, restored via `WilliamsRLiveTracker.fromJSON`.
 
 `oneMinBars[symbol]` is a single, never-daily-reset growing array
 (periodically trimmed to a trailing ~45-day window purely to bound
@@ -67,7 +73,7 @@ Contents-API-doesn't-inline-content fallback fix (confirmed production bug,
 
 | File | Purpose |
 |---|---|
-| `williams_r_tracker.js` | The strategy itself — entry/exit/watch/confirm state machine, LTP-confirmed pricing, `toJSON`/`fromJSON` persistence |
+| `williams_r_tracker.js` | The strategy itself — entry/exit/watch/confirm state machine, forced EOD square-off, LTP-confirmed pricing, `toJSON`/`fromJSON` persistence |
 | `streamer.js` | WebSocket connect/auth/reconnect, 1-min bar building, startup history fetch + seeding, stale-connection watchdog |
 | `trade_log.js` | Local ENTRY/EXIT event log + dedup (prevents re-alerting a replayed event) |
 | `tracked_state.js` | Local read/write of per-symbol tracker state |
