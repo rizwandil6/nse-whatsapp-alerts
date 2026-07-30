@@ -350,7 +350,21 @@ public class AlertPoller {
                 // The AI judgment attached to this row is computed separately inside
                 // QuarterlyResultsService from the YoY/QoQ NUMBERS, not this PDF --
                 // see PromptRatingService.judgeQuarterlyTrend's docstring for why.
-                quarterlyResultsService.recordIfAvailable(ctx.symbol(), ctx.companyName(), fr,
+                //
+                // Uses fr.getSymbol() (Screener.in's own resolved ticker), NOT
+                // ctx.symbol() -- confirmed live, 2026-07-30: ctx.symbol() comes from
+                // NSE's archive PDF filename ("/corporate/{code}_..."), and filers
+                // routinely name that file with something that ISN'T the real ticker
+                // (RadhaWestlife_...pdf for WESTLIFE, 532783_...pdf -- a BSE scrip code
+                // -- for LTFOODS, Pooja_...pdf for M&M). Same root cause already
+                // documented for SUZLON1 above, just a different symptom (an
+                // unrelated word/code instead of a numeric suffix) -- that fix only
+                // covers the watchlist-matching fallback, not this primary path.
+                // fr.getSymbol() is set from a real Screener.in company-name search,
+                // reliable whenever fr.isAvailable() (verified against these exact
+                // 3 companies before applying this fix).
+                String resolvedSymbol = fr.getSymbol() != null && !fr.getSymbol().isBlank() ? fr.getSymbol() : ctx.symbol();
+                quarterlyResultsService.recordIfAvailable(resolvedSymbol, ctx.companyName(), fr,
                         "Outcome of Board Meeting", announcementDate, ctx.link());
             } catch (Exception e) {
                 logger.warn("[QuarterlyResults] fetch/record failed for {}: {}", ctx.companyName(), e.getMessage());
