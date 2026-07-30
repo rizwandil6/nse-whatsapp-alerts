@@ -19,8 +19,8 @@ import static org.mockito.Mockito.when;
 
 class QuarterlyResultsServiceTest {
 
-    // None of the collaborators are touched by the pure calc methods under test -- null is fine.
-    private final QuarterlyResultsService service = new QuarterlyResultsService(null, null, null);
+    // Neither collaborator is touched by the pure calc methods under test -- null is fine.
+    private final QuarterlyResultsService service = new QuarterlyResultsService(null, null);
 
     @Test
     void yoyPctNormalGrowth() {
@@ -219,15 +219,13 @@ class QuarterlyResultsServiceTest {
     // needs a live ANTHROPIC_API_KEY; this test only verifies the threading/wiring. ---
 
     @Test
-    void recordIfAvailableThreadsAiJudgmentAndRsRankThroughToTheUpsert() {
+    void recordIfAvailableThreadsAiJudgmentThroughToTheUpsert() {
         JdbcTemplate jdbc = mock(JdbcTemplate.class);
         PromptRatingService promptRatingService = mock(PromptRatingService.class);
-        RsRankLookupService rsRankLookupService = mock(RsRankLookupService.class);
         when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any(),
                 any(), any(), any(), any(), any(), any()))
                 .thenReturn("Solid YoY growth but a concerning sequential deceleration");
-        when(rsRankLookupService.rankFor("WAAREEENER")).thenReturn(72.5);
-        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService, rsRankLookupService);
+        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
 
         FundamentalResult fr = new FundamentalResult();
         fr.setQuarterLabels(new ArrayList<>(Arrays.asList("Mar 2026", "Jun 2026")));
@@ -245,21 +243,20 @@ class QuarterlyResultsServiceTest {
         // net_profit_yoy_pct,profit_yoy_swing_type,revenue_qoq_cr,net_profit_qoq_cr,
         // revenue_qoq_pct,net_profit_qoq_pct,profit_qoq_swing_type,operating_margin_pct(16),
         // operating_margin_yoy_pp(17),operating_margin_qoq_pp(18),eps(19),eps_yoy_pct(20),
-        // eps_qoq_pct(21),verdict(22),rs_rank(23),ai_judgment(24),...
-        assertEquals(72.5, args.getValue()[23]);
-        assertEquals("Solid YoY growth but a concerning sequential deceleration", args.getValue()[24]);
+        // eps_qoq_pct(21),verdict(22),ai_judgment(23),... -- rs_rank is NOT written here at
+        // all (DashboardDataController attaches it live at serve time instead, see that
+        // class's docstring for the AWL staleness bug this replaced).
+        assertEquals("Solid YoY growth but a concerning sequential deceleration", args.getValue()[23]);
     }
 
     @Test
     void recordIfAvailableHandlesNullAiJudgmentGracefully() {
         JdbcTemplate jdbc = mock(JdbcTemplate.class);
         PromptRatingService promptRatingService = mock(PromptRatingService.class);
-        RsRankLookupService rsRankLookupService = mock(RsRankLookupService.class);
         when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any(),
                 any(), any(), any(), any(), any(), any()))
                 .thenReturn(null); // simulates ANTHROPIC_API_KEY not set / the call failing
-        when(rsRankLookupService.rankFor(any())).thenReturn(null); // symbol not in the RS Momentum universe
-        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService, rsRankLookupService);
+        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
 
         FundamentalResult fr = new FundamentalResult();
         fr.setQuarterLabels(new ArrayList<>(List.of("Jun 2026")));
@@ -273,6 +270,5 @@ class QuarterlyResultsServiceTest {
         ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
         verify(jdbc).update(any(String.class), args.capture());
         assertNull(args.getValue()[23]);
-        assertNull(args.getValue()[24]);
     }
 }

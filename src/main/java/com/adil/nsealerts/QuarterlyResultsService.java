@@ -37,13 +37,10 @@ public class QuarterlyResultsService {
 
     private final JdbcTemplate jdbcTemplate;
     private final PromptRatingService promptRatingService;
-    private final RsRankLookupService rsRankLookupService;
 
-    public QuarterlyResultsService(JdbcTemplate jdbcTemplate, PromptRatingService promptRatingService,
-                                    RsRankLookupService rsRankLookupService) {
+    public QuarterlyResultsService(JdbcTemplate jdbcTemplate, PromptRatingService promptRatingService) {
         this.jdbcTemplate = jdbcTemplate;
         this.promptRatingService = promptRatingService;
-        this.rsRankLookupService = rsRankLookupService;
     }
 
     public void recordIfAvailable(String symbol, String companyName, FundamentalResult fr,
@@ -92,7 +89,6 @@ public class QuarterlyResultsService {
         Double epsQoqPct = yoyPct(eps, qoqIdx != null ? valueAt(epsSeries, qoqIdx) : null);
 
         String verdict = verdict(netProfitCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType, marginYoyPp, epsYoyPct);
-        Double rsRank = rsRankLookupService.rankFor(symbol);
 
         // Numbers-only judgment (2026-07-30, extended same day with margin/EPS
         // once those became available -- see PromptRatingService.judgeQuarterlyTrend's
@@ -106,7 +102,7 @@ public class QuarterlyResultsService {
         upsert(symbol, companyName, quarterLabel, quarterEndDate, revenueCr, netProfitCr,
                 revenueYoyCr, netProfitYoyCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType,
                 revenueQoqCr, netProfitQoqCr, revenueQoqPct, netProfitQoqPct, profitQoqSwingType,
-                operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct, verdict, rsRank,
+                operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct, verdict,
                 aiJudgment, announcementCategory, announcementDate, sourceLink);
     }
 
@@ -184,7 +180,13 @@ public class QuarterlyResultsService {
                         "       operating_margin_pct AS \"operatingMarginPct\", operating_margin_yoy_pp AS \"operatingMarginYoyPp\", " +
                         "       operating_margin_qoq_pp AS \"operatingMarginQoqPp\", eps AS \"eps\", " +
                         "       eps_yoy_pct AS \"epsYoyPct\", eps_qoq_pct AS \"epsQoqPct\", " +
-                        "       verdict AS \"verdict\", rs_rank AS \"rsRank\", ai_judgment AS \"aiJudgment\", " +
+                        // rs_rank is deliberately NOT selected here -- DashboardDataController
+                        // attaches it LIVE on every request instead (see that class for why:
+                        // RS Rank is a day-to-day-changing stock attribute, not a fixed fact
+                        // about this quarter, so trusting whatever was stored at announcement-
+                        // processing time created a real race/staleness bug, confirmed on AWL
+                        // 2026-07-30).
+                        "       verdict AS \"verdict\", ai_judgment AS \"aiJudgment\", " +
                         "       announcement_category AS \"announcementCategory\", " +
                         // Cast to text explicitly -- java.sql.Timestamp's default Jackson
                         // serialization isn't worth relying on sight-unseen; this guarantees
@@ -247,7 +249,7 @@ public class QuarterlyResultsService {
                          Double revenueYoyPct, Double netProfitYoyPct, String profitYoySwingType,
                          Double revenueQoqCr, Double netProfitQoqCr, Double revenueQoqPct, Double netProfitQoqPct,
                          String profitQoqSwingType, Double operatingMarginPct, Double marginYoyPp, Double marginQoqPp,
-                         Double eps, Double epsYoyPct, Double epsQoqPct, String verdict, Double rsRank,
+                         Double eps, Double epsYoyPct, Double epsQoqPct, String verdict,
                          String aiJudgment, String announcementCategory,
                          OffsetDateTime announcementDate, String sourceLink) {
         try {
@@ -257,9 +259,9 @@ public class QuarterlyResultsService {
                             " revenue_yoy_cr, net_profit_yoy_cr, revenue_yoy_pct, net_profit_yoy_pct, profit_yoy_swing_type, " +
                             " revenue_qoq_cr, net_profit_qoq_cr, revenue_qoq_pct, net_profit_qoq_pct, profit_qoq_swing_type, " +
                             " operating_margin_pct, operating_margin_yoy_pp, operating_margin_qoq_pp, " +
-                            " eps, eps_yoy_pct, eps_qoq_pct, verdict, rs_rank, " +
+                            " eps, eps_yoy_pct, eps_qoq_pct, verdict, " +
                             " ai_judgment, announcement_category, announcement_date, source_link) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
                             "ON CONFLICT (symbol, quarter_label) DO UPDATE SET " +
                             "  company_name = EXCLUDED.company_name, quarter_end_date = EXCLUDED.quarter_end_date, " +
                             "  revenue_cr = EXCLUDED.revenue_cr, net_profit_cr = EXCLUDED.net_profit_cr, " +
@@ -273,22 +275,22 @@ public class QuarterlyResultsService {
                             "  operating_margin_yoy_pp = EXCLUDED.operating_margin_yoy_pp, " +
                             "  operating_margin_qoq_pp = EXCLUDED.operating_margin_qoq_pp, " +
                             "  eps = EXCLUDED.eps, eps_yoy_pct = EXCLUDED.eps_yoy_pct, eps_qoq_pct = EXCLUDED.eps_qoq_pct, " +
-                            "  verdict = EXCLUDED.verdict, rs_rank = EXCLUDED.rs_rank, " +
+                            "  verdict = EXCLUDED.verdict, " +
                             "  ai_judgment = EXCLUDED.ai_judgment, " +
                             "  announcement_category = EXCLUDED.announcement_category, " +
                             "  announcement_date = EXCLUDED.announcement_date, source_link = EXCLUDED.source_link",
                     symbol, companyName, quarterLabel, quarterEndDate, revenueCr, netProfitCr,
                     revenueYoyCr, netProfitYoyCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType,
                     revenueQoqCr, netProfitQoqCr, revenueQoqPct, netProfitQoqPct, profitQoqSwingType,
-                    operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct, verdict, rsRank,
+                    operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct, verdict,
                     aiJudgment, announcementCategory, Timestamp.from(announcementDate.toInstant()), sourceLink);
             String profitYoyDisplay = profitYoySwingType != null ? profitYoySwingType : fmt(netProfitYoyPct) + "%";
             String profitQoqDisplay = profitQoqSwingType != null ? profitQoqSwingType : fmt(netProfitQoqPct) + "%";
             logger.info("[QuarterlyResults] {} {}: revenue={} Cr (YoY {}%, QoQ {}%), net profit={} Cr (YoY {}, QoQ {}), " +
-                            "margin={}% (YoY {}pp), eps={} (YoY {}%), verdict={}, rsRank={}, judgment={}",
+                            "margin={}% (YoY {}pp), eps={} (YoY {}%), verdict={}, judgment={}",
                     symbol, quarterLabel, revenueCr, fmt(revenueYoyPct), fmt(revenueQoqPct), netProfitCr,
                     profitYoyDisplay, profitQoqDisplay, fmt(operatingMarginPct), fmt(marginYoyPp), fmt(eps), fmt(epsYoyPct),
-                    verdict != null ? verdict : "n/a", fmt(rsRank), aiJudgment != null ? aiJudgment : "n/a");
+                    verdict != null ? verdict : "n/a", aiJudgment != null ? aiJudgment : "n/a");
         } catch (Exception e) {
             logger.warn("[QuarterlyResults] upsert failed for {} {}: {}", symbol, quarterLabel, e.getMessage());
         }

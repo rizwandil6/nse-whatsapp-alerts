@@ -32,14 +32,17 @@ public class DashboardDataController {
     private final AlertLogService alertLogService;
     private final GithubJsonStore githubJsonStore;
     private final QuarterlyResultsService quarterlyResultsService;
+    private final RsRankLookupService rsRankLookupService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
 
     public DashboardDataController(AlertLogService alertLogService, GithubJsonStore githubJsonStore,
-                                    QuarterlyResultsService quarterlyResultsService) {
+                                    QuarterlyResultsService quarterlyResultsService,
+                                    RsRankLookupService rsRankLookupService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
         this.quarterlyResultsService = quarterlyResultsService;
+        this.rsRankLookupService = rsRankLookupService;
     }
 
     // Unlike the other 4 tabs, this reads straight from Postgres (this same
@@ -47,7 +50,22 @@ public class DashboardDataController {
     // already a fast local query.
     @GetMapping(value = "/api/dashboard/quarterly-results", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String, Object>> quarterlyResults() {
-        return quarterlyResultsService.recentResults(200);
+        List<Map<String, Object>> results = quarterlyResultsService.recentResults(200);
+        // RS Rank is attached LIVE here, always overwriting whatever was
+        // persisted at announcement-processing time -- unlike revenue/profit/
+        // margin/EPS (fixed historical facts about a specific quarter), RS
+        // Rank is a day-to-day-changing attribute of the STOCK, not the
+        // filing. Storing it once at record time created a real race: any
+        // announcement processed before that day's RS-momentum batch run
+        // (20:00-20:30 IST) got a permanently frozen null, confirmed live on
+        // AWL 2026-07-30 (announced 11:47 UTC, that day's rank snapshot
+        // didn't exist until ~11:55 UTC). Same "attach fresh, don't trust the
+        // stored snapshot" pattern as attachForwardPerformance below.
+        for (Map<String, Object> row : results) {
+            Object symbol = row.get("symbol");
+            if (symbol != null) row.put("rsRank", rsRankLookupService.rankFor(symbol.toString()));
+        }
+        return results;
     }
 
     @GetMapping(value = "/api/dashboard/market-news", produces = MediaType.APPLICATION_JSON_VALUE)

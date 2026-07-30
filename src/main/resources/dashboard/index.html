@@ -76,8 +76,11 @@
   .verdict.right { color: var(--win); background: var(--win-bg); }
   .verdict.mixed { color: var(--amber); background: var(--amber-bg); }
   .verdict.wrong { color: var(--loss); background: var(--loss-bg); }
+  .metrics-box { display: flex; flex-direction: column; gap: 8px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; }
+  .metrics-box .metric-row { padding-bottom: 8px; border-bottom: 1px dashed var(--border); }
+  .metrics-box .metric-row:last-child { padding-bottom: 0; border-bottom: none; }
   .metric-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-muted); }
-  .metric-row .label { color: var(--ink); font-weight: 600; min-width: 92px; }
+  .metric-row .label { color: var(--ink); font-weight: 600; min-width: 96px; }
   .rs-chip { display: inline-flex; align-items: baseline; gap: 5px; font-size: 12px; color: var(--ink-muted); background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 3px 9px; }
   .rs-chip b { color: var(--ink); font-variant-numeric: tabular-nums; }
   .rs-chip.na { color: var(--ink-faint); font-style: italic; }
@@ -416,9 +419,9 @@
   // A metric line: current value, plus its YoY and QoQ badges (hover a badge for the compared-quarter's actual figure).
   function metricMeta(label, current, yoyValue, yoyPct, yoySwing, qoqValue, qoqPct, qoqSwing) {
     if (current == null) return '';
-    return `<span>${label} <b>${fmtCr(current)}</b> ` +
+    return `<div class="metric-row"><span class="label">${label}</span> <b>${fmtCr(current)}</b> ` +
         `${comparisonBadge('YoY', yoyValue, yoyPct, yoySwing)} ` +
-        `${comparisonBadge('QoQ', qoqValue, qoqPct, qoqSwing)}</span>`;
+        `${comparisonBadge('QoQ', qoqValue, qoqPct, qoqSwing)}</div>`;
   }
 
   function fmtPp(v) {
@@ -536,13 +539,13 @@
             <div class="card-time">${fmtTime(r.announcementDate)}</div>
           </div>
         </div>
-        <div class="card-meta">
-          <span class="badge neutral">${esc(r.quarterLabel)}</span>
+        <div class="card-meta"><span class="badge neutral">${esc(r.quarterLabel)}</span></div>
+        <div class="metrics-box">
           ${metricMeta('Revenue', r.revenueCr, r.revenueYoyCr, r.revenueYoyPct, null, r.revenueQoqCr, r.revenueQoqPct, null)}
           ${metricMeta('Net Profit', r.netProfitCr, r.netProfitYoyCr, r.netProfitYoyPct, r.profitYoySwingType, r.netProfitQoqCr, r.netProfitQoqPct, r.profitQoqSwingType)}
+          ${marginRow(r)}
+          ${epsRow(r)}
         </div>
-        ${marginRow(r)}
-        ${epsRow(r)}
         <div class="card-meta">${rsRankChip(r)}</div>
         ${r.aiJudgment ? `<div class="card-body">🔎 ${esc(r.aiJudgment)}</div>` : ''}
         ${verdictDetailsHtml(r)}
