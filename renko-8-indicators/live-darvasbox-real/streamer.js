@@ -84,6 +84,18 @@ let protobufRoot = null;
 let lastGoodTickMs = null;
 let circuitBreakerAlertSent = false;
 
+// Stale-connection watchdog -- mirrors live-darvasbox-shadow/streamer.js's fix
+// (2026-07-30, real incident: that streamer sat silently "RUNNING" for 15+ min
+// after the Upstox feed went half-dead without ever firing 'close'/'error' --
+// a zombie WebSocket, and main()'s reconnect loop only advances on that event).
+// See that file's own comment for the full mechanism. Same fix mirrored here
+// since this streamer isn't deployed yet but shares the identical architecture
+// -- deliberately more consequential here (real orders), so this needs it too.
+const WS_STALE_TIMEOUT_MS = 90 * 1000;
+const WATCHDOG_INTERVAL_MS = 30 * 1000;
+let lastActivityMs = null;
+let currentWs = null;
+
 let dayStats = { trades: 0, wins: 0, totalPnlPct: 0, totalPnlRs: 0 };
 let eodSummarySent = false;
 
@@ -413,12 +425,14 @@ function connectAndRun() {
 
       console.log('Connecting to Upstox live feed...');
       const ws = new WebSocket(wsUrl, { followRedirects: true });
+      currentWs = ws;
 
       let settled = false;
-      const finish = (reason) => { if (!settled) { settled = true; resolve({ reason }); } };
+      const finish = (reason) => { if (!settled) { settled = true; if (currentWs === ws) currentWs = null; resolve({ reason }); } };
 
       ws.on('open', () => {
         console.log('Connected. Subscribing to', Object.keys(trackers).length, 'symbols...');
+        lastActivityMs = Date.now(); // gives the subscription a full WS_STALE_TIMEOUT_MS window to start producing ticks
         setTimeout(() => {
           const instrumentKeys = Object.entries(symbols).filter(([s]) => trackers[s]).map(([, key]) => key);
           ws.send(Buffer.from(JSON.stringify({
@@ -448,6 +462,7 @@ function connectAndRun() {
             const tick = extractTick(feed);
             if (!tick) continue;
             lastGoodTickMs = Date.now();
+            lastActivityMs = lastGoodTickMs;
 
             const closedBar = getOrCreateTickBuilder(symbol).onTick(tick);
             if (closedBar) ingestOneMinBar(symbol, closedBar, false).catch((e) => console.error(`ingestOneMinBar(${symbol}) threw:`, e.message));
@@ -464,6 +479,20 @@ function connectAndRun() {
       process.once('SIGINT', () => { console.log('SIGINT: closing feed connection...'); ws.close(); setTimeout(() => finish('sigint'), 500); });
     })();
   });
+}
+
+/** See live-darvasbox-shadow/streamer.js's own copy of this function for the full incident/mechanism writeup. */
+function startStaleConnectionWatchdog() {
+  setInterval(() => {
+    const { minutesOfDay } = nowIst();
+    if (minutesOfDay < MARKET_OPEN_MIN || minutesOfDay > MARKET_CLOSE_MIN + 15) return;
+    if (!currentWs || lastActivityMs == null) return;
+    const staleMs = Date.now() - lastActivityMs;
+    if (staleMs > WS_STALE_TIMEOUT_MS) {
+      console.error(`Stale-connection watchdog: no tick/activity for ${Math.round(staleMs / 1000)}s -- terminating and forcing a reconnect.`);
+      currentWs.terminate();
+    }
+  }, WATCHDOG_INTERVAL_MS);
 }
 
 async function main() {
@@ -489,6 +518,7 @@ async function main() {
   await loadEmaWarmup();
   await startupBackfillIfNeeded();
   scheduleBarFlush();
+  startStaleConnectionWatchdog();
 
   let attempt = 0;
   let isFirstConnect = true;

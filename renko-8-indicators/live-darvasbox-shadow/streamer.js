@@ -113,6 +113,23 @@ let currentDate = null;
 let protobufRoot = null;
 let lastGoodTickMs = null;
 
+// Stale-connection watchdog (added 2026-07-30, real incident: the streamer sat
+// silently "RUNNING" for 15+ min across all 18 symbols after the Upstox feed
+// went half-dead without ever firing 'close' or 'error' -- a classic zombie
+// WebSocket, common with NAT/load-balancer idle timeouts or a silent drop on
+// the server end. Neither event fires because nothing actively probes the
+// connection, so main()'s reconnect loop (which only advances when
+// connectAndRun()'s promise resolves via close/error/sigterm) never triggers.
+// lastActivityMs is updated on 'open' AND every valid tick; a periodic check
+// force-terminates the socket if it goes stale during market hours, which
+// fires 'close' and lets the existing reconnect logic do its job. Deliberately
+// a SEPARATE variable from lastGoodTickMs (which backfillGapIfNeeded uses with
+// different semantics -- "has any tick ever been seen" -- not touching that).
+const WS_STALE_TIMEOUT_MS = 90 * 1000;
+const WATCHDOG_INTERVAL_MS = 30 * 1000;
+let lastActivityMs = null;
+let currentWs = null;
+
 // Realtime running P&L for the day -- updated on every EXIT (including EOD
 // square-offs), so "day so far" is always current, not something pieced
 // together afterward from individual alerts. Reset each new trading day.
@@ -456,16 +473,19 @@ function connectAndRun() {
 
       console.log('Connecting to Upstox live feed...');
       const ws = new WebSocket(wsUrl, { followRedirects: true });
+      currentWs = ws;
 
       let settled = false;
       const finish = (reason) => {
         if (settled) return;
         settled = true;
+        if (currentWs === ws) currentWs = null;
         resolve({ reason });
       };
 
       ws.on('open', () => {
         console.log('Connected. Subscribing to', Object.keys(symbols).length, 'symbols...');
+        lastActivityMs = Date.now(); // gives the subscription a full WS_STALE_TIMEOUT_MS window to start producing ticks
         setTimeout(() => {
           const instrumentKeys = Object.values(symbols);
           ws.send(Buffer.from(JSON.stringify({
@@ -495,6 +515,7 @@ function connectAndRun() {
             const tick = extractTick(feed);
             if (!tick) continue;
             lastGoodTickMs = Date.now();
+            lastActivityMs = lastGoodTickMs;
 
             const closedBar = getOrCreateTickBuilder(symbol).onTick(tick);
             if (closedBar) ingestOneMinBar(symbol, closedBar, false);
@@ -518,6 +539,30 @@ function connectAndRun() {
       process.once('SIGINT', () => { console.log('SIGINT: closing feed connection...'); ws.close(); setTimeout(() => finish('sigint'), 500); });
     })();
   });
+}
+
+/**
+ * Runs once every WATCHDOG_INTERVAL_MS for the life of the process (started
+ * once in main(), NOT per-connection) -- forcibly terminates the current
+ * WebSocket if it's gone stale during market hours, i.e. no tick AND no
+ * fresh 'open' event in the last WS_STALE_TIMEOUT_MS. terminate() (not
+ * close()) because a truly zombie connection won't answer a close handshake
+ * either -- terminate() destroys the underlying socket directly, which
+ * reliably fires 'close' and lets main()'s existing reconnect loop take over.
+ * Only checked during market hours (+15min grace, matching ingestOneMinBar's
+ * own convention) since silence outside that window is expected, not a bug.
+ */
+function startStaleConnectionWatchdog() {
+  setInterval(() => {
+    const { minutesOfDay } = nowIst();
+    if (minutesOfDay < MARKET_OPEN_MIN || minutesOfDay > MARKET_CLOSE_MIN + 15) return;
+    if (!currentWs || lastActivityMs == null) return;
+    const staleMs = Date.now() - lastActivityMs;
+    if (staleMs > WS_STALE_TIMEOUT_MS) {
+      console.error(`Stale-connection watchdog: no tick/activity for ${Math.round(staleMs / 1000)}s -- terminating and forcing a reconnect.`);
+      currentWs.terminate();
+    }
+  }, WATCHDOG_INTERVAL_MS);
 }
 
 async function main() {
@@ -551,6 +596,7 @@ async function main() {
   await loadEmaWarmup();
   await startupBackfillIfNeeded();
   scheduleBarFlush();
+  startStaleConnectionWatchdog();
 
   let attempt = 0;
   let isFirstConnect = true;
