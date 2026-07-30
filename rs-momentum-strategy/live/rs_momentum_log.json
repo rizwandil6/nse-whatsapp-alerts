@@ -104,5 +104,41 @@
   "date": "2026-07-27",
   "price": 512.3,
   "rsRankAtEntry": 81.65680473372781
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "BAJAJ-AUTO"
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "POLYCAB",
+  "salesGrowth3Y": 27
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "HINDCOPPER",
+  "salesGrowth3Y": 22
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "LALPATHLAB"
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "LODHA",
+  "salesGrowth3Y": 21
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "EICHERMOT",
+  "salesGrowth3Y": 17
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "MARICO"
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "USHAMART"
  }
 ]
