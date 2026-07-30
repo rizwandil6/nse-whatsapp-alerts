@@ -1,0 +1,18 @@
+{
+  "name": "williams-r-strategy-live",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Williams %R mean-reversion (paper) strategy on the real 21-holding portfolio -- period=14, oversold=-90/overbought=-10, 5-min candles, no stop-loss. LTP-confirmed entries/exits. Backtested combo, not a forward-test grid -- see renko-python-backtest/williams_r_backtest.py.",
+  "main": "streamer.js",
+  "scripts": {
+    "start": "node streamer.js",
+    "test": "node --test *.test.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "protobufjs": "^7.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
