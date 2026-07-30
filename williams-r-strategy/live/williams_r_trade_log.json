@@ -1,0 +1,253 @@
+[
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 310.4,
+  "theoreticalEntry": 310.4,
+  "timestampMs": 1785384000000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 310.4,
+  "exitPrice": 314.6,
+  "theoreticalExit": 314.6,
+  "action": "R_EXIT",
+  "pnlPct": 1.3530927835051694,
+  "entryTimestampMs": 1785384000000,
+  "exitTimestampMs": 1785387300000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 314.9,
+  "theoreticalEntry": 314.9,
+  "timestampMs": 1785388800000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 314.9,
+  "exitPrice": 313.65,
+  "theoreticalExit": 313.65,
+  "action": "R_EXIT",
+  "pnlPct": 0.3969514131470308,
+  "entryTimestampMs": 1785388800000,
+  "exitTimestampMs": 1785399300000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "LONG",
+  "entry": 521.85,
+  "theoreticalEntry": 521.85,
+  "timestampMs": 1785387900000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "LONG",
+  "entry": 521.85,
+  "exitPrice": 524.4,
+  "theoreticalExit": 524.4,
+  "action": "R_EXIT",
+  "pnlPct": 0.4886461626904195,
+  "entryTimestampMs": 1785387900000,
+  "exitTimestampMs": 1785389100000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 529.2,
+  "theoreticalEntry": 529.2,
+  "timestampMs": 1785395400000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 529.2,
+  "exitPrice": 524,
+  "theoreticalExit": 524,
+  "action": "R_EXIT",
+  "pnlPct": 0.9826152683295626,
+  "entryTimestampMs": 1785395400000,
+  "exitTimestampMs": 1785401700000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 215.38,
+  "theoreticalEntry": 215.38,
+  "timestampMs": 1785390600000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 215.38,
+  "exitPrice": 214.56,
+  "theoreticalExit": 214.56,
+  "action": "R_EXIT",
+  "pnlPct": 0.3807224440523694,
+  "entryTimestampMs": 1785390600000,
+  "exitTimestampMs": 1785396900000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 77.37,
+  "theoreticalEntry": 77.37,
+  "timestampMs": 1785386400000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 77.37,
+  "exitPrice": 77.65,
+  "theoreticalExit": 77.65,
+  "action": "R_EXIT",
+  "pnlPct": 0.3618973762440237,
+  "entryTimestampMs": 1785386400000,
+  "exitTimestampMs": 1785388500000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.82,
+  "theoreticalEntry": 37.82,
+  "timestampMs": 1785385200000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.82,
+  "exitPrice": 37.88,
+  "theoreticalExit": 37.88,
+  "action": "R_EXIT",
+  "pnlPct": 0.15864621893178812,
+  "entryTimestampMs": 1785385200000,
+  "exitTimestampMs": 1785390000000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2618,
+  "theoreticalEntry": 2618,
+  "timestampMs": 1785401100000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2618,
+  "exitPrice": 2624.9,
+  "theoreticalExit": 2624.9,
+  "action": "R_EXIT",
+  "pnlPct": 0.26355996944232585,
+  "entryTimestampMs": 1785401100000,
+  "exitTimestampMs": 1785404400000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 888.3,
+  "theoreticalEntry": 888.3,
+  "timestampMs": 1785391500000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 888.3,
+  "exitPrice": 903.15,
+  "theoreticalExit": 903.15,
+  "action": "R_EXIT",
+  "pnlPct": -1.6717325227963553,
+  "entryTimestampMs": 1785391500000,
+  "exitTimestampMs": 1785401700000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 141.28,
+  "theoreticalEntry": 141.28,
+  "timestampMs": 1785398100000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 110.32,
+  "theoreticalEntry": 110.32,
+  "timestampMs": 1785384900000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 110.32,
+  "exitPrice": 110.94,
+  "theoreticalExit": 110.94,
+  "action": "R_EXIT",
+  "pnlPct": 0.5620014503263276,
+  "entryTimestampMs": 1785384900000,
+  "exitTimestampMs": 1785388800000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 831.85,
+  "theoreticalEntry": 831.85,
+  "timestampMs": 1785391500000,
+  "livePriceAvailable": false
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 831.85,
+  "exitPrice": 827.95,
+  "theoreticalExit": 827.95,
+  "action": "R_EXIT",
+  "pnlPct": 0.46883452545530774,
+  "entryTimestampMs": 1785391500000,
+  "exitTimestampMs": 1785397500000,
+  "livePriceAvailable": false
+ }
+]
