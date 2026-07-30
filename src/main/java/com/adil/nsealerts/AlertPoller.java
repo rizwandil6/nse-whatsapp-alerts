@@ -347,6 +347,9 @@ public class AlertPoller {
                 // Stored for EVERY company that files results, regardless of watchlist --
                 // the Quarterly Results dashboard tab is meant to cover the whole market,
                 // not just your holdings. Only the TELEGRAM alert below is holdings-only.
+                // The AI judgment attached to this row is computed separately inside
+                // QuarterlyResultsService from the YoY/QoQ NUMBERS, not this PDF --
+                // see PromptRatingService.judgeQuarterlyTrend's docstring for why.
                 quarterlyResultsService.recordIfAvailable(ctx.symbol(), ctx.companyName(), fr,
                         "Outcome of Board Meeting", announcementDate, ctx.link());
             } catch (Exception e) {

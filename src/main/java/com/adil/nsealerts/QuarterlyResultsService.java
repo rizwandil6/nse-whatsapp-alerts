@@ -36,9 +36,11 @@ public class QuarterlyResultsService {
     private static final Logger logger = LoggerFactory.getLogger(QuarterlyResultsService.class);
 
     private final JdbcTemplate jdbcTemplate;
+    private final PromptRatingService promptRatingService;
 
-    public QuarterlyResultsService(JdbcTemplate jdbcTemplate) {
+    public QuarterlyResultsService(JdbcTemplate jdbcTemplate, PromptRatingService promptRatingService) {
         this.jdbcTemplate = jdbcTemplate;
+        this.promptRatingService = promptRatingService;
     }
 
     public void recordIfAvailable(String symbol, String companyName, FundamentalResult fr,
@@ -78,10 +80,17 @@ public class QuarterlyResultsService {
         String profitQoqSwingType = profitSwingType(netProfitCr, netProfitQoqCr);
         Double netProfitQoqPct = profitQoqSwingType == null ? yoyPct(netProfitCr, netProfitQoqCr) : null;
 
+        // Numbers-only judgment (2026-07-30) -- see PromptRatingService.judgeQuarterlyTrend's
+        // docstring for why this deliberately doesn't read the filed PDF. null (API key
+        // missing, or the call failed) is fine -- the card just shows no judgment line.
+        String aiJudgment = promptRatingService.judgeQuarterlyTrend(companyName, quarterLabel,
+                revenueCr, revenueYoyPct, revenueQoqPct, netProfitCr, netProfitYoyPct, netProfitQoqPct,
+                profitYoySwingType, profitQoqSwingType);
+
         upsert(symbol, companyName, quarterLabel, quarterEndDate, revenueCr, netProfitCr,
                 revenueYoyCr, netProfitYoyCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType,
                 revenueQoqCr, netProfitQoqCr, revenueQoqPct, netProfitQoqPct, profitQoqSwingType,
-                announcementCategory, announcementDate, sourceLink);
+                aiJudgment, announcementCategory, announcementDate, sourceLink);
     }
 
     /** Backs the dashboard's Quarterly Results tab -- most recently ANNOUNCED first (not most recent quarter), so a
@@ -98,7 +107,7 @@ public class QuarterlyResultsService {
                         "       net_profit_yoy_pct AS \"netProfitYoyPct\", profit_yoy_swing_type AS \"profitYoySwingType\", " +
                         "       revenue_qoq_cr AS \"revenueQoqCr\", net_profit_qoq_cr AS \"netProfitQoqCr\", " +
                         "       revenue_qoq_pct AS \"revenueQoqPct\", net_profit_qoq_pct AS \"netProfitQoqPct\", " +
-                        "       profit_qoq_swing_type AS \"profitQoqSwingType\", " +
+                        "       profit_qoq_swing_type AS \"profitQoqSwingType\", ai_judgment AS \"aiJudgment\", " +
                         "       announcement_category AS \"announcementCategory\", " +
                         // Cast to text explicitly -- java.sql.Timestamp's default Jackson
                         // serialization isn't worth relying on sight-unseen; this guarantees
@@ -160,16 +169,16 @@ public class QuarterlyResultsService {
                          Double revenueCr, Double netProfitCr, Double revenueYoyCr, Double netProfitYoyCr,
                          Double revenueYoyPct, Double netProfitYoyPct, String profitYoySwingType,
                          Double revenueQoqCr, Double netProfitQoqCr, Double revenueQoqPct, Double netProfitQoqPct,
-                         String profitQoqSwingType, String announcementCategory, OffsetDateTime announcementDate,
-                         String sourceLink) {
+                         String profitQoqSwingType, String aiJudgment, String announcementCategory,
+                         OffsetDateTime announcementDate, String sourceLink) {
         try {
             jdbcTemplate.update(
                     "INSERT INTO quarterly_results " +
                             "(symbol, company_name, quarter_label, quarter_end_date, revenue_cr, net_profit_cr, " +
                             " revenue_yoy_cr, net_profit_yoy_cr, revenue_yoy_pct, net_profit_yoy_pct, profit_yoy_swing_type, " +
                             " revenue_qoq_cr, net_profit_qoq_cr, revenue_qoq_pct, net_profit_qoq_pct, profit_qoq_swing_type, " +
-                            " announcement_category, announcement_date, source_link) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                            " ai_judgment, announcement_category, announcement_date, source_link) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
                             "ON CONFLICT (symbol, quarter_label) DO UPDATE SET " +
                             "  company_name = EXCLUDED.company_name, quarter_end_date = EXCLUDED.quarter_end_date, " +
                             "  revenue_cr = EXCLUDED.revenue_cr, net_profit_cr = EXCLUDED.net_profit_cr, " +
@@ -179,17 +188,18 @@ public class QuarterlyResultsService {
                             "  revenue_qoq_cr = EXCLUDED.revenue_qoq_cr, net_profit_qoq_cr = EXCLUDED.net_profit_qoq_cr, " +
                             "  revenue_qoq_pct = EXCLUDED.revenue_qoq_pct, net_profit_qoq_pct = EXCLUDED.net_profit_qoq_pct, " +
                             "  profit_qoq_swing_type = EXCLUDED.profit_qoq_swing_type, " +
+                            "  ai_judgment = EXCLUDED.ai_judgment, " +
                             "  announcement_category = EXCLUDED.announcement_category, " +
                             "  announcement_date = EXCLUDED.announcement_date, source_link = EXCLUDED.source_link",
                     symbol, companyName, quarterLabel, quarterEndDate, revenueCr, netProfitCr,
                     revenueYoyCr, netProfitYoyCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType,
                     revenueQoqCr, netProfitQoqCr, revenueQoqPct, netProfitQoqPct, profitQoqSwingType,
-                    announcementCategory, Timestamp.from(announcementDate.toInstant()), sourceLink);
+                    aiJudgment, announcementCategory, Timestamp.from(announcementDate.toInstant()), sourceLink);
             String profitYoyDisplay = profitYoySwingType != null ? profitYoySwingType : fmt(netProfitYoyPct) + "%";
             String profitQoqDisplay = profitQoqSwingType != null ? profitQoqSwingType : fmt(netProfitQoqPct) + "%";
-            logger.info("[QuarterlyResults] {} {}: revenue={} Cr (YoY {}%, QoQ {}%), net profit={} Cr (YoY {}, QoQ {})",
+            logger.info("[QuarterlyResults] {} {}: revenue={} Cr (YoY {}%, QoQ {}%), net profit={} Cr (YoY {}, QoQ {}), judgment={}",
                     symbol, quarterLabel, revenueCr, fmt(revenueYoyPct), fmt(revenueQoqPct), netProfitCr,
-                    profitYoyDisplay, profitQoqDisplay);
+                    profitYoyDisplay, profitQoqDisplay, aiJudgment != null ? aiJudgment : "n/a");
         } catch (Exception e) {
             logger.warn("[QuarterlyResults] upsert failed for {} {}: {}", symbol, quarterLabel, e.getMessage());
         }

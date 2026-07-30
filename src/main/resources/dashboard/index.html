@@ -304,6 +304,7 @@
           ${metricMeta('Revenue', r.revenueCr, r.revenueYoyCr, r.revenueYoyPct, null, r.revenueQoqCr, r.revenueQoqPct, null)}
           ${metricMeta('Net Profit', r.netProfitCr, r.netProfitYoyCr, r.netProfitYoyPct, r.profitYoySwingType, r.netProfitQoqCr, r.netProfitQoqPct, r.profitQoqSwingType)}
         </div>
+        ${r.aiJudgment ? `<div class="card-body">🔎 ${esc(r.aiJudgment)}</div>` : ''}
       `;
       panel.appendChild(card);
     }

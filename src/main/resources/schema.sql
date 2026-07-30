@@ -37,6 +37,9 @@ CREATE TABLE IF NOT EXISTS quarterly_results (
     revenue_qoq_pct        NUMERIC,
     net_profit_qoq_pct     NUMERIC,
     profit_qoq_swing_type  TEXT,
+    ai_judgment            TEXT,               -- one-line AI verdict (PromptRatingService's overall_label), e.g.
+                                                -- "Positive with some margin pressure" -- same AI call already
+                                                -- made for the Telegram alert, not a separate one
     announcement_category  TEXT,               -- NSE category the triggering announcement was filed under
     announcement_date      TIMESTAMPTZ NOT NULL,
     source_link            TEXT,
@@ -61,4 +64,5 @@ ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS net_profit_qoq_cr NUMERIC
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS revenue_qoq_pct NUMERIC;
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS net_profit_qoq_pct NUMERIC;
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS profit_qoq_swing_type TEXT;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ai_judgment TEXT;
 

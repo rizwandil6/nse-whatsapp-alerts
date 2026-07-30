@@ -1,17 +1,26 @@
 package com.adil.nsealerts;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class QuarterlyResultsServiceTest {
 
-    // jdbcTemplate is never touched by the pure calc methods under test -- null is fine.
-    private final QuarterlyResultsService service = new QuarterlyResultsService(null);
+    // Neither collaborator is touched by the pure calc methods under test -- null is fine.
+    private final QuarterlyResultsService service = new QuarterlyResultsService(null, null);
 
     @Test
     void yoyPctNormalGrowth() {
@@ -126,5 +135,58 @@ class QuarterlyResultsServiceTest {
         assertEquals(-6.462264150943396, service.yoyPct(7932.0, 8480.0), 1e-9); // reuses the same base-relative formula
         assertEquals(-20.781527531083483, service.yoyPct(892.0, 1126.0), 1e-9);
         assertNull(service.profitSwingType(892.0, 1126.0)); // both profitable -- no swing
+    }
+
+    // --- AI judgment (added 2026-07-30) -- PromptRatingService.judgeQuarterlyTrend's
+    // numbers-only verdict, threaded through to the ai_judgment column so the
+    // dashboard card shows "your judgment" alongside the figures. Deliberately NOT
+    // sourced from the filed PDF (see that method's docstring: PdfExtractor's 4000-char
+    // truncation meant the AI only ever saw WAAREEENER's cover letter on a real test,
+    // 2026-07-30, giving an uninformative verdict) -- mocked here since the real call
+    // needs a live ANTHROPIC_API_KEY; this test only verifies the threading/wiring. ---
+
+    @Test
+    void recordIfAvailableThreadsAiJudgmentThroughToTheUpsert() {
+        JdbcTemplate jdbc = mock(JdbcTemplate.class);
+        PromptRatingService promptRatingService = mock(PromptRatingService.class);
+        when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+                .thenReturn("Solid YoY growth but a concerning sequential deceleration");
+        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
+
+        FundamentalResult fr = new FundamentalResult();
+        fr.setQuarterLabels(new ArrayList<>(Arrays.asList("Mar 2026", "Jun 2026")));
+        fr.setQuarterEndDates(new ArrayList<>(Arrays.asList(LocalDate.parse("2026-03-31"), LocalDate.parse("2026-06-30"))));
+        fr.setQuarterlyRevenueCrFull(new ArrayList<>(Arrays.asList(8480.0, 7932.0)));
+        fr.setQuarterlyNetProfitCrFull(new ArrayList<>(Arrays.asList(1126.0, 892.0)));
+
+        svc.recordIfAvailable("WAAREEENER", "Waaree Energies Limited", fr, "Outcome of Board Meeting",
+                OffsetDateTime.parse("2026-07-29T17:34:37Z"), "https://example.com/x");
+
+        ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
+        verify(jdbc).update(any(String.class), args.capture());
+        // ai_judgment is the 17th positional "?" in the upsert SQL (1-indexed) -- index 16 here.
+        assertEquals("Solid YoY growth but a concerning sequential deceleration", args.getValue()[16]);
+    }
+
+    @Test
+    void recordIfAvailableHandlesNullAiJudgmentGracefully() {
+        JdbcTemplate jdbc = mock(JdbcTemplate.class);
+        PromptRatingService promptRatingService = mock(PromptRatingService.class);
+        when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+                .thenReturn(null); // simulates ANTHROPIC_API_KEY not set / the call failing
+        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
+
+        FundamentalResult fr = new FundamentalResult();
+        fr.setQuarterLabels(new ArrayList<>(List.of("Jun 2026")));
+        fr.setQuarterEndDates(new ArrayList<>(List.of(LocalDate.parse("2026-06-30"))));
+        fr.setQuarterlyRevenueCrFull(new ArrayList<>(List.of(7932.0)));
+        fr.setQuarterlyNetProfitCrFull(new ArrayList<>(List.of(892.0)));
+
+        svc.recordIfAvailable("WAAREEENER", "Waaree Energies Limited", fr, "Outcome of Board Meeting",
+                OffsetDateTime.now(ZoneOffset.UTC), "https://example.com/x");
+
+        ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
+        verify(jdbc).update(any(String.class), args.capture());
+        assertNull(args.getValue()[16]);
     }
 }

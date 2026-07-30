@@ -224,6 +224,98 @@ public class PromptRatingService {
         }
     }
 
+    /**
+     * Short, numbers-only verdict for the Quarterly Results dashboard card --
+     * deliberately does NOT read the filed PDF. PdfExtractor truncates every
+     * document to its first 4000 chars, which for a large filing (confirmed
+     * live on WAAREEENER's real 4.04MB Jun 2026 results, 2026-07-30) is
+     * usually just the cover letter/auditor header, not the actual results
+     * commentary -- the AI's own honest verdict on that truncated text was
+     * "substantive financial data unavailable", not a useful judgment. Feeds
+     * the AI ONLY the already-reliable Screener.in-sourced YoY/QoQ figures
+     * instead, so the verdict is grounded in real numbers every time.
+     * Returns null if ANTHROPIC_API_KEY isn't set or the call fails --
+     * callers must treat this as optional, same as the board-meeting analysis.
+     */
+    public String judgeQuarterlyTrend(String companyName, String quarterLabel,
+                                       Double revenueCr, Double revenueYoyPct, Double revenueQoqPct,
+                                       Double netProfitCr, Double netProfitYoyPct, Double netProfitQoqPct,
+                                       String profitYoySwingType, String profitQoqSwingType) {
+        if (anthropicApiKey == null || anthropicApiKey.isBlank()) return null;
+        try {
+            String prompt = buildQuarterlyTrendPrompt(companyName, quarterLabel, revenueCr, revenueYoyPct, revenueQoqPct,
+                    netProfitCr, netProfitYoyPct, netProfitQoqPct, profitYoySwingType, profitQoqSwingType);
+
+            var rootNode = objectMapper.createObjectNode();
+            var messages = objectMapper.createArrayNode();
+            var message = objectMapper.createObjectNode();
+            message.put("role", "user");
+            message.put("content", prompt);
+            messages.add(message);
+            rootNode.put("model", "claude-haiku-4-5-20251001");
+            rootNode.put("max_tokens", 60); // one short line -- no need for a large budget
+            rootNode.set("messages", messages);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://api.anthropic.com/v1/messages"))
+                    .header("Content-Type", "application/json")
+                    .header("x-api-key", anthropicApiKey)
+                    .header("anthropic-version", "2023-06-01")
+                    .POST(HttpRequest.BodyPublishers.ofString(rootNode.toString(), StandardCharsets.UTF_8))
+                    .build();
+
+            HttpResponse<String> response = HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+
+            if (response.statusCode() != 200) {
+                logger.warn("[QuarterlyTrend] Anthropic API error: {} {}", response.statusCode(), response.body());
+                return null;
+            }
+
+            String content = objectMapper.readTree(response.body()).at("/content/0/text").asText();
+            String verdict = content.trim();
+            if (verdict.startsWith("\"") && verdict.endsWith("\"") && verdict.length() > 1) {
+                verdict = verdict.substring(1, verdict.length() - 1).trim();
+            }
+            return verdict.isBlank() ? null : verdict;
+        } catch (Exception e) {
+            logger.warn("[QuarterlyTrend] judgment failed for {} {}: {}", companyName, quarterLabel, e.getMessage());
+            return null;
+        }
+    }
+
+    private String buildQuarterlyTrendPrompt(String companyName, String quarterLabel,
+                                              Double revenueCr, Double revenueYoyPct, Double revenueQoqPct,
+                                              Double netProfitCr, Double netProfitYoyPct, Double netProfitQoqPct,
+                                              String profitYoySwingType, String profitQoqSwingType) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Company: ").append(companyName).append("\n");
+        sb.append("Quarter: ").append(quarterLabel).append("\n");
+        sb.append("Revenue: Rs ").append(fmtCr(revenueCr)).append(" Cr (YoY ").append(fmtPct(revenueYoyPct))
+                .append(", QoQ ").append(fmtPct(revenueQoqPct)).append(")\n");
+        sb.append("Net Profit: Rs ").append(fmtCr(netProfitCr)).append(" Cr (YoY ")
+                .append(profitYoySwingType != null ? swingText(profitYoySwingType) : fmtPct(netProfitYoyPct))
+                .append(", QoQ ").append(profitQoqSwingType != null ? swingText(profitQoqSwingType) : fmtPct(netProfitQoqPct))
+                .append(")\n\n");
+        sb.append("Give a single, short, one-line qualitative verdict (max ~14 words) on this quarter's ")
+                .append("performance, based ONLY on these YoY and QoQ figures. Call out any tension between ")
+                .append("YoY and QoQ if one exists (e.g. YoY growth but a sequential decline). ")
+                .append("Reply with ONLY the one-line verdict -- no quotes, no markdown, no extra text.");
+        return sb.toString();
+    }
+
+    private String fmtCr(Double v) {
+        return v == null ? "n/a" : String.format("%.0f", v);
+    }
+
+    private String fmtPct(Double v) {
+        return v == null ? "n/a" : String.format("%+.1f%%", v);
+    }
+
+    private String swingText(String swingType) {
+        return "LOSS_TO_PROFIT".equals(swingType) ? "swung from a loss to a profit" : "swung from a profit to a loss";
+    }
+
     private String buildBoardMeetingPrompt(String companyName, String subject, String documentText) {
         return "You are analyzing an NSE \"Outcome of Board Meeting\" filing (typically quarterly/annual "
             + "financial results) for an Indian listed company.\n\n"
