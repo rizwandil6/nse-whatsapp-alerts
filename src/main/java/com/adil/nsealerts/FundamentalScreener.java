@@ -378,6 +378,19 @@ public class FundamentalScreener {
                     result.setQuarterlyNetProfitCrFull(full);
                     setLabelsAndDatesIfEmpty(result, labels, dates);
                 }
+            } else if (label.startsWith("opm %")) {
+                // parseNum already strips "%" (e.g. "11%" -> 11.0) -- see parseNum's own stripping list.
+                List<Double> full = allValues(cells);
+                if (!full.isEmpty()) {
+                    result.setQuarterlyOpmPctFull(full);
+                    setLabelsAndDatesIfEmpty(result, labels, dates);
+                }
+            } else if (label.startsWith("eps in rs")) {
+                List<Double> full = allValues(cells);
+                if (!full.isEmpty()) {
+                    result.setQuarterlyEpsFull(full);
+                    setLabelsAndDatesIfEmpty(result, labels, dates);
+                }
             }
         }
     }

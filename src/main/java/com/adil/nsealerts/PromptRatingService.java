@@ -240,11 +240,14 @@ public class PromptRatingService {
     public String judgeQuarterlyTrend(String companyName, String quarterLabel,
                                        Double revenueCr, Double revenueYoyPct, Double revenueQoqPct,
                                        Double netProfitCr, Double netProfitYoyPct, Double netProfitQoqPct,
-                                       String profitYoySwingType, String profitQoqSwingType) {
+                                       String profitYoySwingType, String profitQoqSwingType,
+                                       Double operatingMarginPct, Double marginYoyPp, Double marginQoqPp,
+                                       Double eps, Double epsYoyPct, Double epsQoqPct) {
         if (anthropicApiKey == null || anthropicApiKey.isBlank()) return null;
         try {
             String prompt = buildQuarterlyTrendPrompt(companyName, quarterLabel, revenueCr, revenueYoyPct, revenueQoqPct,
-                    netProfitCr, netProfitYoyPct, netProfitQoqPct, profitYoySwingType, profitQoqSwingType);
+                    netProfitCr, netProfitYoyPct, netProfitQoqPct, profitYoySwingType, profitQoqSwingType,
+                    operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct);
 
             var rootNode = objectMapper.createObjectNode();
             var messages = objectMapper.createArrayNode();
@@ -287,7 +290,9 @@ public class PromptRatingService {
     private String buildQuarterlyTrendPrompt(String companyName, String quarterLabel,
                                               Double revenueCr, Double revenueYoyPct, Double revenueQoqPct,
                                               Double netProfitCr, Double netProfitYoyPct, Double netProfitQoqPct,
-                                              String profitYoySwingType, String profitQoqSwingType) {
+                                              String profitYoySwingType, String profitQoqSwingType,
+                                              Double operatingMarginPct, Double marginYoyPp, Double marginQoqPp,
+                                              Double eps, Double epsYoyPct, Double epsQoqPct) {
         StringBuilder sb = new StringBuilder();
         sb.append("Company: ").append(companyName).append("\n");
         sb.append("Quarter: ").append(quarterLabel).append("\n");
@@ -296,11 +301,15 @@ public class PromptRatingService {
         sb.append("Net Profit: Rs ").append(fmtCr(netProfitCr)).append(" Cr (YoY ")
                 .append(profitYoySwingType != null ? swingText(profitYoySwingType) : fmtPct(netProfitYoyPct))
                 .append(", QoQ ").append(profitQoqSwingType != null ? swingText(profitQoqSwingType) : fmtPct(netProfitQoqPct))
-                .append(")\n\n");
+                .append(")\n");
+        sb.append("Operating Margin: ").append(operatingMarginPct == null ? "n/a" : String.format("%.1f%%", operatingMarginPct))
+                .append(" (YoY ").append(fmtPp(marginYoyPp)).append(", QoQ ").append(fmtPp(marginQoqPp)).append(")\n");
+        sb.append("EPS: Rs ").append(eps == null ? "n/a" : String.format("%.2f", eps))
+                .append(" (YoY ").append(fmtPct(epsYoyPct)).append(", QoQ ").append(fmtPct(epsQoqPct)).append(")\n\n");
         sb.append("Give a single, short, one-line qualitative verdict (max ~14 words) on this quarter's ")
-                .append("performance, based ONLY on these YoY and QoQ figures. Call out any tension between ")
-                .append("YoY and QoQ if one exists (e.g. YoY growth but a sequential decline). ")
-                .append("Reply with ONLY the one-line verdict -- no quotes, no markdown, no extra text.");
+                .append("performance, based ONLY on these figures. Call out any tension between them if one ")
+                .append("exists (e.g. YoY revenue growth but a sequential decline, or profit growth alongside ")
+                .append("margin compression). Reply with ONLY the one-line verdict -- no quotes, no markdown, no extra text.");
         return sb.toString();
     }
 
@@ -310,6 +319,11 @@ public class PromptRatingService {
 
     private String fmtPct(Double v) {
         return v == null ? "n/a" : String.format("%+.1f%%", v);
+    }
+
+    /** Percentage-POINT formatting (margin comparisons) -- distinct from fmtPct's relative-% since margin is already a percentage. */
+    private String fmtPp(Double v) {
+        return v == null ? "n/a" : String.format("%+.1fpp", v);
     }
 
     private String swingText(String swingType) {

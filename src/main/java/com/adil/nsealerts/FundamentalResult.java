@@ -40,6 +40,8 @@ public class FundamentalResult {
     private List<java.time.LocalDate> quarterEndDates = new ArrayList<>(); // from each header th's data-date-key -- exact, no text parsing needed
     private List<Double> quarterlyRevenueCrFull = new ArrayList<>();
     private List<Double> quarterlyNetProfitCrFull = new ArrayList<>();
+    private List<Double> quarterlyOpmPctFull = new ArrayList<>();
+    private List<Double> quarterlyEpsFull = new ArrayList<>();
 
     private Double trailingEps;
 
@@ -264,6 +266,22 @@ public class FundamentalResult {
 
     public void setQuarterlyNetProfitCrFull(List<Double> quarterlyNetProfitCrFull) {
         this.quarterlyNetProfitCrFull = quarterlyNetProfitCrFull;
+    }
+
+    public List<Double> getQuarterlyOpmPctFull() {
+        return quarterlyOpmPctFull;
+    }
+
+    public void setQuarterlyOpmPctFull(List<Double> quarterlyOpmPctFull) {
+        this.quarterlyOpmPctFull = quarterlyOpmPctFull;
+    }
+
+    public List<Double> getQuarterlyEpsFull() {
+        return quarterlyEpsFull;
+    }
+
+    public void setQuarterlyEpsFull(List<Double> quarterlyEpsFull) {
+        this.quarterlyEpsFull = quarterlyEpsFull;
     }
 
     public Double getTrailingEps() {

@@ -37,10 +37,13 @@ public class QuarterlyResultsService {
 
     private final JdbcTemplate jdbcTemplate;
     private final PromptRatingService promptRatingService;
+    private final RsRankLookupService rsRankLookupService;
 
-    public QuarterlyResultsService(JdbcTemplate jdbcTemplate, PromptRatingService promptRatingService) {
+    public QuarterlyResultsService(JdbcTemplate jdbcTemplate, PromptRatingService promptRatingService,
+                                    RsRankLookupService rsRankLookupService) {
         this.jdbcTemplate = jdbcTemplate;
         this.promptRatingService = promptRatingService;
+        this.rsRankLookupService = rsRankLookupService;
     }
 
     public void recordIfAvailable(String symbol, String companyName, FundamentalResult fr,
@@ -58,8 +61,12 @@ public class QuarterlyResultsService {
         LocalDate quarterEndDate = dates.get(lastIdx);
         List<Double> revenueSeries = fr.getQuarterlyRevenueCrFull();
         List<Double> profitSeries = fr.getQuarterlyNetProfitCrFull();
+        List<Double> marginSeries = fr.getQuarterlyOpmPctFull();
+        List<Double> epsSeries = fr.getQuarterlyEpsFull();
         Double revenueCr = valueAt(revenueSeries, lastIdx);
         Double netProfitCr = valueAt(profitSeries, lastIdx);
+        Double operatingMarginPct = valueAt(marginSeries, lastIdx);
+        Double eps = valueAt(epsSeries, lastIdx);
 
         if (revenueCr == null && netProfitCr == null) {
             logger.debug("[QuarterlyResults] {}: latest quarter ({}) has neither revenue nor profit -- skipping", symbol, quarterLabel);
@@ -72,6 +79,8 @@ public class QuarterlyResultsService {
         Double revenueYoyPct = yoyPct(revenueCr, revenueYoyCr); // revenue is never negative -- no swing case needed
         String profitYoySwingType = profitSwingType(netProfitCr, netProfitYoyCr);
         Double netProfitYoyPct = profitYoySwingType == null ? yoyPct(netProfitCr, netProfitYoyCr) : null;
+        Double marginYoyPp = marginPointDiff(operatingMarginPct, yoyIdx != null ? valueAt(marginSeries, yoyIdx) : null);
+        Double epsYoyPct = yoyPct(eps, yoyIdx != null ? valueAt(epsSeries, yoyIdx) : null);
 
         Integer qoqIdx = quarterEndDate != null ? findQoqIndex(dates, lastIdx) : null;
         Double revenueQoqCr = qoqIdx != null ? valueAt(revenueSeries, qoqIdx) : null;
@@ -79,18 +88,82 @@ public class QuarterlyResultsService {
         Double revenueQoqPct = yoyPct(revenueCr, revenueQoqCr); // same "abs(base)" formula, base quarter differs
         String profitQoqSwingType = profitSwingType(netProfitCr, netProfitQoqCr);
         Double netProfitQoqPct = profitQoqSwingType == null ? yoyPct(netProfitCr, netProfitQoqCr) : null;
+        Double marginQoqPp = marginPointDiff(operatingMarginPct, qoqIdx != null ? valueAt(marginSeries, qoqIdx) : null);
+        Double epsQoqPct = yoyPct(eps, qoqIdx != null ? valueAt(epsSeries, qoqIdx) : null);
 
-        // Numbers-only judgment (2026-07-30) -- see PromptRatingService.judgeQuarterlyTrend's
-        // docstring for why this deliberately doesn't read the filed PDF. null (API key
+        String verdict = verdict(netProfitCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType, marginYoyPp, epsYoyPct);
+        Double rsRank = rsRankLookupService.rankFor(symbol);
+
+        // Numbers-only judgment (2026-07-30, extended same day with margin/EPS
+        // once those became available -- see PromptRatingService.judgeQuarterlyTrend's
+        // docstring for why this deliberately doesn't read the filed PDF). null (API key
         // missing, or the call failed) is fine -- the card just shows no judgment line.
         String aiJudgment = promptRatingService.judgeQuarterlyTrend(companyName, quarterLabel,
                 revenueCr, revenueYoyPct, revenueQoqPct, netProfitCr, netProfitYoyPct, netProfitQoqPct,
-                profitYoySwingType, profitQoqSwingType);
+                profitYoySwingType, profitQoqSwingType, operatingMarginPct, marginYoyPp, marginQoqPp,
+                eps, epsYoyPct, epsQoqPct);
 
         upsert(symbol, companyName, quarterLabel, quarterEndDate, revenueCr, netProfitCr,
                 revenueYoyCr, netProfitYoyCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType,
                 revenueQoqCr, netProfitQoqCr, revenueQoqPct, netProfitQoqPct, profitQoqSwingType,
+                operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct, verdict, rsRank,
                 aiJudgment, announcementCategory, announcementDate, sourceLink);
+    }
+
+    /** current - base, in percentage POINTS -- margin is already a percentage, so a relative-% comparison
+     * (like yoyPct's) would produce a meaningless "percent of a percent". Null if either side is missing. */
+    Double marginPointDiff(Double current, Double base) {
+        if (current == null || base == null) return null;
+        return current - base;
+    }
+
+    /**
+     * Four YoY signals (revenue, net profit, operating margin, net profit
+     * missing = excluded from the tally rather than counted against it, so a
+     * company for whom margin/EPS data isn't parseable can still get a
+     * verdict from whatever IS available) -- QoQ is deliberately NOT counted
+     * here (see module docstring: a single quarter's bounce can look like a
+     * recovery while the YoY trend tells the real story, confirmed against a
+     * real filing -- NUCLEUS Mar 2026, QoQ margin +1pp but YoY margin -17pp).
+     * >=75% of available signals positive -> RIGHT, >=50% -> MIXED, else
+     * WRONG. Then a profitability gate: a net LOSS this quarter caps a RIGHT
+     * down to MIXED regardless of the tally -- otherwise a shrinking-loss
+     * story (all 4 signals technically "positive") reads identical to actual
+     * profitability (confirmed against SWIGGY Mar 2026). Returns null only
+     * when there's no profit figure for the current quarter at all (nothing
+     * to gate on) or zero YoY signals were available to tally in the first
+     * place. Package-private for QuarterlyResultsServiceTest.
+     */
+    String verdict(Double netProfitCr, Double revenueYoyPct, Double netProfitYoyPct, String profitYoySwingType,
+                    Double marginYoyPp, Double epsYoyPct) {
+        if (netProfitCr == null) return null;
+
+        int total = 0;
+        int positive = 0;
+        if (revenueYoyPct != null) {
+            total++;
+            if (revenueYoyPct > 0) positive++;
+        }
+        if (netProfitYoyPct != null || profitYoySwingType != null) {
+            total++;
+            boolean profitPositive = "LOSS_TO_PROFIT".equals(profitYoySwingType)
+                    || (profitYoySwingType == null && netProfitYoyPct != null && netProfitYoyPct > 0);
+            if (profitPositive) positive++;
+        }
+        if (marginYoyPp != null) {
+            total++;
+            if (marginYoyPp > 0) positive++;
+        }
+        if (epsYoyPct != null) {
+            total++;
+            if (epsYoyPct > 0) positive++;
+        }
+        if (total == 0) return null;
+
+        double ratio = (double) positive / total;
+        String tally = ratio >= 0.75 ? "RIGHT" : (ratio >= 0.5 ? "MIXED" : "WRONG");
+        if (netProfitCr < 0 && "RIGHT".equals(tally)) return "MIXED";
+        return tally;
     }
 
     /** Backs the dashboard's Quarterly Results tab -- most recently ANNOUNCED first (not most recent quarter), so a
@@ -107,7 +180,11 @@ public class QuarterlyResultsService {
                         "       net_profit_yoy_pct AS \"netProfitYoyPct\", profit_yoy_swing_type AS \"profitYoySwingType\", " +
                         "       revenue_qoq_cr AS \"revenueQoqCr\", net_profit_qoq_cr AS \"netProfitQoqCr\", " +
                         "       revenue_qoq_pct AS \"revenueQoqPct\", net_profit_qoq_pct AS \"netProfitQoqPct\", " +
-                        "       profit_qoq_swing_type AS \"profitQoqSwingType\", ai_judgment AS \"aiJudgment\", " +
+                        "       profit_qoq_swing_type AS \"profitQoqSwingType\", " +
+                        "       operating_margin_pct AS \"operatingMarginPct\", operating_margin_yoy_pp AS \"operatingMarginYoyPp\", " +
+                        "       operating_margin_qoq_pp AS \"operatingMarginQoqPp\", eps AS \"eps\", " +
+                        "       eps_yoy_pct AS \"epsYoyPct\", eps_qoq_pct AS \"epsQoqPct\", " +
+                        "       verdict AS \"verdict\", rs_rank AS \"rsRank\", ai_judgment AS \"aiJudgment\", " +
                         "       announcement_category AS \"announcementCategory\", " +
                         // Cast to text explicitly -- java.sql.Timestamp's default Jackson
                         // serialization isn't worth relying on sight-unseen; this guarantees
@@ -169,7 +246,9 @@ public class QuarterlyResultsService {
                          Double revenueCr, Double netProfitCr, Double revenueYoyCr, Double netProfitYoyCr,
                          Double revenueYoyPct, Double netProfitYoyPct, String profitYoySwingType,
                          Double revenueQoqCr, Double netProfitQoqCr, Double revenueQoqPct, Double netProfitQoqPct,
-                         String profitQoqSwingType, String aiJudgment, String announcementCategory,
+                         String profitQoqSwingType, Double operatingMarginPct, Double marginYoyPp, Double marginQoqPp,
+                         Double eps, Double epsYoyPct, Double epsQoqPct, String verdict, Double rsRank,
+                         String aiJudgment, String announcementCategory,
                          OffsetDateTime announcementDate, String sourceLink) {
         try {
             jdbcTemplate.update(
@@ -177,8 +256,10 @@ public class QuarterlyResultsService {
                             "(symbol, company_name, quarter_label, quarter_end_date, revenue_cr, net_profit_cr, " +
                             " revenue_yoy_cr, net_profit_yoy_cr, revenue_yoy_pct, net_profit_yoy_pct, profit_yoy_swing_type, " +
                             " revenue_qoq_cr, net_profit_qoq_cr, revenue_qoq_pct, net_profit_qoq_pct, profit_qoq_swing_type, " +
+                            " operating_margin_pct, operating_margin_yoy_pp, operating_margin_qoq_pp, " +
+                            " eps, eps_yoy_pct, eps_qoq_pct, verdict, rs_rank, " +
                             " ai_judgment, announcement_category, announcement_date, source_link) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
                             "ON CONFLICT (symbol, quarter_label) DO UPDATE SET " +
                             "  company_name = EXCLUDED.company_name, quarter_end_date = EXCLUDED.quarter_end_date, " +
                             "  revenue_cr = EXCLUDED.revenue_cr, net_profit_cr = EXCLUDED.net_profit_cr, " +
@@ -188,18 +269,26 @@ public class QuarterlyResultsService {
                             "  revenue_qoq_cr = EXCLUDED.revenue_qoq_cr, net_profit_qoq_cr = EXCLUDED.net_profit_qoq_cr, " +
                             "  revenue_qoq_pct = EXCLUDED.revenue_qoq_pct, net_profit_qoq_pct = EXCLUDED.net_profit_qoq_pct, " +
                             "  profit_qoq_swing_type = EXCLUDED.profit_qoq_swing_type, " +
+                            "  operating_margin_pct = EXCLUDED.operating_margin_pct, " +
+                            "  operating_margin_yoy_pp = EXCLUDED.operating_margin_yoy_pp, " +
+                            "  operating_margin_qoq_pp = EXCLUDED.operating_margin_qoq_pp, " +
+                            "  eps = EXCLUDED.eps, eps_yoy_pct = EXCLUDED.eps_yoy_pct, eps_qoq_pct = EXCLUDED.eps_qoq_pct, " +
+                            "  verdict = EXCLUDED.verdict, rs_rank = EXCLUDED.rs_rank, " +
                             "  ai_judgment = EXCLUDED.ai_judgment, " +
                             "  announcement_category = EXCLUDED.announcement_category, " +
                             "  announcement_date = EXCLUDED.announcement_date, source_link = EXCLUDED.source_link",
                     symbol, companyName, quarterLabel, quarterEndDate, revenueCr, netProfitCr,
                     revenueYoyCr, netProfitYoyCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType,
                     revenueQoqCr, netProfitQoqCr, revenueQoqPct, netProfitQoqPct, profitQoqSwingType,
+                    operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct, verdict, rsRank,
                     aiJudgment, announcementCategory, Timestamp.from(announcementDate.toInstant()), sourceLink);
             String profitYoyDisplay = profitYoySwingType != null ? profitYoySwingType : fmt(netProfitYoyPct) + "%";
             String profitQoqDisplay = profitQoqSwingType != null ? profitQoqSwingType : fmt(netProfitQoqPct) + "%";
-            logger.info("[QuarterlyResults] {} {}: revenue={} Cr (YoY {}%, QoQ {}%), net profit={} Cr (YoY {}, QoQ {}), judgment={}",
+            logger.info("[QuarterlyResults] {} {}: revenue={} Cr (YoY {}%, QoQ {}%), net profit={} Cr (YoY {}, QoQ {}), " +
+                            "margin={}% (YoY {}pp), eps={} (YoY {}%), verdict={}, rsRank={}, judgment={}",
                     symbol, quarterLabel, revenueCr, fmt(revenueYoyPct), fmt(revenueQoqPct), netProfitCr,
-                    profitYoyDisplay, profitQoqDisplay, aiJudgment != null ? aiJudgment : "n/a");
+                    profitYoyDisplay, profitQoqDisplay, fmt(operatingMarginPct), fmt(marginYoyPp), fmt(eps), fmt(epsYoyPct),
+                    verdict != null ? verdict : "n/a", fmt(rsRank), aiJudgment != null ? aiJudgment : "n/a");
         } catch (Exception e) {
             logger.warn("[QuarterlyResults] upsert failed for {} {}: {}", symbol, quarterLabel, e.getMessage());
         }

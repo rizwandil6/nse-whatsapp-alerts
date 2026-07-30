@@ -66,23 +66,47 @@
   .pnl.win { color: var(--win); font-weight: 700; }
   .pnl.loss { color: var(--loss); font-weight: 700; }
 
-  details summary { cursor: pointer; font-size: 12.5px; color: var(--accent); list-style: none; }
+  details summary { cursor: pointer; font-size: 12.5px; color: var(--accent); list-style: none; font-weight: 600; }
   details summary::-webkit-details-marker { display: none; }
-  details[open] summary { margin-bottom: 6px; }
+  details[open] summary { margin-bottom: 8px; }
 
-  .tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  /* Quarterly Results verdict pill, margin/EPS rows, RS Rank chip, and the
+     click-to-expand "why this verdict" breakdown (added 2026-07-30). */
+  .verdict { font-size: 11px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 8px; padding: 4px 11px; white-space: nowrap; flex-shrink: 0; }
+  .verdict.right { color: var(--win); background: var(--win-bg); }
+  .verdict.mixed { color: var(--amber); background: var(--amber-bg); }
+  .verdict.wrong { color: var(--loss); background: var(--loss-bg); }
+  .metric-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-muted); }
+  .metric-row .label { color: var(--ink); font-weight: 600; min-width: 92px; }
+  .rs-chip { display: inline-flex; align-items: baseline; gap: 5px; font-size: 12px; color: var(--ink-muted); background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 3px 9px; }
+  .rs-chip b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .rs-chip.na { color: var(--ink-faint); font-style: italic; }
+  .verdict-breakdown { display: flex; flex-direction: column; gap: 5px; }
+  .check-row { font-size: 12.5px; line-height: 1.5; display: flex; gap: 7px; }
+  .check-row .mark { flex-shrink: 0; font-weight: 800; width: 14px; text-align: center; }
+  .check-row.pass .mark { color: var(--win); }
+  .check-row.fail .mark { color: var(--loss); }
+  .check-row.gate .mark { color: var(--amber); }
+  .tally { font-size: 12.5px; color: var(--ink-muted); margin-top: 4px; padding-top: 8px; border-top: 1px dashed var(--border); }
+  .tally b { color: var(--ink); }
+
+  .tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
   .tile {
     background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px;
     display: flex; flex-direction: column; gap: 10px; cursor: pointer; text-align: left;
     font-family: inherit; color: inherit; transition: border-color 0.15s, transform 0.1s;
+    aspect-ratio: 1 / 1; /* square tiles */
   }
   .tile:hover { border-color: var(--accent); }
   .tile:active { transform: scale(0.99); }
   .tile-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .tile-title { font-weight: 700; font-size: 14px; color: var(--ink); }
   .tile-count { font-size: 11px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
-  .tile-preview { display: flex; flex-direction: column; gap: 3px; min-height: 36px; justify-content: center; }
-  .tile-preview-title { font-size: 12.5px; color: var(--ink); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tile-preview { display: flex; flex-direction: column; gap: 4px; flex: 1; min-height: 0; justify-content: center; }
+  .tile-preview-title {
+    font-size: 12.5px; color: var(--ink); font-weight: 600; overflow: hidden; text-overflow: ellipsis;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; white-space: normal;
+  }
   .tile-preview-sub { font-size: 11.5px; color: var(--ink-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tile-preview-time { font-size: 11px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
   .tile-empty { font-size: 12px; color: var(--ink-faint); font-style: italic; }
@@ -397,6 +421,109 @@
         `${comparisonBadge('QoQ', qoqValue, qoqPct, qoqSwing)}</span>`;
   }
 
+  function fmtPp(v) {
+    if (v == null || isNaN(v)) return '—';
+    return (v >= 0 ? '+' : '') + Number(v).toFixed(1) + 'pp';
+  }
+
+  // Same visual language as comparisonBadge, for metrics that aren't Cr figures
+  // (margin, EPS) -- no swing-type case, since neither can flip sign the way
+  // net profit can (margin doesn't have a LOSS_TO_PROFIT-style discontinuity).
+  function plainComparisonBadge(type, value, isPp) {
+    if (value == null) return `<span class="card-sub">${type} n/a</span>`;
+    return `<span class="pnl ${value >= 0 ? 'win' : 'loss'}">${type} ${isPp ? fmtPp(value) : fmtPct(value)}</span>`;
+  }
+
+  function marginRow(r) {
+    if (r.operatingMarginPct == null) return '';
+    return `<div class="metric-row"><span class="label">Op. Margin</span> <b>${Number(r.operatingMarginPct).toFixed(1)}%</b> ` +
+        `${plainComparisonBadge('YoY', r.operatingMarginYoyPp, true)} ${plainComparisonBadge('QoQ', r.operatingMarginQoqPp, true)}</div>`;
+  }
+
+  function epsRow(r) {
+    if (r.eps == null) return '';
+    return `<div class="metric-row"><span class="label">EPS</span> <b>₹${Number(r.eps).toFixed(2)}</b> ` +
+        `${plainComparisonBadge('YoY', r.epsYoyPct, false)} ${plainComparisonBadge('QoQ', r.epsQoqPct, false)}</div>`;
+  }
+
+  function rsRankChip(r) {
+    if (r.rsRank == null) {
+      return '<span class="rs-chip na" title="Only ~300 stocks in the RS Momentum universe have a rank">RS Rank — n/a</span>';
+    }
+    return `<span class="rs-chip">RS Rank <b>${Number(r.rsRank).toFixed(0)}</b></span>`;
+  }
+
+  const VERDICT_LABEL = { RIGHT: 'Right', MIXED: 'Mixed', WRONG: 'Wrong' };
+  const VERDICT_CLASS = { RIGHT: 'right', MIXED: 'mixed', WRONG: 'wrong' };
+
+  function verdictPill(r) {
+    if (!r.verdict) return '';
+    return `<span class="verdict ${VERDICT_CLASS[r.verdict] || ''}">${VERDICT_LABEL[r.verdict] || esc(r.verdict)}</span>`;
+  }
+
+  // Recomputes the SAME 4-signal YoY tally + profitability gate as
+  // QuarterlyResultsService.verdict() (Java), purely for display -- this
+  // never overrides r.verdict, which is always the server's own computed
+  // value; it only explains how that value was reached from the numbers
+  // already on the card.
+  function verdictBreakdown(r) {
+    const rows = [];
+    let total = 0, positive = 0;
+
+    if (r.revenueYoyPct != null) {
+      total++;
+      const pass = r.revenueYoyPct > 0;
+      if (pass) positive++;
+      rows.push({ pass, text: `Revenue YoY ${fmtPct(r.revenueYoyPct)}` });
+    }
+
+    const hasProfitSignal = r.netProfitYoyPct != null || r.profitYoySwingType != null;
+    if (hasProfitSignal) {
+      total++;
+      const pass = r.profitYoySwingType === 'LOSS_TO_PROFIT' || (!r.profitYoySwingType && r.netProfitYoyPct > 0);
+      if (pass) positive++;
+      const text = r.profitYoySwingType
+          ? (r.profitYoySwingType === 'LOSS_TO_PROFIT' ? 'Net profit swung Loss → Profit YoY' : 'Net profit swung Profit → Loss YoY')
+          : `Net profit YoY ${fmtPct(r.netProfitYoyPct)}`;
+      rows.push({ pass, text });
+    }
+
+    if (r.operatingMarginYoyPp != null) {
+      total++;
+      const pass = r.operatingMarginYoyPp > 0;
+      if (pass) positive++;
+      rows.push({ pass, text: `Operating margin YoY ${fmtPp(r.operatingMarginYoyPp)}` });
+    }
+
+    if (r.epsYoyPct != null) {
+      total++;
+      const pass = r.epsYoyPct > 0;
+      if (pass) positive++;
+      rows.push({ pass, text: `EPS YoY ${fmtPct(r.epsYoyPct)}` });
+    }
+
+    return { rows, total, positive, gated: r.netProfitCr != null && r.netProfitCr < 0 };
+  }
+
+  function verdictDetailsHtml(r) {
+    if (!r.verdict) return '';
+    const b = verdictBreakdown(r);
+    const label = VERDICT_LABEL[r.verdict] || esc(r.verdict);
+    let html = `<details><summary>Why "${label}"?</summary><div class="verdict-breakdown">`;
+    html += b.gated
+        ? `<div class="check-row gate"><span class="mark">⚠</span> Net LOSS this quarter (${fmtCr(r.netProfitCr)}) — caps the verdict at Mixed, regardless of momentum below</div>`
+        : `<div class="check-row pass"><span class="mark">✓</span> Profitable this quarter (${fmtCr(r.netProfitCr)}) — verdict isn't capped</div>`;
+    for (const row of b.rows) {
+      html += `<div class="check-row ${row.pass ? 'pass' : 'fail'}"><span class="mark">${row.pass ? '✓' : '✗'}</span> ${esc(row.text)}</div>`;
+    }
+    html += `<div class="tally">${b.positive} of ${b.total} YoY signals positive` +
+        `${b.gated ? ' — but still unprofitable, so it can’t score "Right"' : ''} → <b>${label}</b>. ` +
+        `QoQ figures on the card are shown for context but aren't counted in this tally, since a single ` +
+        `quarter's bounce can look like a recovery while the YoY trend tells the real story.</div>`;
+    html += `</div></details>`;
+    return html;
+  }
+
   function renderQuarterlyResults(items, panel) {
     for (const r of items) {
       const card = document.createElement('div');
@@ -404,14 +531,21 @@
       card.innerHTML = `
         <div class="card-top">
           <div class="card-title">${esc(r.symbol)}${r.companyName ? ` <span class="card-sub">(${esc(r.companyName)})</span>` : ''}</div>
-          <div class="card-time">${fmtTime(r.announcementDate)}</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            ${verdictPill(r)}
+            <div class="card-time">${fmtTime(r.announcementDate)}</div>
+          </div>
         </div>
         <div class="card-meta">
           <span class="badge neutral">${esc(r.quarterLabel)}</span>
           ${metricMeta('Revenue', r.revenueCr, r.revenueYoyCr, r.revenueYoyPct, null, r.revenueQoqCr, r.revenueQoqPct, null)}
           ${metricMeta('Net Profit', r.netProfitCr, r.netProfitYoyCr, r.netProfitYoyPct, r.profitYoySwingType, r.netProfitQoqCr, r.netProfitQoqPct, r.profitQoqSwingType)}
         </div>
+        ${marginRow(r)}
+        ${epsRow(r)}
+        <div class="card-meta">${rsRankChip(r)}</div>
         ${r.aiJudgment ? `<div class="card-body">🔎 ${esc(r.aiJudgment)}</div>` : ''}
+        ${verdictDetailsHtml(r)}
       `;
       panel.appendChild(card);
     }

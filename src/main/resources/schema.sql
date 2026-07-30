@@ -65,3 +65,21 @@ ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS net_profit_qoq_pct NUMERI
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS profit_qoq_swing_type TEXT;
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ai_judgment TEXT;
 
+-- Margin/EPS/verdict/RS Rank (added 2026-07-30, see QuarterlyResultsService's
+-- verdictAndReasons()): operating margin's YoY/QoQ comparisons are stored as
+-- PERCENTAGE-POINT differences (current_pct - base_pct), not a relative %
+-- change -- comparing two already-percentage figures with the revenue/
+-- profit relative-% formula would produce a meaningless "percent of a
+-- percent". EPS keeps the same relative-%-with-abs(base)-denominator
+-- convention as revenue/profit, since EPS in Rs is a plain figure, not
+-- itself a percentage. rs_rank is nullable: only ~300 stocks (the RS
+-- Momentum universe) have one at all -- see RsRankLookupService.
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS operating_margin_pct NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS operating_margin_yoy_pp NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS operating_margin_qoq_pp NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS eps NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS eps_yoy_pct NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS eps_qoq_pct NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS verdict TEXT; -- 'RIGHT' | 'MIXED' | 'WRONG'
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS rs_rank NUMERIC;
+

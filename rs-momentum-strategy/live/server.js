@@ -56,6 +56,7 @@ const IST_OFFSET_MIN = 5 * 60 + 30;
 const TRACKED_PATH = path.join(__dirname, 'tracked_rs_momentum.json');
 const LOG_PATH = path.join(__dirname, 'rs_momentum_log.json');
 const FORWARD_PERF_PATH = path.join(__dirname, 'rs_momentum_forward_performance.json');
+const TODAY_RANKS_PATH = path.join(__dirname, 'rs_today_ranks.json');
 
 if (!UPSTOX_TOKEN) {
   console.error('FATAL: UPSTOX_ACCESS_TOKEN env var not set. Cannot start.');
@@ -152,6 +153,23 @@ async function runOnce() {
   const universe = await fetchUniverse(UPSTOX_TOKEN);
   const todayRanks = computeTodayRanks(universe);
   console.log(`Computed RS ranks for ${Object.keys(todayRanks).length} stocks.`);
+
+  // Full-universe snapshot (added 2026-07-30, consumed by the Quarterly
+  // Results dashboard card's RS Rank chip): computeTodayRanks already ranks
+  // every stock in this universe cross-sectionally each run, but historically
+  // only symbols that crossed the RS>=80/<50 thresholds ever got written
+  // anywhere (rs_momentum_log.json) -- the rest of the day's ranks were
+  // computed and immediately discarded. Persisting the whole snapshot here
+  // (same commitAndPushTrackedState() call below) lets other services look
+  // up ANY of this universe's ~300 symbols' current rank via GithubJsonStore,
+  // not just ones that already triggered a momentum alert. One caveat this
+  // service's OWN daily (not intraday) cadence already implies: "today's"
+  // rank is only as fresh as the last run (20:00-20:30 IST after close).
+  const rankSnapshot = {};
+  for (const [symbol, r] of Object.entries(todayRanks)) {
+    if (r && r.today) rankSnapshot[symbol] = { rank: r.today.rank, date: r.today.date };
+  }
+  fs.writeFileSync(TODAY_RANKS_PATH, JSON.stringify(rankSnapshot, null, 1));
 
   const tracked = fs.existsSync(TRACKED_PATH) ? JSON.parse(fs.readFileSync(TRACKED_PATH, 'utf8')) : {};
   const { newCandidates, exits, updatedTracked } = diffRsMomentum(todayRanks, tracked);

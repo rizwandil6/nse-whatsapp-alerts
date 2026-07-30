@@ -19,8 +19,8 @@ import static org.mockito.Mockito.when;
 
 class QuarterlyResultsServiceTest {
 
-    // Neither collaborator is touched by the pure calc methods under test -- null is fine.
-    private final QuarterlyResultsService service = new QuarterlyResultsService(null, null);
+    // None of the collaborators are touched by the pure calc methods under test -- null is fine.
+    private final QuarterlyResultsService service = new QuarterlyResultsService(null, null, null);
 
     @Test
     void yoyPctNormalGrowth() {
@@ -137,6 +137,79 @@ class QuarterlyResultsServiceTest {
         assertNull(service.profitSwingType(892.0, 1126.0)); // both profitable -- no swing
     }
 
+    // --- Margin point-diff (added 2026-07-30) -- percentage POINTS, not a relative %,
+    // since margin is already itself a percentage. ---
+
+    @Test
+    void marginPointDiffExpansion() {
+        assertEquals(1.0, service.marginPointDiff(11.0, 10.0), 1e-9);
+    }
+
+    @Test
+    void marginPointDiffCompression() {
+        // Real NUCLEUS Mar 2026 figures -- margin nearly halved YoY (33% -> 16%).
+        assertEquals(-17.0, service.marginPointDiff(16.0, 33.0), 1e-9);
+    }
+
+    @Test
+    void marginPointDiffNullWhenEitherMissing() {
+        assertNull(service.marginPointDiff(null, 10.0));
+        assertNull(service.marginPointDiff(11.0, null));
+    }
+
+    // --- Verdict (added 2026-07-30) -- 4 YoY signals tallied (revenue, profit, margin,
+    // EPS), then a profitability gate. All three real filings below are from the
+    // sample shown to the user before this was built (THERMAX/SWIGGY/NUCLEUS Mar 2026). ---
+
+    @Test
+    void verdictRightWhenAllFourYoySignalsPositiveAndProfitable() {
+        // THERMAX Mar 2026: revenue +12.5%, profit +18.4%, margin +1.0pp, EPS +18.7%, profit=244cr.
+        assertEquals("RIGHT", service.verdict(244.0, 12.5, 18.4, null, 1.0, 18.7));
+    }
+
+    @Test
+    void verdictCappedAtMixedWhenStillALossDespiteAllPositiveSignals() {
+        // SWIGGY Mar 2026: all 4 signals technically positive (loss narrowing counts),
+        // but net profit this quarter is still -800cr -- must not read as RIGHT.
+        assertEquals("MIXED", service.verdict(-800.0, 44.7, 26.0, null, 11.0, 38.7));
+    }
+
+    @Test
+    void verdictWrongWhenAllFourYoySignalsNegativeDespiteProfitability() {
+        // NUCLEUS Mar 2026: revenue -1.7%, profit -46.2%, margin -17pp, EPS -46.7%, profit=35cr (still positive).
+        assertEquals("WRONG", service.verdict(35.0, -1.7, -46.2, null, -17.0, -46.7));
+    }
+
+    @Test
+    void verdictLossToProfitSwingCountsAsPositive() {
+        // Swing type replaces the raw pct (see profitSwingType) -- a LOSS_TO_PROFIT
+        // swing must count as a positive signal even though netProfitYoyPct is null.
+        assertEquals("RIGHT", service.verdict(50.0, 10.0, null, "LOSS_TO_PROFIT", 2.0, 15.0));
+    }
+
+    @Test
+    void verdictProfitToLossSwingCountsAsNegative() {
+        assertEquals("WRONG", service.verdict(-50.0, -5.0, null, "PROFIT_TO_LOSS", -3.0, -20.0));
+    }
+
+    @Test
+    void verdictNullWhenCurrentQuarterProfitMissing() {
+        // Can't apply the profitability gate at all without a current-quarter figure.
+        assertNull(service.verdict(null, 10.0, 10.0, null, 1.0, 10.0));
+    }
+
+    @Test
+    void verdictNullWhenNoYoySignalsAvailableAtAll() {
+        assertNull(service.verdict(50.0, null, null, null, null, null));
+    }
+
+    @Test
+    void verdictComputesFromWhicheverSignalsAreAvailable() {
+        // Only revenue + profit available (margin/EPS unparseable for this company) --
+        // both positive -- 2/2 -> ratio 1.0 -> RIGHT, profitable so no cap.
+        assertEquals("RIGHT", service.verdict(100.0, 10.0, 10.0, null, null, null));
+    }
+
     // --- AI judgment (added 2026-07-30) -- PromptRatingService.judgeQuarterlyTrend's
     // numbers-only verdict, threaded through to the ai_judgment column so the
     // dashboard card shows "your judgment" alongside the figures. Deliberately NOT
@@ -146,12 +219,15 @@ class QuarterlyResultsServiceTest {
     // needs a live ANTHROPIC_API_KEY; this test only verifies the threading/wiring. ---
 
     @Test
-    void recordIfAvailableThreadsAiJudgmentThroughToTheUpsert() {
+    void recordIfAvailableThreadsAiJudgmentAndRsRankThroughToTheUpsert() {
         JdbcTemplate jdbc = mock(JdbcTemplate.class);
         PromptRatingService promptRatingService = mock(PromptRatingService.class);
-        when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+        RsRankLookupService rsRankLookupService = mock(RsRankLookupService.class);
+        when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any(),
+                any(), any(), any(), any(), any(), any()))
                 .thenReturn("Solid YoY growth but a concerning sequential deceleration");
-        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
+        when(rsRankLookupService.rankFor("WAAREEENER")).thenReturn(72.5);
+        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService, rsRankLookupService);
 
         FundamentalResult fr = new FundamentalResult();
         fr.setQuarterLabels(new ArrayList<>(Arrays.asList("Mar 2026", "Jun 2026")));
@@ -164,17 +240,26 @@ class QuarterlyResultsServiceTest {
 
         ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
         verify(jdbc).update(any(String.class), args.capture());
-        // ai_judgment is the 17th positional "?" in the upsert SQL (1-indexed) -- index 16 here.
-        assertEquals("Solid YoY growth but a concerning sequential deceleration", args.getValue()[16]);
+        // Column order (0-indexed): symbol,company_name,quarter_label,quarter_end_date,
+        // revenue_cr,net_profit_cr,revenue_yoy_cr,net_profit_yoy_cr,revenue_yoy_pct,
+        // net_profit_yoy_pct,profit_yoy_swing_type,revenue_qoq_cr,net_profit_qoq_cr,
+        // revenue_qoq_pct,net_profit_qoq_pct,profit_qoq_swing_type,operating_margin_pct(16),
+        // operating_margin_yoy_pp(17),operating_margin_qoq_pp(18),eps(19),eps_yoy_pct(20),
+        // eps_qoq_pct(21),verdict(22),rs_rank(23),ai_judgment(24),...
+        assertEquals(72.5, args.getValue()[23]);
+        assertEquals("Solid YoY growth but a concerning sequential deceleration", args.getValue()[24]);
     }
 
     @Test
     void recordIfAvailableHandlesNullAiJudgmentGracefully() {
         JdbcTemplate jdbc = mock(JdbcTemplate.class);
         PromptRatingService promptRatingService = mock(PromptRatingService.class);
-        when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
+        RsRankLookupService rsRankLookupService = mock(RsRankLookupService.class);
+        when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any(),
+                any(), any(), any(), any(), any(), any()))
                 .thenReturn(null); // simulates ANTHROPIC_API_KEY not set / the call failing
-        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
+        when(rsRankLookupService.rankFor(any())).thenReturn(null); // symbol not in the RS Momentum universe
+        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService, rsRankLookupService);
 
         FundamentalResult fr = new FundamentalResult();
         fr.setQuarterLabels(new ArrayList<>(List.of("Jun 2026")));
@@ -187,6 +272,7 @@ class QuarterlyResultsServiceTest {
 
         ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
         verify(jdbc).update(any(String.class), args.capture());
-        assertNull(args.getValue()[16]);
+        assertNull(args.getValue()[23]);
+        assertNull(args.getValue()[24]);
     }
 }
