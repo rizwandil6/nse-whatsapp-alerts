@@ -2480,5 +2480,19 @@
   "entryTimestampMs": 1785213000000,
   "exitTimestampMs": 1785214500000,
   "reconciled": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 48.39,
+  "exitPrice": 47.52,
+  "theoreticalExit": 47.52,
+  "livePriceAvailable": false,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.7978921264724064,
+  "entryTimestampMs": 1785297000000,
+  "exitTimestampMs": 1785318900000,
+  "reconciled": true
  }
 ]
