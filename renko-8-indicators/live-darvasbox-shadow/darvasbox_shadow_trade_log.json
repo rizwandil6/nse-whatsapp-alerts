@@ -1889,5 +1889,16 @@
   "brickPct": "0.25",
   "pnlRs": -22.40000000000032,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.74,
+  "theoreticalEntry": 10.723125,
+  "entryIdx": 4,
+  "timestampMs": 1785385080000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
