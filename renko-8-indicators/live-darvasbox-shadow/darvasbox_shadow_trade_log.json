@@ -1944,5 +1944,16 @@
   "timestampMs": 1785387600000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 528.65,
+  "theoreticalEntry": 528.47925,
+  "entryIdx": 9,
+  "timestampMs": 1785388860000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
