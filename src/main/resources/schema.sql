@@ -47,18 +47,17 @@ CREATE TABLE IF NOT EXISTS quarterly_results (
     CONSTRAINT quarterly_results_symbol_quarter_uniq UNIQUE (symbol, quarter_label)
 );
 
--- Non-destructive, idempotent migration for a table created before the QoQ
--- columns/rename existed (spring.sql.init.mode=always re-runs this file
--- every startup, so this must never fail on an already-migrated table, and
--- must never drop/lose anything).
-DO $$
-BEGIN
-    IF EXISTS (SELECT 1 FROM information_schema.columns
-               WHERE table_name = 'quarterly_results' AND column_name = 'profit_swing_type') THEN
-        ALTER TABLE quarterly_results RENAME COLUMN profit_swing_type TO profit_yoy_swing_type;
-    END IF;
-END $$;
-
+-- The profit_swing_type -> profit_yoy_swing_type rename was a one-time,
+-- already-completed migration (applied directly, 2026-07-30, before this file
+-- was ever deployed) -- NOT left here as a DO $$ ... $$ block. Spring Boot's
+-- built-in schema.sql runner (spring.sql.init.mode=always) uses its own naive
+-- semicolon-based statement splitter, which does NOT understand Postgres's
+-- dollar-quoting and breaks a DO block apart mid-statement -- confirmed live:
+-- it crashed the whole app on startup ("Unterminated dollar quote"), even
+-- though the identical SQL ran perfectly via psycopg2 (which just sends the
+-- file as one execute() call, no statement splitting at all). Lesson: always
+-- verify schema.sql through Spring's OWN initializer, not just a direct
+-- driver, before trusting it deploys cleanly.
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS revenue_qoq_cr NUMERIC;
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS net_profit_qoq_cr NUMERIC;
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS revenue_qoq_pct NUMERIC;
