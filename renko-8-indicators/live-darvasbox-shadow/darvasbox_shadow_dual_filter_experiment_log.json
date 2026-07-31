@@ -100,5 +100,44 @@
   "entryTimestampMs": 1785488700000,
   "exitTimestampMs": 1785491400000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 218.24530000000007,
+  "timestampMs": 1785488400000,
+  "breakoutTimestampMs": 1785488400000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 179.42599999999987,
+  "timestampMs": 1785488400000,
+  "breakoutTimestampMs": 1785487200000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 114.93799999999997,
+  "timestampMs": 1785482700000,
+  "breakoutTimestampMs": 1785482700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 114.93799999999997,
+  "exitPrice": 114.01,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.8073918112373358,
+  "entryTimestampMs": 1785482700000,
+  "exitTimestampMs": 1785488700000,
+  "shadow": true
  }
 ]
