@@ -42,7 +42,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785471000000
+  "lastProcessedTimestampMs": 1785471360000
  },
  "JSWINFRA": {
   "position": null,
@@ -67,9 +67,9 @@
   "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
-  "shortWatch": true,
+  "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785471060000
+  "lastProcessedTimestampMs": 1785471360000
  },
  "NHPC": {
   "position": null,
