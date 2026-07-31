@@ -324,5 +324,18 @@
   "entryTimestampMs": 1785484800000,
   "exitTimestampMs": 1785489300000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "STERTOOLS",
+  "direction": "LONG",
+  "entry": 252.06,
+  "exitPrice": 255,
+  "theoreticalExit": 255,
+  "action": "R_EXIT",
+  "pnlPct": 1.1663889550107107,
+  "entryTimestampMs": 1785488220000,
+  "exitTimestampMs": 1785491460000,
+  "livePriceAvailable": true
  }
 ]
