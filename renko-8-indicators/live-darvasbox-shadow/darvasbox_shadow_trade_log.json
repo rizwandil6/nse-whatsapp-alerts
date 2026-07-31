@@ -2743,5 +2743,22 @@
   "timestampMs": 1785488400000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 114.94,
+  "exitPrice": 114.01,
+  "theoreticalExit": 114.01,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.8091178005916065,
+  "entryTimestampMs": 1785482760000,
+  "exitTimestampMs": 1785488700000,
+  "brickPct": "0.25",
+  "pnlRs": -48.359999999999616,
+  "rsSign": "−"
  }
 ]
