@@ -38,7 +38,7 @@
   "price": 437.2,
   "rsRankAtEntry": 81.31,
   "salesGrowth3Y": 15,
-  "note": "manual add 2026-07-18 \u2014 no fresh crossing, already >=80 the day before"
+  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
  },
  {
   "type": "ENTRY",
@@ -47,7 +47,7 @@
   "price": 1783.2,
   "rsRankAtEntry": 81.01,
   "salesGrowth3Y": 15,
-  "note": "manual add 2026-07-18 \u2014 no fresh crossing, already >=80 the day before"
+  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
  },
  {
   "type": "FUNDAMENTALS_FAILED",
@@ -121,6 +121,13 @@
   "type": "ENTRY_PENDING",
   "symbol": "DIVISLAB",
   "date": "2026-07-28",
+  "price": 7784.5,
+  "rsRankAtEntry": 81.95266272189349
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "DIVISLAB",
+  "date": "2026-07-31",
   "price": 7784.5,
   "rsRankAtEntry": 81.95266272189349
  }
