@@ -24,7 +24,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785486000000
+  "lastProcessedTimestampMs": 1785486360000
  },
  "HINDCOPPER": {
   "position": null,
@@ -142,11 +142,11 @@
  "ADSL": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": true,
+  "longWatch": false,
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785486000000
+  "lastProcessedTimestampMs": 1785486360000
  },
  "ARE&M": {
   "position": {
