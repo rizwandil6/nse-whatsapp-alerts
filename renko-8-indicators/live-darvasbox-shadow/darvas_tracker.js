@@ -300,11 +300,54 @@ class DarvasLiveTracker {
       entry: pos.entry,
       exitPrice,
       action,
-      barsHeld: exitIdx - pos.entryIdx,
+      // entryIdx is only meaningful within the SAME brick array it was set
+      // against -- null after a restart restores a persisted position (see
+      // restorePosition), since bricks are rebuilt fresh and indices no
+      // longer line up. barsHeld is cosmetic (not used in the pnlPct/entry
+      // price math above), so null here is honest, not a bug -- same
+      // convention this tracker already used for INTRABAR_STOP_LOSS closes.
+      barsHeld: pos.entryIdx != null ? exitIdx - pos.entryIdx : null,
       pnlPct,
-      entryTimestampMs: bricks[pos.entryIdx].timestampMs,
+      // pos.entryTimestampMs is used directly (NOT bricks[pos.entryIdx]) for
+      // the same restart-safety reason -- indexing into a freshly rebuilt
+      // bricks array with a stale entryIdx would read the wrong brick
+      // entirely (or throw) once a position has been restored post-restart.
+      entryTimestampMs: pos.entryTimestampMs,
       exitTimestampMs: bricks[exitIdx].timestampMs,
     };
+  }
+
+  /**
+   * Persistence (added 2026-07-31, real incident): a mid-day restart used to
+   * rely entirely on replaying today's bricks from scratch to "safely"
+   * re-derive any already-open position (see module docstring) -- an
+   * assumption that broke the moment LTP-confirmed entries were added
+   * (fork note 1): a replay's live-price availability at the moment of
+   * reprocessing can differ from the original live pass, so the re-derived
+   * entry price is NOT guaranteed identical. Confirmed live: a Railway
+   * redeploy right at EOD close re-derived 5 positions' entries from
+   * theoreticalEntry instead of the real LTP-confirmed entry, producing a
+   * second, wrongly-priced EOD-close event for each (trade_log.js's own
+   * dedup by event key didn't catch it, since the entry price -- part of
+   * the key -- differed). Persisting `position` directly, and restoring it
+   * BEFORE any brick replay happens, means processBricks' entry-detection
+   * (guarded by `if (!this.position)`) is skipped entirely for a symbol
+   * that already has an open position, so this whole class of re-derivation
+   * mismatch can't happen. processedBrickCount/processedBar5Count are
+   * deliberately NOT persisted -- both self-correct to the current bricks/
+   * bars5 array length on the very next call regardless of their prior
+   * value, so there's nothing to restore there.
+   */
+  toJSON() {
+    return { position: this.position };
+  }
+
+  /** entryIdx is explicitly dropped (see _close's docstring) -- everything else on a
+   * persisted position is restart-safe as-is. No-op if json/position is missing. */
+  restorePosition(json) {
+    if (json && json.position) {
+      this.position = { ...json.position, entryIdx: null };
+    }
   }
 }
 

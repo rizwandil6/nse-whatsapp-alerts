@@ -61,6 +61,7 @@ const path = require('path');
 const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
 const { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits } = require('./trade_log');
+const { syncFromRemote: syncTrackedStateFromRemote, loadTrackedState, saveAndPushTrackedState } = require('./tracked_state');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min, aggregateTo5MinMultiDay } = require('./bar_aggregator');
 
@@ -309,6 +310,12 @@ function dispatchEvent(symbol, e) {
     sendTelegramAlert(formatExitAlert(e, dayStats)).catch((err) => console.error('sendTelegramAlert threw:', err.message));
     recordAndPush(e, dateStr).catch((err) => console.error('recordAndPush threw:', err.message));
   }
+  // Persist position state on every ENTRY/EXIT (see darvas_tracker.js's toJSON
+  // docstring for why this exists) -- cheap (one small object per symbol), and
+  // must happen right after `this.position` changes, not on some separate timer,
+  // so a restart landing between this event and the next one always sees the
+  // correct up-to-date state.
+  saveAndPushTrackedState(trackers).catch((err) => console.error('saveAndPushTrackedState threw:', err.message));
 }
 
 function maybeResetForNewDay(nowMs) {
@@ -322,6 +329,10 @@ function maybeResetForNewDay(nowMs) {
     trackers[symbol].resetForNewDay();
   }
   console.log(`New trading day: ${dateStr}. Tracker + in-memory 1-min bar buffers + day stats reset.`);
+  // Push the now-all-null tracked state too -- otherwise a restart later
+  // today would restore YESTERDAY's (already-closed) positions from the
+  // stale file still sitting on the remote branch.
+  saveAndPushTrackedState(trackers).catch((err) => console.error('saveAndPushTrackedState threw (new-day reset):', err.message));
   // Fire-and-forget: yesterday's historicalBars5 stays in place (only one
   // day stale, negligible given the multi-day convergence window) until
   // this completes -- not awaited so a slow multi-symbol refetch can never
@@ -598,6 +609,33 @@ async function main() {
 
   await initProtobuf();
   await syncFromRemote();
+
+  // Restore any already-open positions BEFORE startupBackfillIfNeeded() runs --
+  // see darvas_tracker.js's toJSON docstring for the real incident this fixes.
+  // Must happen before the backfill replay: processBricks skips entry-detection
+  // entirely once `this.position` is set, so restoring first means the replay
+  // can never re-derive (and mis-price) an entry for a symbol that's already
+  // holding a position from before the restart.
+  await syncTrackedStateFromRemote();
+  const trackedState = loadTrackedState();
+  const { dateStr: startupDateStr } = nowIst();
+  let restoredCount = 0;
+  for (const symbol of Object.keys(symbols)) {
+    const persisted = trackedState[symbol];
+    if (!persisted || !persisted.position) continue;
+    // Positions are day-scoped (DarvasBox resets daily) -- a position whose
+    // entry predates today is stale (e.g. the service crashed before ever
+    // EOD-closing it) and must NOT be silently carried into a new day.
+    if (istDateStr(persisted.position.entryTimestampMs) !== startupDateStr) {
+      console.warn(`  ${symbol}: persisted position is from a prior day -- discarding rather than carrying it into today.`);
+      continue;
+    }
+    trackers[symbol].restorePosition(persisted);
+    restoredCount++;
+  }
+  if (restoredCount > 0) {
+    console.log(`Restored ${restoredCount} already-open position(s) from persisted state.`);
+  }
 
   // Rebuild today's running P&L from the persisted log BEFORE anything else --
   // startupBackfillIfNeeded() replays bricks silently (by design, so a restart

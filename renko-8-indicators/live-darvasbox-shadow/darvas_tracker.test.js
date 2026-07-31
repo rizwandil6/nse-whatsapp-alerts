@@ -289,3 +289,56 @@ test('forceEodClose: closes an open position at the last brick close', () => {
   assert.equal(e.exitPrice, 110);
   assert.equal(tr.position, null);
 });
+
+// --- Persistence (added 2026-07-31, real incident: a mid-day restart re-derived
+// an already-open position's entry from theoreticalEntry instead of the real
+// LTP-confirmed entry, producing a wrongly-priced duplicate EOD close). ---
+
+test('toJSON/restorePosition: round-trips an open position, dropping entryIdx', () => {
+  const bricks = [
+    b(100, 100, 105, 100, 'up', 0),
+    b(100, 100, 105, 100, 'down', 1),
+    b(100, 100, 105, 100, 'up', 2),
+    b(100, 110, 110, 100, 'up', 3),
+  ];
+  const tr = new DarvasLiveTracker('TEST', () => 108);
+  tr.processBricks(bricks);
+  assert.equal(tr.position.entryIdx, 3);
+
+  const json = tr.toJSON();
+  const restored = new DarvasLiveTracker('TEST', () => null);
+  restored.restorePosition(json);
+
+  assert.equal(restored.position.entry, 108);
+  assert.equal(restored.position.direction, 'LONG');
+  assert.equal(restored.position.entryTimestampMs, 3);
+  assert.equal(restored.position.entryIdx, null, 'entryIdx must be dropped -- meaningless against a freshly rebuilt bricks array');
+});
+
+test('restorePosition: no-op when json/position is missing (fresh symbol, nothing to restore)', () => {
+  const tr = new DarvasLiveTracker('TEST', () => null);
+  tr.restorePosition(null);
+  assert.equal(tr.position, null);
+  tr.restorePosition({ position: null });
+  assert.equal(tr.position, null);
+});
+
+test('forceEodClose: after restorePosition, prices using pos.entryTimestampMs directly -- NOT bricks[stale entryIdx]', () => {
+  // Simulates a restart: the restored position's entryIdx (dropped to null)
+  // no longer corresponds to anything in a freshly rebuilt bricks array of a
+  // completely different length/content than whatever existed pre-restart.
+  const staleJson = { position: { direction: 'LONG', entry: 173.4, entryIdx: 7, entryTimestampMs: 555 } };
+  const tr = new DarvasLiveTracker('ORIENTELEC', () => null);
+  tr.restorePosition(staleJson);
+
+  const freshBricks = [
+    b(100, 100, 105, 100, 'up', 900),
+    b(100, 173.4, 175, 100, 'up', 901), // unrelated fresh brick series, only 2 long -- would throw/misindex at old entryIdx=7
+  ];
+  const e = tr.forceEodClose(freshBricks);
+  assert.equal(e.entryTimestampMs, 555); // pos.entryTimestampMs, not bricks[7] (which doesn't exist)
+  assert.equal(e.barsHeld, null); // entryIdx is null post-restore -- cosmetic field, honestly unknown rather than wrong
+  assert.equal(e.entry, 173.4);
+  assert.equal(e.exitPrice, 173.4);
+  assert.equal(e.pnlPct, 0);
+});
