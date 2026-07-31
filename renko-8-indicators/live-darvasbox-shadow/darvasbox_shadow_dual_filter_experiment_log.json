@@ -1,0 +1,104 @@
+[
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 78.6714,
+  "timestampMs": 1785490500000,
+  "breakoutTimestampMs": 1785490500000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 317.554125,
+  "timestampMs": 1785481500000,
+  "breakoutTimestampMs": 1785481500000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 47.608725,
+  "timestampMs": 1785471300000,
+  "breakoutTimestampMs": 1785471300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 47.608725,
+  "exitPrice": 47.86,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.527791912091743,
+  "entryTimestampMs": 1785471300000,
+  "exitTimestampMs": 1785485700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2682.944000000001,
+  "timestampMs": 1785478800000,
+  "breakoutTimestampMs": 1785478800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2682.944000000001,
+  "exitPrice": 2680,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.10973020681761783,
+  "entryTimestampMs": 1785478800000,
+  "exitTimestampMs": 1785485700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 38.755249999999975,
+  "timestampMs": 1785479700000,
+  "breakoutTimestampMs": 1785479700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 38.755249999999975,
+  "exitPrice": 38.53,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.5812115777861693,
+  "entryTimestampMs": 1785479700000,
+  "exitTimestampMs": 1785483900000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 495.0662500000001,
+  "timestampMs": 1785488700000,
+  "breakoutTimestampMs": 1785488700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 495.0662500000001,
+  "exitPrice": 489.95,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -1.033447543636855,
+  "entryTimestampMs": 1785488700000,
+  "exitTimestampMs": 1785491400000,
+  "shadow": true
+ }
+]
