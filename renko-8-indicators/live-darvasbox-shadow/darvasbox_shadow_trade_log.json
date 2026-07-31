@@ -2721,5 +2721,16 @@
   "brickPct": "0.25",
   "pnlRs": -229.5999999999949,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 829.6,
+  "theoreticalEntry": 828.56625,
+  "entryIdx": 8,
+  "timestampMs": 1785487800000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
