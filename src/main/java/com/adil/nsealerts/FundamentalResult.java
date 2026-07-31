@@ -42,6 +42,7 @@ public class FundamentalResult {
     private List<Double> quarterlyNetProfitCrFull = new ArrayList<>();
     private List<Double> quarterlyOpmPctFull = new ArrayList<>();
     private List<Double> quarterlyEpsFull = new ArrayList<>();
+    private List<Double> quarterlyEbitdaCrFull = new ArrayList<>();
 
     private Double trailingEps;
 
@@ -282,6 +283,14 @@ public class FundamentalResult {
 
     public void setQuarterlyEpsFull(List<Double> quarterlyEpsFull) {
         this.quarterlyEpsFull = quarterlyEpsFull;
+    }
+
+    public List<Double> getQuarterlyEbitdaCrFull() {
+        return quarterlyEbitdaCrFull;
+    }
+
+    public void setQuarterlyEbitdaCrFull(List<Double> quarterlyEbitdaCrFull) {
+        this.quarterlyEbitdaCrFull = quarterlyEbitdaCrFull;
     }
 
     public Double getTrailingEps() {

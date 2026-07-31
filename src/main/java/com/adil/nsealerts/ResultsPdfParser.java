@@ -1,0 +1,246 @@
+package com.adil.nsealerts;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Fallback for when Screener.in's quarterly table hasn't caught up yet with an
+ * announcement being processed RIGHT NOW (see QuarterlyResultsService's
+ * STALE_QUARTER_LAG_DAYS guard) -- parses the actual filed "Outcome of Board
+ * Meeting" results PDF directly instead of skipping the announcement outright.
+ *
+ * Real incident this was built for (2026-07-31): GAIL's announcement PDF
+ * (filename dated 30-06-2026) was for the Jun 2026 quarter, but Screener.in's
+ * table still topped out at Mar 2026 -- 25 symbols hit the same lag the same
+ * day. The filing itself always has the true current-quarter numbers the
+ * moment it's filed, plus the immediately-preceding-quarter (QoQ) and
+ * same-quarter-last-year (YoY) columns in the SAME table -- no external lag
+ * possible, unlike Screener.
+ *
+ * Revenue and Net Profit are literal, SEBI-mandated line items and are
+ * extracted directly. Operating margin/EBITDA are NOT literal line items in
+ * these filings -- they're derived here as Revenue - (Total Expenses -
+ * Finance Costs - Depreciation), mirroring Screener's own "Operating Profit"
+ * convention (see FundamentalScreener's parseQuarterlyResults docstring), but
+ * this derivation hasn't been cross-verified against Screener's own exact
+ * normalization (e.g. some companies net out excise duty differently) --
+ * treat these two specifically as approximate. Every other field this class
+ * doesn't confidently parse is left null rather than guessed.
+ *
+ * PDFBox's text extraction reliably keeps each P&L row on one line, but
+ * inserts stray spaces INSIDE numbers in several different positions --
+ * confirmed on GAIL's real filing: "34,797 .03" (before the decimal point),
+ * "34,988. 73" (after it), "33, 780.31" (right after a comma), and even
+ * "1,41,4 83.29" (splitting a 3-digit group in the middle) -- all due to
+ * font-kerning artifacts, not consistent in position. normalizeNumberSpacing
+ * collapses all four before NUMBER_PATTERN ever runs, rather than trying to
+ * make one regex tolerate every position at once (an earlier version that
+ * only handled the comma/pre-decimal cases silently mis-parsed the
+ * mid-group-split case, corrupting the Total Expenses figure and, with it,
+ * the derived EBITDA -- caught by a fixture test built directly from this
+ * real filing's exact text before this was ever trusted).
+ */
+@Service
+public class ResultsPdfParser {
+    private static final Logger logger = LoggerFactory.getLogger(ResultsPdfParser.class);
+
+    private static final Pattern NUMBER_PATTERN =
+            Pattern.compile("\\(?-?\\d{1,3}(?:,\\d{2,3})*\\.\\d{1,2}\\)?");
+
+    // Applied to a line's remainder (after the label) before NUMBER_PATTERN runs --
+    // see class docstring for the four distinct artifact positions these fix, in order.
+    private static final Pattern SPACE_AFTER_COMMA = Pattern.compile(",\\s+");
+    private static final Pattern SPACE_MID_GROUP = Pattern.compile("(,\\d)\\s+(\\d{2}\\.)");
+    private static final Pattern SPACE_BEFORE_DECIMAL = Pattern.compile("(\\d)\\s+(\\.)");
+    private static final Pattern SPACE_AFTER_DECIMAL = Pattern.compile("(\\.)\\s+(\\d)");
+
+    // Must require the "Statement of ..." prefix -- a bare "consolidated ... financial
+    // result[s]" also matches the Independent Auditors' Report section (and several
+    // notes) which appear BEFORE the actual P&L table in every filing seen so far
+    // (confirmed on GAIL's real filing: the auditors' report false-matched at line 98/445,
+    // ~80-270 lines before the real table headers at line 178/622).
+    private static final Pattern CONSOLIDATED_HEADER =
+            Pattern.compile("statement\\s+of\\s+consolidated.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+    private static final Pattern STANDALONE_HEADER =
+            Pattern.compile("statement\\s+of\\s+standalone.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+    private static final Pattern QUARTER_ENDED =
+            Pattern.compile("quarter\\s+ended\\s+(\\d{1,2})(?:st|nd|rd|th)?\\s+([A-Za-z]+)\\s+(\\d{4})",
+                    Pattern.CASE_INSENSITIVE);
+
+    private static final Pattern REVENUE_LABEL = Pattern.compile("revenue\\s+from\\s+operations", Pattern.CASE_INSENSITIVE);
+    private static final Pattern TOTAL_EXPENSES_LABEL = Pattern.compile("total\\s+expenses", Pattern.CASE_INSENSITIVE);
+    private static final Pattern FINANCE_COSTS_LABEL = Pattern.compile("finance\\s+costs?", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DEPRECIATION_LABEL =
+            Pattern.compile("depreciation\\s+and\\s+amorti[sz]ation\\s+expense", Pattern.CASE_INSENSITIVE);
+    private static final Pattern NET_PROFIT_LABEL =
+            Pattern.compile("net\\s+profit\\s*/\\s*\\(?\\s*loss\\s*\\)?\\s*(?:after\\s+tax|for\\s+the\\s+period)",
+                    Pattern.CASE_INSENSITIVE);
+
+    // Only the fields this parser knows how to fill -- QuarterlyResultsService
+    // treats every other column as unavailable (null) for a PDF-fallback row.
+    public static class ParsedQuarterlyPdf {
+        public String scope; // "CONSOLIDATED" or "STANDALONE" -- which statement was actually used
+        public LocalDate quarterEndDate;
+        public Double revenueCr, revenueYoyCr, revenueQoqCr;
+        public Double netProfitCr, netProfitYoyCr, netProfitQoqCr;
+        public Double ebitdaCr, ebitdaYoyCr, ebitdaQoqCr; // derived, approximate -- see class docstring
+        public Double operatingMarginPct, operatingMarginYoyPct, operatingMarginQoqPct; // derived, approximate
+    }
+
+    private final PdfExtractor pdfExtractor;
+
+    public ResultsPdfParser(PdfExtractor pdfExtractor) {
+        this.pdfExtractor = pdfExtractor;
+    }
+
+    /** Returns null if the PDF can't be downloaded/parsed, or if the minimum required
+     * fields (quarter end date, revenue, net profit) can't be confidently located --
+     * this never fabricates a partial/guessed row. */
+    public ParsedQuarterlyPdf parse(String pdfUrl) {
+        String fullText = pdfExtractor.extractFullText(pdfUrl);
+        if (fullText == null || fullText.isBlank()) return null;
+
+        String[] lines = fullText.split("\n");
+
+        int consolidatedIdx = findLineIndex(lines, CONSOLIDATED_HEADER);
+        int standaloneIdx = findLineIndex(lines, STANDALONE_HEADER);
+
+        String scope;
+        int startIdx;
+        if (consolidatedIdx >= 0) {
+            scope = "CONSOLIDATED";
+            startIdx = consolidatedIdx;
+        } else if (standaloneIdx >= 0) {
+            scope = "STANDALONE";
+            startIdx = standaloneIdx;
+        } else {
+            logger.warn("[ResultsPdfParser] No Standalone/Consolidated statement header found in {}", pdfUrl);
+            return null;
+        }
+        // Bound the scan to before the OTHER statement (if it appears later), or ~120
+        // lines -- comfortably more than one P&L statement's row count, without
+        // risking bleeding into the other scope's table.
+        int otherIdx = "CONSOLIDATED".equals(scope) ? standaloneIdx : consolidatedIdx;
+        int endIdx = (otherIdx > startIdx) ? otherIdx : Math.min(lines.length, startIdx + 120);
+
+        LocalDate quarterEndDate = findQuarterEndDate(lines, startIdx, Math.min(lines.length, startIdx + 5));
+        if (quarterEndDate == null) {
+            logger.warn("[ResultsPdfParser] Could not find a 'Quarter ended <date>' heading near the {} statement in {}", scope, pdfUrl);
+            return null;
+        }
+
+        double[] revenue = findRowValues(lines, startIdx, endIdx, REVENUE_LABEL);
+        double[] netProfit = findRowValues(lines, startIdx, endIdx, NET_PROFIT_LABEL);
+        if (revenue == null || netProfit == null) {
+            logger.warn("[ResultsPdfParser] Could not find Revenue/Net Profit rows in the {} statement in {}", scope, pdfUrl);
+            return null;
+        }
+
+        ParsedQuarterlyPdf result = new ParsedQuarterlyPdf();
+        result.scope = scope;
+        result.quarterEndDate = quarterEndDate;
+        result.revenueCr = revenue[0];
+        result.revenueQoqCr = revenue[1];
+        result.revenueYoyCr = revenue[2];
+        result.netProfitCr = netProfit[0];
+        result.netProfitQoqCr = netProfit[1];
+        result.netProfitYoyCr = netProfit[2];
+
+        double[] totalExpenses = findRowValues(lines, startIdx, endIdx, TOTAL_EXPENSES_LABEL);
+        double[] financeCosts = findRowValues(lines, startIdx, endIdx, FINANCE_COSTS_LABEL);
+        double[] depreciation = findRowValues(lines, startIdx, endIdx, DEPRECIATION_LABEL);
+        if (totalExpenses != null && financeCosts != null && depreciation != null) {
+            result.ebitdaCr = operatingProfit(revenue[0], totalExpenses[0], financeCosts[0], depreciation[0]);
+            result.ebitdaQoqCr = operatingProfit(revenue[1], totalExpenses[1], financeCosts[1], depreciation[1]);
+            result.ebitdaYoyCr = operatingProfit(revenue[2], totalExpenses[2], financeCosts[2], depreciation[2]);
+            result.operatingMarginPct = revenue[0] != 0 ? result.ebitdaCr / revenue[0] * 100.0 : null;
+            result.operatingMarginQoqPct = revenue[1] != 0 ? result.ebitdaQoqCr / revenue[1] * 100.0 : null;
+            result.operatingMarginYoyPct = revenue[2] != 0 ? result.ebitdaYoyCr / revenue[2] * 100.0 : null;
+        } else {
+            logger.info("[ResultsPdfParser] Total Expenses/Finance Costs/Depreciation rows not all found in the {} " +
+                    "statement in {} -- EBITDA/margin left null (revenue/net profit still usable).", scope, pdfUrl);
+        }
+
+        logger.info("[ResultsPdfParser] Parsed {} statement from {}: quarterEndDate={}, revenue={} (QoQ base {}, YoY base {}), " +
+                        "netProfit={} (QoQ base {}, YoY base {}), ebitda={}",
+                scope, pdfUrl, quarterEndDate, result.revenueCr, result.revenueQoqCr, result.revenueYoyCr,
+                result.netProfitCr, result.netProfitQoqCr, result.netProfitYoyCr, result.ebitdaCr);
+        return result;
+    }
+
+    private double operatingProfit(double revenue, double totalExpenses, double financeCosts, double depreciation) {
+        return revenue - totalExpenses + financeCosts + depreciation;
+    }
+
+    private int findLineIndex(String[] lines, Pattern pattern) {
+        for (int i = 0; i < lines.length; i++) {
+            if (pattern.matcher(lines[i]).find()) return i;
+        }
+        return -1;
+    }
+
+    private LocalDate findQuarterEndDate(String[] lines, int fromIdx, int toIdx) {
+        for (int i = fromIdx; i < toIdx; i++) {
+            Matcher m = QUARTER_ENDED.matcher(lines[i]);
+            if (m.find()) {
+                try {
+                    int day = Integer.parseInt(m.group(1));
+                    String monthName = m.group(2);
+                    int year = Integer.parseInt(m.group(3));
+                    int month = java.time.Month.valueOf(monthName.toUpperCase(Locale.ROOT)).getValue();
+                    return LocalDate.of(year, month, day);
+                } catch (Exception e) {
+                    // fall through to try formatting via DateTimeFormatter as a second attempt
+                    try {
+                        return LocalDate.parse(m.group(1) + " " + m.group(2) + " " + m.group(3),
+                                DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH));
+                    } catch (Exception e2) {
+                        logger.warn("[ResultsPdfParser] Failed to parse quarter-end date from '{}': {}", lines[i], e2.getMessage());
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /** [current, QoQ base, YoY base] -- the first 3 numbers on whichever line matches
+     * `labelPattern` within [fromIdx, toIdx). Null if the label isn't found in that
+     * range, or fewer than 3 numbers follow it on that line. */
+    private double[] findRowValues(String[] lines, int fromIdx, int toIdx, Pattern labelPattern) {
+        for (int i = fromIdx; i < toIdx; i++) {
+            Matcher labelMatch = labelPattern.matcher(lines[i]);
+            if (!labelMatch.find()) continue;
+            String remainder = normalizeNumberSpacing(lines[i].substring(labelMatch.end()));
+            Matcher numMatch = NUMBER_PATTERN.matcher(remainder);
+            double[] values = new double[3];
+            int found = 0;
+            while (numMatch.find() && found < 3) {
+                values[found++] = parseNumber(numMatch.group());
+            }
+            if (found == 3) return values;
+        }
+        return null;
+    }
+
+    private String normalizeNumberSpacing(String remainder) {
+        String s = SPACE_AFTER_COMMA.matcher(remainder).replaceAll(",");
+        s = SPACE_MID_GROUP.matcher(s).replaceAll("$1$2");
+        s = SPACE_BEFORE_DECIMAL.matcher(s).replaceAll("$1$2");
+        s = SPACE_AFTER_DECIMAL.matcher(s).replaceAll("$1$2");
+        return s;
+    }
+
+    private double parseNumber(String raw) {
+        boolean negative = raw.startsWith("(") || raw.startsWith("-");
+        String cleaned = raw.replace("(", "").replace(")", "").replace(",", "").replace(" ", "").replace("-", "");
+        double value = Double.parseDouble(cleaned);
+        return negative ? -value : value;
+    }
+}

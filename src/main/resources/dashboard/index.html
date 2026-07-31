@@ -449,6 +449,10 @@
         `${plainComparisonBadge('YoY', r.epsYoyPct, false)} ${plainComparisonBadge('QoQ', r.epsQoqPct, false)}</div>`;
   }
 
+  function ebitdaRow(r) {
+    return metricMeta('EBITDA', r.ebitdaCr, r.ebitdaYoyCr, r.ebitdaYoyPct, r.ebitdaYoySwingType, r.ebitdaQoqCr, r.ebitdaQoqPct, r.ebitdaQoqSwingType);
+  }
+
   function rsRankChip(r) {
     if (r.rsRank == null) {
       return '<span class="rs-chip na" title="Only ~300 stocks in the RS Momentum universe have a rank">RS Rank — n/a</span>';
@@ -543,6 +547,7 @@
         <div class="metrics-box">
           ${metricMeta('Revenue', r.revenueCr, r.revenueYoyCr, r.revenueYoyPct, null, r.revenueQoqCr, r.revenueQoqPct, null)}
           ${metricMeta('Net Profit', r.netProfitCr, r.netProfitYoyCr, r.netProfitYoyPct, r.profitYoySwingType, r.netProfitQoqCr, r.netProfitQoqPct, r.profitQoqSwingType)}
+          ${ebitdaRow(r)}
           ${marginRow(r)}
           ${epsRow(r)}
         </div>

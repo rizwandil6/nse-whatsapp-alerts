@@ -242,12 +242,15 @@ public class PromptRatingService {
                                        Double netProfitCr, Double netProfitYoyPct, Double netProfitQoqPct,
                                        String profitYoySwingType, String profitQoqSwingType,
                                        Double operatingMarginPct, Double marginYoyPp, Double marginQoqPp,
-                                       Double eps, Double epsYoyPct, Double epsQoqPct) {
+                                       Double eps, Double epsYoyPct, Double epsQoqPct,
+                                       Double ebitdaCr, Double ebitdaYoyPct, Double ebitdaQoqPct,
+                                       String ebitdaYoySwingType, String ebitdaQoqSwingType) {
         if (anthropicApiKey == null || anthropicApiKey.isBlank()) return null;
         try {
             String prompt = buildQuarterlyTrendPrompt(companyName, quarterLabel, revenueCr, revenueYoyPct, revenueQoqPct,
                     netProfitCr, netProfitYoyPct, netProfitQoqPct, profitYoySwingType, profitQoqSwingType,
-                    operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct);
+                    operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct,
+                    ebitdaCr, ebitdaYoyPct, ebitdaQoqPct, ebitdaYoySwingType, ebitdaQoqSwingType);
 
             var rootNode = objectMapper.createObjectNode();
             var messages = objectMapper.createArrayNode();
@@ -292,7 +295,9 @@ public class PromptRatingService {
                                               Double netProfitCr, Double netProfitYoyPct, Double netProfitQoqPct,
                                               String profitYoySwingType, String profitQoqSwingType,
                                               Double operatingMarginPct, Double marginYoyPp, Double marginQoqPp,
-                                              Double eps, Double epsYoyPct, Double epsQoqPct) {
+                                              Double eps, Double epsYoyPct, Double epsQoqPct,
+                                              Double ebitdaCr, Double ebitdaYoyPct, Double ebitdaQoqPct,
+                                              String ebitdaYoySwingType, String ebitdaQoqSwingType) {
         StringBuilder sb = new StringBuilder();
         sb.append("Company: ").append(companyName).append("\n");
         sb.append("Quarter: ").append(quarterLabel).append("\n");
@@ -305,7 +310,11 @@ public class PromptRatingService {
         sb.append("Operating Margin: ").append(operatingMarginPct == null ? "n/a" : String.format("%.1f%%", operatingMarginPct))
                 .append(" (YoY ").append(fmtPp(marginYoyPp)).append(", QoQ ").append(fmtPp(marginQoqPp)).append(")\n");
         sb.append("EPS: Rs ").append(eps == null ? "n/a" : String.format("%.2f", eps))
-                .append(" (YoY ").append(fmtPct(epsYoyPct)).append(", QoQ ").append(fmtPct(epsQoqPct)).append(")\n\n");
+                .append(" (YoY ").append(fmtPct(epsYoyPct)).append(", QoQ ").append(fmtPct(epsQoqPct)).append(")\n");
+        sb.append("EBITDA: Rs ").append(fmtCr(ebitdaCr)).append(" Cr (YoY ")
+                .append(ebitdaYoySwingType != null ? swingText(ebitdaYoySwingType) : fmtPct(ebitdaYoyPct))
+                .append(", QoQ ").append(ebitdaQoqSwingType != null ? swingText(ebitdaQoqSwingType) : fmtPct(ebitdaQoqPct))
+                .append(")\n\n");
         sb.append("Give a single, short, one-line qualitative verdict (max ~14 words) on this quarter's ")
                 .append("performance, based ONLY on these figures. Call out any tension between them if one ")
                 .append("exists (e.g. YoY revenue growth but a sequential decline, or profit growth alongside ")

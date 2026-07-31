@@ -385,6 +385,17 @@ public class FundamentalScreener {
                     result.setQuarterlyOpmPctFull(full);
                     setLabelsAndDatesIfEmpty(result, labels, dates);
                 }
+            } else if (label.startsWith("operating profit")) {
+                // Screener's "Operating Profit" (Sales - Expenses, with Depreciation/Interest
+                // deducted SEPARATELY afterward to reach Profit before tax) is the retail-investor
+                // convention for EBITDA -- verified against a real fetched page (THERMAX,
+                // 2026-07-31): its own Depreciation row is a distinct line item below this one,
+                // confirming Operating Profit here already excludes depreciation, same as EBITDA.
+                List<Double> full = allValues(cells);
+                if (!full.isEmpty()) {
+                    result.setQuarterlyEbitdaCrFull(full);
+                    setLabelsAndDatesIfEmpty(result, labels, dates);
+                }
             } else if (label.startsWith("eps in rs")) {
                 List<Double> full = allValues(cells);
                 if (!full.isEmpty()) {

@@ -83,3 +83,17 @@ ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS eps_qoq_pct NUMERIC;
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS verdict TEXT; -- 'RIGHT' | 'MIXED' | 'WRONG'
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS rs_rank NUMERIC;
 
+-- EBITDA (added 2026-07-31): Screener's "Operating Profit" row (Sales -
+-- Expenses, with Depreciation/Interest deducted SEPARATELY afterward to
+-- reach Profit before tax) is the retail-investor convention for EBITDA --
+-- verified against a real fetched page (THERMAX) before building this,
+-- same discipline as every other field here. Swing-type-aware like net
+-- profit (not revenue), since EBITDA can also flip sign, unlike revenue.
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_cr NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_yoy_cr NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_yoy_pct NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_yoy_swing_type TEXT;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_qoq_cr NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_qoq_pct NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_qoq_swing_type TEXT;
+

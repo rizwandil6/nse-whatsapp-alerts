@@ -223,7 +223,7 @@ class QuarterlyResultsServiceTest {
         JdbcTemplate jdbc = mock(JdbcTemplate.class);
         PromptRatingService promptRatingService = mock(PromptRatingService.class);
         when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any(),
-                any(), any(), any(), any(), any(), any()))
+                any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
                 .thenReturn("Solid YoY growth but a concerning sequential deceleration");
         QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
 
@@ -232,6 +232,7 @@ class QuarterlyResultsServiceTest {
         fr.setQuarterEndDates(new ArrayList<>(Arrays.asList(LocalDate.parse("2026-03-31"), LocalDate.parse("2026-06-30"))));
         fr.setQuarterlyRevenueCrFull(new ArrayList<>(Arrays.asList(8480.0, 7932.0)));
         fr.setQuarterlyNetProfitCrFull(new ArrayList<>(Arrays.asList(1126.0, 892.0)));
+        fr.setQuarterlyEbitdaCrFull(new ArrayList<>(Arrays.asList(1500.0, 1400.0)));
 
         svc.recordIfAvailable("WAAREEENER", "Waaree Energies Limited", fr, "Outcome of Board Meeting",
                 OffsetDateTime.parse("2026-07-29T17:34:37Z"), "https://example.com/x");
@@ -243,10 +244,17 @@ class QuarterlyResultsServiceTest {
         // net_profit_yoy_pct,profit_yoy_swing_type,revenue_qoq_cr,net_profit_qoq_cr,
         // revenue_qoq_pct,net_profit_qoq_pct,profit_qoq_swing_type,operating_margin_pct(16),
         // operating_margin_yoy_pp(17),operating_margin_qoq_pp(18),eps(19),eps_yoy_pct(20),
-        // eps_qoq_pct(21),verdict(22),ai_judgment(23),... -- rs_rank is NOT written here at
-        // all (DashboardDataController attaches it live at serve time instead, see that
-        // class's docstring for the AWL staleness bug this replaced).
-        assertEquals("Solid YoY growth but a concerning sequential deceleration", args.getValue()[23]);
+        // eps_qoq_pct(21),verdict(22),ebitda_cr(23),ebitda_yoy_cr(24),ebitda_yoy_pct(25),
+        // ebitda_yoy_swing_type(26),ebitda_qoq_cr(27),ebitda_qoq_pct(28),ebitda_qoq_swing_type(29),
+        // ai_judgment(30),... -- rs_rank is NOT written here at all (DashboardDataController
+        // attaches it live at serve time instead, see that class's docstring for the AWL
+        // staleness bug this replaced).
+        assertEquals("Solid YoY growth but a concerning sequential deceleration", args.getValue()[30]);
+        // Jun 2026 (only quarter with a QoQ base, Mar 2026) -- no YoY base available (only 2 quarters given).
+        assertEquals(1400.0, args.getValue()[23]);
+        assertNull(args.getValue()[24]); // no YoY base a year earlier
+        assertEquals(1500.0, args.getValue()[27]); // qoq base = Mar 2026's 1500
+        assertEquals((1400.0 - 1500.0) / 1500.0 * 100.0, (Double) args.getValue()[28], 1e-9);
     }
 
     @Test
@@ -254,7 +262,7 @@ class QuarterlyResultsServiceTest {
         JdbcTemplate jdbc = mock(JdbcTemplate.class);
         PromptRatingService promptRatingService = mock(PromptRatingService.class);
         when(promptRatingService.judgeQuarterlyTrend(any(), any(), any(), any(), any(), any(), any(), any(), any(), any(),
-                any(), any(), any(), any(), any(), any()))
+                any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any()))
                 .thenReturn(null); // simulates ANTHROPIC_API_KEY not set / the call failing
         QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
 
@@ -269,6 +277,113 @@ class QuarterlyResultsServiceTest {
 
         ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
         verify(jdbc).update(any(String.class), args.capture());
-        assertNull(args.getValue()[23]);
+        assertNull(args.getValue()[30]);
+    }
+
+    // --- EBITDA (added 2026-07-31) -- reuses profitSwingType/yoyPct exactly like net
+    // profit (an absolute Cr figure that can also flip sign), NOT marginPointDiff. ---
+
+    @Test
+    void ebitdaSwingReusesProfitSwingTypeLogic() {
+        assertEquals("LOSS_TO_PROFIT", service.profitSwingType(120.0, -40.0));
+        assertEquals("PROFIT_TO_LOSS", service.profitSwingType(-30.0, 200.0));
+        assertNull(service.profitSwingType(300.0, 250.0));
+    }
+
+    // --- Stale-quarter guard (added 2026-07-31) -- real GAIL incident: today's actual
+    // announcement was for the Jun 2026 quarter (PDF filename dated 30-06-2026), but
+    // Screener.in's table still topped out at Mar 2026 (hadn't ingested the new
+    // results yet), so the scraped "latest quarter" was silently one quarter stale --
+    // same 122-day gap hit 24 other symbols the same day. Must skip rather than record. ---
+
+    @Test
+    void recordIfAvailableSkipsWhenScrapedQuarterIsStaleAndThePdfFallbackAlsoFails() {
+        // "https://example.com/gail" isn't a .pdf URL, so ResultsPdfParser (via a real
+        // PdfExtractor, since this uses the 2-arg test constructor) bails out immediately
+        // with no network call -- confirms the end-to-end skip path when BOTH Screener
+        // and the PDF fallback have nothing usable.
+        JdbcTemplate jdbc = mock(JdbcTemplate.class);
+        PromptRatingService promptRatingService = mock(PromptRatingService.class);
+        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
+
+        FundamentalResult fr = new FundamentalResult();
+        fr.setQuarterLabels(new ArrayList<>(List.of("Mar 2026")));
+        fr.setQuarterEndDates(new ArrayList<>(List.of(LocalDate.parse("2026-03-31"))));
+        fr.setQuarterlyRevenueCrFull(new ArrayList<>(List.of(35577.0)));
+        fr.setQuarterlyNetProfitCrFull(new ArrayList<>(List.of(1481.0)));
+
+        // Real GAIL announcement timestamp -- 122 days after Mar 2026's quarter-end,
+        // because the actual results being announced were for Jun 2026.
+        svc.recordIfAvailable("GAIL", "GAIL (India) Limited", fr, "Outcome of Board Meeting",
+                OffsetDateTime.parse("2026-07-31T08:40:47Z"), "https://example.com/gail");
+
+        org.mockito.Mockito.verifyNoInteractions(jdbc);
+    }
+
+    @Test
+    void recordIfAvailableFallsBackToPdfWhenScrapedQuarterIsStale() {
+        // Same stale-Screener scenario as above, but this time the PDF fallback
+        // successfully parses the real Jun 2026 figures -- must record THOSE, not the
+        // stale Mar 2026 ones, and must not touch findYoyIndex/findQoqIndex at all
+        // (the PDF already gives QoQ/YoY bases directly).
+        JdbcTemplate jdbc = mock(JdbcTemplate.class);
+        PromptRatingService promptRatingService = mock(PromptRatingService.class);
+        ResultsPdfParser pdfParser = mock(ResultsPdfParser.class);
+        ResultsPdfParser.ParsedQuarterlyPdf parsed = new ResultsPdfParser.ParsedQuarterlyPdf();
+        parsed.scope = "CONSOLIDATED";
+        parsed.quarterEndDate = LocalDate.parse("2026-06-30");
+        parsed.revenueCr = 41350.18;
+        parsed.revenueQoqCr = 35705.49;
+        parsed.revenueYoyCr = 35428.81;
+        parsed.netProfitCr = 4670.99;
+        parsed.netProfitQoqCr = 1481.46;
+        parsed.netProfitYoyCr = 2382.24;
+        parsed.ebitdaCr = 7097.86;
+        parsed.ebitdaQoqCr = 1453.39;
+        parsed.ebitdaYoyCr = 3668.74;
+        parsed.operatingMarginPct = 17.17;
+        parsed.operatingMarginQoqPct = 4.07;
+        parsed.operatingMarginYoyPct = 10.36;
+        when(pdfParser.parse("https://example.com/gail.pdf")).thenReturn(parsed);
+        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService, pdfParser);
+
+        FundamentalResult fr = new FundamentalResult();
+        fr.setQuarterLabels(new ArrayList<>(List.of("Mar 2026"))); // Screener's stale "latest"
+        fr.setQuarterEndDates(new ArrayList<>(List.of(LocalDate.parse("2026-03-31"))));
+        fr.setQuarterlyRevenueCrFull(new ArrayList<>(List.of(35577.0)));
+        fr.setQuarterlyNetProfitCrFull(new ArrayList<>(List.of(1481.0)));
+
+        svc.recordIfAvailable("GAIL", "GAIL (India) Limited", fr, "Outcome of Board Meeting",
+                OffsetDateTime.parse("2026-07-31T08:40:47Z"), "https://example.com/gail.pdf");
+
+        ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
+        verify(jdbc).update(any(String.class), args.capture());
+        Object[] values = args.getValue();
+        assertEquals("GAIL", values[0]);
+        assertEquals("Jun 2026", values[2]); // derived from the PDF's quarterEndDate, not Screener's stale label
+        assertEquals(LocalDate.parse("2026-06-30"), values[3]);
+        assertEquals(41350.18, (Double) values[4], 1e-6); // revenue_cr -- the PDF's real Jun 2026 figure
+        assertEquals(4670.99, (Double) values[5], 1e-6);  // net_profit_cr
+    }
+
+    @Test
+    void recordIfAvailableProceedsWhenLagIsANormalReportingWindow() {
+        JdbcTemplate jdbc = mock(JdbcTemplate.class);
+        PromptRatingService promptRatingService = mock(PromptRatingService.class);
+        QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
+
+        FundamentalResult fr = new FundamentalResult();
+        fr.setQuarterLabels(new ArrayList<>(List.of("Jun 2026")));
+        fr.setQuarterEndDates(new ArrayList<>(List.of(LocalDate.parse("2026-06-30"))));
+        fr.setQuarterlyRevenueCrFull(new ArrayList<>(List.of(38900.0)));
+        fr.setQuarterlyNetProfitCrFull(new ArrayList<>(List.of(4292.0)));
+
+        // 31 days after quarter-end -- a normal reporting lag, must NOT be skipped.
+        svc.recordIfAvailable("GAIL", "GAIL (India) Limited", fr, "Outcome of Board Meeting",
+                OffsetDateTime.parse("2026-07-31T08:40:47Z"), "https://example.com/gail");
+
+        ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
+        verify(jdbc).update(any(String.class), args.capture());
+        assertEquals("GAIL", args.getValue()[0]);
     }
 }
