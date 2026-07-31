@@ -164,11 +164,11 @@
  "STERTOOLS": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": false,
+  "longWatch": true,
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785482700000
+  "lastProcessedTimestampMs": 1785483480000
  },
  "TEXRAIL": {
   "position": null,
