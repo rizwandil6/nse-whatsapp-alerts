@@ -2760,5 +2760,16 @@
   "brickPct": "0.25",
   "pnlRs": -48.359999999999616,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 496.15,
+  "theoreticalEntry": 495.0662500000001,
+  "entryIdx": 17,
+  "timestampMs": 1785488700000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
