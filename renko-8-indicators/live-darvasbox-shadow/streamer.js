@@ -62,6 +62,8 @@ const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
 const { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits } = require('./trade_log');
 const { syncFromRemote: syncTrackedStateFromRemote, loadTrackedState, saveAndPushTrackedState } = require('./tracked_state');
+const { ShadowDualFilterTracker } = require('./shadow_dual_filter_tracker');
+const { syncFromRemote: syncShadowLogFromRemote, recordAndPush: recordAndPushShadowEvent } = require('./shadow_log');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min, aggregateTo5MinMultiDay } = require('./bar_aggregator');
 
@@ -98,6 +100,13 @@ for (const [symbol, key] of Object.entries(symbols)) keyToSymbol[key] = symbol;
 const tickBuilders = {}; // symbol -> TickBarBuilder
 const oneMinBars = {};   // symbol -> today's closed 1-min bars, in-memory only
 const trackers = {};     // symbol -> DarvasLiveTracker
+// symbol -> ShadowDualFilterTracker -- dual-filter (candle-EMA + brick-EMA +
+// volume-spike, pending-confirmation) experiment running alongside the real
+// tracker, fed the exact same live bricks/bars5. See shadow_dual_filter_tracker.js's
+// module docstring for the full design rationale. Structurally isolated: never
+// reads or writes `trackers`, `this.position` on the real tracker, or the real
+// trade log -- a bug here cannot affect live trading.
+const shadowTrackers = {};
 // symbol -> 5-min bars from BEFORE today (EMA_WARMUP_LOOKBACK_DAYS calendar
 // days), fetched once/day and never mutated intraday. Prepended to today's
 // growing bars5 before every checkEmaCrossExit call so EMA(9)/EMA(20) are
@@ -113,6 +122,7 @@ for (const symbol of Object.keys(symbols)) {
     const b = tickBuilders[symbol];
     return b ? b.getLivePrice() : null;
   });
+  shadowTrackers[symbol] = new ShadowDualFilterTracker(symbol);
 }
 let currentDate = null;
 let protobufRoot = null;
@@ -318,6 +328,14 @@ function dispatchEvent(symbol, e) {
   saveAndPushTrackedState(trackers).catch((err) => console.error('saveAndPushTrackedState threw:', err.message));
 }
 
+/** Dual-filter shadow experiment -- logs what the pending-confirmation filter would
+ * have done, to its OWN branch/file (shadow_log.js), never touching real trades,
+ * the real trade log, or Telegram. See shadow_dual_filter_tracker.js's docstring. */
+function dispatchShadowEvent(e) {
+  const { dateStr } = nowIst();
+  recordAndPushShadowEvent(e, dateStr).catch((err) => console.error('shadow dispatchShadowEvent threw:', err.message));
+}
+
 function maybeResetForNewDay(nowMs) {
   const dateStr = istDateStr(nowMs);
   if (dateStr === currentDate) return;
@@ -327,6 +345,7 @@ function maybeResetForNewDay(nowMs) {
   for (const symbol of Object.keys(symbols)) {
     oneMinBars[symbol] = [];
     trackers[symbol].resetForNewDay();
+    shadowTrackers[symbol].resetForNewDay();
   }
   console.log(`New trading day: ${dateStr}. Tracker + in-memory 1-min bar buffers + day stats reset.`);
   // Push the now-all-null tracked state too -- otherwise a restart later
@@ -425,6 +444,20 @@ function ingestOneMinBar(symbol, bar, silent) {
     for (const e of events) dispatchEvent(symbol, e);
     if (minutesOfDay >= MARKET_CLOSE_MIN) maybeSendEodSummary();
   }
+
+  // Dual-filter shadow experiment -- dispatched even during silent backfill
+  // (unlike the real events above): it's fully deterministic given the same
+  // bricks/bars5 (no live-price dependency, no Telegram send), so replaying it
+  // is harmless and the dedup-by-event-key guard in shadow_log.js handles it.
+  const shadowTracker = shadowTrackers[symbol];
+  const shadowEvents = shadowTracker.processBricks(bricks, bars5, bars5Today);
+  const shadowExit = shadowTracker.checkEmaCrossExit(bars5);
+  if (shadowExit) shadowEvents.push(shadowExit);
+  if (minutesOfDay >= MARKET_CLOSE_MIN) {
+    const shadowEod = shadowTracker.forceEodClose(bricks);
+    if (shadowEod) shadowEvents.push(shadowEod);
+  }
+  for (const e of shadowEvents) dispatchShadowEvent(e);
 }
 
 async function startupBackfillIfNeeded() {
@@ -478,6 +511,8 @@ function checkEodSweep() {
     const bricks = buildRenkoBricks(completedFiveMinBars(bars), BRICK_PCT);
     const eodEvent = trackers[symbol].forceEodClose(bricks);
     if (eodEvent) dispatchEvent(symbol, eodEvent);
+    const shadowEod = shadowTrackers[symbol].forceEodClose(bricks);
+    if (shadowEod) dispatchShadowEvent(shadowEod);
   }
   maybeSendEodSummary();
 }
@@ -609,6 +644,10 @@ async function main() {
 
   await initProtobuf();
   await syncFromRemote();
+  // Shadow experiment log -- fully deterministic given bricks/bars5 (no live-price
+  // dependency), so a restart's backfill replay just re-derives identical shadow
+  // events; syncing first only avoids re-pushing what's already recorded remotely.
+  await syncShadowLogFromRemote();
 
   // Restore any already-open positions BEFORE startupBackfillIfNeeded() runs --
   // see darvas_tracker.js's toJSON docstring for the real incident this fixes.

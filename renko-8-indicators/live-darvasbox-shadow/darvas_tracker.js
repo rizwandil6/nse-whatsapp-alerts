@@ -110,6 +110,57 @@ function computeEma(closes, period) {
   return out;
 }
 
+/**
+ * Pure EMA-alignment check, extracted 2026-08-01 so the shadow dual-filter
+ * experiment (shadow_dual_filter_tracker.js) can reuse the EXACT same logic
+ * for its brick-EMA check that _trendAligned already uses for candle-EMA --
+ * rather than a hand-copied second implementation that could silently drift
+ * from this one. `series` is whatever bar/brick array timestampMs should be
+ * looked up against (bars5 for candle-EMA, bricks for brick-EMA). Returns
+ * `hasData: false` when there's no EMA value yet (caller decides whether
+ * that means "fail open", matching each caller's own philosophy).
+ */
+function emaAlignedAt(direction, timestampMs, series, emaFast, emaSlow) {
+  let idx = -1;
+  for (let j = 0; j < series.length; j++) {
+    if (series[j].timestampMs <= timestampMs) idx = j; else break;
+  }
+  if (idx === -1 || emaFast[idx] == null || emaSlow[idx] == null) {
+    return { aligned: true, hasData: false };
+  }
+  const aligned = direction === 'LONG' ? emaFast[idx] > emaSlow[idx] : emaFast[idx] < emaSlow[idx];
+  return { aligned, hasData: true, emaFastAt: emaFast[idx], emaSlowAt: emaSlow[idx] };
+}
+
+/**
+ * Pure volume-spike check, extracted 2026-08-01 for the same reuse reason as
+ * emaAlignedAt above -- see fork note (4) for the full rationale. Returns
+ * `ok: true` for every "fail open" case (empty entryBars, entry bar not
+ * found, too few trailing bars, zero/negative trailing average).
+ */
+function volumeSpikeCheck(brickTimestampMs, brickVolume, entryBars) {
+  if (!entryBars || entryBars.length === 0) return { ok: true };
+  let idx = -1;
+  for (let j = 0; j < entryBars.length; j++) {
+    if (entryBars[j].timestampMs <= brickTimestampMs) idx = j; else break;
+  }
+  if (idx === -1) return { ok: true };
+
+  const entryDate = istDateStr(entryBars[idx].timestampMs);
+  const trailing = [];
+  for (let j = idx - 1; j >= 0 && trailing.length < VOLUME_LOOKBACK_BARS; j--) {
+    if (istDateStr(entryBars[j].timestampMs) !== entryDate) break;
+    trailing.push(entryBars[j].volume);
+  }
+  if (trailing.length < VOLUME_MIN_TRAILING_BARS) return { ok: true };
+
+  const trailingAvg = trailing.reduce((a, b) => a + b, 0) / trailing.length;
+  if (trailingAvg <= 0) return { ok: true };
+
+  const spikeRatio = brickVolume / trailingAvg;
+  return { ok: spikeRatio < VOLUME_SPIKE_THRESHOLD, spikeRatio, trailingAvg, trailingCount: trailing.length };
+}
+
 class DarvasLiveTracker {
   constructor(symbol, getLivePriceFn) {
     this.symbol = symbol;
@@ -175,14 +226,10 @@ class DarvasLiveTracker {
 
   /** True if EMA9/EMA20 (as of the last 5-min bar at/before brickTimestampMs) agree with `direction`, or if no EMA data is available at all (fails open -- see module docstring fork note 3). */
   _trendAligned(direction, brickTimestampMs, bars5, emaFast, emaSlow) {
-    let idx = -1;
-    for (let j = 0; j < bars5.length; j++) {
-      if (bars5[j].timestampMs <= brickTimestampMs) idx = j; else break;
-    }
-    if (idx === -1 || emaFast[idx] == null || emaSlow[idx] == null) return true; // no EMA data yet -- fail open
-    const aligned = direction === 'LONG' ? emaFast[idx] > emaSlow[idx] : emaFast[idx] < emaSlow[idx];
+    const { aligned, hasData, emaFastAt, emaSlowAt } = emaAlignedAt(direction, brickTimestampMs, bars5, emaFast, emaSlow);
+    if (!hasData) return true; // no EMA data yet -- fail open
     if (!aligned) {
-      console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- EMA9 (${emaFast[idx].toFixed(3)}) vs EMA20 (${emaSlow[idx].toFixed(3)}) is counter-trend.`);
+      console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- EMA9 (${emaFastAt.toFixed(3)}) vs EMA20 (${emaSlowAt.toFixed(3)}) is counter-trend.`);
     }
     return aligned;
   }
@@ -197,28 +244,9 @@ class DarvasLiveTracker {
    * minutes of the session) -- same philosophy as _trendAligned.
    */
   _volumeSpikeOk(direction, brickTimestampMs, brickVolume, entryBars) {
-    if (!entryBars || entryBars.length === 0) return true;
-    let idx = -1;
-    for (let j = 0; j < entryBars.length; j++) {
-      if (entryBars[j].timestampMs <= brickTimestampMs) idx = j; else break;
-    }
-    if (idx === -1) return true;
-
-    const entryDate = istDateStr(entryBars[idx].timestampMs);
-    const trailing = [];
-    for (let j = idx - 1; j >= 0 && trailing.length < VOLUME_LOOKBACK_BARS; j--) {
-      if (istDateStr(entryBars[j].timestampMs) !== entryDate) break;
-      trailing.push(entryBars[j].volume);
-    }
-    if (trailing.length < VOLUME_MIN_TRAILING_BARS) return true;
-
-    const trailingAvg = trailing.reduce((a, b) => a + b, 0) / trailing.length;
-    if (trailingAvg <= 0) return true;
-
-    const spikeRatio = brickVolume / trailingAvg;
-    const ok = spikeRatio < VOLUME_SPIKE_THRESHOLD;
+    const { ok, spikeRatio, trailingAvg, trailingCount } = volumeSpikeCheck(brickTimestampMs, brickVolume, entryBars);
     if (!ok) {
-      console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- entry volume ${brickVolume} is ${spikeRatio.toFixed(1)}x the trailing ${trailing.length}-bar average (${trailingAvg.toFixed(1)}) -- extreme spike, likely exhaustion not confirmation.`);
+      console.log(`  [${this.symbol}] ${direction} box breakout at ${new Date(brickTimestampMs).toISOString()} suppressed -- entry volume ${brickVolume} is ${spikeRatio.toFixed(1)}x the trailing ${trailingCount}-bar average (${trailingAvg.toFixed(1)}) -- extreme spike, likely exhaustion not confirmation.`);
     }
     return ok;
   }
@@ -351,4 +379,7 @@ class DarvasLiveTracker {
   }
 }
 
-module.exports = { DarvasLiveTracker };
+module.exports = {
+  DarvasLiveTracker, computeEma, emaAlignedAt, volumeSpikeCheck,
+  EMA_FAST, EMA_SLOW, VOLUME_LOOKBACK_BARS, VOLUME_MIN_TRAILING_BARS, VOLUME_SPIKE_THRESHOLD,
+};

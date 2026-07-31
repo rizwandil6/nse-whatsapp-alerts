@@ -383,4 +383,4 @@ strategies.push({
   getStop: prevBrickStop,
 });
 
-module.exports = { strategies, FIB_LOOKBACK, DARVAS_LEN };
+module.exports = { strategies, FIB_LOOKBACK, DARVAS_LEN, confirmedBoxAt };
