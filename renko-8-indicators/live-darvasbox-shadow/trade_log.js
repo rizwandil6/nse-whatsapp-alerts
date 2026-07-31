@@ -47,11 +47,23 @@ async function syncFromRemote() {
  * early trades). Single brick size / single stop level here (no combo grid
  * to disambiguate), so the key is simpler than the N/K-grid or
  * multi-brick-size forward test's.
+ *
+ * Deliberately does NOT include entry/exit PRICE (fixed 2026-07-31, real
+ * incident): a backfill replay's live-price availability at the moment of
+ * reprocessing isn't guaranteed to match the original live pass (the
+ * WebSocket hasn't connected yet during startupBackfillIfNeeded, so
+ * _liveOrTheoretical always falls back to theoreticalEntry then) --
+ * confirmed live across TWO separate incidents (2026-07-28's TRAILING_BOX_
+ * STOP-era duplicates, and 2026-07-31's EMA-cross-era ones) where a replay
+ * re-derived a DIFFERENT price for an already-recorded trade, and the old
+ * price-inclusive key treated it as a brand-new event instead of a
+ * duplicate. The brick timestamp(s) alone already uniquely identify a
+ * specific trade -- price was never actually needed for that.
  */
 function eventKey(e) {
   return e.type === 'ENTRY'
-    ? ['ENTRY', e.symbol, e.direction, e.entry, e.timestampMs].join('|')
-    : ['EXIT', e.symbol, e.direction, e.entry, e.exitPrice, e.action, e.entryTimestampMs, e.exitTimestampMs].join('|');
+    ? ['ENTRY', e.symbol, e.direction, e.timestampMs].join('|')
+    : ['EXIT', e.symbol, e.direction, e.action, e.entryTimestampMs, e.exitTimestampMs].join('|');
 }
 
 /** Fails safe rather than crashing on empty/corrupt local content -- see module docstring. */
@@ -138,4 +150,4 @@ async function recordAndPush(exitEvent, dateLabel) {
   return pushToGitHub(dateLabel).catch((e) => console.error('recordAndPush threw:', e.message));
 }
 
-module.exports = { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits };
+module.exports = { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits, eventKey, recordTrade };
