@@ -146,7 +146,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785486780000
+  "lastProcessedTimestampMs": 1785487080000
  },
  "ARE&M": {
   "position": {
@@ -174,11 +174,11 @@
  "STERTOOLS": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": false,
+  "longWatch": true,
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785486600000
+  "lastProcessedTimestampMs": 1785487080000
  },
  "TEXRAIL": {
   "position": null,
