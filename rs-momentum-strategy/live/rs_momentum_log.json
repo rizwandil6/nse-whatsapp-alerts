@@ -38,7 +38,7 @@
   "price": 437.2,
   "rsRankAtEntry": 81.31,
   "salesGrowth3Y": 15,
-  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
+  "note": "manual add 2026-07-18 \u2014 no fresh crossing, already >=80 the day before"
  },
  {
   "type": "ENTRY",
@@ -47,63 +47,7 @@
   "price": 1783.2,
   "rsRankAtEntry": 81.01,
   "salesGrowth3Y": 15,
-  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
- },
- {
-  "type": "ENTRY_PENDING",
-  "symbol": "BAJAJ-AUTO",
-  "date": "2026-07-21",
-  "price": 10998.5,
-  "rsRankAtEntry": 80.76923076923077
- },
- {
-  "type": "ENTRY_PENDING",
-  "symbol": "POLYCAB",
-  "date": "2026-07-21",
-  "price": 9090.5,
-  "rsRankAtEntry": 81.95266272189349
- },
- {
-  "type": "ENTRY_PENDING",
-  "symbol": "HINDCOPPER",
-  "date": "2026-07-22",
-  "price": 491.8,
-  "rsRankAtEntry": 81.36094674556213
- },
- {
-  "type": "ENTRY_PENDING",
-  "symbol": "LALPATHLAB",
-  "date": "2026-07-23",
-  "price": 1759.2,
-  "rsRankAtEntry": 81.95266272189349
- },
- {
-  "type": "ENTRY_PENDING",
-  "symbol": "LODHA",
-  "date": "2026-07-26",
-  "price": 1198.7,
-  "rsRankAtEntry": 81.95266272189349
- },
- {
-  "type": "ENTRY_PENDING",
-  "symbol": "EICHERMOT",
-  "date": "2026-07-27",
-  "price": 7836,
-  "rsRankAtEntry": 80.1775147928994
- },
- {
-  "type": "ENTRY_PENDING",
-  "symbol": "MARICO",
-  "date": "2026-07-27",
-  "price": 883.25,
-  "rsRankAtEntry": 81.06508875739645
- },
- {
-  "type": "ENTRY_PENDING",
-  "symbol": "USHAMART",
-  "date": "2026-07-27",
-  "price": 512.3,
-  "rsRankAtEntry": 81.65680473372781
+  "note": "manual add 2026-07-18 \u2014 no fresh crossing, already >=80 the day before"
  },
  {
   "type": "FUNDAMENTALS_FAILED",
