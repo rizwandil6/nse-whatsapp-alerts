@@ -1,5 +1,27 @@
 [
  {
+  "symbol": "NATIONALUM",
+  "entryDate": "2026-07-29",
+  "entryPrice": 347.65,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 347.65,
+  "returnSinceEntry": 0
+ },
+ {
+  "symbol": "REDINGTON",
+  "entryDate": "2026-07-29",
+  "entryPrice": 310.95,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 310.95,
+  "returnSinceEntry": 0
+ },
+ {
   "symbol": "MEDANTA",
   "entryDate": "2026-07-28",
   "entryPrice": 1432.9,
@@ -9,61 +31,6 @@
   "returnWhileOpen": null,
   "currentPrice": 1416.4,
   "returnSinceEntry": -1.1515109219066229
- },
- {
-  "symbol": "DIVISLAB",
-  "entryDate": "2026-07-28",
-  "entryPrice": 7784.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 7835.0,
-  "returnSinceEntry": 0.6487250305093455
- },
- {
-  "symbol": "EICHERMOT",
-  "entryDate": "2026-07-27",
-  "entryPrice": 7836,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 7912.5,
-  "returnSinceEntry": 0.9762633996937213
- },
- {
-  "symbol": "LODHA",
-  "entryDate": "2026-07-26",
-  "entryPrice": 1198.7,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1287.15,
-  "returnSinceEntry": 7.37882706265121
- },
- {
-  "symbol": "HINDCOPPER",
-  "entryDate": "2026-07-22",
-  "entryPrice": 491.8,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 480.25,
-  "returnSinceEntry": -2.3485156567710472
- },
- {
-  "symbol": "POLYCAB",
-  "entryDate": "2026-07-21",
-  "entryPrice": 9090.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 8896.0,
-  "returnSinceEntry": -2.1395962818326826
  },
  {
   "symbol": "IKS",

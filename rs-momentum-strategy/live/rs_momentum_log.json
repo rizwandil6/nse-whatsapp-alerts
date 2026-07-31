@@ -38,7 +38,7 @@
   "price": 437.2,
   "rsRankAtEntry": 81.31,
   "salesGrowth3Y": 15,
-  "note": "manual add 2026-07-18 \u2014 no fresh crossing, already >=80 the day before"
+  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
  },
  {
   "type": "ENTRY",
@@ -47,7 +47,7 @@
   "price": 1783.2,
   "rsRankAtEntry": 81.01,
   "salesGrowth3Y": 15,
-  "note": "manual add 2026-07-18 \u2014 no fresh crossing, already >=80 the day before"
+  "note": "manual add 2026-07-18 — no fresh crossing, already >=80 the day before"
  },
  {
   "type": "FUNDAMENTALS_FAILED",
@@ -123,5 +123,19 @@
   "date": "2026-07-31",
   "price": 7784.5,
   "rsRankAtEntry": 81.95266272189349
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "NATIONALUM",
+  "date": "2026-07-29",
+  "price": 347.65,
+  "rsRankAtEntry": 80.1775147928994
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "REDINGTON",
+  "date": "2026-07-29",
+  "price": 310.95,
+  "rsRankAtEntry": 89.05325443786982
  }
 ]

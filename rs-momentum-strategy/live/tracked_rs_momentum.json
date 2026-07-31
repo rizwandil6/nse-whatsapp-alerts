@@ -66,5 +66,19 @@
   "entryPrice": 1432.9,
   "rsRankAtEntry": 81.65680473372781,
   "salesGrowth3Y": 18
+ },
+ "NATIONALUM": {
+  "entryDate": "2026-07-29",
+  "entryPrice": 347.65,
+  "rsRankAtEntry": 80.1775147928994,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "REDINGTON": {
+  "entryDate": "2026-07-29",
+  "entryPrice": 310.95,
+  "rsRankAtEntry": 89.05325443786982,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
