@@ -139,5 +139,65 @@
   "entryTimestampMs": 1785482700000,
   "exitTimestampMs": 1785488700000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 824.43375,
+  "timestampMs": 1785473400000,
+  "breakoutTimestampMs": 1785473400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 824.43375,
+  "exitPrice": 826.2,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.2142379542322247,
+  "entryTimestampMs": 1785473400000,
+  "exitTimestampMs": 1785480000000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 828.56625,
+  "timestampMs": 1785487800000,
+  "breakoutTimestampMs": 1785487800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 828.56625,
+  "exitPrice": 826.1,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.2976527223984739,
+  "entryTimestampMs": 1785487800000,
+  "exitTimestampMs": 1785490500000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 174.213375,
+  "timestampMs": 1785491700000,
+  "breakoutTimestampMs": 1785491700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 600.831,
+  "timestampMs": 1785491400000,
+  "breakoutTimestampMs": 1785491400000,
+  "shadow": true
  }
 ]
