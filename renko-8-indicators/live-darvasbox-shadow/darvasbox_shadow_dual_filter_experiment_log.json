@@ -199,5 +199,77 @@
   "timestampMs": 1785491400000,
   "breakoutTimestampMs": 1785491400000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 78.6714,
+  "exitPrice": 78.6714,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1785490500000,
+  "exitTimestampMs": 1785490500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 317.554125,
+  "exitPrice": 312.77887499999986,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.5037593984962854,
+  "entryTimestampMs": 1785481500000,
+  "exitTimestampMs": 1785489300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 218.24530000000007,
+  "exitPrice": 219.3204000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.49261083743843287,
+  "entryTimestampMs": 1785488400000,
+  "exitTimestampMs": 1785491700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 179.42599999999987,
+  "exitPrice": 181.60349999999983,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.213592233009683,
+  "entryTimestampMs": 1785488400000,
+  "exitTimestampMs": 1785490500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 174.213375,
+  "exitPrice": 173.77675000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25062656641603565,
+  "entryTimestampMs": 1785491700000,
+  "exitTimestampMs": 1785491700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 600.831,
+  "exitPrice": 600.831,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1785491400000,
+  "exitTimestampMs": 1785491400000,
+  "shadow": true
  }
 ]
