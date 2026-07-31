@@ -38,11 +38,11 @@
  "JKIL": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": true,
+  "longWatch": false,
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785481200000
+  "lastProcessedTimestampMs": 1785481740000
  },
  "JSWINFRA": {
   "position": null,
@@ -60,7 +60,7 @@
   "longUpStreak": 2,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785481320000
+  "lastProcessedTimestampMs": 1785481740000
  },
  "MHRIL": {
   "position": null,
