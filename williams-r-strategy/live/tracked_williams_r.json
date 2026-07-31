@@ -95,11 +95,11 @@
  "ORIENTELEC": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": false,
-  "longUpStreak": 1,
+  "longWatch": true,
+  "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785484020000
+  "lastProcessedTimestampMs": 1785484380000
  },
  "RAILTEL": {
   "position": null,
