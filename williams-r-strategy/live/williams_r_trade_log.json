@@ -284,5 +284,14 @@
   "entryTimestampMs": 1785473100000,
   "exitTimestampMs": 1785480600000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 78.54,
+  "theoreticalEntry": 78.57,
+  "timestampMs": 1785484500000,
+  "livePriceAvailable": true
  }
 ]
