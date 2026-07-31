@@ -2921,5 +2921,22 @@
   "entryTimestampMs": 1785491400000,
   "exitTimestampMs": 1785491400000,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "theoreticalExit": 78.6714,
+  "livePriceAvailable": true,
+  "entry": 78.6714,
+  "exitPrice": 78.73,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 0,
+  "pnlPct": 0.0744870435761896,
+  "entryTimestampMs": 1785490500000,
+  "exitTimestampMs": 1785490500000,
+  "brickPct": "0.25",
+  "pnlRs": 20.50999999999945,
+  "rsSign": "+"
  }
 ]
