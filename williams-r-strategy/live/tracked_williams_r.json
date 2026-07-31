@@ -60,7 +60,7 @@
   "longUpStreak": 2,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785483900000
+  "lastProcessedTimestampMs": 1785484260000
  },
  "MHRIL": {
   "position": null,
@@ -169,9 +169,9 @@
   "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
-  "shortWatch": false,
-  "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785484020000
+  "shortWatch": true,
+  "shortDownStreak": 0,
+  "lastProcessedTimestampMs": 1785484260000
  },
  "TEXRAIL": {
   "position": null,
