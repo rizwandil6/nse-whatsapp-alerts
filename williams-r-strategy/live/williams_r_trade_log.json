@@ -262,5 +262,14 @@
   "entryTimestampMs": 1785398100000,
   "exitTimestampMs": 1785405300000,
   "livePriceAvailable": false
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "SHORT",
+  "entry": 174.9,
+  "theoreticalEntry": 174.9,
+  "timestampMs": 1785473100000,
+  "livePriceAvailable": true
  }
 ]

@@ -6,19 +6,21 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "GAIL": {
-  "position": null,
-  "pendingEntry": {
+  "position": {
    "direction": "SHORT",
+   "entry": 174.9,
+   "entryTimestampMs": 1785473100000,
    "entryR": -7.74647887324031
   },
+  "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 2,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "HATHWAY": {
   "position": null,
@@ -27,7 +29,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472860000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "HINDCOPPER": {
   "position": null,
@@ -36,7 +38,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "JKIL": {
   "position": null,
@@ -54,7 +56,7 @@
   "longUpStreak": 1,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "MANINDS": {
   "position": null,
@@ -63,7 +65,7 @@
   "longUpStreak": 2,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "MHRIL": {
   "position": null,
@@ -72,7 +74,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "NHPC": {
   "position": null,
@@ -81,7 +83,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "OLAELEC": {
   "position": null,
@@ -90,7 +92,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "ORIENTELEC": {
   "position": null,
@@ -99,7 +101,7 @@
   "longUpStreak": 1,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472860000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "RAILTEL": {
   "position": null,
@@ -108,7 +110,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "RVNL": {
   "position": null,
@@ -117,7 +119,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "SUZLON": {
   "position": null,
@@ -126,7 +128,7 @@
   "longUpStreak": 1,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "WAAREEENER": {
   "position": null,
@@ -135,7 +137,7 @@
   "longUpStreak": 1,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "ADSL": {
   "position": null,
@@ -153,7 +155,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "NCC": {
   "position": null,
@@ -162,7 +164,7 @@
   "longUpStreak": 2,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "STERTOOLS": {
   "position": null,
@@ -171,7 +173,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472860000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "TEXRAIL": {
   "position": null,
@@ -180,7 +182,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  },
  "TITAGARH": {
   "position": null,
@@ -189,6 +191,6 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785472800000
+  "lastProcessedTimestampMs": 1785473100000
  }
 }
