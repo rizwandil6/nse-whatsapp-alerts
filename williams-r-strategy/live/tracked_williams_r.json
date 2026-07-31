@@ -56,11 +56,11 @@
  "MANINDS": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": false,
-  "longUpStreak": 2,
+  "longWatch": true,
+  "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785487260000
+  "lastProcessedTimestampMs": 1785487740000
  },
  "MHRIL": {
   "position": null,
