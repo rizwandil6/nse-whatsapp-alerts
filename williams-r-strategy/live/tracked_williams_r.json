@@ -172,16 +172,18 @@
   "lastProcessedTimestampMs": 1785488100000
  },
  "STERTOOLS": {
-  "position": null,
-  "pendingEntry": {
+  "position": {
    "direction": "LONG",
+   "entry": 252.06,
+   "entryTimestampMs": 1785488220000,
    "entryR": -98.99749373433534
   },
+  "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 2,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785487500000
+  "lastProcessedTimestampMs": 1785488220000
  },
  "TEXRAIL": {
   "position": null,

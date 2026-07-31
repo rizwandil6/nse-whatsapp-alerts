@@ -302,5 +302,14 @@
   "theoreticalEntry": 910.05,
   "timestampMs": 1785484800000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "STERTOOLS",
+  "direction": "LONG",
+  "entry": 252.06,
+  "theoreticalEntry": 252.06,
+  "timestampMs": 1785488220000,
+  "livePriceAvailable": true
  }
 ]
