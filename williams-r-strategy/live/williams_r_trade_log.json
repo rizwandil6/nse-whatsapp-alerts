@@ -337,5 +337,18 @@
   "entryTimestampMs": 1785488220000,
   "exitTimestampMs": 1785491460000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 78.54,
+  "exitPrice": 78.7,
+  "theoreticalExit": 78.7,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.20371785077666996,
+  "entryTimestampMs": 1785484500000,
+  "exitTimestampMs": 1785491700000,
+  "livePriceAvailable": true
  }
 ]

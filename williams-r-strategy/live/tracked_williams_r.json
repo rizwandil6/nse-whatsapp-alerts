@@ -72,12 +72,7 @@
   "lastProcessedTimestampMs": 1785491700000
  },
  "NHPC": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 78.54,
-   "entryTimestampMs": 1785484500000,
-   "entryR": -9.999999999999432
-  },
+  "position": null,
   "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
