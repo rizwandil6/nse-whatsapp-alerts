@@ -66,12 +66,27 @@ public class ResultsPdfParser {
     // notes) which appear BEFORE the actual P&L table in every filing seen so far
     // (confirmed on GAIL's real filing: the auditors' report false-matched at line 98/445,
     // ~80-270 lines before the real table headers at line 178/622).
+    //
+    // The optional (un)?audited group right after "of" handles a real filing-to-filing
+    // word-order difference, confirmed 2026-08-01: GAIL's header puts the qualifier AFTER
+    // the scope word ("Statement of Standalone Unaudited Financial Results" -- already
+    // covered by the .{0,60} gap before "financial result"), but India Pesticides' real
+    // Jun 2026 filing puts it BEFORE ("Statement of Unaudited Standalone Financial
+    // Results") -- the old pattern required "standalone"/"consolidated" immediately after
+    // "of", so this word order silently false-negatived and skipped a perfectly parseable,
+    // text-native PDF (not a scanned-PDF case -- see ResultsPdfParserTest for the fixture
+    // built from this real filing).
     private static final Pattern CONSOLIDATED_HEADER =
-            Pattern.compile("statement\\s+of\\s+consolidated.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("statement\\s+of\\s+(?:(?:un)?audited\\s+)?consolidated.{0,60}financial result", Pattern.CASE_INSENSITIVE);
     private static final Pattern STANDALONE_HEADER =
-            Pattern.compile("statement\\s+of\\s+standalone.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("statement\\s+of\\s+(?:(?:un)?audited\\s+)?standalone.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+    // Optional comma before the year (2026-08-01): findQuarterEndDate only scans the
+    // header line itself plus the next 4 lines, and India Pesticides' header line reads
+    // "...FOR THE QUARTER ENDED 30 JUNE, 2026" -- the comma sits where the old pattern
+    // required plain whitespace, so the header line itself (the most likely place to find
+    // this) failed to match.
     private static final Pattern QUARTER_ENDED =
-            Pattern.compile("quarter\\s+ended\\s+(\\d{1,2})(?:st|nd|rd|th)?\\s+([A-Za-z]+)\\s+(\\d{4})",
+            Pattern.compile("quarter\\s+ended\\s+(\\d{1,2})(?:st|nd|rd|th)?\\s+([A-Za-z]+)\\s*,?\\s+(\\d{4})",
                     Pattern.CASE_INSENSITIVE);
 
     private static final Pattern REVENUE_LABEL = Pattern.compile("revenue\\s+from\\s+operations", Pattern.CASE_INSENSITIVE);
@@ -79,8 +94,11 @@ public class ResultsPdfParser {
     private static final Pattern FINANCE_COSTS_LABEL = Pattern.compile("finance\\s+costs?", Pattern.CASE_INSENSITIVE);
     private static final Pattern DEPRECIATION_LABEL =
             Pattern.compile("depreciation\\s+and\\s+amorti[sz]ation\\s+expense", Pattern.CASE_INSENSITIVE);
+    // "net" made optional 2026-08-01: India Pesticides' real filing labels the bottom line
+    // "Profit After Tax" with no "Net" at all -- equally standard SEBI terminology to
+    // "Net Profit", just not the only form GAIL's fixture happened to use.
     private static final Pattern NET_PROFIT_LABEL =
-            Pattern.compile("net\\s+profit\\s*/\\s*\\(?\\s*loss\\s*\\)?\\s*(?:after\\s+tax|for\\s+the\\s+period)",
+            Pattern.compile("(?:net\\s+)?profit\\s*(?:/\\s*\\(?\\s*loss\\s*\\)?)?\\s*(?:after\\s+tax|for\\s+the\\s+period)",
                     Pattern.CASE_INSENSITIVE);
 
     // Only the fields this parser knows how to fill -- QuarterlyResultsService

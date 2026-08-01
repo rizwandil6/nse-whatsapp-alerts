@@ -151,4 +151,44 @@ class ResultsPdfParserTest {
 
         assertNull(parser.parse("https://example.com/gail.pdf"));
     }
+
+    /**
+     * Real incident, 2026-08-01: India Pesticides Limited's actual Jun 2026 results PDF
+     * (text-native, not scanned -- confirmed by downloading and inspecting it directly)
+     * was silently skipped by the old patterns, for two independent reasons this fixture
+     * is built to catch:
+     *   1. Header word order: GAIL's fixture above has the qualifier AFTER the scope word
+     *      ("Standalone Unaudited"), but this real filing has it BEFORE ("Unaudited
+     *      Standalone") -- the old CONSOLIDATED_HEADER/STANDALONE_HEADER required the
+     *      scope word immediately after "of", so this order false-negatived entirely.
+     *   2. Net profit label: this filing's bottom line is "PROFIT AFTER TAX (3-4)" -- no
+     *      "Net" prefix at all, unlike GAIL's "Net Profit/(Loss) after tax".
+     * Also exercises the QUARTER_ENDED comma-before-year fix, since the header line here
+     * ("...QUARTER ENDED 30 JUNE, 2026") is the actual line findQuarterEndDate scans first.
+     */
+    private static final String IPL_FIXTURE_TEXT =
+            "STATEMENT OF UNAUDITED STANDALONE FINANCIAL RESULTS FOR THE QUARTER ENDED 30 JUNE, 2026 \n" +
+            "(Rs. in Crores, except EPS) \n" +
+            "Revenue from Operations 252.56 266.15 275.41 1,057.11 \n" +
+            "PROFIT BEFORE TAX (1-2) 31.39 39.17 47.62 168.70 \n" +
+            "PROFIT AFTER TAX (3-4) 23.07 31.76 35.38 122.29 \n";
+
+    @Test
+    void parsesRealFilingWithQualifierBeforeScopeWordAndProfitAfterTaxLabel() {
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(IPL_FIXTURE_TEXT);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.ParsedQuarterlyPdf result = parser.parse("https://example.com/india-pesticides.pdf");
+
+        assertNotNull(result);
+        assertEquals("STANDALONE", result.scope);
+        assertEquals(LocalDate.parse("2026-06-30"), result.quarterEndDate);
+        assertEquals(252.56, result.revenueCr, 1e-6);
+        assertEquals(266.15, result.revenueQoqCr, 1e-6);
+        assertEquals(275.41, result.revenueYoyCr, 1e-6);
+        assertEquals(23.07, result.netProfitCr, 1e-6);
+        assertEquals(31.76, result.netProfitQoqCr, 1e-6);
+        assertEquals(35.38, result.netProfitYoyCr, 1e-6);
+    }
 }
