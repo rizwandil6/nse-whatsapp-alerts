@@ -164,25 +164,32 @@ function fmtMinutes(m) {
 
 async function loop() {
   let lastRunDate = null;
+  let gaveUpDate = null;
   console.log(`Multibagger screener: waiting for the next ${fmtMinutes(TRIGGER_START_MIN)}-${fmtMinutes(TRIGGER_END_MIN)} IST window...`);
   while (true) {
     const { minutesOfDay, dateStr } = istMinutesAndDate();
     if (minutesOfDay >= TRIGGER_START_MIN && minutesOfDay < TRIGGER_END_MIN && lastRunDate !== dateStr) {
-      lastRunDate = dateStr;
       try {
         await runOnce();
+        lastRunDate = dateStr;
+        console.log("Waiting for tomorrow's window...");
       } catch (e) {
         console.error('Daily batch failed:', e);
-        // A failure here means NOTHING happened today -- no new candidates
-        // scanned, no forward-performance dashboard update, nothing pushed
-        // -- and the daily cadence means that can go unnoticed for days
-        // (real incident: a Screener.in connection blip on 2026-07-27/28
-        // silently cost 2 consecutive days before anyone checked the
-        // dashboard). Alert immediately instead of relying on someone
-        // noticing a stale dashboard.
-        await sendTelegramAlert(`⚠️ Multibagger screener: today's daily batch FAILED entirely — no scan, no dashboard update.\n${e.message}`).catch((err) => console.error('Failure alert itself failed:', err.message));
+        // lastRunDate is only marked on success (below), so a failed attempt
+        // gets retried at the next POLL_MS tick as long as we're still
+        // inside today's window, instead of waiting until tomorrow after a
+        // single transient blip. Previously lastRunDate was marked before
+        // the attempt, so one Screener.in connection failure cost the whole
+        // day (real incidents: 2026-07-22, 07-27/28, 08-01).
+        await sendTelegramAlert(`⚠️ Multibagger screener: batch attempt failed, retrying within today's window.\n${e.message}`).catch((err) => console.error('Failure alert itself failed:', err.message));
       }
-      console.log("Waiting for tomorrow's window...");
+    } else if (minutesOfDay >= TRIGGER_END_MIN && lastRunDate !== dateStr && gaveUpDate !== dateStr) {
+      // Window closed with every retry inside it failing -- distinct,
+      // one-time alert (not repeated on every later poll tick) so a fully
+      // lost day is still surfaced instead of just going quiet.
+      gaveUpDate = dateStr;
+      console.error("Today's window closed with no successful run.");
+      await sendTelegramAlert("⚠️ Multibagger screener: today's window closed — no scan, no dashboard update.").catch((err) => console.error('Failure alert itself failed:', err.message));
     }
     await new Promise((r) => setTimeout(r, POLL_MS));
   }
