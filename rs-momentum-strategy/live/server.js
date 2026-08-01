@@ -304,25 +304,33 @@ function fmtMinutes(m) {
 
 async function loop() {
   let lastRunDate = null;
+  let gaveUpDate = null;
   console.log(`RS momentum strategy: waiting for the next ${fmtMinutes(TRIGGER_START_MIN)}-${fmtMinutes(TRIGGER_END_MIN)} IST window...`);
   while (true) {
     const { minutesOfDay, dateStr } = istMinutesAndDate();
     if (minutesOfDay >= TRIGGER_START_MIN && minutesOfDay < TRIGGER_END_MIN && lastRunDate !== dateStr) {
-      lastRunDate = dateStr;
       try {
         await runOnce();
+        lastRunDate = dateStr;
+        console.log("Waiting for tomorrow's window...");
       } catch (e) {
         console.error('Daily run failed:', e);
-        // A failure here means the whole day's run never happened -- no RS
-        // ranking, no forward-performance dashboard update, nothing pushed
-        // -- and the daily cadence means that can go unnoticed for days
-        // (real incident: a Screener.in connection blip around 2026-07-26/27
-        // silently cost multiple consecutive days across this and the
-        // multibagger service before anyone checked the dashboard). Alert
-        // immediately instead of relying on someone noticing a stale dashboard.
-        await sendTelegramAlert(`⚠️ RS momentum strategy: today's daily run FAILED entirely — no ranking, no dashboard update.\n${e.message}`).catch((err) => console.error('Failure alert itself failed:', err.message));
+        // lastRunDate is only marked on success (below), so a failed attempt
+        // gets retried at the next POLL_MS tick as long as we're still
+        // inside today's window, instead of waiting until tomorrow after a
+        // single transient blip (real incident: a Screener.in connection
+        // blip around 2026-07-26/27 silently cost multiple consecutive days
+        // across this and the multibagger service). Same fix applied there
+        // after a recurrence on 2026-08-01.
+        await sendTelegramAlert(`⚠️ RS momentum strategy: daily run attempt failed, retrying within today's window.\n${e.message}`).catch((err) => console.error('Failure alert itself failed:', err.message));
       }
-      console.log("Waiting for tomorrow's window...");
+    } else if (minutesOfDay >= TRIGGER_END_MIN && lastRunDate !== dateStr && gaveUpDate !== dateStr) {
+      // Window closed with every retry inside it failing -- distinct,
+      // one-time alert (not repeated on every later poll tick) so a fully
+      // lost day is still surfaced instead of just going quiet.
+      gaveUpDate = dateStr;
+      console.error("Today's window closed with no successful run.");
+      await sendTelegramAlert("⚠️ RS momentum strategy: today's window closed — no ranking, no dashboard update.").catch((err) => console.error('Failure alert itself failed:', err.message));
     }
     await new Promise((r) => setTimeout(r, POLL_MS));
   }
