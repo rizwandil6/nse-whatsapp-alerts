@@ -76,10 +76,29 @@ public class ResultsPdfParser {
     // "of", so this word order silently false-negatived and skipped a perfectly parseable,
     // text-native PDF (not a scanned-PDF case -- see ResultsPdfParserTest for the fixture
     // built from this real filing).
+    //
+    // ^\s* anchor added 2026-08-01 (same backfill session, caught immediately after the
+    // (un)?audited widening above went live): the widened pattern started matching the
+    // Independent Auditors' Report decoy sentence too, whenever THAT sentence happens to
+    // phrase it as "...the accompanying statement of unaudited standalone financial
+    // results of <Company>..." (real filings: Celebrity Fashions, Indian Terrain Fashions)
+    // -- a decoy the un-widened pattern never matched because it lacked "standalone"
+    // immediately after "of". The real table header is always its own line starting with
+    // "Statement of ..."; the decoy is always mid-sentence. Anchoring to line-start
+    // restores the original decoy immunity without giving up the word-order fix.
     private static final Pattern CONSOLIDATED_HEADER =
-            Pattern.compile("statement\\s+of\\s+(?:(?:un)?audited\\s+)?consolidated.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^\\s*statement\\s+of\\s+(?:(?:un)?audited\\s+)?consolidated.{0,60}financial result", Pattern.CASE_INSENSITIVE);
     private static final Pattern STANDALONE_HEADER =
-            Pattern.compile("statement\\s+of\\s+(?:(?:un)?audited\\s+)?standalone.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^\\s*statement\\s+of\\s+(?:(?:un)?audited\\s+)?standalone.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+    // Some filers (confirmed 2026-08-01: Celebrity Fashions, Utkarsh Small Finance Bank)
+    // don't file a separate consolidated statement at all -- no subsidiaries to
+    // consolidate -- and their table header omits the scope word entirely: "Statement of
+    // Unaudited Financial Results for the Quarter Ended ...", not "...Standalone Financial
+    // Results...". Only consulted when neither CONSOLIDATED_HEADER nor STANDALONE_HEADER
+    // matches (see parse()) -- treated as STANDALONE since that's the closest real meaning
+    // (one statement, not a group consolidation).
+    private static final Pattern UNSCOPED_HEADER =
+            Pattern.compile("^\\s*statement\\s+of\\s+(?:(?:un)?audited\\s+)?financial result", Pattern.CASE_INSENSITIVE);
     // Optional comma before the year (2026-08-01): findQuarterEndDate only scans the
     // header line itself plus the next 4 lines, and India Pesticides' header line reads
     // "...FOR THE QUARTER ENDED 30 JUNE, 2026" -- the comma sits where the old pattern
@@ -139,8 +158,13 @@ public class ResultsPdfParser {
             scope = "STANDALONE";
             startIdx = standaloneIdx;
         } else {
-            logger.warn("[ResultsPdfParser] No Standalone/Consolidated statement header found in {}", pdfUrl);
-            return null;
+            int unscopedIdx = findLineIndex(lines, UNSCOPED_HEADER);
+            if (unscopedIdx < 0) {
+                logger.warn("[ResultsPdfParser] No Standalone/Consolidated statement header found in {}", pdfUrl);
+                return null;
+            }
+            scope = "STANDALONE";
+            startIdx = unscopedIdx;
         }
         // Bound the scan to before the OTHER statement (if it appears later), or ~120
         // lines -- comfortably more than one P&L statement's row count, without

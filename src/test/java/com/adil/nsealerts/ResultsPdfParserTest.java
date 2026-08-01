@@ -191,4 +191,60 @@ class ResultsPdfParserTest {
         assertEquals(31.76, result.netProfitQoqCr, 1e-6);
         assertEquals(35.38, result.netProfitYoyCr, 1e-6);
     }
+
+    /**
+     * Real regression, 2026-08-01, caught in the same backfill session that added the
+     * (un)?audited word-order fix above: that widening made the header patterns ALSO match
+     * the Independent Auditors' Report decoy sentence whenever it happens to read "...the
+     * accompanying statement of unaudited standalone financial results of <Company>..." --
+     * confirmed on Celebrity Fashions Ltd's and Indian Terrain Fashions Ltd's real filings.
+     * The un-widened pattern never matched this decoy (it lacked "standalone" immediately
+     * after "of"); GAIL's fixture's decoy phrasing ("Report on the Unaudited Standalone
+     * Financial Results of GAIL") never contained "statement of" at all, so this fixture is
+     * needed to catch it. Fix: anchor to line start -- the decoy is always mid-sentence, the
+     * real header is always its own line.
+     */
+    @Test
+    void doesNotMatchAuditorsReportDecoyEvenWhenItContainsStandaloneAfterOf() {
+        String withDecoy =
+                "We have reviewed the accompanying statement of unaudited standalone financial results of \n" +
+                "Example Company Limited (the 'Company') for the quarter ended June 30, 2026, (the \n" +
+                "'Statement'). \n" +
+                "Statement of Unaudited Financial Results for the Quarter Ended 30th June 2026 \n" +
+                "a. Revenue from Operations 26.42 43.49 40.67 172.06 \n" +
+                "Net Profit/(Loss) after Tax for the period (0.83) (0.90) (6.19) (4.91) \n";
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(withDecoy);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.ParsedQuarterlyPdf result = parser.parse("https://example.com/example.pdf");
+
+        assertNotNull(result); // would be null if the decoy line were used as the header start
+        assertEquals(26.42, result.revenueCr, 1e-6);
+        assertEquals(-0.83, result.netProfitCr, 1e-6);
+    }
+
+    /**
+     * Real incident, 2026-08-01: Celebrity Fashions Ltd's actual filing has no separate
+     * consolidated statement (no subsidiaries) and its header omits the scope word
+     * entirely -- "Statement of Unaudited Financial Results...", not "...Standalone
+     * Financial Results...". Falls back to UNSCOPED_HEADER, treated as STANDALONE.
+     */
+    @Test
+    void parsesUnscopedHeaderAsStandalone() {
+        String unscoped =
+                "Statement of Unaudited Financial Results for the Quarter Ended 30th June 2026 \n" +
+                "a. Revenue from Operations 26.42 43.49 40.67 172.06 \n" +
+                "Net Profit/(Loss) after Tax for the period (0.83) (0.90) (6.19) (4.91) \n";
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(unscoped);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.ParsedQuarterlyPdf result = parser.parse("https://example.com/celebrity.pdf");
+
+        assertNotNull(result);
+        assertEquals("STANDALONE", result.scope);
+        assertEquals(26.42, result.revenueCr, 1e-6);
+        assertEquals(-0.83, result.netProfitCr, 1e-6);
+    }
 }
