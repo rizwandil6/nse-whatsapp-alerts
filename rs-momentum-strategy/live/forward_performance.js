@@ -10,11 +10,17 @@
  * equivalent (which needs a dedicated Screener.in fetch since its universe
  * data doesn't carry price).
  *
- * One summary row per symbol (its most recent ENTRY or ENTRY_PENDING
- * episode -- a fundamentals-pending alert already has a real price/date
- * the instant it's logged, same as a confirmed ENTRY, so it gets the same
- * "how's it doing since alert" treatment rather than waiting for
- * confirmation). Skipped if a FUNDAMENTALS_FAILED retraction came after
+ * One summary row per symbol (its most recent ENTRY, ENTRY_PENDING, or
+ * FUNDAMENTALS_CONFIRMED episode -- a fundamentals-pending alert already
+ * has a real price/date the instant it's logged, same as a confirmed
+ * ENTRY, so it gets the same "how's it doing since alert" treatment
+ * rather than waiting for confirmation. FUNDAMENTALS_CONFIRMED must
+ * qualify on its own too, not just ENTRY_PENDING: it's appended alongside
+ * the original ENTRY_PENDING row rather than replacing it, but a later
+ * log-trimming pass can drop that original row once superseded -- leaving
+ * FUNDAMENTALS_CONFIRMED as the symbol's only event, which silently fell
+ * out of tracking before this fix (LODHA and others, 2026-08-01).
+ * Skipped if a FUNDAMENTALS_FAILED retraction came after
  * it, since a retracted alert was never a real tracked position. Current
  * price = universe's latest daily close. If a later EXIT exists, also
  * reports the realized return while the position was actually open
@@ -34,7 +40,9 @@ function computeForwardPerformance(log, universeBySymbol) {
   const summaries = [];
   for (const [symbol, events] of Object.entries(bySymbol)) {
     const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
-    const lastEntry = [...sorted].reverse().find((e) => e.type === 'ENTRY' || e.type === 'ENTRY_PENDING');
+    const lastEntry = [...sorted].reverse().find(
+      (e) => e.type === 'ENTRY' || e.type === 'ENTRY_PENDING' || e.type === 'FUNDAMENTALS_CONFIRMED'
+    );
     if (!lastEntry) continue;
     const retractedAfter = sorted.find((e) => e.type === 'FUNDAMENTALS_FAILED' && e.date >= lastEntry.date);
     if (retractedAfter) continue;
