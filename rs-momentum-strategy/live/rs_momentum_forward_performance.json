@@ -1,40 +1,7 @@
 [
  {
-  "symbol": "BLUEJET",
-  "entryDate": "2026-07-30",
-  "entryPrice": 626.25,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 626.25,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "CGPOWER",
-  "entryDate": "2026-07-30",
-  "entryPrice": 863.4,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 863.4,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "NATIONALUM",
-  "entryDate": "2026-07-29",
-  "entryPrice": 347.65,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 350.05,
-  "returnSinceEntry": 0.6903494894290333
- },
- {
   "symbol": "REDINGTON",
-  "entryDate": "2026-07-29",
+  "entryDate": "2026-08-02",
   "entryPrice": 310.95,
   "status": "open",
   "exitDate": null,
@@ -42,6 +9,17 @@
   "returnWhileOpen": null,
   "currentPrice": 321.65,
   "returnSinceEntry": 3.441067695771021
+ },
+ {
+  "symbol": "CGPOWER",
+  "entryDate": "2026-08-02",
+  "entryPrice": 863.4,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 863.4,
+  "returnSinceEntry": 0
  },
  {
   "symbol": "MEDANTA",

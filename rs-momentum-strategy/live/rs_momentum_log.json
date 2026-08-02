@@ -151,5 +151,35 @@
   "date": "2026-07-30",
   "price": 863.4,
   "rsRankAtEntry": 82.24852071005917
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "NATIONALUM",
+  "date": "2026-08-02",
+  "price": 347.65,
+  "rsRankAtEntry": 80.1775147928994
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "REDINGTON",
+  "date": "2026-08-02",
+  "price": 310.95,
+  "rsRankAtEntry": 89.05325443786982,
+  "salesGrowth3Y": 15
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "BLUEJET",
+  "date": "2026-08-02",
+  "price": 626.25,
+  "rsRankAtEntry": 81.36094674556213
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "CGPOWER",
+  "date": "2026-08-02",
+  "price": 863.4,
+  "rsRankAtEntry": 82.24852071005917,
+  "salesGrowth3Y": 21
  }
 ]
