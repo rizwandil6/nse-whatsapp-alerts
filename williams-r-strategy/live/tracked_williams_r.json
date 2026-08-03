@@ -166,9 +166,9 @@
   "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
-  "shortWatch": true,
+  "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785743160000
+  "lastProcessedTimestampMs": 1785743460000
  },
  "TEXRAIL": {
   "position": null,
