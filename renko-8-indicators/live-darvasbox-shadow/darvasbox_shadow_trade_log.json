@@ -2971,5 +2971,16 @@
   "timestampMs": 1785748500000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 80,
+  "theoreticalEntry": 79.9594,
+  "entryIdx": 14,
+  "timestampMs": 1785749400000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
