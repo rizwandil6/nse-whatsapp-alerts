@@ -6,7 +6,12 @@
   "position": null
  },
  "JSWINFRA": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 325.48000000000025,
+   "entryIdx": 15,
+   "entryTimestampMs": 1785736500000
+  }
  },
  "SUZLON": {
   "position": null
@@ -27,7 +32,12 @@
   "position": null
  },
  "RAILTEL": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 290.8482500000002,
+   "entryIdx": 17,
+   "entryTimestampMs": 1785746700000
+  }
  },
  "GAIL": {
   "position": null
@@ -57,6 +67,11 @@
   "position": null
  },
  "TRITURBINE": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 606.55,
+   "entryIdx": 9,
+   "entryTimestampMs": 1785741600000
+  }
  }
 }
