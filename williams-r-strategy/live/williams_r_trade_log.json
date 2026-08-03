@@ -483,5 +483,18 @@
   "entryTimestampMs": 1785730500000,
   "exitTimestampMs": 1785736200000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2697,
+  "exitPrice": 2688.7,
+  "theoreticalExit": 2688.7,
+  "action": "R_EXIT",
+  "pnlPct": 0.3077493511308929,
+  "entryTimestampMs": 1785730200000,
+  "exitTimestampMs": 1785736500000,
+  "livePriceAvailable": true
  }
 ]
