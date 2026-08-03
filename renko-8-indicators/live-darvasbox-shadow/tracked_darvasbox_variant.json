@@ -1,0 +1,80 @@
+{
+ "CONCOR": {
+  "position": null
+ },
+ "NHPC": {
+  "position": {
+   "direction": "SHORT",
+   "entry": 79.49,
+   "entryIdx": 10,
+   "entryTimestampMs": 1785740400000,
+   "stop": 82.27214999999998
+  }
+ },
+ "JSWINFRA": {
+  "position": null
+ },
+ "SUZLON": {
+  "position": null
+ },
+ "WAAREEENER": {
+  "position": null
+ },
+ "OLAELEC": {
+  "position": null
+ },
+ "HINDCOPPER": {
+  "position": null
+ },
+ "MHRIL": {
+  "position": null
+ },
+ "RVNL": {
+  "position": null
+ },
+ "RAILTEL": {
+  "position": null
+ },
+ "GAIL": {
+  "position": null
+ },
+ "ADSL": {
+  "position": {
+   "direction": "LONG",
+   "entry": 117.2925,
+   "entryIdx": 4,
+   "entryTimestampMs": 1785732300000,
+   "stop": 113.1872625
+  }
+ },
+ "ARE&M": {
+  "position": null
+ },
+ "NCC": {
+  "position": null
+ },
+ "TEXRAIL": {
+  "position": null
+ },
+ "TITAGARH": {
+  "position": null
+ },
+ "HATHWAY": {
+  "position": null
+ },
+ "ORIENTELEC": {
+  "position": null
+ },
+ "IRCON": {
+  "position": {
+   "direction": "LONG",
+   "entry": 131.20719999999992,
+   "entryIdx": 14,
+   "entryTimestampMs": 1785735000000,
+   "stop": 126.61494799999991
+  }
+ },
+ "TRITURBINE": {
+  "position": null
+ }
+}
