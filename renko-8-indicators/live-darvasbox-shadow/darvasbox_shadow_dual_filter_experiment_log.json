@@ -418,5 +418,14 @@
   "timestampMs": 1785748500000,
   "breakoutTimestampMs": 1785748500000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 131.8487999999999,
+  "timestampMs": 1785748500000,
+  "breakoutTimestampMs": 1785748200000,
+  "shadow": true
  }
 ]
