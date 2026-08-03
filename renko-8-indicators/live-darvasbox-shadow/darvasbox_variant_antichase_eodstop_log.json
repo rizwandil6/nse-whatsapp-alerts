@@ -11,5 +11,18 @@
   "livePriceAvailable": true,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 606.5,
+  "theoreticalEntry": 606.55,
+  "stop": 627.7275,
+  "entryIdx": 9,
+  "timestampMs": 1785741600000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
