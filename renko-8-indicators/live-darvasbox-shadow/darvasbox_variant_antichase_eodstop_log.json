@@ -1,0 +1,15 @@
+[
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 79.49,
+  "theoreticalEntry": 79.56060000000001,
+  "stop": 82.27214999999998,
+  "entryIdx": 10,
+  "timestampMs": 1785740400000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
+ }
+]
