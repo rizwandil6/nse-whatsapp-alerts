@@ -1,5 +1,5 @@
 {
- "savedAtMs": 1785751839516,
+ "savedAtMs": 1785751929519,
  "state": {
   "CONCOR": {
    "builders": {
@@ -661,18 +661,18 @@
   "JKIL": {
    "builders": {
     "0.15": {
-     "lastClose": 487.27249393155284,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 3,
+     "lastClose": 485.8117728128695,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
      "lastBrickTimestampMs": 1785751140000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 487.7690108878008,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 3,
+     "lastClose": 485.81988592029313,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
      "lastBrickTimestampMs": 1785751140000,
      "seeded": true
     },
@@ -1318,11 +1318,11 @@
   "OLAELEC": {
    "builders": {
     "0.15": {
-     "lastClose": 38.620523414002996,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 6,
-     "lastBrickTimestampMs": 1785751080000,
+     "lastClose": 38.736471880422684,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785751140000,
      "seeded": true
     },
     "0.2": {
@@ -3508,10 +3508,10 @@
   "TITAGARH": {
    "builders": {
     "0.15": {
-     "lastClose": 855.8893933512055,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 3,
+     "lastClose": 858.4589872823942,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
      "lastBrickTimestampMs": 1785751140000,
      "seeded": true
     },
@@ -4384,34 +4384,34 @@
   "HATHWAY": {
    "builders": {
     "0.15": {
-     "lastClose": 10.9625078375961,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 8,
-     "lastBrickTimestampMs": 1785751140000,
-     "seeded": true
-    },
-    "0.2": {
-     "lastClose": 10.96654393467129,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 6,
-     "lastBrickTimestampMs": 1785751140000,
-     "seeded": true
-    },
-    "0.25": {
-     "lastClose": 10.963238700412587,
-     "direction": -1,
-     "runDirection": -1,
+     "lastClose": 11.044973673066625,
+     "direction": 1,
+     "runDirection": 1,
      "runLength": 5,
      "lastBrickTimestampMs": 1785751140000,
      "seeded": true
     },
-    "0.3": {
-     "lastClose": 10.981650731479746,
-     "direction": -1,
-     "runDirection": -1,
+    "0.2": {
+     "lastClose": 11.032474884538885,
+     "direction": 1,
+     "runDirection": 1,
      "runLength": 3,
+     "lastBrickTimestampMs": 1785751140000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 11.045668722691918,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785751140000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 11.047639470725208,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
      "lastBrickTimestampMs": 1785751140000,
      "seeded": true
     }
