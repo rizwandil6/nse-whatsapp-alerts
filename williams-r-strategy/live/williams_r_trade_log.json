@@ -470,5 +470,18 @@
   "entryTimestampMs": 1785730500000,
   "exitTimestampMs": 1785732900000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 113.08,
+  "exitPrice": 113.36,
+  "theoreticalExit": 113.36,
+  "action": "R_EXIT",
+  "pnlPct": -0.24761230986912022,
+  "entryTimestampMs": 1785730500000,
+  "exitTimestampMs": 1785736200000,
+  "livePriceAvailable": true
  }
 ]
