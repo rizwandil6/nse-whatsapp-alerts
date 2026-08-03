@@ -24,7 +24,7 @@
   "position": {
    "direction": "LONG",
    "entry": 221,
-   "entryIdx": 4,
+   "entryIdx": null,
    "entryTimestampMs": 1785729300000
   }
  },
@@ -38,13 +38,18 @@
   "position": null
  },
  "ADSL": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 117.44,
+   "entryIdx": 4,
+   "entryTimestampMs": 1785732300000
+  }
  },
  "ARE&M": {
   "position": {
    "direction": "LONG",
    "entry": 929,
-   "entryIdx": 8,
+   "entryIdx": null,
    "entryTimestampMs": 1785730200000
   }
  },
