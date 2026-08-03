@@ -51,12 +51,7 @@
   }
  },
  "ARE&M": {
-  "position": {
-   "direction": "LONG",
-   "entry": 929,
-   "entryIdx": null,
-   "entryTimestampMs": 1785730200000
-  }
+  "position": null
  },
  "NCC": {
   "position": null
