@@ -548,5 +548,14 @@
   "entryTimestampMs": 1785730800000,
   "exitTimestampMs": 1785742500000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 552,
+  "theoreticalEntry": 552.65,
+  "timestampMs": 1785746400000,
+  "livePriceAvailable": true
  }
 ]
