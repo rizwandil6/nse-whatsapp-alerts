@@ -64,6 +64,13 @@ const { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits } = requ
 const { syncFromRemote: syncTrackedStateFromRemote, loadTrackedState, saveAndPushTrackedState } = require('./tracked_state');
 const { ShadowDualFilterTracker } = require('./shadow_dual_filter_tracker');
 const { syncFromRemote: syncShadowLogFromRemote, recordAndPush: recordAndPushShadowEvent } = require('./shadow_log');
+const { DarvasVariantTracker } = require('./variant_tracker');
+const { syncFromRemote: syncVariantLogFromRemote, recordAndPush: recordAndPushVariantEvent } = require('./variant_log');
+const {
+  syncFromRemote: syncVariantStateFromRemote,
+  loadTrackedState: loadVariantState,
+  saveAndPushTrackedState: saveAndPushVariantState,
+} = require('./variant_tracked_state');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min, aggregateTo5MinMultiDay } = require('./bar_aggregator');
 
@@ -107,6 +114,13 @@ const trackers = {};     // symbol -> DarvasLiveTracker
 // reads or writes `trackers`, `this.position` on the real tracker, or the real
 // trade log -- a bug here cannot affect live trading.
 const shadowTrackers = {};
+// symbol -> DarvasVariantTracker -- the A/B variant (anti-chase entry +
+// EOD/wide-catastrophic-stop exit, no EMA-cross) running alongside the real
+// tracker, fed the exact same live bricks/bars and the SAME live-price fn.
+// Structurally isolated: never reads or writes `trackers`, the real tracker's
+// position, or the real trade log -- a bug here cannot affect live trading.
+// See variant_tracker.js's module docstring.
+const variantTrackers = {};
 // symbol -> 5-min bars from BEFORE today (EMA_WARMUP_LOOKBACK_DAYS calendar
 // days), fetched once/day and never mutated intraday. Prepended to today's
 // growing bars5 before every checkEmaCrossExit call so EMA(9)/EMA(20) are
@@ -123,6 +137,11 @@ for (const symbol of Object.keys(symbols)) {
     return b ? b.getLivePrice() : null;
   });
   shadowTrackers[symbol] = new ShadowDualFilterTracker(symbol);
+  // Same live-price fn as the real tracker -- the variant tests the LTP fill.
+  variantTrackers[symbol] = new DarvasVariantTracker(symbol, () => {
+    const b = tickBuilders[symbol];
+    return b ? b.getLivePrice() : null;
+  });
 }
 let currentDate = null;
 let protobufRoot = null;
@@ -336,6 +355,19 @@ function dispatchShadowEvent(e) {
   recordAndPushShadowEvent(e, dateStr).catch((err) => console.error('shadow dispatchShadowEvent threw:', err.message));
 }
 
+/** A/B variant experiment -- logs to its OWN branch/file (variant_log.js) and
+ * persists its OWN position state (variant_tracked_state.js), never touching
+ * real trades, the real trade log, the dual-filter shadow, or Telegram. */
+function dispatchVariantEvent(e) {
+  e.brickPct = BRICK_LABEL;
+  const { dateStr } = nowIst();
+  recordAndPushVariantEvent(e, dateStr).catch((err) => console.error('variant dispatchVariantEvent threw:', err.message));
+  // Persist on every ENTRY/EXIT, right after this.position changed -- same
+  // reasoning as dispatchEvent's saveAndPushTrackedState (live-LTP fills mean
+  // a restart can't safely re-derive an open position from a brick replay).
+  saveAndPushVariantState(variantTrackers).catch((err) => console.error('saveAndPushVariantState threw:', err.message));
+}
+
 function maybeResetForNewDay(nowMs) {
   const dateStr = istDateStr(nowMs);
   if (dateStr === currentDate) return;
@@ -346,6 +378,7 @@ function maybeResetForNewDay(nowMs) {
     oneMinBars[symbol] = [];
     trackers[symbol].resetForNewDay();
     shadowTrackers[symbol].resetForNewDay();
+    variantTrackers[symbol].resetForNewDay();
   }
   console.log(`New trading day: ${dateStr}. Tracker + in-memory 1-min bar buffers + day stats reset.`);
   // Push the now-all-null tracked state too -- otherwise a restart later
@@ -458,6 +491,23 @@ function ingestOneMinBar(symbol, bar, silent) {
     if (shadowEod) shadowEvents.push(shadowEod);
   }
   for (const e of shadowEvents) dispatchShadowEvent(e);
+
+  // A/B variant experiment -- mirrors the REAL tracker's cadence, NOT the
+  // shadow's: it fills at the live LTP (non-deterministic), so it dispatches
+  // only when NOT in silent backfill, exactly like the real events above.
+  // Substitutes the anti-chase entry gate + EOD/wide-catastrophic-stop exit
+  // (no EMA cross). Own log + state branch; never touches real trades.
+  const variantTracker = variantTrackers[symbol];
+  const variantEvents = variantTracker.processBricks(bricks, bars5, bars5Today);
+  const variantStop = variantTracker.checkCatastrophicStop(bars); // raw 1-min bars -- fastest catastrophic-stop detection
+  if (variantStop) variantEvents.push(variantStop);
+  if (minutesOfDay >= MARKET_CLOSE_MIN) {
+    const variantEod = variantTracker.forceEodClose(bricks);
+    if (variantEod) variantEvents.push(variantEod);
+  }
+  if (!silent) {
+    for (const e of variantEvents) dispatchVariantEvent(e);
+  }
 }
 
 async function startupBackfillIfNeeded() {
@@ -513,6 +563,8 @@ function checkEodSweep() {
     if (eodEvent) dispatchEvent(symbol, eodEvent);
     const shadowEod = shadowTrackers[symbol].forceEodClose(bricks);
     if (shadowEod) dispatchShadowEvent(shadowEod);
+    const variantEod = variantTrackers[symbol].forceEodClose(bricks);
+    if (variantEod) dispatchVariantEvent(variantEod);
   }
   maybeSendEodSummary();
 }
@@ -648,6 +700,8 @@ async function main() {
   // dependency), so a restart's backfill replay just re-derives identical shadow
   // events; syncing first only avoids re-pushing what's already recorded remotely.
   await syncShadowLogFromRemote();
+  // A/B variant experiment log -- its own branch; sync first for the same reason.
+  await syncVariantLogFromRemote();
 
   // Restore any already-open positions BEFORE startupBackfillIfNeeded() runs --
   // see darvas_tracker.js's toJSON docstring for the real incident this fixes.
@@ -674,6 +728,27 @@ async function main() {
   }
   if (restoredCount > 0) {
     console.log(`Restored ${restoredCount} already-open position(s) from persisted state.`);
+  }
+
+  // A/B variant experiment -- restore its OWN persisted positions, from its OWN
+  // state file, in a separate loop so it stays fully isolated from the real
+  // tracker's restore (the two can legitimately hold different positions). Same
+  // day-scope guard: a position whose entry predates today is stale, discard it.
+  await syncVariantStateFromRemote();
+  const variantState = loadVariantState();
+  let variantRestored = 0;
+  for (const symbol of Object.keys(symbols)) {
+    const persisted = variantState[symbol];
+    if (!persisted || !persisted.position) continue;
+    if (istDateStr(persisted.position.entryTimestampMs) !== startupDateStr) {
+      console.warn(`  [variant] ${symbol}: persisted position is from a prior day -- discarding.`);
+      continue;
+    }
+    variantTrackers[symbol].restorePosition(persisted);
+    variantRestored++;
+  }
+  if (variantRestored > 0) {
+    console.log(`[variant] Restored ${variantRestored} already-open position(s) from persisted state.`);
   }
 
   // Rebuild today's running P&L from the persisted log BEFORE anything else --
