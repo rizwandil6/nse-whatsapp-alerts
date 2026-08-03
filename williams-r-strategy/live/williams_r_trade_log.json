@@ -496,5 +496,18 @@
   "entryTimestampMs": 1785730200000,
   "exitTimestampMs": 1785736500000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 834,
+  "exitPrice": 856.8,
+  "theoreticalExit": 856.8,
+  "action": "R_EXIT",
+  "pnlPct": -2.7338129496402823,
+  "entryTimestampMs": 1785730200000,
+  "exitTimestampMs": 1785737100000,
+  "livePriceAvailable": true
  }
 ]
