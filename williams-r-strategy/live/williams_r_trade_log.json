@@ -509,5 +509,18 @@
   "entryTimestampMs": 1785730200000,
   "exitTimestampMs": 1785737100000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 175.49,
+  "exitPrice": 173.72,
+  "theoreticalExit": 173.72,
+  "action": "R_EXIT",
+  "pnlPct": -1.0086044788876918,
+  "entryTimestampMs": 1785730200000,
+  "exitTimestampMs": 1785740700000,
+  "livePriceAvailable": true
  }
 ]
