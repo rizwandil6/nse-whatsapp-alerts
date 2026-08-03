@@ -1,38 +1,38 @@
 {
- "savedAtMs": 1785736739582,
+ "savedAtMs": 1785742047745,
  "state": {
   "CONCOR": {
    "builders": {
     "0.15": {
-     "lastClose": 527.4274812460144,
+     "lastClose": 523.4812687940065,
      "direction": -1,
      "runDirection": -1,
      "runLength": 3,
-     "lastBrickTimestampMs": 1785732180000,
+     "lastBrickTimestampMs": 1785741420000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 526.9107751684356,
+     "lastClose": 523.7556292314408,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785733560000,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1785741420000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 529.2327554496616,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785730740000,
+     "lastClose": 523.9602410671203,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785741360000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 529.5855209404269,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785730980000,
+     "lastClose": 524.8335357622194,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785737520000,
      "seeded": true
     }
    },
@@ -338,40 +338,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "NHPC": {
    "builders": {
     "0.15": {
-     "lastClose": 79.84468444775871,
+     "lastClose": 79.485922049888,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785736560000,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1785741300000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 79.81580240802505,
+     "lastClose": 79.49685846160257,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785736560000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785740640000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 80.19279828854583,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785733920000,
+     "lastClose": 79.39387252667883,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785741600000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 80.26634378295451,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785735000000,
+     "lastClose": 79.54611171299878,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785740580000,
      "seeded": true
     }
    },
@@ -701,40 +701,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "JSWINFRA": {
    "builders": {
     "0.15": {
-     "lastClose": 326.4018701696015,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 6,
-     "lastBrickTimestampMs": 1785736560000,
-     "seeded": true
-    },
-    "0.2": {
-     "lastClose": 326.6007654208911,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 5,
-     "lastBrickTimestampMs": 1785736560000,
-     "seeded": true
-    },
-    "0.25": {
-     "lastClose": 326.0647003336558,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 17,
-     "lastBrickTimestampMs": 1785736560000,
-     "seeded": true
-    },
-    "0.3": {
-     "lastClose": 326.152690730367,
+     "lastClose": 326.88632446890915,
      "direction": 1,
      "runDirection": 1,
      "runLength": 3,
-     "lastBrickTimestampMs": 1785736560000,
+     "lastBrickTimestampMs": 1785741660000,
+     "seeded": true
+    },
+    "0.2": {
+     "lastClose": 326.5929270809047,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785741660000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 326.87373312538205,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785741660000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 325.171306090082,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785740700000,
      "seeded": true
     }
    },
@@ -1064,40 +1064,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "JKIL": {
    "builders": {
     "0.15": {
-     "lastClose": 485.82598303103424,
+     "lastClose": 488.74530477980727,
      "direction": 1,
      "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785734160000,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1785741180000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 484.86764050497163,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785732900000,
-     "seeded": true
-    },
-    "0.25": {
-     "lastClose": 484.6838605327916,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785733140000,
-     "seeded": true
-    },
-    "0.3": {
-     "lastClose": 486.6153389173893,
+     "lastClose": 488.7582339759059,
      "direction": 1,
      "runDirection": 1,
      "runLength": 4,
-     "lastBrickTimestampMs": 1785729300000,
+     "lastBrickTimestampMs": 1785741180000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 488.32808488235787,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741120000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 488.0751849341415,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1785740520000,
      "seeded": true
     }
    },
@@ -1427,32 +1427,32 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "SUZLON": {
    "builders": {
     "0.15": {
-     "lastClose": 48.825417662130825,
+     "lastClose": 48.89843574492052,
      "direction": -1,
      "runDirection": -1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785731100000,
+     "lastBrickTimestampMs": 1785741420000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 48.91416354284117,
+     "lastClose": 49.01199186992685,
      "direction": 1,
      "runDirection": 1,
-     "runLength": 11,
-     "lastBrickTimestampMs": 1785729420000,
+     "runLength": 12,
+     "lastBrickTimestampMs": 1785737160000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 48.896217448510086,
+     "lastClose": 49.01845799213136,
      "direction": 1,
      "runDirection": 1,
-     "runLength": 14,
-     "lastBrickTimestampMs": 1785729300000,
+     "runLength": 15,
+     "lastBrickTimestampMs": 1785737160000,
      "seeded": true
     },
     "0.3": {
@@ -1790,32 +1790,32 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "WAAREEENER": {
    "builders": {
     "0.15": {
-     "lastClose": 2686.3146840838103,
+     "lastClose": 2686.3025956813312,
      "direction": -1,
      "runDirection": -1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785736560000,
+     "lastBrickTimestampMs": 1785738660000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 2690.6087426241875,
+     "lastClose": 2685.227525138939,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785730440000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785738300000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 2690.6341862912245,
+     "lastClose": 2683.9076008254965,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785730440000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785738840000,
      "seeded": true
     },
     "0.3": {
@@ -2153,32 +2153,32 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "OLAELEC": {
    "builders": {
     "0.15": {
-     "lastClose": 39.08737750263748,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785734820000,
+     "lastClose": 38.79510031915163,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1785741420000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 38.93440643610559,
+     "lastClose": 38.85653762323338,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785732780000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741240000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 39.06526393943381,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 6,
-     "lastBrickTimestampMs": 1785729000000,
+     "lastClose": 38.87018177763626,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785739560000,
      "seeded": true
     },
     "0.3": {
@@ -2516,40 +2516,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "HINDCOPPER": {
    "builders": {
     "0.15": {
-     "lastClose": 493.45824164380355,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 6,
-     "lastBrickTimestampMs": 1785736560000,
+     "lastClose": 493.4526902635664,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785741120000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 493.55377369573256,
+     "lastClose": 492.5666661483411,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785736560000,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1785736860000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 493.93180147081426,
+     "lastClose": 492.69697196713724,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785736500000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785736860000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 494.3085409979059,
+     "lastClose": 492.82561537491216,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785736500000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785736860000,
      "seeded": true
     }
    },
@@ -2879,32 +2879,32 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "MHRIL": {
    "builders": {
     "0.15": {
-     "lastClose": 218.97096636678407,
+     "lastClose": 218.96998099854397,
      "direction": 1,
      "runDirection": 1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785736320000,
+     "lastBrickTimestampMs": 1785739620000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 219.18276698694027,
+     "lastClose": 219.1810135283113,
      "direction": 1,
      "runDirection": 1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785736320000,
+     "lastBrickTimestampMs": 1785739620000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 219.2343850531273,
-     "direction": 1,
-     "runDirection": 1,
+     "lastClose": 218.13958334276825,
+     "direction": -1,
+     "runDirection": -1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785736320000,
+     "lastBrickTimestampMs": 1785738060000,
      "seeded": true
     },
     "0.3": {
@@ -3242,32 +3242,32 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "RVNL": {
    "builders": {
     "0.15": {
-     "lastClose": 230.33853599612422,
+     "lastClose": 229.99302819213003,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 5,
-     "lastBrickTimestampMs": 1785736140000,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1785740880000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 230.68164542816422,
+     "lastClose": 230.2202821373079,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785735960000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785737220000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 230.8514957112924,
+     "lastClose": 230.27436697201415,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785735840000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785737160000,
      "seeded": true
     },
     "0.3": {
@@ -3605,40 +3605,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "RAILTEL": {
    "builders": {
     "0.15": {
-     "lastClose": 289.3667920129638,
+     "lastClose": 288.06659369813866,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 5,
-     "lastBrickTimestampMs": 1785735960000,
+     "runLength": 8,
+     "lastBrickTimestampMs": 1785741480000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 289.45293062414265,
+     "lastClose": 288.29627671336857,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785735960000,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1785741120000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 289.3596364523295,
+     "lastClose": 287.91464676779566,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785735960000,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1785741480000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 289.1245940820357,
+     "lastClose": 288.2572202997896,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785736140000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785741120000,
      "seeded": true
     }
    },
@@ -3968,24 +3968,24 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "GAIL": {
    "builders": {
     "0.15": {
-     "lastClose": 173.09137610460544,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785735720000,
+     "lastClose": 173.87106503727173,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785741120000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 173.17050561627852,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785735240000,
+     "lastClose": 173.86318486524482,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741120000,
      "seeded": true
     },
     "0.25": {
@@ -4331,16 +4331,16 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "ADSL": {
    "builders": {
     "0.15": {
-     "lastClose": 117.11888430323671,
+     "lastClose": 117.11835726885026,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785734820000,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785741480000,
      "seeded": true
     },
     "0.2": {
@@ -4694,40 +4694,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "ARE&M": {
    "builders": {
     "0.15": {
-     "lastClose": 934.4842822640557,
+     "lastClose": 928.8899794974749,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785733140000,
+     "runLength": 7,
+     "lastBrickTimestampMs": 1785741720000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 935.0720519630335,
+     "lastClose": 929.4728330353024,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785733140000,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1785741480000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 934.0074598122106,
+     "lastClose": 929.3432600597735,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785733200000,
+     "runLength": 4,
+     "lastBrickTimestampMs": 1785741480000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 938.3208651611502,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 6,
-     "lastBrickTimestampMs": 1785732840000,
+     "lastClose": 929.9012867033957,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741480000,
      "seeded": true
     }
    },
@@ -5057,16 +5057,16 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "NCC": {
    "builders": {
     "0.15": {
-     "lastClose": 144.8631982763401,
+     "lastClose": 144.86254639268125,
      "direction": 1,
      "runDirection": 1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785734340000,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785737100000,
      "seeded": true
     },
     "0.2": {
@@ -5400,16 +5400,16 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "TEXRAIL": {
    "builders": {
     "0.15": {
-     "lastClose": 113.42023642323224,
+     "lastClose": 113.24959644369342,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 3,
-     "lastBrickTimestampMs": 1785735900000,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785741480000,
      "seeded": true
     },
     "0.2": {
@@ -5429,11 +5429,11 @@
      "seeded": true
     },
     "0.3": {
-     "lastClose": 113.85495909213722,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 8,
-     "lastBrickTimestampMs": 1785733140000,
+     "lastClose": 113.17285403221622,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785741540000,
      "seeded": true
     }
    },
@@ -5763,40 +5763,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "TITAGARH": {
    "builders": {
     "0.15": {
-     "lastClose": 857.1867280410697,
+     "lastClose": 854.6170965270846,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785735960000,
+     "runLength": 6,
+     "lastBrickTimestampMs": 1785741660000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 857.6399250549908,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785735900000,
-     "seeded": true
-    },
-    "0.25": {
-     "lastClose": 857.718409074102,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785735900000,
-     "seeded": true
-    },
-    "0.3": {
-     "lastClose": 857.6381746799876,
+     "lastClose": 854.2127959144711,
      "direction": -1,
      "runDirection": -1,
      "runLength": 4,
-     "lastBrickTimestampMs": 1785734640000,
+     "lastBrickTimestampMs": 1785741780000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 855.5741130514168,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741420000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 855.0652601559476,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 5,
+     "lastBrickTimestampMs": 1785741420000,
      "seeded": true
     }
    },
@@ -6126,32 +6126,32 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "MANINDS": {
    "builders": {
     "0.15": {
-     "lastClose": 544.5865737162147,
-     "direction": 1,
-     "runDirection": 1,
+     "lastClose": 543.7647999449126,
+     "direction": -1,
+     "runDirection": -1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785736140000,
+     "lastBrickTimestampMs": 1785741540000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 544.9161942721713,
-     "direction": 1,
-     "runDirection": 1,
+     "lastClose": 543.8176607140439,
+     "direction": -1,
+     "runDirection": -1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785736140000,
+     "lastBrickTimestampMs": 1785741540000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 544.8838505406459,
+     "lastClose": 544.8770395137988,
      "direction": 1,
      "runDirection": 1,
-     "runLength": 9,
-     "lastBrickTimestampMs": 1785735060000,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785739800000,
      "seeded": true
     },
     "0.3": {
@@ -6489,32 +6489,32 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "IRCON": {
    "builders": {
     "0.15": {
-     "lastClose": 130.8213196741013,
+     "lastClose": 130.42856313253327,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785736140000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741480000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 130.75597646242895,
+     "lastClose": 130.4944645095041,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785736140000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741420000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 130.68916346655013,
+     "lastClose": 130.36244055788376,
      "direction": -1,
      "runDirection": -1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785736500000,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741840000,
      "seeded": true
     },
     "0.3": {
@@ -6844,40 +6844,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "TRITURBINE": {
    "builders": {
     "0.15": {
-     "lastClose": 607.730480241886,
+     "lastClose": 606.8120578397925,
      "direction": -1,
      "runDirection": -1,
      "runLength": 5,
-     "lastBrickTimestampMs": 1785736260000,
+     "lastBrickTimestampMs": 1785741840000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 607.0888995975577,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 4,
-     "lastBrickTimestampMs": 1785736500000,
-     "seeded": true
-    },
-    "0.25": {
-     "lastClose": 607.0612728081562,
+     "lastClose": 607.0816145599026,
      "direction": -1,
      "runDirection": -1,
      "runLength": 3,
-     "lastBrickTimestampMs": 1785736500000,
+     "lastBrickTimestampMs": 1785741840000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 607.0498904804309,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741840000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 607.6935486785472,
+     "lastClose": 607.6826102438943,
      "direction": -1,
      "runDirection": -1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785736260000,
+     "lastBrickTimestampMs": 1785741540000,
      "seeded": true
     }
    },
@@ -7207,40 +7207,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "HATHWAY": {
    "builders": {
     "0.15": {
-     "lastClose": 10.995914832342425,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785736500000,
+     "lastClose": 10.995840610084306,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 3,
+     "lastBrickTimestampMs": 1785741000000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 10.989004483151586,
-     "direction": 1,
-     "runDirection": 1,
+     "lastClose": 11.01089440443413,
+     "direction": -1,
+     "runDirection": -1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785733380000,
+     "lastBrickTimestampMs": 1785740580000,
      "seeded": true
     },
     "0.25": {
-     "lastClose": 10.991265040365898,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 8,
-     "lastBrickTimestampMs": 1785731460000,
+     "lastClose": 10.99112764998224,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785741000000,
      "seeded": true
     },
     "0.3": {
-     "lastClose": 10.982144919105647,
+     "lastClose": 11.048136627924553,
      "direction": 1,
      "runDirection": 1,
-     "runLength": 8,
-     "lastBrickTimestampMs": 1785731460000,
+     "runLength": 10,
+     "lastBrickTimestampMs": 1785740100000,
      "seeded": true
     }
    },
@@ -7558,16 +7558,16 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "ORIENTELEC": {
    "builders": {
     "0.15": {
-     "lastClose": 174.5708869556146,
-     "direction": -1,
-     "runDirection": -1,
-     "runLength": 6,
-     "lastBrickTimestampMs": 1785733140000,
+     "lastClose": 175.0949924009771,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785739080000,
      "seeded": true
     },
     "0.2": {
@@ -7909,40 +7909,40 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   },
   "STERTOOLS": {
    "builders": {
     "0.15": {
-     "lastClose": 253.53354994163988,
-     "direction": 1,
-     "runDirection": 1,
+     "lastClose": 253.14698414428628,
+     "direction": -1,
+     "runDirection": -1,
      "runLength": 4,
-     "lastBrickTimestampMs": 1785736560000,
+     "lastBrickTimestampMs": 1785741300000,
      "seeded": true
     },
     "0.2": {
-     "lastClose": 253.39542140422793,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785736560000,
-     "seeded": true
-    },
-    "0.25": {
-     "lastClose": 253.42137131915848,
-     "direction": 1,
-     "runDirection": 1,
-     "runLength": 2,
-     "lastBrickTimestampMs": 1785736560000,
-     "seeded": true
-    },
-    "0.3": {
-     "lastClose": 252.74823193768708,
+     "lastClose": 253.38933997492882,
      "direction": -1,
      "runDirection": -1,
      "runLength": 2,
-     "lastBrickTimestampMs": 1785734760000,
+     "lastBrickTimestampMs": 1785741300000,
+     "seeded": true
+    },
+    "0.25": {
+     "lastClose": 253.4118681662219,
+     "direction": -1,
+     "runDirection": -1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785741300000,
+     "seeded": true
+    },
+    "0.3": {
+     "lastClose": 254.26699606340065,
+     "direction": 1,
+     "runDirection": 1,
+     "runLength": 2,
+     "lastBrickTimestampMs": 1785739980000,
      "seeded": true
     }
    },
@@ -8272,7 +8272,7 @@
      "consecutiveOpposite": 0
     }
    },
-   "lastCandleTimestampMs": 1785736560000
+   "lastCandleTimestampMs": 1785741960000
   }
  }
 }
