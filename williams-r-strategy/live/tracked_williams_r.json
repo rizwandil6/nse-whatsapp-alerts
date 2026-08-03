@@ -24,7 +24,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785742200000
+  "lastProcessedTimestampMs": 1785742560000
  },
  "HINDCOPPER": {
   "position": null,
@@ -92,11 +92,11 @@
  "ORIENTELEC": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": false,
+  "longWatch": true,
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785742200000
+  "lastProcessedTimestampMs": 1785742560000
  },
  "RAILTEL": {
   "position": null,
