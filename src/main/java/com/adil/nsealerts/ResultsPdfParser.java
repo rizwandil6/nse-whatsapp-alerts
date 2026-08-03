@@ -104,8 +104,16 @@ public class ResultsPdfParser {
     // "...FOR THE QUARTER ENDED 30 JUNE, 2026" -- the comma sits where the old pattern
     // required plain whitespace, so the header line itself (the most likely place to find
     // this) failed to match.
-    private static final Pattern QUARTER_ENDED =
+    private static final Pattern QUARTER_ENDED_DMY =
             Pattern.compile("quarter\\s+ended\\s+(\\d{1,2})(?:st|nd|rd|th)?\\s+([A-Za-z]+)\\s*,?\\s+(\\d{4})",
+                    Pattern.CASE_INSENSITIVE);
+    // US-style month-first order, confirmed 2026-08-03 (Ganesha Ecosphere's real Jun 2026
+    // filing): "Statement of Unaudited Consolidated Financial Results for the quarter ended
+    // June 30, 2026" -- month name before the day, not day-before-month like every other
+    // filing seen so far. Tried as a fallback (see findQuarterEndDate) so the far more
+    // common DMY order keeps matching first.
+    private static final Pattern QUARTER_ENDED_MDY =
+            Pattern.compile("quarter\\s+ended\\s+([A-Za-z]+)\\s+(\\d{1,2})(?:st|nd|rd|th)?,?\\s+(\\d{4})",
                     Pattern.CASE_INSENSITIVE);
 
     private static final Pattern REVENUE_LABEL = Pattern.compile("revenue\\s+from\\s+operations", Pattern.CASE_INSENSITIVE);
@@ -230,26 +238,37 @@ public class ResultsPdfParser {
 
     private LocalDate findQuarterEndDate(String[] lines, int fromIdx, int toIdx) {
         for (int i = fromIdx; i < toIdx; i++) {
-            Matcher m = QUARTER_ENDED.matcher(lines[i]);
-            if (m.find()) {
-                try {
-                    int day = Integer.parseInt(m.group(1));
-                    String monthName = m.group(2);
-                    int year = Integer.parseInt(m.group(3));
-                    int month = java.time.Month.valueOf(monthName.toUpperCase(Locale.ROOT)).getValue();
-                    return LocalDate.of(year, month, day);
-                } catch (Exception e) {
-                    // fall through to try formatting via DateTimeFormatter as a second attempt
-                    try {
-                        return LocalDate.parse(m.group(1) + " " + m.group(2) + " " + m.group(3),
-                                DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH));
-                    } catch (Exception e2) {
-                        logger.warn("[ResultsPdfParser] Failed to parse quarter-end date from '{}': {}", lines[i], e2.getMessage());
-                    }
-                }
+            Matcher dmy = QUARTER_ENDED_DMY.matcher(lines[i]);
+            if (dmy.find()) {
+                LocalDate parsed = parseDmyDate(dmy.group(1), dmy.group(2), dmy.group(3), lines[i]);
+                if (parsed != null) return parsed;
+            }
+            Matcher mdy = QUARTER_ENDED_MDY.matcher(lines[i]);
+            if (mdy.find()) {
+                LocalDate parsed = parseDmyDate(mdy.group(2), mdy.group(1), mdy.group(3), lines[i]);
+                if (parsed != null) return parsed;
             }
         }
         return null;
+    }
+
+    /** Shared by both DMY and MDY matches, once each has been normalized to (day, monthName, year). */
+    private LocalDate parseDmyDate(String dayStr, String monthName, String yearStr, String sourceLine) {
+        try {
+            int day = Integer.parseInt(dayStr);
+            int year = Integer.parseInt(yearStr);
+            int month = java.time.Month.valueOf(monthName.toUpperCase(Locale.ROOT)).getValue();
+            return LocalDate.of(year, month, day);
+        } catch (Exception e) {
+            // fall through to try formatting via DateTimeFormatter as a second attempt
+            try {
+                return LocalDate.parse(dayStr + " " + monthName + " " + yearStr,
+                        DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH));
+            } catch (Exception e2) {
+                logger.warn("[ResultsPdfParser] Failed to parse quarter-end date from '{}': {}", sourceLine, e2.getMessage());
+                return null;
+            }
+        }
     }
 
     /** [current, QoQ base, YoY base] -- the first 3 numbers on whichever line matches

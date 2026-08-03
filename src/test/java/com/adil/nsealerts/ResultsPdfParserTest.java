@@ -247,4 +247,30 @@ class ResultsPdfParserTest {
         assertEquals(26.42, result.revenueCr, 1e-6);
         assertEquals(-0.83, result.netProfitCr, 1e-6);
     }
+
+    /**
+     * Real incident, 2026-08-03: Ganesha Ecosphere Ltd's (GANECOS) actual Jun 2026 filing
+     * writes the quarter-end date month-first, US-style -- "quarter ended June 30, 2026" --
+     * instead of the day-first order every other real filing seen so far used ("quarter
+     * ended 30 June 2026" / "...30th June, 2026"). QUARTER_ENDED_DMY alone never matches
+     * this line (it requires digits before the month name), so the header/revenue/profit
+     * were all found fine but the whole parse still failed on "no quarter-end date".
+     */
+    @Test
+    void parsesMonthFirstUsStyleQuarterEndedDate() {
+        String mdyDate =
+                "Statement of Unaudited Consolidated Financial Results for the quarter ended June 30, 2026 \n" +
+                "I Revenue from operations 42,366.67 42,394.13 33,712.42 1,48,166.29 \n" +
+                "IX Profit for the period (VII-VIII) 2,903.48 2,321.14 1,075.36 3,821.35 \n";
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(mdyDate);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.ParsedQuarterlyPdf result = parser.parse("https://example.com/ganecos.pdf");
+
+        assertNotNull(result);
+        assertEquals(LocalDate.parse("2026-06-30"), result.quarterEndDate);
+        assertEquals(42366.67, result.revenueCr, 1e-6);
+        assertEquals(2903.48, result.netProfitCr, 1e-6);
+    }
 }
