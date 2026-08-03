@@ -15,6 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 const { getRemoteFile, ensureBranchExists, putFile } = require('./github_contents');
+const { serialize } = require('./github_push_queue');
 
 const REPO_REL_PATH = 'renko-8-indicators/live-darvasbox-shadow/tracked_darvasbox_shadow.json';
 const DATA_BRANCH = 'data/darvasbox-shadow-0.25pct-1pctSL-trade-log'; // same branch trade_log.js already uses
@@ -46,10 +47,13 @@ function loadTrackedState() {
   }
 }
 
-let pushChain = Promise.resolve();
-
 /** trackers = the symbol -> DarvasLiveTracker map; writes/pushes the FULL current
- * snapshot every time (cheap -- one small JSON object per symbol, ~18 symbols total). */
+ * snapshot every time (cheap -- one small JSON object per symbol, ~18 symbols total).
+ * Pushed through the SHARED per-branch queue (github_push_queue.js), not a local
+ * pushChain -- this shares DATA_BRANCH with trade_log.js, and a local-only chain
+ * here couldn't stop trade_log.js's push from racing against this one (confirmed
+ * live 2026-08-03: trade_log.js's push -- the dashboard's actual data source --
+ * was losing that race almost every time). */
 function saveAndPushTrackedState(trackers) {
   const state = {};
   for (const [symbol, tracker] of Object.entries(trackers)) {
@@ -57,9 +61,7 @@ function saveAndPushTrackedState(trackers) {
   }
   fs.writeFileSync(LOCAL_PATH, JSON.stringify(state, null, 1));
 
-  const run = () => doPush();
-  pushChain = pushChain.then(run, run);
-  return pushChain;
+  return serialize(DATA_BRANCH, () => doPush());
 }
 
 async function doPush() {

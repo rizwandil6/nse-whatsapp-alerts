@@ -12,6 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 const { getRemoteFile, ensureBranchExists, putFile } = require('./github_contents');
+const { serialize } = require('./github_push_queue');
 
 const REPO_REL_PATH = 'renko-8-indicators/live-darvasbox-shadow/tracked_darvasbox_variant.json';
 const DATA_BRANCH = 'data/darvasbox-variant-antichase-eodstop'; // same branch variant_log.js uses
@@ -41,17 +42,17 @@ function loadTrackedState() {
   }
 }
 
-let pushChain = Promise.resolve();
-
+// Pushed through the SHARED per-branch queue (github_push_queue.js), not a local
+// pushChain -- variant_log.js shares this DATA_BRANCH, and a local-only chain here
+// couldn't stop this push from racing against that one (same class of bug
+// confirmed live 2026-08-03 on trade_log.js/tracked_state.js's shared branch).
 function saveAndPushTrackedState(trackers) {
   const state = {};
   for (const [symbol, tracker] of Object.entries(trackers)) {
     state[symbol] = tracker.toJSON();
   }
   fs.writeFileSync(LOCAL_PATH, JSON.stringify(state, null, 1));
-  const run = () => doPush();
-  pushChain = pushChain.then(run, run);
-  return pushChain;
+  return serialize(DATA_BRANCH, () => doPush());
 }
 
 async function doPush() {

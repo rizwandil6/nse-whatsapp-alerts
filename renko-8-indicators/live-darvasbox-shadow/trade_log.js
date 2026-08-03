@@ -21,6 +21,7 @@
 const fs = require('fs');
 const path = require('path');
 const { getRemoteFile, ensureBranchExists, putFile } = require('./github_contents');
+const { serialize } = require('./github_push_queue');
 
 const REPO_REL_PATH = 'renko-8-indicators/live-darvasbox-shadow/darvasbox_shadow_trade_log.json';
 const DATA_BRANCH = 'data/darvasbox-shadow-0.25pct-1pctSL-trade-log';
@@ -114,16 +115,13 @@ function recordTrade(exitEvent) {
   return true;
 }
 
-// Serializes every push -- same reasoning as renko-python-backtest/live/trade_log.js:
-// recordTrade() itself is safe (sync fs read/write), only the async GitHub push needs
-// serializing so a burst of near-simultaneous events can't race on branch creation /
-// stale-SHA writes.
-let pushChain = Promise.resolve();
-
+// Serializes every push through the SHARED per-branch queue (github_push_queue.js),
+// not a local pushChain -- tracked_state.js pushes to this same DATA_BRANCH, and a
+// local-only chain here couldn't stop this file's push from racing against that one
+// (confirmed live 2026-08-03: this push was losing that race almost every time,
+// failing with a stale-SHA 409 with no retry -- see github_push_queue.js).
 function pushToGitHub(dateLabel) {
-  const run = () => doPush(dateLabel);
-  pushChain = pushChain.then(run, run);
-  return pushChain;
+  return serialize(DATA_BRANCH, () => doPush(dateLabel));
 }
 
 async function doPush(dateLabel) {
