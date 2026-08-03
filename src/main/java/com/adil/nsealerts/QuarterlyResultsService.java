@@ -144,13 +144,31 @@ public class QuarterlyResultsService {
                 eps, epsYoyPct, epsQoqPct, ebitdaCr, ebitdaYoyPct, ebitdaQoqPct,
                 ebitdaYoySwingType, ebitdaQoqSwingType);
 
+        ResultsPdfParser.DividendInfo dividendInfo = scanForDividendSafely(sourceLink);
+
         upsert(symbol, companyName, quarterLabel, quarterEndDate, revenueCr, netProfitCr,
                 revenueYoyCr, netProfitYoyCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType,
                 revenueQoqCr, netProfitQoqCr, revenueQoqPct, netProfitQoqPct, profitQoqSwingType,
                 operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct, verdict,
                 ebitdaCr, ebitdaYoyCr, ebitdaYoyPct, ebitdaYoySwingType,
                 ebitdaQoqCr, ebitdaQoqPct, ebitdaQoqSwingType,
+                dividendInfo != null ? dividendInfo.amountPerShare : null,
+                dividendInfo != null ? dividendInfo.recordDate : null,
                 aiJudgment, announcementCategory, announcementDate, sourceLink);
+    }
+
+    /** Screener.in doesn't carry dividend data at all, so this is called for EVERY recorded
+     * quarter regardless of whether the financial figures themselves came from Screener or
+     * the PDF fallback -- always needs the filed PDF itself. Best-effort: any failure here
+     * (bad URL, unreachable NSE, unparseable PDF) must never block recording the actual
+     * results, so it's caught and logged rather than propagated. */
+    private ResultsPdfParser.DividendInfo scanForDividendSafely(String sourceLink) {
+        try {
+            return resultsPdfParser.scanForDividend(sourceLink);
+        } catch (Exception e) {
+            logger.warn("[QuarterlyResults] Dividend scan failed for {}: {}", sourceLink, e.getMessage());
+            return null;
+        }
     }
 
     /** Fallback path when Screener.in's own table is stale relative to `announcementDate`
@@ -190,12 +208,16 @@ public class QuarterlyResultsService {
                 profitYoySwingType, profitQoqSwingType, pdf.operatingMarginPct, marginYoyPp, marginQoqPp,
                 null, null, null, pdf.ebitdaCr, ebitdaYoyPct, ebitdaQoqPct, ebitdaYoySwingType, ebitdaQoqSwingType);
 
+        ResultsPdfParser.DividendInfo dividendInfo = scanForDividendSafely(sourceLink);
+
         upsert(symbol, companyName, quarterLabel, pdf.quarterEndDate, pdf.revenueCr, pdf.netProfitCr,
                 pdf.revenueYoyCr, pdf.netProfitYoyCr, revenueYoyPct, netProfitYoyPct, profitYoySwingType,
                 pdf.revenueQoqCr, pdf.netProfitQoqCr, revenueQoqPct, netProfitQoqPct, profitQoqSwingType,
                 pdf.operatingMarginPct, marginYoyPp, marginQoqPp, null, null, null, verdict,
                 pdf.ebitdaCr, pdf.ebitdaYoyCr, ebitdaYoyPct, ebitdaYoySwingType,
                 pdf.ebitdaQoqCr, ebitdaQoqPct, ebitdaQoqSwingType,
+                dividendInfo != null ? dividendInfo.amountPerShare : null,
+                dividendInfo != null ? dividendInfo.recordDate : null,
                 aiJudgment, announcementCategory, announcementDate, sourceLink);
         logger.info("[QuarterlyResults] {} {}: recorded from PDF fallback ({} statement, {}) -- revenue/net profit exact, " +
                         "margin/EBITDA are derived approximations (see ResultsPdfParser docstring).",
@@ -287,6 +309,7 @@ public class QuarterlyResultsService {
                         // processing time created a real race/staleness bug, confirmed on AWL
                         // 2026-07-30).
                         "       verdict AS \"verdict\", ai_judgment AS \"aiJudgment\", " +
+                        "       dividend_amount AS \"dividendAmount\", dividend_record_date AS \"dividendRecordDate\", " +
                         "       announcement_category AS \"announcementCategory\", " +
                         // Cast to text explicitly -- java.sql.Timestamp's default Jackson
                         // serialization isn't worth relying on sight-unseen; this guarantees
@@ -352,6 +375,7 @@ public class QuarterlyResultsService {
                          Double eps, Double epsYoyPct, Double epsQoqPct, String verdict,
                          Double ebitdaCr, Double ebitdaYoyCr, Double ebitdaYoyPct, String ebitdaYoySwingType,
                          Double ebitdaQoqCr, Double ebitdaQoqPct, String ebitdaQoqSwingType,
+                         Double dividendAmount, LocalDate dividendRecordDate,
                          String aiJudgment, String announcementCategory,
                          OffsetDateTime announcementDate, String sourceLink) {
         try {
@@ -364,9 +388,10 @@ public class QuarterlyResultsService {
                             " eps, eps_yoy_pct, eps_qoq_pct, verdict, " +
                             " ebitda_cr, ebitda_yoy_cr, ebitda_yoy_pct, ebitda_yoy_swing_type, " +
                             " ebitda_qoq_cr, ebitda_qoq_pct, ebitda_qoq_swing_type, " +
+                            " dividend_amount, dividend_record_date, " +
                             " ai_judgment, announcement_category, announcement_date, source_link) " +
                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                            "        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                            "        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
                             "ON CONFLICT (symbol, quarter_label) DO UPDATE SET " +
                             "  company_name = EXCLUDED.company_name, quarter_end_date = EXCLUDED.quarter_end_date, " +
                             "  revenue_cr = EXCLUDED.revenue_cr, net_profit_cr = EXCLUDED.net_profit_cr, " +
@@ -385,6 +410,8 @@ public class QuarterlyResultsService {
                             "  ebitda_yoy_pct = EXCLUDED.ebitda_yoy_pct, ebitda_yoy_swing_type = EXCLUDED.ebitda_yoy_swing_type, " +
                             "  ebitda_qoq_cr = EXCLUDED.ebitda_qoq_cr, ebitda_qoq_pct = EXCLUDED.ebitda_qoq_pct, " +
                             "  ebitda_qoq_swing_type = EXCLUDED.ebitda_qoq_swing_type, " +
+                            "  dividend_amount = EXCLUDED.dividend_amount, " +
+                            "  dividend_record_date = EXCLUDED.dividend_record_date, " +
                             "  ai_judgment = EXCLUDED.ai_judgment, " +
                             "  announcement_category = EXCLUDED.announcement_category, " +
                             "  announcement_date = EXCLUDED.announcement_date, source_link = EXCLUDED.source_link",
@@ -394,15 +421,17 @@ public class QuarterlyResultsService {
                     operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct, verdict,
                     ebitdaCr, ebitdaYoyCr, ebitdaYoyPct, ebitdaYoySwingType,
                     ebitdaQoqCr, ebitdaQoqPct, ebitdaQoqSwingType,
+                    dividendAmount, dividendRecordDate,
                     aiJudgment, announcementCategory, Timestamp.from(announcementDate.toInstant()), sourceLink);
             String profitYoyDisplay = profitYoySwingType != null ? profitYoySwingType : fmt(netProfitYoyPct) + "%";
             String profitQoqDisplay = profitQoqSwingType != null ? profitQoqSwingType : fmt(netProfitQoqPct) + "%";
             String ebitdaYoyDisplay = ebitdaYoySwingType != null ? ebitdaYoySwingType : fmt(ebitdaYoyPct) + "%";
             logger.info("[QuarterlyResults] {} {}: revenue={} Cr (YoY {}%, QoQ {}%), net profit={} Cr (YoY {}, QoQ {}), " +
-                            "margin={}% (YoY {}pp), eps={} (YoY {}%), ebitda={} Cr (YoY {}), verdict={}, judgment={}",
+                            "margin={}% (YoY {}pp), eps={} (YoY {}%), ebitda={} Cr (YoY {}), dividend={}, verdict={}, judgment={}",
                     symbol, quarterLabel, revenueCr, fmt(revenueYoyPct), fmt(revenueQoqPct), netProfitCr,
                     profitYoyDisplay, profitQoqDisplay, fmt(operatingMarginPct), fmt(marginYoyPp), fmt(eps), fmt(epsYoyPct),
                     fmt(ebitdaCr), ebitdaYoyDisplay,
+                    dividendAmount != null ? ("Rs. " + dividendAmount + (dividendRecordDate != null ? " (record " + dividendRecordDate + ")" : "")) : "n/a",
                     verdict != null ? verdict : "n/a", aiJudgment != null ? aiJudgment : "n/a");
         } catch (Exception e) {
             logger.warn("[QuarterlyResults] upsert failed for {} {}: {}", symbol, quarterLabel, e.getMessage());

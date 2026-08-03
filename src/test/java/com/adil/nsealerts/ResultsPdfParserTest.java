@@ -352,4 +352,62 @@ class ResultsPdfParserTest {
         assertEquals(42394.13, result.revenueQoqCr, 1e-6); // not 42.39
         assertEquals(33712.42, result.revenueYoyCr, 1e-6);
     }
+
+    /**
+     * Real incident, 2026-08-03: several companies declare a dividend in the SAME "Outcome
+     * of Board Meeting" PDF as their quarterly results (e.g. Great Eastern Shipping's real
+     * Jun 2026 filing: "declared Interim Dividend of Rs. 14.40 per equity share.").
+     */
+    @Test
+    void scansRealDividendDeclarationFromTheSamePdf() {
+        // Verbatim shape from Great Eastern Shipping's real Jun 2026 filing: "Declared" has
+        // a stray space from font/kerning extraction ("D eclared"), "for FY 2026-27" sits
+        // between "dividend" and "of Rs.", "per share" has no "equity" before it, and the
+        // Record Date sentence is month-first ("August 07, 2026") with a line break and a
+        // >80-char gap after "Record Date" before the actual date appears.
+        String withDividend =
+                "2. D eclared an interim dividend for FY 2026-27 of Rs. 14.40 per share to the equity\n" +
+                "shareholders of the Company.\n" +
+                "The 'Record Date' fixed for the purpose of ascertaining the shareholders eligible \n" +
+                "for receiving interim dividend is August 07, 2026. The interim dividend will be paid \n" +
+                "to the shareholders on or after August 27, 2026.";
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(withDividend);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.DividendInfo info = parser.scanForDividend("https://example.com/geship.pdf");
+
+        assertNotNull(info);
+        assertEquals(14.40, info.amountPerShare, 1e-6);
+        assertEquals(LocalDate.parse("2026-08-07"), info.recordDate);
+    }
+
+    /**
+     * Real regression case built directly from GlaxoSmithKline's real Jun 2026 filing: "5.
+     * Final dividend of Rs. 57 per equity share for the year ended 31st March 2026 had been
+     * approved" -- a backward-looking note about a PRIOR year's already-approved dividend,
+     * not a new declaration from THIS board meeting. Must NOT be reported as a new dividend.
+     */
+    @Test
+    void doesNotMistakeABackwardLookingDividendNoteForANewDeclaration() {
+        String priorYearNote =
+                "5. Final dividend of Rs. 57 per equity share for the year ended 31st March 2026 " +
+                "had been approved by the shareholders at the Annual General Meeting.";
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(priorYearNote);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.DividendInfo info = parser.scanForDividend("https://example.com/glaxo.pdf");
+
+        assertNull(info);
+    }
+
+    @Test
+    void returnsNullWhenNoDividendMentionedAtAll() {
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn("Statement of Standalone Unaudited Financial Results...");
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        assertNull(parser.scanForDividend("https://example.com/no-dividend.pdf"));
+    }
 }

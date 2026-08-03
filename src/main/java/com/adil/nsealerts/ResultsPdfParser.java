@@ -332,4 +332,93 @@ public class ResultsPdfParser {
         double value = Double.parseDouble(cleaned);
         return negative ? -value : value;
     }
+
+    /** Only the fields dividend scanning fills in -- null when no dividend was found. */
+    public static class DividendInfo {
+        public Double amountPerShare;
+        public LocalDate recordDate;
+    }
+
+    // Requires a CURRENT-action verb (declared/recommend(s|ed)/approved) before "dividend
+    // ... of Rs. X per (equity) share", with two bounded, non-greedy gaps in between --
+    // confirmed necessary against Great Eastern Shipping's real Jun 2026 filing text (not
+    // just the RSS description, which turned out to paraphrase, not quote, the PDF):
+    // "2. D eclared an interim dividend for FY 2026-27 of Rs. 14.40 per share to the
+    // equity" -- "D eclared" has a stray space from font/kerning extraction (same class of
+    // artifact already documented throughout this file for numbers, here hitting a word
+    // instead), and "for FY 2026-27" sits between "dividend" and "of Rs." where the first
+    // version of this pattern required them adjacent.
+    //
+    // Still excludes backward-looking notes: confirmed false positive on GlaxoSmithKline's
+    // Jun 2026 filing, "5. Final dividend of Rs. 57 per equity share for the year ended
+    // 31st March 2026 had been approved" -- no declare/recommend/approve verb precedes the
+    // amount there (only "Final", not a verb), so it correctly does not match.
+    private static final Pattern DIVIDEND_DECLARATION_PATTERN = Pattern.compile(
+            "\\b(?:d\\s?eclared|recommends?|recommended|approved)\\b[^.]{0,60}?dividend\\b[^.]{0,40}?of\\s+Rs\\.?\\s*([\\d,]+(?:\\.\\d+)?)\\s*per\\s+(?:equity\\s+)?share",
+            Pattern.CASE_INSENSITIVE);
+    // "Record Date ... is 07-Aug-2026" -- best-effort, only present in the SAME PDF for
+    // some filers (others file it as a separate announcement days later, which this method
+    // has no visibility into at all -- see AlertPoller's separate Dividend/Record Date alert
+    // path for that case). Two real gaps confirmed on Great Eastern Shipping's real filing,
+    // "The 'Record Date' fixed for the purpose of ascertaining the shareholders eligible for
+    // receiving interim dividend is August 07, 2026.": (1) the gap between "Record Date" and
+    // the actual date runs well past 80 chars, spanning a line break; (2) the date itself is
+    // month-first ("August 07, 2026"), not day-first like every date pattern elsewhere in
+    // this file assumed -- DMY tried first (the more common order), MDY as a fallback.
+    // Note: [^.] already spans newlines on its own (unlike ".", it needs no DOTALL flag).
+    private static final Pattern DIVIDEND_RECORD_DATE_DMY = Pattern.compile(
+            "Record\\s+[Dd]ate\\b[^.]{0,150}?(\\d{1,2})[-\\s]([A-Za-z]{3,9})[-\\s,]?\\s*(\\d{4})",
+            Pattern.CASE_INSENSITIVE);
+    private static final Pattern DIVIDEND_RECORD_DATE_MDY = Pattern.compile(
+            "Record\\s+[Dd]ate\\b[^.]{0,150}?([A-Za-z]{3,9})\\s+(\\d{1,2}),?\\s*(\\d{4})",
+            Pattern.CASE_INSENSITIVE);
+
+    /**
+     * Scans the filed announcement PDF for a dividend declaration, independent of whether
+     * the quarter's financial figures came from Screener.in or this class's own PDF
+     * fallback -- Screener doesn't carry dividend data either way, so this always needs the
+     * PDF itself. Returns null if no dividend was found (or the PDF couldn't be read) --
+     * never guesses. Called unconditionally by QuarterlyResultsService for every recorded
+     * quarter, best-effort (a failure here never blocks recording the actual results).
+     */
+    public DividendInfo scanForDividend(String pdfUrl) {
+        String text = pdfExtractor.extractFullText(pdfUrl);
+        if (text == null || text.isBlank()) return null;
+
+        DividendInfo info = new DividendInfo();
+
+        Matcher amountMatch = DIVIDEND_DECLARATION_PATTERN.matcher(text);
+        if (amountMatch.find()) {
+            try {
+                info.amountPerShare = Double.parseDouble(amountMatch.group(1).replace(",", ""));
+            } catch (NumberFormatException e) {
+                logger.warn("[ResultsPdfParser] Could not parse dividend amount '{}' in {}", amountMatch.group(1), pdfUrl);
+            }
+        }
+
+        Matcher dmyMatch = DIVIDEND_RECORD_DATE_DMY.matcher(text);
+        if (dmyMatch.find()) {
+            info.recordDate = parseDividendDate(dmyMatch.group(1), dmyMatch.group(2), dmyMatch.group(3), pdfUrl, dmyMatch.group());
+        } else {
+            Matcher mdyMatch = DIVIDEND_RECORD_DATE_MDY.matcher(text);
+            if (mdyMatch.find()) {
+                info.recordDate = parseDividendDate(mdyMatch.group(2), mdyMatch.group(1), mdyMatch.group(3), pdfUrl, mdyMatch.group());
+            }
+        }
+
+        if (info.amountPerShare == null && info.recordDate == null) return null;
+        logger.info("[ResultsPdfParser] Dividend found in {}: amount={} recordDate={}",
+                pdfUrl, info.amountPerShare, info.recordDate);
+        return info;
+    }
+
+    private LocalDate parseDividendDate(String day, String month, String year, String pdfUrl, String sourceMatch) {
+        try {
+            String abbrevMonth = month.substring(0, Math.min(3, month.length()));
+            return LocalDate.parse(day + "-" + abbrevMonth + "-" + year, DateTimeFormatter.ofPattern("d-MMM-yyyy", Locale.ENGLISH));
+        } catch (Exception e) {
+            logger.warn("[ResultsPdfParser] Could not parse dividend record date near '{}' in {}: {}", sourceMatch, pdfUrl, e.getMessage());
+            return null;
+        }
+    }
 }

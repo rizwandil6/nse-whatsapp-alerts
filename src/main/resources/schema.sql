@@ -97,3 +97,14 @@ ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_qoq_cr NUMERIC;
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_qoq_pct NUMERIC;
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_qoq_swing_type TEXT;
 
+-- Dividend info (2026-08-03): many companies declare a dividend in the SAME
+-- "Outcome of Board Meeting" filing as the quarter's results -- confirmed on
+-- several real Jun 2026 filings. Scanned from the filed PDF regardless of
+-- whether the financial figures themselves came from Screener.in or the PDF
+-- fallback (ResultsPdfParser.scanForDividend), since Screener doesn't carry
+-- dividend data at all. NULL (not 0) when no dividend was declared this
+-- quarter, or when a real declaration exists but couldn't be confidently
+-- extracted -- never fabricated.
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS dividend_amount NUMERIC;
+ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS dividend_record_date DATE;
+

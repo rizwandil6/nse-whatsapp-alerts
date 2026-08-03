@@ -453,6 +453,16 @@
     return metricMeta('EBITDA', r.ebitdaCr, r.ebitdaYoyCr, r.ebitdaYoyPct, r.ebitdaYoySwingType, r.ebitdaQoqCr, r.ebitdaQoqPct, r.ebitdaQoqSwingType);
   }
 
+  // Scanned from the same results PDF, separately from the financial figures (Screener.in
+  // doesn't carry dividend data at all) -- see ResultsPdfParser.scanForDividend. Absent
+  // (not 0) whenever no dividend was declared this quarter, or a real one couldn't be
+  // confidently extracted -- never guessed, see that class's docstring.
+  function dividendRow(r) {
+    if (r.dividendAmount == null) return '';
+    const recordDateText = r.dividendRecordDate ? ` <span class="card-sub">Record Date: ${esc(r.dividendRecordDate)}</span>` : '';
+    return `<div class="metric-row"><span class="label">💰 Dividend</span> <b>₹${Number(r.dividendAmount).toFixed(2)} / share</b>${recordDateText}</div>`;
+  }
+
   function rsRankChip(r) {
     if (r.rsRank == null) {
       return '<span class="rs-chip na" title="Only ~300 stocks in the RS Momentum universe have a rank">RS Rank — n/a</span>';
@@ -550,6 +560,7 @@
           ${ebitdaRow(r)}
           ${marginRow(r)}
           ${epsRow(r)}
+          ${dividendRow(r)}
         </div>
         <div class="card-meta">${rsRankChip(r)}</div>
         ${r.aiJudgment ? `<div class="card-body">🔎 ${esc(r.aiJudgment)}</div>` : ''}

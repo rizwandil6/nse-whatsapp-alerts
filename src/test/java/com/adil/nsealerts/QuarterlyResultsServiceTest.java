@@ -246,10 +246,10 @@ class QuarterlyResultsServiceTest {
         // operating_margin_yoy_pp(17),operating_margin_qoq_pp(18),eps(19),eps_yoy_pct(20),
         // eps_qoq_pct(21),verdict(22),ebitda_cr(23),ebitda_yoy_cr(24),ebitda_yoy_pct(25),
         // ebitda_yoy_swing_type(26),ebitda_qoq_cr(27),ebitda_qoq_pct(28),ebitda_qoq_swing_type(29),
-        // ai_judgment(30),... -- rs_rank is NOT written here at all (DashboardDataController
-        // attaches it live at serve time instead, see that class's docstring for the AWL
-        // staleness bug this replaced).
-        assertEquals("Solid YoY growth but a concerning sequential deceleration", args.getValue()[30]);
+        // dividend_amount(30),dividend_record_date(31),ai_judgment(32),... -- rs_rank is NOT
+        // written here at all (DashboardDataController attaches it live at serve time
+        // instead, see that class's docstring for the AWL staleness bug this replaced).
+        assertEquals("Solid YoY growth but a concerning sequential deceleration", args.getValue()[32]);
         // Jun 2026 (only quarter with a QoQ base, Mar 2026) -- no YoY base available (only 2 quarters given).
         assertEquals(1400.0, args.getValue()[23]);
         assertNull(args.getValue()[24]); // no YoY base a year earlier
