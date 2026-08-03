@@ -413,5 +413,14 @@
   "theoreticalEntry": 113.14,
   "timestampMs": 1785730500000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 228.49,
+  "theoreticalEntry": 228.2,
+  "timestampMs": 1785730800000,
+  "livePriceAvailable": true
  }
 ]
