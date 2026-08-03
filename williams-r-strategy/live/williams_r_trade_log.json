@@ -535,5 +535,18 @@
   "entryTimestampMs": 1785731100000,
   "exitTimestampMs": 1785741300000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 228.49,
+  "exitPrice": 229.64,
+  "theoreticalExit": 229.64,
+  "action": "R_EXIT",
+  "pnlPct": -0.5033043021576337,
+  "entryTimestampMs": 1785730800000,
+  "exitTimestampMs": 1785742500000,
+  "livePriceAvailable": true
  }
 ]
