@@ -78,5 +78,12 @@
   "entryPrice": 863.4,
   "rsRankAtEntry": 82.24852071005917,
   "salesGrowth3Y": 21
+ },
+ "BLUEJET": {
+  "entryDate": "2026-07-30",
+  "entryPrice": 626.25,
+  "rsRankAtEntry": 81.36094674556213,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

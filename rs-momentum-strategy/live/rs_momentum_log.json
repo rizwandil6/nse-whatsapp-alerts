@@ -181,5 +181,12 @@
   "price": 863.4,
   "rsRankAtEntry": 82.24852071005917,
   "salesGrowth3Y": 21
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "BLUEJET",
+  "date": "2026-07-30",
+  "price": 626.25,
+  "rsRankAtEntry": 81.36094674556213
  }
 ]
