@@ -444,5 +444,31 @@
   "entryTimestampMs": 1785730200000,
   "exitTimestampMs": 1785731400000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 80.26,
+  "exitPrice": 79.74,
+  "theoreticalExit": 79.76,
+  "action": "R_EXIT",
+  "pnlPct": 0.6478943433840147,
+  "entryTimestampMs": 1785730500000,
+  "exitTimestampMs": 1785732900000,
+  "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JKIL",
+  "direction": "SHORT",
+  "entry": 487.3,
+  "exitPrice": 484.8,
+  "theoreticalExit": 484.8,
+  "action": "R_EXIT",
+  "pnlPct": 0.5130309870716191,
+  "entryTimestampMs": 1785730500000,
+  "exitTimestampMs": 1785732900000,
+  "livePriceAvailable": true
  }
 ]
