@@ -422,5 +422,14 @@
   "theoreticalEntry": 228.2,
   "timestampMs": 1785730800000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 934.5,
+  "theoreticalEntry": 933.55,
+  "timestampMs": 1785731100000,
+  "livePriceAvailable": true
  }
 ]
