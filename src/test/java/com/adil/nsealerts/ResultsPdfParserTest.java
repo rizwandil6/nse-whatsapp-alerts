@@ -325,4 +325,31 @@ class ResultsPdfParserTest {
         assertEquals(31.76, result.netProfitQoqCr, 1e-6);
         assertEquals(35.38, result.netProfitYoyCr, 1e-6);
     }
+
+    /**
+     * Real incident, 2026-08-03: Ganesha Ecosphere's (GANECOS) real revenue row extracts as
+     * "42,366.67 42.394.13 33,712.42 1,48, 166.29" -- the SECOND value's thousands comma came
+     * out as a decimal point ("42,394.13" -> "42.394.13", two decimal points in one token).
+     * Left unfixed, the decimal-bearing branch of NUMBER_PATTERN greedily matches only
+     * "42.39" and stops, silently producing a QoQ comparison base 1000x too small and a
+     * resulting QoQ% in the hundred-thousands -- confirmed live: GANECOS's real
+     * revenue_yoy_pct/qoq_pct came out as 1,025,727% / 99,845% before this fix.
+     */
+    @Test
+    void misplacedThousandsPeriodIsNormalizedBackToAComma() {
+        String withMisplacedPeriod =
+                "Statement of Unaudited Consolidated Financial Results for the quarter ended June 30, 2026 \n" +
+                "I Revenue from operations 42,366.67 42.394.13 33,712.42 1,48,166.29 \n" +
+                "IX Profit for the period (VII-VIII) 2,903.48 2,321.14 1,075.36 3,821.35 \n";
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(withMisplacedPeriod);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.ParsedQuarterlyPdf result = parser.parse("https://example.com/ganecos-revenue.pdf");
+
+        assertNotNull(result);
+        assertEquals(42366.67, result.revenueCr, 1e-6);
+        assertEquals(42394.13, result.revenueQoqCr, 1e-6); // not 42.39
+        assertEquals(33712.42, result.revenueYoyCr, 1e-6);
+    }
 }

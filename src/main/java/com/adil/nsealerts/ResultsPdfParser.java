@@ -77,6 +77,16 @@ public class ResultsPdfParser {
     private static final Pattern SPACE_MID_GROUP = Pattern.compile("(,\\d)\\s+(\\d{2}\\.)");
     private static final Pattern SPACE_BEFORE_DECIMAL = Pattern.compile("(\\d)\\s+(\\.)");
     private static final Pattern SPACE_AFTER_DECIMAL = Pattern.compile("(\\.)\\s+(\\d)");
+    // A 5th artifact position, confirmed 2026-08-03 on Ganesha Ecosphere's real filing:
+    // the thousands COMMA itself gets extracted as a decimal POINT instead of dropped or
+    // spaced -- "42,394.13" comes out as "42.394.13" (two decimal points). A real number
+    // never legitimately contains two decimal points, so this is unambiguous: whenever a
+    // token has exactly this "\d{1,3}.\d{3}.\d{1,2}" shape, the first "." is standing in
+    // for a comma. Left unfixed, NUMBER_PATTERN's decimal-bearing alternative greedily
+    // matches only the first "42.39" and stops, silently producing a QoQ/YoY comparison
+    // base 1000x too small -- confirmed live: GANECOS's revenue_yoy_pct came out as
+    // 1,025,727% before this fix.
+    private static final Pattern MISPLACED_THOUSANDS_PERIOD = Pattern.compile("(\\d{1,3})\\.(\\d{3})\\.(\\d{1,2})(?!\\d)");
 
     // Must require the "Statement of ..." prefix -- a bare "consolidated ... financial
     // result[s]" also matches the Independent Auditors' Report section (and several
@@ -308,7 +318,8 @@ public class ResultsPdfParser {
     }
 
     private String normalizeNumberSpacing(String remainder) {
-        String s = SPACE_AFTER_COMMA.matcher(remainder).replaceAll(",");
+        String s = MISPLACED_THOUSANDS_PERIOD.matcher(remainder).replaceAll("$1,$2.$3");
+        s = SPACE_AFTER_COMMA.matcher(s).replaceAll(",");
         s = SPACE_MID_GROUP.matcher(s).replaceAll("$1$2");
         s = SPACE_BEFORE_DECIMAL.matcher(s).replaceAll("$1$2");
         s = SPACE_AFTER_DECIMAL.matcher(s).replaceAll("$1$2");
