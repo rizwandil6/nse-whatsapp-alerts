@@ -24,3 +24,5 @@ timestamp,mode,event,symbol,instrument_key,rating,price,qty,gain_pct,reason,late
 2026-07-28T05:47:59.221961069Z,shadow,exit,MARINE,,,266.7000,,0.0750,Time exit (45 min),
 2026-07-28T06:22:00.645378280Z,shadow,entry,DBL,NSE_EQ|INE917M01012,7,443.5000,1,,UPSTOX_ENABLED=false,80645
 2026-07-28T06:32:58.411430431Z,shadow,exit,DBL,,,436.4500,,-1.5896,Stop-loss (-1.59%),
+2026-08-03T09:16:28.045292404Z,shadow,entry,RBPL,NSE_EQ|INE313L01016,5,143.2000,1,,UPSTOX_ENABLED=false,78045
+2026-08-03T10:01:28.115570442Z,shadow,exit,RBPL,,,141.8000,,-0.9777,Time exit (45 min),
