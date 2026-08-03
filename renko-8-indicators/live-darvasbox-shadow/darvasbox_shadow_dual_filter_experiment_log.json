@@ -457,5 +457,110 @@
   "timestampMs": 1785750300000,
   "breakoutTimestampMs": 1785750000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 116.7075,
+  "timestampMs": 1785750900000,
+  "breakoutTimestampMs": 1785748860000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 79.9594,
+  "exitPrice": 79.36120000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.7481296758104631,
+  "entryTimestampMs": 1785749400000,
+  "exitTimestampMs": 1785751140000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 325.48000000000025,
+  "exitPrice": 329.43000000000035,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2135922330097393,
+  "entryTimestampMs": 1785736500000,
+  "exitTimestampMs": 1785747600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "LONG",
+  "entry": 232.99860000000007,
+  "exitPrice": 232.99860000000007,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1785748200000,
+  "exitTimestampMs": 1785748800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 290.8482500000002,
+  "exitPrice": 292.99737500000026,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7389162561576637,
+  "entryTimestampMs": 1785746700000,
+  "exitTimestampMs": 1785748800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 116.7075,
+  "exitPrice": 117,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.25062656641604353,
+  "entryTimestampMs": 1785750900000,
+  "exitTimestampMs": 1785750900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 176.1363,
+  "exitPrice": 175.26,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.4975124378109536,
+  "entryTimestampMs": 1785750300000,
+  "exitTimestampMs": 1785750300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 131.8487999999999,
+  "exitPrice": 132.1695999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24330900243308362,
+  "entryTimestampMs": 1785748500000,
+  "exitTimestampMs": 1785750600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 606.55,
+  "exitPrice": 612.6155000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.0000000000000258,
+  "entryTimestampMs": 1785741600000,
+  "exitTimestampMs": 1785748200000,
+  "shadow": true
  }
 ]
