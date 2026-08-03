@@ -557,5 +557,18 @@
   "theoreticalEntry": 552.65,
   "timestampMs": 1785746400000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 552,
+  "exitPrice": 548.05,
+  "theoreticalExit": 548.05,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7155797101449358,
+  "entryTimestampMs": 1785746400000,
+  "exitTimestampMs": 1785750900000,
+  "livePriceAvailable": true
  }
 ]
