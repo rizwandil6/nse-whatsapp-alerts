@@ -14,7 +14,12 @@
   }
  },
  "SUZLON": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 49.29,
+   "entryIdx": 8,
+   "entryTimestampMs": 1785748500000
+  }
  },
  "WAAREEENER": {
   "position": null
