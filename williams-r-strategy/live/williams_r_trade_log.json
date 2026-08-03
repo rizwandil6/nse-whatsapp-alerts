@@ -386,5 +386,32 @@
   "theoreticalEntry": 833.35,
   "timestampMs": 1785730200000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 80.26,
+  "theoreticalEntry": 80.35,
+  "timestampMs": 1785730500000,
+  "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JKIL",
+  "direction": "SHORT",
+  "entry": 487.3,
+  "theoreticalEntry": 487.3,
+  "timestampMs": 1785730500000,
+  "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 113.08,
+  "theoreticalEntry": 113.14,
+  "timestampMs": 1785730500000,
+  "livePriceAvailable": true
  }
 ]
