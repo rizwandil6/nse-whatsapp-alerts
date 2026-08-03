@@ -6,7 +6,12 @@
   "position": null
  },
  "JSWINFRA": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 326.1,
+   "entryIdx": 15,
+   "entryTimestampMs": 1785736500000
+  }
  },
  "SUZLON": {
   "position": null
@@ -36,7 +41,7 @@
   "position": {
    "direction": "LONG",
    "entry": 117.44,
-   "entryIdx": 4,
+   "entryIdx": null,
    "entryTimestampMs": 1785732300000
   }
  },
@@ -67,7 +72,7 @@
   "position": {
    "direction": "LONG",
    "entry": 131.24,
-   "entryIdx": 14,
+   "entryIdx": null,
    "entryTimestampMs": 1785735000000
   }
  },
