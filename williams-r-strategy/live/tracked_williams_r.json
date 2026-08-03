@@ -2,11 +2,11 @@
  "CONCOR": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": false,
+  "longWatch": true,
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "GAIL": {
   "position": {
@@ -20,16 +20,16 @@
   "longUpStreak": 1,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "HATHWAY": {
   "position": null,
   "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
-  "shortWatch": true,
+  "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "HINDCOPPER": {
   "position": null,
@@ -38,7 +38,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "JKIL": {
   "position": null,
@@ -47,7 +47,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 2,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "JSWINFRA": {
   "position": null,
@@ -56,7 +56,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "MANINDS": {
   "position": null,
@@ -65,7 +65,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737760000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "MHRIL": {
   "position": null,
@@ -74,16 +74,16 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "NHPC": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": true,
+  "longWatch": false,
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "OLAELEC": {
   "position": null,
@@ -92,7 +92,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "ORIENTELEC": {
   "position": null,
@@ -110,7 +110,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "RVNL": {
   "position": {
@@ -124,7 +124,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 2,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "SUZLON": {
   "position": null,
@@ -133,7 +133,7 @@
   "longUpStreak": 1,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "WAAREEENER": {
   "position": null,
@@ -142,7 +142,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "ADSL": {
   "position": null,
@@ -165,7 +165,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "NCC": {
   "position": null,
@@ -174,7 +174,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "STERTOOLS": {
   "position": null,
@@ -192,7 +192,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  },
  "TITAGARH": {
   "position": null,
@@ -201,6 +201,6 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785737700000
+  "lastProcessedTimestampMs": 1785738000000
  }
 }
