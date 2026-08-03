@@ -44,8 +44,8 @@
   "longWatch": false,
   "longUpStreak": 0,
   "shortWatch": true,
-  "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785729720000
+  "shortDownStreak": 1,
+  "lastProcessedTimestampMs": 1785729960000
  },
  "JSWINFRA": {
   "position": null,
@@ -177,7 +177,7 @@
   "longUpStreak": 2,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785729720000
+  "lastProcessedTimestampMs": 1785729960000
  },
  "TEXRAIL": {
   "position": null,
