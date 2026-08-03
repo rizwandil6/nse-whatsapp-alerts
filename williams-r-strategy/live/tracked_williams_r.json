@@ -72,9 +72,9 @@
   "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
-  "shortWatch": false,
+  "shortWatch": true,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785746700000
+  "lastProcessedTimestampMs": 1785747120000
  },
  "NHPC": {
   "position": null,
@@ -101,7 +101,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785746520000
+  "lastProcessedTimestampMs": 1785747120000
  },
  "RAILTEL": {
   "position": null,
