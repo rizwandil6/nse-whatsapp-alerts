@@ -2943,5 +2943,22 @@
   "timestampMs": 1785746700000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 79.49,
+  "exitPrice": 79.79,
+  "theoreticalExit": 79.79,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.37740596301422996,
+  "entryTimestampMs": 1785740400000,
+  "exitTimestampMs": 1785747900000,
+  "brickPct": "0.25",
+  "pnlRs": -105.00000000000398,
+  "rsSign": "−"
  }
 ]
