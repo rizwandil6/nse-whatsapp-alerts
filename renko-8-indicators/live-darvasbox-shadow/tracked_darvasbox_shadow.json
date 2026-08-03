@@ -3,7 +3,12 @@
   "position": null
  },
  "NHPC": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 79.49,
+   "entryIdx": 10,
+   "entryTimestampMs": 1785740400000
+  }
  },
  "JSWINFRA": {
   "position": {
