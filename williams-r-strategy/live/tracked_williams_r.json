@@ -99,9 +99,9 @@
   "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
-  "shortWatch": false,
+  "shortWatch": true,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785747120000
+  "lastProcessedTimestampMs": 1785747420000
  },
  "RAILTEL": {
   "position": null,
