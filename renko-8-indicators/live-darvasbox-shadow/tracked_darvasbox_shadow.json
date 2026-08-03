@@ -6,7 +6,7 @@
   "position": {
    "direction": "SHORT",
    "entry": 79.49,
-   "entryIdx": 10,
+   "entryIdx": null,
    "entryTimestampMs": 1785740400000
   }
  },
@@ -14,7 +14,7 @@
   "position": {
    "direction": "LONG",
    "entry": 326.1,
-   "entryIdx": 15,
+   "entryIdx": null,
    "entryTimestampMs": 1785736500000
   }
  },
@@ -37,18 +37,18 @@
   "position": null
  },
  "RAILTEL": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 291.2,
+   "entryIdx": 17,
+   "entryTimestampMs": 1785746700000
+  }
  },
  "GAIL": {
   "position": null
  },
  "ADSL": {
-  "position": {
-   "direction": "LONG",
-   "entry": 117.44,
-   "entryIdx": null,
-   "entryTimestampMs": 1785732300000
-  }
+  "position": null
  },
  "ARE&M": {
   "position": null
@@ -75,7 +75,7 @@
   "position": {
    "direction": "SHORT",
    "entry": 606.5,
-   "entryIdx": 9,
+   "entryIdx": null,
    "entryTimestampMs": 1785741600000
   }
  }
