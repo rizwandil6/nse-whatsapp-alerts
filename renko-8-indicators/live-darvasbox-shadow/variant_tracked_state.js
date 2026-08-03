@@ -7,6 +7,19 @@
  * restart must restore the open position rather than re-derive it from a
  * brick replay (which would re-price the entry). Structurally isolated from
  * the real tracker's state, same as variant_log.js is from the real log.
+ *
+ * State lives on a SEPARATE branch from the trade log (2026-08-03 fix): both
+ * this module and variant_log.js push to GitHub fire-and-forget from
+ * dispatchVariantEvent, and each Contents-API PUT is a commit against the
+ * branch head. When both targeted ONE branch, two concurrent commits raced
+ * and the loser 409'd -- observed live on the variant's first event (IRCON
+ * LONG, 2026-08-03): the state push landed but the log push was dropped, so
+ * the trade never reached the experiment log. Giving state its own branch
+ * leaves the log branch with a single serialized writer (variant_log.js's
+ * own pushChain), so a log push can never conflict and no event is lost.
+ * (The real tracker tolerates the shared-branch race because its high event
+ * volume self-heals via re-push; the A/B experiment can't afford a dropped
+ * event, so it's separated here.)
  */
 
 const fs = require('fs');
@@ -14,7 +27,8 @@ const path = require('path');
 const { getRemoteFile, ensureBranchExists, putFile } = require('./github_contents');
 
 const REPO_REL_PATH = 'renko-8-indicators/live-darvasbox-shadow/tracked_darvasbox_variant.json';
-const DATA_BRANCH = 'data/darvasbox-variant-antichase-eodstop'; // same branch variant_log.js uses
+// Own branch, deliberately NOT the log's branch -- see module docstring.
+const DATA_BRANCH = 'data/darvasbox-variant-antichase-eodstop-state';
 const LOCAL_PATH = path.join(__dirname, 'tracked_darvasbox_variant.json');
 
 async function syncFromRemote() {
