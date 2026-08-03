@@ -264,6 +264,22 @@ public class AlertPoller {
                 boolean alertOnlyMatch = !excluded && !matches
                         && alertOnlyKeywords.stream()
                                 .anyMatch(k -> combinedText.contains(k.toLowerCase()));
+                // NSE files dividend declarations and their record dates as their OWN
+                // dedicated SUBJECT categories -- "Dividend" / "Record Date" -- separate
+                // from "Outcome of Board Meeting" (confirmed live 2026-08-03: Great Eastern
+                // Shipping filed all three as three separate announcements the same
+                // evening). Matched on the literal "subject: ..." suffix RSS already
+                // appends to description, not a bare "dividend" keyword -- a bare match
+                // would also fire on narrative mentions of a PRIOR dividend inside an
+                // unrelated results PDF (confirmed on GlaxoSmithKline's Jun 2026 filing:
+                // "...includes Rs. 1800 lakhs on account of dividend received from..."),
+                // which isn't a new declaration at all. Record Date is further required to
+                // also mention "dividend" since that category also covers AGM/bonus/rights
+                // record dates unrelated to a payout.
+                boolean isDividendDeclared = !excluded && combinedText.contains("subject: dividend");
+                boolean isDividendRecordDate = !excluded && combinedText.contains("subject: record date")
+                        && combinedText.contains("dividend");
+                boolean dividendMatch = isDividendDeclared || isDividendRecordDate;
 
                 if (matches && seenIds.add(id)) {
                     String pubTime = entry.getPublishedDate() != null
@@ -287,6 +303,13 @@ public class AlertPoller {
                     AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
                     logger.info("New alert-only announcement: {}", title);
                     handleAlertOnlyAnnouncement(ctx);
+                } else if (dividendMatch && seenIds.add(id)) {
+                    String pubTime = entry.getPublishedDate() != null
+                            ? new java.text.SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(entry.getPublishedDate())
+                            : "";
+                    AnnouncementContext ctx = extractAnnouncementContext(title, description, link, pubTime);
+                    logger.info("New dividend announcement: {}", title);
+                    handleDividendAnnouncement(ctx, isDividendRecordDate);
                 }
             } catch (Exception e) {
                 logger.error("Error processing announcement entry", e);
@@ -408,6 +431,70 @@ public class AlertPoller {
         String message = sb.toString();
         telegramSender.send(message, "Markdown");
         alertLogService.logAnnouncement(ctx.symbol(), ctx.companyName(), ctx.subject(), "ALERT_ONLY", message);
+    }
+
+    // "Rs. 14.40" or "Rs.14.40" -- confirmed against Great Eastern Shipping's real
+    // 2026-08-03 filing: "declared Interim Dividend of Rs. 14.40 per equity share."
+    // Also matches Final/Special dividend phrasing (only the "Dividend of Rs. X per
+    // equity share" tail is required, not the qualifier word before "Dividend").
+    private static final Pattern DIVIDEND_AMOUNT_PATTERN = Pattern.compile(
+            "Dividend\\s+of\\s+Rs\\.?\\s*([\\d,]+(?:\\.\\d+)?)\\s*per\\s+equity\\s+share", Pattern.CASE_INSENSITIVE);
+    // "Record date for the purpose of Dividend is 07-Aug-2026." -- same real filing.
+    private static final Pattern DIVIDEND_RECORD_DATE_PATTERN = Pattern.compile(
+            "Record\\s+date\\s+for\\s+the\\s+purpose\\s+of\\s+Dividend\\s+is\\s+(\\d{1,2}-[A-Za-z]{3}-\\d{4})",
+            Pattern.CASE_INSENSITIVE);
+
+    /**
+     * Dividend declarations and their record dates arrive from NSE as two SEPARATE
+     * announcements (confirmed live 2026-08-03, Great Eastern Shipping filed them
+     * ~2 minutes apart), not one combined filing -- so this sends a distinct alert
+     * per announcement rather than trying to correlate the two into one message,
+     * which would need persistent cross-announcement state and could get stuck
+     * half-complete if the other half never arrives (or arrived days earlier/later,
+     * e.g. a record date set well after the declaration). No PDF fetch, no AI
+     * rating, no Screener/trade pipeline -- NSE's own one-line description already
+     * has the number this alert needs.
+     *
+     * Watchlist-only, same noise-avoidance philosophy as handleAlertOnlyAnnouncement,
+     * simpler here since there's no AI rating to fall back on for non-watchlist
+     * stocks -- dividends fire for 100+ stocks some evenings.
+     */
+    private void handleDividendAnnouncement(AnnouncementContext ctx, boolean isRecordDate) {
+        boolean isWatchlisted = watchlist.stream().anyMatch(w -> matchesWatchlistSymbol(w, ctx.symbol()));
+        if (!isWatchlisted) {
+            logger.info("[Dividend] Suppressed (not on watchlist): {}", ctx.companyName());
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("💰 *DIVIDEND ALERT* — ").append(ctx.companyName()).append("\n");
+        if (isRecordDate) {
+            Matcher m = DIVIDEND_RECORD_DATE_PATTERN.matcher(ctx.subject());
+            if (m.find()) {
+                sb.append("Record Date: ").append(m.group(1)).append("\n");
+            } else {
+                logger.warn("[Dividend] Record-date phrasing didn't match the expected pattern for {}: {}",
+                        ctx.companyName(), ctx.subject());
+                sb.append(ctx.subject()).append("\n");
+            }
+        } else {
+            Matcher m = DIVIDEND_AMOUNT_PATTERN.matcher(ctx.subject());
+            if (m.find()) {
+                sb.append("Amount: Rs. ").append(m.group(1)).append(" per equity share\n");
+            } else {
+                logger.warn("[Dividend] Amount phrasing didn't match the expected pattern for {}: {}",
+                        ctx.companyName(), ctx.subject());
+                sb.append(ctx.subject()).append("\n");
+            }
+        }
+        if (ctx.broadcastTime() != null && !ctx.broadcastTime().isBlank()) {
+            sb.append("Broadcast: ").append(ctx.broadcastTime()).append("\n");
+        }
+        sb.append("Source: ").append(ctx.link());
+
+        String message = sb.toString();
+        telegramSender.send(message, "Markdown");
+        alertLogService.logAnnouncement(ctx.symbol(), ctx.companyName(), ctx.subject(), "DIVIDEND_ALERT", message);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
