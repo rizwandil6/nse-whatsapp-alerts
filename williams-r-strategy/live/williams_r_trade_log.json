@@ -350,5 +350,41 @@
   "entryTimestampMs": 1785484500000,
   "exitTimestampMs": 1785491700000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 175.49,
+  "theoreticalEntry": 175.6,
+  "timestampMs": 1785730200000,
+  "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 544.45,
+  "theoreticalEntry": 544.95,
+  "timestampMs": 1785730200000,
+  "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2697,
+  "theoreticalEntry": 2701.3,
+  "timestampMs": 1785730200000,
+  "livePriceAvailable": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 834,
+  "theoreticalEntry": 833.35,
+  "timestampMs": 1785730200000,
+  "livePriceAvailable": true
  }
 ]
