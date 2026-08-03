@@ -24,7 +24,7 @@
   "longUpStreak": 0,
   "shortWatch": true,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "HINDCOPPER": {
   "position": null,
@@ -33,16 +33,16 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "JKIL": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": true,
+  "longWatch": false,
   "longUpStreak": 1,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "JSWINFRA": {
   "position": null,
@@ -51,7 +51,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "MANINDS": {
   "position": {
@@ -65,7 +65,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "MHRIL": {
   "position": null,
@@ -74,7 +74,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750660000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "NHPC": {
   "position": null,
@@ -92,7 +92,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "ORIENTELEC": {
   "position": null,
@@ -101,7 +101,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "RAILTEL": {
   "position": null,
@@ -110,7 +110,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "RVNL": {
   "position": null,
@@ -146,7 +146,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "ARE&M": {
   "position": null,
@@ -155,7 +155,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 1,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "NCC": {
   "position": null,
@@ -164,7 +164,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "STERTOOLS": {
   "position": null,
@@ -173,16 +173,16 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "TEXRAIL": {
   "position": null,
   "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
-  "shortWatch": false,
+  "shortWatch": true,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  },
  "TITAGARH": {
   "position": null,
@@ -191,6 +191,6 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785750600000
+  "lastProcessedTimestampMs": 1785750900000
  }
 }
