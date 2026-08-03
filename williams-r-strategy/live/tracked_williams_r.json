@@ -142,11 +142,11 @@
  "ADSL": {
   "position": null,
   "pendingEntry": null,
-  "longWatch": false,
+  "longWatch": true,
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785741240000
+  "lastProcessedTimestampMs": 1785741480000
  },
  "ARE&M": {
   "position": null,
