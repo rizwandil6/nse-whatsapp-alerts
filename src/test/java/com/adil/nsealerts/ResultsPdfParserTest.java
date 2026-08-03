@@ -273,4 +273,56 @@ class ResultsPdfParserTest {
         assertEquals(42366.67, result.revenueCr, 1e-6);
         assertEquals(2903.48, result.netProfitCr, 1e-6);
     }
+
+    /**
+     * Real incident, 2026-08-03: GlaxoSmithKline Pharmaceuticals' real Jun 2026 filing
+     * reports every figure as a bare whole number -- "93844", "382167" -- no decimal point
+     * and no thousand-separator commas at all. The old NUMBER_PATTERN required a decimal
+     * point, so it matched literally zero numbers on every row, failing with "Could not
+     * find Revenue/Net Profit rows" despite the header and every row being present and
+     * otherwise readable.
+     */
+    @Test
+    void parsesPlainWholeNumbersWithNoDecimalOrThousandSeparator() {
+        String wholeNumbers =
+                "STATEMENT OF CONSOLIDATED UNAUDITED FINANCIAL RESULTS FOR THE QUARTER ENDED 30TH JUNE, 2026 \n" +
+                "1 Revenue from operations 93844 99530 80517 382167 \n" +
+                "9 Profit for the period/year (7-8) 23718 27786 20501 103598 \n";
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(wholeNumbers);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.ParsedQuarterlyPdf result = parser.parse("https://example.com/glaxo.pdf");
+
+        assertNotNull(result);
+        assertEquals(93844.0, result.revenueCr, 1e-6);
+        assertEquals(99530.0, result.revenueQoqCr, 1e-6);
+        assertEquals(80517.0, result.revenueYoyCr, 1e-6);
+        assertEquals(23718.0, result.netProfitCr, 1e-6);
+    }
+
+    /**
+     * Real regression caught while fixing the whole-number case above: once NUMBER_PATTERN
+     * stopped requiring a decimal point, a bare row-reference like "(3-4)" or "(7-8)" (e.g.
+     * "Net Profit/(Loss) after tax (3-4) 4,292.33 ...") started matching as if "3" or "4"
+     * were themselves the first real value, silently producing e.g. -3.0 instead of the
+     * real figure. findRowValues now strips these markers before number-matching.
+     */
+    @Test
+    void rowReferenceMarkerIsNotMistakenForTheFirstValue() {
+        String withRowRef =
+                "Statement of Standalone Unaudited Financial Results for the Quarter Ended 30th June 2026 \n" +
+                "Revenue from Operations 252.56 266.15 275.41 1,057.11 \n" +
+                "Net Profit/(Loss) after tax (3-4) 23.07 31.76 35.38 122.29 \n";
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(withRowRef);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.ParsedQuarterlyPdf result = parser.parse("https://example.com/rowref.pdf");
+
+        assertNotNull(result);
+        assertEquals(23.07, result.netProfitCr, 1e-6); // not -3.0 (from the "(3-4)" marker)
+        assertEquals(31.76, result.netProfitQoqCr, 1e-6);
+        assertEquals(35.38, result.netProfitYoyCr, 1e-6);
+    }
 }

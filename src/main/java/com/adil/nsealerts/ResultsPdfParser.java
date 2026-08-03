@@ -51,8 +51,25 @@ import java.util.regex.Pattern;
 public class ResultsPdfParser {
     private static final Logger logger = LoggerFactory.getLogger(ResultsPdfParser.class);
 
+    // Three alternatives, tried in order at each position:
+    //   1. Comma-grouped (Indian style, >=1 group required so a plain run can't partially
+    //      match as just its first 3 digits), optional decimal.
+    //   2. Any-length integer WITH a mandatory decimal point -- a decimal point is an
+    //      unambiguous signal of a real figure regardless of digit count (e.g. "23.07"),
+    //      so no minimum-digit floor here.
+    //   3. A BARE integer, no comma, no decimal -- requires >=3 digits. Widened 2026-08-03
+    //      to accept whole-Lakh figures with no paise and no thousand-separators at all
+    //      (confirmed live: GlaxoSmithKline's real Jun 2026 filing -- "93844", "382167").
+    //      The >=3-digit floor on THIS alternative specifically is deliberate: without it,
+    //      a bare "3" or "4" from a row-reference marker like "(3-4)" starts matching as if
+    //      it were the first real value -- confirmed on GAIL/IPL's fixtures AND, in the
+    //      wild the same day, corrupted variants of the same marker ("(5+/-6)" on Hubtown,
+    //      "{7-8)" on Kalpataru, curly-brace/plus-slash artifacts from font decoding) that a
+    //      literal "(N-N)" strip regex couldn't have caught either. No real revenue/profit/
+    //      EBITDA-component figure in Lakhs/Crores reporting is genuinely 1-2 digits, so this
+    //      floor costs nothing on real data while closing off the whole class of markers.
     private static final Pattern NUMBER_PATTERN =
-            Pattern.compile("\\(?-?\\d{1,3}(?:,\\d{2,3})*\\.\\d{1,2}\\)?");
+            Pattern.compile("\\(?-?(?:\\d{1,3}(?:,\\d{2,3})+(?:\\.\\d{1,2})?|\\d+\\.\\d{1,2}|\\d{3,}(?:\\.\\d{1,2})?)\\)?");
 
     // Applied to a line's remainder (after the label) before NUMBER_PATTERN runs --
     // see class docstring for the four distinct artifact positions these fix, in order.
