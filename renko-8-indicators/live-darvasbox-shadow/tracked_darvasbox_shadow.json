@@ -64,7 +64,12 @@
   "position": null
  },
  "IRCON": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 131.24,
+   "entryIdx": 14,
+   "entryTimestampMs": 1785735000000
+  }
  },
  "TRITURBINE": {
   "position": null
