@@ -431,5 +431,18 @@
   "theoreticalEntry": 933.55,
   "timestampMs": 1785731100000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MANINDS",
+  "direction": "SHORT",
+  "entry": 544.45,
+  "exitPrice": 531.55,
+  "theoreticalExit": 531.55,
+  "action": "R_EXIT",
+  "pnlPct": 2.3693635779226905,
+  "entryTimestampMs": 1785730200000,
+  "exitTimestampMs": 1785731400000,
+  "livePriceAvailable": true
  }
 ]
