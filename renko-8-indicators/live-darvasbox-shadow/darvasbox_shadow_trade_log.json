@@ -216,7 +216,7 @@
   "exitTimestampMs": 1785212400000,
   "brickPct": "0.25",
   "pnlRs": -50.69399999999973,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -231,7 +231,7 @@
   "exitTimestampMs": 1785212554703,
   "brickPct": "0.25",
   "pnlRs": -1149.5721999999944,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -260,7 +260,7 @@
   "exitTimestampMs": 1785214020000,
   "brickPct": "0.25",
   "pnlRs": -652.4082249999874,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -299,7 +299,7 @@
   "exitTimestampMs": 1785215760000,
   "brickPct": "0.25",
   "pnlRs": -30.21199999999942,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -338,7 +338,7 @@
   "exitTimestampMs": 1785217580586,
   "brickPct": "0.25",
   "pnlRs": -376.90349999999864,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -365,7 +365,7 @@
   "exitTimestampMs": 1785217920000,
   "brickPct": "0.25",
   "pnlRs": -52.51400000000126,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -472,7 +472,7 @@
   "exitTimestampMs": 1785224640000,
   "brickPct": "0.25",
   "pnlRs": -16.100000000000477,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -535,7 +535,7 @@
   "exitTimestampMs": 1785229404260,
   "brickPct": "0.25",
   "pnlRs": -131.43750000000068,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -586,7 +586,7 @@
   "exitTimestampMs": 1785231895644,
   "brickPct": "0.25",
   "pnlRs": -85.28250000000241,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -601,7 +601,7 @@
   "exitTimestampMs": 1785232440000,
   "brickPct": "0.25",
   "pnlRs": -10.5,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -618,7 +618,7 @@
   "exitTimestampMs": 1785232500000,
   "brickPct": "0.25",
   "pnlRs": -71.30000000000052,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -703,7 +703,7 @@
   "exitTimestampMs": 1785232620000,
   "brickPct": "0.25",
   "pnlRs": -183.54000000000696,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -754,7 +754,7 @@
   "exitTimestampMs": 1785231480000,
   "brickPct": "0.25",
   "pnlRs": -4.640000000000004,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -805,7 +805,7 @@
   "exitTimestampMs": 1785232380000,
   "brickPct": "0.25",
   "pnlRs": -36.32850000000121,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -890,7 +890,7 @@
   "exitTimestampMs": 1785232620000,
   "brickPct": "0.25",
   "pnlRs": -71.19822499999437,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -924,7 +924,7 @@
   "exitTimestampMs": 1785231480000,
   "brickPct": "0.25",
   "pnlRs": -4.13540000000015,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1060,7 +1060,7 @@
   "exitTimestampMs": 1785231480000,
   "brickPct": "0.25",
   "pnlRs": -2.9754000000001746,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -1220,7 +1220,7 @@
   "exitTimestampMs": 1785303900000,
   "brickPct": "0.25",
   "pnlRs": -151.20000000000016,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -1248,7 +1248,7 @@
   "exitTimestampMs": 1785304320000,
   "brickPct": "0.25",
   "pnlRs": -112,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1265,7 +1265,7 @@
   "exitTimestampMs": 1785305400000,
   "brickPct": "0.25",
   "pnlRs": -120,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1282,7 +1282,7 @@
   "exitTimestampMs": 1785305700000,
   "brickPct": "0.25",
   "pnlRs": -49.40000000000043,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -1321,7 +1321,7 @@
   "exitTimestampMs": 1785306900000,
   "brickPct": "0.25",
   "pnlRs": -4.900000000000318,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1338,7 +1338,7 @@
   "exitTimestampMs": 1785307200000,
   "brickPct": "0.25",
   "pnlRs": -138.45000000000323,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1355,7 +1355,7 @@
   "exitTimestampMs": 1785307800000,
   "brickPct": "0.25",
   "pnlRs": -21.850000000001046,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -1405,7 +1405,7 @@
   "exitTimestampMs": 1785311700000,
   "brickPct": "0.25",
   "pnlRs": -1576.0399999999868,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1422,7 +1422,7 @@
   "exitTimestampMs": 1785311700000,
   "brickPct": "0.25",
   "pnlRs": -22.72399999999942,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1439,7 +1439,7 @@
   "exitTimestampMs": 1785312000000,
   "brickPct": "0.25",
   "pnlRs": -70.27999999999338,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1456,7 +1456,7 @@
   "exitTimestampMs": 1785312120000,
   "brickPct": "0.25",
   "pnlRs": -66.36000000000013,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1534,7 +1534,7 @@
   "exitTimestampMs": 1785315600000,
   "brickPct": "0.25",
   "pnlRs": -28.002499999999372,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -1595,7 +1595,7 @@
   "exitTimestampMs": 1785318000000,
   "brickPct": "0.25",
   "pnlRs": -81.20000000000016,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -1645,7 +1645,7 @@
   "exitTimestampMs": 1785318960000,
   "brickPct": "0.25",
   "pnlRs": -206.85225000000264,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1679,7 +1679,7 @@
   "exitTimestampMs": 1785318720000,
   "brickPct": "0.25",
   "pnlRs": -2441.6000000000204,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1696,7 +1696,7 @@
   "exitTimestampMs": 1785318420000,
   "brickPct": "0.25",
   "pnlRs": -367.0800000000139,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1747,7 +1747,7 @@
   "exitTimestampMs": 1785318900000,
   "brickPct": "0.25",
   "pnlRs": -22.359999999999616,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1764,7 +1764,7 @@
   "exitTimestampMs": 1785318600000,
   "brickPct": "0.25",
   "pnlRs": -27.75000000000034,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1798,7 +1798,7 @@
   "exitTimestampMs": 1785315960000,
   "brickPct": "0.25",
   "pnlRs": -50.15999999999974,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1815,7 +1815,7 @@
   "exitTimestampMs": 1785315540000,
   "brickPct": "0.25",
   "pnlRs": -1.6000000000003638,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1832,7 +1832,7 @@
   "exitTimestampMs": 1785317880000,
   "brickPct": "0.25",
   "pnlRs": -259.9000000000013,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -1849,7 +1849,7 @@
   "exitTimestampMs": 1785319140000,
   "brickPct": "0.25",
   "pnlRs": -84,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -1888,7 +1888,7 @@
   "exitTimestampMs": 1785384600000,
   "brickPct": "0.25",
   "pnlRs": -22.40000000000032,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -1982,7 +1982,7 @@
   "exitTimestampMs": 1785390600000,
   "brickPct": "0.25",
   "pnlRs": -79.79999999999905,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2021,7 +2021,7 @@
   "exitTimestampMs": 1785391500000,
   "brickPct": "0.25",
   "pnlRs": -305.90000000000435,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2038,7 +2038,7 @@
   "exitTimestampMs": 1785391800000,
   "brickPct": "0.25",
   "pnlRs": -71.30000000000052,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2055,7 +2055,7 @@
   "exitTimestampMs": 1785392100000,
   "brickPct": "0.25",
   "pnlRs": -2234.400000000005,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2083,7 +2083,7 @@
   "exitTimestampMs": 1785391800000,
   "brickPct": "0.25",
   "pnlRs": -60.89999999999952,
-  "rsSign": "\u2212",
+  "rsSign": "−",
   "reconciled": true
  },
  {
@@ -2119,7 +2119,7 @@
   "exitTimestampMs": 1785308100000,
   "brickPct": "0.25",
   "pnlRs": -35.99999999999923,
-  "rsSign": "\u2212",
+  "rsSign": "−",
   "reconciled": true
  },
  {
@@ -2137,7 +2137,7 @@
   "exitTimestampMs": 1785394500000,
   "brickPct": "0.25",
   "pnlRs": -34.29999999999984,
-  "rsSign": "\u2212",
+  "rsSign": "−",
   "reconciled": true
  },
  {
@@ -2155,7 +2155,7 @@
   "exitTimestampMs": 1785396000000,
   "brickPct": "0.25",
   "pnlRs": -1.5587500000000247,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2183,7 +2183,7 @@
   "exitTimestampMs": 1785397200000,
   "brickPct": "0.25",
   "pnlRs": -20.929999999999268,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2228,7 +2228,7 @@
   "exitTimestampMs": 1785399600000,
   "brickPct": "0.25",
   "pnlRs": -869.4000000000306,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2256,7 +2256,7 @@
   "exitTimestampMs": 1785400200000,
   "brickPct": "0.25",
   "pnlRs": -61.57187500000035,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2312,7 +2312,7 @@
   "exitTimestampMs": 1785404460000,
   "brickPct": "0.25",
   "pnlRs": -193.20000000000095,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2346,7 +2346,7 @@
   "exitTimestampMs": 1785402840000,
   "brickPct": "0.25",
   "pnlRs": -13.188000000000102,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2397,7 +2397,7 @@
   "exitTimestampMs": 1785400140000,
   "brickPct": "0.25",
   "pnlRs": -11.400000000000432,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2431,7 +2431,7 @@
   "exitTimestampMs": 1785399900000,
   "brickPct": "0.25",
   "pnlRs": -4.142000000001417,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2448,7 +2448,7 @@
   "exitTimestampMs": 1785403800000,
   "brickPct": "0.25",
   "pnlRs": -26.717600000000175,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2465,7 +2465,7 @@
   "exitTimestampMs": 1785403800000,
   "brickPct": "0.25",
   "pnlRs": -8.767225000001076,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2580,7 +2580,7 @@
   "exitTimestampMs": 1785403800000,
   "brickPct": "0.25",
   "pnlRs": -29.73879999999997,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2664,7 +2664,7 @@
   "exitTimestampMs": 1785480000000,
   "brickPct": "0.25",
   "pnlRs": -34.399999999999636,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2720,7 +2720,7 @@
   "exitTimestampMs": 1785485700000,
   "brickPct": "0.25",
   "pnlRs": -229.5999999999949,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2759,7 +2759,7 @@
   "exitTimestampMs": 1785488700000,
   "brickPct": "0.25",
   "pnlRs": -48.359999999999616,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2787,7 +2787,7 @@
   "exitTimestampMs": 1785490500000,
   "brickPct": "0.25",
   "pnlRs": -48,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2815,7 +2815,7 @@
   "exitTimestampMs": 1785491400000,
   "brickPct": "0.25",
   "pnlRs": -258.29999999999905,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "ENTRY",
@@ -2854,7 +2854,7 @@
   "exitTimestampMs": 1785490500000,
   "brickPct": "0.25",
   "pnlRs": -52.499999999997016,
-  "rsSign": "\u2212"
+  "rsSign": "−"
  },
  {
   "type": "EXIT",
@@ -2920,6 +2920,17 @@
   "pnlPct": -0.2582257392752944,
   "entryTimestampMs": 1785491400000,
   "exitTimestampMs": 1785491400000,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 221,
+  "theoreticalEntry": 220.24925,
+  "entryIdx": 4,
+  "timestampMs": 1785729300000,
+  "livePriceAvailable": true,
   "brickPct": "0.25"
  }
 ]
