@@ -522,5 +522,18 @@
   "entryTimestampMs": 1785730200000,
   "exitTimestampMs": 1785740700000,
   "livePriceAvailable": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 934.5,
+  "exitPrice": 931.85,
+  "theoreticalExit": 931.35,
+  "action": "R_EXIT",
+  "pnlPct": 0.2835741037988205,
+  "entryTimestampMs": 1785731100000,
+  "exitTimestampMs": 1785741300000,
+  "livePriceAvailable": true
  }
 ]
