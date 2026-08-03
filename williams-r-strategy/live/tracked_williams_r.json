@@ -72,9 +72,9 @@
   "pendingEntry": null,
   "longWatch": false,
   "longUpStreak": 0,
-  "shortWatch": true,
+  "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785748500000
+  "lastProcessedTimestampMs": 1785748860000
  },
  "NHPC": {
   "position": null,
@@ -146,7 +146,7 @@
   "longUpStreak": 0,
   "shortWatch": false,
   "shortDownStreak": 0,
-  "lastProcessedTimestampMs": 1785748740000
+  "lastProcessedTimestampMs": 1785748860000
  },
  "ARE&M": {
   "position": null,
