@@ -76,11 +76,20 @@
   .verdict.right { color: var(--win); background: var(--win-bg); }
   .verdict.mixed { color: var(--amber); background: var(--amber-bg); }
   .verdict.wrong { color: var(--loss); background: var(--loss-bg); }
-  .metrics-box { display: flex; flex-direction: column; gap: 8px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; }
-  .metrics-box .metric-row { padding-bottom: 8px; border-bottom: 1px dashed var(--border); }
+  .metrics-box { display: flex; flex-direction: column; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; }
+  /* YoY/QoQ shown once as column headers (2026-08-04) instead of repeated on every row --
+     same 4-column grid on the header and every data row so the columns actually line up. */
+  .metrics-header { display: grid; grid-template-columns: 88px 1fr 68px 68px; gap: 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-faint); padding-bottom: 6px; margin-bottom: 2px; border-bottom: 1px solid var(--border); }
+  .metrics-header .col-yoy, .metrics-header .col-qoq { text-align: right; }
+  .metric-row { display: grid; grid-template-columns: 88px 1fr 68px 68px; align-items: baseline; gap: 10px; font-size: 12.5px; color: var(--ink-muted); padding: 8px 0; border-bottom: 1px dashed var(--border); }
   .metrics-box .metric-row:last-child { padding-bottom: 0; border-bottom: none; }
-  .metric-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-muted); }
-  .metric-row .label { color: var(--ink); font-weight: 600; min-width: 96px; }
+  .metric-row .label { color: var(--ink); font-weight: 600; }
+  .metric-row .yoy-cell, .metric-row .qoq-cell { text-align: right; }
+  /* Rows that don't fit the YoY/QoQ comparison shape (Dividend) -- own layout,
+     not the 4-column grid. */
+  .metric-row-info { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-muted); padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .metrics-box .metric-row-info:last-child { padding-bottom: 0; border-bottom: none; }
+  .metric-row-info .label { color: var(--ink); font-weight: 600; min-width: 96px; }
   .rs-chip { display: inline-flex; align-items: baseline; gap: 5px; font-size: 12px; color: var(--ink-muted); background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 3px 9px; }
   .rs-chip b { color: var(--ink); font-variant-numeric: tabular-nums; }
   .rs-chip.na { color: var(--ink-faint); font-style: italic; }
@@ -402,26 +411,29 @@
     if (v == null || isNaN(v)) return '—';
     return '₹' + Number(v).toLocaleString('en-IN', { maximumFractionDigits: 0 }) + ' Cr';
   }
-  // One comparison badge (YoY or QoQ): a swing label takes priority over a raw
-  // % (see QuarterlyResultsService.profitSwingType -- a raw % across a
-  // loss<->profit sign flip is either undefined or misleading, e.g. -10 -> +5
-  // is a genuine turnaround, not "-150%").
-  function comparisonBadge(type, baseValue, pct, swingType) {
+  // One comparison cell (under the YoY or QoQ column header): a swing label
+  // takes priority over a raw % (see QuarterlyResultsService.profitSwingType --
+  // a raw % across a loss<->profit sign flip is either undefined or misleading,
+  // e.g. -10 -> +5 is a genuine turnaround, not "-150%"). No "YoY"/"QoQ" text
+  // prefix (2026-08-04) -- that's now conveyed once by the column header instead
+  // of repeated on every row.
+  function comparisonBadge(baseValue, pct, swingType) {
     if (swingType) {
-      return `<span class="badge ${swingType === 'LOSS_TO_PROFIT' ? 'win' : 'loss'}" title="vs ${fmtCr(baseValue)}">${type} ${swingType === 'LOSS_TO_PROFIT' ? 'Loss → Profit' : 'Profit → Loss'}</span>`;
+      return `<span class="badge ${swingType === 'LOSS_TO_PROFIT' ? 'win' : 'loss'}" title="vs ${fmtCr(baseValue)}">${swingType === 'LOSS_TO_PROFIT' ? 'Loss → Profit' : 'Profit → Loss'}</span>`;
     }
     if (pct != null) {
-      return `<span class="pnl ${pct >= 0 ? 'win' : 'loss'}" title="vs ${fmtCr(baseValue)}">${type} ${fmtPct(pct)}</span>`;
+      return `<span class="pnl ${pct >= 0 ? 'win' : 'loss'}" title="vs ${fmtCr(baseValue)}">${fmtPct(pct)}</span>`;
     }
-    return `<span class="card-sub">${type} n/a</span>`;
+    return `<span class="card-sub">n/a</span>`;
   }
 
-  // A metric line: current value, plus its YoY and QoQ badges (hover a badge for the compared-quarter's actual figure).
+  // A metric row: label, current value, then the YoY/QoQ cells under their column headers
+  // (hover a cell for the compared-quarter's actual figure).
   function metricMeta(label, current, yoyValue, yoyPct, yoySwing, qoqValue, qoqPct, qoqSwing) {
     if (current == null) return '';
-    return `<div class="metric-row"><span class="label">${label}</span> <b>${fmtCr(current)}</b> ` +
-        `${comparisonBadge('YoY', yoyValue, yoyPct, yoySwing)} ` +
-        `${comparisonBadge('QoQ', qoqValue, qoqPct, qoqSwing)}</div>`;
+    return `<div class="metric-row"><span class="label">${label}</span> <span><b>${fmtCr(current)}</b></span>` +
+        `<span class="yoy-cell">${comparisonBadge(yoyValue, yoyPct, yoySwing)}</span>` +
+        `<span class="qoq-cell">${comparisonBadge(qoqValue, qoqPct, qoqSwing)}</span></div>`;
   }
 
   function fmtPp(v) {
@@ -432,21 +444,23 @@
   // Same visual language as comparisonBadge, for metrics that aren't Cr figures
   // (margin, EPS) -- no swing-type case, since neither can flip sign the way
   // net profit can (margin doesn't have a LOSS_TO_PROFIT-style discontinuity).
-  function plainComparisonBadge(type, value, isPp) {
-    if (value == null) return `<span class="card-sub">${type} n/a</span>`;
-    return `<span class="pnl ${value >= 0 ? 'win' : 'loss'}">${type} ${isPp ? fmtPp(value) : fmtPct(value)}</span>`;
+  function plainComparisonBadge(value, isPp) {
+    if (value == null) return `<span class="card-sub">n/a</span>`;
+    return `<span class="pnl ${value >= 0 ? 'win' : 'loss'}">${isPp ? fmtPp(value) : fmtPct(value)}</span>`;
   }
 
   function marginRow(r) {
     if (r.operatingMarginPct == null) return '';
-    return `<div class="metric-row"><span class="label">Op. Margin</span> <b>${Number(r.operatingMarginPct).toFixed(1)}%</b> ` +
-        `${plainComparisonBadge('YoY', r.operatingMarginYoyPp, true)} ${plainComparisonBadge('QoQ', r.operatingMarginQoqPp, true)}</div>`;
+    return `<div class="metric-row"><span class="label">Op. Margin</span> <span><b>${Number(r.operatingMarginPct).toFixed(1)}%</b></span>` +
+        `<span class="yoy-cell">${plainComparisonBadge(r.operatingMarginYoyPp, true)}</span>` +
+        `<span class="qoq-cell">${plainComparisonBadge(r.operatingMarginQoqPp, true)}</span></div>`;
   }
 
   function epsRow(r) {
     if (r.eps == null) return '';
-    return `<div class="metric-row"><span class="label">EPS</span> <b>₹${Number(r.eps).toFixed(2)}</b> ` +
-        `${plainComparisonBadge('YoY', r.epsYoyPct, false)} ${plainComparisonBadge('QoQ', r.epsQoqPct, false)}</div>`;
+    return `<div class="metric-row"><span class="label">EPS</span> <span><b>₹${Number(r.eps).toFixed(2)}</b></span>` +
+        `<span class="yoy-cell">${plainComparisonBadge(r.epsYoyPct, false)}</span>` +
+        `<span class="qoq-cell">${plainComparisonBadge(r.epsQoqPct, false)}</span></div>`;
   }
 
   function ebitdaRow(r) {
@@ -460,7 +474,9 @@
   function dividendRow(r) {
     if (r.dividendAmount == null) return '';
     const recordDateText = r.dividendRecordDate ? ` <span class="card-sub">Record Date: ${esc(r.dividendRecordDate)}</span>` : '';
-    return `<div class="metric-row"><span class="label">💰 Dividend</span> <b>₹${Number(r.dividendAmount).toFixed(2)} / share</b>${recordDateText}</div>`;
+    // Not a YoY/QoQ comparison metric, so it doesn't use the 4-column .metric-row grid --
+    // see .metric-row-info in the stylesheet.
+    return `<div class="metric-row-info"><span class="label">💰 Dividend</span> <b>₹${Number(r.dividendAmount).toFixed(2)} / share</b>${recordDateText}</div>`;
   }
 
   function rsRankChip(r) {
@@ -555,6 +571,7 @@
         </div>
         <div class="card-meta"><span class="badge neutral">${esc(r.quarterLabel)}</span></div>
         <div class="metrics-box">
+          <div class="metrics-header"><span></span><span></span><span class="col-yoy">YoY</span><span class="col-qoq">QoQ</span></div>
           ${metricMeta('Revenue', r.revenueCr, r.revenueYoyCr, r.revenueYoyPct, null, r.revenueQoqCr, r.revenueQoqPct, null)}
           ${metricMeta('Net Profit', r.netProfitCr, r.netProfitYoyCr, r.netProfitYoyPct, r.profitYoySwingType, r.netProfitQoqCr, r.netProfitQoqPct, r.profitQoqSwingType)}
           ${ebitdaRow(r)}
