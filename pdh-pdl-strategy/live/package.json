@@ -1,0 +1,15 @@
+{
+  "name": "pdh-pdl-scalp-live-streamer",
+  "version": "1.0.0",
+  "description": "Live PDH/PDL break-&-retest scalp scanner (halal Nifty-50 subset) via Upstox V3 WebSocket — Telegram alerts + Postgres forward-tracking. Alert-only, no orders.",
+  "main": "streamer.js",
+  "scripts": {
+    "start": "node streamer.js",
+    "test": "node test_engine.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "protobufjs": "^7.4.0",
+    "pg": "^8.12.0"
+  }
+}
