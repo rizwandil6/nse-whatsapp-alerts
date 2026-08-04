@@ -12,6 +12,12 @@
  */
 
 // ---- basic candle geometry -------------------------------------------------
+// EPS absorbs float noise at exact-equality boundaries — NSE prices are
+// multiples of 0.05, so a wick can genuinely equal a body, yet subtracting
+// four-digit prices (3201.1 - 3200.9) rarely lands on an exact 0.2. EPS keeps
+// those legitimate at-the-boundary candles from being misclassified.
+const EPS = 1e-9;
+
 function body(c) { return Math.abs(c.close - c.open); }
 function upperWick(c) { return c.high - Math.max(c.open, c.close); }
 function lowerWick(c) { return Math.min(c.open, c.close) - c.low; }
@@ -19,24 +25,24 @@ function range(c) { return c.high - c.low; }
 
 /** Hammer: long lower wick >= wickMult*body, small upper wick <= body. */
 function isHammer(c, wickMult = 2.0) {
-  return range(c) > 0 && body(c) > 0 && lowerWick(c) >= wickMult * body(c) && upperWick(c) <= body(c);
+  return range(c) > 0 && body(c) > 0 && lowerWick(c) >= wickMult * body(c) - EPS && upperWick(c) <= body(c) + EPS;
 }
 /** Shooting star / bearish pin: long upper wick, small lower wick. */
 function isShooter(c, wickMult = 2.0) {
-  return range(c) > 0 && body(c) > 0 && upperWick(c) >= wickMult * body(c) && lowerWick(c) <= body(c);
+  return range(c) > 0 && body(c) > 0 && upperWick(c) >= wickMult * body(c) - EPS && lowerWick(c) <= body(c) + EPS;
 }
 
 /** Bullish engulfing: up candle whose body engulfs a prior down candle's body. */
 function isBullishEngulfing(c, prev, strict = false) {
   if (!(c.close > c.open && prev.close < prev.open)) return false;
-  if (strict && !(c.high >= prev.high && c.low <= prev.low)) return false;
-  return c.close >= prev.open && c.open <= prev.close;
+  if (strict && !(c.high >= prev.high - EPS && c.low <= prev.low + EPS)) return false;
+  return c.close >= prev.open - EPS && c.open <= prev.close + EPS;
 }
 /** Bearish engulfing: down candle whose body engulfs a prior up candle's body. */
 function isBearishEngulfing(c, prev, strict = false) {
   if (!(c.close < c.open && prev.close > prev.open)) return false;
-  if (strict && !(c.high >= prev.high && c.low <= prev.low)) return false;
-  return c.close <= prev.open && c.open >= prev.close;
+  if (strict && !(c.high >= prev.high - EPS && c.low <= prev.low + EPS)) return false;
+  return c.close <= prev.open + EPS && c.open >= prev.close - EPS;
 }
 
 // ---- ATR (Wilder) over closed bars ----------------------------------------

@@ -74,3 +74,13 @@ CREATE TABLE IF NOT EXISTS pdh_pdl.alerts (
 
 CREATE INDEX IF NOT EXISTS idx_pdhpdl_signals_date ON pdh_pdl.signals (trade_date);
 CREATE INDEX IF NOT EXISTS idx_pdhpdl_armed_date   ON pdh_pdl.armed (trade_date);
+
+-- ---- variant support (pdhpdl-v2: min-R filter) --------------------------------
+-- config_tag separates variants; r_pct is R as % of price; alerted = whether a
+-- Telegram alert was sent (false when the min-R filter suppressed it, but the
+-- trade is still logged + outcome-tracked so v1-vs-v2 is one clean dataset).
+ALTER TABLE pdh_pdl.signals ADD COLUMN IF NOT EXISTS config_tag text NOT NULL DEFAULT 'pdhpdl-v1';
+ALTER TABLE pdh_pdl.signals ADD COLUMN IF NOT EXISTS r_pct      numeric;
+ALTER TABLE pdh_pdl.signals ADD COLUMN IF NOT EXISTS alerted    boolean NOT NULL DEFAULT true;
+ALTER TABLE pdh_pdl.armed   ADD COLUMN IF NOT EXISTS config_tag text NOT NULL DEFAULT 'pdhpdl-v1';
+CREATE INDEX IF NOT EXISTS idx_pdhpdl_signals_tag ON pdh_pdl.signals (config_tag);

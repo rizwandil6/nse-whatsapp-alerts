@@ -37,6 +37,7 @@ class DB {
     const ssl = process.env.PGSSL === 'disable' || isLocal ? false : { rejectUnauthorized: false };
     this.pool = new Pool({ connectionString: conn, ssl, max: 4 });
     this.pool.on('error', (e) => console.warn('  pg pool error:', e.message));
+    this.configTag = process.env.CONFIG_TAG || 'pdhpdl-v1';
     this.enabled = true;
   }
 
@@ -61,10 +62,10 @@ class DB {
   // --- writes -------------------------------------------------------------
   async insertArmed(e, tradeDate) {
     await this._q(
-      `INSERT INTO pdh_pdl.armed (symbol, trade_date, direction, level_type, level, break_ts, break_close)
-       VALUES ($1,$2,$3,$4,$5,to_timestamp($6/1000.0),$7)
+      `INSERT INTO pdh_pdl.armed (symbol, trade_date, direction, level_type, level, break_ts, break_close, config_tag)
+       VALUES ($1,$2,$3,$4,$5,to_timestamp($6/1000.0),$7,$8)
        ON CONFLICT (symbol, trade_date) DO NOTHING`,
-      [e.symbol, tradeDate, e.direction, e.levelType, e.level, e.breakTs, e.breakClose]
+      [e.symbol, tradeDate, e.direction, e.levelType, e.level, e.breakTs, e.breakClose, this.configTag]
     );
   }
 
@@ -72,13 +73,15 @@ class DB {
     const r = await this._q(
       `INSERT INTO pdh_pdl.signals
          (symbol, trade_date, direction, pdh, pdl, level, level_type, break_ts, entry_ts,
-          entry_px, sl, r_value, t_1p5, t_2r, t_3r, trigger_type, efficiency_ratio, in_window)
+          entry_px, sl, r_value, t_1p5, t_2r, t_3r, trigger_type, efficiency_ratio, in_window,
+          config_tag, r_pct, alerted)
        VALUES ($1,$2,$3,$4,$5,$6,$7,to_timestamp($8/1000.0),to_timestamp($9/1000.0),
-               $10,$11,$12,$13,$14,$15,$16,$17,true)
+               $10,$11,$12,$13,$14,$15,$16,$17,true,$18,$19,$20)
        ON CONFLICT (symbol, trade_date) DO NOTHING
        RETURNING id`,
       [e.symbol, tradeDate, e.direction, e.pdh, e.pdl, e.level, e.levelType, e.breakTs,
-       e.entryTs, e.entryPx, e.sl, e.r, e.t1p5, e.t2, e.t3, e.triggerType, e.effRatio]
+       e.entryTs, e.entryPx, e.sl, e.r, e.t1p5, e.t2, e.t3, e.triggerType, e.effRatio,
+       this.configTag, e.rPct, e.alerted !== false]
     );
     if (!r || r.rowCount === 0) return null;
     const id = r.rows[0].id;

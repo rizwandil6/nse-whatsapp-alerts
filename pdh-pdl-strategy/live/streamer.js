@@ -33,6 +33,10 @@ const { DB } = require('./db');
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046']; // personal + group (same as ema-scalp)
+// Variant config: MIN_R_PCT>0 activates pdhpdl-v2 (min-R filter) — small-R setups
+// are still logged + tracked but not alerted. CONFIG_TAG stamps the DB rows.
+const MIN_R_PCT = parseFloat(process.env.MIN_R_PCT || '0') || 0;
+const CONFIG_TAG = process.env.CONFIG_TAG || 'pdhpdl-v1';
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
 const IST_OFFSET_MS = 5.5 * 3600000;
 
@@ -50,6 +54,7 @@ const trackers = {};   // symbol -> PdhPdlTracker
 const agg5 = {};       // symbol -> BarAggregator(5)
 const agg15 = {};      // symbol -> BarAggregator(15)
 const signalIds = {};  // symbol -> Postgres signals.id
+const alertedBySymbol = {}; // symbol -> whether its setup passed the min-R gate (drives milestone/outcome alerts)
 let lastPreppedDate = null;
 
 function istDate(ms) { return new Date(ms + IST_OFFSET_MS).toISOString().slice(0, 10); }
@@ -62,10 +67,11 @@ async function prepDay() {
   console.log(`Prepping ${date}: fetching prior-day PDH/PDL for ${Object.keys(symbolMap).length} symbols...`);
   const { levels, failed } = await fetchLevels(symbolMap, UPSTOX_TOKEN);
   for (const symbol of Object.keys(symbolMap)) {
-    trackers[symbol] = new PdhPdlTracker(symbol);
+    trackers[symbol] = new PdhPdlTracker(symbol, { minRPct: MIN_R_PCT });
     agg5[symbol] = new BarAggregator(5, (bar) => handle5(symbol, bar));
     agg15[symbol] = new BarAggregator(15, (bar) => handle15(symbol, bar));
     delete signalIds[symbol];
+    delete alertedBySymbol[symbol];
     const lv = levels[symbol];
     if (lv) trackers[symbol].setLevels(lv.pdh, lv.pdl);
   }
@@ -132,7 +138,7 @@ function fmtSetup(e) {
   return [`${e.direction === 'LONG' ? '🟢 LONG' : '🔴 SHORT'} SETUP — ${e.symbol}`,
     `Trigger: ${e.triggerType === 'PIN' ? 'one-shot pin bar' : 'engulfing'} at ${e.levelType} ${f(e.level)}` +
       (e.effRatio != null ? ` (eff ${Number(e.effRatio).toFixed(2)})` : ''),
-    `Entry ${f(e.entryPx)}  |  SL ${f(e.sl)}  (R ${f(e.r)})`,
+    `Entry ${f(e.entryPx)}  |  SL ${f(e.sl)}  (R ${f(e.r)} · ${e.rPct != null ? e.rPct.toFixed(2) : '?'}%)`,
     `T 1.5R ${f(e.t1p5)}   T 2R ${f(e.t2)}   T 3R ${f(e.t3)}`,
     `${istTimeStr(e.entryTs)} IST · alert-only, no order placed.`].join('\n');
 }
@@ -161,15 +167,17 @@ async function handleEvents(events) {
       await emit('ARMED', e.symbol, fmtArmed(e), null);
     } else if (e.type === 'SETUP') {
       const td = istDate(e.entryTs);
-      const id = await db.insertSignal(e, td);
+      const id = await db.insertSignal(e, td);       // always logged (v1 record + counterfactual)
       if (id != null) signalIds[e.symbol] = id;
-      await emit('SETUP', e.symbol, fmtSetup(e), signalIds[e.symbol]);
+      alertedBySymbol[e.symbol] = e.alerted !== false;
+      if (alertedBySymbol[e.symbol]) await emit('SETUP', e.symbol, fmtSetup(e), signalIds[e.symbol]);
+      else console.log(`[pdh-pdl] SETUP suppressed (min-R) ${e.symbol} R=${e.rPct != null ? e.rPct.toFixed(2) : '?'}% < ${MIN_R_PCT}%`);
     } else if (e.type === 'MILESTONE') {
-      await db.markMilestone(signalIds[e.symbol], e.level, e.ts);
-      await emit(e.level, e.symbol, fmtMilestone(e), signalIds[e.symbol]);
+      await db.markMilestone(signalIds[e.symbol], e.level, e.ts);            // always tracked
+      if (alertedBySymbol[e.symbol]) await emit(e.level, e.symbol, fmtMilestone(e), signalIds[e.symbol]);
     } else if (e.type === 'OUTCOME') {
-      await db.closeOutcome(signalIds[e.symbol], e);
-      await emit(e.result, e.symbol, fmtOutcome(e), signalIds[e.symbol]);
+      await db.closeOutcome(signalIds[e.symbol], e);                          // always tracked
+      if (alertedBySymbol[e.symbol]) await emit(e.result, e.symbol, fmtOutcome(e), signalIds[e.symbol]);
     }
   }
 }
@@ -234,7 +242,7 @@ function finalizeDay(ws) {
 }
 
 async function main() {
-  console.log('Initializing PDH/PDL scanner...');
+  console.log(`Initializing PDH/PDL scanner... [config=${CONFIG_TAG}${MIN_R_PCT > 0 ? `, min-R=${MIN_R_PCT}%` : ', no min-R (v1)'}]`);
   await initProtobuf();
   await db.init();
   await prepDay();

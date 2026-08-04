@@ -147,9 +147,16 @@ class PdhPdlTracker {
       r = sl - entry;
       t1p5 = entry - 1.5 * r; t2 = entry - 2 * r; t3 = entry - 3 * r;
     }
+    // min-R filter (pdhpdl-v2): R as a % of price. If a threshold is configured
+    // and R is smaller than it, the setup is cost-doomed — we still LOG and TRACK
+    // it (so v1's full record and the counterfactual survive), but mark it
+    // `alerted = false` so no Telegram noise is sent. minRPct = 0 → v1 (alert all).
+    const rPct = 100 * r / entry;
+    const minRPct = this.opts.minRPct || 0;
+    const alerted = minRPct <= 0 || rPct >= minRPct;
     this.signal = {
       direction: this.bias, triggerType: trigger, effRatio,
-      entryTs: bar.timestampMs, entryPx: entry, sl, r, t1p5, t2, t3,
+      entryTs: bar.timestampMs, entryPx: entry, sl, r, rPct, alerted, t1p5, t2, t3,
       breakTs: this.armed.breakTs, level: this.armed.level, levelType: this.armed.levelType,
     };
     return [{ type: 'SETUP', symbol: this.symbol, pdh: this.pdh, pdl: this.pdl, ...this.signal }];
