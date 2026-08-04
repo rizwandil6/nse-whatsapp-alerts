@@ -74,6 +74,23 @@ const {
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min, aggregateTo5MinMultiDay } = require('./bar_aggregator');
 
+// PDH/PDL break-&-retest scalp scanner (halal Nifty-50 subset) -- merged into
+// this process 2026-08-04 so it shares this service's already-working Upstox
+// WebSocket connection instead of opening its own (which was persistently
+// rejected with 403 Forbidden as a standalone Railway service; root cause
+// never confirmed, see pdh-pdl-strategy/live/streamer.js history). Runs off
+// the SAME decoded feed messages (mode:'full' already includes marketOHLC,
+// not just ltpc) and the SAME merged subscription -- no separate protobuf
+// load, no separate WS connection. Fully isolated data/state (own trackers,
+// own Postgres tables pdh_pdl.*, own Telegram formatting) from DarvasBox's
+// real trading logic; a bug here cannot affect real trades. See
+// pdh-pdl-strategy/live/streamer.js (original standalone service, code kept
+// there for reference) and pdh_pdl_engine.js's docstring for the strategy.
+const { BarAggregator: PdhPdlBarAggregator } = require('./pdhpdl_bar_aggregator');
+const { PdhPdlTracker, istMin: pdhpdlIstMin } = require('./pdhpdl_engine');
+const { fetchLevels: fetchPdhPdlLevels } = require('./pdhpdl_prev_day_levels');
+const { DB: PdhPdlDB } = require('./pdhpdl_db');
+
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-5338709046').split(',');
@@ -143,6 +160,17 @@ for (const symbol of Object.keys(symbols)) {
     return b ? b.getLivePrice() : null;
   });
 }
+// ---- PDH/PDL state (fully separate from DarvasBox's own state above) ------
+const pdhpdlSymbols = require('./pdhpdl_symbols.json');
+const pdhpdlKeyToSymbol = {};
+for (const [symbol, key] of Object.entries(pdhpdlSymbols)) pdhpdlKeyToSymbol[key] = symbol;
+const pdhpdlDb = new PdhPdlDB();
+const pdhpdlTrackers = {};  // symbol -> PdhPdlTracker
+const pdhpdlAgg5 = {};      // symbol -> BarAggregator(5)
+const pdhpdlAgg15 = {};     // symbol -> BarAggregator(15)
+const pdhpdlSignalIds = {}; // symbol -> Postgres pdh_pdl.signals.id
+let pdhpdlLastPreppedDate = null;
+
 let currentDate = null;
 let protobufRoot = null;
 let lastGoodTickMs = null;
@@ -580,6 +608,138 @@ function scheduleBarFlush() {
   }, FLUSH_POLL_MS);
 }
 
+// ---- PDH/PDL: candle extraction (reads the SAME decoded feed message ------
+// darvasbox's own tick pipeline already decodes -- no separate protobuf load).
+function extractOneMinCandles(feed) {
+  const inner = feed.fullFeed && (feed.fullFeed.marketFF || feed.fullFeed.indexFF);
+  if (!inner || !inner.marketOHLC || !inner.marketOHLC.ohlc) return [];
+  return inner.marketOHLC.ohlc.filter((o) => o.interval === 'I1').map((o) => ({
+    timestampMs: Number(o.ts), open: o.open, high: o.high, low: o.low, close: o.close, volume: Number(o.vol || 0),
+  }));
+}
+
+// ---- PDH/PDL: daily prep (fetch prior-day PDH/PDL, fresh trackers) --------
+function pdhpdlIstDate(ms) { return new Date(ms + 5.5 * 3600000).toISOString().slice(0, 10); }
+function pdhpdlIstTimeStr(ms) { return new Date(ms + 5.5 * 3600000).toISOString().slice(11, 16); }
+
+async function pdhpdlPrepDay() {
+  const date = pdhpdlIstDate(Date.now());
+  console.log(`[pdh-pdl] Prepping ${date}: fetching prior-day PDH/PDL for ${Object.keys(pdhpdlSymbols).length} symbols...`);
+  const { levels, failed } = await fetchPdhPdlLevels(pdhpdlSymbols, UPSTOX_TOKEN);
+  for (const symbol of Object.keys(pdhpdlSymbols)) {
+    pdhpdlTrackers[symbol] = new PdhPdlTracker(symbol);
+    pdhpdlAgg5[symbol] = new PdhPdlBarAggregator(5, (bar) => pdhpdlHandle5(symbol, bar));
+    pdhpdlAgg15[symbol] = new PdhPdlBarAggregator(15, (bar) => pdhpdlHandle15(symbol, bar));
+    delete pdhpdlSignalIds[symbol];
+    const lv = levels[symbol];
+    if (lv) pdhpdlTrackers[symbol].setLevels(lv.pdh, lv.pdl);
+  }
+  pdhpdlLastPreppedDate = date;
+  const ok = Object.keys(levels).length;
+  console.log(`[pdh-pdl]   levels set for ${ok}/${Object.keys(pdhpdlSymbols).length} symbols` + (failed.length ? `; failed: ${failed.join(', ')}` : ''));
+}
+
+/** Runs every minute: (re)prep once per day at/after 09:10 IST -- own independent schedule from DarvasBox's own new-day reset. */
+function schedulePdhPdlDailyPrep() {
+  setInterval(() => {
+    const now = Date.now();
+    if (pdhpdlIstDate(now) !== pdhpdlLastPreppedDate && pdhpdlIstMin(now) >= 9 * 60 + 10) {
+      pdhpdlPrepDay().catch((e) => console.error('[pdh-pdl] prepDay failed:', e.message));
+    }
+  }, 60000);
+}
+
+// ---- PDH/PDL: Telegram (reuses DarvasBox's own TELEGRAM_TOKEN/chat ids) ---
+async function sendPdhPdlTelegram(text) {
+  console.log('[PDH-PDL ALERT]', text.replace(/\n/g, ' | '));
+  if (!TELEGRAM_TOKEN) return false;
+  let allOk = true;
+  for (const chatId of TELEGRAM_CHAT_IDS) {
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text }),
+      });
+      if (!res.ok) { allOk = false; console.warn(`  [pdh-pdl] Telegram send failed for ${chatId}: HTTP ${res.status}`); }
+    } catch (e) { allOk = false; console.warn(`  [pdh-pdl] Telegram send error for ${chatId}: ${e.message}`); }
+  }
+  return allOk;
+}
+
+const pdhpdlF = (x) => (x == null ? '—' : Number(x).toFixed(2));
+
+function pdhpdlFmtArmed(e) {
+  return [`⚡ PDH/PDL ARMED — ${e.symbol} (${e.direction})`,
+    `${e.levelType} ${pdhpdlF(e.level)} broken (15m close ${pdhpdlF(e.breakClose)}) at ${pdhpdlIstTimeStr(e.breakTs)} IST.`,
+    `Watch for the ${e.direction === 'LONG' ? '5-min retest of PDH' : '5-min retest of PDL'}.`].join('\n');
+}
+function pdhpdlFmtSetup(e) {
+  return [`${e.direction === 'LONG' ? '🟢 LONG' : '🔴 SHORT'} SETUP — ${e.symbol}`,
+    `Trigger: ${e.triggerType === 'PIN' ? 'one-shot pin bar' : 'engulfing'} at ${e.levelType} ${pdhpdlF(e.level)}` +
+      (e.effRatio != null ? ` (eff ${Number(e.effRatio).toFixed(2)})` : ''),
+    `Entry ${pdhpdlF(e.entryPx)}  |  SL ${pdhpdlF(e.sl)}  (R ${pdhpdlF(e.r)})`,
+    `T 1.5R ${pdhpdlF(e.t1p5)}   T 2R ${pdhpdlF(e.t2)}   T 3R ${pdhpdlF(e.t3)}`,
+    `${pdhpdlIstTimeStr(e.entryTs)} IST · alert-only, no order placed.`].join('\n');
+}
+function pdhpdlFmtMilestone(e) {
+  return `🎯 ${e.symbol} reached ${e.level} @ ${pdhpdlF(e.price)} (${pdhpdlIstTimeStr(e.ts)} IST).` +
+    (e.level === 'T1.5R' ? ' Consider trailing SL to breakeven.' : '');
+}
+function pdhpdlFmtOutcome(e) {
+  const icon = e.result === 'T3R' ? '✅' : e.result === 'SL' ? '🛑' : '⏹️';
+  return [`${icon} ${e.symbol} closed — ${e.result} @ ${pdhpdlF(e.exitPx)}`,
+    `R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R  ·  MFE ${Number(e.mfeR).toFixed(2)}R / MAE ${Number(e.maeR).toFixed(2)}R`,
+    `${pdhpdlIstTimeStr(e.closedTs)} IST.`].join('\n');
+}
+
+async function pdhpdlEmit(alertType, symbol, text, signalId) {
+  const ok = await sendPdhPdlTelegram(text);
+  await pdhpdlDb.insertAlert({ signalId, symbol, alertType, chatId: TELEGRAM_CHAT_IDS.join(','), text, sentOk: ok });
+}
+
+async function pdhpdlHandleEvents(events) {
+  for (const e of events) {
+    if (e.type === 'ARMED') {
+      const td = pdhpdlIstDate(e.breakTs);
+      await pdhpdlDb.insertArmed(e, td);
+      await pdhpdlEmit('ARMED', e.symbol, pdhpdlFmtArmed(e), null);
+    } else if (e.type === 'SETUP') {
+      const td = pdhpdlIstDate(e.entryTs);
+      const id = await pdhpdlDb.insertSignal(e, td);
+      if (id != null) pdhpdlSignalIds[e.symbol] = id;
+      await pdhpdlEmit('SETUP', e.symbol, pdhpdlFmtSetup(e), pdhpdlSignalIds[e.symbol]);
+    } else if (e.type === 'MILESTONE') {
+      await pdhpdlDb.markMilestone(pdhpdlSignalIds[e.symbol], e.level, e.ts);
+      await pdhpdlEmit(e.level, e.symbol, pdhpdlFmtMilestone(e), pdhpdlSignalIds[e.symbol]);
+    } else if (e.type === 'OUTCOME') {
+      await pdhpdlDb.closeOutcome(pdhpdlSignalIds[e.symbol], e);
+      await pdhpdlEmit(e.result, e.symbol, pdhpdlFmtOutcome(e), pdhpdlSignalIds[e.symbol]);
+    }
+  }
+}
+
+// Serialize event handling per symbol so a signal's INSERT always completes
+// before its outcome UPDATE -- same reasoning as DarvasBox's own dispatchEvent.
+const pdhpdlChains = {};
+function pdhpdlEnqueue(symbol, events) {
+  if (!events || events.length === 0) return;
+  pdhpdlChains[symbol] = (pdhpdlChains[symbol] || Promise.resolve())
+    .then(() => pdhpdlHandleEvents(events))
+    .catch((e) => console.error(`[pdh-pdl] handleEvents error [${symbol}]:`, e.message));
+}
+function pdhpdlHandle5(symbol, bar) { const t = pdhpdlTrackers[symbol]; if (t) pdhpdlEnqueue(symbol, t.onNew5mBar(bar)); }
+function pdhpdlHandle15(symbol, bar) { const t = pdhpdlTrackers[symbol]; if (t) pdhpdlEnqueue(symbol, t.onNew15mBar(bar)); }
+
+/** Force-closes any still-forming PDH/PDL bars/positions -- called on process shutdown, mirroring the original standalone service's finalizeDay(). */
+function pdhpdlFinalizeDay() {
+  console.log('[pdh-pdl] Finalizing day...');
+  for (const symbol of Object.keys(pdhpdlAgg5)) {
+    pdhpdlAgg5[symbol].flushRemaining();
+    pdhpdlAgg15[symbol] && pdhpdlAgg15[symbol].flushRemaining();
+  }
+  for (const symbol of Object.keys(pdhpdlTrackers)) pdhpdlEnqueue(symbol, pdhpdlTrackers[symbol].forceEndOfDay());
+}
+
 function connectAndRun() {
   return new Promise((resolve) => {
     (async () => {
@@ -605,16 +765,19 @@ function connectAndRun() {
       };
 
       ws.on('open', () => {
-        console.log('Connected. Subscribing to', Object.keys(symbols).length, 'symbols...');
+        console.log('Connected. Subscribing to', Object.keys(symbols).length, 'DarvasBox symbols +', Object.keys(pdhpdlSymbols).length, 'PDH/PDL symbols...');
         lastActivityMs = Date.now(); // gives the subscription a full WS_STALE_TIMEOUT_MS window to start producing ticks
         setTimeout(() => {
-          const instrumentKeys = Object.values(symbols);
+          // Merged + deduped -- PDH/PDL (halal Nifty-50 subset) and DarvasBox's
+          // 18 holdings overlap on some symbols; a single 'full' subscription
+          // covers both (mode:'full' already includes marketOHLC, not just ltpc).
+          const instrumentKeys = Array.from(new Set([...Object.values(symbols), ...Object.values(pdhpdlSymbols)]));
           ws.send(Buffer.from(JSON.stringify({
             guid: `darvasbox-shadow-${Date.now()}`,
             method: 'sub',
             data: { mode: 'full', instrumentKeys },
           })));
-          console.log('Subscription sent.');
+          console.log('Subscription sent (', instrumentKeys.length, 'unique instrument keys ).');
         }, 1000);
       });
 
@@ -630,18 +793,35 @@ function connectAndRun() {
         maybeResetForNewDay(Date.now());
 
         for (const [instrumentKey, feed] of Object.entries(decoded.feeds)) {
-          try {
-            const symbol = keyToSymbol[instrumentKey];
-            if (!symbol) continue;
-            const tick = extractTick(feed);
-            if (!tick) continue;
-            lastGoodTickMs = Date.now();
-            lastActivityMs = lastGoodTickMs;
+          const symbol = keyToSymbol[instrumentKey];
+          if (symbol) {
+            try {
+              const tick = extractTick(feed);
+              if (tick) {
+                lastGoodTickMs = Date.now();
+                lastActivityMs = lastGoodTickMs;
 
-            const closedBar = getOrCreateTickBuilder(symbol).onTick(tick);
-            if (closedBar) ingestOneMinBar(symbol, closedBar, false);
-          } catch (e) {
-            console.error(`Tick processing threw for ${instrumentKey}:`, e.message, e.stack);
+                const closedBar = getOrCreateTickBuilder(symbol).onTick(tick);
+                if (closedBar) ingestOneMinBar(symbol, closedBar, false);
+              }
+            } catch (e) {
+              console.error(`Tick processing threw for ${instrumentKey}:`, e.message, e.stack);
+            }
+          }
+
+          // PDH/PDL: independent of DarvasBox's own symbol map above -- a
+          // symbol can be subscribed for one strategy, the other, or both.
+          const pdhpdlSymbol = pdhpdlKeyToSymbol[instrumentKey];
+          if (pdhpdlSymbol) {
+            try {
+              const candles = extractOneMinCandles(feed);
+              for (const c of candles) {
+                pdhpdlAgg5[pdhpdlSymbol] && pdhpdlAgg5[pdhpdlSymbol].push(c);
+                pdhpdlAgg15[pdhpdlSymbol] && pdhpdlAgg15[pdhpdlSymbol].push(c);
+              }
+            } catch (e) {
+              console.error(`[pdh-pdl] Candle processing threw for ${instrumentKey}:`, e.message);
+            }
           }
         }
       });
@@ -656,8 +836,8 @@ function connectAndRun() {
         finish('error');
       });
 
-      process.once('SIGTERM', () => { console.log('SIGTERM: closing feed connection...'); ws.close(); setTimeout(() => finish('sigterm'), 500); });
-      process.once('SIGINT', () => { console.log('SIGINT: closing feed connection...'); ws.close(); setTimeout(() => finish('sigint'), 500); });
+      process.once('SIGTERM', () => { console.log('SIGTERM: closing feed connection...'); pdhpdlFinalizeDay(); ws.close(); setTimeout(() => finish('sigterm'), 500); });
+      process.once('SIGINT', () => { console.log('SIGINT: closing feed connection...'); pdhpdlFinalizeDay(); ws.close(); setTimeout(() => finish('sigint'), 500); });
     })();
   });
 }
@@ -695,6 +875,15 @@ async function main() {
   console.log(`Telegram alerts: ${PAPER_ALERTS_ENABLED ? 'ENABLED (paper-labeled)' : 'SUPPRESSED (logging only)'}`);
 
   await initProtobuf();
+
+  // PDH/PDL: own Postgres init + daily prep, independent of DarvasBox's own
+  // GitHub-based persistence below. Awaited before the connect loop so
+  // pdhpdlTrackers/pdhpdlAgg5/pdhpdlAgg15 are populated before the first
+  // feed message can arrive.
+  await pdhpdlDb.init();
+  await pdhpdlPrepDay();
+  schedulePdhPdlDailyPrep();
+
   await syncFromRemote();
   // Shadow experiment log -- fully deterministic given bricks/bars5 (no live-price
   // dependency), so a restart's backfill replay just re-derives identical shadow
