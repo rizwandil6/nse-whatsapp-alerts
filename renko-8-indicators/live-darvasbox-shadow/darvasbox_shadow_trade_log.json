@@ -3154,5 +3154,16 @@
   "timestampMs": 1785823500000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.93,
+  "theoreticalEntry": 10.9326,
+  "entryIdx": 6,
+  "timestampMs": 1785823500000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
