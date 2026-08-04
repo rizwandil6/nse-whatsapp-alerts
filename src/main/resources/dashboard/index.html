@@ -140,7 +140,6 @@
     <button class="tab-btn" data-tab="announcements">Announcements <span class="count" id="count-announcements"></span></button>
     <button class="tab-btn" data-tab="quarterly-results">Quarterly Results <span class="count" id="count-quarterly-results"></span></button>
     <button class="tab-btn" data-tab="rs-momentum">RS Momentum <span class="count" id="count-rs-momentum"></span></button>
-    <button class="tab-btn" data-tab="multibagger">Multibagger <span class="count" id="count-multibagger"></span></button>
     <button class="tab-btn" data-tab="darvasbox">Today's DarvasBox <span class="count" id="count-darvasbox"></span></button>
   </div>
 
@@ -149,7 +148,6 @@
   <div class="panel" id="panel-announcements"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-quarterly-results"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-rs-momentum"><div class="state-msg">Loading…</div></div>
-  <div class="panel" id="panel-multibagger"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-darvasbox"><div class="state-msg">Loading…</div></div>
 </div>
 
@@ -159,7 +157,6 @@
     announcements: { url: '/api/dashboard/announcements', render: renderAnnouncements },
     'quarterly-results': { url: '/api/dashboard/quarterly-results', render: renderQuarterlyResults },
     'rs-momentum': { url: '/api/dashboard/rs-momentum', render: renderRsMomentum },
-    multibagger: { url: '/api/dashboard/multibagger', render: renderMultibagger },
     darvasbox: { url: '/api/dashboard/darvasbox-today', render: renderDarvasbox },
   };
   const loaded = {};
@@ -169,7 +166,6 @@
     announcements: 'Announcements',
     'quarterly-results': 'Quarterly Results',
     'rs-momentum': 'RS Momentum',
-    multibagger: 'Multibagger',
     darvasbox: "Today's DarvasBox",
   };
 
@@ -231,10 +227,6 @@
           `<div class="tile-preview-time">${fmtTime(item.timestamp)}</div>`;
       case 'rs-momentum': {
         const label = { ENTRY: 'Entry', EXIT: 'Exit', ENTRY_PENDING: 'Entry (pending)', FUNDAMENTALS_CONFIRMED: 'Confirmed', FUNDAMENTALS_FAILED: 'Retracted' };
-        return `<div class="tile-preview-title">${esc(item.symbol)} — ${label[item.type] || esc(item.type)}</div><div class="tile-preview-time">${esc(item.date)}</div>`;
-      }
-      case 'multibagger': {
-        const label = { QUALIFIED: 'Qualified', LOST: 'Lost qualification' };
         return `<div class="tile-preview-title">${esc(item.symbol)} — ${label[item.type] || esc(item.type)}</div><div class="tile-preview-time">${esc(item.date)}</div>`;
       }
       case 'darvasbox': {
@@ -351,28 +343,6 @@
           ${r.salesGrowth3Y != null ? `<span>Sales Growth 3Y <b>${esc(r.salesGrowth3Y)}%</b></span>` : ''}
           ${pnl}
           ${forwardPerfMeta(r)}
-        </div>
-      `;
-      panel.appendChild(card);
-    }
-  }
-
-  function renderMultibagger(items, panel) {
-    const badge = { QUALIFIED: 'win', LOST: 'loss' };
-    const label = { QUALIFIED: 'Qualified', LOST: 'Lost qualification' };
-    for (const m of items) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="card-top">
-          <div class="card-title">${esc(m.symbol)}</div>
-          <div class="card-time">${esc(m.date)}</div>
-        </div>
-        <div class="card-meta">
-          <span class="badge ${badge[m.type] || 'neutral'}">${label[m.type] || esc(m.type)}</span>
-          ${m.price != null ? `<span>Price <b>₹${esc(m.price)}</b></span>` : ''}
-          ${m.priceAtQualification != null ? `<span>At qualification <b>₹${esc(m.priceAtQualification)}</b> (${esc(m.qualifiedDate)})</span>` : ''}
-          ${forwardPerfMeta(m)}
         </div>
       `;
       panel.appendChild(card);
