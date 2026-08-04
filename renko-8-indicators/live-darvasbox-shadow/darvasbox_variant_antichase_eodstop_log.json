@@ -342,5 +342,37 @@
   "exitTimestampMs": 1785836700000,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "theoreticalExit": 38.49274999999999,
+  "livePriceAvailable": true,
+  "entry": 38.78509999999999,
+  "exitPrice": 38.5,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 3,
+  "pnlPct": 0.7350760988111229,
+  "entryTimestampMs": 1785830400000,
+  "exitTimestampMs": 1785837000000,
+  "variant": true,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "theoreticalExit": 175.84087500000004,
+  "livePriceAvailable": true,
+  "entry": 176.27505000000005,
+  "exitPrice": 175,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 3,
+  "pnlPct": -0.7233298189392371,
+  "entryTimestampMs": 1785832800000,
+  "exitTimestampMs": 1785835500000,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
