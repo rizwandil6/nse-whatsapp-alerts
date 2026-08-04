@@ -48,7 +48,12 @@
   "position": null
  },
  "HATHWAY": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 10.9326,
+   "entryIdx": 6,
+   "entryTimestampMs": 1785823500000
+  }
  },
  "ORIENTELEC": {
   "position": null
