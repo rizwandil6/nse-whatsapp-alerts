@@ -32,7 +32,12 @@
   "position": null
  },
  "RAILTEL": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 290.5,
+   "entryIdx": 10,
+   "entryTimestampMs": 1785824700000
+  }
  },
  "GAIL": {
   "position": null
