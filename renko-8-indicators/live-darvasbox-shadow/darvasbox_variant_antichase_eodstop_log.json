@@ -168,5 +168,18 @@
   "exitTimestampMs": 1785748800000,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 292.2,
+  "theoreticalEntry": 292.02825,
+  "stop": 281.97299999999996,
+  "entryIdx": 4,
+  "timestampMs": 1785816300000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
