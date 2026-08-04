@@ -390,5 +390,53 @@
   "exitTimestampMs": 1785837300000,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "theoreticalExit": 38.580299999999994,
+  "livePriceAvailable": true,
+  "entry": 38.77515,
+  "exitPrice": 38.57,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 2,
+  "pnlPct": 0.5290759674688459,
+  "entryTimestampMs": 1785830400000,
+  "exitTimestampMs": 1785836700000,
+  "variant": true,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "theoreticalExit": 492.129,
+  "livePriceAvailable": true,
+  "entry": 495.85725,
+  "exitPrice": 492.35,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 7,
+  "pnlPct": 0.7073104204889611,
+  "entryTimestampMs": 1785819600000,
+  "exitTimestampMs": 1785837000000,
+  "variant": true,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "theoreticalExit": 617.6959999999999,
+  "livePriceAvailable": true,
+  "entry": 633.2160000000001,
+  "exitPrice": 618.8,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 10,
+  "pnlPct": -2.2766323024055244,
+  "entryTimestampMs": 1785823800000,
+  "exitTimestampMs": 1785836700000,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
