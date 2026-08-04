@@ -169,7 +169,13 @@ const pdhpdlTrackers = {};  // symbol -> PdhPdlTracker
 const pdhpdlAgg5 = {};      // symbol -> BarAggregator(5)
 const pdhpdlAgg15 = {};     // symbol -> BarAggregator(15)
 const pdhpdlSignalIds = {}; // symbol -> Postgres pdh_pdl.signals.id
+const pdhpdlAlerted = {};   // symbol -> whether its setup passed the min-R gate
 let pdhpdlLastPreppedDate = null;
+// Variant config: MIN_R_PCT>0 activates pdhpdl-v2 (min-R filter) — small-R setups
+// are still logged + tracked but not alerted. CONFIG_TAG stamps the DB rows.
+const PDHPDL_MIN_R_PCT = parseFloat(process.env.MIN_R_PCT || '0') || 0;
+const PDHPDL_CONFIG_TAG = process.env.CONFIG_TAG || 'pdhpdl-v1';
+console.log(`[pdh-pdl] variant config=${PDHPDL_CONFIG_TAG}${PDHPDL_MIN_R_PCT > 0 ? `, min-R=${PDHPDL_MIN_R_PCT}%` : ', no min-R (v1)'}`);
 
 let currentDate = null;
 let protobufRoot = null;
@@ -627,10 +633,11 @@ async function pdhpdlPrepDay() {
   console.log(`[pdh-pdl] Prepping ${date}: fetching prior-day PDH/PDL for ${Object.keys(pdhpdlSymbols).length} symbols...`);
   const { levels, failed } = await fetchPdhPdlLevels(pdhpdlSymbols, UPSTOX_TOKEN);
   for (const symbol of Object.keys(pdhpdlSymbols)) {
-    pdhpdlTrackers[symbol] = new PdhPdlTracker(symbol);
+    pdhpdlTrackers[symbol] = new PdhPdlTracker(symbol, { minRPct: PDHPDL_MIN_R_PCT });
     pdhpdlAgg5[symbol] = new PdhPdlBarAggregator(5, (bar) => pdhpdlHandle5(symbol, bar));
     pdhpdlAgg15[symbol] = new PdhPdlBarAggregator(15, (bar) => pdhpdlHandle15(symbol, bar));
     delete pdhpdlSignalIds[symbol];
+    delete pdhpdlAlerted[symbol];
     const lv = levels[symbol];
     if (lv) pdhpdlTrackers[symbol].setLevels(lv.pdh, lv.pdl);
   }
@@ -677,7 +684,7 @@ function pdhpdlFmtSetup(e) {
   return [`${e.direction === 'LONG' ? '🟢 LONG' : '🔴 SHORT'} SETUP — ${e.symbol}`,
     `Trigger: ${e.triggerType === 'PIN' ? 'one-shot pin bar' : 'engulfing'} at ${e.levelType} ${pdhpdlF(e.level)}` +
       (e.effRatio != null ? ` (eff ${Number(e.effRatio).toFixed(2)})` : ''),
-    `Entry ${pdhpdlF(e.entryPx)}  |  SL ${pdhpdlF(e.sl)}  (R ${pdhpdlF(e.r)})`,
+    `Entry ${pdhpdlF(e.entryPx)}  |  SL ${pdhpdlF(e.sl)}  (R ${pdhpdlF(e.r)} · ${e.rPct != null ? e.rPct.toFixed(2) : '?'}%)`,
     `T 1.5R ${pdhpdlF(e.t1p5)}   T 2R ${pdhpdlF(e.t2)}   T 3R ${pdhpdlF(e.t3)}`,
     `${pdhpdlIstTimeStr(e.entryTs)} IST · alert-only, no order placed.`].join('\n');
 }
@@ -705,15 +712,17 @@ async function pdhpdlHandleEvents(events) {
       await pdhpdlEmit('ARMED', e.symbol, pdhpdlFmtArmed(e), null);
     } else if (e.type === 'SETUP') {
       const td = pdhpdlIstDate(e.entryTs);
-      const id = await pdhpdlDb.insertSignal(e, td);
+      const id = await pdhpdlDb.insertSignal(e, td);   // always logged (v1 record + counterfactual)
       if (id != null) pdhpdlSignalIds[e.symbol] = id;
-      await pdhpdlEmit('SETUP', e.symbol, pdhpdlFmtSetup(e), pdhpdlSignalIds[e.symbol]);
+      pdhpdlAlerted[e.symbol] = e.alerted !== false;
+      if (pdhpdlAlerted[e.symbol]) await pdhpdlEmit('SETUP', e.symbol, pdhpdlFmtSetup(e), pdhpdlSignalIds[e.symbol]);
+      else console.log(`[pdh-pdl] SETUP suppressed (min-R) ${e.symbol} R=${e.rPct != null ? e.rPct.toFixed(2) : '?'}% < ${PDHPDL_MIN_R_PCT}%`);
     } else if (e.type === 'MILESTONE') {
-      await pdhpdlDb.markMilestone(pdhpdlSignalIds[e.symbol], e.level, e.ts);
-      await pdhpdlEmit(e.level, e.symbol, pdhpdlFmtMilestone(e), pdhpdlSignalIds[e.symbol]);
+      await pdhpdlDb.markMilestone(pdhpdlSignalIds[e.symbol], e.level, e.ts);      // always tracked
+      if (pdhpdlAlerted[e.symbol]) await pdhpdlEmit(e.level, e.symbol, pdhpdlFmtMilestone(e), pdhpdlSignalIds[e.symbol]);
     } else if (e.type === 'OUTCOME') {
-      await pdhpdlDb.closeOutcome(pdhpdlSignalIds[e.symbol], e);
-      await pdhpdlEmit(e.result, e.symbol, pdhpdlFmtOutcome(e), pdhpdlSignalIds[e.symbol]);
+      await pdhpdlDb.closeOutcome(pdhpdlSignalIds[e.symbol], e);                    // always tracked
+      if (pdhpdlAlerted[e.symbol]) await pdhpdlEmit(e.result, e.symbol, pdhpdlFmtOutcome(e), pdhpdlSignalIds[e.symbol]);
     }
   }
 }

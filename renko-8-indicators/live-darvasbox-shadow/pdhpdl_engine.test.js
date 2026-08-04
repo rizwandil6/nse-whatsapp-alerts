@@ -114,5 +114,37 @@ check('window: 15m break closing at 12:00 (start 11:45) does NOT arm', () => {
   assert.strictEqual(edge.length, 1, 'break closing exactly at 11:45 should arm');
 });
 
+// ---- min-R filter (pdhpdl-v2) ---------------------------------------------
+function drivePinSetup(minRPct) {
+  const t = new PdhPdlTracker('TCS', { minRPct });
+  t.setLevels(3200.0, 3150.0);
+  t.onNew15mBar(bar(9, 30, 3201, 3209, 3200.5, 3208));
+  for (const b of [
+    bar(9, 35, 3218, 3219, 3215, 3215.5), bar(9, 40, 3215.5, 3216, 3211, 3211.5),
+    bar(9, 45, 3211.5, 3212, 3208, 3208.5), bar(9, 50, 3208.5, 3209, 3205, 3205.5),
+    bar(9, 55, 3205.5, 3206, 3202, 3202.5), bar(10, 0, 3202.5, 3203, 3201, 3201.5),
+  ]) t.onNew5mBar(b);
+  return { t, ev: t.onNew5mBar(bar(10, 5, 3200.9, 3201.3, 3199.4, 3201.1)) };
+}
+
+check('min-R v2: tiny-R setup fires but alerted=false, still tracks to T3R', () => {
+  const { t, ev } = drivePinSetup(0.25);
+  const setup = ev.find((e) => e.type === 'SETUP');
+  assert.ok(setup, 'setup still fires (logged + tracked)');
+  assert.ok(setup.rPct < 0.25, `rPct ${setup.rPct} should be under the 0.25% gate`);
+  assert.strictEqual(setup.alerted, false, 'small-R setup must be alerted=false');
+  t.onNew5mBar(bar(10, 10, 3201.1, 3204.0, 3201.0, 3203.8));
+  t.onNew5mBar(bar(10, 15, 3203.8, 3205.5, 3203.5, 3205.2));
+  const out = t.onNew5mBar(bar(10, 20, 3205.2, 3208.5, 3205.0, 3208.2)).find((e) => e.type === 'OUTCOME');
+  assert.ok(out && out.result === 'T3R', 'filtered setup still tracks its outcome');
+});
+
+check('v1 default: same setup is alerted=true with rPct populated', () => {
+  const { ev } = drivePinSetup(0);
+  const setup = ev.find((e) => e.type === 'SETUP');
+  assert.strictEqual(setup.alerted, true, 'no filter → alerted=true');
+  assert.ok(setup.rPct > 0, 'rPct should be populated');
+});
+
 console.log(failures === 0 ? '\nALL TESTS PASSED' : `\n${failures} TEST(S) FAILED`);
 process.exit(failures === 0 ? 0 : 1);
