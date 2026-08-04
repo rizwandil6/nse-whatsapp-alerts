@@ -374,5 +374,21 @@
   "exitTimestampMs": 1785835500000,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "theoreticalExit": 175.40670000000003,
+  "livePriceAvailable": true,
+  "entry": 176.27505000000005,
+  "exitPrice": 175,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 4,
+  "pnlPct": -0.7233298189392371,
+  "entryTimestampMs": 1785832800000,
+  "exitTimestampMs": 1785837300000,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
