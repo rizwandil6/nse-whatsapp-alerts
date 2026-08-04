@@ -54,12 +54,7 @@
   }
  },
  "NCC": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 144.32,
-   "entryIdx": 4,
-   "entryTimestampMs": 1785819900000
-  }
+  "position": null
  },
  "TEXRAIL": {
   "position": null
