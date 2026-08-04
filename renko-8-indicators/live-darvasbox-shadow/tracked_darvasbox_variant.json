@@ -27,7 +27,13 @@
   "position": null
  },
  "RAILTEL": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 292.2,
+   "entryIdx": 4,
+   "entryTimestampMs": 1785816300000,
+   "stop": 281.97299999999996
+  }
  },
  "GAIL": {
   "position": null
