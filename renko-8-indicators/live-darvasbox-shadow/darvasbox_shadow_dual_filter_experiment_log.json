@@ -916,5 +916,29 @@
   "entryTimestampMs": 1785823800000,
   "exitTimestampMs": 1785825900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 38.77515,
+  "exitPrice": 38.580299999999994,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5025125628140766,
+  "entryTimestampMs": 1785830400000,
+  "exitTimestampMs": 1785836700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 495.85725,
+  "exitPrice": 492.129,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7518796992481208,
+  "entryTimestampMs": 1785819600000,
+  "exitTimestampMs": 1785837000000,
+  "shadow": true
  }
 ]
