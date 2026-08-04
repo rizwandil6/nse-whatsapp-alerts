@@ -748,5 +748,14 @@
   "timestampMs": 1785832500000,
   "breakoutTimestampMs": 1785830400000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 176.27505000000005,
+  "timestampMs": 1785832800000,
+  "breakoutTimestampMs": 1785832800000,
+  "shadow": true
  }
 ]
