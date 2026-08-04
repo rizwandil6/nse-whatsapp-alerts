@@ -188,5 +188,40 @@
   "date": "2026-07-30",
   "price": 626.25,
   "rsRankAtEntry": 81.36094674556213
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CARBORUNIV",
+  "date": "2026-08-02",
+  "price": 1095.5,
+  "rsRankAtEntry": 81.95266272189349
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "COFORGE",
+  "date": "2026-08-02",
+  "price": 1768,
+  "rsRankAtEntry": 81.36094674556213
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PAYTM",
+  "date": "2026-08-02",
+  "price": 1410,
+  "rsRankAtEntry": 83.72781065088756
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "RAINBOW",
+  "date": "2026-08-02",
+  "price": 1545.6,
+  "rsRankAtEntry": 80.4733727810651
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "TATATECH",
+  "date": "2026-08-02",
+  "price": 763.8,
+  "rsRankAtEntry": 80.1775147928994
  }
 ]

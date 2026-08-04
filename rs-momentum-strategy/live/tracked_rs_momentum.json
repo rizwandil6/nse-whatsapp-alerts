@@ -85,5 +85,40 @@
   "rsRankAtEntry": 81.36094674556213,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "CARBORUNIV": {
+  "entryDate": "2026-08-02",
+  "entryPrice": 1095.5,
+  "rsRankAtEntry": 81.95266272189349,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "COFORGE": {
+  "entryDate": "2026-08-02",
+  "entryPrice": 1768,
+  "rsRankAtEntry": 81.36094674556213,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "PAYTM": {
+  "entryDate": "2026-08-02",
+  "entryPrice": 1410,
+  "rsRankAtEntry": 83.72781065088756,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "RAINBOW": {
+  "entryDate": "2026-08-02",
+  "entryPrice": 1545.6,
+  "rsRankAtEntry": 80.4733727810651,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "TATATECH": {
+  "entryDate": "2026-08-02",
+  "entryPrice": 763.8,
+  "rsRankAtEntry": 80.1775147928994,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
