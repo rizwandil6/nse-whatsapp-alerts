@@ -9,8 +9,9 @@
     "test": "node --test *.test.js"
   },
   "dependencies": {
-    "ws": "^8.18.0",
-    "protobufjs": "^7.4.0"
+    "pg": "^8.22.0",
+    "protobufjs": "^7.4.0",
+    "ws": "^8.18.0"
   },
   "engines": {
     "node": ">=18"
