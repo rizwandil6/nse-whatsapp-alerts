@@ -18,13 +18,7 @@
   "position": null
  },
  "HINDCOPPER": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 495.85,
-   "entryIdx": 6,
-   "entryTimestampMs": 1785819300000,
-   "stop": 513.20475
-  }
+  "position": null
  },
  "MHRIL": {
   "position": null
@@ -33,13 +27,7 @@
   "position": null
  },
  "RAILTEL": {
-  "position": {
-   "direction": "LONG",
-   "entry": 292.2,
-   "entryIdx": 4,
-   "entryTimestampMs": 1785816300000,
-   "stop": 281.97299999999996
-  }
+  "position": null
  },
  "GAIL": {
   "position": null
@@ -48,22 +36,10 @@
   "position": null
  },
  "ARE&M": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 924.95,
-   "entryIdx": 10,
-   "entryTimestampMs": 1785823200000,
-   "stop": 957.3232499999999
-  }
+  "position": null
  },
  "NCC": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 144.32,
-   "entryIdx": 4,
-   "entryTimestampMs": 1785819900000,
-   "stop": 149.3712
-  }
+  "position": null
  },
  "TEXRAIL": {
   "position": null
@@ -72,13 +48,7 @@
   "position": null
  },
  "HATHWAY": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 10.93,
-   "entryIdx": 6,
-   "entryTimestampMs": 1785823500000,
-   "stop": 11.312549999999998
-  }
+  "position": null
  },
  "ORIENTELEC": {
   "position": null
@@ -87,12 +57,6 @@
   "position": null
  },
  "TRITURBINE": {
-  "position": {
-   "direction": "LONG",
-   "entry": 633,
-   "entryIdx": 15,
-   "entryTimestampMs": 1785823500000,
-   "stop": 610.845
-  }
+  "position": null
  }
 }
