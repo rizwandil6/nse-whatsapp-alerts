@@ -790,5 +790,77 @@
   "entryTimestampMs": 1785823200000,
   "exitTimestampMs": 1785837300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 38.78509999999999,
+  "exitPrice": 38.49274999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7537688442211213,
+  "entryTimestampMs": 1785830400000,
+  "exitTimestampMs": 1785837000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 496.206375,
+  "exitPrice": 492.47549999999995,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7518796992481256,
+  "entryTimestampMs": 1785819300000,
+  "exitTimestampMs": 1785837000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 226.0142499999999,
+  "exitPrice": 226.56149999999988,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24213075060532308,
+  "entryTimestampMs": 1785833700000,
+  "exitTimestampMs": 1785837300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 290.57175,
+  "exitPrice": 289.8435,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25062656641604103,
+  "entryTimestampMs": 1785824700000,
+  "exitTimestampMs": 1785834600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 108.46639999999996,
+  "exitPrice": 108.46639999999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1785832500000,
+  "exitTimestampMs": 1785832500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.9326,
+  "exitPrice": 10.96,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.2506265664160409,
+  "entryTimestampMs": 1785823500000,
+  "exitTimestampMs": 1785837000000,
+  "shadow": true
  }
 ]
