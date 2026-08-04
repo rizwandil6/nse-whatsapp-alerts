@@ -15,20 +15,10 @@
   "position": null
  },
  "OLAELEC": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 38.73,
-   "entryIdx": 17,
-   "entryTimestampMs": 1785830400000
-  }
+  "position": null
  },
  "HINDCOPPER": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 495.85,
-   "entryIdx": 6,
-   "entryTimestampMs": 1785819300000
-  }
+  "position": null
  },
  "MHRIL": {
   "position": null
@@ -37,12 +27,7 @@
   "position": null
  },
  "RAILTEL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 290.5,
-   "entryIdx": 10,
-   "entryTimestampMs": 1785824700000
-  }
+  "position": null
  },
  "GAIL": {
   "position": null
@@ -63,12 +48,7 @@
   "position": null
  },
  "HATHWAY": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 10.93,
-   "entryIdx": 6,
-   "entryTimestampMs": 1785823500000
-  }
+  "position": null
  },
  "ORIENTELEC": {
   "position": null
