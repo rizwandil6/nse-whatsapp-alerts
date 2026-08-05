@@ -3383,5 +3383,16 @@
   "brickPct": "0.25",
   "pnlRs": 23.685000000003953,
   "rsSign": "+"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 231.74,
+  "theoreticalEntry": 231.5775,
+  "entryIdx": 4,
+  "timestampMs": 1785903000000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
