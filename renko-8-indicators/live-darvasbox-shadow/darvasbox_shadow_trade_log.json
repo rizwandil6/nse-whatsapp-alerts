@@ -3635,5 +3635,22 @@
   "brickPct": "0.25",
   "pnlRs": 33.00000000000068,
   "rsSign": "+"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "theoreticalExit": 231.25,
+  "livePriceAvailable": true,
+  "entry": 231.828125,
+  "exitPrice": 231.2,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 11,
+  "pnlPct": 0.27094426096920354,
+  "entryTimestampMs": 1785915600000,
+  "exitTimestampMs": 1785923700000,
+  "brickPct": "0.25",
+  "pnlRs": 32.66250000000059,
+  "rsSign": "+"
  }
 ]
