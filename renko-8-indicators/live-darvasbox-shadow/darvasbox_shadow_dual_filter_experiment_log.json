@@ -1135,5 +1135,41 @@
   "timestampMs": 1785922500000,
   "breakoutTimestampMs": 1785922500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 233.88749999999993,
+  "exitPrice": 231.5775,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.9876543209876312,
+  "entryTimestampMs": 1785918600000,
+  "exitTimestampMs": 1785923700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 117.27607499999999,
+  "exitPrice": 117.27607499999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1785922500000,
+  "exitTimestampMs": 1785922500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 942.8910000000001,
+  "exitPrice": 938.2,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.49751243781094845,
+  "entryTimestampMs": 1785920400000,
+  "exitTimestampMs": 1785922500000,
+  "shadow": true
  }
 ]
