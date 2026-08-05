@@ -3455,5 +3455,22 @@
   "timestampMs": 1785910560000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 231.74,
+  "exitPrice": 231.73,
+  "theoreticalExit": 231.73,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.0043151808060841144,
+  "entryTimestampMs": 1785903000000,
+  "exitTimestampMs": 1785912000000,
+  "brickPct": "0.25",
+  "pnlRs": -0.520000000001005,
+  "rsSign": "−"
  }
 ]
