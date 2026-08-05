@@ -3545,5 +3545,22 @@
   "brickPct": "0.25",
   "pnlRs": -45.75000000000102,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 143.8,
+  "exitPrice": 143.81,
+  "theoreticalExit": 143.81,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.0069541029207169005,
+  "entryTimestampMs": 1785909600000,
+  "exitTimestampMs": 1785919200000,
+  "brickPct": "0.25",
+  "pnlRs": -0.6099999999994452,
+  "rsSign": "−"
  }
 ]
