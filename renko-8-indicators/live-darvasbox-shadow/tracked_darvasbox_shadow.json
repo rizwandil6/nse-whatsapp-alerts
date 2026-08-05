@@ -33,20 +33,10 @@
   "position": null
  },
  "ADSL": {
-  "position": {
-   "direction": "LONG",
-   "entry": 117.35,
-   "entryIdx": 16,
-   "entryTimestampMs": 1785922500000
-  }
+  "position": null
  },
  "ARE&M": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 941.6,
-   "entryIdx": 35,
-   "entryTimestampMs": 1785920400000
-  }
+  "position": null
  },
  "NCC": {
   "position": null
