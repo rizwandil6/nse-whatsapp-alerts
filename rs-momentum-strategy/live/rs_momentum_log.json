@@ -223,5 +223,26 @@
   "date": "2026-08-02",
   "price": 763.8,
   "rsRankAtEntry": 80.1775147928994
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "FSL",
+  "date": "2026-08-03",
+  "price": 330.7,
+  "rsRankAtEntry": 80.76923076923077
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "KEI",
+  "date": "2026-08-03",
+  "price": 5500,
+  "rsRankAtEntry": 84.31952662721893
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "WELSPUNLIV",
+  "date": "2026-08-03",
+  "price": 160.73,
+  "rsRankAtEntry": 82.84023668639054
  }
 ]

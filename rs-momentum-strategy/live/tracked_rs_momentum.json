@@ -120,5 +120,26 @@
   "rsRankAtEntry": 80.1775147928994,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "FSL": {
+  "entryDate": "2026-08-03",
+  "entryPrice": 330.7,
+  "rsRankAtEntry": 80.76923076923077,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "KEI": {
+  "entryDate": "2026-08-03",
+  "entryPrice": 5500,
+  "rsRankAtEntry": 84.31952662721893,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "WELSPUNLIV": {
+  "entryDate": "2026-08-03",
+  "entryPrice": 160.73,
+  "rsRankAtEntry": 82.84023668639054,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
