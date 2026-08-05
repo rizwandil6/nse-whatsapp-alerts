@@ -33,10 +33,16 @@ const { DB } = require('./db');
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046']; // personal + group (same as ema-scalp)
-// Variant config: MIN_R_PCT>0 activates pdhpdl-v2 (min-R filter) — small-R setups
-// are still logged + tracked but not alerted. CONFIG_TAG stamps the DB rows.
+// Variant config. MIN_R_PCT>0 activates pdhpdl-v2 (min-R filter). PDHPDL_VARIANT=v3
+// activates the author's v2 spec (strict pins/engulfs, gap-day, leave-return,
+// 2-trade/2-SL, SL->cost after 2R). CONFIG_TAG stamps the DB rows.
 const MIN_R_PCT = parseFloat(process.env.MIN_R_PCT || '0') || 0;
-const CONFIG_TAG = process.env.CONFIG_TAG || 'pdhpdl-v1';
+const PDHPDL_VARIANT = process.env.PDHPDL_VARIANT || 'v1';
+const CONFIG_TAG = process.env.CONFIG_TAG || (PDHPDL_VARIANT === 'v3' ? 'pdhpdl-v3' : 'pdhpdl-v1');
+// The v3 opts bundle (defaults from the author's script; each overridable by env).
+const TRACKER_OPTS = PDHPDL_VARIANT === 'v3'
+  ? { variant: 'v3', minRPct: MIN_R_PCT }   // v3 quality gates use their own defaults in the engine
+  : { minRPct: MIN_R_PCT };
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
 const IST_OFFSET_MS = 5.5 * 3600000;
 
@@ -67,13 +73,13 @@ async function prepDay() {
   console.log(`Prepping ${date}: fetching prior-day PDH/PDL for ${Object.keys(symbolMap).length} symbols...`);
   const { levels, failed } = await fetchLevels(symbolMap, UPSTOX_TOKEN);
   for (const symbol of Object.keys(symbolMap)) {
-    trackers[symbol] = new PdhPdlTracker(symbol, { minRPct: MIN_R_PCT });
+    trackers[symbol] = new PdhPdlTracker(symbol, TRACKER_OPTS);
     agg5[symbol] = new BarAggregator(5, (bar) => handle5(symbol, bar));
     agg15[symbol] = new BarAggregator(15, (bar) => handle15(symbol, bar));
     delete signalIds[symbol];
     delete alertedBySymbol[symbol];
     const lv = levels[symbol];
-    if (lv) trackers[symbol].setLevels(lv.pdh, lv.pdl);
+    if (lv) trackers[symbol].setLevels(lv.pdh, lv.pdl, lv.pdc);
   }
   lastPreppedDate = date;
   const ok = Object.keys(levels).length;
@@ -147,10 +153,13 @@ function fmtMilestone(e) {
     (e.level === 'T1.5R' ? ' Consider trailing SL to breakeven.' : '');
 }
 function fmtOutcome(e) {
-  const icon = e.result === 'T3R' ? '✅' : e.result === 'SL' ? '🛑' : '⏹️';
+  const icon = e.result === 'T3R' ? '✅' : e.result === 'SL' ? '🛑' : e.result === 'BE' ? '➖' : '⏹️';
   return [`${icon} ${e.symbol} closed — ${e.result} @ ${f(e.exitPx)}`,
     `R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R  ·  MFE ${Number(e.mfeR).toFixed(2)}R / MAE ${Number(e.maeR).toFixed(2)}R`,
     `${istTimeStr(e.closedTs)} IST.`].join('\n');
+}
+function fmtGapSkip(e) {
+  return `⚠️ ${e.symbol}: GAP DAY (${Number(e.gapPct).toFixed(2)}% vs prev close). PDH/PDL setup stands down today.`;
 }
 
 // ---- event handling --------------------------------------------------------
@@ -161,7 +170,9 @@ async function emit(alertType, symbol, text, signalId) {
 
 async function handleEvents(events) {
   for (const e of events) {
-    if (e.type === 'ARMED') {
+    if (e.type === 'GAP_SKIP') {
+      await emit('GAP_SKIP', e.symbol, fmtGapSkip(e), null);
+    } else if (e.type === 'ARMED') {
       const td = istDate(e.breakTs);
       await db.insertArmed(e, td);
       await emit('ARMED', e.symbol, fmtArmed(e), null);
@@ -242,7 +253,7 @@ function finalizeDay(ws) {
 }
 
 async function main() {
-  console.log(`Initializing PDH/PDL scanner... [config=${CONFIG_TAG}${MIN_R_PCT > 0 ? `, min-R=${MIN_R_PCT}%` : ', no min-R (v1)'}]`);
+  console.log(`Initializing PDH/PDL scanner... [variant=${PDHPDL_VARIANT}, config=${CONFIG_TAG}${MIN_R_PCT > 0 ? `, min-R=${MIN_R_PCT}%` : ''}]`);
   await initProtobuf();
   await db.init();
   await prepDay();

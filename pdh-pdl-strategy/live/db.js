@@ -74,14 +74,14 @@ class DB {
       `INSERT INTO pdh_pdl.signals
          (symbol, trade_date, direction, pdh, pdl, level, level_type, break_ts, entry_ts,
           entry_px, sl, r_value, t_1p5, t_2r, t_3r, trigger_type, efficiency_ratio, in_window,
-          config_tag, r_pct, alerted)
+          config_tag, r_pct, alerted, signal_seq, range_atr, gap_pct)
        VALUES ($1,$2,$3,$4,$5,$6,$7,to_timestamp($8/1000.0),to_timestamp($9/1000.0),
-               $10,$11,$12,$13,$14,$15,$16,$17,true,$18,$19,$20)
-       ON CONFLICT (symbol, trade_date) DO NOTHING
+               $10,$11,$12,$13,$14,$15,$16,$17,true,$18,$19,$20,$21,$22,$23)
+       ON CONFLICT (symbol, trade_date, config_tag, signal_seq) DO NOTHING
        RETURNING id`,
       [e.symbol, tradeDate, e.direction, e.pdh, e.pdl, e.level, e.levelType, e.breakTs,
        e.entryTs, e.entryPx, e.sl, e.r, e.t1p5, e.t2, e.t3, e.triggerType, e.effRatio,
-       this.configTag, e.rPct, e.alerted !== false]
+       this.configTag, e.rPct, e.alerted !== false, e.signalSeq || 1, e.rangeAtr, e.gapPct]
     );
     if (!r || r.rowCount === 0) return null;
     const id = r.rows[0].id;

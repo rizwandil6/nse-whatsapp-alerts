@@ -84,3 +84,30 @@ ALTER TABLE pdh_pdl.signals ADD COLUMN IF NOT EXISTS r_pct      numeric;
 ALTER TABLE pdh_pdl.signals ADD COLUMN IF NOT EXISTS alerted    boolean NOT NULL DEFAULT true;
 ALTER TABLE pdh_pdl.armed   ADD COLUMN IF NOT EXISTS config_tag text NOT NULL DEFAULT 'pdhpdl-v1';
 CREATE INDEX IF NOT EXISTS idx_pdhpdl_signals_tag ON pdh_pdl.signals (config_tag);
+
+-- ---- variant support (pdhpdl-v3: author's v2 spec) ----------------------------
+-- signal_seq (1|2) lets v3 log up to 2 trades/day; gap_pct/range_atr are v3
+-- diagnostics. The uniqueness must widen to allow the 2nd trade of the day.
+ALTER TABLE pdh_pdl.signals ADD COLUMN IF NOT EXISTS signal_seq int NOT NULL DEFAULT 1;
+ALTER TABLE pdh_pdl.signals ADD COLUMN IF NOT EXISTS gap_pct    numeric;
+ALTER TABLE pdh_pdl.signals ADD COLUMN IF NOT EXISTS range_atr  numeric;
+-- Widen uniqueness to (symbol, trade_date, config_tag, signal_seq) so v3 can log a
+-- 2nd trade/day. Name-agnostic + idempotent: drop any legacy unique on the table,
+-- then add ours if missing. (The old inline UNIQUE(symbol,trade_date) auto-named
+-- constraint is dropped whatever its name.)
+DO $$
+DECLARE c record;
+BEGIN
+  FOR c IN
+    SELECT conname FROM pg_constraint
+    WHERE conrelid = 'pdh_pdl.signals'::regclass AND contype = 'u' AND conname <> 'pdhpdl_signals_uq'
+  LOOP
+    EXECUTE 'ALTER TABLE pdh_pdl.signals DROP CONSTRAINT ' || quote_ident(c.conname);
+  END LOOP;
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conrelid = 'pdh_pdl.signals'::regclass AND conname = 'pdhpdl_signals_uq'
+  ) THEN
+    ALTER TABLE pdh_pdl.signals ADD CONSTRAINT pdhpdl_signals_uq UNIQUE (symbol, trade_date, config_tag, signal_seq);
+  END IF;
+END $$;
