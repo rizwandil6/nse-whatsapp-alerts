@@ -18,22 +18,10 @@
   "position": null
  },
  "HINDCOPPER": {
-  "position": {
-   "direction": "LONG",
-   "entry": 512.55,
-   "entryIdx": 21,
-   "entryTimestampMs": 1785913200000,
-   "stop": 494.61074999999994
-  }
+  "position": null
  },
  "MHRIL": {
-  "position": {
-   "direction": "LONG",
-   "entry": 231.74,
-   "entryIdx": 4,
-   "entryTimestampMs": 1785903000000,
-   "stop": 223.6291
-  }
+  "position": null
  },
  "RVNL": {
   "position": null
@@ -45,25 +33,13 @@
   "position": null
  },
  "ADSL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 117.2,
-   "entryIdx": 4,
-   "entryTimestampMs": 1785910560000,
-   "stop": 121.30199999999999
-  }
+  "position": null
  },
  "ARE&M": {
   "position": null
  },
  "NCC": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 143.8,
-   "entryIdx": 6,
-   "entryTimestampMs": 1785909600000,
-   "stop": 148.833
-  }
+  "position": null
  },
  "TEXRAIL": {
   "position": null
