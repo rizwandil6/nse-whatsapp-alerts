@@ -113,10 +113,20 @@ public class ResultsPdfParser {
     // immediately after "of". The real table header is always its own line starting with
     // "Statement of ..."; the decoy is always mid-sentence. Anchoring to line-start
     // restores the original decoy immunity without giving up the word-order fix.
+    // Second alternative added 2026-08-05, confirmed on Sterling Tools' real Jun 2026
+    // filing: its actual P&L table header is "Standalone statement of profit and loss
+    // for the quarter ended 30 June 2026" -- the scope word comes BEFORE "statement of"
+    // (opposite order from every variant above) and it says "profit and loss", never
+    // "financial result[s]" at all. Anchored to line-start same as the first
+    // alternative, for the same decoy-immunity reason (this exact phrase also appears
+    // mid-sentence in the Other Comprehensive Income notes, e.g. "...reclassified to
+    // the statement of profit and loss", which must NOT match).
     private static final Pattern CONSOLIDATED_HEADER =
-            Pattern.compile("^\\s*statement\\s+of\\s+(?:(?:un)?audited\\s+)?consolidated.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^\\s*(?:statement\\s+of\\s+(?:(?:un)?audited\\s+)?consolidated.{0,60}financial result" +
+                    "|consolidated\\s+statement\\s+of\\s+profit\\s+and\\s+loss)", Pattern.CASE_INSENSITIVE);
     private static final Pattern STANDALONE_HEADER =
-            Pattern.compile("^\\s*statement\\s+of\\s+(?:(?:un)?audited\\s+)?standalone.{0,60}financial result", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^\\s*(?:statement\\s+of\\s+(?:(?:un)?audited\\s+)?standalone.{0,60}financial result" +
+                    "|standalone\\s+statement\\s+of\\s+profit\\s+and\\s+loss)", Pattern.CASE_INSENSITIVE);
     // Some filers (confirmed 2026-08-01: Celebrity Fashions, Utkarsh Small Finance Bank)
     // don't file a separate consolidated statement at all -- no subsidiaries to
     // consolidate -- and their table header omits the scope word entirely: "Statement of

@@ -410,4 +410,45 @@ class ResultsPdfParserTest {
 
         assertNull(parser.scanForDividend("https://example.com/no-dividend.pdf"));
     }
+
+    /**
+     * Real regression case, confirmed live 2026-08-05: Sterling Tools' (STERTOOLS) actual
+     * Jun 2026 filing headers its P&L table "Standalone/Consolidated statement of profit
+     * and loss for the quarter ended ..." -- scope word BEFORE "statement of" (every other
+     * variant above has it after), and "profit and loss" instead of "financial result[s]"
+     * at all. Row layout here is a normal same-line one (label + numbers), unlike the real
+     * PDF's actual columnar label-block/value-block layout -- see this class's own
+     * docstring note: that's a separate, much larger structural gap this fixture does NOT
+     * cover, tracked separately.
+     */
+    @Test
+    void parsesScopeWordBeforeStatementOfProfitAndLossHeader() {
+        String text =
+                "Sub: Outcome of Board Meeting under Regulation 30 and 33\n" +
+                "\n" +
+                "Standalone statement of profit and loss for the quarter ended 30 June 2026\n" +
+                "(Rs in lakhs except per share data)\n" +
+                "Revenue from operations 21,407.13 22,197.36 20,150.00\n" +
+                "Total expenses 20,374.90 21,000.00 19,200.00\n" +
+                "Profit for the period/year (5-6) 603.48 726.89 500.00\n" +
+                "\n" +
+                "(A) (i) Items that will not be reclassified to the\n" +
+                "statement of profit and loss\n" +
+                "\n" +
+                "Consolidated statement of profit and loss for the quarter ended 30 June 2026\n" +
+                "(Rs in lakhs, except per share data)\n" +
+                "Revenue from operations 21,660.43 22,492.46 20,450.00\n" +
+                "Total expenses 20,374.90 21,000.00 19,200.00\n" +
+                "Profit for the period/year (5-6) 603.48 726.89 500.00\n";
+        PdfExtractor extractor = mock(PdfExtractor.class);
+        when(extractor.extractFullText(any())).thenReturn(text);
+        ResultsPdfParser parser = new ResultsPdfParser(extractor);
+
+        ResultsPdfParser.ParsedQuarterlyPdf result = parser.parse("https://example.com/stertools.pdf");
+
+        assertNotNull(result);
+        assertEquals("CONSOLIDATED", result.scope);
+        assertEquals(LocalDate.parse("2026-06-30"), result.quarterEndDate);
+        assertEquals(21660.43, result.revenueCr, 1e-6);
+    }
 }
