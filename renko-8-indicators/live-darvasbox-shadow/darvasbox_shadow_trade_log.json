@@ -3601,5 +3601,39 @@
   "timestampMs": 1785922500000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "theoreticalExit": 117.27607499999999,
+  "livePriceAvailable": true,
+  "entry": 117.35,
+  "exitPrice": 117.45,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 0,
+  "pnlPct": 0.08521516829996466,
+  "entryTimestampMs": 1785922500000,
+  "exitTimestampMs": 1785922500000,
+  "brickPct": "0.25",
+  "pnlRs": 5.200000000000443,
+  "rsSign": "+"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "theoreticalExit": 938.2,
+  "livePriceAvailable": true,
+  "entry": 941.6,
+  "exitPrice": 939.4,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 2,
+  "pnlPct": 0.23364485981308894,
+  "entryTimestampMs": 1785920400000,
+  "exitTimestampMs": 1785922500000,
+  "brickPct": "0.25",
+  "pnlRs": 33.00000000000068,
+  "rsSign": "+"
  }
 ]
