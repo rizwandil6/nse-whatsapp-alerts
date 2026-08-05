@@ -3511,5 +3511,22 @@
   "timestampMs": 1785917400000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 332.1,
+  "exitPrice": 333.4,
+  "theoreticalExit": 333.4,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.39144835892802,
+  "entryTimestampMs": 1785917400000,
+  "exitTimestampMs": 1785918600000,
+  "brickPct": "0.25",
+  "pnlRs": -85.799999999997,
+  "rsSign": "−"
  }
 ]
