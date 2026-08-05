@@ -33,14 +33,15 @@ async function fetchOne(symbol, key, token) {
   const candles = body && body.data && body.data.candles;
   if (!Array.isArray(candles) || candles.length === 0) throw new Error('no candles');
   const today = istDateStr(Date.now());
-  // candles are latest-first; find the most recent one that isn't today
+  // candles are latest-first; find the most recent one that isn't today.
+  // Format: [ts, open, high, low, close, volume, oi] — close (c[4]) is pdc, for the v3 gap test.
   for (const c of candles) {
     const d = String(c[0]).slice(0, 10);
-    if (d !== today) return { pdh: c[2], pdl: c[3], date: d };
+    if (d !== today) return { pdh: c[2], pdl: c[3], pdc: c[4], date: d };
   }
   // all candles are "today" (shouldn't happen for a daily series) -> fall back to newest
   const c = candles[0];
-  return { pdh: c[2], pdl: c[3], date: String(c[0]).slice(0, 10) };
+  return { pdh: c[2], pdl: c[3], pdc: c[4], date: String(c[0]).slice(0, 10) };
 }
 
 /** Returns { symbol: {pdh, pdl, date} }, plus a list of symbols that failed. */

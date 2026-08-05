@@ -146,5 +146,91 @@ check('v1 default: same setup is alerted=true with rPct populated', () => {
   assert.ok(setup.rPct > 0, 'rPct should be populated');
 });
 
+// ===========================================================================
+//  v3 variant (author's "Trading With Sidhant" v2 spec)
+// ===========================================================================
+function v3Long(extraOpts) {
+  const t = new PdhPdlTracker('V3L', Object.assign({ variant: 'v3', gapFilter: false }, extraOpts || {}));
+  t.setLevels(100.0, 95.0, 99.6);
+  t.onNew15mBar(bar(9, 30, 100.2, 101.5, 100.1, 101.0));
+  for (const b of [
+    bar(9, 35, 103.0, 103.3, 102.5, 102.7), bar(9, 40, 102.7, 102.9, 102.0, 102.1),
+    bar(9, 45, 102.1, 102.3, 101.4, 101.5), bar(9, 50, 101.5, 101.7, 100.9, 101.0),
+    bar(9, 55, 101.0, 101.2, 100.4, 100.5), bar(10, 0, 100.5, 100.7, 100.15, 100.3),
+  ]) t.onNew5mBar(b);
+  return t;
+}
+
+check('v3: strict directional PIN accepted (green hammer, one-shot)', () => {
+  const t = v3Long();
+  const s = t.onNew5mBar(bar(10, 5, 100.1, 100.5, 98.8, 100.4)).find((e) => e.type === 'SETUP');
+  assert.ok(s && s.triggerType === 'PIN' && s.signalSeq === 1 && s.rangeAtr > 0, 'v3 PIN setup');
+});
+
+check('v3: RED "hammer" rejected (not directional) -> no setup', () => {
+  const t = v3Long();
+  const ev = t.onNew5mBar(bar(10, 5, 100.5, 100.55, 98.8, 100.0));
+  assert.ok(!ev.some((e) => e.type === 'SETUP'), 'red hammer must not fire a long');
+});
+
+check('v3: proper ENGULFING accepted (closes beyond, full swallow)', () => {
+  const t = v3Long();
+  t.onNew5mBar(bar(10, 5, 100.5, 100.6, 99.8, 99.9));
+  const s = t.onNew5mBar(bar(10, 10, 99.8, 101.0, 99.7, 100.8)).find((e) => e.type === 'SETUP');
+  assert.ok(s && s.triggerType === 'ENGULF', 'v3 ENGULF setup');
+});
+
+check('v3: weak engulf rejected (no close beyond prior high)', () => {
+  const t = v3Long();
+  t.onNew5mBar(bar(10, 5, 100.5, 100.6, 99.8, 99.9));
+  const ev = t.onNew5mBar(bar(10, 10, 99.8, 100.55, 99.7, 100.5));
+  assert.ok(!ev.some((e) => e.type === 'SETUP'), 'engulf failing close-beyond must not fire');
+});
+
+check('v3: gap day stands down (GAP_SKIP, no arm)', () => {
+  const t = new PdhPdlTracker('GAP', { variant: 'v3' });
+  t.setLevels(100.0, 95.0, 99.0);
+  const g = t.onNew5mBar(bar(9, 15, 99.8, 100.0, 99.6, 99.9));
+  assert.ok(g.some((e) => e.type === 'GAP_SKIP'), 'GAP_SKIP');
+  assert.strictEqual(t.onNew15mBar(bar(9, 30, 100.2, 101.5, 100.1, 101.0)).length, 0, 'no arm on gap day');
+});
+
+check('v3: leave-and-return required -> no immediate-retest setup', () => {
+  const t = new PdhPdlTracker('LR', { variant: 'v3', gapFilter: false });
+  t.setLevels(100.0, 95.0, 99.6);
+  t.onNew15mBar(bar(9, 30, 100.2, 101.5, 100.1, 101.0));
+  for (const b of [
+    bar(9, 35, 100.1, 100.2, 99.6, 99.9), bar(9, 40, 99.9, 100.1, 99.7, 100.0),
+    bar(9, 45, 100.0, 100.15, 99.6, 99.95), bar(9, 50, 99.95, 100.1, 99.7, 100.0),
+    bar(9, 55, 100.0, 100.1, 99.6, 99.9),
+  ]) t.onNew5mBar(b);
+  const ev = t.onNew5mBar(bar(10, 0, 100.1, 100.5, 98.8, 100.4));
+  assert.ok(!ev.some((e) => e.type === 'SETUP'), 'no entry until price left and returned');
+});
+
+check('v3: 2 trades/day then deactivate after 2 SLs', () => {
+  const t = v3Long();
+  const s1 = t.onNew5mBar(bar(10, 5, 100.1, 100.5, 98.8, 100.4)).find((e) => e.type === 'SETUP');
+  assert.ok(s1 && s1.signalSeq === 1, 'trade 1');
+  const o1 = t.onNew5mBar(bar(10, 10, 100.4, 100.5, 98.5, 98.6)).find((e) => e.type === 'OUTCOME');
+  assert.ok(o1 && o1.result === 'SL', 'trade 1 SL');
+  t.onNew5mBar(bar(10, 15, 100.6, 100.7, 99.8, 99.9));
+  const s2 = t.onNew5mBar(bar(10, 20, 99.8, 101.0, 99.7, 100.9)).find((e) => e.type === 'SETUP');
+  assert.ok(s2 && s2.signalSeq === 2, 'trade 2');
+  const o2 = t.onNew5mBar(bar(10, 25, 100.9, 101.0, 99.4, 99.5)).find((e) => e.type === 'OUTCOME');
+  assert.ok(o2 && o2.result === 'SL', 'trade 2 SL');
+  t.onNew5mBar(bar(10, 30, 100.6, 100.7, 99.8, 99.9));
+  const ev3 = t.onNew5mBar(bar(10, 35, 99.8, 101.0, 99.7, 100.9));
+  assert.ok(!ev3.some((e) => e.type === 'SETUP'), 'no 3rd trade after 2 SLs');
+});
+
+check('v3: SL->cost after 2R -> reversal exits BE (0R)', () => {
+  const t = v3Long();
+  t.onNew5mBar(bar(10, 5, 100.1, 100.5, 98.8, 100.4));
+  t.onNew5mBar(bar(10, 10, 100.4, 104.0, 100.3, 103.9));
+  const o = t.onNew5mBar(bar(10, 15, 103.9, 104.0, 100.3, 100.4)).find((e) => e.type === 'OUTCOME');
+  assert.ok(o && o.result === 'BE' && Math.abs(o.rMultiple) < 1e-9, 'BE at 0R after 2R');
+});
+
 console.log(failures === 0 ? '\nALL TESTS PASSED' : `\n${failures} TEST(S) FAILED`);
 process.exit(failures === 0 ? 0 : 1);

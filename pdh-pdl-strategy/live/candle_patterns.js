@@ -106,8 +106,89 @@ function approachQuality(candles, pinIdx, direction, touchedLevelInWindow, opts 
   return result;
 }
 
+// ===========================================================================
+//  STRICT v3 detectors — faithful port of the author's v2 alert indicator
+//  ("Trading With Sidhant", ~/Downloads/TWS PDHPDL Break & Retest Alerts.txt).
+//  Only used when the engine runs config `pdhpdl-v3`; the v1 detectors above
+//  are left untouched so historical variants stay reproducible.
+// ===========================================================================
+
+/** Candle range must be a real move vs ATR (Pine `bigEnough`). */
+function bigEnough(c, atrVal, minBarATR) {
+  return range(c) > 0 && range(c) >= minBarATR * (atrVal || 0);
+}
+
+/**
+ * Strict DIRECTIONAL pin bar (Pine 276-282). A green hammer only counts for a
+ * long, a red shooter only for a short; the rejection wick must dominate the
+ * whole range, the far wick must be near-absent, and the close must sit in the
+ * extreme of the range — plus a min size vs ATR.
+ */
+function isStrictHammer(c, atrVal, opts = {}) {
+  const { wickMult = 2.0, minWickPct = 0.60, maxOppPct = 0.20, closePosMin = 0.60, minBarATR = 0.60, tickSize = 0.05 } = opts;
+  const rng = range(c); if (rng <= 0) return false;
+  if (!bigEnough(c, atrVal, minBarATR)) return false;
+  if (!(c.close > c.open)) return false;                       // directional: green
+  const bodyRef = Math.max(body(c), tickSize);
+  const closeTopPct = (c.close - c.low) / rng;
+  return lowerWick(c) >= wickMult * bodyRef - EPS &&
+         lowerWick(c) >= minWickPct * rng - EPS &&
+         upperWick(c) <= maxOppPct * rng + EPS &&
+         closeTopPct >= closePosMin - EPS;
+}
+function isStrictShooter(c, atrVal, opts = {}) {
+  const { wickMult = 2.0, minWickPct = 0.60, maxOppPct = 0.20, closePosMin = 0.60, minBarATR = 0.60, tickSize = 0.05 } = opts;
+  const rng = range(c); if (rng <= 0) return false;
+  if (!bigEnough(c, atrVal, minBarATR)) return false;
+  if (!(c.close < c.open)) return false;                       // directional: red
+  const bodyRef = Math.max(body(c), tickSize);
+  const closeBotPct = (c.high - c.close) / rng;
+  return upperWick(c) >= wickMult * bodyRef - EPS &&
+         upperWick(c) >= minWickPct * rng - EPS &&
+         lowerWick(c) <= maxOppPct * rng + EPS &&
+         closeBotPct >= closePosMin - EPS;
+}
+
+/**
+ * Strict PROPER engulfing (Pine 288-298): the engulfed candle must be a real
+ * directional bar (not a doji), the engulfing body decisively bigger and mostly
+ * body, it swallows the previous candle wicks-and-all, CLOSES beyond its
+ * extreme, and is a real move vs ATR.
+ */
+function isStrictBullEngulf(c, prev, atrVal, opts = {}) {
+  const { engulfMult = 1.25, minPrevBody = 0.30, minBodyPct = 0.50, engulfBeyond = true, strictEngulf = true, minBarATR = 0.60, tickSize = 0.05 } = opts;
+  const rng = range(c); if (rng <= 0) return false;
+  if (!bigEnough(c, atrVal, minBarATR)) return false;
+  if (!(c.close > c.open && prev.close < prev.open)) return false;
+  const prevBody = Math.abs(prev.close - prev.open);
+  const prevRng = Math.max(prev.high - prev.low, tickSize);
+  const prevRealBar = prevBody >= minPrevBody * prevRng - EPS;
+  const decisive = body(c) >= minBodyPct * rng - EPS;
+  const biggerBody = body(c) >= engulfMult * Math.max(prevBody, tickSize) - EPS;
+  const wicksOk = !strictEngulf || (c.high >= prev.high - EPS && c.low <= prev.low + EPS);
+  return prevRealBar && decisive && biggerBody && wicksOk &&
+         c.close >= prev.open - EPS && c.open <= prev.close + EPS &&
+         (!engulfBeyond || c.close > prev.high + EPS);
+}
+function isStrictBearEngulf(c, prev, atrVal, opts = {}) {
+  const { engulfMult = 1.25, minPrevBody = 0.30, minBodyPct = 0.50, engulfBeyond = true, strictEngulf = true, minBarATR = 0.60, tickSize = 0.05 } = opts;
+  const rng = range(c); if (rng <= 0) return false;
+  if (!bigEnough(c, atrVal, minBarATR)) return false;
+  if (!(c.close < c.open && prev.close > prev.open)) return false;
+  const prevBody = Math.abs(prev.close - prev.open);
+  const prevRng = Math.max(prev.high - prev.low, tickSize);
+  const prevRealBar = prevBody >= minPrevBody * prevRng - EPS;
+  const decisive = body(c) >= minBodyPct * rng - EPS;
+  const biggerBody = body(c) >= engulfMult * Math.max(prevBody, tickSize) - EPS;
+  const wicksOk = !strictEngulf || (c.high >= prev.high - EPS && c.low <= prev.low + EPS);
+  return prevRealBar && decisive && biggerBody && wicksOk &&
+         c.close <= prev.open + EPS && c.open >= prev.close - EPS &&
+         (!engulfBeyond || c.close < prev.low - EPS);
+}
+
 module.exports = {
   body, upperWick, lowerWick, range, atr,
   isHammer, isShooter, isBullishEngulfing, isBearishEngulfing,
   approachQuality,
+  isStrictHammer, isStrictShooter, isStrictBullEngulf, isStrictBearEngulf,
 };

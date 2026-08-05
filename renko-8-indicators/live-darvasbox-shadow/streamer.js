@@ -174,8 +174,12 @@ let pdhpdlLastPreppedDate = null;
 // Variant config: MIN_R_PCT>0 activates pdhpdl-v2 (min-R filter) — small-R setups
 // are still logged + tracked but not alerted. CONFIG_TAG stamps the DB rows.
 const PDHPDL_MIN_R_PCT = parseFloat(process.env.MIN_R_PCT || '0') || 0;
-const PDHPDL_CONFIG_TAG = process.env.CONFIG_TAG || 'pdhpdl-v1';
-console.log(`[pdh-pdl] variant config=${PDHPDL_CONFIG_TAG}${PDHPDL_MIN_R_PCT > 0 ? `, min-R=${PDHPDL_MIN_R_PCT}%` : ', no min-R (v1)'}`);
+const PDHPDL_VARIANT = process.env.PDHPDL_VARIANT || 'v1';
+const PDHPDL_CONFIG_TAG = process.env.CONFIG_TAG || (PDHPDL_VARIANT === 'v3' ? 'pdhpdl-v3' : 'pdhpdl-v1');
+const PDHPDL_TRACKER_OPTS = PDHPDL_VARIANT === 'v3'
+  ? { variant: 'v3', minRPct: PDHPDL_MIN_R_PCT }
+  : { minRPct: PDHPDL_MIN_R_PCT };
+console.log(`[pdh-pdl] variant=${PDHPDL_VARIANT}, config=${PDHPDL_CONFIG_TAG}${PDHPDL_MIN_R_PCT > 0 ? `, min-R=${PDHPDL_MIN_R_PCT}%` : ''}`);
 
 let currentDate = null;
 let protobufRoot = null;
@@ -633,13 +637,13 @@ async function pdhpdlPrepDay() {
   console.log(`[pdh-pdl] Prepping ${date}: fetching prior-day PDH/PDL for ${Object.keys(pdhpdlSymbols).length} symbols...`);
   const { levels, failed } = await fetchPdhPdlLevels(pdhpdlSymbols, UPSTOX_TOKEN);
   for (const symbol of Object.keys(pdhpdlSymbols)) {
-    pdhpdlTrackers[symbol] = new PdhPdlTracker(symbol, { minRPct: PDHPDL_MIN_R_PCT });
+    pdhpdlTrackers[symbol] = new PdhPdlTracker(symbol, PDHPDL_TRACKER_OPTS);
     pdhpdlAgg5[symbol] = new PdhPdlBarAggregator(5, (bar) => pdhpdlHandle5(symbol, bar));
     pdhpdlAgg15[symbol] = new PdhPdlBarAggregator(15, (bar) => pdhpdlHandle15(symbol, bar));
     delete pdhpdlSignalIds[symbol];
     delete pdhpdlAlerted[symbol];
     const lv = levels[symbol];
-    if (lv) pdhpdlTrackers[symbol].setLevels(lv.pdh, lv.pdl);
+    if (lv) pdhpdlTrackers[symbol].setLevels(lv.pdh, lv.pdl, lv.pdc);
   }
   pdhpdlLastPreppedDate = date;
   const ok = Object.keys(levels).length;
@@ -693,10 +697,13 @@ function pdhpdlFmtMilestone(e) {
     (e.level === 'T1.5R' ? ' Consider trailing SL to breakeven.' : '');
 }
 function pdhpdlFmtOutcome(e) {
-  const icon = e.result === 'T3R' ? '✅' : e.result === 'SL' ? '🛑' : '⏹️';
+  const icon = e.result === 'T3R' ? '✅' : e.result === 'SL' ? '🛑' : e.result === 'BE' ? '➖' : '⏹️';
   return [`${icon} ${e.symbol} closed — ${e.result} @ ${pdhpdlF(e.exitPx)}`,
     `R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R  ·  MFE ${Number(e.mfeR).toFixed(2)}R / MAE ${Number(e.maeR).toFixed(2)}R`,
     `${pdhpdlIstTimeStr(e.closedTs)} IST.`].join('\n');
+}
+function pdhpdlFmtGapSkip(e) {
+  return `⚠️ ${e.symbol}: GAP DAY (${Number(e.gapPct).toFixed(2)}% vs prev close). PDH/PDL setup stands down today.`;
 }
 
 async function pdhpdlEmit(alertType, symbol, text, signalId) {
@@ -706,7 +713,9 @@ async function pdhpdlEmit(alertType, symbol, text, signalId) {
 
 async function pdhpdlHandleEvents(events) {
   for (const e of events) {
-    if (e.type === 'ARMED') {
+    if (e.type === 'GAP_SKIP') {
+      await pdhpdlEmit('GAP_SKIP', e.symbol, pdhpdlFmtGapSkip(e), null);
+    } else if (e.type === 'ARMED') {
       const td = pdhpdlIstDate(e.breakTs);
       await pdhpdlDb.insertArmed(e, td);
       await pdhpdlEmit('ARMED', e.symbol, pdhpdlFmtArmed(e), null);
