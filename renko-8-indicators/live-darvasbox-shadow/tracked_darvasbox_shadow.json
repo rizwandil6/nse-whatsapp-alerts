@@ -12,48 +12,33 @@
   "position": null
  },
  "WAAREEENER": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 2663.9135000000006,
+   "entryIdx": 5,
+   "entryTimestampMs": 1786010100000
+  }
  },
  "OLAELEC": {
   "position": null
  },
  "HINDCOPPER": {
-  "position": {
-   "direction": "LONG",
-   "entry": 532.7243750000001,
-   "entryIdx": 22,
-   "entryTimestampMs": 1786007100000
-  }
+  "position": null
  },
  "MHRIL": {
   "position": null
  },
  "RVNL": {
-  "position": {
-   "direction": "LONG",
-   "entry": 235.05089999999998,
-   "entryIdx": 14,
-   "entryTimestampMs": 1786005900000
-  }
+  "position": null
  },
  "RAILTEL": {
   "position": null
  },
  "GAIL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 175.91910000000001,
-   "entryIdx": 4,
-   "entryTimestampMs": 1786002000000
-  }
+  "position": null
  },
  "ADSL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 117.296025,
-   "entryIdx": 16,
-   "entryTimestampMs": 1786005900000
-  }
+  "position": null
  },
  "ARE&M": {
   "position": null
@@ -68,20 +53,10 @@
   "position": null
  },
  "HATHWAY": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 10.855450000000001,
-   "entryIdx": 5,
-   "entryTimestampMs": 1786005000000
-  }
+  "position": null
  },
  "ORIENTELEC": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 177.97964999999994,
-   "entryIdx": 15,
-   "entryTimestampMs": 1786006800000
-  }
+  "position": null
  },
  "IRCON": {
   "position": null
