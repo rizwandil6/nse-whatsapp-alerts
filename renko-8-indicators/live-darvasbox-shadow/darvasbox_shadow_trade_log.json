@@ -3689,5 +3689,16 @@
   "entryTimestampMs": 1785997200000,
   "exitTimestampMs": 1786004400000,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.85,
+  "theoreticalEntry": 10.855450000000001,
+  "entryIdx": 5,
+  "timestampMs": 1786005000000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
