@@ -1474,5 +1474,35 @@
   "timestampMs": 1786008900000,
   "breakoutTimestampMs": 1786008600000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2663.9135000000006,
+  "timestampMs": 1786010100000,
+  "breakoutTimestampMs": 1786010100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 528.6987500000002,
+  "exitPrice": 532.35,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.6906106738477773,
+  "entryTimestampMs": 1785999600000,
+  "exitTimestampMs": 1786006800000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 542.1174999999998,
+  "timestampMs": 1786008600000,
+  "breakoutTimestampMs": 1786007100000,
+  "shadow": true
  }
 ]
