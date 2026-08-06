@@ -3874,5 +3874,22 @@
   "timestampMs": 1786010100000,
   "livePriceAvailable": false,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "theoreticalExit": 2663.9135000000006,
+  "livePriceAvailable": false,
+  "entry": 2663.9135000000006,
+  "exitPrice": 2663.9135000000006,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 0,
+  "pnlPct": 0,
+  "entryTimestampMs": 1786010100000,
+  "exitTimestampMs": 1786010100000,
+  "brickPct": "0.25",
+  "pnlRs": 0,
+  "rsSign": "+"
  }
 ]
