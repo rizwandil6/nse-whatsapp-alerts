@@ -71,7 +71,12 @@
   }
  },
  "ORIENTELEC": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 177.37,
+   "entryIdx": 15,
+   "entryTimestampMs": 1786006800000
+  }
  },
  "IRCON": {
   "position": null
