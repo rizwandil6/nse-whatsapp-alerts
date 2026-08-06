@@ -650,5 +650,18 @@
   "exitTimestampMs": 1785913500000,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "SHORT",
+  "entry": 175.75,
+  "theoreticalEntry": 175.91910000000001,
+  "stop": 181.90124999999998,
+  "entryIdx": 4,
+  "timestampMs": 1786002000000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
