@@ -1348,5 +1348,14 @@
   "timestampMs": 1786007700000,
   "breakoutTimestampMs": 1786007400000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 230.75909999999996,
+  "timestampMs": 1786009800000,
+  "breakoutTimestampMs": 1786007400000,
+  "shadow": true
  }
 ]
