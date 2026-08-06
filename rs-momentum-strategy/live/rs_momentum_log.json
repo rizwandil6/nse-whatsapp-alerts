@@ -244,5 +244,26 @@
   "date": "2026-08-03",
   "price": 160.73,
   "rsRankAtEntry": 82.84023668639054
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "HEG",
+  "date": "2026-08-04",
+  "price": 686.2,
+  "rsRankAtEntry": 80.53097345132744
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "IPCALAB",
+  "date": "2026-08-04",
+  "price": 1765,
+  "rsRankAtEntry": 81.71091445427729
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "USHAMART",
+  "date": "2026-08-04",
+  "price": 520.25,
+  "rsRankAtEntry": 80.8259587020649
  }
 ]

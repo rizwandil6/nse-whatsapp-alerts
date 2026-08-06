@@ -141,5 +141,26 @@
   "rsRankAtEntry": 82.84023668639054,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "HEG": {
+  "entryDate": "2026-08-04",
+  "entryPrice": 686.2,
+  "rsRankAtEntry": 80.53097345132744,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "IPCALAB": {
+  "entryDate": "2026-08-04",
+  "entryPrice": 1765,
+  "rsRankAtEntry": 81.71091445427729,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "USHAMART": {
+  "entryDate": "2026-08-04",
+  "entryPrice": 520.25,
+  "rsRankAtEntry": 80.8259587020649,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
