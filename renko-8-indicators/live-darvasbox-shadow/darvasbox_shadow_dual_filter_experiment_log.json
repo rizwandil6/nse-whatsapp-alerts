@@ -1513,5 +1513,53 @@
   "timestampMs": 1786008000000,
   "breakoutTimestampMs": 1786007400000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 328.73875000000004,
+  "exitPrice": 326.2420000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7594936708860647,
+  "entryTimestampMs": 1786008900000,
+  "exitTimestampMs": 1786010100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2663.9135000000006,
+  "exitPrice": 2670.6067500000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.2512562814070279,
+  "entryTimestampMs": 1786010100000,
+  "exitTimestampMs": 1786009200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 542.1174999999998,
+  "exitPrice": 543.4593749999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24752475247524006,
+  "entryTimestampMs": 1786008600000,
+  "exitTimestampMs": 1786009200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 926.9949999999999,
+  "exitPrice": 926.9949999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1786008000000,
+  "exitTimestampMs": 1786008000000,
+  "shadow": true
  }
 ]
