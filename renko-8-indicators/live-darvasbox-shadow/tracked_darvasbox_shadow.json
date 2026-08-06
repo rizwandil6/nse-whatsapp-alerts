@@ -18,7 +18,12 @@
   "position": null
  },
  "HINDCOPPER": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 535.05,
+   "entryIdx": 22,
+   "entryTimestampMs": 1786007100000
+  }
  },
  "MHRIL": {
   "position": null
