@@ -3652,5 +3652,16 @@
   "brickPct": "0.25",
   "pnlRs": 32.66250000000059,
   "rsSign": "+"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 644.5,
+  "theoreticalEntry": 642.782875,
+  "entryIdx": 20,
+  "timestampMs": 1785997200000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
