@@ -36,12 +36,7 @@
   "position": null
  },
  "ARE&M": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 942.8910000000001,
-   "entryIdx": 35,
-   "entryTimestampMs": 1785920400000
-  }
+  "position": null
  },
  "NCC": {
   "position": null
@@ -62,6 +57,11 @@
   "position": null
  },
  "TRITURBINE": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 644.5,
+   "entryIdx": 20,
+   "entryTimestampMs": 1785997200000
+  }
  }
 }
