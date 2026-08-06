@@ -3674,5 +3674,20 @@
   "timestampMs": 1786002000000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 644.5,
+  "exitPrice": 644.15,
+  "theoreticalExit": 644.15,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.05430566330489104,
+  "entryTimestampMs": 1785997200000,
+  "exitTimestampMs": 1786004400000,
+  "brickPct": "0.25"
  }
 ]
