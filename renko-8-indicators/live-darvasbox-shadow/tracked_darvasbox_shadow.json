@@ -24,7 +24,12 @@
   "position": null
  },
  "RVNL": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 235.8,
+   "entryIdx": 14,
+   "entryTimestampMs": 1786005900000
+  }
  },
  "RAILTEL": {
   "position": null
