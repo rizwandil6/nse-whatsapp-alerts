@@ -30,13 +30,7 @@
   "position": null
  },
  "GAIL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 175.75,
-   "entryIdx": 4,
-   "entryTimestampMs": 1786002000000,
-   "stop": 181.90124999999998
-  }
+  "position": null
  },
  "ADSL": {
   "position": null
@@ -54,13 +48,7 @@
   "position": null
  },
  "HATHWAY": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 10.85,
-   "entryIdx": 5,
-   "entryTimestampMs": 1786005000000,
-   "stop": 11.22975
-  }
+  "position": null
  },
  "ORIENTELEC": {
   "position": null
