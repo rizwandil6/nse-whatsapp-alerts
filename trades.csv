@@ -37,3 +37,5 @@ timestamp,mode,event,symbol,instrument_key,rating,price,qty,gain_pct,reason,late
 2026-08-05T07:10:01.321091612Z,shadow,exit,SHRIRAMEPC,,,6.3600,,2.2508,Trail stop (peak:+3.86% -> now:+2.25%),
 2026-08-05T09:18:05.134499699Z,shadow,entry,INTERARCH1983,NSE_EQ|INE00M901018,6,1855.0000,1,,UPSTOX_ENABLED=false,78134
 2026-08-05T10:03:08.059227447Z,shadow,exit,INTERARCH1983,,,1836.5000,,-0.9973,Time exit (45 min),
+2026-08-06T09:10:41.847904355Z,shadow,entry,AFCONS,NSE_EQ|INE101I01011,7,284.3500,1,,UPSTOX_ENABLED=false,43847
+2026-08-06T09:23:41.134832941Z,shadow,exit,AFCONS,,,279.9500,,-1.5474,Stop-loss (-1.55%),
