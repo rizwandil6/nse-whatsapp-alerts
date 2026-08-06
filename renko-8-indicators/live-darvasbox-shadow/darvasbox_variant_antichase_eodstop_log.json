@@ -676,5 +676,37 @@
   "livePriceAvailable": true,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "SHORT",
+  "theoreticalExit": 175.47820000000002,
+  "livePriceAvailable": true,
+  "entry": 175.75,
+  "exitPrice": 176.4,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 1,
+  "pnlPct": -0.3698435277382678,
+  "entryTimestampMs": 1786002000000,
+  "exitTimestampMs": 1786008600000,
+  "variant": true,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "theoreticalExit": 10.800900000000002,
+  "livePriceAvailable": true,
+  "entry": 10.85,
+  "exitPrice": 10.8,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 2,
+  "pnlPct": 0.4608294930875478,
+  "entryTimestampMs": 1786005000000,
+  "exitTimestampMs": 1786010100000,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
