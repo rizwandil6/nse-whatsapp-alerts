@@ -30,7 +30,12 @@
   "position": null
  },
  "GAIL": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 175.75,
+   "entryIdx": 4,
+   "entryTimestampMs": 1786002000000
+  }
  },
  "ADSL": {
   "position": null
