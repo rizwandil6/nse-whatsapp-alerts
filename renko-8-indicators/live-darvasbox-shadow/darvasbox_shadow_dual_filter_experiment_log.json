@@ -1609,5 +1609,23 @@
   "timestampMs": 1786079400000,
   "breakoutTimestampMs": 1786078500000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 939.3425,
+  "timestampMs": 1786079700000,
+  "breakoutTimestampMs": 1786079700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 651.24,
+  "timestampMs": 1786079700000,
+  "breakoutTimestampMs": 1786079700000,
+  "shadow": true
  }
 ]
