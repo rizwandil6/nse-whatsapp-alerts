@@ -9,46 +9,22 @@
   "position": null
  },
  "SUZLON": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 48.34,
-   "entryIdx": 10,
-   "entryTimestampMs": 1786091100000,
-   "stop": 50.0319
-  }
+  "position": null
  },
  "WAAREEENER": {
-  "position": {
-   "direction": "LONG",
-   "entry": 2728.2,
-   "entryIdx": 16,
-   "entryTimestampMs": 1786094100000,
-   "stop": 2632.7129999999997
-  }
+  "position": null
  },
  "OLAELEC": {
   "position": null
  },
  "HINDCOPPER": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 538.65,
-   "entryIdx": 12,
-   "entryTimestampMs": 1786083300000,
-   "stop": 557.5027499999999
-  }
+  "position": null
  },
  "MHRIL": {
   "position": null
  },
  "RVNL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 233.6,
-   "entryIdx": 6,
-   "entryTimestampMs": 1786085100000,
-   "stop": 241.77599999999998
-  }
+  "position": null
  },
  "RAILTEL": {
   "position": null
@@ -57,22 +33,10 @@
   "position": null
  },
  "ADSL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 114.8,
-   "entryIdx": 11,
-   "entryTimestampMs": 1786077060000,
-   "stop": 118.81799999999998
-  }
+  "position": null
  },
  "ARE&M": {
-  "position": {
-   "direction": "LONG",
-   "entry": 939.45,
-   "entryIdx": 4,
-   "entryTimestampMs": 1786079700000,
-   "stop": 906.56925
-  }
+  "position": null
  },
  "NCC": {
   "position": null
@@ -87,24 +51,12 @@
   "position": null
  },
  "ORIENTELEC": {
-  "position": {
-   "direction": "LONG",
-   "entry": 189.8,
-   "entryIdx": 39,
-   "entryTimestampMs": 1786081200000,
-   "stop": 183.157
-  }
+  "position": null
  },
  "IRCON": {
   "position": null
  },
  "TRITURBINE": {
-  "position": {
-   "direction": "LONG",
-   "entry": 651.3,
-   "entryIdx": 5,
-   "entryTimestampMs": 1786079700000,
-   "stop": 628.5044999999999
-  }
+  "position": null
  }
 }
