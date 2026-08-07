@@ -3924,5 +3924,27 @@
   "timestampMs": 1786079100000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 939.45,
+  "theoreticalEntry": 939.3425,
+  "entryIdx": 4,
+  "timestampMs": 1786079700000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 651.3,
+  "theoreticalEntry": 651.24,
+  "entryIdx": 5,
+  "timestampMs": 1786079700000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
