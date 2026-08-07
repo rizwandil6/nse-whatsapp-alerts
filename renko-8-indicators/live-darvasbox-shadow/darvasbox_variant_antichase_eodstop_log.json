@@ -911,5 +911,18 @@
   "livePriceAvailable": true,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 48.34,
+  "theoreticalEntry": 48.328875000000004,
+  "stop": 50.0319,
+  "entryIdx": 10,
+  "timestampMs": 1786091100000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
