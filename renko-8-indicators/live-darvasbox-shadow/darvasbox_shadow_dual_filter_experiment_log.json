@@ -1636,5 +1636,17 @@
   "timestampMs": 1786080600000,
   "breakoutTimestampMs": 1786075500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 541.500375,
+  "exitPrice": 538.9,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.480216657283014,
+  "entryTimestampMs": 1786078800000,
+  "exitTimestampMs": 1786082700000,
+  "shadow": true
  }
 ]
