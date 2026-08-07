@@ -61,12 +61,7 @@
   }
  },
  "ARE&M": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 933.75,
-   "entryIdx": 8,
-   "entryTimestampMs": 1786086300000
-  }
+  "position": null
  },
  "NCC": {
   "position": null
