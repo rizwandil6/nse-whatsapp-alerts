@@ -3974,5 +3974,22 @@
   "timestampMs": 1786083300000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 939.45,
+  "exitPrice": 936.3,
+  "theoreticalExit": 936.3,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.3353025706530513,
+  "entryTimestampMs": 1786079700000,
+  "exitTimestampMs": 1786084800000,
+  "brickPct": "0.25",
+  "pnlRs": -47.250000000001364,
+  "rsSign": "−"
  }
 ]
