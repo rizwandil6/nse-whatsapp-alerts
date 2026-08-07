@@ -61,7 +61,12 @@
   "position": null
  },
  "ORIENTELEC": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 184.51,
+   "entryIdx": 18,
+   "entryTimestampMs": 1786079100000
+  }
  },
  "IRCON": {
   "position": null
