@@ -1879,5 +1879,41 @@
   "entryTimestampMs": 1786080600000,
   "exitTimestampMs": 1786093200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 538.999125,
+  "exitPrice": 534.9465000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7518796992481055,
+  "entryTimestampMs": 1786083300000,
+  "exitTimestampMs": 1786092900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 182.946225,
+  "exitPrice": 189.33337499999985,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 3.491271820448796,
+  "entryTimestampMs": 1786079100000,
+  "exitTimestampMs": 1786094400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 651.24,
+  "exitPrice": 636.66,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -2.2388059701492597,
+  "entryTimestampMs": 1786079700000,
+  "exitTimestampMs": 1786095600000,
+  "shadow": true
  }
 ]
