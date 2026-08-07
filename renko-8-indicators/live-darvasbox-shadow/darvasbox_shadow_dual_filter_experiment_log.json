@@ -1729,5 +1729,14 @@
   "entryTimestampMs": 1786086300000,
   "exitTimestampMs": 1786090500000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2727.0075,
+  "timestampMs": 1786094100000,
+  "breakoutTimestampMs": 1786094100000,
+  "shadow": true
  }
 ]
