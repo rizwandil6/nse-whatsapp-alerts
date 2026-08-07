@@ -6,55 +6,25 @@
   "position": null
  },
  "JSWINFRA": {
-  "position": {
-   "direction": "LONG",
-   "entry": 326.8,
-   "entryIdx": 11,
-   "entryTimestampMs": 1786086000000
-  }
+  "position": null
  },
  "SUZLON": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 48.34,
-   "entryIdx": 10,
-   "entryTimestampMs": 1786091100000
-  }
+  "position": null
  },
  "WAAREEENER": {
-  "position": {
-   "direction": "LONG",
-   "entry": 2728.2,
-   "entryIdx": 16,
-   "entryTimestampMs": 1786094100000
-  }
+  "position": null
  },
  "OLAELEC": {
   "position": null
  },
  "HINDCOPPER": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 538.65,
-   "entryIdx": 12,
-   "entryTimestampMs": 1786083300000
-  }
+  "position": null
  },
  "MHRIL": {
-  "position": {
-   "direction": "LONG",
-   "entry": 229.5,
-   "entryIdx": 10,
-   "entryTimestampMs": 1786086900000
-  }
+  "position": null
  },
  "RVNL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 233.6,
-   "entryIdx": 6,
-   "entryTimestampMs": 1786085100000
-  }
+  "position": null
  },
  "RAILTEL": {
   "position": null
@@ -81,22 +51,12 @@
   "position": null
  },
  "ORIENTELEC": {
-  "position": {
-   "direction": "LONG",
-   "entry": 184.51,
-   "entryIdx": 18,
-   "entryTimestampMs": 1786079100000
-  }
+  "position": null
  },
  "IRCON": {
   "position": null
  },
  "TRITURBINE": {
-  "position": {
-   "direction": "LONG",
-   "entry": 651.3,
-   "entryIdx": 5,
-   "entryTimestampMs": 1786079700000
-  }
+  "position": null
  }
 }
