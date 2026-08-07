@@ -3891,5 +3891,16 @@
   "brickPct": "0.25",
   "pnlRs": 0,
   "rsSign": "+"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 114.8,
+  "theoreticalEntry": 114.83999999999997,
+  "entryIdx": 11,
+  "timestampMs": 1786077060000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
