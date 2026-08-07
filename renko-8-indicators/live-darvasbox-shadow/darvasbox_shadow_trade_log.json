@@ -3991,5 +3991,16 @@
   "brickPct": "0.25",
   "pnlRs": -47.250000000001364,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 233.6,
+  "theoreticalEntry": 233.68412499999997,
+  "entryIdx": 6,
+  "timestampMs": 1786085100000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
