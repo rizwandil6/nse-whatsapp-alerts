@@ -265,5 +265,19 @@
   "date": "2026-08-04",
   "price": 520.25,
   "rsRankAtEntry": 80.8259587020649
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SCI",
+  "date": "2026-08-05",
+  "price": 308.6,
+  "rsRankAtEntry": 80.23598820058997
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "VTL",
+  "date": "2026-08-05",
+  "price": 602.2,
+  "rsRankAtEntry": 81.71091445427729
  }
 ]

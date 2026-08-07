@@ -162,5 +162,19 @@
   "rsRankAtEntry": 80.8259587020649,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "SCI": {
+  "entryDate": "2026-08-05",
+  "entryPrice": 308.6,
+  "rsRankAtEntry": 80.23598820058997,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "VTL": {
+  "entryDate": "2026-08-05",
+  "entryPrice": 602.2,
+  "rsRankAtEntry": 81.71091445427729,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
