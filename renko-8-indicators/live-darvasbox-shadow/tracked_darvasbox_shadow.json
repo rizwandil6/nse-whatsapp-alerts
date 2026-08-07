@@ -33,7 +33,12 @@
   "position": null
  },
  "ADSL": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 114.8,
+   "entryIdx": 11,
+   "entryTimestampMs": 1786077060000
+  }
  },
  "ARE&M": {
   "position": null
