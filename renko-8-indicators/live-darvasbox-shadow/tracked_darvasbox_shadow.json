@@ -22,7 +22,12 @@
   }
  },
  "WAAREEENER": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 2728.2,
+   "entryIdx": 16,
+   "entryTimestampMs": 1786094100000
+  }
  },
  "OLAELEC": {
   "position": null
