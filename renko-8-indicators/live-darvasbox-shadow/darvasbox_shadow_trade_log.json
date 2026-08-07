@@ -3946,5 +3946,22 @@
   "timestampMs": 1786079700000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 544.5,
+  "exitPrice": 538.9,
+  "theoreticalExit": 538.9,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -1.0284664830119417,
+  "entryTimestampMs": 1786078800000,
+  "exitTimestampMs": 1786082700000,
+  "brickPct": "0.25",
+  "pnlRs": -235.20000000000095,
+  "rsSign": "−"
  }
 ]
