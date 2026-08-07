@@ -885,5 +885,18 @@
   "livePriceAvailable": true,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 538.65,
+  "theoreticalEntry": 538.799625,
+  "stop": 557.5027499999999,
+  "entryIdx": 12,
+  "timestampMs": 1786083300000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
