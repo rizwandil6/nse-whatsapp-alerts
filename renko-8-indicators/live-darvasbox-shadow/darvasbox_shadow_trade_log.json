@@ -3902,5 +3902,16 @@
   "timestampMs": 1786077060000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 544.5,
+  "theoreticalEntry": 541.500375,
+  "entryIdx": 4,
+  "timestampMs": 1786078800000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
