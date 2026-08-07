@@ -39,3 +39,5 @@ timestamp,mode,event,symbol,instrument_key,rating,price,qty,gain_pct,reason,late
 2026-08-05T10:03:08.059227447Z,shadow,exit,INTERARCH1983,,,1836.5000,,-0.9973,Time exit (45 min),
 2026-08-06T09:10:41.847904355Z,shadow,entry,AFCONS,NSE_EQ|INE101I01011,7,284.3500,1,,UPSTOX_ENABLED=false,43847
 2026-08-06T09:23:41.134832941Z,shadow,exit,AFCONS,,,279.9500,,-1.5474,Stop-loss (-1.55%),
+2026-08-07T07:24:19.936515766Z,shadow,entry,PAM,NSE_EQ|INE018A01030,5,4049.2000,1,,UPSTOX_ENABLED=false,50936
+2026-08-07T08:09:21.726252848Z,shadow,exit,PAM,,,4050.7000,,0.0370,Time exit (45 min),
