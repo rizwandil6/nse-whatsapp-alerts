@@ -6,7 +6,12 @@
   "position": null
  },
  "JSWINFRA": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 326.8,
+   "entryIdx": 11,
+   "entryTimestampMs": 1786086000000
+  }
  },
  "SUZLON": {
   "position": null
