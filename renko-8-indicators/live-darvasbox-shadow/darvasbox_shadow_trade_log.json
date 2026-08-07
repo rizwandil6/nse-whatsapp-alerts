@@ -3913,5 +3913,16 @@
   "timestampMs": 1786078800000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 184.51,
+  "theoreticalEntry": 182.946225,
+  "entryIdx": 18,
+  "timestampMs": 1786079100000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
