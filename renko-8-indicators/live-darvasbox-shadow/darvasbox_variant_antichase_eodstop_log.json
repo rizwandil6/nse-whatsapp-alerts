@@ -898,5 +898,18 @@
   "livePriceAvailable": true,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 233.6,
+  "theoreticalEntry": 233.68412499999997,
+  "stop": 241.77599999999998,
+  "entryIdx": 6,
+  "timestampMs": 1786085100000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
