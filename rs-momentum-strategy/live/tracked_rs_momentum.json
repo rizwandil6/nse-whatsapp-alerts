@@ -121,13 +121,6 @@
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  },
- "FSL": {
-  "entryDate": "2026-08-03",
-  "entryPrice": 330.7,
-  "rsRankAtEntry": 80.76923076923077,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
  "KEI": {
   "entryDate": "2026-08-03",
   "entryPrice": 5500,
@@ -174,6 +167,34 @@
   "entryDate": "2026-08-05",
   "entryPrice": 602.2,
   "rsRankAtEntry": 81.71091445427729,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "CUMMINSIND": {
+  "entryDate": "2026-08-06",
+  "entryPrice": 5426,
+  "rsRankAtEntry": 80.23598820058997,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "HINDALCO": {
+  "entryDate": "2026-08-06",
+  "entryPrice": 1059.6,
+  "rsRankAtEntry": 80.8259587020649,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "THELEELA": {
+  "entryDate": "2026-08-06",
+  "entryPrice": 518,
+  "rsRankAtEntry": 81.41592920353983,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "ZYDUSWELL": {
+  "entryDate": "2026-08-06",
+  "entryPrice": 533.85,
+  "rsRankAtEntry": 82.00589970501476,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }

@@ -279,5 +279,40 @@
   "date": "2026-08-05",
   "price": 602.2,
   "rsRankAtEntry": 81.71091445427729
+ },
+ {
+  "type": "EXIT",
+  "symbol": "FSL",
+  "date": "2026-08-06",
+  "price": 279.85,
+  "pnlPct": -15.376474145751425
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CUMMINSIND",
+  "date": "2026-08-06",
+  "price": 5426,
+  "rsRankAtEntry": 80.23598820058997
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "HINDALCO",
+  "date": "2026-08-06",
+  "price": 1059.6,
+  "rsRankAtEntry": 80.8259587020649
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "THELEELA",
+  "date": "2026-08-06",
+  "price": 518,
+  "rsRankAtEntry": 81.41592920353983
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ZYDUSWELL",
+  "date": "2026-08-06",
+  "price": 533.85,
+  "rsRankAtEntry": 82.00589970501476
  }
 ]
