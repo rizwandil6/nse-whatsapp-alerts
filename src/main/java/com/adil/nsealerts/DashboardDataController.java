@@ -34,18 +34,29 @@ public class DashboardDataController {
     private final QuarterlyResultsService quarterlyResultsService;
     private final RsRankLookupService rsRankLookupService;
     private final RsMomentumService rsMomentumService;
+    private final SwingSignalService swingSignalService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
 
     public DashboardDataController(AlertLogService alertLogService, GithubJsonStore githubJsonStore,
                                     QuarterlyResultsService quarterlyResultsService,
                                     RsRankLookupService rsRankLookupService,
-                                    RsMomentumService rsMomentumService) {
+                                    RsMomentumService rsMomentumService,
+                                    SwingSignalService swingSignalService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
         this.quarterlyResultsService = quarterlyResultsService;
         this.rsRankLookupService = rsRankLookupService;
         this.rsMomentumService = rsMomentumService;
+        this.swingSignalService = swingSignalService;
+    }
+
+    // Swing Strategy tab -- reads swing.signals straight from Postgres (written by
+    // the swing-strategy/live Node service), same local-query pattern as
+    // quarterly-results. No cache needed.
+    @GetMapping(value = "/api/dashboard/swing", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String, Object>> swing() {
+        return swingSignalService.all();
     }
 
     // Unlike the other 4 tabs, this reads straight from Postgres (this same
