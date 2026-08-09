@@ -149,20 +149,20 @@
   <div class="tabs" id="tabs">
     <button class="tab-btn active" data-tab="home">Home</button>
     <button class="tab-btn" data-tab="news">Market News <span class="count" id="count-news"></span></button>
+    <button class="tab-btn" data-tab="swing-strategy">Swing Strategy <span class="count" id="count-swing-strategy"></span></button>
     <button class="tab-btn" data-tab="announcements">Announcements <span class="count" id="count-announcements"></span></button>
     <button class="tab-btn" data-tab="quarterly-results">Quarterly Results <span class="count" id="count-quarterly-results"></span></button>
     <button class="tab-btn" data-tab="rs-momentum">RS Momentum <span class="count" id="count-rs-momentum"></span></button>
     <button class="tab-btn" data-tab="darvasbox">Today's DarvasBox <span class="count" id="count-darvasbox"></span></button>
-    <button class="tab-btn" data-tab="swing-strategy">Swing Strategy <span class="count" id="count-swing-strategy"></span></button>
   </div>
 
   <div class="panel active" id="panel-home"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-news"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-swing-strategy"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-announcements"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-quarterly-results"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-rs-momentum"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-darvasbox"><div class="state-msg">Loading…</div></div>
-  <div class="panel" id="panel-swing-strategy"><div class="state-msg">Loading…</div></div>
 </div>
 
 <style>
@@ -173,26 +173,43 @@
   .rule-no { color: #cf222e; font-weight: 700; }
   .rule-val { color: var(--ink-faint); }
   .rule-val em { font-style: italic; opacity: .8; }
+
+  .swing-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .swing-head .tab-header { margin: 0; }
+  .pnl-total { text-align: right; white-space: nowrap; }
+  .pnl-total-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+  .pnl-total-val { font-size: 23px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .pnl-total-val.win { color: var(--win); }
+  .pnl-total-val.loss { color: var(--loss); }
+  .pnl-total-sub { font-size: 11px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+  .swing-filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  .pill-group { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .pill { font: inherit; font-size: 12px; font-weight: 600; color: var(--ink-muted); background: var(--surface); border: none; border-right: 1px solid var(--border); padding: 6px 12px; cursor: pointer; }
+  .pill:last-child { border-right: none; }
+  .pill.active { background: var(--accent-soft); color: var(--accent); }
+  .swing-filters select, .swing-filters input[type="search"] { font: inherit; font-size: 12.5px; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; }
+  .swing-filters input[type="search"] { min-width: 130px; }
+  .sw-check { font-size: 12.5px; color: var(--ink-muted); display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
 </style>
 
 <script>
   const TABS = {
     news: { url: '/api/dashboard/market-news', render: renderNews },
+    'swing-strategy': { url: '/api/dashboard/swing', render: renderSwing },
     announcements: { url: '/api/dashboard/announcements', render: renderAnnouncements },
     'quarterly-results': { url: '/api/dashboard/quarterly-results', render: renderQuarterlyResults },
     'rs-momentum': { url: '/api/dashboard/rs-momentum', render: renderRsMomentum },
     darvasbox: { url: '/api/dashboard/darvasbox-today', render: renderDarvasbox },
-    'swing-strategy': { url: '/api/dashboard/swing', render: renderSwing },
   };
   const loaded = {};
   const dataCache = {};
   const TILE_LABELS = {
     news: 'Market News',
+    'swing-strategy': 'Swing Strategy',
     announcements: 'Announcements',
     'quarterly-results': 'Quarterly Results',
     'rs-momentum': 'RS Momentum',
     darvasbox: "Today's DarvasBox",
-    'swing-strategy': 'Swing Strategy',
   };
 
   function fmtTime(iso) {
@@ -428,12 +445,49 @@
   }
 
   function renderSwing(items, panel) {
-    panel.insertAdjacentHTML('beforeend',
-      '<div class="tab-header"><p>Trimmed confluence swing strategy — daily 19:00 IST scan of the halal universe. ' +
-      'Paper/forward tracking. <b>Since alert %</b> = move from entry to latest price (open) or to exit (closed).</p></div>');
-    for (const s of items) {
-      const card = document.createElement('div');
-      card.className = 'card';
+    panel.innerHTML = '';
+
+    // Header: description (left) + Total P&L over ALL recorded stocks (right).
+    const withPnl = items.filter((s) => s.sinceAlertPct != null);
+    const totalPnl = withPnl.length ? withPnl.reduce((a, s) => a + Number(s.sinceAlertPct), 0) / withPnl.length : null;
+    const closedRows = items.filter((s) => s.status === 'closed');
+    const wins = closedRows.filter((s) => Number(s.rNet) > 0).length;
+    const head = document.createElement('div');
+    head.className = 'swing-head';
+    head.innerHTML =
+      '<div class="tab-header"><p>Trimmed confluence swing — daily 19:00 IST scan. Paper/forward tracking. ' +
+      '<b>Since alert %</b> = entry → latest (open) or → exit (closed).</p></div>' +
+      '<div class="pnl-total">' +
+      '<div class="pnl-total-label">Total P&amp;L (avg/trade)</div>' +
+      `<div class="pnl-total-val ${totalPnl == null ? '' : totalPnl >= 0 ? 'win' : 'loss'}">${totalPnl == null ? '—' : fmtPct(totalPnl)}</div>` +
+      `<div class="pnl-total-sub">${items.length} recorded · ${closedRows.length} closed${closedRows.length ? ' · ' + Math.round((100 * wins) / closedRows.length) + '% win' : ''}</div>` +
+      '</div>';
+    panel.appendChild(head);
+
+    // Filter bar: status pills · month (by signal date) · symbol search · result · full-spec.
+    const months = [...new Set(items.map((s) => (s.signalDate || '').slice(0, 7)).filter(Boolean))].sort().reverse();
+    const monthLabel = (m) => { const [y, mo] = m.split('-'); return new Date(Number(y), Number(mo) - 1, 1).toLocaleString('en-US', { month: 'short' }) + ' ' + y; };
+    const bar = document.createElement('div');
+    bar.className = 'swing-filters';
+    bar.innerHTML =
+      '<div class="pill-group" id="sw-status">' +
+      ['all', 'open', 'pending', 'closed'].map((s, i) => `<button class="pill${i === 0 ? ' active' : ''}" data-status="${s}">${s === 'all' ? 'All' : s[0].toUpperCase() + s.slice(1)}</button>`).join('') +
+      '</div>' +
+      `<select id="sw-month"><option value="all">All months</option>${months.map((m) => `<option value="${m}">${monthLabel(m)}</option>`).join('')}</select>` +
+      '<input id="sw-symbol" type="search" placeholder="Search symbol…" autocomplete="off" />' +
+      '<select id="sw-result"><option value="all">All results</option><option value="win">Wins</option><option value="loss">Losses</option></select>' +
+      '<label class="sw-check"><input type="checkbox" id="sw-fullspec" /> Full-spec only</label>';
+    panel.appendChild(bar);
+
+    const list = document.createElement('div');
+    list.style.display = 'flex';
+    list.style.flexDirection = 'column';
+    list.style.gap = '10px';
+    panel.appendChild(list);
+
+    const state = { status: 'all', month: 'all', symbol: '', result: 'all', fullspec: false };
+
+    function cardHtml(s) {
       const isClosed = s.status === 'closed';
       const statusBadge = s.status === 'open' ? 'amber' : s.status === 'pending' ? 'neutral' : (s.rNet >= 0 ? 'win' : 'loss');
       const statusLabel = isClosed ? (s.rNet >= 0 ? 'Closed ✓' : 'Closed ✗') : (s.status.charAt(0).toUpperCase() + s.status.slice(1));
@@ -449,11 +503,8 @@
         `<li>${chk(r.pass)} <b>RSI ≥55 (D/W/M)</b> <span class="rule-val">${esc(r.d)}/${esc(r.w)}/${esc(r.m)} <em>(recorded, not gated)</em></span></li>` +
         '</ul>';
       const since = s.sinceAlertPct != null ? `<span class="pnl ${s.sinceAlertPct >= 0 ? 'win' : 'loss'}">${fmtPct(s.sinceAlertPct)}</span>` : '';
-      card.innerHTML = `
-        <div class="card-top">
-          <div class="card-title">${esc(s.symbol)}</div>
-          <div class="card-time">${esc(s.signalDate)}</div>
-        </div>
+      return `<div class="card">
+        <div class="card-top"><div class="card-title">${esc(s.symbol)}</div><div class="card-time">${esc(s.signalDate)}</div></div>
         <div class="card-meta">
           <span class="badge ${statusBadge}">${statusLabel}</span>
           ${s.entryPx != null ? `<span>Entry <b>₹${esc(s.entryPx)}</b></span>` : ''}
@@ -465,9 +516,31 @@
           ${s.rsiGatePass ? '<span class="badge win">full-spec</span>' : ''}
         </div>
         ${rulesHtml}
-      `;
-      panel.appendChild(card);
+      </div>`;
     }
+
+    function apply() {
+      let f = items.slice();
+      if (state.status !== 'all') f = f.filter((s) => s.status === state.status);
+      if (state.month !== 'all') f = f.filter((s) => (s.signalDate || '').slice(0, 7) === state.month);
+      if (state.symbol) { const q = state.symbol.toLowerCase(); f = f.filter((s) => (s.symbol || '').toLowerCase().includes(q)); }
+      if (state.fullspec) f = f.filter((s) => s.rsiGatePass === true);
+      if (state.result !== 'all') f = f.filter((s) => s.status === 'closed' && (state.result === 'win' ? Number(s.rNet) > 0 : Number(s.rNet) <= 0));
+      list.innerHTML = f.length ? f.map(cardHtml).join('') : '<div class="state-msg">No signals match these filters.</div>';
+      const badge = document.getElementById('count-swing-strategy');
+      if (badge) badge.textContent = f.length || '';
+    }
+
+    bar.querySelector('#sw-status').addEventListener('click', (e) => {
+      const b = e.target.closest('.pill'); if (!b) return;
+      bar.querySelectorAll('#sw-status .pill').forEach((p) => p.classList.remove('active'));
+      b.classList.add('active'); state.status = b.dataset.status; apply();
+    });
+    bar.querySelector('#sw-month').addEventListener('change', (e) => { state.month = e.target.value; apply(); });
+    bar.querySelector('#sw-symbol').addEventListener('input', (e) => { state.symbol = e.target.value.trim(); apply(); });
+    bar.querySelector('#sw-result').addEventListener('change', (e) => { state.result = e.target.value; apply(); });
+    bar.querySelector('#sw-fullspec').addEventListener('change', (e) => { state.fullspec = e.target.checked; apply(); });
+    apply();
   }
 
   function fmtCr(v) {
