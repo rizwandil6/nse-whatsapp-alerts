@@ -1,0 +1,17 @@
+# Nixpacks build for the dedicated Railway "swing" runner service.
+#
+# Create a NEW Railway service in the same project, from this repo (branch
+# `main`), and set its **Root Directory** to `swing-strategy/live` so this file
+# is picked up (the repo root builds the Java app with Maven; this subdir builds
+# the Node runner independently). Nixpacks then installs the `pg` dependency and
+# runs service_pg.js, which self-schedules the daily 19:00 IST scan.
+#
+# Only env var needed: DATABASE_URL = ${{Postgres.DATABASE_URL}} (reference the
+# shared Postgres plugin). Upstox candle data is public, so no token is required.
+providers = ["node"]
+
+[phases.install]
+cmds = ["npm install --omit=dev"]
+
+[start]
+cmd = "node service_pg.js"
