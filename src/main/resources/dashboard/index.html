@@ -153,6 +153,7 @@
     <button class="tab-btn" data-tab="quarterly-results">Quarterly Results <span class="count" id="count-quarterly-results"></span></button>
     <button class="tab-btn" data-tab="rs-momentum">RS Momentum <span class="count" id="count-rs-momentum"></span></button>
     <button class="tab-btn" data-tab="darvasbox">Today's DarvasBox <span class="count" id="count-darvasbox"></span></button>
+    <button class="tab-btn" data-tab="swing-strategy">Swing Strategy <span class="count" id="count-swing-strategy"></span></button>
   </div>
 
   <div class="panel active" id="panel-home"><div class="state-msg">Loading…</div></div>
@@ -161,7 +162,18 @@
   <div class="panel" id="panel-quarterly-results"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-rs-momentum"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-darvasbox"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-swing-strategy"><div class="state-msg">Loading…</div></div>
 </div>
+
+<style>
+  .rule-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; }
+  .rule-list li { color: var(--ink-muted); }
+  .rule-list b { color: var(--ink); font-weight: 600; }
+  .rule-ok { color: #1a7f37; font-weight: 700; }
+  .rule-no { color: #cf222e; font-weight: 700; }
+  .rule-val { color: var(--ink-faint); }
+  .rule-val em { font-style: italic; opacity: .8; }
+</style>
 
 <script>
   const TABS = {
@@ -170,6 +182,7 @@
     'quarterly-results': { url: '/api/dashboard/quarterly-results', render: renderQuarterlyResults },
     'rs-momentum': { url: '/api/dashboard/rs-momentum', render: renderRsMomentum },
     darvasbox: { url: '/api/dashboard/darvasbox-today', render: renderDarvasbox },
+    'swing-strategy': { url: '/api/dashboard/swing', render: renderSwing },
   };
   const loaded = {};
   const dataCache = {};
@@ -179,6 +192,7 @@
     'quarterly-results': 'Quarterly Results',
     'rs-momentum': 'RS Momentum',
     darvasbox: "Today's DarvasBox",
+    'swing-strategy': 'Swing Strategy',
   };
 
   function fmtTime(iso) {
@@ -250,6 +264,11 @@
         return `<div class="tile-preview-title">${esc(item.symbol)} — ${esc(item.quarterLabel)}</div>` +
           `<div class="tile-preview-sub">Revenue ${fmtCr(item.revenueCr)}</div>` +
           `<div class="tile-preview-time">${fmtTime(item.announcementDate)}</div>`;
+      case 'swing-strategy': {
+        const st = item.status === 'closed' ? (item.rNet >= 0 ? 'Win' : 'Loss') : (item.status.charAt(0).toUpperCase() + item.status.slice(1));
+        const since = item.sinceAlertPct != null ? ' ' + fmtPct(item.sinceAlertPct) : '';
+        return `<div class="tile-preview-title">${esc(item.symbol)} — ${st}${since}</div><div class="tile-preview-time">${esc(item.signalDate)}</div>`;
+      }
       default:
         return '';
     }
@@ -403,6 +422,49 @@
           <span>Entry <b>₹${esc(t.entry)}</b></span>
           ${isExit ? `<span>Exit <b>₹${esc(t.exitPrice)}</b></span><span>${esc(t.action)}</span><span class="pnl ${t.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(t.pnlPct)}</span>${rsNote}` : `<span>Stop <b>₹${esc(t.stop)}</b></span>`}
         </div>
+      `;
+      panel.appendChild(card);
+    }
+  }
+
+  function renderSwing(items, panel) {
+    panel.insertAdjacentHTML('beforeend',
+      '<div class="tab-header"><p>Trimmed confluence swing strategy — daily 19:00 IST scan of the halal universe. ' +
+      'Paper/forward tracking. <b>Since alert %</b> = move from entry to latest price (open) or to exit (closed).</p></div>');
+    for (const s of items) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const isClosed = s.status === 'closed';
+      const statusBadge = s.status === 'open' ? 'amber' : s.status === 'pending' ? 'neutral' : (s.rNet >= 0 ? 'win' : 'loss');
+      const statusLabel = isClosed ? (s.rNet >= 0 ? 'Closed ✓' : 'Closed ✗') : (s.status.charAt(0).toUpperCase() + s.status.slice(1));
+      let rules = {};
+      try { rules = JSON.parse(s.rules || '{}'); } catch (_) { /* keep {} */ }
+      const chk = (ok) => (ok ? '<span class="rule-ok">✓</span>' : '<span class="rule-no">✗</span>');
+      const z = rules.zone || {}, t = rules.trend || {}, g = rules.trigger || {}, r = rules.rsi || {};
+      const rulesHtml =
+        '<ul class="rule-list">' +
+        `<li>${chk(z.pass)} <b>Daily demand zone</b>${z.proximal != null ? ` <span class="rule-val">₹${esc(z.distal)}–${esc(z.proximal)}, score ${esc(z.score)}</span>` : ''}</li>` +
+        `<li>${chk(t.pass)} <b>Weekly 50-SMA trend up</b>${t.wsma50 != null ? ` <span class="rule-val">wSMA50 ₹${esc(t.wsma50)}, price above</span>` : ''}</li>` +
+        `<li>${chk(g.pass)} <b>9/20-EMA cross + volume</b>${g.ema9 != null ? ` <span class="rule-val">9EMA ${esc(g.ema9)} &gt; 20SMA ${esc(g.sma20)}, vol &gt;1.2×avg</span>` : ''}</li>` +
+        `<li>${chk(r.pass)} <b>RSI ≥55 (D/W/M)</b> <span class="rule-val">${esc(r.d)}/${esc(r.w)}/${esc(r.m)} <em>(recorded, not gated)</em></span></li>` +
+        '</ul>';
+      const since = s.sinceAlertPct != null ? `<span class="pnl ${s.sinceAlertPct >= 0 ? 'win' : 'loss'}">${fmtPct(s.sinceAlertPct)}</span>` : '';
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-title">${esc(s.symbol)}</div>
+          <div class="card-time">${esc(s.signalDate)}</div>
+        </div>
+        <div class="card-meta">
+          <span class="badge ${statusBadge}">${statusLabel}</span>
+          ${s.entryPx != null ? `<span>Entry <b>₹${esc(s.entryPx)}</b></span>` : ''}
+          <span>Stop <b>₹${esc(s.stopPx)}</b></span>
+          ${s.riskPct != null ? `<span>Risk <b>${esc(s.riskPct)}%</b></span>` : ''}
+          ${s.target1Px != null ? `<span>+2R <b>₹${esc(s.target1Px)}</b></span>` : ''}
+          ${isClosed ? `<span>Exit <b>₹${esc(s.exitPx)}</b></span><span class="pnl ${s.rNet >= 0 ? 'win' : 'loss'}">${Number(s.rNet).toFixed(2)}R</span>` : ''}
+          ${since ? `<span>Since alert ${since}</span>` : ''}
+          ${s.rsiGatePass ? '<span class="badge win">full-spec</span>' : ''}
+        </div>
+        ${rulesHtml}
       `;
       panel.appendChild(card);
     }

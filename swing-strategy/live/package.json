@@ -2,12 +2,16 @@
   "name": "swing-strategy-live",
   "version": "1.0.0",
   "private": true,
-  "main": "server.js",
+  "main": "service_pg.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node service_pg.js",
+    "start:alerts": "node server.js",
+    "run-once": "RUN_ONCE=1 node service_pg.js"
   },
   "engines": {
     "node": ">=18"
   },
-  "dependencies": {}
+  "dependencies": {
+    "pg": "^8.23.0"
+  }
 }

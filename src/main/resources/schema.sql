@@ -158,3 +158,36 @@ CREATE TABLE IF NOT EXISTS rs_momentum_status (
     modified_at       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Confluence Swing Strategy (trimmed rules) forward-tracking (2026-08-09): one
+-- row per (symbol, signal_date), upserted in place by the swing-strategy/live
+-- Node service (trimmed_runner.js / swing_db.js) on its daily 19:00 IST run.
+-- Mirrored here (idempotent) so the dashboard's /api/dashboard/swing query works
+-- even before that Node service's first run creates the schema itself. `rules`
+-- jsonb holds the per-rule satisfaction detail the tab renders. Plain statements
+-- only (no dollar-quoting) so Spring's naive schema.sql splitter is happy.
+CREATE SCHEMA IF NOT EXISTS swing;
+CREATE TABLE IF NOT EXISTS swing.signals (
+    id               BIGSERIAL PRIMARY KEY,
+    symbol           TEXT NOT NULL,
+    signal_date      DATE NOT NULL,
+    status           TEXT NOT NULL,      -- pending | open | closed
+    entry_date       DATE,
+    entry_px         NUMERIC,
+    stop_px          NUMERIC NOT NULL,
+    r_per_share      NUMERIC,
+    risk_pct         NUMERIC,
+    target1_px       NUMERIC,
+    exit_date        DATE,
+    exit_px          NUMERIC,
+    r_net            NUMERIC,
+    since_alert_pct  NUMERIC,
+    last_price       NUMERIC,
+    rsi_gate_pass    BOOLEAN,
+    rules            JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT swing_signals_symbol_date_uniq UNIQUE (symbol, signal_date)
+);
+CREATE INDEX IF NOT EXISTS swing_signals_status_idx ON swing.signals (status);
+CREATE INDEX IF NOT EXISTS swing_signals_date_idx   ON swing.signals (signal_date DESC);
+
