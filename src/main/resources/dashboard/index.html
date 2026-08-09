@@ -176,6 +176,7 @@
 
   .swing-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
   .swing-head .tab-header { margin: 0; }
+  .pnl-total-group { display: flex; gap: 20px; flex-wrap: wrap; }
   .pnl-total { text-align: right; white-space: nowrap; }
   .pnl-total-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
   .pnl-total-val { font-size: 23px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
@@ -450,6 +451,11 @@
     // Header: description (left) + Total P&L over ALL recorded stocks (right).
     const withPnl = items.filter((s) => s.sinceAlertPct != null);
     const totalPnl = withPnl.length ? withPnl.reduce((a, s) => a + Number(s.sinceAlertPct), 0) / withPnl.length : null;
+    // Naive cumulative: plain sum (not compounded) of every trade's Since alert %. Trades
+    // overlap in time, so there's no single account to compound sequentially -- this reads
+    // as "if I'd put one equal-sized unit into every trade shown, this is the sum of what
+    // each unit returned," a rough total rather than a real portfolio return.
+    const cumPnl = withPnl.length ? withPnl.reduce((a, s) => a + Number(s.sinceAlertPct), 0) : null;
     const closedRows = items.filter((s) => s.status === 'closed');
     const wins = closedRows.filter((s) => Number(s.rNet) > 0).length;
     const head = document.createElement('div');
@@ -457,10 +463,17 @@
     head.innerHTML =
       '<div class="tab-header"><p>Trimmed confluence swing — daily 19:00 IST scan. Paper/forward tracking. ' +
       '<b>Since alert %</b> = entry → latest (open) or → exit (closed).</p></div>' +
+      '<div class="pnl-total-group">' +
       '<div class="pnl-total">' +
       '<div class="pnl-total-label">Total P&amp;L (avg/trade)</div>' +
       `<div class="pnl-total-val ${totalPnl == null ? '' : totalPnl >= 0 ? 'win' : 'loss'}">${totalPnl == null ? '—' : fmtPct(totalPnl)}</div>` +
       `<div class="pnl-total-sub">${items.length} recorded · ${closedRows.length} closed${closedRows.length ? ' · ' + Math.round((100 * wins) / closedRows.length) + '% win' : ''}</div>` +
+      '</div>' +
+      '<div class="pnl-total">' +
+      '<div class="pnl-total-label">Cumulative P&amp;L (naive sum)</div>' +
+      `<div class="pnl-total-val ${cumPnl == null ? '' : cumPnl >= 0 ? 'win' : 'loss'}">${cumPnl == null ? '—' : fmtPct(cumPnl)}</div>` +
+      '<div class="pnl-total-sub">equal-sized unit per trade, summed, not compounded</div>' +
+      '</div>' +
       '</div>';
     panel.appendChild(head);
 
