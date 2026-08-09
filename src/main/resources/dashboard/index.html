@@ -70,6 +70,18 @@
   details summary::-webkit-details-marker { display: none; }
   details[open] summary { margin-bottom: 8px; }
 
+  details.parse-failures { background: var(--card-bg, #fff); border: 1px solid var(--amber, #b45309); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; }
+  details.parse-failures summary { color: var(--amber, #b45309); }
+  details.parse-failures .check-row { padding: 4px 0; flex-wrap: wrap; align-items: center; }
+  details.parse-failures .check-row .badge { margin: 0 4px; }
+  details.parse-failures .check-row .card-time { margin-left: auto; }
+
+  .tab-header { margin-bottom: 14px; font-size: 13px; color: var(--ink-faint, #666); }
+  .tab-header p { margin: 0 0 8px; }
+  .tab-header .status-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .tab-header .status-legend li { display: flex; align-items: center; gap: 8px; }
+  .tab-header .status-legend .badge { flex-shrink: 0; }
+
   /* Quarterly Results verdict pill, margin/EPS rows, RS Rank chip, and the
      click-to-expand "why this verdict" breakdown (added 2026-07-30). */
   .verdict { font-size: 11px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; border-radius: 8px; padding: 4px 11px; white-space: nowrap; flex-shrink: 0; }
@@ -324,7 +336,26 @@
     return `<span>Now <b>₹${esc(item.currentPrice)}</b></span><span class="pnl ${item.returnSinceAlert >= 0 ? 'win' : 'loss'}">Since alert: ${fmtPct(item.returnSinceAlert)}</span>`;
   }
 
+  // One row per symbol, current status only (Postgres rs_momentum_status, upserted
+  // in place by rs-momentum-strategy-live -- see RsMomentumService) -- NOT a raw
+  // event log, so a symbol that cycles through multiple statuses over time shows
+  // as a single card, sorted by when its status last changed.
+  const RS_MOMENTUM_HEADER_HTML = `
+    <div class="tab-header">
+      <p>Stocks whose Relative Strength rank crossed the entry/exit thresholds of this
+      strategy's universe (~300 stocks). One card per stock, showing its <b>current</b>
+      status — newest change first.</p>
+      <ul class="status-legend">
+        <li><span class="badge amber">Entry (pending)</span> RS rank crossed ≥80; Sales Growth 3Y fundamentals gate not checked yet (Screener.in was unreachable).</li>
+        <li><span class="badge win">Entry</span> RS rank crossed ≥80 and Sales Growth 3Y ≥15% gate cleared — tracked as a live long position.</li>
+        <li><span class="badge win">Confirmed</span> A pending entry's fundamentals gate cleared on retry.</li>
+        <li><span class="badge loss">Retracted</span> A pending entry's fundamentals gate failed on retry — no longer tracked.</li>
+        <li><span class="badge neutral">Exit</span> RS rank dropped below 50 — position closed.</li>
+      </ul>
+    </div>`;
+
   function renderRsMomentum(items, panel) {
+    panel.insertAdjacentHTML('beforeend', RS_MOMENTUM_HEADER_HTML);
     const badge = { ENTRY: 'win', EXIT: 'neutral', ENTRY_PENDING: 'amber', FUNDAMENTALS_CONFIRMED: 'win', FUNDAMENTALS_FAILED: 'loss' };
     const label = { ENTRY: 'Entry', EXIT: 'Exit', ENTRY_PENDING: 'Entry (pending)', FUNDAMENTALS_CONFIRMED: 'Confirmed', FUNDAMENTALS_FAILED: 'Retracted' };
     for (const r of items) {
@@ -527,7 +558,45 @@
     return html;
   }
 
+  // Companies whose results PDF/data couldn't be parsed -- fetched separately from the main
+  // list (its own endpoint/table, quarterly_results_failures) since a parse failure has no
+  // row in quarterly_results at all. Rendered as a collapsed-by-default section above the
+  // successful cards so it doesn't bury the main list, but stays visible enough that a
+  // failure isn't mistaken for "NSE hasn't announced this company's results yet".
+  const FAILURE_REASON_LABEL = {
+    no_quarter_data: 'No quarter data found on Screener.in',
+    no_revenue_or_profit: 'Screener.in series had no revenue or profit figure',
+    pdf_unparseable: 'Filed results PDF could not be parsed',
+    db_error: 'Database error while saving the parsed result',
+  };
+
+  async function renderQuarterlyResultsFailures(container) {
+    let failures;
+    try {
+      const res = await fetch('/api/dashboard/quarterly-results-failures');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      failures = await res.json();
+    } catch (e) {
+      return; // best-effort -- the main results list already loaded fine, don't block on this
+    }
+    if (!failures.length) return;
+
+    const details = document.createElement('details');
+    details.className = 'parse-failures';
+    const rows = failures.map(f => `
+      <div class="check-row fail">
+        <span class="mark">✗</span>
+        <b>${esc(f.symbol)}</b>${f.companyName ? ` <span class="card-sub">(${esc(f.companyName)})</span>` : ''}
+        ${f.quarterLabel ? `<span class="badge neutral">${esc(f.quarterLabel)}</span>` : ''}
+        — ${esc(FAILURE_REASON_LABEL[f.reason] || f.reason)}
+        <span class="card-time">${fmtTime(f.failedAt)}</span>
+      </div>`).join('');
+    details.innerHTML = `<summary>⚠ ${failures.length} compan${failures.length === 1 ? 'y' : 'ies'} failed to parse — click to view</summary>${rows}`;
+    container.prepend(details);
+  }
+
   function renderQuarterlyResults(items, panel) {
+    renderQuarterlyResultsFailures(panel);
     for (const r of items) {
       const card = document.createElement('div');
       card.className = 'card';

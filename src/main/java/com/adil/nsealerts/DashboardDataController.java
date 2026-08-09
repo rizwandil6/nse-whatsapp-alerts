@@ -33,16 +33,19 @@ public class DashboardDataController {
     private final GithubJsonStore githubJsonStore;
     private final QuarterlyResultsService quarterlyResultsService;
     private final RsRankLookupService rsRankLookupService;
+    private final RsMomentumService rsMomentumService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
 
     public DashboardDataController(AlertLogService alertLogService, GithubJsonStore githubJsonStore,
                                     QuarterlyResultsService quarterlyResultsService,
-                                    RsRankLookupService rsRankLookupService) {
+                                    RsRankLookupService rsRankLookupService,
+                                    RsMomentumService rsMomentumService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
         this.quarterlyResultsService = quarterlyResultsService;
         this.rsRankLookupService = rsRankLookupService;
+        this.rsMomentumService = rsMomentumService;
     }
 
     // Unlike the other 4 tabs, this reads straight from Postgres (this same
@@ -68,6 +71,14 @@ public class DashboardDataController {
         return results;
     }
 
+    // Companies whose results PDF/data COULDN'T be parsed -- previously these left no trace
+    // anywhere, indistinguishable from "NSE just hasn't announced it yet". See
+    // QuarterlyResultsService.recordFailure/clearFailures.
+    @GetMapping(value = "/api/dashboard/quarterly-results-failures", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String, Object>> quarterlyResultsFailures() {
+        return quarterlyResultsService.recentFailures(200);
+    }
+
     @GetMapping(value = "/api/dashboard/market-news", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ObjectNode> marketNews() {
         List<ObjectNode> list = new ArrayList<>(alertLogService.getMarketNews());
@@ -82,21 +93,19 @@ public class DashboardDataController {
         return list;
     }
 
+    // Reads rs_momentum_status (Postgres) instead of the old append-only
+    // rs_momentum_log.json cross-branch read -- one row per symbol, upserted in place
+    // by rs-momentum-strategy-live on every status change, so the same stock no longer
+    // piles up duplicate rows across daily runs. See RsMomentumService.
     @GetMapping(value = "/api/dashboard/rs-momentum", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JsonNode> rsMomentum() {
-        // rs-momentum-strategy-live moved its state push off `main` onto this
-        // dedicated branch 2026-07-23 (was redeploying every Railway service
-        // on every daily run) -- see git_state.js.
-        JsonNode node = cachedRead("rs-momentum", "data/rs-momentum-log", "rs-momentum-strategy/live/rs_momentum_log.json");
-        List<JsonNode> events = reversedArray(node);
-        // "How did it do after we alerted it" (2026-07-28) -- a per-symbol
-        // rollup computed daily by server.js/forward_performance.js, same
-        // branch/commit as the log above. Attached onto every event for that
-        // symbol (not just its most recent) since it's a live "as of today"
-        // figure, not tied to any specific past event.
+    public List<Map<String, Object>> rsMomentum() {
+        List<Map<String, Object>> statuses = rsMomentumService.all();
+        // "How did it do after we alerted it" (2026-07-28) -- a per-symbol rollup still
+        // computed daily by server.js/forward_performance.js and pushed to the same
+        // GitHub branch as before; only the log itself moved off GitHub, not this file.
         JsonNode perf = cachedRead("rs-momentum-perf", "data/rs-momentum-log", "rs-momentum-strategy/live/rs_momentum_forward_performance.json");
-        attachForwardPerformance(events, perf, "returnSinceEntry");
-        return events;
+        attachForwardPerformanceToMaps(statuses, perf, "returnSinceEntry");
+        return statuses;
     }
 
     @GetMapping(value = "/api/dashboard/multibagger", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -109,6 +118,23 @@ public class DashboardDataController {
         JsonNode perf = cachedRead("multibagger-perf", "data/multibagger-log", "multibagger-screener/forward_performance_summary.json");
         attachForwardPerformance(events, perf, "returnSinceQualification");
         return events;
+    }
+
+    /** Same merge as attachForwardPerformance, for the rs-momentum-status Map rows (Postgres)
+     * instead of JsonNode events (GitHub JSON logs) -- kept separate rather than converting
+     * Maps to ObjectNode just to share one method. */
+    private void attachForwardPerformanceToMaps(List<Map<String, Object>> rows, JsonNode perfArray, String returnFieldName) {
+        if (perfArray == null || !perfArray.isArray()) return;
+        Map<String, JsonNode> bySymbol = new HashMap<>();
+        for (JsonNode row : perfArray) {
+            bySymbol.put(row.path("symbol").asText(""), row);
+        }
+        for (Map<String, Object> row : rows) {
+            JsonNode perf = bySymbol.get(String.valueOf(row.get("symbol")));
+            if (perf == null) continue;
+            if (perf.has("currentPrice") && !perf.get("currentPrice").isNull()) row.put("currentPrice", perf.get("currentPrice").asDouble());
+            if (perf.has(returnFieldName) && !perf.get(returnFieldName).isNull()) row.put("returnSinceAlert", perf.get(returnFieldName).asDouble());
+        }
     }
 
     /** Merges a per-symbol forward-performance summary row (currentPrice + the named return field, as "returnSinceAlert") onto every event belonging to that symbol. */

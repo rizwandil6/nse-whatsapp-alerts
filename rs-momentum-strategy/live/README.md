@@ -31,11 +31,20 @@ fetches and ranks the full ~353-stock universe together.
   RS>=80 for weeks, since the RS>=80 crossing itself only fires once.
 - **State persistence**: `tracked_rs_momentum.json` (currently-held
   positions) + `rs_momentum_log.json` (permanent append-only entry/exit
-  log) — same git-committed-JSON pattern as multibagger-screener, single
-  commit per run via the Git Data API (git binary isn't available in
-  Railway's Node buildpack — a real bug already found and fixed in
-  `multibagger-screener/git_state.js`; this service is built with that
-  lesson applied from the start).
+  log, internal state only) — same git-committed-JSON pattern as
+  multibagger-screener, single commit per run via the Git Data API (git
+  binary isn't available in Railway's Node buildpack — a real bug already
+  found and fixed in `multibagger-screener/git_state.js`; this service is
+  built with that lesson applied from the start).
+- **Dashboard-facing status (2026-08-09)**: `db_store.js` upserts ONE row
+  per symbol into Postgres's `rs_momentum_status` table (same Railway
+  addon the Java dashboard's `quarterly_results` table lives in) every
+  time a symbol's status changes — replaces the dashboard's old read of
+  the raw append-only `rs_momentum_log.json`, which showed the same
+  symbol as a new card on every daily run instead of updating it in
+  place. Needs `DATABASE_URL` set (or `.secrets/pg_url.txt` locally); if
+  neither is present this degrades to a no-op — alerts and the JSON state
+  files above are unaffected.
 
 ## Verified end-to-end before deploying
 
@@ -56,6 +65,7 @@ committed to GitHub in one real commit.
 | `diff_tracker.js` | New RS>=80 crossings vs. tracked positions dropping below 50 |
 | `fundamental_screener.js` / `halal_classifier.js` | Screener.in Sales Growth check (copied from `multibagger-screener/`) |
 | `git_state.js` | Single-commit GitHub REST API state sync/push |
+| `db_store.js` | Upserts current per-symbol status into Postgres's `rs_momentum_status` (dashboard-facing) |
 | `server.js` | Daily trigger (20:00-20:30 IST), orchestrates the full flow |
 | `symbols.json` | 353-stock instrument-key map (copied from `swing-strategy/`) |
 | `tracked_rs_momentum.json` | Currently-held positions (git-committed) |

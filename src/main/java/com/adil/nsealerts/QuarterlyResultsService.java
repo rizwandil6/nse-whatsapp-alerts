@@ -73,6 +73,8 @@ public class QuarterlyResultsService {
         List<LocalDate> dates = fr.getQuarterEndDates();
         if (labels.isEmpty() || dates.isEmpty()) {
             logger.debug("[QuarterlyResults] {}: no quarter labels/dates parsed -- skipping", symbol);
+            recordFailure(symbol, companyName, null, "no_quarter_data",
+                    "Screener.in returned no quarter labels/dates", sourceLink, announcementDate);
             return;
         }
 
@@ -105,6 +107,8 @@ public class QuarterlyResultsService {
 
         if (revenueCr == null && netProfitCr == null) {
             logger.debug("[QuarterlyResults] {}: latest quarter ({}) has neither revenue nor profit -- skipping", symbol, quarterLabel);
+            recordFailure(symbol, companyName, quarterLabel, "no_revenue_or_profit",
+                    "Screener.in series had neither revenue nor net profit for " + quarterLabel, sourceLink, announcementDate);
             return;
         }
 
@@ -184,6 +188,8 @@ public class QuarterlyResultsService {
         if (pdf == null) {
             logger.warn("[QuarterlyResults] {}: PDF fallback could not extract a usable result from {} -- skipping.",
                     symbol, sourceLink);
+            recordFailure(symbol, companyName, null, "pdf_unparseable",
+                    "ResultsPdfParser could not extract a usable result from the filed PDF", sourceLink, announcementDate);
             return;
         }
 
@@ -423,6 +429,7 @@ public class QuarterlyResultsService {
                     ebitdaQoqCr, ebitdaQoqPct, ebitdaQoqSwingType,
                     dividendAmount, dividendRecordDate,
                     aiJudgment, announcementCategory, Timestamp.from(announcementDate.toInstant()), sourceLink);
+            clearFailures(symbol);
             String profitYoyDisplay = profitYoySwingType != null ? profitYoySwingType : fmt(netProfitYoyPct) + "%";
             String profitQoqDisplay = profitQoqSwingType != null ? profitQoqSwingType : fmt(netProfitQoqPct) + "%";
             String ebitdaYoyDisplay = ebitdaYoySwingType != null ? ebitdaYoySwingType : fmt(ebitdaYoyPct) + "%";
@@ -435,10 +442,56 @@ public class QuarterlyResultsService {
                     verdict != null ? verdict : "n/a", aiJudgment != null ? aiJudgment : "n/a");
         } catch (Exception e) {
             logger.warn("[QuarterlyResults] upsert failed for {} {}: {}", symbol, quarterLabel, e.getMessage());
+            recordFailure(symbol, companyName, quarterLabel, "db_error", e.getMessage(), sourceLink, announcementDate);
         }
     }
 
     private String fmt(Double v) {
         return v == null ? "n/a" : String.format("%.1f", v);
+    }
+
+    /** Upserts one row into quarterly_results_failures so a PDF/data-parse failure leaves a
+     * visible trace instead of silently vanishing (previously indistinguishable from "NSE
+     * hasn't announced this company's results yet"). Best-effort: a failure while LOGGING a
+     * failure must never blow up the caller. */
+    private void recordFailure(String symbol, String companyName, String quarterLabel, String reason,
+                                String detail, String sourceLink, OffsetDateTime announcementDate) {
+        try {
+            jdbcTemplate.update(
+                    "INSERT INTO quarterly_results_failures " +
+                            "(symbol, company_name, quarter_label, reason, detail, source_link, announcement_date) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?) " +
+                            "ON CONFLICT (symbol, COALESCE(quarter_label, '')) DO UPDATE SET " +
+                            "  company_name = EXCLUDED.company_name, reason = EXCLUDED.reason, " +
+                            "  detail = EXCLUDED.detail, source_link = EXCLUDED.source_link, " +
+                            "  announcement_date = EXCLUDED.announcement_date, failed_at = now()",
+                    symbol, companyName, quarterLabel, reason, detail, sourceLink,
+                    announcementDate != null ? Timestamp.from(announcementDate.toInstant()) : null);
+        } catch (Exception e) {
+            logger.warn("[QuarterlyResults] failed to record parse failure for {}: {}", symbol, e.getMessage());
+        }
+    }
+
+    /** Clears any previously logged failures for this symbol once a result is successfully
+     * recorded -- a later successful retry means those earlier failure rows are stale, not a
+     * live problem to keep surfacing on the dashboard. */
+    private void clearFailures(String symbol) {
+        try {
+            jdbcTemplate.update("DELETE FROM quarterly_results_failures WHERE symbol = ?", symbol);
+        } catch (Exception e) {
+            logger.warn("[QuarterlyResults] failed to clear parse failures for {}: {}", symbol, e.getMessage());
+        }
+    }
+
+    /** Backs a dashboard panel listing companies whose results couldn't be parsed --
+     * most-recently-failed first. */
+    public List<Map<String, Object>> recentFailures(int limit) {
+        return jdbcTemplate.queryForList(
+                "SELECT symbol, company_name AS \"companyName\", quarter_label AS \"quarterLabel\", " +
+                        "       reason AS \"reason\", detail AS \"detail\", source_link AS \"sourceLink\", " +
+                        "       to_char(announcement_date AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"announcementDate\", " +
+                        "       to_char(failed_at AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"failedAt\" " +
+                        "FROM quarterly_results_failures ORDER BY failed_at DESC LIMIT ?",
+                limit);
     }
 }

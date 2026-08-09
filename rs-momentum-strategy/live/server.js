@@ -28,6 +28,9 @@ const { diffRsMomentum } = require('./diff_tracker');
 const { loginToScreener, fetchFundamentals } = require('./fundamental_screener');
 const { syncFromRemote, commitAndPushTrackedState } = require('./git_state');
 const { computeForwardPerformance } = require('./forward_performance');
+const { RsMomentumDb } = require('./db_store');
+
+const rsMomentumDb = new RsMomentumDb();
 
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -148,6 +151,7 @@ async function runOnce() {
   const { dateStr } = istMinutesAndDate();
   console.log(`\n=== RS momentum daily run: ${new Date().toISOString()} (${dateStr}) ===`);
 
+  await rsMomentumDb.init();
   await syncFromRemote();
 
   const universe = await fetchUniverse(UPSTOX_TOKEN);
@@ -180,6 +184,7 @@ async function runOnce() {
   for (const e of exits) {
     await sendTelegramAlert(formatExitAlert(e));
     logEntries.push({ type: 'EXIT', symbol: e.symbol, date: e.date, price: e.exitPrice, pnlPct: e.pnlPct });
+    await rsMomentumDb.upsertStatus({ symbol: e.symbol, status: 'EXIT', date: e.date, price: e.exitPrice, pnlPct: e.pnlPct });
   }
 
   const username = process.env.SCREENER_USERNAME;
@@ -213,6 +218,7 @@ async function runOnce() {
         };
         await sendTelegramAlert(formatPendingEntryAlert(c));
         logEntries.push({ type: 'ENTRY_PENDING', symbol: c.symbol, date: c.date, price: c.price, rsRankAtEntry: c.rsRankAtEntry });
+        await rsMomentumDb.upsertStatus({ symbol: c.symbol, status: 'ENTRY_PENDING', date: c.date, price: c.price, rsRankAtEntry: c.rsRankAtEntry });
         continue;
       }
       try {
@@ -234,6 +240,10 @@ async function runOnce() {
         };
         await sendTelegramAlert(formatEntryAlert(c, fundamentals));
         logEntries.push({ type: 'ENTRY', symbol: c.symbol, date: c.date, price: c.price, rsRankAtEntry: c.rsRankAtEntry, salesGrowth3Y: fundamentals.salesGrowth3Y });
+        await rsMomentumDb.upsertStatus({
+          symbol: c.symbol, companyName: fundamentals.companyName, status: 'ENTRY', date: c.date,
+          price: c.price, rsRankAtEntry: c.rsRankAtEntry, salesGrowth3Y: fundamentals.salesGrowth3Y,
+        });
       } catch (e2) {
         console.warn(`  ${c.symbol}: fundamentals check failed (${e2.message}) — not tracked this run.`);
       }
@@ -269,9 +279,14 @@ async function runOnce() {
             type: 'FUNDAMENTALS_CONFIRMED', symbol, date: dateStr, price: entryPrice,
             rsRankAtEntry, salesGrowth3Y: fundamentals.salesGrowth3Y,
           });
+          await rsMomentumDb.upsertStatus({
+            symbol, companyName: fundamentals.companyName, status: 'FUNDAMENTALS_CONFIRMED', date: dateStr,
+            price: entryPrice, rsRankAtEntry, salesGrowth3Y: fundamentals.salesGrowth3Y,
+          });
         } else {
           await sendTelegramAlert(formatFundamentalsFailedAlert(symbol, fundamentals));
           logEntries.push({ type: 'FUNDAMENTALS_FAILED', symbol, date: dateStr, price: entryPrice, rsRankAtEntry });
+          await rsMomentumDb.upsertStatus({ symbol, status: 'FUNDAMENTALS_FAILED', date: dateStr, price: entryPrice, rsRankAtEntry });
           delete updatedTracked[symbol];
         }
       } catch (e3) {

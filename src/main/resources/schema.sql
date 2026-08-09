@@ -108,3 +108,53 @@ ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS ebitda_qoq_swing_type TEX
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS dividend_amount NUMERIC;
 ALTER TABLE quarterly_results ADD COLUMN IF NOT EXISTS dividend_record_date DATE;
 
+-- Failed-to-parse results log (2026-08-09): previously a company whose
+-- results PDF couldn't be parsed left NO trace anywhere -- indistinguishable
+-- from a company that simply hasn't filed yet. Upserted (not appended),
+-- keyed on (symbol, quarter_label), so a later retry that succeeds can
+-- DELETE the row (see QuarterlyResultsService) rather than leaving a stale
+-- false alarm next to the now-successful record. quarter_label may be NULL
+-- when the failure happened before any quarter could even be identified.
+CREATE TABLE IF NOT EXISTS quarterly_results_failures (
+    id                     BIGSERIAL PRIMARY KEY,
+    symbol                 TEXT NOT NULL,
+    company_name           TEXT,
+    quarter_label          TEXT,
+    reason                 TEXT NOT NULL,      -- short machine-readable cause, e.g. "no_quarter_data", "no_revenue_or_profit", "pdf_unparseable", "db_error"
+    detail                 TEXT,               -- free-text detail (exception message, extra context)
+    source_link            TEXT,
+    announcement_date      TIMESTAMPTZ,
+    failed_at              TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- quarter_label is nullable, and Postgres unique constraints treat every
+-- NULL as distinct from every other NULL -- a plain UNIQUE(symbol,
+-- quarter_label) would let repeated "no_quarter_data" failures (quarter
+-- unknown) for the same symbol pile up as duplicates instead of upserting.
+-- COALESCE to '' in the index so those collapse onto one row too.
+CREATE UNIQUE INDEX IF NOT EXISTS quarterly_results_failures_symbol_quarter_uniq
+    ON quarterly_results_failures (symbol, COALESCE(quarter_label, ''));
+
+-- RS Momentum current status (2026-08-09): moved off the rs-momentum-strategy-live
+-- service's append-only rs_momentum_log.json (every daily run appended new rows,
+-- so the same symbol could show up dozens of times) onto this table -- ONE row
+-- per symbol, upserted in place by that Node service (see server.js/db_store.js)
+-- every time its status changes, ordered by modified_at for the dashboard. status
+-- mirrors the same event types the old log used: 'ENTRY' (RS rank crossed >=80 and
+-- the Sales Growth 3Y gate cleared), 'ENTRY_PENDING' (RS crossing alerted but the
+-- fundamentals gate couldn't be checked yet -- Screener.in unreachable),
+-- 'FUNDAMENTALS_CONFIRMED' (a pending entry's gate later cleared),
+-- 'FUNDAMENTALS_FAILED' (a pending entry's gate later failed -- retracted), or
+-- 'EXIT' (RS rank dropped below 50, position closed).
+CREATE TABLE IF NOT EXISTS rs_momentum_status (
+    symbol            TEXT PRIMARY KEY,
+    company_name      TEXT,
+    status            TEXT NOT NULL,
+    event_date        DATE,               -- IST date of the event that produced this status
+    price             NUMERIC,
+    rs_rank_at_entry  NUMERIC,
+    sales_growth_3y   NUMERIC,
+    pnl_pct           NUMERIC,            -- only set for status = 'EXIT'
+    modified_at       TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+

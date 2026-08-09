@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -238,7 +239,7 @@ class QuarterlyResultsServiceTest {
                 OffsetDateTime.parse("2026-07-29T17:34:37Z"), "https://example.com/x");
 
         ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
-        verify(jdbc).update(any(String.class), args.capture());
+        verify(jdbc).update(contains("INSERT INTO quarterly_results "), args.capture());
         // Column order (0-indexed): symbol,company_name,quarter_label,quarter_end_date,
         // revenue_cr,net_profit_cr,revenue_yoy_cr,net_profit_yoy_cr,revenue_yoy_pct,
         // net_profit_yoy_pct,profit_yoy_swing_type,revenue_qoq_cr,net_profit_qoq_cr,
@@ -276,7 +277,7 @@ class QuarterlyResultsServiceTest {
                 OffsetDateTime.now(ZoneOffset.UTC), "https://example.com/x");
 
         ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
-        verify(jdbc).update(any(String.class), args.capture());
+        verify(jdbc).update(contains("INSERT INTO quarterly_results "), args.capture());
         assertNull(args.getValue()[30]);
     }
 
@@ -301,7 +302,8 @@ class QuarterlyResultsServiceTest {
         // "https://example.com/gail" isn't a .pdf URL, so ResultsPdfParser (via a real
         // PdfExtractor, since this uses the 2-arg test constructor) bails out immediately
         // with no network call -- confirms the end-to-end skip path when BOTH Screener
-        // and the PDF fallback have nothing usable.
+        // and the PDF fallback have nothing usable. Must record a quarterly_results_failures
+        // row instead of silently vanishing (2026-08-09) -- see recordFailure.
         JdbcTemplate jdbc = mock(JdbcTemplate.class);
         PromptRatingService promptRatingService = mock(PromptRatingService.class);
         QuarterlyResultsService svc = new QuarterlyResultsService(jdbc, promptRatingService);
@@ -317,7 +319,10 @@ class QuarterlyResultsServiceTest {
         svc.recordIfAvailable("GAIL", "GAIL (India) Limited", fr, "Outcome of Board Meeting",
                 OffsetDateTime.parse("2026-07-31T08:40:47Z"), "https://example.com/gail");
 
-        org.mockito.Mockito.verifyNoInteractions(jdbc);
+        ArgumentCaptor<Object[]> failureArgs = ArgumentCaptor.forClass(Object[].class);
+        verify(jdbc).update(contains("INSERT INTO quarterly_results_failures"), failureArgs.capture());
+        assertEquals("GAIL", failureArgs.getValue()[0]);
+        assertEquals("pdf_unparseable", failureArgs.getValue()[3]);
     }
 
     @Test
@@ -357,7 +362,7 @@ class QuarterlyResultsServiceTest {
                 OffsetDateTime.parse("2026-07-31T08:40:47Z"), "https://example.com/gail.pdf");
 
         ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
-        verify(jdbc).update(any(String.class), args.capture());
+        verify(jdbc).update(contains("INSERT INTO quarterly_results "), args.capture());
         Object[] values = args.getValue();
         assertEquals("GAIL", values[0]);
         assertEquals("Jun 2026", values[2]); // derived from the PDF's quarterEndDate, not Screener's stale label
@@ -383,7 +388,7 @@ class QuarterlyResultsServiceTest {
                 OffsetDateTime.parse("2026-07-31T08:40:47Z"), "https://example.com/gail");
 
         ArgumentCaptor<Object[]> args = ArgumentCaptor.forClass(Object[].class);
-        verify(jdbc).update(any(String.class), args.capture());
+        verify(jdbc).update(contains("INSERT INTO quarterly_results "), args.capture());
         assertEquals("GAIL", args.getValue()[0]);
     }
 }
