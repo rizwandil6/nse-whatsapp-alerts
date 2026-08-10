@@ -15,28 +15,13 @@
   "position": null
  },
  "OLAELEC": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 40.48,
-   "entryIdx": 21,
-   "entryTimestampMs": 1786339500000
-  }
+  "position": null
  },
  "HINDCOPPER": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 537.95,
-   "entryIdx": 22,
-   "entryTimestampMs": 1786351200000
-  }
+  "position": null
  },
  "MHRIL": {
-  "position": {
-   "direction": "LONG",
-   "entry": 230.98,
-   "entryIdx": 38,
-   "entryTimestampMs": 1786354800000
-  }
+  "position": null
  },
  "RVNL": {
   "position": null
@@ -48,31 +33,16 @@
   "position": null
  },
  "ADSL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 115.35,
-   "entryIdx": 26,
-   "entryTimestampMs": 1786355100000
-  }
+  "position": null
  },
  "ARE&M": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 931.9,
-   "entryIdx": 6,
-   "entryTimestampMs": 1786343100000
-  }
+  "position": null
  },
  "NCC": {
   "position": null
  },
  "TEXRAIL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 107.86,
-   "entryIdx": 8,
-   "entryTimestampMs": 1786343100000
-  }
+  "position": null
  },
  "TITAGARH": {
   "position": null
@@ -87,11 +57,6 @@
   "position": null
  },
  "TRITURBINE": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 635.5,
-   "entryIdx": 9,
-   "entryTimestampMs": 1786355400000
-  }
+  "position": null
  }
 }
