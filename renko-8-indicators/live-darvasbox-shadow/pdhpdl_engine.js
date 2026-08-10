@@ -55,6 +55,9 @@ class PdhPdlTracker {
     this.symbol = symbol;
     this.opts = opts;
     this.v3 = opts.variant === 'v3';
+    // Per-symbol override for F&O names, which must flatten ahead of the new
+    // 15:15 Closing Auction Session start -- see streamer.js's pdhpdlOpts.
+    this.flattenAfter = opts.flattenAfterMin != null ? opts.flattenAfterMin : FLATTEN_AFTER;
     this.pdh = null;
     this.pdl = null;
     this.pdc = null;                     // v3: prior-day close, for the gap test
@@ -250,7 +253,7 @@ class PdhPdlTracker {
     const hitT3 = long ? bar.high >= s.t3 : bar.low <= s.t3;
     const hitT2 = long ? bar.high >= s.t2 : bar.low <= s.t2;
     const hitT1p5 = long ? bar.high >= s.t1p5 : bar.low <= s.t1p5;
-    const forceFlat = istMin(bar.timestampMs) >= FLATTEN_AFTER;
+    const forceFlat = istMin(bar.timestampMs) >= this.flattenAfter;
 
     // SL wins on any tie. A stop that has moved to cost resolves as BE (0R).
     if (hitSL) {

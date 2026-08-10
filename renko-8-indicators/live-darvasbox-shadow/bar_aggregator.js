@@ -10,6 +10,13 @@
 const IST_OFFSET_MS = (5 * 60 + 30) * 60 * 1000;
 const MARKET_OPEN_MIN = 9 * 60 + 15;
 const MARKET_CLOSE_MIN = 15 * 60 + 30;
+// SEBI's new Closing Auction Session (effective 2026-08-03) ends continuous
+// order-matching for F&O-eligible stocks at 15:15 -- 3:15-3:35 is auction-only,
+// not a normal fill. FNO_CLOSE_MIN gives a few minutes of buffer before that
+// so a forced EOD square-off order actually lands in continuous trading, not
+// the auction window. Non-F&O stocks are unaffected (still continuous to
+// 15:30) and keep using MARKET_CLOSE_MIN. See fno_underlyings.js.
+const FNO_CLOSE_MIN = 15 * 60 + 12;
 
 function istMinutesOfDay(ms) {
   const ist = new Date(ms + IST_OFFSET_MS);
@@ -87,6 +94,7 @@ module.exports = {
   IST_OFFSET_MS,
   MARKET_OPEN_MIN,
   MARKET_CLOSE_MIN,
+  FNO_CLOSE_MIN,
   istMinutesOfDay,
   istDateStr,
   nowIst,

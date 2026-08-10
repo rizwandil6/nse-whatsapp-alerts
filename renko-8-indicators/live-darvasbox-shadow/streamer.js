@@ -72,7 +72,15 @@ const {
   saveAndPushTrackedState: saveAndPushVariantState,
 } = require('./variant_tracked_state');
 const { TickBarBuilder } = require('./tick_bar_builder');
-const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min, aggregateTo5MinMultiDay } = require('./bar_aggregator');
+const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, FNO_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min, aggregateTo5MinMultiDay } = require('./bar_aggregator');
+const { isFno } = require('./fno_underlyings');
+
+// F&O-eligible symbols must square off by FNO_CLOSE_MIN (15:12, ahead of the
+// new 15:15 Closing Auction Session start); everyone else still has until
+// MARKET_CLOSE_MIN (15:30). See bar_aggregator.js's FNO_CLOSE_MIN docstring.
+function closeMinFor(symbol) {
+  return isFno(symbol) ? FNO_CLOSE_MIN : MARKET_CLOSE_MIN;
+}
 
 // PDH/PDL break-&-retest scalp scanner (halal Nifty-50 subset) -- merged into
 // this process 2026-08-04 so it shares this service's already-working Upstox
@@ -95,6 +103,13 @@ const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-5338709046').split(',');
 const PAPER_ALERTS_ENABLED = process.env.DARVAS_TELEGRAM_ENABLED !== 'false';
+// Muted 2026-08-10 (default off) while the PDH/PDL forward test keeps running
+// silently -- DB writes in pdhpdlEmit() are untouched, only the Telegram send
+// is gated. Flip PDHPDL_TELEGRAM_ENABLED=true to re-enable.
+const PDHPDL_ALERTS_ENABLED = process.env.PDHPDL_TELEGRAM_ENABLED === 'true';
+// New Darvasbox variant (2% SL, was 3.5%) alerts -- on by default for this
+// week's live A/B. See variant_tracker.js's CATASTROPHIC_STOP_PCT docstring.
+const VARIANT_ALERTS_ENABLED = process.env.VARIANT_TELEGRAM_ENABLED !== 'false';
 const AUTHORIZE_URL = 'https://api.upstox.com/v3/feed/market-data-feed/authorize';
 const HISTORICAL_INTRADAY_BASE = 'https://api.upstox.com/v3/historical-candle/intraday';
 const HISTORICAL_RANGE_BASE = 'https://api.upstox.com/v3/historical-candle'; // date-ranged (non-today) candles, for EMA warm-up
@@ -355,6 +370,44 @@ function updateDayStats(e) {
   }
 }
 
+// Variant (2% SL) Telegram alerting -- added 2026-08-10 alongside the SL
+// tighten. Independent of PAPER_ALERTS_ENABLED (the real tracker's alerts
+// have been off for a while) so this can run even while the real tracker
+// stays silent. Its own running day-stats, separate from dayStats, so the
+// "day so far" line reflects only variant trades.
+const variantDayStats = { trades: 0, wins: 0, totalPnlPct: 0 };
+async function sendVariantTelegramAlert(text) {
+  const label = VARIANT_ALERTS_ENABLED ? '[VARIANT-2%SL]' : '[VARIANT-2%SL SUPPRESSED]';
+  console.log(label, text.replace(/\n/g, ' | '));
+  if (!VARIANT_ALERTS_ENABLED || !TELEGRAM_TOKEN) return;
+  for (const chatId of TELEGRAM_CHAT_IDS) {
+    try {
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text }),
+      });
+    } catch (e) {
+      console.error(`Variant Telegram send failed for chat ${chatId}:`, e.message);
+    }
+  }
+}
+function formatVariantEntryAlert(e) {
+  const arrow = e.direction === 'LONG' ? '↑' : '↓';
+  const driftNote = e.livePriceAvailable && e.theoreticalEntry !== e.entry
+    ? ` (brick close was ₹${e.theoreticalEntry.toFixed(2)})`
+    : '';
+  return `🧪 DarvasBox VARIANT (anti-chase, 2% SL) — paper, not a real order\n${arrow} ${e.direction}: ${e.symbol}\nEntry (LTP): ₹${e.entry.toFixed(2)}${driftNote}`;
+}
+function formatVariantExitAlert(e) {
+  const sign = e.pnlPct >= 0 ? '+' : '';
+  const driftNote = e.livePriceAvailable && e.theoreticalExit != null && e.theoreticalExit !== e.exitPrice
+    ? ` (5-min bar close was ₹${e.theoreticalExit.toFixed(2)})`
+    : '';
+  const winRate = variantDayStats.trades > 0 ? ((variantDayStats.wins / variantDayStats.trades) * 100).toFixed(1) : '0.0';
+  return `🧪 DarvasBox VARIANT (2% SL) position closed (paper)\n${e.symbol} ${e.direction}\nEntry: ₹${e.entry.toFixed(2)} → Exit (LTP): ₹${e.exitPrice.toFixed(2)}${driftNote}\nReason: ${e.action}\nP&L: ${sign}${e.pnlPct.toFixed(2)}% (gross, no costs applied)\n\n📊 Day so far: ${variantDayStats.trades} trades, ${variantDayStats.wins} wins (${winRate}%), total ${variantDayStats.totalPnlPct >= 0 ? '+' : ''}${variantDayStats.totalPnlPct.toFixed(2)}%`;
+}
+
 function formatEodSummary() {
   const s = dayStats;
   const winRate = s.trades > 0 ? ((s.wins / s.trades) * 100).toFixed(1) : '0.0';
@@ -395,10 +448,20 @@ function dispatchShadowEvent(e) {
 
 /** A/B variant experiment -- logs to its OWN branch/file (variant_log.js) and
  * persists its OWN position state (variant_tracked_state.js), never touching
- * real trades, the real trade log, the dual-filter shadow, or Telegram. */
+ * real trades, the real trade log, or the dual-filter shadow. Telegram-alerted
+ * (added 2026-08-10, see sendVariantTelegramAlert) independently of the real
+ * tracker's PAPER_ALERTS_ENABLED flag. */
 function dispatchVariantEvent(e) {
   e.brickPct = BRICK_LABEL;
   const { dateStr } = nowIst();
+  if (e.type === 'ENTRY') {
+    sendVariantTelegramAlert(formatVariantEntryAlert(e)).catch((err) => console.error('sendVariantTelegramAlert threw:', err.message));
+  } else if (e.type === 'EXIT') {
+    variantDayStats.trades += 1;
+    if (e.pnlPct > 0) variantDayStats.wins += 1;
+    variantDayStats.totalPnlPct += e.pnlPct;
+    sendVariantTelegramAlert(formatVariantExitAlert(e)).catch((err) => console.error('sendVariantTelegramAlert threw:', err.message));
+  }
   recordAndPushVariantEvent(e, dateStr).catch((err) => console.error('variant dispatchVariantEvent threw:', err.message));
   // Persist on every ENTRY/EXIT, right after this.position changed -- same
   // reasoning as dispatchEvent's saveAndPushTrackedState (live-LTP fills mean
@@ -411,6 +474,7 @@ function maybeResetForNewDay(nowMs) {
   if (dateStr === currentDate) return;
   currentDate = dateStr;
   dayStats = { trades: 0, wins: 0, totalPnlPct: 0, totalPnlRs: 0, hasRupees: false };
+  variantDayStats.trades = 0; variantDayStats.wins = 0; variantDayStats.totalPnlPct = 0;
   eodSummarySent = false;
   for (const symbol of Object.keys(symbols)) {
     oneMinBars[symbol] = [];
@@ -507,13 +571,14 @@ function ingestOneMinBar(symbol, bar, silent) {
   const events = tracker.processBricks(bricks, bars5, bars5Today);
   const emaCrossEvent = tracker.checkEmaCrossExit(bars5);
   if (emaCrossEvent) events.push(emaCrossEvent);
-  if (minutesOfDay >= MARKET_CLOSE_MIN) {
+  const symbolCloseMin = closeMinFor(symbol);
+  if (minutesOfDay >= symbolCloseMin) {
     const eodEvent = tracker.forceEodClose(bricks);
     if (eodEvent) events.push(eodEvent);
   }
   if (!silent) {
     for (const e of events) dispatchEvent(symbol, e);
-    if (minutesOfDay >= MARKET_CLOSE_MIN) maybeSendEodSummary();
+    if (minutesOfDay >= symbolCloseMin) maybeSendEodSummary();
   }
 
   // Dual-filter shadow experiment -- dispatched even during silent backfill
@@ -524,7 +589,7 @@ function ingestOneMinBar(symbol, bar, silent) {
   const shadowEvents = shadowTracker.processBricks(bricks, bars5, bars5Today);
   const shadowExit = shadowTracker.checkEmaCrossExit(bars5);
   if (shadowExit) shadowEvents.push(shadowExit);
-  if (minutesOfDay >= MARKET_CLOSE_MIN) {
+  if (minutesOfDay >= symbolCloseMin) {
     const shadowEod = shadowTracker.forceEodClose(bricks);
     if (shadowEod) shadowEvents.push(shadowEod);
   }
@@ -539,7 +604,7 @@ function ingestOneMinBar(symbol, bar, silent) {
   const variantEvents = variantTracker.processBricks(bricks, bars5, bars5Today);
   const variantStop = variantTracker.checkCatastrophicStop(bars); // raw 1-min bars -- fastest catastrophic-stop detection
   if (variantStop) variantEvents.push(variantStop);
-  if (minutesOfDay >= MARKET_CLOSE_MIN) {
+  if (minutesOfDay >= symbolCloseMin) {
     const variantEod = variantTracker.forceEodClose(bricks);
     if (variantEod) variantEvents.push(variantEod);
   }
@@ -589,8 +654,9 @@ async function backfillGapIfNeeded() {
 
 function checkEodSweep() {
   const { minutesOfDay } = nowIst();
-  if (minutesOfDay < MARKET_CLOSE_MIN) return;
+  if (minutesOfDay < FNO_CLOSE_MIN) return;
   for (const symbol of Object.keys(symbols)) {
+    if (minutesOfDay < closeMinFor(symbol)) continue;
     const bars = oneMinBars[symbol];
     if (bars.length === 0) continue;
     // Trading hours (09:15-15:30) divide evenly into 5-min buckets, so by
@@ -637,7 +703,11 @@ async function pdhpdlPrepDay() {
   console.log(`[pdh-pdl] Prepping ${date}: fetching prior-day PDH/PDL for ${Object.keys(pdhpdlSymbols).length} symbols...`);
   const { levels, failed } = await fetchPdhPdlLevels(pdhpdlSymbols, UPSTOX_TOKEN);
   for (const symbol of Object.keys(pdhpdlSymbols)) {
-    pdhpdlTrackers[symbol] = new PdhPdlTracker(symbol, PDHPDL_TRACKER_OPTS);
+    // F&O names must flatten ahead of the 15:15 CAS start; non-F&O names keep
+    // the tracker's existing 15:15 default (already comfortably before their
+    // own 15:30 continuous-trading close, no regulatory need to move it).
+    const pdhpdlOpts = isFno(symbol) ? { ...PDHPDL_TRACKER_OPTS, flattenAfterMin: FNO_CLOSE_MIN } : PDHPDL_TRACKER_OPTS;
+    pdhpdlTrackers[symbol] = new PdhPdlTracker(symbol, pdhpdlOpts);
     pdhpdlAgg5[symbol] = new PdhPdlBarAggregator(5, (bar) => pdhpdlHandle5(symbol, bar));
     pdhpdlAgg15[symbol] = new PdhPdlBarAggregator(15, (bar) => pdhpdlHandle15(symbol, bar));
     delete pdhpdlSignalIds[symbol];
@@ -662,8 +732,9 @@ function schedulePdhPdlDailyPrep() {
 
 // ---- PDH/PDL: Telegram (reuses DarvasBox's own TELEGRAM_TOKEN/chat ids) ---
 async function sendPdhPdlTelegram(text) {
-  console.log('[PDH-PDL ALERT]', text.replace(/\n/g, ' | '));
-  if (!TELEGRAM_TOKEN) return false;
+  const label = PDHPDL_ALERTS_ENABLED ? '[PDH-PDL ALERT]' : '[PDH-PDL ALERT SUPPRESSED]';
+  console.log(label, text.replace(/\n/g, ' | '));
+  if (!PDHPDL_ALERTS_ENABLED || !TELEGRAM_TOKEN) return false;
   let allOk = true;
   for (const chatId of TELEGRAM_CHAT_IDS) {
     try {

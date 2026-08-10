@@ -34,6 +34,12 @@
  *      (CATASTROPHIC_STOP_PCT, 3.5% start): disasters only, never clips a
  *      winner. There is NO checkEmaCrossExit here.
  *
+ *      Tightened 3.5% -> 2% on 2026-08-10 for a one-week live A/B: this
+ *      variant is now Telegram-alerted (see streamer.js's
+ *      formatVariantEntryAlert/formatVariantExitAlert), so its live-alerted
+ *      trades at 2% SL get tracked in variant_log.js alongside its own prior
+ *      3.5%-era history for a direct before/after comparison.
+ *
  * Restart safety: because entries fill at the live LTP (non-deterministic
  * across a replay), this tracker persists its open position exactly like the
  * real one (toJSON/restorePosition + variant_tracked_state.js) -- see
@@ -55,10 +61,12 @@ if (!darvas) throw new Error('DarvasBox strategy not found in strategies.js');
 // more than this (fraction). 0.10% is an in-sample starting point (the
 // "paid-up" losing bucket began ~0.05%); tunable.
 const MAX_ENTRY_CHASE_PCT = 0.0010;
-// Wide catastrophic stop off the real entry price -- tail insurance only.
-// 3.5% per the 2026-08-02 exit-change backtest (tight 1.5-2% stops shook out
-// and backtested worse; wider is cheaper). Tunable; size from MAE if desired.
-const CATASTROPHIC_STOP_PCT = 0.035;
+// Catastrophic stop off the real entry price -- tail insurance only.
+// Started at 3.5% per the 2026-08-02 exit-change backtest (tight 1.5-2% stops
+// shook out and backtested worse; wider is cheaper). Tightened to 2% on
+// 2026-08-10 for a one-week live A/B against that 3.5%-era shadow history,
+// now that this variant is Telegram-alerted. Tunable; size from MAE if desired.
+const CATASTROPHIC_STOP_PCT = 0.02;
 
 class DarvasVariantTracker {
   constructor(symbol, getLivePriceFn) {
