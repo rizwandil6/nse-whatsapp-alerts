@@ -87,6 +87,11 @@
   "position": null
  },
  "TRITURBINE": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 635.5,
+   "entryIdx": 9,
+   "entryTimestampMs": 1786355400000
+  }
  }
 }
