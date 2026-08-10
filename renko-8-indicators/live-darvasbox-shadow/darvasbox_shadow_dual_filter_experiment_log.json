@@ -2023,5 +2023,14 @@
   "timestampMs": 1786344900000,
   "breakoutTimestampMs": 1786343100000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 146.53079999999997,
+  "timestampMs": 1786346700000,
+  "breakoutTimestampMs": 1786346700000,
+  "shadow": true
  }
 ]
