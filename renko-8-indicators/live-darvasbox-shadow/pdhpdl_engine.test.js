@@ -115,8 +115,8 @@ check('window: 15m break closing at 12:00 (start 11:45) does NOT arm', () => {
 });
 
 // ---- min-R filter (pdhpdl-v2) ---------------------------------------------
-function drivePinSetup(minRPct) {
-  const t = new PdhPdlTracker('TCS', { minRPct });
+function drivePinSetup(minRPct, extraOpts) {
+  const t = new PdhPdlTracker('TCS', Object.assign({ minRPct }, extraOpts));
   t.setLevels(3200.0, 3150.0);
   t.onNew15mBar(bar(9, 30, 3201, 3209, 3200.5, 3208));
   for (const b of [
@@ -230,6 +230,25 @@ check('v3: SL->cost after 2R -> reversal exits BE (0R)', () => {
   t.onNew5mBar(bar(10, 10, 100.4, 104.0, 100.3, 103.9));
   const o = t.onNew5mBar(bar(10, 15, 103.9, 104.0, 100.3, 100.4)).find((e) => e.type === 'OUTCOME');
   assert.ok(o && o.result === 'BE' && Math.abs(o.rMultiple) < 1e-9, 'BE at 0R after 2R');
+});
+
+// ---- flattenAfterMin override (F&O CAS-timing fix, 2026-08-10) -----------
+check('flattenAfterMin: default (15:15) does not force-flat an open trade at 15:13', () => {
+  const { t } = drivePinSetup(0);
+  const ev = t.onNew5mBar(bar(15, 13, 3201.1, 3202.0, 3200.5, 3201.5));
+  assert.ok(!ev.some((e) => e.type === 'OUTCOME'), 'trade should still be open before the default 15:15 flatten');
+});
+
+check('flattenAfterMin: default (15:15) force-flats an open trade at 15:16', () => {
+  const { t } = drivePinSetup(0);
+  const out = t.onNew5mBar(bar(15, 16, 3201.1, 3202.0, 3200.5, 3201.5)).find((e) => e.type === 'OUTCOME');
+  assert.ok(out && out.result === 'EOD', 'default flatten should have force-closed by 15:16');
+});
+
+check('flattenAfterMin: F&O override (15:12) force-flats at 15:13, ahead of the default', () => {
+  const { t } = drivePinSetup(0, { flattenAfterMin: 15 * 60 + 12 });
+  const out = t.onNew5mBar(bar(15, 13, 3201.1, 3202.0, 3200.5, 3201.5)).find((e) => e.type === 'OUTCOME');
+  assert.ok(out && out.result === 'EOD', 'F&O override should force-close by 15:13, before the CAS window starts');
 });
 
 console.log(failures === 0 ? '\nALL TESTS PASSED' : `\n${failures} TEST(S) FAILED`);
