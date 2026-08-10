@@ -4413,5 +4413,22 @@
   "brickPct": "0.25",
   "pnlRs": -0.6100000000011789,
   "rsSign": "−"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2719,
+  "exitPrice": 2715.6,
+  "theoreticalExit": 2714.2,
+  "livePriceAvailable": true,
+  "action": "EMA_9_20_CROSS",
+  "barsHeld": null,
+  "pnlPct": -0.12504597278411514,
+  "entryTimestampMs": 1786344600000,
+  "exitTimestampMs": 1786353600000,
+  "brickPct": "0.25",
+  "pnlRs": -190.4000000000051,
+  "rsSign": "−"
  }
 ]
