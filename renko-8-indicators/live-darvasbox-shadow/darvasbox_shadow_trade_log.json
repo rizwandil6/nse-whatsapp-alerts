@@ -4296,5 +4296,16 @@
   "timestampMs": 1786337400000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 40.48,
+  "theoreticalEntry": 40.479,
+  "entryIdx": 21,
+  "timestampMs": 1786339500000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
