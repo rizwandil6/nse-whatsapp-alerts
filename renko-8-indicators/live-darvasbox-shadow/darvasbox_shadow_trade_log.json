@@ -4324,5 +4324,16 @@
   "brickPct": "0.25",
   "pnlRs": -265.1999999999997,
   "rsSign": "−"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 931.9,
+  "theoreticalEntry": 932.9499999999999,
+  "entryIdx": 6,
+  "timestampMs": 1786343100000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
