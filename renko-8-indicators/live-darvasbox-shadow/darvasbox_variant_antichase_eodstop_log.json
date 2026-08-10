@@ -1145,5 +1145,18 @@
   "exitTimestampMs": 1786095600000,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 40.48,
+  "theoreticalEntry": 40.479,
+  "stop": 41.2896,
+  "entryIdx": 21,
+  "timestampMs": 1786339500000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
