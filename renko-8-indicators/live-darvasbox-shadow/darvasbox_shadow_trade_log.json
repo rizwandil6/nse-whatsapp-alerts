@@ -4274,5 +4274,16 @@
   "entryTimestampMs": 1786079700000,
   "exitTimestampMs": 1786095600000,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 234.4,
+  "theoreticalEntry": 229.5725,
+  "entryIdx": 8,
+  "timestampMs": 1786334700000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
