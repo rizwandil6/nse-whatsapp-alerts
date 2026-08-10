@@ -1348,5 +1348,53 @@
   "exitTimestampMs": 1786355100000,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "theoreticalExit": 229.36745000000002,
+  "livePriceAvailable": true,
+  "entry": 228.7983,
+  "exitPrice": 230.31,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 33,
+  "pnlPct": 0.6607129511014682,
+  "entryTimestampMs": 1786334700000,
+  "exitTimestampMs": 1786355700000,
+  "variant": true,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "theoreticalExit": 899.7627500000003,
+  "livePriceAvailable": true,
+  "entry": 932.6522500000001,
+  "exitPrice": 897.7,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 22,
+  "pnlPct": 3.747618686386062,
+  "entryTimestampMs": 1786343100000,
+  "exitTimestampMs": 1786353900000,
+  "variant": true,
+  "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "theoreticalExit": 633.1544999999999,
+  "livePriceAvailable": true,
+  "entry": 636.3522499999999,
+  "exitPrice": 636.75,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 2,
+  "pnlPct": -0.0625046898160708,
+  "entryTimestampMs": 1786355400000,
+  "exitTimestampMs": 1786355700000,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
