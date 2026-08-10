@@ -2014,5 +2014,14 @@
   "timestampMs": 1786344600000,
   "breakoutTimestampMs": 1786344600000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 229.5725,
+  "timestampMs": 1786344900000,
+  "breakoutTimestampMs": 1786343100000,
+  "shadow": true
  }
 ]
