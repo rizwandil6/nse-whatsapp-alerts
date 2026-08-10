@@ -1184,5 +1184,18 @@
   "livePriceAvailable": true,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 146.61,
+  "theoreticalEntry": 146.53079999999997,
+  "stop": 143.67780000000002,
+  "entryIdx": 9,
+  "timestampMs": 1786346700000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
