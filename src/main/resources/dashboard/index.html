@@ -524,7 +524,7 @@
           <span>Stop <b>₹${esc(s.stopPx)}</b></span>
           ${s.riskPct != null ? `<span>Risk <b>${esc(s.riskPct)}%</b></span>` : ''}
           ${s.target1Px != null ? `<span>+2R <b>₹${esc(s.target1Px)}</b></span>` : ''}
-          ${isClosed ? `<span>Exit <b>₹${esc(s.exitPx)}</b></span><span class="pnl ${s.rNet >= 0 ? 'win' : 'loss'}">${Number(s.rNet).toFixed(2)}R</span>` : ''}
+          ${isClosed ? `<span>Exit <b>₹${esc(s.exitPx)}</b></span><span>Closed <b>${esc(s.exitDate)}</b></span><span class="pnl ${s.rNet >= 0 ? 'win' : 'loss'}">${Number(s.rNet).toFixed(2)}R</span><span class="badge ${s.rNet < 0 ? 'loss' : 'win'}">${s.rNet < 0 ? 'Stopped out (−1R)' : 'Hit +2R → trailed'}</span>` : ''}
           ${since ? `<span>Since alert ${since}</span>` : ''}
           ${s.rsiGatePass ? '<span class="badge win">full-spec</span>' : ''}
         </div>
