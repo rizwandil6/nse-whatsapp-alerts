@@ -1239,5 +1239,18 @@
   "livePriceAvailable": true,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 230.08,
+  "theoreticalEntry": 230.6552,
+  "stop": 225.47840000000002,
+  "entryIdx": 40,
+  "timestampMs": 1786354800000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
