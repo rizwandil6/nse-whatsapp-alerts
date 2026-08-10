@@ -79,123 +79,40 @@
   "rsRankAtEntry": 82.24852071005917,
   "salesGrowth3Y": 21
  },
- "BLUEJET": {
-  "entryDate": "2026-07-30",
-  "entryPrice": 626.25,
-  "rsRankAtEntry": 81.36094674556213,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "CARBORUNIV": {
-  "entryDate": "2026-08-02",
-  "entryPrice": 1095.5,
-  "rsRankAtEntry": 81.95266272189349,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
  "COFORGE": {
   "entryDate": "2026-08-02",
   "entryPrice": 1768,
   "rsRankAtEntry": 81.36094674556213,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "PAYTM": {
-  "entryDate": "2026-08-02",
-  "entryPrice": 1410,
-  "rsRankAtEntry": 83.72781065088756,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "RAINBOW": {
-  "entryDate": "2026-08-02",
-  "entryPrice": 1545.6,
-  "rsRankAtEntry": 80.4733727810651,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "TATATECH": {
-  "entryDate": "2026-08-02",
-  "entryPrice": 763.8,
-  "rsRankAtEntry": 80.1775147928994,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 27
  },
  "KEI": {
   "entryDate": "2026-08-03",
   "entryPrice": 5500,
   "rsRankAtEntry": 84.31952662721893,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "WELSPUNLIV": {
-  "entryDate": "2026-08-03",
-  "entryPrice": 160.73,
-  "rsRankAtEntry": 82.84023668639054,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "HEG": {
-  "entryDate": "2026-08-04",
-  "entryPrice": 686.2,
-  "rsRankAtEntry": 80.53097345132744,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 19
  },
  "IPCALAB": {
   "entryDate": "2026-08-04",
   "entryPrice": 1765,
   "rsRankAtEntry": 81.71091445427729,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "USHAMART": {
-  "entryDate": "2026-08-04",
-  "entryPrice": 520.25,
-  "rsRankAtEntry": 80.8259587020649,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "SCI": {
-  "entryDate": "2026-08-05",
-  "entryPrice": 308.6,
-  "rsRankAtEntry": 80.23598820058997,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "VTL": {
-  "entryDate": "2026-08-05",
-  "entryPrice": 602.2,
-  "rsRankAtEntry": 81.71091445427729,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 16
  },
  "CUMMINSIND": {
   "entryDate": "2026-08-06",
   "entryPrice": 5426,
   "rsRankAtEntry": 80.23598820058997,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "HINDALCO": {
-  "entryDate": "2026-08-06",
-  "entryPrice": 1059.6,
-  "rsRankAtEntry": 80.8259587020649,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 16
  },
  "THELEELA": {
   "entryDate": "2026-08-06",
   "entryPrice": 518,
   "rsRankAtEntry": 81.41592920353983,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 21
  },
  "ZYDUSWELL": {
   "entryDate": "2026-08-06",
   "entryPrice": 533.85,
   "rsRankAtEntry": 82.00589970501476,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 21
  }
 }

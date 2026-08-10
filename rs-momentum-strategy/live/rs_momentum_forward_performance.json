@@ -1,7 +1,40 @@
 [
  {
+  "symbol": "COFORGE",
+  "entryDate": "2026-08-10",
+  "entryPrice": 1768,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 1776,
+  "returnSinceEntry": 0.4524886877828055
+ },
+ {
+  "symbol": "KEI",
+  "entryDate": "2026-08-10",
+  "entryPrice": 5500,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 5600,
+  "returnSinceEntry": 1.8181818181818181
+ },
+ {
+  "symbol": "IPCALAB",
+  "entryDate": "2026-08-10",
+  "entryPrice": 1765,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 1735.8,
+  "returnSinceEntry": -1.6543909348441952
+ },
+ {
   "symbol": "CUMMINSIND",
-  "entryDate": "2026-08-06",
+  "entryDate": "2026-08-10",
   "entryPrice": 5426,
   "status": "open",
   "exitDate": null,
@@ -11,19 +44,8 @@
   "returnSinceEntry": 0
  },
  {
-  "symbol": "HINDALCO",
-  "entryDate": "2026-08-06",
-  "entryPrice": 1059.6,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1059.6,
-  "returnSinceEntry": 0
- },
- {
   "symbol": "THELEELA",
-  "entryDate": "2026-08-06",
+  "entryDate": "2026-08-10",
   "entryPrice": 518,
   "status": "open",
   "exitDate": null,
@@ -34,7 +56,7 @@
  },
  {
   "symbol": "ZYDUSWELL",
-  "entryDate": "2026-08-06",
+  "entryDate": "2026-08-10",
   "entryPrice": 533.85,
   "status": "open",
   "exitDate": null,
@@ -42,61 +64,6 @@
   "returnWhileOpen": null,
   "currentPrice": 533.85,
   "returnSinceEntry": 0
- },
- {
-  "symbol": "SCI",
-  "entryDate": "2026-08-05",
-  "entryPrice": 308.6,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 304.75,
-  "returnSinceEntry": -1.247569669475056
- },
- {
-  "symbol": "VTL",
-  "entryDate": "2026-08-05",
-  "entryPrice": 602.2,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 606.75,
-  "returnSinceEntry": 0.7555629359016862
- },
- {
-  "symbol": "USHAMART",
-  "entryDate": "2026-08-04",
-  "entryPrice": 520.25,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 515.05,
-  "returnSinceEntry": -0.9995194617972216
- },
- {
-  "symbol": "HEG",
-  "entryDate": "2026-08-04",
-  "entryPrice": 686.2,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 674,
-  "returnSinceEntry": -1.77790731565142
- },
- {
-  "symbol": "IPCALAB",
-  "entryDate": "2026-08-04",
-  "entryPrice": 1765,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1735.8,
-  "returnSinceEntry": -1.6543909348441952
  },
  {
   "symbol": "FSL",
@@ -108,28 +75,6 @@
   "returnWhileOpen": -15.376474145751425,
   "currentPrice": 279.85,
   "returnSinceEntry": -15.376474145751425
- },
- {
-  "symbol": "KEI",
-  "entryDate": "2026-08-03",
-  "entryPrice": 5500,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 5600,
-  "returnSinceEntry": 1.8181818181818181
- },
- {
-  "symbol": "WELSPUNLIV",
-  "entryDate": "2026-08-03",
-  "entryPrice": 160.73,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 164.09,
-  "returnSinceEntry": 2.0904622659117864
  },
  {
   "symbol": "REDINGTON",
@@ -152,61 +97,6 @@
   "returnWhileOpen": null,
   "currentPrice": 879,
   "returnSinceEntry": 1.8068102849200862
- },
- {
-  "symbol": "CARBORUNIV",
-  "entryDate": "2026-08-02",
-  "entryPrice": 1095.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1097,
-  "returnSinceEntry": 0.13692377909630307
- },
- {
-  "symbol": "COFORGE",
-  "entryDate": "2026-08-02",
-  "entryPrice": 1768,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1776,
-  "returnSinceEntry": 0.4524886877828055
- },
- {
-  "symbol": "PAYTM",
-  "entryDate": "2026-08-02",
-  "entryPrice": 1410,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1441.6,
-  "returnSinceEntry": 2.241134751773043
- },
- {
-  "symbol": "RAINBOW",
-  "entryDate": "2026-08-02",
-  "entryPrice": 1545.6,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1556.7,
-  "returnSinceEntry": 0.718167701863363
- },
- {
-  "symbol": "TATATECH",
-  "entryDate": "2026-08-02",
-  "entryPrice": 763.8,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 872.8,
-  "returnSinceEntry": 14.270751505629747
  },
  {
   "symbol": "MEDANTA",

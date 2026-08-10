@@ -314,5 +314,130 @@
   "date": "2026-08-06",
   "price": 533.85,
   "rsRankAtEntry": 82.00589970501476
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "BLUEJET",
+  "date": "2026-08-10",
+  "price": 626.25,
+  "rsRankAtEntry": 81.36094674556213
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "CARBORUNIV",
+  "date": "2026-08-10",
+  "price": 1095.5,
+  "rsRankAtEntry": 81.95266272189349
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "COFORGE",
+  "date": "2026-08-10",
+  "price": 1768,
+  "rsRankAtEntry": 81.36094674556213,
+  "salesGrowth3Y": 27
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "PAYTM",
+  "date": "2026-08-10",
+  "price": 1410,
+  "rsRankAtEntry": 83.72781065088756
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "RAINBOW",
+  "date": "2026-08-10",
+  "price": 1545.6,
+  "rsRankAtEntry": 80.4733727810651
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "TATATECH",
+  "date": "2026-08-10",
+  "price": 763.8,
+  "rsRankAtEntry": 80.1775147928994
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "KEI",
+  "date": "2026-08-10",
+  "price": 5500,
+  "rsRankAtEntry": 84.31952662721893,
+  "salesGrowth3Y": 19
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "WELSPUNLIV",
+  "date": "2026-08-10",
+  "price": 160.73,
+  "rsRankAtEntry": 82.84023668639054
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "HEG",
+  "date": "2026-08-10",
+  "price": 686.2,
+  "rsRankAtEntry": 80.53097345132744
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "IPCALAB",
+  "date": "2026-08-10",
+  "price": 1765,
+  "rsRankAtEntry": 81.71091445427729,
+  "salesGrowth3Y": 16
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "USHAMART",
+  "date": "2026-08-10",
+  "price": 520.25,
+  "rsRankAtEntry": 80.8259587020649
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SCI",
+  "date": "2026-08-10",
+  "price": 308.6,
+  "rsRankAtEntry": 80.23598820058997
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "VTL",
+  "date": "2026-08-10",
+  "price": 602.2,
+  "rsRankAtEntry": 81.71091445427729
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "CUMMINSIND",
+  "date": "2026-08-10",
+  "price": 5426,
+  "rsRankAtEntry": 80.23598820058997,
+  "salesGrowth3Y": 16
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "HINDALCO",
+  "date": "2026-08-10",
+  "price": 1059.6,
+  "rsRankAtEntry": 80.8259587020649
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "THELEELA",
+  "date": "2026-08-10",
+  "price": 518,
+  "rsRankAtEntry": 81.41592920353983,
+  "salesGrowth3Y": 21
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "ZYDUSWELL",
+  "date": "2026-08-10",
+  "price": 533.85,
+  "rsRankAtEntry": 82.00589970501476,
+  "salesGrowth3Y": 21
  }
 ]
