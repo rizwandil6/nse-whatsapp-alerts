@@ -57,7 +57,12 @@
   "position": null
  },
  "TEXRAIL": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 107.86,
+   "entryIdx": 8,
+   "entryTimestampMs": 1786343100000
+  }
  },
  "TITAGARH": {
   "position": null
