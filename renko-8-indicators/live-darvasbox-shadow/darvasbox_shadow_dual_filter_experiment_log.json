@@ -1984,5 +1984,14 @@
   "timestampMs": 1786343100000,
   "breakoutTimestampMs": 1786343100000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 107.94945,
+  "timestampMs": 1786343100000,
+  "breakoutTimestampMs": 1786343100000,
+  "shadow": true
  }
 ]
