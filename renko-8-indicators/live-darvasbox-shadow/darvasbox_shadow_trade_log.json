@@ -4335,5 +4335,16 @@
   "timestampMs": 1786343100000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 107.86,
+  "theoreticalEntry": 107.94945,
+  "entryIdx": 8,
+  "timestampMs": 1786343100000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
