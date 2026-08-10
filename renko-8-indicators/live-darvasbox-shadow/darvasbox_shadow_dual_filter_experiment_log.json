@@ -2137,5 +2137,77 @@
   "timestampMs": 1786355400000,
   "breakoutTimestampMs": 1786355400000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 39.8895,
+  "exitPrice": 39.3,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.4778325123152736,
+  "entryTimestampMs": 1786347300000,
+  "exitTimestampMs": 1786354500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 537.1222500000001,
+  "exitPrice": 525.0971249999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 2.238805970149317,
+  "entryTimestampMs": 1786351500000,
+  "exitTimestampMs": 1786355400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 115.4595,
+  "exitPrice": 114.31349999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.9925558312655217,
+  "entryTimestampMs": 1786355100000,
+  "exitTimestampMs": 1786355700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 932.9499999999999,
+  "exitPrice": 900.0499999999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 3.526448362720437,
+  "entryTimestampMs": 1786343100000,
+  "exitTimestampMs": 1786353900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 107.94945,
+  "exitPrice": 107.1378,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7518796992481205,
+  "entryTimestampMs": 1786343100000,
+  "exitTimestampMs": 1786355100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 636.3522499999999,
+  "exitPrice": 633.1544999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5025125628140771,
+  "entryTimestampMs": 1786355400000,
+  "exitTimestampMs": 1786355700000,
+  "shadow": true
  }
 ]
