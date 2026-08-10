@@ -203,12 +203,18 @@ function analyzeSymbol(symbol, daily) {
     };
 
     const last = daily[daily.length - 1];
-    if (i + 1 >= daily.length) {
-      // signal on the latest bar — entry not yet available
+    // Fill the entry only from an OFFICIAL daily open. The entry bar (i+1) is not
+    // official when it's the last bar (no next bar yet) OR when it's today's
+    // intraday-synthesized bar (its open is the first 1-min print, which can differ
+    // ~1% from the true opening-auction price). In both cases keep the signal
+    // PENDING; the stateless recompute fills it from the official open on a later run.
+    const entryBarSynthetic = i + 1 < daily.length && daily[i + 1].synthetic === true;
+    if (i + 1 >= daily.length || entryBarSynthetic) {
       out.push({ symbol, signalDate, status: 'pending', entryDate: null, entryPx: null,
         stopPx: round(stop), rPerShare: null, riskPct: null, target1Px: null,
         exitDate: null, exitPx: null, rNet: null, sinceAlertPct: null, lastPrice: round(last.close),
         rsiGatePass, rules });
+      if (entryBarSynthetic) break; // synthetic bar is the last one — nothing more to scan
       i++; continue;
     }
     const entry = daily[i + 1].open;
@@ -246,10 +252,12 @@ async function runOnce() {
     try {
       const daily = await fetchDaily(symbolMap[symbol]);
       if (!daily || !daily.length) { errs++; continue; }
-      // append today's synthesized bar if the official daily bar hasn't posted
+      // append today's synthesized bar if the official daily bar hasn't posted.
+      // Marked `synthetic` so analyzeSymbol won't fill an entry from its (approximate)
+      // open — the entry waits for the official open on a later run.
       if (istDateStr(daily[daily.length - 1].timestampMs) !== today) {
         const tb = await fetchTodayBar(symbolMap[symbol]);
-        if (tb) daily.push(tb);
+        if (tb) { tb.synthetic = true; daily.push(tb); }
       }
       const rows = analyzeSymbol(symbol, daily);
       for (const r of rows) {
