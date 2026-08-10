@@ -15,7 +15,12 @@
   "position": null
  },
  "OLAELEC": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 40.48,
+   "entryIdx": 21,
+   "entryTimestampMs": 1786339500000
+  }
  },
  "HINDCOPPER": {
   "position": null
