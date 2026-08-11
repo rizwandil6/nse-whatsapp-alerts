@@ -439,5 +439,19 @@
   "price": 533.85,
   "rsRankAtEntry": 82.00589970501476,
   "salesGrowth3Y": 21
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GVT&D",
+  "date": "2026-08-09",
+  "price": 4330,
+  "rsRankAtEntry": 80.23598820058997
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "MCX",
+  "date": "2026-08-09",
+  "price": 2759.3,
+  "rsRankAtEntry": 82.00589970501476
  }
 ]

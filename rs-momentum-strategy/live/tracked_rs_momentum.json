@@ -114,5 +114,19 @@
   "entryPrice": 533.85,
   "rsRankAtEntry": 82.00589970501476,
   "salesGrowth3Y": 21
+ },
+ "GVT&D": {
+  "entryDate": "2026-08-09",
+  "entryPrice": 4330,
+  "rsRankAtEntry": 80.23598820058997,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "MCX": {
+  "entryDate": "2026-08-09",
+  "entryPrice": 2759.3,
+  "rsRankAtEntry": 82.00589970501476,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
