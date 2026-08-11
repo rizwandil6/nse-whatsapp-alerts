@@ -2407,5 +2407,26 @@
   "entryTimestampMs": 1786431300000,
   "exitTimestampMs": 1786434600000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 598.1917500000001,
+  "timestampMs": 1786433100000,
+  "breakoutTimestampMs": 1786433100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 598.1917500000001,
+  "exitPrice": 600.85,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.444380919663294,
+  "entryTimestampMs": 1786433100000,
+  "exitTimestampMs": 1786439400000,
+  "shadow": true
  }
 ]
