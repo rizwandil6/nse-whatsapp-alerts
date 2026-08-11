@@ -45,7 +45,13 @@
   "position": null
  },
  "TITAGARH": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 840.55,
+   "entryIdx": 6,
+   "entryTimestampMs": 1786430100000,
+   "stop": 857.361
+  }
  },
  "HATHWAY": {
   "position": null
