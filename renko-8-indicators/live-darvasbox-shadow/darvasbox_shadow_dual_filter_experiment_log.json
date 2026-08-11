@@ -2257,5 +2257,17 @@
   "timestampMs": 1786428000000,
   "breakoutTimestampMs": 1786428000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2709.1785,
+  "exitPrice": 2699,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.375704295601046,
+  "entryTimestampMs": 1786426800000,
+  "exitTimestampMs": 1786430100000,
+  "shadow": true
  }
 ]
