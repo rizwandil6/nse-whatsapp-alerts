@@ -4695,5 +4695,16 @@
   "timestampMs": 1786440000000,
   "livePriceAvailable": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 601.25,
+  "theoreticalEntry": 601.1752500000001,
+  "entryIdx": 30,
+  "timestampMs": 1786440300000,
+  "livePriceAvailable": true,
+  "brickPct": "0.25"
  }
 ]
