@@ -4772,5 +4772,22 @@
   "entryTimestampMs": 1786440300000,
   "exitTimestampMs": 1786440300000,
   "brickPct": "0.25"
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "theoreticalExit": 39.768299999999996,
+  "livePriceAvailable": true,
+  "entry": 39.567449999999994,
+  "exitPrice": 39.8,
+  "action": "EOD_SQUARE_OFF",
+  "barsHeld": 2,
+  "pnlPct": -0.5877305714672121,
+  "entryTimestampMs": 1786441200000,
+  "exitTimestampMs": 1786442100000,
+  "brickPct": "0.25",
+  "pnlRs": -711.3704500000104,
+  "rsSign": "−"
  }
 ]
