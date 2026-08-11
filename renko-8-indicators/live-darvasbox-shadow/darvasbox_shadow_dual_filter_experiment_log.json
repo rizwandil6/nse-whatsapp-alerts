@@ -2377,5 +2377,14 @@
   "entryTimestampMs": 1786429200000,
   "exitTimestampMs": 1786436700000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 39.567449999999994,
+  "timestampMs": 1786441200000,
+  "breakoutTimestampMs": 1786441200000,
+  "shadow": true
  }
 ]
