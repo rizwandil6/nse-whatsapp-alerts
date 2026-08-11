@@ -2287,5 +2287,17 @@
   "timestampMs": 1786432800000,
   "breakoutTimestampMs": 1786432800000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 840.5978749999999,
+  "exitPrice": 842.5,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.22628239453972798,
+  "entryTimestampMs": 1786430100000,
+  "exitTimestampMs": 1786434600000,
+  "shadow": true
  }
 ]
