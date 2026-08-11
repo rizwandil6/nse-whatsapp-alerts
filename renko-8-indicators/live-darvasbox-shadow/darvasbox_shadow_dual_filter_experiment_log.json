@@ -2428,5 +2428,17 @@
   "entryTimestampMs": 1786433100000,
   "exitTimestampMs": 1786439400000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 39.567449999999994,
+  "exitPrice": 39.768299999999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.5076142131979763,
+  "entryTimestampMs": 1786441200000,
+  "exitTimestampMs": 1786442100000,
+  "shadow": true
  }
 ]
