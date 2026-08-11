@@ -12,7 +12,12 @@
   "position": null
  },
  "WAAREEENER": {
-  "position": null
+  "position": {
+   "direction": "LONG",
+   "entry": 2713,
+   "entryIdx": 5,
+   "entryTimestampMs": 1786426800000
+  }
  },
  "OLAELEC": {
   "position": null
