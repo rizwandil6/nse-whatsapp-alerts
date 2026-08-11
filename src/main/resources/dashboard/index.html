@@ -232,12 +232,14 @@
   }
 
   async function fetchTabData(key) {
-    if (dataCache[key]) return dataCache[key];
+    // Swing tab is never session-cached: it carries LIVE prices for open positions
+    // (attached server-side, cached 60s there), so re-open should show current values.
+    if (dataCache[key] && key !== 'swing-strategy') return dataCache[key];
     const res = await fetch(TABS[key].url);
     if (res.status === 401) { window.location.href = '/login'; throw new Error('unauthorized'); }
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    dataCache[key] = data;
+    if (key !== 'swing-strategy') dataCache[key] = data;
     return data;
   }
 
