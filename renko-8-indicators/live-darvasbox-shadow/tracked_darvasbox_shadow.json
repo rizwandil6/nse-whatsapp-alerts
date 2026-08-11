@@ -18,20 +18,10 @@
   "position": null
  },
  "HINDCOPPER": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 530.75,
-   "entryIdx": 4,
-   "entryTimestampMs": 1786428000000
-  }
+  "position": null
  },
  "MHRIL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 226.56,
-   "entryIdx": 7,
-   "entryTimestampMs": 1786440000000
-  }
+  "position": null
  },
  "RVNL": {
   "position": null
@@ -46,12 +36,7 @@
   "position": null
  },
  "ARE&M": {
-  "position": {
-   "direction": "LONG",
-   "entry": 957.9,
-   "entryIdx": 22,
-   "entryTimestampMs": 1786422300000
-  }
+  "position": null
  },
  "NCC": {
   "position": null
@@ -72,11 +57,6 @@
   "position": null
  },
  "TRITURBINE": {
-  "position": {
-   "direction": "LONG",
-   "entry": 601.25,
-   "entryIdx": 30,
-   "entryTimestampMs": 1786440300000
-  }
+  "position": null
  }
 }
