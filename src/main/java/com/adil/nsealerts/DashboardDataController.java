@@ -35,6 +35,7 @@ public class DashboardDataController {
     private final RsRankLookupService rsRankLookupService;
     private final RsMomentumService rsMomentumService;
     private final SwingSignalService swingSignalService;
+    private final SwingLivePriceService swingLivePriceService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
 
@@ -42,21 +43,45 @@ public class DashboardDataController {
                                     QuarterlyResultsService quarterlyResultsService,
                                     RsRankLookupService rsRankLookupService,
                                     RsMomentumService rsMomentumService,
-                                    SwingSignalService swingSignalService) {
+                                    SwingSignalService swingSignalService,
+                                    SwingLivePriceService swingLivePriceService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
         this.quarterlyResultsService = quarterlyResultsService;
         this.rsRankLookupService = rsRankLookupService;
         this.rsMomentumService = rsMomentumService;
         this.swingSignalService = swingSignalService;
+        this.swingLivePriceService = swingLivePriceService;
     }
 
-    // Swing Strategy tab -- reads swing.signals straight from Postgres (written by
-    // the swing-strategy/live Node service), same local-query pattern as
-    // quarterly-results. No cache needed.
+    // Swing Strategy tab -- reads swing.signals from Postgres (written by the
+    // swing-strategy/live Node service), then attaches a LIVE last price to each
+    // OPEN position so `since alert %` tracks the current price instead of the
+    // frozen 19:00 snapshot. Same "attach fresh, don't trust the stored snapshot"
+    // pattern as RS Rank below. Live prices are cached 60s in SwingLivePriceService;
+    // closed rows keep their realized %, pending rows have no entry to price.
     @GetMapping(value = "/api/dashboard/swing", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String, Object>> swing() {
-        return swingSignalService.all();
+        List<Map<String, Object>> rows = swingSignalService.all();
+        List<String> openSymbols = new ArrayList<>();
+        for (Map<String, Object> r : rows) {
+            if ("open".equals(r.get("status")) && r.get("symbol") != null) openSymbols.add(r.get("symbol").toString());
+        }
+        if (!openSymbols.isEmpty()) {
+            Map<String, Double> live = swingLivePriceService.pricesFor(openSymbols);
+            for (Map<String, Object> r : rows) {
+                if (!"open".equals(r.get("status"))) continue;
+                Object symO = r.get("symbol"), entO = r.get("entryPx");
+                if (symO == null || !(entO instanceof Number)) continue;
+                Double lp = live.get(symO.toString());
+                if (lp == null) continue;
+                double entry = ((Number) entO).doubleValue();
+                if (entry <= 0) continue;
+                r.put("lastPrice", lp);
+                r.put("sinceAlertPct", Math.round(((lp - entry) / entry) * 1000.0) / 10.0); // 1 dp
+            }
+        }
+        return rows;
     }
 
     // Unlike the other 4 tabs, this reads straight from Postgres (this same
