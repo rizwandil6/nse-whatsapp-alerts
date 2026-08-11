@@ -2239,5 +2239,14 @@
   "timestampMs": 1786422300000,
   "breakoutTimestampMs": 1786422300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2709.1785,
+  "timestampMs": 1786426800000,
+  "breakoutTimestampMs": 1786426800000,
+  "shadow": true
  }
 ]
