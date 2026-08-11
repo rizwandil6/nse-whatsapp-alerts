@@ -1396,5 +1396,18 @@
   "exitTimestampMs": 1786355700000,
   "variant": true,
   "brickPct": "0.25"
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 840.55,
+  "theoreticalEntry": 840.5978749999999,
+  "stop": 857.361,
+  "entryIdx": 6,
+  "timestampMs": 1786430100000,
+  "livePriceAvailable": true,
+  "variant": true,
+  "brickPct": "0.25"
  }
 ]
