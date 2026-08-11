@@ -53,6 +53,17 @@
       <artifactId>pdfbox</artifactId>
       <version>2.0.30</version>
     </dependency>
+    <!-- OCR fallback for scanned-image results PDFs (no embedded text layer):
+         see PdfExtractor's OCR section docstring. JNA wrapper around the native
+         Tesseract/Leptonica libraries; the JAR alone is NOT enough at runtime,
+         it requires the tesseract-ocr system package (see repo-root Dockerfile).
+         Degrades safely (logs, skips OCR) if the native library isn't present,
+         so this dependency alone cannot break a deploy that lacks it. -->
+    <dependency>
+      <groupId>net.sourceforge.tess4j</groupId>
+      <artifactId>tess4j</artifactId>
+      <version>5.19.0</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
