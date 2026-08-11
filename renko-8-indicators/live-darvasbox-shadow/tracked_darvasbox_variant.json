@@ -18,22 +18,10 @@
   "position": null
  },
  "HINDCOPPER": {
-  "position": {
-   "direction": "LONG",
-   "entry": 534.6,
-   "entryIdx": 8,
-   "entryTimestampMs": 1786431900000,
-   "stop": 523.908
-  }
+  "position": null
  },
  "MHRIL": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 226.56,
-   "entryIdx": 7,
-   "entryTimestampMs": 1786440000000,
-   "stop": 231.09120000000001
-  }
+  "position": null
  },
  "RVNL": {
   "position": null
@@ -57,13 +45,7 @@
   "position": null
  },
  "TITAGARH": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 840.55,
-   "entryIdx": 6,
-   "entryTimestampMs": 1786430100000,
-   "stop": 857.361
-  }
+  "position": null
  },
  "HATHWAY": {
   "position": null
@@ -75,12 +57,6 @@
   "position": null
  },
  "TRITURBINE": {
-  "position": {
-   "direction": "SHORT",
-   "entry": 598.05,
-   "entryIdx": 24,
-   "entryTimestampMs": 1786432800000,
-   "stop": 610.011
-  }
+  "position": null
  }
 }
