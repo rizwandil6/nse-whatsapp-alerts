@@ -50,8 +50,12 @@
  * EMA-cross exit is priced the same way (LTP at confirmation, falling back
  * to the 5-min bar's close).
  *
- * Requires UPSTOX_ACCESS_TOKEN, GITHUB_TOKEN, and (optionally)
- * TELEGRAM_BOT_TOKEN env vars.
+ * Requires UPSTOX_ACCESS_TOKEN, GITHUB_TOKEN, DATABASE_URL, and (optionally)
+ * TELEGRAM_BOT_TOKEN env vars. Trade events (real + variant trackers) and
+ * their open-position state persist to Postgres (darvasbox_db.js) -- see
+ * that module's docstring for why this replaced GitHub-branch JSON logging.
+ * GITHUB_TOKEN is still needed for the dual-filter shadow experiment log
+ * (shadow_log.js), which stays on GitHub for now.
  */
 
 const WebSocket = require('ws');
@@ -60,17 +64,12 @@ const path = require('path');
 
 const { buildRenkoBricks } = require('./renko');
 const { DarvasLiveTracker } = require('./darvas_tracker');
-const { syncFromRemote, recordAndPush, isDuplicateEvent, getTodaysExits } = require('./trade_log');
-const { syncFromRemote: syncTrackedStateFromRemote, loadTrackedState, saveAndPushTrackedState } = require('./tracked_state');
+const { recordEvent: recordTradeEvent, getTodaysExits: getTodaysExitsDb } = require('./trade_log');
 const { ShadowDualFilterTracker } = require('./shadow_dual_filter_tracker');
 const { syncFromRemote: syncShadowLogFromRemote, recordAndPush: recordAndPushShadowEvent } = require('./shadow_log');
 const { DarvasVariantTracker } = require('./variant_tracker');
-const { syncFromRemote: syncVariantLogFromRemote, recordAndPush: recordAndPushVariantEvent } = require('./variant_log');
-const {
-  syncFromRemote: syncVariantStateFromRemote,
-  loadTrackedState: loadVariantState,
-  saveAndPushTrackedState: saveAndPushVariantState,
-} = require('./variant_tracked_state');
+const { recordEvent: recordVariantEvent } = require('./variant_log');
+const { DarvasDB } = require('./darvasbox_db');
 const { TickBarBuilder } = require('./tick_bar_builder');
 const { MARKET_OPEN_MIN, MARKET_CLOSE_MIN, FNO_CLOSE_MIN, istMinutesOfDay, istDateStr, nowIst, aggregateTo5Min, aggregateTo5MinMultiDay } = require('./bar_aggregator');
 const { isFno } = require('./fno_underlyings');
@@ -180,6 +179,10 @@ const pdhpdlSymbols = require('./pdhpdl_symbols.json');
 const pdhpdlKeyToSymbol = {};
 for (const [symbol, key] of Object.entries(pdhpdlSymbols)) pdhpdlKeyToSymbol[key] = symbol;
 const pdhpdlDb = new PdhPdlDB();
+// DarvasBox trade-event/state persistence (real + variant trackers). See
+// darvasbox_db.js's module docstring for why this replaced GitHub-branch
+// JSON logging.
+const darvasboxDb = new DarvasDB();
 const pdhpdlTrackers = {};  // symbol -> PdhPdlTracker
 const pdhpdlAgg5 = {};      // symbol -> BarAggregator(5)
 const pdhpdlAgg15 = {};     // symbol -> BarAggregator(15)
@@ -417,25 +420,30 @@ function formatEodSummary() {
 
 function dispatchEvent(symbol, e) {
   e.brickPct = BRICK_LABEL;
-  if (isDuplicateEvent(e)) {
-    console.log(`Skipping duplicate ${e.type} alert for ${symbol} -- already recorded (replay/backfill).`);
-    return;
-  }
   const { dateStr } = nowIst();
-  if (e.type === 'ENTRY') {
-    sendTelegramAlert(formatEntryAlert(e)).catch((err) => console.error('sendTelegramAlert threw:', err.message));
-    recordAndPush(e, dateStr).catch((err) => console.error('recordAndPush threw:', err.message));
-  } else if (e.type === 'EXIT') {
-    updateDayStats(e);
-    sendTelegramAlert(formatExitAlert(e, dayStats)).catch((err) => console.error('sendTelegramAlert threw:', err.message));
-    recordAndPush(e, dateStr).catch((err) => console.error('recordAndPush threw:', err.message));
-  }
+  // recordTradeEvent's DB unique index IS the duplicate check (atomic --
+  // no separate read-then-write race like the old isDuplicateEvent()) --
+  // gating the Telegram send on `inserted` means a racing sibling instance
+  // (e.g. mid-redeploy overlap) can no longer send a duplicate alert, not
+  // just avoid a duplicate log row. See darvasbox_db.js's module docstring.
+  recordTradeEvent(darvasboxDb, e, dateStr).then(({ inserted }) => {
+    if (!inserted) {
+      console.log(`Skipping duplicate ${e.type} for ${symbol} -- already recorded (replay/backfill or racing instance).`);
+      return;
+    }
+    if (e.type === 'ENTRY') {
+      sendTelegramAlert(formatEntryAlert(e)).catch((err) => console.error('sendTelegramAlert threw:', err.message));
+    } else if (e.type === 'EXIT') {
+      updateDayStats(e);
+      sendTelegramAlert(formatExitAlert(e, dayStats)).catch((err) => console.error('sendTelegramAlert threw:', err.message));
+    }
+  }).catch((err) => console.error('recordTradeEvent threw:', err.message));
   // Persist position state on every ENTRY/EXIT (see darvas_tracker.js's toJSON
   // docstring for why this exists) -- cheap (one small object per symbol), and
   // must happen right after `this.position` changes, not on some separate timer,
   // so a restart landing between this event and the next one always sees the
   // correct up-to-date state.
-  saveAndPushTrackedState(trackers).catch((err) => console.error('saveAndPushTrackedState threw:', err.message));
+  darvasboxDb.saveAllTrackedState('real', trackers).catch((err) => console.error('saveAllTrackedState threw:', err.message));
 }
 
 /** Dual-filter shadow experiment -- logs what the pending-confirmation filter would
@@ -446,27 +454,34 @@ function dispatchShadowEvent(e) {
   recordAndPushShadowEvent(e, dateStr).catch((err) => console.error('shadow dispatchShadowEvent threw:', err.message));
 }
 
-/** A/B variant experiment -- logs to its OWN branch/file (variant_log.js) and
- * persists its OWN position state (variant_tracked_state.js), never touching
- * real trades, the real trade log, or the dual-filter shadow. Telegram-alerted
- * (added 2026-08-10, see sendVariantTelegramAlert) independently of the real
- * tracker's PAPER_ALERTS_ENABLED flag. */
+/** A/B variant experiment -- logs to Postgres (variant_log.js, tracker='variant'
+ * in darvasbox.trade_events) and persists its OWN position state (own row per
+ * symbol in darvasbox.tracked_state), never touching real trades, the real
+ * trade log, or the dual-filter shadow. Telegram-alerted (added 2026-08-10,
+ * see sendVariantTelegramAlert) independently of the real tracker's
+ * PAPER_ALERTS_ENABLED flag, and gated on the DB insert actually being new --
+ * see dispatchEvent's comment on why this matters for the redeploy-overlap race. */
 function dispatchVariantEvent(e) {
   e.brickPct = BRICK_LABEL;
   const { dateStr } = nowIst();
-  if (e.type === 'ENTRY') {
-    sendVariantTelegramAlert(formatVariantEntryAlert(e)).catch((err) => console.error('sendVariantTelegramAlert threw:', err.message));
-  } else if (e.type === 'EXIT') {
-    variantDayStats.trades += 1;
-    if (e.pnlPct > 0) variantDayStats.wins += 1;
-    variantDayStats.totalPnlPct += e.pnlPct;
-    sendVariantTelegramAlert(formatVariantExitAlert(e)).catch((err) => console.error('sendVariantTelegramAlert threw:', err.message));
-  }
-  recordAndPushVariantEvent(e, dateStr).catch((err) => console.error('variant dispatchVariantEvent threw:', err.message));
+  recordVariantEvent(darvasboxDb, e, dateStr).then(({ inserted }) => {
+    if (!inserted) {
+      console.log(`Skipping duplicate variant ${e.type} for ${e.symbol} -- already recorded (replay/backfill or racing instance).`);
+      return;
+    }
+    if (e.type === 'ENTRY') {
+      sendVariantTelegramAlert(formatVariantEntryAlert(e)).catch((err) => console.error('sendVariantTelegramAlert threw:', err.message));
+    } else if (e.type === 'EXIT') {
+      variantDayStats.trades += 1;
+      if (e.pnlPct > 0) variantDayStats.wins += 1;
+      variantDayStats.totalPnlPct += e.pnlPct;
+      sendVariantTelegramAlert(formatVariantExitAlert(e)).catch((err) => console.error('sendVariantTelegramAlert threw:', err.message));
+    }
+  }).catch((err) => console.error('recordVariantEvent threw:', err.message));
   // Persist on every ENTRY/EXIT, right after this.position changed -- same
-  // reasoning as dispatchEvent's saveAndPushTrackedState (live-LTP fills mean
+  // reasoning as dispatchEvent's saveAllTrackedState (live-LTP fills mean
   // a restart can't safely re-derive an open position from a brick replay).
-  saveAndPushVariantState(variantTrackers).catch((err) => console.error('saveAndPushVariantState threw:', err.message));
+  darvasboxDb.saveAllTrackedState('variant', variantTrackers).catch((err) => console.error('saveAllTrackedState (variant) threw:', err.message));
 }
 
 function maybeResetForNewDay(nowMs) {
@@ -483,10 +498,10 @@ function maybeResetForNewDay(nowMs) {
     variantTrackers[symbol].resetForNewDay();
   }
   console.log(`New trading day: ${dateStr}. Tracker + in-memory 1-min bar buffers + day stats reset.`);
-  // Push the now-all-null tracked state too -- otherwise a restart later
+  // Persist the now-all-null tracked state too -- otherwise a restart later
   // today would restore YESTERDAY's (already-closed) positions from the
-  // stale file still sitting on the remote branch.
-  saveAndPushTrackedState(trackers).catch((err) => console.error('saveAndPushTrackedState threw (new-day reset):', err.message));
+  // stale row still sitting in Postgres.
+  darvasboxDb.saveAllTrackedState('real', trackers).catch((err) => console.error('saveAllTrackedState threw (new-day reset):', err.message));
   // Fire-and-forget: yesterday's historicalBars5 stays in place (only one
   // day stale, negligible given the multi-day convergence window) until
   // this completes -- not awaited so a slow multi-symbol refetch can never
@@ -973,13 +988,15 @@ async function main() {
   await pdhpdlPrepDay();
   schedulePdhPdlDailyPrep();
 
-  await syncFromRemote();
+  // DarvasBox: own Postgres init for trade-event/state persistence (real +
+  // variant trackers). See darvasbox_db.js's module docstring for why this
+  // replaced GitHub-branch JSON logging.
+  await darvasboxDb.init();
   // Shadow experiment log -- fully deterministic given bricks/bars5 (no live-price
   // dependency), so a restart's backfill replay just re-derives identical shadow
   // events; syncing first only avoids re-pushing what's already recorded remotely.
+  // (Left on GitHub for now -- lower event volume, not in scope for this migration.)
   await syncShadowLogFromRemote();
-  // A/B variant experiment log -- its own branch; sync first for the same reason.
-  await syncVariantLogFromRemote();
 
   // Restore any already-open positions BEFORE startupBackfillIfNeeded() runs --
   // see darvas_tracker.js's toJSON docstring for the real incident this fixes.
@@ -987,8 +1004,7 @@ async function main() {
   // entirely once `this.position` is set, so restoring first means the replay
   // can never re-derive (and mis-price) an entry for a symbol that's already
   // holding a position from before the restart.
-  await syncTrackedStateFromRemote();
-  const trackedState = loadTrackedState();
+  const trackedState = await darvasboxDb.loadTrackedState('real');
   const { dateStr: startupDateStr } = nowIst();
   let restoredCount = 0;
   for (const symbol of Object.keys(symbols)) {
@@ -1009,11 +1025,11 @@ async function main() {
   }
 
   // A/B variant experiment -- restore its OWN persisted positions, from its OWN
-  // state file, in a separate loop so it stays fully isolated from the real
-  // tracker's restore (the two can legitimately hold different positions). Same
-  // day-scope guard: a position whose entry predates today is stale, discard it.
-  await syncVariantStateFromRemote();
-  const variantState = loadVariantState();
+  // tracker='variant' rows, in a separate loop so it stays fully isolated from
+  // the real tracker's restore (the two can legitimately hold different
+  // positions). Same day-scope guard: a position whose entry predates today
+  // is stale, discard it.
+  const variantState = await darvasboxDb.loadTrackedState('variant');
   let variantRestored = 0;
   for (const symbol of Object.keys(symbols)) {
     const persisted = variantState[symbol];
@@ -1037,7 +1053,7 @@ async function main() {
   // could even fire a premature EOD summary showing 0 trades.
   const { dateStr: todayStr } = nowIst();
   currentDate = todayStr; // set BEFORE the first tick so maybeResetForNewDay doesn't immediately wipe what we just rebuilt
-  for (const e of getTodaysExits(todayStr, istDateStr)) updateDayStats(e);
+  for (const e of await getTodaysExitsDb(darvasboxDb, todayStr)) updateDayStats(e);
   if (dayStats.trades > 0) {
     console.log(`Restored today's running P&L from the persisted log: ${dayStats.trades} trades, ${dayStats.wins} wins, total ${dayStats.totalPnlPct.toFixed(2)}% so far.`);
   }

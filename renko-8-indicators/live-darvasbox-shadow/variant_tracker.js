@@ -42,9 +42,10 @@
  *
  * Restart safety: because entries fill at the live LTP (non-deterministic
  * across a replay), this tracker persists its open position exactly like the
- * real one (toJSON/restorePosition + variant_tracked_state.js) -- see
- * darvas_tracker.js's toJSON docstring for the real incident that motivated
- * it. Pure helpers (computeEma, emaAlignedAt, volumeSpikeCheck) and the
+ * real one (toJSON/restorePosition, persisted to darvasbox.tracked_state via
+ * darvasbox_db.js under tracker='variant') -- see darvas_tracker.js's toJSON
+ * docstring for the real incident that motivated it. Pure helpers
+ * (computeEma, emaAlignedAt, volumeSpikeCheck) and the
  * filter constants are imported from darvas_tracker.js, NOT reimplemented, so
  * the shared entry filters can never silently drift from the real tracker's.
  */
