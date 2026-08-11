@@ -26,7 +26,12 @@
   }
  },
  "MHRIL": {
-  "position": null
+  "position": {
+   "direction": "SHORT",
+   "entry": 226.56,
+   "entryIdx": 7,
+   "entryTimestampMs": 1786440000000
+  }
  },
  "RVNL": {
   "position": null
