@@ -1,0 +1,4 @@
+# Build fresh inside the image — don't ship the stale committed jar or git/node cruft
+target/
+.git/
+**/node_modules/
