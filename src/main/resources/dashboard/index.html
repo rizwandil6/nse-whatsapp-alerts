@@ -486,7 +486,7 @@
     bar.className = 'swing-filters';
     bar.innerHTML =
       '<div class="pill-group" id="sw-status">' +
-      ['all', 'open', 'pending', 'closed'].map((s, i) => `<button class="pill${i === 0 ? ' active' : ''}" data-status="${s}">${s === 'all' ? 'All' : s[0].toUpperCase() + s.slice(1)}</button>`).join('') +
+      ['all', 'today', 'open', 'pending', 'closed'].map((s, i) => `<button class="pill${i === 0 ? ' active' : ''}" data-status="${s}">${s === 'all' ? 'All' : s === 'today' ? 'Action today' : s[0].toUpperCase() + s.slice(1)}</button>`).join('') +
       '</div>' +
       `<select id="sw-month"><option value="all">All months</option>${months.map((m) => `<option value="${m}">${monthLabel(m)}</option>`).join('')}</select>` +
       '<input id="sw-symbol" type="search" placeholder="Search symbol…" autocomplete="off" />' +
@@ -518,25 +518,41 @@
         `<li>${chk(r.pass)} <b>RSI ≥55 (D/W/M)</b> <span class="rule-val">${esc(r.d)}/${esc(r.w)}/${esc(r.m)} <em>(recorded, not gated)</em></span></li>` +
         '</ul>';
       const since = s.sinceAlertPct != null ? `<span class="pnl ${s.sinceAlertPct >= 0 ? 'win' : 'loss'}">${fmtPct(s.sinceAlertPct)}</span>` : '';
+      const todayMove = s.status === 'open' && s.todayPct != null ? `<span>Today <span class="pnl ${s.todayPct >= 0 ? 'win' : 'loss'}">${fmtPct(s.todayPct)}</span></span>` : '';
+      // Distinct from the status badge above -- flags *why* this card needs a look today,
+      // separate from what its lifecycle status is (an old closed trade and one that
+      // closed an hour ago both say "Closed", only this badge tells them apart).
+      let actionBadge = '';
+      if (todayStr() === s.halfDate) actionBadge = '<span class="badge win">⚡ Half-booked today</span>';
+      else if (todayStr() === s.exitDate) actionBadge = `<span class="badge ${s.rNet >= 0 ? 'win' : 'loss'}">🚪 Exited today</span>`;
+      else if (s.status === 'pending' && todayStr() === s.signalDate) actionBadge = '<span class="badge amber">🆕 New signal — plan tomorrow\'s open</span>';
       return `<div class="card">
         <div class="card-top"><div class="card-title">${esc(s.symbol)}</div><div class="card-time">${esc(s.signalDate)}</div></div>
         <div class="card-meta">
           <span class="badge ${statusBadge}">${statusLabel}</span>
+          ${actionBadge}
           ${s.entryPx != null ? `<span>Entry <b>₹${esc(s.entryPx)}</b></span>` : ''}
           <span>Stop <b>₹${esc(s.stopPx)}</b></span>
           ${s.riskPct != null ? `<span>Risk <b>${esc(s.riskPct)}%</b></span>` : ''}
           ${s.target1Px != null ? `<span>+2R <b>₹${esc(s.target1Px)}</b></span>` : ''}
+          ${s.halfDate != null ? `<span>Half-booked <b>₹${esc(s.halfPrice)}</b> <span class="card-time">(${esc(s.halfDate)})</span></span>` : ''}
           ${isClosed ? `<span>Exit <b>₹${esc(s.exitPx)}</b></span><span>Closed <b>${esc(s.exitDate)}</b></span><span class="pnl ${s.rNet >= 0 ? 'win' : 'loss'}">${Number(s.rNet).toFixed(2)}R</span><span class="badge ${s.rNet < 0 ? 'loss' : 'win'}">${s.rNet < 0 ? 'Stopped out (−1R)' : 'Hit +2R → trailed'}</span>` : ''}
           ${since ? `<span>Since alert ${since}</span>` : ''}
+          ${todayMove}
           ${s.rsiGatePass ? '<span class="badge win">full-spec</span>' : ''}
         </div>
         ${rulesHtml}
       </div>`;
     }
 
+    function todayStr() {
+      return new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }); // en-CA = YYYY-MM-DD
+    }
+
     function apply() {
       let f = items.slice();
-      if (state.status !== 'all') f = f.filter((s) => s.status === state.status);
+      if (state.status === 'today') f = f.filter((s) => s.actionToday);
+      else if (state.status !== 'all') f = f.filter((s) => s.status === state.status);
       if (state.month !== 'all') f = f.filter((s) => (s.signalDate || '').slice(0, 7) === state.month);
       if (state.symbol) { const q = state.symbol.toLowerCase(); f = f.filter((s) => (s.symbol || '').toLowerCase().includes(q)); }
       if (state.fullspec) f = f.filter((s) => s.rsiGatePass === true);
