@@ -2767,5 +2767,29 @@
   "entryTimestampMs": 1786515300000,
   "exitTimestampMs": 1786521900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 225.97217499999996,
+  "exitPrice": 224.29,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.7444168734491194,
+  "entryTimestampMs": 1786528500000,
+  "exitTimestampMs": 1786528200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 976.4527499999999,
+  "exitPrice": 969.1109999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7518796992481368,
+  "entryTimestampMs": 1786524300000,
+  "exitTimestampMs": 1786527900000,
+  "shadow": true
  }
 ]
