@@ -32,6 +32,7 @@ public class SwingSignalService {
                         "       entry_px AS \"entryPx\", stop_px AS \"stopPx\", " +
                         "       r_per_share AS \"rPerShare\", risk_pct AS \"riskPct\", " +
                         "       target1_px AS \"target1Px\", " +
+                        "       to_char(half_date, 'YYYY-MM-DD') AS \"halfDate\", half_price AS \"halfPrice\", " +
                         "       to_char(exit_date, 'YYYY-MM-DD') AS \"exitDate\", " +
                         "       exit_px AS \"exitPx\", r_net AS \"rNet\", " +
                         "       since_alert_pct AS \"sinceAlertPct\", last_price AS \"lastPrice\", " +

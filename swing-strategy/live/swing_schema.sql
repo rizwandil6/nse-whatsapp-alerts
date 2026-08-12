@@ -33,3 +33,9 @@ CREATE TABLE IF NOT EXISTS swing.signals (
 
 CREATE INDEX IF NOT EXISTS swing_signals_status_idx ON swing.signals (status);
 CREATE INDEX IF NOT EXISTS swing_signals_date_idx   ON swing.signals (signal_date DESC);
+
+-- Added for the "half-booked at +2R" event, previously untracked (only the final
+-- combined result was visible once a trade fully closed). ALTER, not part of the
+-- CREATE TABLE above, since that's a no-op against the already-deployed table.
+ALTER TABLE swing.signals ADD COLUMN IF NOT EXISTS half_date  date;
+ALTER TABLE swing.signals ADD COLUMN IF NOT EXISTS half_price numeric;

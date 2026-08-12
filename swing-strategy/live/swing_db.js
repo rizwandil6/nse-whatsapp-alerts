@@ -67,23 +67,37 @@ class SwingDB {
     await this._q(
       `INSERT INTO swing.signals
          (symbol, signal_date, status, entry_date, entry_px, stop_px, r_per_share, risk_pct,
-          target1_px, exit_date, exit_px, r_net, since_alert_pct, last_price, rsi_gate_pass, rules, updated_at)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16::jsonb, now())
+          target1_px, half_date, half_price, exit_date, exit_px, r_net, since_alert_pct, last_price,
+          rsi_gate_pass, rules, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18::jsonb, now())
        ON CONFLICT (symbol, signal_date) DO UPDATE SET
           status=EXCLUDED.status, entry_date=EXCLUDED.entry_date, entry_px=EXCLUDED.entry_px,
           stop_px=EXCLUDED.stop_px, r_per_share=EXCLUDED.r_per_share, risk_pct=EXCLUDED.risk_pct,
-          target1_px=EXCLUDED.target1_px, exit_date=EXCLUDED.exit_date, exit_px=EXCLUDED.exit_px,
+          target1_px=EXCLUDED.target1_px, half_date=EXCLUDED.half_date, half_price=EXCLUDED.half_price,
+          exit_date=EXCLUDED.exit_date, exit_px=EXCLUDED.exit_px,
           r_net=EXCLUDED.r_net, since_alert_pct=EXCLUDED.since_alert_pct, last_price=EXCLUDED.last_price,
           rsi_gate_pass=EXCLUDED.rsi_gate_pass, rules=EXCLUDED.rules, updated_at=now()`,
       [r.symbol, r.signalDate, r.status, r.entryDate, r.entryPx, r.stopPx, r.rPerShare, r.riskPct,
-       r.target1Px, r.exitDate, r.exitPx, r.rNet, r.sinceAlertPct, r.lastPrice, r.rsiGatePass,
-       JSON.stringify(r.rules || {})]
+       r.target1Px, r.halfDate, r.halfPrice, r.exitDate, r.exitPx, r.rNet, r.sinceAlertPct, r.lastPrice,
+       r.rsiGatePass, JSON.stringify(r.rules || {})]
     );
   }
 
   async getOpenSignals() {
     const r = await this._q(`SELECT symbol, signal_date FROM swing.signals WHERE status IN ('open','pending')`);
     return r ? r.rows : [];
+  }
+
+  /** Snapshot of every existing row BEFORE this run's writes, for same-day transition detection. */
+  async allExisting() {
+    const map = new Map();
+    const r = await this._q(
+      `SELECT symbol, to_char(signal_date,'YYYY-MM-DD') AS signal_date, status,
+              to_char(half_date,'YYYY-MM-DD') AS half_date, to_char(exit_date,'YYYY-MM-DD') AS exit_date
+       FROM swing.signals`
+    );
+    for (const row of r ? r.rows : []) map.set(`${row.symbol}|${row.signal_date}`, row);
+    return map;
   }
 
   async close() { if (this.pool) await this.pool.end(); }

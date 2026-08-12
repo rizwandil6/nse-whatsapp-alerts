@@ -34,8 +34,43 @@ const FETCH_DELAY_MS = 100;    // polite, sequential
 const UPSTOX_BASE = 'https://api.upstox.com/v2';
 const TOKEN = process.env.UPSTOX_ACCESS_TOKEN || 'public'; // candle endpoints are public
 
+const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const round = (x, d = 2) => (x == null || Number.isNaN(x) ? null : Number(x.toFixed(d)));
+
+// --- alerting (same pattern as ./runner.js's sendTelegramAlert) -------------
+async function sendTelegramAlert(text) {
+  console.log('[ALERT]', text.replace(/\n/g, ' | '));
+  if (!TELEGRAM_TOKEN) return;
+  for (const chatId of TELEGRAM_CHAT_IDS) {
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text }),
+      });
+      if (!res.ok) console.warn(`  Telegram send failed for chat ${chatId}: HTTP ${res.status}`);
+    } catch (e) {
+      console.warn(`  Telegram send error for chat ${chatId}: ${e.message}`);
+    }
+  }
+}
+function formatNewSignalAlert(r) {
+  return ['[SWING STRATEGY] New signal — plan entry for tomorrow\'s open', `Stock: ${r.symbol}`,
+    `Signal date: ${r.signalDate}`, `Stop-loss: ${r.stopPx}`, `Full-spec (RSI gate)? ${r.rsiGatePass ? 'yes' : 'no'}`].join('\n');
+}
+function formatHalfBookAlert(r) {
+  return ['[SWING STRATEGY] Booked half at +2R — trail the remainder', `Stock: ${r.symbol}`,
+    `Half-book price: ${r.halfPrice} (on ${r.halfDate})`, `Entry was: ${r.entryPx}`].join('\n');
+}
+function formatExitAlert(r) {
+  const pnlStr = (r.sinceAlertPct >= 0 ? '+' : '') + r.sinceAlertPct.toFixed(2) + '%';
+  return ['[SWING STRATEGY] Position closed', `Stock: ${r.symbol}`, `Entry: ${r.entryPx}`,
+    `Exit: ${r.exitPx} (${r.rNet >= 0 ? 'trailed after +2R' : 'stopped out'})`,
+    `P&L: ${pnlStr} · ${r.rNet.toFixed(2)}R net`].join('\n');
+}
 
 function istDateStr(ms = Date.now()) {
   return new Date(ms + (5 * 60 + 30) * 60000).toISOString().slice(0, 10);
@@ -147,19 +182,19 @@ function simulateTrimmed(daily, entryIdx, entry, stop, ema20) {
   const R = entry - stop;
   if (R <= 0) return { status: 'void' };
   const tgt = entry + 2 * R;
-  let half = false, trail = stop;
+  let half = false, trail = stop, halfIdx = null, halfPx = null;
   for (let j = entryIdx; j < daily.length; j++) {
     const c = daily[j];
     if (!half && c.low <= trail) return closed(j, trail, (trail - entry) / R);
-    if (!half && c.high >= tgt) { half = true; trail = entry; }
+    if (!half && c.high >= tgt) { half = true; trail = entry; halfIdx = j; halfPx = tgt; }
     if (half) {
       if (ema20[j] != null) trail = Math.max(trail, ema20[j]);
       if (c.low <= trail) return closed(j, trail, 0.5 * 2 + 0.5 * (trail - entry) / R);
     }
   }
-  return { status: 'open' };
+  return { status: 'open', halfIdx, halfPx };
   function closed(j, exitPx, r) {
-    return { status: 'closed', exitIdx: j, exitPx, r, rNet: r - COST / (R / entry) };
+    return { status: 'closed', exitIdx: j, exitPx, r, rNet: r - COST / (R / entry), halfIdx, halfPx };
   }
 }
 
@@ -207,6 +242,7 @@ function analyzeSymbol(symbol, daily) {
       // signal on the latest bar — entry not yet available
       out.push({ symbol, signalDate, status: 'pending', entryDate: null, entryPx: null,
         stopPx: round(stop), rPerShare: null, riskPct: null, target1Px: null,
+        halfDate: null, halfPrice: null,
         exitDate: null, exitPx: null, rNet: null, sinceAlertPct: null, lastPrice: round(last.close),
         rsiGatePass, rules });
       i++; continue;
@@ -215,10 +251,12 @@ function analyzeSymbol(symbol, daily) {
     const R = entry - stop;
     if (R <= 0) { i++; continue; }
     const sim = simulateTrimmed(daily, i + 1, entry, stop, ema20);
+    const halfDate = sim.halfIdx != null ? istDateStr(daily[sim.halfIdx].timestampMs) : null;
+    const halfPrice = sim.halfPx != null ? round(sim.halfPx) : null;
     const base = {
       symbol, signalDate, stopPx: round(stop), rPerShare: round(R), riskPct: round((R / entry) * 100, 1),
       target1Px: round(entry + 2 * R), entryDate: istDateStr(daily[i + 1].timestampMs), entryPx: round(entry),
-      lastPrice: round(last.close), rsiGatePass, rules,
+      lastPrice: round(last.close), rsiGatePass, rules, halfDate, halfPrice,
     };
     if (sim.status === 'closed') {
       out.push({ ...base, status: 'closed', exitDate: istDateStr(daily[sim.exitIdx].timestampMs),
@@ -237,9 +275,11 @@ function analyzeSymbol(symbol, daily) {
 async function runOnce() {
   const db = new SwingDB();
   await db.init();
+  const existing = await db.allExisting(); // symbol|signalDate -> {status, halfDate, exitDate}, from BEFORE this run's writes
   const symbols = Object.keys(symbolMap);
   const today = istDateStr();
   let signals = 0, open = 0, closed = 0, pending = 0, errs = 0;
+  const alerts = [];
   console.log(`[${new Date().toISOString()}] trimmed swing run over ${symbols.length} symbols...`);
 
   for (const symbol of symbols) {
@@ -253,6 +293,12 @@ async function runOnce() {
       }
       const rows = analyzeSymbol(symbol, daily);
       for (const r of rows) {
+        const prev = existing.get(`${r.symbol}|${r.signalDate}`);
+        // "today" here means this run just observed the transition — since the runner is
+        // stateless and only runs once/day, prev-vs-now is equivalent to "changed today".
+        if (!prev && r.status === 'pending') alerts.push(formatNewSignalAlert(r));
+        if (r.halfDate === today && prev?.halfDate !== today) alerts.push(formatHalfBookAlert(r));
+        if (r.status === 'closed' && r.exitDate === today && prev?.status !== 'closed') alerts.push(formatExitAlert(r));
         await db.upsertSignal(r);
         signals++;
         if (r.status === 'open') open++; else if (r.status === 'closed') closed++; else pending++;
@@ -262,9 +308,10 @@ async function runOnce() {
     }
     await sleep(FETCH_DELAY_MS);
   }
-  console.log(`[${istDateStr()}] DONE — signals=${signals} open=${open} pending=${pending} closed=${closed} errs=${errs}`);
+  console.log(`[${istDateStr()}] DONE — signals=${signals} open=${open} pending=${pending} closed=${closed} errs=${errs} alerts=${alerts.length}`);
+  for (const text of alerts) await sendTelegramAlert(text);
   await db.close();
-  return { signals, open, pending, closed, errs };
+  return { signals, open, pending, closed, errs, alerts: alerts.length };
 }
 
 module.exports = { runOnce, analyzeSymbol, simulateTrimmed, resample, weekEndFridayMs };

@@ -60,12 +60,27 @@ public class DashboardDataController {
     // frozen 19:00 snapshot. Same "attach fresh, don't trust the stored snapshot"
     // pattern as RS Rank below. Live prices are cached 60s in SwingLivePriceService;
     // closed rows keep their realized %, pending rows have no entry to price.
+    //
+    // Also attaches `todayPct` -- the day's move only, distinct from `sinceAlertPct`
+    // (the whole-position return). Baseline is the stored `lastPrice` snapshot: the
+    // Node runner writes it as "most recent close seen" once per day (19:00 IST,
+    // after that day's close), so during the NEXT trading day it's exactly
+    // yesterday's close -- the correct denominator for today's move. Must be read
+    // before it's overwritten below with the live price.
+    //
+    // `actionToday` flags rows a trader needs to look at today without scanning the
+    // whole list: a brand-new pending signal (plan tomorrow's entry), a +2R half-book,
+    // or a full exit -- all detected by comparing the row's date fields to IST "today".
     @GetMapping(value = "/api/dashboard/swing", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String, Object>> swing() {
         List<Map<String, Object>> rows = swingSignalService.all();
+        String today = LocalDate.now(ZoneId.of("Asia/Kolkata")).toString();
         List<String> openSymbols = new ArrayList<>();
         for (Map<String, Object> r : rows) {
             if ("open".equals(r.get("status")) && r.get("symbol") != null) openSymbols.add(r.get("symbol").toString());
+            boolean actionToday = today.equals(r.get("halfDate")) || today.equals(r.get("exitDate"))
+                    || ("pending".equals(r.get("status")) && today.equals(r.get("signalDate")));
+            r.put("actionToday", actionToday);
         }
         if (!openSymbols.isEmpty()) {
             Map<String, Double> live = swingLivePriceService.pricesFor(openSymbols);
@@ -77,6 +92,10 @@ public class DashboardDataController {
                 if (lp == null) continue;
                 double entry = ((Number) entO).doubleValue();
                 if (entry <= 0) continue;
+                Object prevCloseO = r.get("lastPrice");
+                if (prevCloseO instanceof Number prevClose && prevClose.doubleValue() > 0) {
+                    r.put("todayPct", Math.round(((lp - prevClose.doubleValue()) / prevClose.doubleValue()) * 1000.0) / 10.0);
+                }
                 r.put("lastPrice", lp);
                 r.put("sinceAlertPct", Math.round(((lp - entry) / entry) * 1000.0) / 10.0); // 1 dp
             }
