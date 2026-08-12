@@ -1,5 +1,16 @@
 [
  {
+  "symbol": "MCX",
+  "entryDate": "2026-08-12",
+  "entryPrice": 2759.3,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 2895,
+  "returnSinceEntry": 4.917913963686435
+ },
+ {
   "symbol": "COFORGE",
   "entryDate": "2026-08-10",
   "entryPrice": 1768,
@@ -7,8 +18,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1810,
-  "returnSinceEntry": 2.3755656108597285
+  "currentPrice": 1819,
+  "returnSinceEntry": 2.8846153846153846
  },
  {
   "symbol": "KEI",
@@ -18,8 +29,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 5659.8,
-  "returnSinceEntry": 2.905454545454549
+  "currentPrice": 5645,
+  "returnSinceEntry": 2.6363636363636362
  },
  {
   "symbol": "IPCALAB",
@@ -29,8 +40,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1685.8,
-  "returnSinceEntry": -4.487252124645895
+  "currentPrice": 1748.4,
+  "returnSinceEntry": -0.9405099150141591
  },
  {
   "symbol": "CUMMINSIND",
@@ -40,8 +51,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 5448,
-  "returnSinceEntry": 0.4054552156284556
+  "currentPrice": 5378.5,
+  "returnSinceEntry": -0.8754146701068928
  },
  {
   "symbol": "THELEELA",
@@ -51,8 +62,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 507,
-  "returnSinceEntry": -2.1235521235521233
+  "currentPrice": 512.25,
+  "returnSinceEntry": -1.1100386100386102
  },
  {
   "symbol": "ZYDUSWELL",
@@ -62,29 +73,29 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 516.1,
-  "returnSinceEntry": -3.3249039992507257
+  "currentPrice": 506.1,
+  "returnSinceEntry": -5.1980893509412756
  },
  {
-  "symbol": "GVT&D",
-  "entryDate": "2026-08-09",
-  "entryPrice": 4330,
+  "symbol": "SIEMENS",
+  "entryDate": "2026-08-10",
+  "entryPrice": 4011,
   "status": "open",
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 4330,
+  "currentPrice": 4011,
   "returnSinceEntry": 0
  },
  {
-  "symbol": "MCX",
-  "entryDate": "2026-08-09",
-  "entryPrice": 2759.3,
+  "symbol": "ZENTEC",
+  "entryDate": "2026-08-10",
+  "entryPrice": 1819.8,
   "status": "open",
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 2759.3,
+  "currentPrice": 1819.8,
   "returnSinceEntry": 0
  },
  {
@@ -95,8 +106,8 @@
   "exitDate": "2026-08-06",
   "exitPrice": 279.85,
   "returnWhileOpen": -15.376474145751425,
-  "currentPrice": 279.7,
-  "returnSinceEntry": -15.421832476564862
+  "currentPrice": 279.6,
+  "returnSinceEntry": -15.452071363773804
  },
  {
   "symbol": "REDINGTON",
@@ -106,8 +117,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 353.2,
-  "returnSinceEntry": 13.587393471619233
+  "currentPrice": 354.55,
+  "returnSinceEntry": 14.021546872487544
  },
  {
   "symbol": "CGPOWER",
@@ -117,8 +128,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 879,
-  "returnSinceEntry": 1.8068102849200862
+  "currentPrice": 881,
+  "returnSinceEntry": 2.0384526291406098
  },
  {
   "symbol": "MEDANTA",
@@ -128,8 +139,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1476.2,
-  "returnSinceEntry": 3.021843813245862
+  "currentPrice": 1440.4,
+  "returnSinceEntry": 0.5234140554121013
  },
  {
   "symbol": "EICHERMOT",
@@ -139,8 +150,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 7975,
-  "returnSinceEntry": 1.7738642164369576
+  "currentPrice": 8000,
+  "returnSinceEntry": 2.092904543134252
  },
  {
   "symbol": "LODHA",
@@ -150,8 +161,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1213,
-  "returnSinceEntry": 1.1929590389588682
+  "currentPrice": 1212,
+  "returnSinceEntry": 1.1095353299407653
  },
  {
   "symbol": "HINDCOPPER",
@@ -161,8 +172,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 526.25,
-  "returnSinceEntry": 7.004880032533547
+  "currentPrice": 533.3,
+  "returnSinceEntry": 8.438389589263917
  },
  {
   "symbol": "POLYCAB",
@@ -172,8 +183,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 9275,
-  "returnSinceEntry": 2.0295913316099226
+  "currentPrice": 9125,
+  "returnSinceEntry": 0.3795170782685221
  },
  {
   "symbol": "IKS",
@@ -183,8 +194,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1728.8,
-  "returnSinceEntry": -8.871435348690104
+  "currentPrice": 1745,
+  "returnSinceEntry": -8.017500395340251
  },
  {
   "symbol": "KALYANKJIL",
@@ -194,8 +205,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 600.25,
-  "returnSinceEntry": 4.500348189415046
+  "currentPrice": 602.2,
+  "returnSinceEntry": 4.839832869080793
  },
  {
   "symbol": "BIOCON",
@@ -205,8 +216,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 426.1,
-  "returnSinceEntry": -2.538883806038419
+  "currentPrice": 426,
+  "returnSinceEntry": -2.561756633119851
  },
  {
   "symbol": "EMCURE",
@@ -216,8 +227,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1995.2,
-  "returnSinceEntry": 11.888739344997756
+  "currentPrice": 1998.7,
+  "returnSinceEntry": 12.085015702108569
  },
  {
   "symbol": "TRITURBINE",
@@ -227,8 +238,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 636.75,
-  "returnSinceEntry": -0.3910833007430583
+  "currentPrice": 600.35,
+  "returnSinceEntry": -6.085256159561983
  },
  {
   "symbol": "ZYDUSLIFE",
@@ -238,7 +249,7 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1119,
-  "returnSinceEntry": -3.2759961967326547
+  "currentPrice": 1191,
+  "returnSinceEntry": 2.9475321981156455
  }
 ]

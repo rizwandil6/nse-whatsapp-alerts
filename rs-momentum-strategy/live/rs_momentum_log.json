@@ -453,5 +453,36 @@
   "date": "2026-08-09",
   "price": 2759.3,
   "rsRankAtEntry": 82.00589970501476
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SIEMENS",
+  "date": "2026-08-10",
+  "price": 4011,
+  "rsRankAtEntry": 80.23598820058997,
+  "salesGrowth3Y": 15
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ZENTEC",
+  "date": "2026-08-10",
+  "price": 1819.8,
+  "rsRankAtEntry": 81.12094395280236,
+  "salesGrowth3Y": 46
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GVT&D",
+  "date": "2026-08-12",
+  "price": 4330,
+  "rsRankAtEntry": 80.23598820058997
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "MCX",
+  "date": "2026-08-12",
+  "price": 2759.3,
+  "rsRankAtEntry": 82.00589970501476,
+  "salesGrowth3Y": 65
  }
 ]

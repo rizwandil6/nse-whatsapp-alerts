@@ -115,18 +115,22 @@
   "rsRankAtEntry": 82.00589970501476,
   "salesGrowth3Y": 21
  },
- "GVT&D": {
-  "entryDate": "2026-08-09",
-  "entryPrice": 4330,
-  "rsRankAtEntry": 80.23598820058997,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
  "MCX": {
   "entryDate": "2026-08-09",
   "entryPrice": 2759.3,
   "rsRankAtEntry": 82.00589970501476,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 65
+ },
+ "SIEMENS": {
+  "entryDate": "2026-08-10",
+  "entryPrice": 4011,
+  "rsRankAtEntry": 80.23598820058997,
+  "salesGrowth3Y": 15
+ },
+ "ZENTEC": {
+  "entryDate": "2026-08-10",
+  "entryPrice": 1819.8,
+  "rsRankAtEntry": 81.12094395280236,
+  "salesGrowth3Y": 46
  }
 }
