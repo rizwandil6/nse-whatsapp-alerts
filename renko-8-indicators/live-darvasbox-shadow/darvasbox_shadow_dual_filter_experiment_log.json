@@ -2551,5 +2551,17 @@
   "timestampMs": 1786524900000,
   "breakoutTimestampMs": 1786524900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 229.494825,
+  "exitPrice": 230.48,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.42927983234480266,
+  "entryTimestampMs": 1786523400000,
+  "exitTimestampMs": 1786525500000,
+  "shadow": true
  }
 ]
