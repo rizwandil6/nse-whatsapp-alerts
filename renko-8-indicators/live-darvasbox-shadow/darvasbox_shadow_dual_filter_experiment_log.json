@@ -2734,5 +2734,38 @@
   "timestampMs": 1786524300000,
   "breakoutTimestampMs": 1786524300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 188.6871,
+  "timestampMs": 1786508700000,
+  "breakoutTimestampMs": 1786508700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 188.6871,
+  "exitPrice": 189.61,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.4891166380743712,
+  "entryTimestampMs": 1786508700000,
+  "exitTimestampMs": 1786514700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 189.6329,
+  "exitPrice": 189.32,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.1650030137175634,
+  "entryTimestampMs": 1786515300000,
+  "exitTimestampMs": 1786521900000,
+  "shadow": true
  }
 ]
