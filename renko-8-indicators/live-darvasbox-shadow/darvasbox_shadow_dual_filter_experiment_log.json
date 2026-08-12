@@ -2542,5 +2542,14 @@
   "entryTimestampMs": 1786512600000,
   "exitTimestampMs": 1786523700000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 174.81595,
+  "timestampMs": 1786524900000,
+  "breakoutTimestampMs": 1786524900000,
+  "shadow": true
  }
 ]
