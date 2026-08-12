@@ -2623,5 +2623,53 @@
   "timestampMs": 1786515300000,
   "breakoutTimestampMs": 1786515300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 346.2785,
+  "exitPrice": 347.99275,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.495049504950493,
+  "entryTimestampMs": 1786526700000,
+  "exitTimestampMs": 1786527300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 556.3593750000007,
+  "exitPrice": 548.3156250000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.4457831325301678,
+  "entryTimestampMs": 1786521000000,
+  "exitTimestampMs": 1786522200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 975.7545,
+  "exitPrice": 968.4179999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.751879699248132,
+  "entryTimestampMs": 1786525800000,
+  "exitTimestampMs": 1786527900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 189.82,
+  "exitPrice": 189.945,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.0658518596565167,
+  "entryTimestampMs": 1786515300000,
+  "exitTimestampMs": 1786516200000,
+  "shadow": true
  }
 ]
