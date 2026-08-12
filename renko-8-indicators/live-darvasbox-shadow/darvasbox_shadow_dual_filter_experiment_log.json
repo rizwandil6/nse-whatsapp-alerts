@@ -2704,5 +2704,26 @@
   "timestampMs": 1786528500000,
   "breakoutTimestampMs": 1786528500000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 174.8761,
+  "timestampMs": 1786525500000,
+  "breakoutTimestampMs": 1786525500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 174.8761,
+  "exitPrice": 174.8761,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1786525500000,
+  "exitTimestampMs": 1786525500000,
+  "shadow": true
  }
 ]
