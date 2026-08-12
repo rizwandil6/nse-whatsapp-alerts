@@ -2590,5 +2590,29 @@
   "timestampMs": 1786526700000,
   "breakoutTimestampMs": 1786526400000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 517.1705,
+  "exitPrice": 515.890375,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2475247524752472,
+  "entryTimestampMs": 1786525500000,
+  "exitTimestampMs": 1786526100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 174.81595,
+  "exitPrice": 174.81595,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1786524900000,
+  "exitTimestampMs": 1786524900000,
+  "shadow": true
  }
 ]
