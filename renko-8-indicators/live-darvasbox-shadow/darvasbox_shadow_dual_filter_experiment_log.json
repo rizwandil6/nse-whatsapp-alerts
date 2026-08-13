@@ -2911,5 +2911,53 @@
   "timestampMs": 1786597800000,
   "breakoutTimestampMs": 1786597800000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 223.430025,
+  "exitPrice": 224.407575,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.43751953212197325,
+  "entryTimestampMs": 1786597800000,
+  "exitTimestampMs": 1786614300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 113.75,
+  "exitPrice": 113.69505000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.04830769230768435,
+  "entryTimestampMs": 1786613460000,
+  "exitTimestampMs": 1786614300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 190.4175,
+  "exitPrice": 190.22324999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.1020126826578497,
+  "entryTimestampMs": 1786607100000,
+  "exitTimestampMs": 1786610100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 125.53987499999997,
+  "exitPrice": 125.84984999999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24691358024690915,
+  "entryTimestampMs": 1786611600000,
+  "exitTimestampMs": 1786613100000,
+  "shadow": true
  }
 ]
