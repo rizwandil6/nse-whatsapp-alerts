@@ -2977,5 +2977,29 @@
   "timestampMs": 1786612200000,
   "breakoutTimestampMs": 1786612200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 39.60862499999998,
+  "exitPrice": 39.60862499999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1786614600000,
+  "exitTimestampMs": 1786614600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.71315,
+  "exitPrice": 10.686300000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2506265664160363,
+  "entryTimestampMs": 1786612200000,
+  "exitTimestampMs": 1786614900000,
+  "shadow": true
  }
 ]
