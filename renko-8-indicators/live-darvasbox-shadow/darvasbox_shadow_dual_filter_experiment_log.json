@@ -2968,5 +2968,14 @@
   "timestampMs": 1786614600000,
   "breakoutTimestampMs": 1786614600000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.71315,
+  "timestampMs": 1786612200000,
+  "breakoutTimestampMs": 1786612200000,
+  "shadow": true
  }
 ]
