@@ -3082,5 +3082,17 @@
   "entryTimestampMs": 1786700400000,
   "exitTimestampMs": 1786700400000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 226.554975,
+  "exitPrice": 225.81,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.3288274733318087,
+  "entryTimestampMs": 1786696800000,
+  "exitTimestampMs": 1786701000000,
+  "shadow": true
  }
 ]
