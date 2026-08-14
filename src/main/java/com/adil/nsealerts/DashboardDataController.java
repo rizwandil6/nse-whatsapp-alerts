@@ -82,8 +82,11 @@ public class DashboardDataController {
                     || ("pending".equals(r.get("status")) && today.equals(r.get("signalDate")));
             r.put("actionToday", actionToday);
             // Same lookup used by the Quarterly Results card -- current rank, not the
-            // rank as of signal date, and null for the ~most NSE stocks outside that
-            // ~300-symbol universe. See RsRankLookupService's own doc comment.
+            // rank as of signal date. Unlike Quarterly Results, coverage here is
+            // effectively the full swing universe (swing-strategy/live/symbols.json
+            // is kept identical to rs-momentum-strategy's own universe) -- a null
+            // means insufficient price history (e.g. a recent IPO), not exclusion.
+            // See RsRankLookupService's own doc comment.
             if (r.get("symbol") != null) {
                 Double rank = rsRankLookupService.rankFor(r.get("symbol").toString());
                 if (rank != null) r.put("rsRank", rank);

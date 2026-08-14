@@ -544,7 +544,7 @@
           ${since ? `<span>Since alert ${since}</span>` : ''}
           ${todayMove}
           ${s.rsiGatePass ? '<span class="badge win">full-spec</span>' : ''}
-          ${rsRankChip(s)}
+          ${rsRankChip(s, 'Not enough price history yet for a rank (likely a recent listing) -- swing shares the full RS Momentum universe, this symbol isn\'t excluded')}
         </div>
         ${rulesHtml}
       </div>`;
@@ -670,9 +670,15 @@
     return `<div class="metric-row-info"><span class="label">💰 Dividend</span> <b>₹${Number(r.dividendAmount).toFixed(2)} / share</b>${recordDateText}</div>`;
   }
 
-  function rsRankChip(r) {
+  // `naReason` lets a caller override the "n/a" tooltip when its own universe's coverage
+  // story differs from the default (Quarterly Results: most filers are outside the ~350-
+  // stock RS Momentum universe entirely). Swing shares that exact universe, so a null
+  // there means insufficient price history (recent IPO), not exclusion -- see swing's own
+  // call site.
+  function rsRankChip(r, naReason) {
     if (r.rsRank == null) {
-      return '<span class="rs-chip na" title="Only ~300 stocks in the RS Momentum universe have a rank">RS Rank — n/a</span>';
+      const reason = naReason || 'Only ~350 stocks in the RS Momentum universe have a rank';
+      return `<span class="rs-chip na" title="${esc(reason)}">RS Rank — n/a</span>`;
     }
     return `<span class="rs-chip">RS Rank <b>${Number(r.rsRank).toFixed(0)}</b></span>`;
   }
