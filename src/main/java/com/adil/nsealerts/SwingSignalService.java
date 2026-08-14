@@ -37,6 +37,7 @@ public class SwingSignalService {
                         "       exit_px AS \"exitPx\", r_net AS \"rNet\", " +
                         "       since_alert_pct AS \"sinceAlertPct\", last_price AS \"lastPrice\", " +
                         "       rsi_gate_pass AS \"rsiGatePass\", rules::text AS \"rules\", " +
+                        "       rs_rank_at_entry AS \"rsRankAtEntry\", " +
                         "       to_char(updated_at AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"updatedAt\" " +
                         "FROM swing.signals " +
                         "ORDER BY (status = 'open') DESC, (status = 'pending') DESC, signal_date DESC, symbol");

@@ -545,6 +545,7 @@
           ${todayMove}
           ${s.rsiGatePass ? '<span class="badge win">full-spec</span>' : ''}
           ${rsRankChip(s, 'Not enough price history yet for a rank (likely a recent listing) -- swing shares the full RS Momentum universe, this symbol isn\'t excluded')}
+          ${rsRankAtEntryChip(s)}
         </div>
         ${rulesHtml}
       </div>`;
@@ -681,6 +682,18 @@
       return `<span class="rs-chip na" title="${esc(reason)}">RS Rank — n/a</span>`;
     }
     return `<span class="rs-chip">RS Rank <b>${Number(r.rsRank).toFixed(0)}</b></span>`;
+  }
+
+  // Swing-only: the rank snapshotted the day the signal FIRST fired (pending,
+  // stamped once, then carried forward through open/closed unchanged) -- distinct
+  // from rsRankChip's live "as of today" rank above. Null here means either the
+  // signal predates this field being added, or the symbol had no rank that day
+  // (recent listing) -- can't tell which apart from the stored value alone.
+  function rsRankAtEntryChip(s) {
+    if (s.rsRankAtEntry == null) {
+      return '<span class="rs-chip na" title="No rank captured at signal time -- either this signal predates entry-rank tracking, or the symbol had no RS rank that day (e.g. recent listing)">RS Rank (entry) — n/a</span>';
+    }
+    return `<span class="rs-chip" title="RS rank on the day this signal first fired">RS Rank (entry) <b>${Number(s.rsRankAtEntry).toFixed(0)}</b></span>`;
   }
 
   const VERDICT_LABEL = { RIGHT: 'Right', MIXED: 'Mixed', WRONG: 'Wrong' };
