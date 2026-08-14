@@ -24,6 +24,7 @@
 const { sma, ema, rsi, isSmaRising, isGoldenCross } = require('./indicators');
 const { recentlyTouchedUninvalidatedZones } = require('./zones');
 const { SwingDB } = require('./swing_db');
+const { computeRsRawSeries, percentileRankByDate, buildDateIndexMap } = require('./rs_rank');
 
 const symbolMap = require('./symbols.json');
 
@@ -40,29 +41,30 @@ const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const round = (x, d = 2) => (x == null || Number.isNaN(x) ? null : Number(x.toFixed(d)));
 
-// Public raw read of rs-momentum-strategy/live's daily RS rank snapshot (same file
-// RsRankLookupService.java reads for the dashboard) -- used ONLY to capture
-// rsRankAtEntry the day a signal first fires. No auth needed, this repo is public.
-// One known staleness wrinkle: this runner fires 19:00-19:10 IST, but rs-momentum-
-// strategy's own rank job runs LATER, 20:00-20:30 IST -- so "today's" snapshot at
-// the time we read it is actually still YESTERDAY's ranks, not fully live intraday
-// ones anyway (RS rank is an EOD metric, so "yesterday's close-of-day rank" is the
-// most recent one that can exist at signal time regardless of read order).
-const RS_RANKS_URL = 'https://raw.githubusercontent.com/rizwandil6/nse-whatsapp-alerts/data/rs-momentum-log/rs-momentum-strategy/live/rs_today_ranks.json';
-async function fetchRsRanksSnapshot() {
-  try {
-    const res = await fetch(RS_RANKS_URL);
-    if (!res.ok) { console.warn(`  RS ranks snapshot fetch failed: HTTP ${res.status}`); return new Map(); }
-    const json = await res.json();
-    const map = new Map();
-    for (const [symbol, entry] of Object.entries(json || {})) {
-      if (entry && entry.rank != null) map.set(symbol, entry.rank);
-    }
-    return map;
-  } catch (e) {
-    console.warn(`  RS ranks snapshot fetch error: ${e.message}`);
-    return new Map();
+// rsRankAtEntry (2026-08-14, upgraded from reading rs-momentum-strategy's published
+// snapshot): computed SAME-DAY from this run's own fetched data using the local
+// rs_rank.js copy, instead of that published file -- which lags a day given the
+// two services' run-order (this runner fires 19:00-19:10 IST, rs-momentum-strategy's
+// own rank job runs LATER, 20:00-20:30 IST, so at read time its "today" snapshot was
+// actually still yesterday's). Cross-sectional percentile ranking needs EVERY
+// symbol's RS_raw before any one symbol's rank is known, so this can't be folded
+// into the main per-symbol loop below -- see the two-pass structure in runOnce().
+// FETCH_YEARS (3) already comfortably covers the 12mo lookback this needs; the only
+// new network cost is the one extra Nifty 50 fetch.
+function computeTodayRsRanks(dailyBySymbol, nifty, today) {
+  const niftyDateMap = buildDateIndexMap(nifty);
+  const rsRawBySymbolByDate = {};
+  for (const [symbol, daily] of Object.entries(dailyBySymbol)) {
+    const series = computeRsRawSeries(daily, nifty, niftyDateMap);
+    const last = series[series.length - 1];
+    if (last != null) rsRawBySymbolByDate[symbol] = { [today]: last };
   }
+  const ranked = percentileRankByDate(rsRawBySymbolByDate);
+  const map = new Map();
+  for (const [symbol, byDate] of Object.entries(ranked)) {
+    if (byDate[today] != null) map.set(symbol, byDate[today]);
+  }
+  return map;
 }
 
 // --- alerting (same pattern as ./runner.js's sendTelegramAlert) -------------
@@ -301,13 +303,20 @@ async function runOnce() {
   const db = new SwingDB();
   await db.init();
   const existing = await db.allExisting(); // symbol|signalDate -> {status, halfDate, exitDate, rs_rank_at_entry}, from BEFORE this run's writes
-  const rsRanks = await fetchRsRanksSnapshot(); // symbol -> rank, for stamping rsRankAtEntry on brand-new signals only
   const symbols = Object.keys(symbolMap);
   const today = istDateStr();
   let signals = 0, open = 0, closed = 0, pending = 0, errs = 0;
   const alerts = [];
   console.log(`[${new Date().toISOString()}] trimmed swing run over ${symbols.length} symbols...`);
 
+  console.log('Fetching Nifty 50 (for RS rank)...');
+  const nifty = await fetchDaily('NSE_INDEX|Nifty 50');
+
+  // Pass 1: fetch + signal-detect per symbol, same as before -- but don't upsert/alert
+  // yet. rsRankAtEntry needs EVERY symbol's daily data collected first (cross-sectional
+  // percentile ranking can't be computed one symbol at a time), so that has to wait
+  // for pass 2 below.
+  const perSymbol = []; // { symbol, daily, rows }
   for (const symbol of symbols) {
     try {
       const daily = await fetchDaily(symbolMap[symbol]);
@@ -318,30 +327,40 @@ async function runOnce() {
         if (tb) daily.push(tb);
       }
       const rows = analyzeSymbol(symbol, daily);
-      for (const r of rows) {
-        const prev = existing.get(`${r.symbol}|${r.signalDate}`);
-        // "today" here means this run just observed the transition — since the runner is
-        // stateless and only runs once/day, prev-vs-now is equivalent to "changed today".
-        // rsRankAtEntry: stamp it ONLY the run a signal is genuinely brand new (same
-        // condition as the "new signal" alert below -- pending only ever happens on
-        // signalDate === today, see analyzeSymbol). Every later run of the SAME
-        // signal (pending -> open -> closed) carries the already-stamped value
-        // forward unchanged, rather than re-reading today's snapshot again -- that's
-        // what makes this "at entry" instead of just a second copy of the live rank.
-        r.rsRankAtEntry = (!prev && r.status === 'pending')
-          ? (rsRanks.get(r.symbol) ?? null)
-          : (prev?.rs_rank_at_entry ?? null);
-        if (!prev && r.status === 'pending') alerts.push(formatNewSignalAlert(r));
-        if (r.halfDate === today && prev?.halfDate !== today) alerts.push(formatHalfBookAlert(r));
-        if (r.status === 'closed' && r.exitDate === today && prev?.status !== 'closed') alerts.push(formatExitAlert(r));
-        await db.upsertSignal(r);
-        signals++;
-        if (r.status === 'open') open++; else if (r.status === 'closed') closed++; else pending++;
-      }
+      perSymbol.push({ symbol, daily, rows });
     } catch (e) {
       errs++; console.warn(`  ${symbol}: ${e.message}`);
     }
     await sleep(FETCH_DELAY_MS);
+  }
+
+  console.log('Computing today\'s RS ranks from this run\'s own data...');
+  const dailyBySymbol = {};
+  for (const { symbol, daily } of perSymbol) dailyBySymbol[symbol] = daily;
+  const todayRsRanks = nifty ? computeTodayRsRanks(dailyBySymbol, nifty, today) : new Map();
+
+  // Pass 2: upsert + alert, now that todayRsRanks is fully known.
+  for (const { rows } of perSymbol) {
+    for (const r of rows) {
+      const prev = existing.get(`${r.symbol}|${r.signalDate}`);
+      // "today" here means this run just observed the transition — since the runner is
+      // stateless and only runs once/day, prev-vs-now is equivalent to "changed today".
+      // rsRankAtEntry: stamp it ONLY the run a signal is genuinely brand new (same
+      // condition as the "new signal" alert below -- pending only ever happens on
+      // signalDate === today, see analyzeSymbol). Every later run of the SAME
+      // signal (pending -> open -> closed) carries the already-stamped value
+      // forward unchanged, rather than recomputing today's rank again -- that's
+      // what makes this "at entry" instead of just a second copy of the live rank.
+      r.rsRankAtEntry = (!prev && r.status === 'pending')
+        ? (todayRsRanks.get(r.symbol) ?? null)
+        : (prev?.rs_rank_at_entry ?? null);
+      if (!prev && r.status === 'pending') alerts.push(formatNewSignalAlert(r));
+      if (r.halfDate === today && prev?.halfDate !== today) alerts.push(formatHalfBookAlert(r));
+      if (r.status === 'closed' && r.exitDate === today && prev?.status !== 'closed') alerts.push(formatExitAlert(r));
+      await db.upsertSignal(r);
+      signals++;
+      if (r.status === 'open') open++; else if (r.status === 'closed') closed++; else pending++;
+    }
   }
   console.log(`[${istDateStr()}] DONE — signals=${signals} open=${open} pending=${pending} closed=${closed} errs=${errs} alerts=${alerts.length}`);
   for (const text of alerts) await sendTelegramAlert(text);
