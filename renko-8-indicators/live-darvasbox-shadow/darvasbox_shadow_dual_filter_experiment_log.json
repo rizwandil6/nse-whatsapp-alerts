@@ -3103,5 +3103,29 @@
   "timestampMs": 1786701000000,
   "breakoutTimestampMs": 1786701000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 225.425025,
+  "exitPrice": 229.94482500000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -2.005012531328335,
+  "entryTimestampMs": 1786701000000,
+  "exitTimestampMs": 1786701300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 595.6855,
+  "exitPrice": 588.258,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.2468827930174577,
+  "entryTimestampMs": 1786695300000,
+  "exitTimestampMs": 1786701300000,
+  "shadow": true
  }
 ]
