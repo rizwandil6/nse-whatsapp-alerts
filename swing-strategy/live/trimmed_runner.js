@@ -40,6 +40,31 @@ const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const round = (x, d = 2) => (x == null || Number.isNaN(x) ? null : Number(x.toFixed(d)));
 
+// Public raw read of rs-momentum-strategy/live's daily RS rank snapshot (same file
+// RsRankLookupService.java reads for the dashboard) -- used ONLY to capture
+// rsRankAtEntry the day a signal first fires. No auth needed, this repo is public.
+// One known staleness wrinkle: this runner fires 19:00-19:10 IST, but rs-momentum-
+// strategy's own rank job runs LATER, 20:00-20:30 IST -- so "today's" snapshot at
+// the time we read it is actually still YESTERDAY's ranks, not fully live intraday
+// ones anyway (RS rank is an EOD metric, so "yesterday's close-of-day rank" is the
+// most recent one that can exist at signal time regardless of read order).
+const RS_RANKS_URL = 'https://raw.githubusercontent.com/rizwandil6/nse-whatsapp-alerts/data/rs-momentum-log/rs-momentum-strategy/live/rs_today_ranks.json';
+async function fetchRsRanksSnapshot() {
+  try {
+    const res = await fetch(RS_RANKS_URL);
+    if (!res.ok) { console.warn(`  RS ranks snapshot fetch failed: HTTP ${res.status}`); return new Map(); }
+    const json = await res.json();
+    const map = new Map();
+    for (const [symbol, entry] of Object.entries(json || {})) {
+      if (entry && entry.rank != null) map.set(symbol, entry.rank);
+    }
+    return map;
+  } catch (e) {
+    console.warn(`  RS ranks snapshot fetch error: ${e.message}`);
+    return new Map();
+  }
+}
+
 // --- alerting (same pattern as ./runner.js's sendTelegramAlert) -------------
 async function sendTelegramAlert(text) {
   console.log('[ALERT]', text.replace(/\n/g, ' | '));
@@ -275,7 +300,8 @@ function analyzeSymbol(symbol, daily) {
 async function runOnce() {
   const db = new SwingDB();
   await db.init();
-  const existing = await db.allExisting(); // symbol|signalDate -> {status, halfDate, exitDate}, from BEFORE this run's writes
+  const existing = await db.allExisting(); // symbol|signalDate -> {status, halfDate, exitDate, rs_rank_at_entry}, from BEFORE this run's writes
+  const rsRanks = await fetchRsRanksSnapshot(); // symbol -> rank, for stamping rsRankAtEntry on brand-new signals only
   const symbols = Object.keys(symbolMap);
   const today = istDateStr();
   let signals = 0, open = 0, closed = 0, pending = 0, errs = 0;
@@ -296,6 +322,15 @@ async function runOnce() {
         const prev = existing.get(`${r.symbol}|${r.signalDate}`);
         // "today" here means this run just observed the transition — since the runner is
         // stateless and only runs once/day, prev-vs-now is equivalent to "changed today".
+        // rsRankAtEntry: stamp it ONLY the run a signal is genuinely brand new (same
+        // condition as the "new signal" alert below -- pending only ever happens on
+        // signalDate === today, see analyzeSymbol). Every later run of the SAME
+        // signal (pending -> open -> closed) carries the already-stamped value
+        // forward unchanged, rather than re-reading today's snapshot again -- that's
+        // what makes this "at entry" instead of just a second copy of the live rank.
+        r.rsRankAtEntry = (!prev && r.status === 'pending')
+          ? (rsRanks.get(r.symbol) ?? null)
+          : (prev?.rs_rank_at_entry ?? null);
         if (!prev && r.status === 'pending') alerts.push(formatNewSignalAlert(r));
         if (r.halfDate === today && prev?.halfDate !== today) alerts.push(formatHalfBookAlert(r));
         if (r.status === 'closed' && r.exitDate === today && prev?.status !== 'closed') alerts.push(formatExitAlert(r));
