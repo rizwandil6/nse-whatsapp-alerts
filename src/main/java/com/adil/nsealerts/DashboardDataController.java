@@ -81,6 +81,13 @@ public class DashboardDataController {
             boolean actionToday = today.equals(r.get("halfDate")) || today.equals(r.get("exitDate"))
                     || ("pending".equals(r.get("status")) && today.equals(r.get("signalDate")));
             r.put("actionToday", actionToday);
+            // Same lookup used by the Quarterly Results card -- current rank, not the
+            // rank as of signal date, and null for the ~most NSE stocks outside that
+            // ~300-symbol universe. See RsRankLookupService's own doc comment.
+            if (r.get("symbol") != null) {
+                Double rank = rsRankLookupService.rankFor(r.get("symbol").toString());
+                if (rank != null) r.put("rsRank", rank);
+            }
         }
         if (!openSymbols.isEmpty()) {
             Map<String, Double> live = swingLivePriceService.pricesFor(openSymbols);
