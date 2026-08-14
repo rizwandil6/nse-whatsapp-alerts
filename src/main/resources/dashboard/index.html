@@ -494,6 +494,7 @@
       `<select id="sw-month"><option value="all">All months</option>${months.map((m) => `<option value="${m}">${monthLabel(m)}</option>`).join('')}</select>` +
       '<input id="sw-symbol" type="search" placeholder="Search symbol…" autocomplete="off" />' +
       '<select id="sw-result"><option value="all">All results</option><option value="win">Wins</option><option value="loss">Losses</option></select>' +
+      '<select id="sw-rsrank"><option value="all">All RS ranks</option><option value="80">RS ≥ 80</option><option value="50">RS ≥ 50</option><option value="below50">RS &lt; 50</option><option value="na">No rank data</option></select>' +
       '<label class="sw-check"><input type="checkbox" id="sw-fullspec" /> Full-spec only</label>';
     panel.appendChild(bar);
 
@@ -503,7 +504,7 @@
     list.style.gap = '10px';
     panel.appendChild(list);
 
-    const state = { status: 'all', month: 'all', symbol: '', result: 'all', fullspec: false };
+    const state = { status: 'all', month: 'all', symbol: '', result: 'all', fullspec: false, rsrank: 'all' };
 
     function cardHtml(s) {
       const isClosed = s.status === 'closed';
@@ -543,6 +544,7 @@
           ${since ? `<span>Since alert ${since}</span>` : ''}
           ${todayMove}
           ${s.rsiGatePass ? '<span class="badge win">full-spec</span>' : ''}
+          ${rsRankChip(s, 'Not enough price history yet for a rank (likely a recent listing) -- swing shares the full RS Momentum universe, this symbol isn\'t excluded')}
         </div>
         ${rulesHtml}
       </div>`;
@@ -560,6 +562,8 @@
       if (state.symbol) { const q = state.symbol.toLowerCase(); f = f.filter((s) => (s.symbol || '').toLowerCase().includes(q)); }
       if (state.fullspec) f = f.filter((s) => s.rsiGatePass === true);
       if (state.result !== 'all') f = f.filter((s) => s.status === 'closed' && (state.result === 'win' ? Number(s.rNet) > 0 : Number(s.rNet) <= 0));
+      if (state.rsrank === 'na') f = f.filter((s) => s.rsRank == null);
+      else if (state.rsrank !== 'all') f = f.filter((s) => s.rsRank != null && (state.rsrank === 'below50' ? Number(s.rsRank) < 50 : Number(s.rsRank) >= Number(state.rsrank)));
       list.innerHTML = f.length ? f.map(cardHtml).join('') : '<div class="state-msg">No signals match these filters.</div>';
       const badge = document.getElementById('count-swing-strategy');
       if (badge) badge.textContent = f.length || '';
@@ -590,6 +594,7 @@
     bar.querySelector('#sw-symbol').addEventListener('input', (e) => { state.symbol = e.target.value.trim(); apply(); });
     bar.querySelector('#sw-result').addEventListener('change', (e) => { state.result = e.target.value; apply(); });
     bar.querySelector('#sw-fullspec').addEventListener('change', (e) => { state.fullspec = e.target.checked; apply(); });
+    bar.querySelector('#sw-rsrank').addEventListener('change', (e) => { state.rsrank = e.target.value; apply(); });
     apply();
   }
 
@@ -665,9 +670,15 @@
     return `<div class="metric-row-info"><span class="label">💰 Dividend</span> <b>₹${Number(r.dividendAmount).toFixed(2)} / share</b>${recordDateText}</div>`;
   }
 
-  function rsRankChip(r) {
+  // `naReason` lets a caller override the "n/a" tooltip when its own universe's coverage
+  // story differs from the default (Quarterly Results: most filers are outside the ~350-
+  // stock RS Momentum universe entirely). Swing shares that exact universe, so a null
+  // there means insufficient price history (recent IPO), not exclusion -- see swing's own
+  // call site.
+  function rsRankChip(r, naReason) {
     if (r.rsRank == null) {
-      return '<span class="rs-chip na" title="Only ~300 stocks in the RS Momentum universe have a rank">RS Rank — n/a</span>';
+      const reason = naReason || 'Only ~350 stocks in the RS Momentum universe have a rank';
+      return `<span class="rs-chip na" title="${esc(reason)}">RS Rank — n/a</span>`;
     }
     return `<span class="rs-chip">RS Rank <b>${Number(r.rsRank).toFixed(0)}</b></span>`;
   }

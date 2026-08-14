@@ -4,20 +4,32 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Component;
 
 /**
- * Looks up a symbol's current RS Rank for the Quarterly Results dashboard
- * card, sourced from rs-momentum-strategy/live's daily full-universe
- * snapshot (rs_today_ranks.json on the data/rs-momentum-log branch, added
- * 2026-07-30 specifically for this lookup -- that service previously only
- * ever persisted symbols that crossed its RS>=80/<50 alert thresholds,
- * discarding the rest of the day's cross-sectional ranking).
+ * Looks up a symbol's current RS Rank -- originally added for the Quarterly
+ * Results dashboard card, also used by the Swing Strategy tab (2026-08-14) --
+ * sourced from rs-momentum-strategy/live's daily full-universe snapshot
+ * (rs_today_ranks.json on the data/rs-momentum-log branch, added 2026-07-30
+ * specifically for this lookup -- that service previously only ever
+ * persisted symbols that crossed its RS>=80/<50 alert thresholds, discarding
+ * the rest of the day's cross-sectional ranking).
  *
- * Coverage is inherently partial: only the ~300 stocks in that service's own
- * universe (rs-momentum-strategy/live/symbols.json) have a rank at all --
- * most NSE-listed companies filing quarterly results are NOT in that
- * universe, and rankFor() returns null for them. Computing a rank for an
- * out-of-universe symbol isn't a cheap lookup -- it requires re-ranking the
- * WHOLE universe's price history cross-sectionally (see today_ranks.js),
- * which is deliberately NOT done here on a per-card basis.
+ * Coverage depends on the CALLER's own universe vs. rs-momentum-strategy's
+ * own universe (rs-momentum-strategy/live/symbols.json, 352 symbols as of
+ * 2026-08-14):
+ *   - Quarterly Results: coverage is inherently partial -- most NSE-listed
+ *     companies filing results are simply not in that 352-symbol universe at
+ *     all, and rankFor() returns null for them.
+ *   - Swing Strategy: swing-strategy/live/symbols.json is now IDENTICAL to
+ *     rs-momentum-strategy/live/symbols.json (kept in sync as of 2026-08-14)
+ *     -- every swing symbol IS in the universe. The rare null here (~12/352
+ *     as of this writing, e.g. GROWW/LENSKART/MEESHO -- recent IPOs) means
+ *     that symbol doesn't yet have enough price history for the RS
+ *     calculation itself, not that it's excluded from the universe.
+ *
+ * Computing a rank for a truly out-of-universe symbol isn't a cheap lookup
+ * either way -- it requires re-ranking the WHOLE universe's price history
+ * cross-sectionally (see today_ranks.js), which is deliberately NOT done
+ * here on a per-card basis. If a future caller's universe diverges from
+ * rs-momentum-strategy's again, this coverage note needs updating.
  *
  * "Today's" rank is also only as fresh as that service's own daily (not
  * intraday) cadence -- one run, 20:00-20:30 IST after market close.
