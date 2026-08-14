@@ -495,6 +495,7 @@
       '<input id="sw-symbol" type="search" placeholder="Search symbol…" autocomplete="off" />' +
       '<select id="sw-result"><option value="all">All results</option><option value="win">Wins</option><option value="loss">Losses</option></select>' +
       '<select id="sw-rsrank"><option value="all">All RS ranks</option><option value="80">RS ≥ 80</option><option value="50">RS ≥ 50</option><option value="below50">RS &lt; 50</option><option value="na">No rank data</option></select>' +
+      '<select id="sw-rsrank-entry"><option value="all">All RS ranks (entry)</option><option value="80">RS (entry) ≥ 80</option><option value="50">RS (entry) ≥ 50</option><option value="below50">RS (entry) &lt; 50</option><option value="na">No entry-rank data</option></select>' +
       '<label class="sw-check"><input type="checkbox" id="sw-fullspec" /> Full-spec only</label>';
     panel.appendChild(bar);
 
@@ -504,7 +505,7 @@
     list.style.gap = '10px';
     panel.appendChild(list);
 
-    const state = { status: 'all', month: 'all', symbol: '', result: 'all', fullspec: false, rsrank: 'all' };
+    const state = { status: 'all', month: 'all', symbol: '', result: 'all', fullspec: false, rsrank: 'all', rsrankEntry: 'all' };
 
     function cardHtml(s) {
       const isClosed = s.status === 'closed';
@@ -565,6 +566,8 @@
       if (state.result !== 'all') f = f.filter((s) => s.status === 'closed' && (state.result === 'win' ? Number(s.rNet) > 0 : Number(s.rNet) <= 0));
       if (state.rsrank === 'na') f = f.filter((s) => s.rsRank == null);
       else if (state.rsrank !== 'all') f = f.filter((s) => s.rsRank != null && (state.rsrank === 'below50' ? Number(s.rsRank) < 50 : Number(s.rsRank) >= Number(state.rsrank)));
+      if (state.rsrankEntry === 'na') f = f.filter((s) => s.rsRankAtEntry == null);
+      else if (state.rsrankEntry !== 'all') f = f.filter((s) => s.rsRankAtEntry != null && (state.rsrankEntry === 'below50' ? Number(s.rsRankAtEntry) < 50 : Number(s.rsRankAtEntry) >= Number(state.rsrankEntry)));
       list.innerHTML = f.length ? f.map(cardHtml).join('') : '<div class="state-msg">No signals match these filters.</div>';
       const badge = document.getElementById('count-swing-strategy');
       if (badge) badge.textContent = f.length || '';
@@ -596,6 +599,7 @@
     bar.querySelector('#sw-result').addEventListener('change', (e) => { state.result = e.target.value; apply(); });
     bar.querySelector('#sw-fullspec').addEventListener('change', (e) => { state.fullspec = e.target.checked; apply(); });
     bar.querySelector('#sw-rsrank').addEventListener('change', (e) => { state.rsrank = e.target.value; apply(); });
+    bar.querySelector('#sw-rsrank-entry').addEventListener('change', (e) => { state.rsrankEntry = e.target.value; apply(); });
     apply();
   }
 
