@@ -1,18 +1,7 @@
 [
  {
-  "symbol": "MCX",
-  "entryDate": "2026-08-12",
-  "entryPrice": 2759.3,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 2970,
-  "returnSinceEntry": 7.635994636320799
- },
- {
   "symbol": "AEGISVOPAK",
-  "entryDate": "2026-08-12",
+  "entryDate": "2026-08-14",
   "entryPrice": 271.5,
   "status": "open",
   "exitDate": null,
@@ -23,7 +12,7 @@
  },
  {
   "symbol": "CGCL",
-  "entryDate": "2026-08-12",
+  "entryDate": "2026-08-14",
   "entryPrice": 231.12,
   "status": "open",
   "exitDate": null,
@@ -33,26 +22,15 @@
   "returnSinceEntry": 0
  },
  {
-  "symbol": "NAUKRI",
+  "symbol": "MCX",
   "entryDate": "2026-08-12",
-  "entryPrice": 1357.3,
+  "entryPrice": 2759.3,
   "status": "open",
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1357.3,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "TORNTPHARM",
-  "entryDate": "2026-08-12",
-  "entryPrice": 4914.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 4914.5,
-  "returnSinceEntry": 0
+  "currentPrice": 2970,
+  "returnSinceEntry": 7.635994636320799
  },
  {
   "symbol": "COFORGE",
