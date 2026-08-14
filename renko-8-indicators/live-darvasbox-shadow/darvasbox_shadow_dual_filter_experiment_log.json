@@ -3043,5 +3043,14 @@
   "entryTimestampMs": 1786683600000,
   "exitTimestampMs": 1786692000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 595.6855,
+  "timestampMs": 1786695300000,
+  "breakoutTimestampMs": 1786695300000,
+  "shadow": true
  }
 ]
