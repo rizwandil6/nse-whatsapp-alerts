@@ -39,3 +39,11 @@ CREATE INDEX IF NOT EXISTS swing_signals_date_idx   ON swing.signals (signal_dat
 -- CREATE TABLE above, since that's a no-op against the already-deployed table.
 ALTER TABLE swing.signals ADD COLUMN IF NOT EXISTS half_date  date;
 ALTER TABLE swing.signals ADD COLUMN IF NOT EXISTS half_price numeric;
+
+-- Snapshot of the symbol's RS Momentum rank taken the day the signal first fired
+-- (pending, signal_date = today), then carried forward unchanged through
+-- pending -> open -> closed on every later run -- distinct from the dashboard's
+-- separately-attached LIVE rank, which always reflects today. Only populated for
+-- signals seen for the first time after this column existed; pre-existing rows
+-- stay null (no historical rank archive to backfill from). See trimmed_runner.js.
+ALTER TABLE swing.signals ADD COLUMN IF NOT EXISTS rs_rank_at_entry double precision;
