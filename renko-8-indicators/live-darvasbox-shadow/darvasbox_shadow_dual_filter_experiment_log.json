@@ -3061,5 +3061,26 @@
   "timestampMs": 1786696800000,
   "breakoutTimestampMs": 1786696800000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 529.9949999999999,
+  "timestampMs": 1786700400000,
+  "breakoutTimestampMs": 1786700400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 529.9949999999999,
+  "exitPrice": 529.9949999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1786700400000,
+  "exitTimestampMs": 1786700400000,
+  "shadow": true
  }
 ]
