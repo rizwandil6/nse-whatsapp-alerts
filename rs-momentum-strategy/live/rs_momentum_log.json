@@ -484,5 +484,33 @@
   "price": 2759.3,
   "rsRankAtEntry": 82.00589970501476,
   "salesGrowth3Y": 65
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AEGISVOPAK",
+  "date": "2026-08-12",
+  "price": 271.5,
+  "rsRankAtEntry": 80.12422360248446
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CGCL",
+  "date": "2026-08-12",
+  "price": 231.12,
+  "rsRankAtEntry": 81.57349896480332
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "NAUKRI",
+  "date": "2026-08-12",
+  "price": 1357.3,
+  "rsRankAtEntry": 80.53830227743272
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "TORNTPHARM",
+  "date": "2026-08-12",
+  "price": 4914.5,
+  "rsRankAtEntry": 80.33126293995859
  }
 ]
