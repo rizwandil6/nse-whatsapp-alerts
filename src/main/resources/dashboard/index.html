@@ -262,6 +262,9 @@
 
   async function loadTab(key) {
     const panel = document.getElementById('panel-' + key);
+    // Swing tab attaches live LTPs server-side (during market hours) before
+    // responding, so it can take noticeably longer than the other tabs -- say why.
+    if (key === 'swing-strategy') panel.innerHTML = '<div class="state-msg">Fetching current LTPs…</div>';
     try {
       const data = await fetchTabData(key);
       document.getElementById('count-' + key).textContent = data.length ? data.length : '';
