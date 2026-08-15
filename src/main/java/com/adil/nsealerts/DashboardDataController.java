@@ -6,8 +6,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -58,8 +61,11 @@ public class DashboardDataController {
     // swing-strategy/live Node service), then attaches a LIVE last price to each
     // OPEN position so `since alert %` tracks the current price instead of the
     // frozen 19:00 snapshot. Same "attach fresh, don't trust the stored snapshot"
-    // pattern as RS Rank below. Live prices are cached 60s in SwingLivePriceService;
-    // closed rows keep their realized %, pending rows have no entry to price.
+    // pattern as RS Rank below. Live prices are cached 60s in SwingLivePriceService,
+    // and only fetched during NSE cash-market hours (see isMarketHours) -- outside
+    // that window rows simply keep their stored snapshot instead of paying for an
+    // Upstox round-trip that can't return anything fresher. Closed rows keep their
+    // realized %, pending rows have no entry to price.
     //
     // Also attaches `todayPct` -- the day's move only, distinct from `sinceAlertPct`
     // (the whole-position return). Baseline is the stored `lastPrice` snapshot: the
@@ -92,7 +98,7 @@ public class DashboardDataController {
                 if (rank != null) r.put("rsRank", rank);
             }
         }
-        if (!openSymbols.isEmpty()) {
+        if (!openSymbols.isEmpty() && isMarketHours()) {
             Map<String, Double> live = swingLivePriceService.pricesFor(openSymbols);
             for (Map<String, Object> r : rows) {
                 if (!"open".equals(r.get("status"))) continue;
@@ -111,6 +117,17 @@ public class DashboardDataController {
             }
         }
         return rows;
+    }
+
+    // NSE cash session: 09:15-15:30 IST, Mon-Fri. Live-price the Swing tab's open
+    // positions only inside that window -- outside it Upstox's intraday-candle feed
+    // has nothing fresher to give us, so skip the network round-trip and let rows
+    // keep their stored (19:00 runner) snapshot.
+    private boolean isMarketHours() {
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Kolkata"));
+        if (now.getDayOfWeek() == DayOfWeek.SATURDAY || now.getDayOfWeek() == DayOfWeek.SUNDAY) return false;
+        LocalTime t = now.toLocalTime();
+        return !t.isBefore(LocalTime.of(9, 15)) && !t.isAfter(LocalTime.of(15, 30));
     }
 
     // Unlike the other 4 tabs, this reads straight from Postgres (this same
