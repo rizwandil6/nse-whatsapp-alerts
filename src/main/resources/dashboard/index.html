@@ -467,8 +467,30 @@
     }
   }
 
+  // Latest date stamped anywhere in this dataset's halfDate/exitDate/(pending)signalDate --
+  // mirrors DashboardDataController's latestSignalDay so per-card "today" badges agree
+  // with the server-computed actionToday used by the "Action today" filter pill. NOT the
+  // client's wall clock: the runner only stamps a new date on an actual trading day's
+  // 19:00 run, so this only advances when the data does, and stays put (badges keep
+  // showing) straight through a market holiday with no holiday calendar needed.
+  function laterDate(a, b) {
+    if (!b) return a;
+    if (!a) return b;
+    return a >= b ? a : b;
+  }
+  function latestSignalDay(items) {
+    let latest = null;
+    for (const s of items) {
+      latest = laterDate(latest, s.halfDate);
+      latest = laterDate(latest, s.exitDate);
+      if (s.status === 'pending') latest = laterDate(latest, s.signalDate);
+    }
+    return latest;
+  }
+
   function renderSwing(items, panel) {
     panel.innerHTML = '';
+    const signalDay = latestSignalDay(items);
 
     // Header: description (left) + P&L totals (right). Totals are recomputed in apply()
     // below over whatever's currently filtered, not always the full item list -- so
@@ -539,9 +561,9 @@
       // separate from what its lifecycle status is (an old closed trade and one that
       // closed an hour ago both say "Closed", only this badge tells them apart).
       let actionBadge = '';
-      if (todayStr() === s.halfDate) actionBadge = '<span class="badge win">⚡ Half-booked today</span>';
-      else if (todayStr() === s.exitDate) actionBadge = `<span class="badge ${s.rNet >= 0 ? 'win' : 'loss'}">🚪 Exited today</span>`;
-      else if (s.status === 'pending' && todayStr() === s.signalDate) actionBadge = '<span class="badge amber">🆕 New signal — plan tomorrow\'s open</span>';
+      if (signalDay === s.halfDate) actionBadge = '<span class="badge win">⚡ Half-booked today</span>';
+      else if (signalDay === s.exitDate) actionBadge = `<span class="badge ${s.rNet >= 0 ? 'win' : 'loss'}">🚪 Exited today</span>`;
+      else if (s.status === 'pending' && signalDay === s.signalDate) actionBadge = '<span class="badge amber">🆕 New signal — plan tomorrow\'s open</span>';
       return `<div class="card">
         <div class="card-top"><div class="card-title">${esc(s.symbol)}</div><div class="card-time">${esc(s.signalDate)}</div></div>
         <div class="card-meta">
@@ -562,10 +584,6 @@
         </div>
         ${rulesHtml}
       </div>`;
-    }
-
-    function todayStr() {
-      return new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }); // en-CA = YYYY-MM-DD
     }
 
     function apply() {
