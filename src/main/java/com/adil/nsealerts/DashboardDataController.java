@@ -76,11 +76,15 @@ public class DashboardDataController {
     //
     // `actionToday` flags rows a trader needs to look at today without scanning the
     // whole list: a brand-new pending signal (plan tomorrow's entry), a +2R half-book,
-    // or a full exit -- all detected by comparing the row's date fields to IST "today".
+    // or a full exit -- all detected by comparing the row's date fields to the current
+    // "signal day" (see effectiveSignalDate). NOT calendar-day midnight: the Node
+    // runner only refreshes signals once daily at 19:00 IST, so a badge set today
+    // must keep showing through the rest of tonight and stay live until that next
+    // 19:00 run -- not vanish the instant the clock crosses into a new calendar date.
     @GetMapping(value = "/api/dashboard/swing", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String, Object>> swing() {
         List<Map<String, Object>> rows = swingSignalService.all();
-        String today = LocalDate.now(ZoneId.of("Asia/Kolkata")).toString();
+        String today = effectiveSignalDate().toString();
         List<String> openSymbols = new ArrayList<>();
         for (Map<String, Object> r : rows) {
             if ("open".equals(r.get("status")) && r.get("symbol") != null) openSymbols.add(r.get("symbol").toString());
@@ -117,6 +121,19 @@ public class DashboardDataController {
             }
         }
         return rows;
+    }
+
+    // The Node runner stamps signalDate/halfDate/exitDate with the calendar date of
+    // its once-daily 19:00 IST run, and those values don't change again until the
+    // NEXT run. So the "signal day" these dates should be compared against isn't
+    // midnight-to-midnight -- it's 19:00-to-19:00: before 19:00 IST, the most recent
+    // run (and therefore "today's" action) was still stamped with YESTERDAY's date;
+    // only at/after 19:00 does a fresh run stamp today's date.
+    private LocalDate effectiveSignalDate() {
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Kolkata"));
+        LocalDate date = now.toLocalDate();
+        if (now.toLocalTime().isBefore(LocalTime.of(19, 0))) date = date.minusDays(1);
+        return date;
     }
 
     // NSE cash session: 09:15-15:30 IST, Mon-Fri. Live-price the Swing tab's open
