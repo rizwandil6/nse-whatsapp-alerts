@@ -349,7 +349,13 @@
   function selectTab(key) {
     document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === key));
     document.querySelectorAll('.panel').forEach((p) => p.classList.toggle('active', p.id === 'panel-' + key));
-    if (key !== 'home' && !loaded[key]) { loaded[key] = true; loadTab(key); }
+    // Swing tab is deliberately excluded from dataCache in fetchTabData (it carries
+    // live prices + today's action badges, both of which can go stale while the
+    // dashboard sits open across the 19:00 run) -- so it must re-fetch on every
+    // reselect, not just the first time this session. Without this, reselecting the
+    // tab after tonight's run silently re-rendered the SAME pre-run data forever,
+    // since `loaded[key]` was already true from the first visit.
+    if (key !== 'home' && (!loaded[key] || key === 'swing-strategy')) { loaded[key] = true; loadTab(key); }
   }
 
   function renderNews(items, panel) {
