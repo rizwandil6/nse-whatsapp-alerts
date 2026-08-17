@@ -3310,5 +3310,53 @@
   "timestampMs": 1786959900000,
   "breakoutTimestampMs": 1786959900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 549.620625,
+  "exitPrice": 570.1800000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 3.7406483790524185,
+  "entryTimestampMs": 1786939800000,
+  "exitTimestampMs": 1786960500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 947.5630000000001,
+  "exitPrice": 947.5630000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1786959900000,
+  "exitTimestampMs": 1786959900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 106.47349999999997,
+  "exitPrice": 106.99799999999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.4926108374384135,
+  "entryTimestampMs": 1786959000000,
+  "exitTimestampMs": 1786959900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.563525,
+  "exitPrice": 10.6,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.34529193616713516,
+  "entryTimestampMs": 1786945500000,
+  "exitTimestampMs": 1786958100000,
+  "shadow": true
  }
 ]
