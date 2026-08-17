@@ -3379,5 +3379,17 @@
   "entryTimestampMs": 1786945500000,
   "exitTimestampMs": 1786959300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 549.620625,
+  "exitPrice": 572.9212500000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 4.239401496259408,
+  "entryTimestampMs": 1786939800000,
+  "exitTimestampMs": 1786959000000,
+  "shadow": true
  }
 ]
