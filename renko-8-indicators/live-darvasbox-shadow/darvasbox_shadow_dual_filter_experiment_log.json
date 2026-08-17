@@ -3127,5 +3127,14 @@
   "entryTimestampMs": 1786695300000,
   "exitTimestampMs": 1786701300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 549.620625,
+  "timestampMs": 1786939800000,
+  "breakoutTimestampMs": 1786939800000,
+  "shadow": true
  }
 ]
