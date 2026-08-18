@@ -3490,5 +3490,53 @@
   "entryTimestampMs": 1787043900000,
   "exitTimestampMs": 1787043900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 330.3197500000001,
+  "exitPrice": 328.64300000000014,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5076142131979603,
+  "entryTimestampMs": 1787044800000,
+  "exitTimestampMs": 1787046600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 140.299875,
+  "exitPrice": 140.64974999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24937655860348937,
+  "entryTimestampMs": 1787043300000,
+  "exitTimestampMs": 1787043600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 823.55,
+  "exitPrice": 837.9621249999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.7499999999999523,
+  "entryTimestampMs": 1787041500000,
+  "exitTimestampMs": 1787046600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 592.713,
+  "exitPrice": 580.7389999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 2.0202020202020474,
+  "entryTimestampMs": 1787026200000,
+  "exitTimestampMs": 1787046300000,
+  "shadow": true
  }
 ]
