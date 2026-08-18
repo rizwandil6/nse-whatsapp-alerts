@@ -3466,5 +3466,29 @@
   "timestampMs": 1787044800000,
   "breakoutTimestampMs": 1787044800000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 48.38437499999999,
+  "exitPrice": 47.53124999999997,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.763224181360243,
+  "entryTimestampMs": 1787035200000,
+  "exitTimestampMs": 1787045700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "SHORT",
+  "entry": 171.90615,
+  "exitPrice": 171.90615,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787043900000,
+  "exitTimestampMs": 1787043900000,
+  "shadow": true
  }
 ]
