@@ -3547,5 +3547,26 @@
   "timestampMs": 1787045100000,
   "breakoutTimestampMs": 1787045100000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 48.27240000000001,
+  "timestampMs": 1787035800000,
+  "breakoutTimestampMs": 1787035800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 48.27240000000001,
+  "exitPrice": 47.54100000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.515151515151472,
+  "entryTimestampMs": 1787035800000,
+  "exitTimestampMs": 1787045700000,
+  "shadow": true
  }
 ]
