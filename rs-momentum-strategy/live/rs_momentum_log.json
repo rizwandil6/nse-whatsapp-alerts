@@ -542,5 +542,36 @@
   "date": "2026-08-14",
   "price": 4914.5,
   "rsRankAtEntry": 80.33126293995859
+ },
+ {
+  "type": "EXIT",
+  "symbol": "BIOCON",
+  "date": "2026-08-16",
+  "price": 412,
+  "pnlPct": -5.763952424519668
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NUVAMA",
+  "date": "2026-08-16",
+  "price": 1731.2,
+  "rsRankAtEntry": 81.40495867768594,
+  "salesGrowth3Y": 28
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "PTCIL",
+  "date": "2026-08-16",
+  "price": 20584,
+  "rsRankAtEntry": 83.47107438016529,
+  "salesGrowth3Y": 40
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TBOTEK",
+  "date": "2026-08-16",
+  "price": 1700,
+  "rsRankAtEntry": 84.50413223140497,
+  "salesGrowth3Y": 36
  }
 ]

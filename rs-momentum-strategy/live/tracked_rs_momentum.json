@@ -23,13 +23,6 @@
   "rsRankAtEntry": 82.19584569732937,
   "salesGrowth3Y": 36
  },
- "BIOCON": {
-  "entryDate": "2026-07-16",
-  "entryPrice": 437.2,
-  "rsRankAtEntry": 81.31,
-  "salesGrowth3Y": 15,
-  "note": "Manually added 2026-07-18 — genuinely qualified (RS>=80, Sales Growth 3Y=15%) but never fired as a fresh crossing since it was already >=80 the day before; added directly per user request rather than waiting for a dip-and-recross."
- },
  "EMCURE": {
   "entryDate": "2026-07-16",
   "entryPrice": 1783.2,
@@ -144,5 +137,23 @@
   "entryPrice": 231.12,
   "rsRankAtEntry": 81.57349896480332,
   "salesGrowth3Y": 48
+ },
+ "NUVAMA": {
+  "entryDate": "2026-08-16",
+  "entryPrice": 1731.2,
+  "rsRankAtEntry": 81.40495867768594,
+  "salesGrowth3Y": 28
+ },
+ "PTCIL": {
+  "entryDate": "2026-08-16",
+  "entryPrice": 20584,
+  "rsRankAtEntry": 83.47107438016529,
+  "salesGrowth3Y": 40
+ },
+ "TBOTEK": {
+  "entryDate": "2026-08-16",
+  "entryPrice": 1700,
+  "rsRankAtEntry": 84.50413223140497,
+  "salesGrowth3Y": 36
  }
 }
