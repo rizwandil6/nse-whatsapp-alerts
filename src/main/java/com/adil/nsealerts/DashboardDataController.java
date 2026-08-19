@@ -99,6 +99,11 @@ public class DashboardDataController {
     @GetMapping(value = "/api/dashboard/swing", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String, Object>> swing() {
         List<Map<String, Object>> rows = swingSignalService.all();
+        // The runner only upserts swing.signals, it never deletes -- so rows for a symbol
+        // dropped from the halal universe (e.g. the 2026-08-14..19 unscreened-Nifty-500
+        // window, see PR #32) stay in Postgres forever with nothing left to age them out.
+        // Filter them out here rather than deleting the underlying data.
+        rows.removeIf(r -> r.get("symbol") == null || !swingLivePriceService.isInUniverse(r.get("symbol").toString()));
         String today = latestSignalDay(rows);
         List<String> openSymbols = new ArrayList<>();
         for (Map<String, Object> r : rows) {
