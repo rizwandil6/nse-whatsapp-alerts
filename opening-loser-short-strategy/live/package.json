@@ -1,0 +1,14 @@
+{
+  "name": "opening-loser-short-live-streamer",
+  "version": "1.0.0",
+  "description": "Live Opening Loser Short scalp scanner (F&O-eligible ∩ halal universe) via Upstox V3 WebSocket ltpc feed — Telegram alerts + Postgres forward-tracking. Alert-only, no orders.",
+  "main": "streamer.js",
+  "scripts": {
+    "start": "node streamer.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "protobufjs": "^7.4.0",
+    "pg": "^8.12.0"
+  }
+}
