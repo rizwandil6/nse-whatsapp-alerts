@@ -3691,5 +3691,29 @@
   "entryTimestampMs": 1787124600000,
   "exitTimestampMs": 1787132100000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2670.0300000000007,
+  "exitPrice": 2670.0300000000007,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787129400000,
+  "exitTimestampMs": 1787129400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 221.5388000000001,
+  "exitPrice": 224.36455000000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.2755102040816062,
+  "entryTimestampMs": 1787115900000,
+  "exitTimestampMs": 1787123100000,
+  "shadow": true
  }
 ]
