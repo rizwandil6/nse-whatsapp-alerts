@@ -378,11 +378,16 @@
     // reselect, not just the first time this session. Without this, reselecting the
     // tab after tonight's run silently re-rendered the SAME pre-run data forever,
     // since `loaded[key]` was already true from the first visit.
-    if (key !== 'home' && (!loaded[key] || key === 'swing-strategy')) { loaded[key] = true; loadTab(key); }
     // Seasonality isn't in TABS -- it's not an alert feed (no count, no home tile,
     // nothing list-shaped for loadTab's data.length/data[0] assumptions to work on),
     // just a static bundled dataset with its own fetch+render. Loaded once per session.
-    if (key === 'seasonality' && !loaded.seasonality) { loaded.seasonality = true; loadSeasonality(); }
+    // Must be checked BEFORE the generic loadTab branch below: 'seasonality' has no
+    // TABS entry, so falling into loadTab(key) crashes on TABS[key].url being undefined.
+    if (key === 'seasonality') {
+      if (!loaded.seasonality) { loaded.seasonality = true; loadSeasonality(); }
+      return;
+    }
+    if (key !== 'home' && (!loaded[key] || key === 'swing-strategy')) { loaded[key] = true; loadTab(key); }
   }
 
   function renderNews(items, panel) {
