@@ -573,5 +573,33 @@
   "price": 1700,
   "rsRankAtEntry": 84.50413223140497,
   "salesGrowth3Y": 36
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ACE",
+  "date": "2026-08-17",
+  "price": 1184.8,
+  "rsRankAtEntry": 86.15702479338843
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CONCORDBIO",
+  "date": "2026-08-17",
+  "price": 1565.7,
+  "rsRankAtEntry": 81.61157024793388
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SUMICHEM",
+  "date": "2026-08-17",
+  "price": 563.1,
+  "rsRankAtEntry": 80.16528925619835
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "TORNTPHARM",
+  "date": "2026-08-17",
+  "price": 4971,
+  "rsRankAtEntry": 81.19834710743802
  }
 ]
