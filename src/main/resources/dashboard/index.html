@@ -161,6 +161,7 @@
     <button class="tab-btn" data-tab="quarterly-results">Quarterly Results <span class="count" id="count-quarterly-results"></span></button>
     <button class="tab-btn" data-tab="rs-momentum">RS Momentum <span class="count" id="count-rs-momentum"></span></button>
     <button class="tab-btn" data-tab="darvasbox">Today's DarvasBox <span class="count" id="count-darvasbox"></span></button>
+    <button class="tab-btn" data-tab="seasonality">Seasonality</button>
   </div>
 
   <div class="panel active" id="panel-home"><div class="state-msg">Loading…</div></div>
@@ -170,6 +171,7 @@
   <div class="panel" id="panel-quarterly-results"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-rs-momentum"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-darvasbox"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-seasonality"><div class="state-msg">Loading…</div></div>
 </div>
 
 <style>
@@ -201,6 +203,27 @@
   .swing-filters select, .swing-filters input[type="search"] { font: inherit; font-size: 12.5px; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; }
   .swing-filters input[type="search"] { min-width: 130px; }
   .sw-check { font-size: 12.5px; color: var(--ink-muted); display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+
+  .seas-controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; margin-bottom: 16px; }
+  .seas-field { display: flex; flex-direction: column; gap: 5px; }
+  .seas-field label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); }
+  .seas-select { font: inherit; font-size: 13px; font-weight: 600; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 30px 7px 10px; min-width: 200px; cursor: pointer; }
+  .seas-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .seas-toggle button { font: inherit; font-size: 12.5px; font-weight: 600; color: var(--ink-muted); background: var(--surface); border: none; border-right: 1px solid var(--border); padding: 7px 12px; cursor: pointer; }
+  .seas-toggle button:last-child { border-right: none; }
+  .seas-toggle button.active { background: var(--accent-soft); color: var(--accent); }
+  .seas-note { font-size: 12px; color: var(--ink-faint); margin: -6px 0 14px; max-width: 62ch; line-height: 1.5; }
+  .seas-grid-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: 14px 14px 8px; }
+  table.seas-grid { border-collapse: separate; border-spacing: 3px; width: 100%; min-width: 760px; }
+  table.seas-grid th { font-size: 10.5px; font-weight: 600; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 4px; text-align: center; }
+  table.seas-grid th.seas-rowhead { text-align: right; padding-right: 10px; }
+  .seas-rowlabel { font-size: 12px; font-weight: 700; color: var(--ink-muted); text-align: right; padding-right: 10px; white-space: nowrap; }
+  .seas-cell { width: 60px; height: 34px; border-radius: 6px; text-align: center; font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; cursor: default; }
+  .seas-cell.seas-empty { background: repeating-linear-gradient(45deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 7px); }
+  .seas-cell:hover, .seas-cell:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .seas-legend { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 11px; color: var(--ink-faint); }
+  .seas-legend-ramp { display: flex; height: 11px; width: 160px; border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
+  .seas-legend-ramp span { flex: 1; }
 </style>
 
 <script>
@@ -356,6 +379,10 @@
     // tab after tonight's run silently re-rendered the SAME pre-run data forever,
     // since `loaded[key]` was already true from the first visit.
     if (key !== 'home' && (!loaded[key] || key === 'swing-strategy')) { loaded[key] = true; loadTab(key); }
+    // Seasonality isn't in TABS -- it's not an alert feed (no count, no home tile,
+    // nothing list-shaped for loadTab's data.length/data[0] assumptions to work on),
+    // just a static bundled dataset with its own fetch+render. Loaded once per session.
+    if (key === 'seasonality' && !loaded.seasonality) { loaded.seasonality = true; loadSeasonality(); }
   }
 
   function renderNews(items, panel) {
@@ -886,6 +913,186 @@
       `;
       panel.appendChild(card);
     }
+  }
+
+  // ---- Seasonality tab ----
+  const SEAS_MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const SEAS_BENCHMARK = "Nifty 50";
+  let seasState = { sector: "__ALL__", mode: "abs" };
+  let seasIndices = null; // { sectorName: { "y-m": returnPct } }
+  let seasSectorNames = null;
+  let seasYears = null;
+
+  function seasHexToRgb(hex) {
+    hex = hex.replace("#", "");
+    if (hex.length === 3) hex = hex.split("").map((c) => c + c).join("");
+    const num = parseInt(hex, 16);
+    return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
+  }
+  function seasMix(c1, c2, t) { return c1.map((v, i) => Math.round(v + (c2[i] - v) * t)); }
+  function seasRgbStr(c) { return `rgb(${c[0]},${c[1]},${c[2]})`; }
+  function seasTok(name) { return getComputedStyle(document.body).getPropertyValue(name).trim(); }
+
+  const SEAS_CAP = 15; // % -- color scale saturates at +/-15%
+  function seasColorFor(value) {
+    if (value === undefined || value === null) return null;
+    const t = Math.max(-1, Math.min(1, value / SEAS_CAP));
+    const zero = seasHexToRgb(seasTok("--surface-2"));
+    if (t >= 0) {
+      const mid = seasHexToRgb(seasTok("--win"));
+      return seasRgbStr(seasMix(zero, mid, Math.abs(t)));
+    }
+    const mid = seasHexToRgb(seasTok("--loss"));
+    return seasRgbStr(seasMix(zero, mid, Math.abs(t)));
+  }
+  function seasTextColorFor(value) {
+    if (value === undefined || value === null) return seasTok("--ink-faint");
+    return Math.abs(value) / SEAS_CAP > 0.55 ? "#ffffff" : seasTok("--ink");
+  }
+  function seasFmtPct(v) {
+    if (v === undefined || v === null) return "—";
+    return (v > 0 ? "+" : "") + v.toFixed(2) + "%";
+  }
+
+  function seasBuildIndex(list) {
+    const idx = {};
+    list.forEach((row) => { idx[row.y + "-" + row.m] = row.r; });
+    return idx;
+  }
+
+  function seasGetValue(sector, y, m, mode) {
+    const a = seasIndices[sector] ? seasIndices[sector][y + "-" + m] : undefined;
+    if (mode !== "rel") return a;
+    const b = seasIndices[SEAS_BENCHMARK][y + "-" + m];
+    if (a === undefined || b === undefined) return undefined;
+    return Math.round((a - b) * 100) / 100;
+  }
+
+  function seasMonthStat(sector, m, mode) {
+    const arr = [];
+    seasYears.forEach((y) => {
+      const v = seasGetValue(sector, y, m, mode);
+      if (v !== undefined) arr.push(v);
+    });
+    if (!arr.length) return null;
+    const avg = arr.reduce((a, b) => a + b, 0) / arr.length;
+    const hits = arr.filter((v) => v > 0).length;
+    return { avg: Math.round(avg * 100) / 100, n: arr.length, hitPct: Math.round((100 * hits) / arr.length) };
+  }
+
+  async function loadSeasonality() {
+    const panel = document.getElementById('panel-seasonality');
+    try {
+      const res = await fetch('/api/dashboard/seasonality');
+      if (res.status === 401) { window.location.href = '/login'; return; }
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const payload = await res.json();
+      const sectors = payload.sectors || {};
+      seasSectorNames = Object.keys(sectors).filter((k) => k !== SEAS_BENCHMARK).sort();
+      seasIndices = {};
+      Object.keys(sectors).forEach((k) => { seasIndices[k] = seasBuildIndex(sectors[k]); });
+      const yearSet = {};
+      (sectors[SEAS_BENCHMARK] || []).forEach((r) => { yearSet[r.y] = true; });
+      seasYears = Object.keys(yearSet).map(Number).sort((a, b) => a - b);
+
+      panel.innerHTML = `
+        <div class="tab-header">
+          <p>Month-by-month growth per Nifty sector index, last 10 years. Sector data from the swing-strategy sector cache (Upstox); Nifty 50 benchmark from Yahoo Finance. Generated ${esc(payload.generatedAt || '')} -- N&asymp;10 per cell, read as a soft tilt, not a signal.</p>
+        </div>
+        <div class="seas-controls">
+          <div class="seas-field">
+            <label for="seas-sector-select">Sector</label>
+            <select class="seas-select" id="seas-sector-select"></select>
+          </div>
+          <div class="seas-field">
+            <label>Return basis</label>
+            <div class="seas-toggle" id="seas-toggle">
+              <button type="button" data-mode="abs" class="active">Absolute</button>
+              <button type="button" data-mode="rel">Vs. Nifty 50</button>
+            </div>
+          </div>
+        </div>
+        <div class="seas-grid-wrap">
+          <table class="seas-grid" id="seas-grid-table"></table>
+          <div class="seas-legend">
+            <span>&minus;15%</span>
+            <span class="seas-legend-ramp" id="seas-legend-ramp"></span>
+            <span>+15%</span>
+            <span style="margin-left:6px;">&middot; hatched = no data</span>
+          </div>
+        </div>
+      `;
+
+      const selectEl = document.getElementById('seas-sector-select');
+      const allOpt = document.createElement('option');
+      allOpt.value = '__ALL__';
+      allOpt.textContent = 'All sectors (10y avg)';
+      selectEl.appendChild(allOpt);
+      seasSectorNames.forEach((s) => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        selectEl.appendChild(opt);
+      });
+      selectEl.value = seasState.sector;
+      selectEl.addEventListener('change', () => { seasState.sector = selectEl.value; renderSeasonality(); });
+
+      document.getElementById('seas-toggle').addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-mode]');
+        if (!btn) return;
+        seasState.mode = btn.dataset.mode;
+        document.querySelectorAll('#seas-toggle button').forEach((b) => b.classList.toggle('active', b === btn));
+        renderSeasonality();
+      });
+
+      const rampEl = document.getElementById('seas-legend-ramp');
+      const stops = [];
+      for (let i = -10; i <= 10; i++) stops.push((i / 10) * SEAS_CAP);
+      rampEl.innerHTML = stops.map((v) => `<span style="background:${seasColorFor(v)}"></span>`).join('');
+
+      renderSeasonality();
+    } catch (e) {
+      panel.innerHTML = '<div class="state-msg">Failed to load — ' + esc(e.message) + '</div>';
+    }
+  }
+
+  function renderSeasonality() {
+    const table = document.getElementById('seas-grid-table');
+    if (!table) return;
+    const isAll = seasState.sector === '__ALL__';
+    let html;
+    if (isAll) {
+      html = "<thead><tr><th class='seas-rowhead'>Sector</th>" + SEAS_MONTHS.map((m) => `<th>${m}</th>`).join('') + "</tr></thead><tbody>";
+      seasSectorNames.forEach((sector) => {
+        html += `<tr><td class="seas-rowlabel">${esc(sector.replace('Nifty ', '').replace('NIFTY ', ''))}</td>`;
+        for (let m = 1; m <= 12; m++) {
+          const stat = seasMonthStat(sector, m, seasState.mode);
+          if (!stat) { html += '<td class="seas-cell seas-empty" title="No data"></td>'; continue; }
+          const bg = seasColorFor(stat.avg);
+          const fg = seasTextColorFor(stat.avg);
+          const title = `${esc(sector)} · ${SEAS_MONTHS[m - 1]}: ${seasFmtPct(stat.avg)} avg, ${stat.hitPct}% positive years, N=${stat.n}`;
+          html += `<td class="seas-cell" tabindex="0" style="background:${bg};color:${fg};" title="${title}">${stat.avg > 0 ? '+' : ''}${stat.avg.toFixed(1)}</td>`;
+        }
+        html += '</tr>';
+      });
+      html += '</tbody>';
+    } else {
+      html = "<thead><tr><th class='seas-rowhead'>Year</th>" + SEAS_MONTHS.map((m) => `<th>${m}</th>`).join('') + "</tr></thead><tbody>";
+      seasYears.forEach((y) => {
+        html += `<tr><td class="seas-rowlabel">${y}</td>`;
+        for (let m = 1; m <= 12; m++) {
+          const v = seasGetValue(seasState.sector, y, m, seasState.mode);
+          if (v === undefined) { html += '<td class="seas-cell seas-empty" title="No data"></td>'; continue; }
+          const bg = seasColorFor(v);
+          const fg = seasTextColorFor(v);
+          const label = seasState.mode === 'rel' ? ' vs. Nifty 50' : '';
+          html += `<td class="seas-cell" tabindex="0" style="background:${bg};color:${fg};" title="${SEAS_MONTHS[m - 1]} ${y}${label}: ${seasFmtPct(v)}">${v > 0 ? '+' : ''}${v.toFixed(1)}</td>`;
+        }
+        html += '</tr>';
+      });
+      html += '</tbody>';
+    }
+    table.innerHTML = html;
   }
 
   document.getElementById('tabs').addEventListener('click', (e) => {
