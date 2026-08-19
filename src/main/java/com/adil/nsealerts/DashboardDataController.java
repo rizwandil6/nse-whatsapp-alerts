@@ -41,6 +41,7 @@ public class DashboardDataController {
     private final RsMomentumService rsMomentumService;
     private final SwingSignalService swingSignalService;
     private final SwingLivePriceService swingLivePriceService;
+    private final DarvasboxLiveService darvasboxLiveService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
     private final ObjectMapper mapper = new ObjectMapper();
@@ -56,7 +57,8 @@ public class DashboardDataController {
                                     RsRankLookupService rsRankLookupService,
                                     RsMomentumService rsMomentumService,
                                     SwingSignalService swingSignalService,
-                                    SwingLivePriceService swingLivePriceService) {
+                                    SwingLivePriceService swingLivePriceService,
+                                    DarvasboxLiveService darvasboxLiveService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
         this.quarterlyResultsService = quarterlyResultsService;
@@ -64,6 +66,7 @@ public class DashboardDataController {
         this.rsMomentumService = rsMomentumService;
         this.swingSignalService = swingSignalService;
         this.swingLivePriceService = swingLivePriceService;
+        this.darvasboxLiveService = darvasboxLiveService;
     }
 
     // Swing Strategy tab -- reads swing.signals from Postgres (written by the
@@ -296,28 +299,14 @@ public class DashboardDataController {
 
     @GetMapping(value = "/api/dashboard/darvasbox-today", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<JsonNode> darvasboxToday() {
-        // DarvasBox SHADOW trade (renko-8-indicators/live-darvasbox-shadow/) --
-        // 0.25% brick, flat 1% stop, LTP-confirmed entries/exits, both directions.
-        // The old Renko N/K-grid forward test (renko-python-backtest/live/) was
-        // stopped 2026-07-27 in favor of this; this tab replaces that one.
-        // Restricted to TODAY (IST) like the original pre-Renko DarvasBox tab
-        // was -- this service resets its own tracker state daily (unlike the
-        // Renko forward test's continuous multi-day brick/run state), so
-        // "today" is the natural scope here.
-        JsonNode node = cachedRead("darvasbox", "data/darvasbox-shadow-0.25pct-1pctSL-trade-log", "renko-8-indicators/live-darvasbox-shadow/darvasbox_shadow_trade_log.json");
-        String today = LocalDate.now(ZoneId.of("Asia/Kolkata")).toString();
-        List<JsonNode> all = reversedArray(node);
-        List<JsonNode> todayOnly = new ArrayList<>();
-        DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
-        for (JsonNode t : all) {
-            long ms = t.path("entryTimestampMs").isMissingNode() || t.path("entryTimestampMs").asLong(0) == 0
-                    ? t.path("timestampMs").asLong(0)
-                    : t.path("entryTimestampMs").asLong(0);
-            if (ms == 0) continue;
-            String date = java.time.Instant.ofEpochMilli(ms).atZone(ZoneId.of("Asia/Kolkata")).format(fmt);
-            if (today.equals(date)) todayOnly.add(t);
-        }
-        return todayOnly;
+        // DarvasBox VARIANT (anti-chase entry, 2% catastrophic stop, EOD square-off --
+        // renko-8-indicators/live-darvasbox-shadow/variant_tracker.js), read from
+        // Postgres (darvasbox.trade_events, tracker='variant'). See DarvasboxLiveService's
+        // module docstring: this replaced a GitHub-branch JSON read that went stale
+        // 2026-08-11 when the writer moved to Postgres, and is scoped to the variant
+        // tracker only because the 'real' tracker's Telegram alerts are muted -- this
+        // tab should mirror what's actually alerted live, not the silent tracker.
+        return darvasboxLiveService.todaysVariantEvents();
     }
 
     private List<JsonNode> reversedArray(JsonNode node) {
