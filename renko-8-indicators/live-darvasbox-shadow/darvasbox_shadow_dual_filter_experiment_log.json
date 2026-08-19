@@ -3736,5 +3736,38 @@
   "timestampMs": 1787133000000,
   "breakoutTimestampMs": 1787133000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 46.78645000000001,
+  "timestampMs": 1787133540000,
+  "breakoutTimestampMs": 1787133540000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 46.78645000000001,
+  "exitPrice": 46.78645000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787133540000,
+  "exitTimestampMs": 1787133540000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 286.54712499999994,
+  "exitPrice": 282.8639999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2853470437018062,
+  "entryTimestampMs": 1787133000000,
+  "exitTimestampMs": 1787133300000,
+  "shadow": true
  }
 ]
