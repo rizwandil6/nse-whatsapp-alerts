@@ -3628,5 +3628,17 @@
   "timestampMs": 1787118900000,
   "breakoutTimestampMs": 1787118900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 572.9788749999999,
+  "exitPrice": 567.35,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.9823878759927896,
+  "entryTimestampMs": 1787118900000,
+  "exitTimestampMs": 1787123100000,
+  "shadow": true
  }
 ]
