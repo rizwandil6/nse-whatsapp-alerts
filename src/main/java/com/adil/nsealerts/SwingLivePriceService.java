@@ -35,7 +35,12 @@ import java.util.concurrent.TimeUnit;
  *
  * The symbol -> instrument_key map is bundled from swing-symbols.json (a copy of
  * the runner's swing-strategy/live/symbols.json -- keep the two in sync if the
- * halal universe changes).
+ * halal universe changes). Its key set doubles as the halal-universe membership
+ * check (isInUniverse) that DashboardDataController.swing() uses to filter out
+ * signals.rows for symbols the runner no longer trades (e.g. leftover rows from
+ * 2026-08-14..19, when the universe was briefly widened to the full, unscreened
+ * Nifty 500 -- see PR #32). The runner only upserts, never deletes, so those old
+ * rows stay in Postgres forever; this filter is what actually hides them.
  */
 @Component
 public class SwingLivePriceService {
@@ -62,6 +67,11 @@ public class SwingLivePriceService {
         } catch (Exception e) {
             System.err.println("SwingLivePriceService: could not load swing-symbols.json -- live prices disabled: " + e.getMessage());
         }
+    }
+
+    /** Whether `symbol` is in the current halal-screened universe (swing-symbols.json). */
+    public boolean isInUniverse(String symbol) {
+        return keyBySymbol.containsKey(symbol);
     }
 
     /** Live last price per symbol (only those we could fetch). Cached 60s. Never throws. */
