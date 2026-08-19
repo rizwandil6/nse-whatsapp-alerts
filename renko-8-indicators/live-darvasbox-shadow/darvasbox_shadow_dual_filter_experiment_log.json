@@ -3679,5 +3679,17 @@
   "timestampMs": 1787129400000,
   "breakoutTimestampMs": 1787125200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 173.01145000000002,
+  "exitPrice": 172.44,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.3302960584400784,
+  "entryTimestampMs": 1787124600000,
+  "exitTimestampMs": 1787132100000,
+  "shadow": true
  }
 ]
