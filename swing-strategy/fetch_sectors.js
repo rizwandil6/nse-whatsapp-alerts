@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const TOKEN_PATH = '/private/tmp/claude-501/-Users-adilrizwan-Downloads/fef5c952-3a52-453b-aac2-05d44213f064/scratchpad/.secrets/upstox_token.txt';
+const TOKEN_PATH = path.join(__dirname, '..', '.secrets', 'upstox_token.txt');
 const TOKEN = fs.readFileSync(TOKEN_PATH, 'utf8').trim();
 const OUT_PATH = path.join(__dirname, 'sector_candle_cache.json');
 
@@ -27,7 +27,7 @@ async function main() {
   for (const sector of sectors) {
     try {
       console.log(`Fetching ${sector}...`);
-      const candles = await fetchMonthly(sector, '2016-07-10', '2026-07-09');
+      const candles = await fetchMonthly(sector, '2016-07-10', new Date().toISOString().slice(0, 10));
       cache[sector] = candles;
       console.log(`  -> ${candles.length} monthly candles`);
     } catch (e) {
