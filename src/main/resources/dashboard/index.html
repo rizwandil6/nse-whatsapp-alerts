@@ -224,6 +224,9 @@
   .seas-legend { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 11px; color: var(--ink-faint); }
   .seas-legend-ramp { display: flex; height: 11px; width: 160px; border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
   .seas-legend-ramp span { flex: 1; }
+  .seas-foot-row .seas-rowlabel { color: var(--ink); font-weight: 800; }
+  .seas-foot-cell { background: var(--surface-2); border-top: 2px solid var(--border-strong); font-weight: 800; }
+  .seas-foot-cell.seas-empty { background: repeating-linear-gradient(45deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 7px); border-top: 2px solid var(--border-strong); }
 </style>
 
 <script>
@@ -1081,6 +1084,22 @@
         html += '</tr>';
       });
       html += '</tbody>';
+      // Footer: sum, per month, of every sector's 10y average -- how the sectors add up
+      // together that month, not a per-sector figure. Plain sum (not an average), as asked;
+      // reads as "if you'd held one unit of every sector, what did this month contribute".
+      html += "<tfoot><tr class='seas-foot-row'><td class='seas-rowlabel'>Total</td>";
+      for (let m = 1; m <= 12; m++) {
+        let sum = 0, n = 0;
+        seasSectorNames.forEach((sector) => {
+          const stat = seasMonthStat(sector, m, seasState.mode);
+          if (stat) { sum += stat.avg; n++; }
+        });
+        if (!n) { html += '<td class="seas-cell seas-foot-cell seas-empty" title="No data"></td>'; continue; }
+        sum = Math.round(sum * 100) / 100;
+        const footColor = sum >= 0 ? 'var(--win)' : 'var(--loss)';
+        html += `<td class="seas-cell seas-foot-cell" style="color:${footColor};" title="${SEAS_MONTHS[m - 1]}: sum of all ${n} sectors' 10y avg = ${seasFmtPct(sum)}">${sum > 0 ? '+' : ''}${sum.toFixed(1)}</td>`;
+      }
+      html += '</tr></tfoot>';
     } else {
       html = "<thead><tr><th class='seas-rowhead'>Year</th>" + SEAS_MONTHS.map((m) => `<th>${m}</th>`).join('') + "</tr></thead><tbody>";
       seasYears.forEach((y) => {
@@ -1096,6 +1115,21 @@
         html += '</tr>';
       });
       html += '</tbody>';
+      // Footer: sum, per month, across all 10 years for this one sector -- e.g. "if you'd
+      // captured every April this sector had over the last decade, added up, what's the total".
+      html += "<tfoot><tr class='seas-foot-row'><td class='seas-rowlabel'>Total</td>";
+      for (let m = 1; m <= 12; m++) {
+        let sum = 0, n = 0;
+        seasYears.forEach((y) => {
+          const v = seasGetValue(seasState.sector, y, m, seasState.mode);
+          if (v !== undefined) { sum += v; n++; }
+        });
+        if (!n) { html += '<td class="seas-cell seas-foot-cell seas-empty" title="No data"></td>'; continue; }
+        sum = Math.round(sum * 100) / 100;
+        const footColor = sum >= 0 ? 'var(--win)' : 'var(--loss)';
+        html += `<td class="seas-cell seas-foot-cell" style="color:${footColor};" title="${SEAS_MONTHS[m - 1]}: sum across ${n} years = ${seasFmtPct(sum)}">${sum > 0 ? '+' : ''}${sum.toFixed(1)}</td>`;
+      }
+      html += '</tr></tfoot>';
     }
     table.innerHTML = html;
   }
