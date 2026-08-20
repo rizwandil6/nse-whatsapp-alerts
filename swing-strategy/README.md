@@ -95,14 +95,31 @@ comment), and `src/main/resources/swing-symbols.json` (the Java dashboard's
 live-price lookup copy — missed during the 2026-08-14 expansion, a live-price
 coverage gap for those symbols; not missed this time).
 
-**Not yet backtested against this strategy's specific demand/supply-zone
-mechanics** — same caveat as the original 353 expansion above: these 178 are
-halal-screened, not validated for fit with the six rounds of RSI/slope/gap/
-base-candle/sector refinement tuned against the original 178. Micro-cap names
-also carry materially higher liquidity/slippage risk than the Nifty 500 names
-this strategy was originally built and tuned against — a real trade-off
-distinct from halal-compliance, worth weighing independently of these screen
-results.
+**Backtested against this strategy's specific demand/supply-zone mechanics
+(2026-08-20)**, same six rounds of RSI/slope/gap/base-candle/sector rules,
+UNCHANGED — no re-tuning against the new 178. Candles fetched via
+`fetch_microcap_stocks.js` (same date ranges as the existing cache, 2021-07 to
+2026-07 daily/weekly, 2016-07 to 2026-07 monthly) and scanned with
+`scan_microcap.js`:
+
+| Universe | n | Win rate | Avg P&L (gross) | Avg hold |
+|---|---|---|---|---|
+| Full 530-stock universe | 141 | 48.9% | +2.190% | 20.6d |
+| Existing 352 (Nifty500-halal) | 98 | 49.0% | +1.705% | 20.7d |
+| **Newly added 178 microcap** | **43** | **48.8%** | **+3.297%** | **20.4d** |
+
+Unlike the original 353 expansion (where the newly-added stocks were the
+weaker cohort, +1.185% vs +3.644% for the original 176), the new 178 microcap
+stocks show a **higher** average P&L than the existing 352, at a comparable
+win rate and hold time — a genuinely positive result, not just "acceptable
+dilution." Still, real caveats apply: n=43 is a small sample over ~5 years,
+these stocks pass through the sector-strength check unfiltered (no sector
+classification yet — same as the ~20 originally-unmapped stocks in the 178),
+and micro-cap names carry materially higher liquidity/slippage risk than the
+Nifty 500 names this strategy was built and tuned against — the ~0.25%
+round-trip cost estimate used elsewhere in this project was calibrated on
+more liquid names and may understate real costs here. `signals_found_microcap.json`
+has the full per-trade detail.
 
 ## Rules, as actually implemented (not just as originally worded)
 
