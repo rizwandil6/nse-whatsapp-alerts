@@ -3940,5 +3940,65 @@
   "entryTimestampMs": 1787217600000,
   "exitTimestampMs": 1787217600000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 330.30400000000003,
+  "exitPrice": 329.47200000000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25188916876574113,
+  "entryTimestampMs": 1787213100000,
+  "exitTimestampMs": 1787215500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 106.01675000000004,
+  "exitPrice": 105.49450000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.4926108374384365,
+  "entryTimestampMs": 1787217900000,
+  "exitTimestampMs": 1787218200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 10.53845,
+  "exitPrice": 10.5336,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.04602194819920724,
+  "entryTimestampMs": 1787209500000,
+  "exitTimestampMs": 1787217660000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 127.29102499999993,
+  "exitPrice": 126.66857499999995,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.48899755501221454,
+  "entryTimestampMs": 1787208900000,
+  "exitTimestampMs": 1787218500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 582.7115,
+  "exitPrice": 579.841,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.49261083743842243,
+  "entryTimestampMs": 1787204100000,
+  "exitTimestampMs": 1787218800000,
+  "shadow": true
  }
 ]
