@@ -601,5 +601,40 @@
   "date": "2026-08-17",
   "price": 4971,
   "rsRankAtEntry": 81.19834710743802
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "date": "2026-08-18",
+  "price": 569.65,
+  "pnlPct": -10.887759092686746
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GOKULAGRO",
+  "date": "2026-08-18",
+  "price": 243.02,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "NAM-INDIA",
+  "date": "2026-08-18",
+  "price": 1217,
+  "rsRankAtEntry": 81.85404339250493
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "NYKAA",
+  "date": "2026-08-18",
+  "price": 327.35,
+  "rsRankAtEntry": 81.06508875739645
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "VIYASH",
+  "date": "2026-08-18",
+  "price": 271.4,
+  "rsRankAtEntry": 80.27613412228797
  }
 ]

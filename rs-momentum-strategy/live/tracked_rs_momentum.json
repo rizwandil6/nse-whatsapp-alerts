@@ -1,10 +1,4 @@
 {
- "TRITURBINE": {
-  "entryDate": "2026-07-14",
-  "entryPrice": 639.25,
-  "rsRankAtEntry": 81.06508875739645,
-  "salesGrowth3Y": 20
- },
  "ZYDUSLIFE": {
   "entryDate": "2026-07-14",
   "entryPrice": 1156.9,
@@ -181,6 +175,34 @@
   "entryDate": "2026-08-17",
   "entryPrice": 4971,
   "rsRankAtEntry": 81.19834710743802,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GOKULAGRO": {
+  "entryDate": "2026-08-18",
+  "entryPrice": 243.02,
+  "rsRankAtEntry": 80.07889546351085,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "NAM-INDIA": {
+  "entryDate": "2026-08-18",
+  "entryPrice": 1217,
+  "rsRankAtEntry": 81.85404339250493,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "NYKAA": {
+  "entryDate": "2026-08-18",
+  "entryPrice": 327.35,
+  "rsRankAtEntry": 81.06508875739645,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "VIYASH": {
+  "entryDate": "2026-08-18",
+  "entryPrice": 271.4,
+  "rsRankAtEntry": 80.27613412228797,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }
