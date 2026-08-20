@@ -53,6 +53,57 @@ sector-strength check unfiltered, same as the ~20 originally-unmapped stocks.
 Run `node scan_353.js` to reproduce (needs `mtf_candle_cache.json` to include
 the new 177 stocks — `node fetch_new_353_stocks.js` fetches any missing ones).
 
+## Universe briefly (and wrongly) widened to the full unscreened Nifty 500, then fixed (2026-08-14 to 2026-08-19)
+
+`live/symbols.json` was expanded from 352 to the full Nifty 500 (+148) on
+2026-08-14 with **no halal screening applied to the additions** — a mistake,
+not an intentional relaxation of the halal constraint. Signals started firing
+on conventional banks (City Union Bank, HDFCBANK, ICICIBANK, SBIN, etc.),
+NBFCs, and other excluded business types. Caught and reverted 2026-08-19:
+verified the pre-expansion 352 was byte-for-byte identical to
+`ema-scalp-strategy/symbols.json` (that strategy's own full-Nifty-500 halal
+screen), so the 148 additions were provably exactly the names that screen had
+already excluded — a pure data revert, no re-screening needed. Leftover
+Postgres rows from the unscreened window (the runner only upserts, never
+deletes) are filtered out at the dashboard query layer rather than deleted.
+
+## Universe expanded to 530 with Nifty Microcap 250 (2026-08-20)
+
+Added the **Nifty Microcap 250** index on top of the (now-corrected) 352-stock
+Nifty500-halal universe — 0 overlap with the existing 352, so all 252 index
+constituents were genuinely new candidates. Same screening methodology as the
+Nifty 500 build (business/sector exclusion via Screener.in's own Industry
+taxonomy, debt-to-assets < 33%), applied fresh via
+`multibagger-screener/fundamental_screener.js` + `halal_classifier.js`
+(reused as-is, no new screening code):
+
+| Outcome | Count |
+|---|---|
+| Passed (halal business + debt-to-assets < 33%) | 178 |
+| Excluded — business type (bank/NBFC/insurance/etc.) | 13 |
+| Excluded — debt ≥ 33% or missing debt data | 59 |
+| Non-entities (NSE `DUMMY*` demerger placeholder listings) | 2 |
+| **Total Microcap 250 constituents** | **252** |
+
+The 178 survivors were resolved to Upstox instrument keys via the public NSE
+instrument master (`NSE_EQ` segment, `EQ` or `BE` series — 3 of the 178 trade
+under NSE's trade-to-trade `BE` series, not the regular `EQ` series; all 178
+resolved cleanly, no manual fallback needed) and merged into
+`live/symbols.json`, `rs-momentum-strategy/live/symbols.json` (kept in sync,
+same as every prior universe change — see `RsRankLookupService`'s doc
+comment), and `src/main/resources/swing-symbols.json` (the Java dashboard's
+live-price lookup copy — missed during the 2026-08-14 expansion, a live-price
+coverage gap for those symbols; not missed this time).
+
+**Not yet backtested against this strategy's specific demand/supply-zone
+mechanics** — same caveat as the original 353 expansion above: these 178 are
+halal-screened, not validated for fit with the six rounds of RSI/slope/gap/
+base-candle/sector refinement tuned against the original 178. Micro-cap names
+also carry materially higher liquidity/slippage risk than the Nifty 500 names
+this strategy was originally built and tuned against — a real trade-off
+distinct from halal-compliance, worth weighing independently of these screen
+results.
+
 ## Rules, as actually implemented (not just as originally worded)
 
 All conditions below are required simultaneously for a signal to fire — see
