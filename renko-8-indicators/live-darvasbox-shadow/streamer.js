@@ -98,6 +98,20 @@ const { PdhPdlTracker, istMin: pdhpdlIstMin } = require('./pdhpdl_engine');
 const { fetchLevels: fetchPdhPdlLevels } = require('./pdhpdl_prev_day_levels');
 const { DB: PdhPdlDB } = require('./pdhpdl_db');
 
+// Opening Loser Short scalp scanner -- merged into this process 2026-08-20 for
+// the same reason PDH/PDL was (see comment above): a standalone Railway
+// service opening its OWN second Upstox WebSocket under the SAME shared
+// UPSTOX_ACCESS_TOKEN was being silently black-holed with a TCP-level
+// ETIMEDOUT (Upstox appears to allow only one live market-data WS session per
+// account/token -- darvasbox-live's own connection, opened first, always won
+// the slot). So this reuses the SAME merged feed/subscription instead of
+// opening a second socket. Alert-only (no order-placement code path, see
+// opening-loser-short-strategy/live/streamer.js, kept there for reference),
+// own Postgres schema opening_loser_short.*, own Telegram formatting. Fully
+// isolated state (own DB, own in-memory position) -- a bug here cannot affect
+// DarvasBox's or PDH/PDL's real trades.
+const { DB: OlsDB } = require('./ols_db');
+
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-5338709046').split(',');
@@ -179,6 +193,21 @@ const pdhpdlSymbols = require('./pdhpdl_symbols.json');
 const pdhpdlKeyToSymbol = {};
 for (const [symbol, key] of Object.entries(pdhpdlSymbols)) pdhpdlKeyToSymbol[key] = symbol;
 const pdhpdlDb = new PdhPdlDB();
+// ---- Opening Loser Short state (fully separate from everything above) -----
+const olsSymbols = require('./ols_symbols.json');
+const olsKeyToSymbol = {};
+for (const [symbol, key] of Object.entries(olsSymbols)) olsKeyToSymbol[key] = symbol;
+const olsDb = new OlsDB();
+const olsState = {}; // symbol -> { ltp, cp, lastSeenAtMs }
+for (const symbol of Object.keys(olsSymbols)) olsState[symbol] = { ltp: null, cp: null, lastSeenAtMs: null };
+const OLS_ENTRY_MIN_OF_DAY = 9 * 60 + 15;   // 09:15
+const OLS_ENTRY_SEC_OFFSET = 30;             // + 30s -> 09:15:30
+const OLS_EXIT_MIN_OF_DAY = 9 * 60 + 30;     // 09:30:00
+const OLS_CIRCUIT_FREEZE_MS = 60000;         // no new trade for 60s -> treat as frozen
+let olsLastPreppedDate = null;
+let olsEntryDoneToday = false;
+let olsExitDoneToday = false;
+let olsPosition = null; // { symbol, signalId, entry, entryTs }
 // DarvasBox trade-event/state persistence (real + variant trackers). See
 // darvasbox_db.js's module docstring for why this replaced GitHub-branch
 // JSON logging.
@@ -844,6 +873,126 @@ function pdhpdlFinalizeDay() {
   for (const symbol of Object.keys(pdhpdlTrackers)) pdhpdlEnqueue(symbol, pdhpdlTrackers[symbol].forceEndOfDay());
 }
 
+// ---- Opening Loser Short: scalp logic (ported from the standalone service's --
+// tryEnterPosition/closePosition/scheduleTicker; see opening-loser-short-strategy
+// /live/streamer.js for the original, unmerged version) --------------------
+function olsIstDate(ms) { return new Date(ms + 5.5 * 3600000).toISOString().slice(0, 10); }
+function olsIstTimeStr(ms) { return new Date(ms + 5.5 * 3600000).toISOString().slice(11, 19); }
+function olsIstMinOfDay(ms) { const d = new Date(ms + 5.5 * 3600000); return d.getUTCHours() * 60 + d.getUTCMinutes(); }
+function olsIstSecOfMinute(ms) { return new Date(ms + 5.5 * 3600000).getUTCSeconds(); }
+
+function olsResetDay() {
+  olsEntryDoneToday = false;
+  olsExitDoneToday = false;
+  olsPosition = null;
+  for (const symbol of Object.keys(olsSymbols)) olsState[symbol] = { ltp: null, cp: null, lastSeenAtMs: null };
+  olsLastPreppedDate = olsIstDate(Date.now());
+  console.log(`[ols] Reset for trading day ${olsLastPreppedDate}.`);
+}
+
+async function olsSendTelegram(text) {
+  console.log('[ols][ALERT]', text.replace(/\n/g, ' | '));
+  if (!TELEGRAM_TOKEN) return false;
+  let allOk = true;
+  for (const chatId of TELEGRAM_CHAT_IDS) {
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text }),
+      });
+      if (!res.ok) { allOk = false; console.warn(`  [ols] Telegram send failed for ${chatId}: HTTP ${res.status}`); }
+    } catch (e) { allOk = false; console.warn(`  [ols] Telegram send error for ${chatId}: ${e.message}`); }
+  }
+  return allOk;
+}
+async function olsEmit(alertType, symbol, text, signalId) {
+  const ok = await olsSendTelegram(text);
+  await olsDb.insertAlert({ signalId, symbol, alertType, chatId: TELEGRAM_CHAT_IDS.join(','), text, sentOk: ok });
+}
+
+const olsF = (x) => (x == null ? '—' : Number(x).toFixed(2));
+function olsFmtEntry(e) {
+  return [
+    `🔴 SHORT ENTRY — ${e.symbol}`,
+    `LTP ${olsF(e.entry)}  |  Prev close ${olsF(e.prevClose)}  |  Open move ${e.pctChange >= 0 ? '+' : ''}${e.pctChange.toFixed(2)}%`,
+    `Top loser across ${Object.keys(olsSymbols).length}-stock F&O∩halal universe, no band, no stop-loss.`,
+    `Cover at 09:30 IST unless circuit/freeze exit fires first.`,
+    `${olsIstTimeStr(e.entryTs)} IST · alert-only, no order placed.`,
+  ].join('\n');
+}
+function olsFmtExit(e) {
+  const icon = e.pnlPct > 0 ? '✅' : e.pnlPct < 0 ? '🛑' : '⏹️';
+  const resultWord = e.pnlPct > 0 ? 'WIN' : e.pnlPct < 0 ? 'LOSS' : 'FLAT';
+  return [
+    `${icon} ${e.symbol} covered — ${e.exitReason} @ ${olsF(e.exitPx)}`,
+    `Entry ${olsF(e.entry)}  →  Exit ${olsF(e.exitPx)}`,
+    `P&L: ${e.pnlPct >= 0 ? '+' : ''}${e.pnlPct.toFixed(2)}%  (${resultWord})`,
+    `${olsIstTimeStr(e.exitTs)} IST.`,
+  ].join('\n');
+}
+
+async function olsTryEnterPosition(nowMs) {
+  if (olsEntryDoneToday) return;
+  const candidates = [];
+  for (const [symbol, s] of Object.entries(olsState)) {
+    if (s.ltp == null || !s.cp) continue;
+    const pctChange = ((s.ltp - s.cp) / s.cp) * 100;
+    candidates.push({ symbol, ltp: s.ltp, cp: s.cp, pctChange });
+  }
+  olsEntryDoneToday = true; // only ever try once, at/after the trigger second, regardless of outcome
+
+  if (!candidates.length) { console.log('[ols] No ticks received by entry window — no trade today.'); return; }
+  candidates.sort((a, b) => a.pctChange - b.pctChange);
+  const pick = candidates[0];
+  if (pick.pctChange >= 0) { console.log('[ols] Top mover is not a loser (whole universe green?) — no trade today.'); return; }
+
+  const tradeDate = olsIstDate(nowMs);
+  const signalId = await olsDb.insertSignal({
+    symbol: pick.symbol, tradeDate, prevClose: pick.cp, openPctChange: pick.pctChange,
+    entryTs: nowMs, entryPx: pick.ltp,
+  });
+  olsPosition = { symbol: pick.symbol, signalId, entry: pick.ltp, entryTs: nowMs, tradeDate };
+  await olsEmit('ENTRY', pick.symbol, olsFmtEntry({ symbol: pick.symbol, entry: pick.ltp, prevClose: pick.cp, pctChange: pick.pctChange, entryTs: nowMs }), signalId);
+}
+
+async function olsClosePosition(nowMs, exitPx, exitReason) {
+  if (!olsPosition || olsExitDoneToday) return;
+  olsExitDoneToday = true;
+  const pnlPct = ((olsPosition.entry - exitPx) / olsPosition.entry) * 100; // SHORT
+  const result = pnlPct > 0 ? 'WIN' : pnlPct < 0 ? 'LOSS' : 'FLAT';
+  await olsDb.closeOutcome(olsPosition.signalId, { exitTs: nowMs, exitPx, exitReason, pnlPct, result });
+  await olsEmit('EXIT', olsPosition.symbol, olsFmtExit({ symbol: olsPosition.symbol, entry: olsPosition.entry, exitPx, exitReason, exitTs: nowMs, pnlPct }), olsPosition.signalId);
+}
+
+/** Runs every second: own new-day reset + drives entry trigger, circuit-freeze check, and 09:30 exit. Independent 1s cadence from FLUSH_POLL_MS (15s) -- the original standalone service also ran this at 1s and the 09:15:30 entry trigger needs that resolution. */
+function scheduleOlsTicker() {
+  setInterval(async () => {
+    const now = Date.now();
+    const d = olsIstDate(now);
+    if (d !== olsLastPreppedDate) { olsResetDay(); return; }
+
+    const minOfDay = olsIstMinOfDay(now);
+    const secOfMin = olsIstSecOfMinute(now);
+
+    if (!olsEntryDoneToday && minOfDay === OLS_ENTRY_MIN_OF_DAY && secOfMin >= OLS_ENTRY_SEC_OFFSET) {
+      await olsTryEnterPosition(now).catch((e) => console.error('[ols] tryEnterPosition failed:', e.message));
+    }
+
+    if (olsPosition && !olsExitDoneToday) {
+      const s = olsState[olsPosition.symbol];
+      if (s && s.lastSeenAtMs != null && now - s.lastSeenAtMs > OLS_CIRCUIT_FREEZE_MS) {
+        await olsClosePosition(now, s.ltp, 'CIRCUIT').catch((e) => console.error('[ols] closePosition (circuit) failed:', e.message));
+      }
+    }
+
+    if (olsPosition && !olsExitDoneToday && minOfDay >= OLS_EXIT_MIN_OF_DAY) {
+      const s = olsState[olsPosition.symbol];
+      const exitPx = s && s.ltp != null ? s.ltp : olsPosition.entry;
+      await olsClosePosition(now, exitPx, 'TIME_930').catch((e) => console.error('[ols] closePosition (time) failed:', e.message));
+    }
+  }, 1000);
+}
+
 function connectAndRun() {
   return new Promise((resolve) => {
     (async () => {
@@ -869,13 +1018,15 @@ function connectAndRun() {
       };
 
       ws.on('open', () => {
-        console.log('Connected. Subscribing to', Object.keys(symbols).length, 'DarvasBox symbols +', Object.keys(pdhpdlSymbols).length, 'PDH/PDL symbols...');
+        console.log('Connected. Subscribing to', Object.keys(symbols).length, 'DarvasBox symbols +', Object.keys(pdhpdlSymbols).length, 'PDH/PDL symbols +', Object.keys(olsSymbols).length, 'Opening Loser Short symbols...');
         lastActivityMs = Date.now(); // gives the subscription a full WS_STALE_TIMEOUT_MS window to start producing ticks
         setTimeout(() => {
           // Merged + deduped -- PDH/PDL (halal Nifty-50 subset) and DarvasBox's
           // 18 holdings overlap on some symbols; a single 'full' subscription
-          // covers both (mode:'full' already includes marketOHLC, not just ltpc).
-          const instrumentKeys = Array.from(new Set([...Object.values(symbols), ...Object.values(pdhpdlSymbols)]));
+          // covers both (mode:'full' already includes marketOHLC, not just ltpc)
+          // plus Opening Loser Short's 137-symbol universe (2026-08-20 merge --
+          // see this file's OLS section for why).
+          const instrumentKeys = Array.from(new Set([...Object.values(symbols), ...Object.values(pdhpdlSymbols), ...Object.values(olsSymbols)]));
           ws.send(Buffer.from(JSON.stringify({
             guid: `darvasbox-shadow-${Date.now()}`,
             method: 'sub',
@@ -925,6 +1076,24 @@ function connectAndRun() {
               }
             } catch (e) {
               console.error(`[pdh-pdl] Candle processing threw for ${instrumentKey}:`, e.message);
+            }
+          }
+
+          // Opening Loser Short: independent of the symbol maps above -- reads
+          // ltp/cp straight off the same full-mode ltpc sub-message extractTick
+          // already decodes (LTPC carries cp itself, see MarketDataFeedV3.proto).
+          const olsSymbol = olsKeyToSymbol[instrumentKey];
+          if (olsSymbol) {
+            try {
+              const ltpc = feed.fullFeed && feed.fullFeed.marketFF && feed.fullFeed.marketFF.ltpc;
+              if (ltpc) {
+                const s = olsState[olsSymbol];
+                s.ltp = ltpc.ltp;
+                s.cp = ltpc.cp || s.cp;
+                s.lastSeenAtMs = Date.now();
+              }
+            } catch (e) {
+              console.error(`[ols] Tick processing threw for ${instrumentKey}:`, e.message);
             }
           }
         }
@@ -987,6 +1156,14 @@ async function main() {
   await pdhpdlDb.init();
   await pdhpdlPrepDay();
   schedulePdhPdlDailyPrep();
+
+  // Opening Loser Short: own Postgres init + own day reset/ticker, independent
+  // of DarvasBox's and PDH/PDL's schedules. No position-restore-across-restart
+  // (matches the original standalone service -- a mid-window restart just
+  // means the entry-detection window silently comes up short today).
+  await olsDb.init();
+  olsResetDay();
+  scheduleOlsTicker();
 
   // DarvasBox: own Postgres init for trade-event/state persistence (real +
   // variant trackers). See darvasbox_db.js's module docstring for why this
