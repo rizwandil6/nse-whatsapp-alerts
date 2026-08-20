@@ -4000,5 +4000,26 @@
   "entryTimestampMs": 1787204100000,
   "exitTimestampMs": 1787218800000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.513649999999998,
+  "timestampMs": 1787219400000,
+  "breakoutTimestampMs": 1787219400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.513649999999998,
+  "exitPrice": 10.513649999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787219400000,
+  "exitTimestampMs": 1787219400000,
+  "shadow": true
  }
 ]
