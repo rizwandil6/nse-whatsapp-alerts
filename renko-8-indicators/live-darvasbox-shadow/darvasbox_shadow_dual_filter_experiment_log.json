@@ -3928,5 +3928,17 @@
   "timestampMs": 1787217900000,
   "breakoutTimestampMs": 1787217000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2682.2775,
+  "exitPrice": 2675.5550000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25062656641603465,
+  "entryTimestampMs": 1787217600000,
+  "exitTimestampMs": 1787217600000,
+  "shadow": true
  }
 ]
