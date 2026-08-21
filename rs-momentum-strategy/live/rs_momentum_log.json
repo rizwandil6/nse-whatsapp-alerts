@@ -636,5 +636,19 @@
   "date": "2026-08-18",
   "price": 271.4,
   "rsRankAtEntry": 80.27613412228797
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "EPL",
+  "date": "2026-08-19",
+  "price": 270.1,
+  "rsRankAtEntry": 80.6706114398422
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "WOCKPHARMA",
+  "date": "2026-08-19",
+  "price": 1830.6,
+  "rsRankAtEntry": 80.27613412228797
  }
 ]

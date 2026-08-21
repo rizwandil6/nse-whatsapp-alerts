@@ -205,5 +205,19 @@
   "rsRankAtEntry": 80.27613412228797,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "EPL": {
+  "entryDate": "2026-08-19",
+  "entryPrice": 270.1,
+  "rsRankAtEntry": 80.6706114398422,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "WOCKPHARMA": {
+  "entryDate": "2026-08-19",
+  "entryPrice": 1830.6,
+  "rsRankAtEntry": 80.27613412228797,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
