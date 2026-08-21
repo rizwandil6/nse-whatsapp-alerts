@@ -4210,5 +4210,26 @@
   "entryTimestampMs": 1787291400000,
   "exitTimestampMs": 1787304600000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2679.05525,
+  "timestampMs": 1787306100000,
+  "breakoutTimestampMs": 1787305200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2679.05525,
+  "exitPrice": 2679.05525,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787306100000,
+  "exitTimestampMs": 1787306100000,
+  "shadow": true
  }
 ]
