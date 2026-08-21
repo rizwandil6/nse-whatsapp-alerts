@@ -4249,5 +4249,41 @@
   "timestampMs": 1787291700000,
   "breakoutTimestampMs": 1787291700000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 926.3782500000001,
+  "exitPrice": 919.4130000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7518796992481046,
+  "entryTimestampMs": 1787288700000,
+  "exitTimestampMs": 1787304000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 150.05437500000002,
+  "exitPrice": 149.69625000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.23866348448687422,
+  "entryTimestampMs": 1787292600000,
+  "exitTimestampMs": 1787305500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 125.7282,
+  "exitPrice": 124.7805,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7537688442211036,
+  "entryTimestampMs": 1787291700000,
+  "exitTimestampMs": 1787304600000,
+  "shadow": true
  }
 ]
