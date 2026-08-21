@@ -4126,5 +4126,89 @@
   "timestampMs": 1787301660000,
   "breakoutTimestampMs": 1787301660000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 108.06695,
+  "exitPrice": 108.29580000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.21176687229537655,
+  "entryTimestampMs": 1787301660000,
+  "exitTimestampMs": 1787300760000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 925.8795,
+  "exitPrice": 918.9179999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7518796992481327,
+  "entryTimestampMs": 1787293800000,
+  "exitTimestampMs": 1787305200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 149.9520000000001,
+  "exitPrice": 149.10074999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.5676816581306916,
+  "entryTimestampMs": 1787292600000,
+  "exitTimestampMs": 1787305200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 104.46479999999998,
+  "exitPrice": 104.46479999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787305500000,
+  "exitTimestampMs": 1787305500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 847.44,
+  "exitPrice": 845.3000000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2525252525252509,
+  "entryTimestampMs": 1787298600000,
+  "exitTimestampMs": 1787305200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 185.00199999999998,
+  "exitPrice": 184.75,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.13621474362438304,
+  "entryTimestampMs": 1787292300000,
+  "exitTimestampMs": 1787305800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 125.75805000000001,
+  "exitPrice": 124.81012500000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7537688442210925,
+  "entryTimestampMs": 1787291400000,
+  "exitTimestampMs": 1787304600000,
+  "shadow": true
  }
 ]
