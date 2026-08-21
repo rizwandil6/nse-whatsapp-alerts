@@ -1,0 +1,14 @@
+{
+  "name": "ichimoku-btc-xau-live-streamer",
+  "version": "1.0.0",
+  "description": "Live MTF (1H/30min/5min) Ichimoku scanner for BTCUSDT and XAUUSDT on Pi42 (public market data, Socket.IO stream) — Telegram alerts + Postgres forward-tracking. Alert-only, no orders.",
+  "main": "streamer.js",
+  "scripts": {
+    "start": "node streamer.js",
+    "test": "node test_engine.js"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.8.1",
+    "pg": "^8.12.0"
+  }
+}
