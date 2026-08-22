@@ -650,5 +650,19 @@
   "date": "2026-08-19",
   "price": 1830.6,
   "rsRankAtEntry": 80.27613412228797
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CARBORUNIV",
+  "date": "2026-08-20",
+  "price": 1169.8,
+  "rsRankAtEntry": 80.23715415019763
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "WELENT",
+  "date": "2026-08-20",
+  "price": 631.45,
+  "rsRankAtEntry": 80.8300395256917
  }
 ]
