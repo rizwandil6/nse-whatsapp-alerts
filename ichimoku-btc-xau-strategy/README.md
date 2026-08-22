@@ -79,9 +79,16 @@ conditions sit continuously true without either an open trade or a fired signal.
 - **Target:** fixed **2:1** risk-reward (the video's stated default). The video also describes an
   optional trailing-stop variant (recent swings or the 200 EMA, citing an 8:1 backtest example) —
   **not implemented in this phase**, noted here as a documented future option to keep scope tight.
-- **Early-exit warning (alert only, no auto-exit):** if the Baseline crosses back through the 200
-  EMA against an open tracked position, a distinct warning alert fires once (edge-triggered, same
-  pattern as `ichimoku-momentum-strategy`'s Chikou-warning).
+- **Early reversal exit (hard rule, closes the position — changed 2026-08-22):** if the Baseline
+  crosses back through the 200 EMA against an open tracked position, the (virtual) position
+  closes immediately at that bar's close and a real outcome is logged — `WARNING_EXIT`, same
+  footing as `SL`/`TARGET`, not merely an informational nudge to close manually. This deliberately
+  **deviates from the source video**, which framed the equivalent Chikou/price-cross idea as
+  optional judgment ("it's up to you") — the user explicitly asked for it to be a deterministic
+  rule instead, since this system is alert-only and there's no real position for a human to act on
+  anyway. Checked *after* the intrabar SL/TARGET check on each bar (an actual stop/target hit
+  within the bar outranks the close-based Kijun/EMA heuristic). See `mtf_engine.js`'s
+  `MtfSymbolTracker#_track()`/`#resumeTrade()` for the implementation.
 
 ### 4. Broker: Pi42, and why `XAUUSDT` not `XAUTUSDT`/`PAXGUSDT`
 

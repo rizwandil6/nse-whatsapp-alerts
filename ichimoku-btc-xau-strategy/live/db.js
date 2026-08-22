@@ -68,15 +68,6 @@ class DB {
     return id;
   }
 
-  async markWarning(signalId, ts) {
-    if (signalId == null) return;
-    await this._q(
-      `UPDATE ichimoku_btcxau.outcomes SET warning_fired=true, warning_ts=to_timestamp($2/1000.0), updated_at=now()
-       WHERE signal_id=$1 AND warning_fired=false`,
-      [signalId, ts]
-    );
-  }
-
   async closeOutcome(signalId, e) {
     if (signalId == null) return;
     await this._q(

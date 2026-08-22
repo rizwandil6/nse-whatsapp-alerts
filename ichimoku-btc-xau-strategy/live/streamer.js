@@ -79,22 +79,20 @@ function fmtSetup(e) {
     `${istLikeUtc(e.entryTs)} · alert-only, no order placed.`,
   ].join('\n');
 }
-function fmtWarning(e) {
-  return [
-    `⚠️ EARLY REVERSAL WARNING — ${e.symbol} (${e.direction})`,
-    `Baseline (Kijun) crossed back through the 200 EMA against the open position (kijun ${fmtPx(e.kijun)} vs ema200 ${fmtPx(e.ema200)}, price ${fmtPx(e.price)}).`,
-    `Consider exiting manually before the stop is hit — informational only, no auto-exit.`,
-    `${istLikeUtc(e.ts)}.`,
-  ].join('\n');
-}
 function fmtOutcome(e) {
-  const icon = e.result === 'TARGET' ? '✅' : '🛑';
-  return [
-    `${icon} ${e.symbol} closed — ${e.result} @ ${fmtPx(e.exitPx)}`,
-    `R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R  ·  MFE ${Number(e.mfeR).toFixed(2)}R / MAE ${Number(e.maeR).toFixed(2)}R` +
-      (e.warningFired ? '  ·  ⚠️ early warning had fired' : ''),
+  const icon = e.result === 'TARGET' ? '✅' : e.result === 'WARNING_EXIT' ? '⚠️' : '🛑';
+  const label = e.result === 'WARNING_EXIT' ? 'EARLY REVERSAL EXIT' : e.result;
+  const lines = [
+    `${icon} ${e.symbol} closed — ${label} @ ${fmtPx(e.exitPx)}`,
+  ];
+  if (e.result === 'WARNING_EXIT') {
+    lines.push(`Baseline (Kijun) crossed back through the 200 EMA against the position (kijun ${fmtPx(e.kijun)} vs ema200 ${fmtPx(e.ema200)}) — closed immediately, not just flagged.`);
+  }
+  lines.push(
+    `R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R  ·  MFE ${Number(e.mfeR).toFixed(2)}R / MAE ${Number(e.maeR).toFixed(2)}R`,
     `${istLikeUtc(e.closedTs)}.`,
-  ].join('\n');
+  );
+  return lines.join('\n');
 }
 
 async function emit(alertType, symbol, text, signalId) {
@@ -108,9 +106,6 @@ async function handleEvents(events) {
       const id = await db.insertSignal(e, STOP_BUFFER_PCT * 100);
       if (id != null) signalIds[e.symbol] = id;
       await emit('SETUP', e.symbol, fmtSetup(e), signalIds[e.symbol]);
-    } else if (e.type === 'WARNING') {
-      await db.markWarning(signalIds[e.symbol], e.ts);
-      await emit('WARNING', e.symbol, fmtWarning(e), signalIds[e.symbol]);
     } else if (e.type === 'OUTCOME') {
       await db.closeOutcome(signalIds[e.symbol], e);
       await emit(e.result, e.symbol, fmtOutcome(e), signalIds[e.symbol]);

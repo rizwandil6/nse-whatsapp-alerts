@@ -4,8 +4,8 @@
  * Offline self-test for the MTF Ichimoku engine -- no network, no DB, no
  * exchange connection. Drives MtfSymbolTracker with synthetic OHLC series
  * per timeframe (clean monotonic trends, which satisfy all the MTF alignment
- * conditions once enough lookback exists) and asserts SETUP -> WARNING /
- * OUTCOME(SL) / OUTCOME(TARGET), mirroring
+ * conditions once enough lookback exists) and asserts SETUP -> OUTCOME(SL) /
+ * OUTCOME(TARGET) / OUTCOME(WARNING_EXIT), mirroring
  * ichimoku-momentum-strategy/live/test_engine.js's approach. Run: `npm test`.
  */
 
@@ -130,28 +130,32 @@ check('SHORT: SETUP -> rally-through-target bar -> OUTCOME TARGET (+2R)', () => 
 });
 
 // ---------------------------------------------------------------------------
-// F: early-reversal WARNING -- edge-triggered once, fires when the Baseline
-//    (Kijun) crosses back through the 200 EMA against an open LONG.
+// F: early reversal exit -- fires when the Baseline (Kijun) crosses back
+//    through the 200 EMA against an open LONG. Changed 2026-08-22 from a
+//    discretionary WARNING alert to a hard close (OUTCOME result
+//    WARNING_EXIT), per the user's request.
 // ---------------------------------------------------------------------------
-check('LONG: early-reversal WARNING fires once when Kijun crosses back below the 200 EMA', () => {
+check('LONG: reversal exit closes the trade (WARNING_EXIT) once Kijun crosses back below the 200 EMA', () => {
   const { tracker, lastM5 } = buildAlignedTracker('TESTWARN', 'LONG');
   const setup = tracker.addM5Bar(lastM5).find((e) => e.type === 'SETUP');
   assert.ok(setup && tracker.trade, 'precondition: setup must fire and leave an open trade');
-  tracker.trade.stop = -Infinity; // disable SL so the reversal path can be isolated
+  tracker.trade.stop = -Infinity; // disable SL so the reversal-exit path can be isolated
 
   // Feed a sharp down-move so Kijun (26-bar) drops back below the (slow-moving) 200 EMA.
   let ts = lastM5.timestampMs;
   let px = setup.entryPx;
-  let warning = null;
-  for (let i = 0; i < 40 && !warning; i++) {
+  let outcome = null;
+  for (let i = 0; i < 40 && !outcome; i++) {
     ts += FIVE_MIN;
     px -= 3;
     const bar = { timestampMs: ts, open: px + 3, high: px + 3.2, low: px - 0.2, close: px, volume: 100 };
     const ev = tracker.addM5Bar(bar);
-    warning = ev.find((e) => e.type === 'WARNING');
+    outcome = ev.find((e) => e.type === 'OUTCOME');
   }
-  assert.ok(warning, 'expected a WARNING event once Kijun crosses back below the 200 EMA');
-  assert.strictEqual(tracker.trade.warningFired, true, 'warningFired flag should be set on the open trade');
+  assert.ok(outcome, 'expected an OUTCOME once Kijun crosses back below the 200 EMA');
+  assert.strictEqual(outcome.result, 'WARNING_EXIT', `expected WARNING_EXIT, got ${outcome && outcome.result}`);
+  assert.ok(outcome.kijun != null && outcome.ema200 != null, 'kijun/ema200 context must be attached to the outcome');
+  assert.strictEqual(tracker.trade, null, 'trade must be cleared (re-entry now allowed) after a reversal exit');
 });
 
 // ---------------------------------------------------------------------------
