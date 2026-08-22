@@ -14,23 +14,27 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Backs the dashboard's "Crypto/Forex" tab -- currently-open positions from the
- * Ichimoku BTC/XAU MTF scanner (ichimoku-btc-xau-strategy/live, a Node service
- * streaming Pi42 and writing straight to this same shared Postgres instance's
- * ichimoku_btcxau.* schema). Same "Node service writes Postgres, this Java app
- * reads it for the dashboard" pattern as SwingSignalService/RsMomentumService.
+ * Backs the dashboard's "Crypto/Forex" tab -- ALL trades (open and closed) from
+ * the Ichimoku BTC/XAU MTF scanner (ichimoku-btc-xau-strategy/live, a Node
+ * service streaming Pi42 and writing straight to this same shared Postgres
+ * instance's ichimoku_btcxau.* schema). Same "Node service writes Postgres,
+ * this Java app reads it for the dashboard" pattern as SwingSignalService/
+ * RsMomentumService.
  *
- * Scoped to OPEN positions only (per the tab's purpose) -- closed history
- * (TARGET/SL/WARNING_EXIT) isn't surfaced here; query ichimoku_btcxau.signals/
- * outcomes directly if that's ever needed.
+ * Excludes ABANDONED rows -- those are bookkeeping artifacts from the
+ * 2026-08-21 restart-duplicate-signal bug (see that strategy's README
+ * "Restart resilience"), not real trade outcomes, so showing them here would
+ * misrepresent the trade history rather than inform it.
  *
- * Each open row is enriched with a LIVE current price and direction-aware
- * unrealized %, fetched straight from Pi42's public (unauthenticated)
- * ticker24Hr endpoint -- same "attach fresh, don't trust the stored snapshot"
- * pattern as the Swing tab's live-price attach (DashboardDataController#swing).
- * Only 2 symbols max at a time (BTCUSDT/XAUUSDT), so no caching layer -- a
- * synchronous per-request round-trip is fine at this volume, and a failed
- * fetch just skips that field rather than failing the whole tab.
+ * Every row gets a direction-aware P&L%: OPEN rows compute it against a LIVE
+ * current price fetched from Pi42's public (unauthenticated) ticker24Hr
+ * endpoint (same "attach fresh, don't trust the stored snapshot" pattern as
+ * the Swing tab's live-price attach, DashboardDataController#swing); closed
+ * rows (TARGET/SL/WARNING_EXIT) use the already-final stored exit price --
+ * no network call needed since that number never changes again. Only 2
+ * symbols max are ever OPEN at once (BTCUSDT/XAUUSDT), so no caching layer --
+ * a synchronous per-request round-trip is fine at this volume, and a failed
+ * fetch just skips that OPEN row's live fields rather than failing the tab.
  */
 @Component
 public class CryptoForexService {
@@ -43,32 +47,43 @@ public class CryptoForexService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Map<String, Object>> openPositions() {
+    public List<Map<String, Object>> allTrades() {
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(
                 "SELECT s.symbol, s.direction, " +
                         "       to_char(s.entry_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"entryTs\", " +
                         "       s.entry_px AS \"entryPx\", s.stop_px AS \"stopPx\", s.target_px AS \"targetPx\", " +
                         "       s.r_value AS \"rValue\", s.criteria::text AS \"criteria\", " +
-                        "       o.warning_fired AS \"warningFired\" " +
+                        "       o.warning_fired AS \"warningFired\", o.final_result AS \"status\", " +
+                        "       o.exit_px AS \"exitPx\", o.r_multiple AS \"rMultiple\", " +
+                        "       to_char(o.closed_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"closedTs\" " +
                         "FROM ichimoku_btcxau.signals s " +
                         "JOIN ichimoku_btcxau.outcomes o ON o.signal_id = s.id " +
-                        "WHERE o.final_result = 'OPEN' " +
-                        "ORDER BY s.entry_ts DESC");
+                        "WHERE o.final_result != 'ABANDONED' " +
+                        "ORDER BY (o.final_result = 'OPEN') DESC, COALESCE(o.closed_ts, s.entry_ts) DESC");
         for (Map<String, Object> row : rows) {
-            attachLivePnl(row);
+            attachPnlPct(row);
         }
         return rows;
     }
 
-    private void attachLivePnl(Map<String, Object> row) {
+    private void attachPnlPct(Map<String, Object> row) {
         Object symbolO = row.get("symbol"), entryO = row.get("entryPx"), directionO = row.get("direction");
         if (!(symbolO instanceof String symbol) || !(entryO instanceof Number entryN) || !(directionO instanceof String direction)) return;
-        Double last = fetchLastPrice(symbol);
-        if (last == null) return;
         double entry = entryN.doubleValue();
         if (entry <= 0) return;
-        double pct = "LONG".equals(direction) ? (last - entry) / entry * 100.0 : (entry - last) / entry * 100.0;
-        row.put("currentPrice", last);
+
+        boolean open = "OPEN".equals(row.get("status"));
+        Double refPrice;
+        if (open) {
+            refPrice = fetchLastPrice(symbol);
+            if (refPrice != null) row.put("currentPrice", refPrice);
+        } else {
+            Object exitO = row.get("exitPx");
+            refPrice = exitO instanceof Number exitN ? exitN.doubleValue() : null;
+        }
+        if (refPrice == null) return;
+
+        double pct = "LONG".equals(direction) ? (refPrice - entry) / entry * 100.0 : (entry - refPrice) / entry * 100.0;
         row.put("pnlPct", Math.round(pct * 100.0) / 100.0); // 2 dp
     }
 
