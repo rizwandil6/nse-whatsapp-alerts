@@ -545,6 +545,11 @@
     return latest;
   }
 
+  // The day the user actually started tracking this strategy live -- rows dated before
+  // this are pre-tracking backfill, hidden by default so the tab reads as "what I've been
+  // watching," not the whole synthetic history. Bump this only if tracking restarts fresh.
+  const SWING_TRACKING_START = '2026-08-07';
+
   function renderSwing(items, panel) {
     panel.innerHTML = '';
     const signalDay = latestSignalDay(items);
@@ -586,7 +591,8 @@
       '<select id="sw-rsrank"><option value="all">All RS ranks</option><option value="80">RS ≥ 80</option><option value="50">RS ≥ 50</option><option value="below50">RS &lt; 50</option><option value="na">No rank data</option></select>' +
       '<select id="sw-rsrank-entry"><option value="all">All RS ranks (entry)</option><option value="80">RS (entry) ≥ 80</option><option value="50">RS (entry) ≥ 50</option><option value="below50">RS (entry) &lt; 50</option><option value="na">No entry-rank data</option></select>' +
       '<select id="sw-index"><option value="all">All indices</option><option value="NIFTY 50">Nifty 50</option><option value="NIFTY NEXT 50">Nifty Next 50</option><option value="NIFTY MIDCAP 150">Nifty Midcap 150</option><option value="NIFTY SMALLCAP 250">Nifty Smallcap 250</option><option value="na">No index data</option></select>' +
-      '<label class="sw-check"><input type="checkbox" id="sw-fullspec" /> Full-spec only</label>';
+      '<label class="sw-check"><input type="checkbox" id="sw-fullspec" /> Full-spec only</label>' +
+      '<label class="sw-check"><input type="checkbox" id="sw-alltime" /> Show all trades (since inception)</label>';
     panel.appendChild(bar);
 
     const list = document.createElement('div');
@@ -595,7 +601,10 @@
     list.style.gap = '10px';
     panel.appendChild(list);
 
-    const state = { status: 'all', month: 'all', symbol: '', result: 'all', fullspec: false, rsrank: 'all', rsrankEntry: 'all', index: 'all' };
+    // Default view is trimmed to the day live tracking actually started -- earlier
+    // rows are backfilled/synthetic history, not real forward-tested signals. The
+    // checkbox opts back into the full (pre-tracking) history when needed.
+    const state = { status: 'all', month: 'all', symbol: '', result: 'all', fullspec: false, rsrank: 'all', rsrankEntry: 'all', index: 'all', allTime: false };
 
     function cardHtml(s) {
       const isClosed = s.status === 'closed';
@@ -645,6 +654,7 @@
 
     function apply() {
       let f = items.slice();
+      if (!state.allTime) f = f.filter((s) => (s.signalDate || '') >= SWING_TRACKING_START);
       if (state.status === 'today') f = f.filter((s) => s.actionToday);
       else if (state.status !== 'all') f = f.filter((s) => s.status === state.status);
       if (state.month !== 'all') f = f.filter((s) => (s.signalDate || '').slice(0, 7) === state.month);
@@ -687,6 +697,7 @@
     bar.querySelector('#sw-symbol').addEventListener('input', (e) => { state.symbol = e.target.value.trim(); apply(); });
     bar.querySelector('#sw-result').addEventListener('change', (e) => { state.result = e.target.value; apply(); });
     bar.querySelector('#sw-fullspec').addEventListener('change', (e) => { state.fullspec = e.target.checked; apply(); });
+    bar.querySelector('#sw-alltime').addEventListener('change', (e) => { state.allTime = e.target.checked; apply(); });
     bar.querySelector('#sw-rsrank').addEventListener('change', (e) => { state.rsrank = e.target.value; apply(); });
     bar.querySelector('#sw-rsrank-entry').addEventListener('change', (e) => { state.rsrankEntry = e.target.value; apply(); });
     bar.querySelector('#sw-index').addEventListener('change', (e) => { state.index = e.target.value; apply(); });
