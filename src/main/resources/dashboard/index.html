@@ -161,7 +161,7 @@
     <button class="tab-btn" data-tab="announcements">Announcements <span class="count" id="count-announcements"></span></button>
     <button class="tab-btn" data-tab="quarterly-results">Quarterly Results <span class="count" id="count-quarterly-results"></span></button>
     <button class="tab-btn" data-tab="rs-momentum">RS Momentum <span class="count" id="count-rs-momentum"></span></button>
-    <button class="tab-btn" data-tab="darvasbox">Today's DarvasBox <span class="count" id="count-darvasbox"></span></button>
+    <button class="tab-btn" data-tab="crypto-forex">Crypto/Forex <span class="count" id="count-crypto-forex"></span></button>
   </div>
 
   <div class="panel active" id="panel-home"><div class="state-msg">Loading…</div></div>
@@ -171,7 +171,7 @@
   <div class="panel" id="panel-announcements"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-quarterly-results"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-rs-momentum"><div class="state-msg">Loading…</div></div>
-  <div class="panel" id="panel-darvasbox"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-crypto-forex"><div class="state-msg">Loading…</div></div>
 </div>
 
 <style>
@@ -243,7 +243,7 @@
     announcements: { url: '/api/dashboard/announcements', render: renderAnnouncements },
     'quarterly-results': { url: '/api/dashboard/quarterly-results', render: renderQuarterlyResults },
     'rs-momentum': { url: '/api/dashboard/rs-momentum', render: renderRsMomentum },
-    darvasbox: { url: '/api/dashboard/darvasbox-today', render: renderDarvasbox },
+    'crypto-forex': { url: '/api/dashboard/crypto-forex', render: renderCryptoForex },
   };
   const loaded = {};
   const dataCache = {};
@@ -253,7 +253,7 @@
     announcements: 'Announcements',
     'quarterly-results': 'Quarterly Results',
     'rs-momentum': 'RS Momentum',
-    darvasbox: "Today's DarvasBox",
+    'crypto-forex': 'Crypto/Forex',
   };
 
   function fmtTime(iso) {
@@ -321,11 +321,8 @@
         const label = { ENTRY: 'Entry', EXIT: 'Exit', ENTRY_PENDING: 'Entry (pending)', FUNDAMENTALS_CONFIRMED: 'Confirmed', FUNDAMENTALS_FAILED: 'Retracted' };
         return `<div class="tile-preview-title">${esc(item.symbol)} — ${label[item.type] || esc(item.type)}</div><div class="tile-preview-time">${esc(item.date)}</div>`;
       }
-      case 'darvasbox': {
-        const isExit = item.type === 'EXIT';
-        const time = isExit ? fmtMs(item.exitTimestampMs) : fmtMs(item.timestampMs);
-        return `<div class="tile-preview-title">${esc(item.symbol)} ${esc(item.direction)} — ${isExit ? 'Exit' : 'Entry'}</div><div class="tile-preview-time">${time} IST</div>`;
-      }
+      case 'crypto-forex':
+        return `<div class="tile-preview-title">${esc(item.symbol)} ${esc(item.direction)} — Open</div><div class="tile-preview-time">${fmtTime(item.entryTs)}</div>`;
       case 'quarterly-results':
         return `<div class="tile-preview-title">${esc(item.symbol)} — ${esc(item.quarterLabel)}</div>` +
           `<div class="tile-preview-sub">Revenue ${fmtCr(item.revenueCr)}</div>` +
@@ -480,28 +477,32 @@
     }
   }
 
-  function renderDarvasbox(items, panel) {
-    // DarvasBox SHADOW trade (0.25% brick, flat 1% stop, LTP-confirmed
-    // entries/exits, both directions) -- server already filters to today
-    // (IST). ENTRY cards show the stop; EXIT cards show exit/reason/P&L,
-    // plus rupee P&L (real holding qty) when the trade log has it.
-    for (const t of items) {
+  function renderCryptoForex(items, panel) {
+    // Ichimoku BTC/XAU MTF scanner (ichimoku-btc-xau-strategy/live, Pi42) --
+    // currently-OPEN positions only, server-filtered (final_result='OPEN').
+    // Alert-only: these are virtual/tracked positions, not real Pi42 orders --
+    // see that service's README for the full "Execution — a deliberately
+    // separate future phase" boundary.
+    if (!items.length) {
+      panel.innerHTML = '<div class="state-msg">No open positions right now.</div>';
+      return;
+    }
+    for (const p of items) {
       const card = document.createElement('div');
       card.className = 'card';
-      const isExit = t.type === 'EXIT';
-      const dirBadge = t.direction === 'LONG' ? 'win' : 'loss';
-      const time = isExit ? fmtMs(t.exitTimestampMs) : fmtMs(t.timestampMs);
-      const rsNote = isExit && t.pnlRs != null ? ` <span class="pnl ${t.pnlRs >= 0 ? 'win' : 'loss'}">${t.pnlRs >= 0 ? '+' : '−'}₹${Math.abs(t.pnlRs).toFixed(0)}</span>` : '';
+      const dirBadge = p.direction === 'LONG' ? 'win' : 'loss';
       card.innerHTML = `
         <div class="card-top">
-          <div class="card-title">${esc(t.symbol)}</div>
-          <div class="card-time">${time} IST</div>
+          <div class="card-title">${esc(p.symbol)}</div>
+          <div class="card-time">${fmtTime(p.entryTs)} UTC</div>
         </div>
         <div class="card-meta">
-          <span class="badge ${dirBadge}">${esc(t.direction)}</span>
-          <span class="badge neutral">${isExit ? 'Exit' : 'Entry'}</span>
-          <span>Entry <b>₹${esc(t.entry)}</b></span>
-          ${isExit ? `<span>Exit <b>₹${esc(t.exitPrice)}</b></span><span>${esc(t.action)}</span><span class="pnl ${t.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(t.pnlPct)}</span>${rsNote}` : `<span>Stop <b>₹${esc(t.stop)}</b></span>`}
+          <span class="badge ${dirBadge}">${esc(p.direction)}</span>
+          <span class="badge neutral">Open</span>
+          <span>Entry <b>${esc(p.entryPx)}</b></span>
+          <span>Stop <b>${esc(p.stopPx)}</b></span>
+          <span>Target (2R) <b>${esc(p.targetPx)}</b></span>
+          ${p.warningFired ? '<span class="badge loss">⚠ reversal warned</span>' : ''}
         </div>
       `;
       panel.appendChild(card);
