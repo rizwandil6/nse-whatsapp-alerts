@@ -664,5 +664,93 @@
   "date": "2026-08-20",
   "price": 631.45,
   "rsRankAtEntry": 80.8300395256917
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "ACE",
+  "date": "2026-08-22",
+  "price": 1184.8,
+  "rsRankAtEntry": 86.15702479338843,
+  "salesGrowth3Y": 77
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "CONCORDBIO",
+  "date": "2026-08-22",
+  "price": 1565.7,
+  "rsRankAtEntry": 81.61157024793388
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SUMICHEM",
+  "date": "2026-08-22",
+  "price": 563.1,
+  "rsRankAtEntry": 80.16528925619835
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "TORNTPHARM",
+  "date": "2026-08-22",
+  "price": 4971,
+  "rsRankAtEntry": 81.19834710743802
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "GOKULAGRO",
+  "date": "2026-08-22",
+  "price": 243.02,
+  "rsRankAtEntry": 80.07889546351085,
+  "salesGrowth3Y": 31
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "NAM-INDIA",
+  "date": "2026-08-22",
+  "price": 1217,
+  "rsRankAtEntry": 81.85404339250493
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "NYKAA",
+  "date": "2026-08-22",
+  "price": 327.35,
+  "rsRankAtEntry": 81.06508875739645,
+  "salesGrowth3Y": 25
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "VIYASH",
+  "date": "2026-08-22",
+  "price": 271.4,
+  "rsRankAtEntry": 80.27613412228797,
+  "salesGrowth3Y": 34
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "EPL",
+  "date": "2026-08-22",
+  "price": 270.1,
+  "rsRankAtEntry": 80.6706114398422
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "WOCKPHARMA",
+  "date": "2026-08-22",
+  "price": 1830.6,
+  "rsRankAtEntry": 80.27613412228797
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "CARBORUNIV",
+  "date": "2026-08-22",
+  "price": 1169.8,
+  "rsRankAtEntry": 80.23715415019763
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "WELENT",
+  "date": "2026-08-22",
+  "price": 631.45,
+  "rsRankAtEntry": 80.8300395256917
  }
 ]

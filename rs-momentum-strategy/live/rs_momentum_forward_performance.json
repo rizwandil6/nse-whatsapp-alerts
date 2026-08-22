@@ -1,51 +1,18 @@
 [
  {
-  "symbol": "CARBORUNIV",
-  "entryDate": "2026-08-20",
-  "entryPrice": 1169.8,
+  "symbol": "ACE",
+  "entryDate": "2026-08-22",
+  "entryPrice": 1184.8,
   "status": "open",
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1169.8,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "WELENT",
-  "entryDate": "2026-08-20",
-  "entryPrice": 631.45,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 631.45,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "EPL",
-  "entryDate": "2026-08-19",
-  "entryPrice": 270.1,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 265.61,
-  "returnSinceEntry": -1.6623472787856381
- },
- {
-  "symbol": "WOCKPHARMA",
-  "entryDate": "2026-08-19",
-  "entryPrice": 1830.6,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1886.3,
-  "returnSinceEntry": 3.04271823445865
+  "currentPrice": 1182.2,
+  "returnSinceEntry": -0.2194463200540099
  },
  {
   "symbol": "GOKULAGRO",
-  "entryDate": "2026-08-18",
+  "entryDate": "2026-08-22",
   "entryPrice": 243.02,
   "status": "open",
   "exitDate": null,
@@ -55,19 +22,8 @@
   "returnSinceEntry": -0.0905275285984688
  },
  {
-  "symbol": "NAM-INDIA",
-  "entryDate": "2026-08-18",
-  "entryPrice": 1217,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1251,
-  "returnSinceEntry": 2.7937551355792936
- },
- {
   "symbol": "NYKAA",
-  "entryDate": "2026-08-18",
+  "entryDate": "2026-08-22",
   "entryPrice": 327.35,
   "status": "open",
   "exitDate": null,
@@ -78,7 +34,7 @@
  },
  {
   "symbol": "VIYASH",
-  "entryDate": "2026-08-18",
+  "entryDate": "2026-08-22",
   "entryPrice": 271.4,
   "status": "open",
   "exitDate": null,
@@ -86,50 +42,6 @@
   "returnWhileOpen": null,
   "currentPrice": 275.95,
   "returnSinceEntry": 1.676492262343409
- },
- {
-  "symbol": "TORNTPHARM",
-  "entryDate": "2026-08-17",
-  "entryPrice": 4971,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": null,
-  "returnSinceEntry": null
- },
- {
-  "symbol": "ACE",
-  "entryDate": "2026-08-17",
-  "entryPrice": 1184.8,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1182.2,
-  "returnSinceEntry": -0.2194463200540099
- },
- {
-  "symbol": "CONCORDBIO",
-  "entryDate": "2026-08-17",
-  "entryPrice": 1565.7,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1571.3,
-  "returnSinceEntry": 0.35766749696620737
- },
- {
-  "symbol": "SUMICHEM",
-  "entryDate": "2026-08-17",
-  "entryPrice": 563.1,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 534.65,
-  "returnSinceEntry": -5.052388563310255
  },
  {
   "symbol": "NUVAMA",

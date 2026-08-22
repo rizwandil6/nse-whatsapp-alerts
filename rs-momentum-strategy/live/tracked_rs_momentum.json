@@ -154,84 +154,24 @@
   "entryDate": "2026-08-17",
   "entryPrice": 1184.8,
   "rsRankAtEntry": 86.15702479338843,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "CONCORDBIO": {
-  "entryDate": "2026-08-17",
-  "entryPrice": 1565.7,
-  "rsRankAtEntry": 81.61157024793388,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "SUMICHEM": {
-  "entryDate": "2026-08-17",
-  "entryPrice": 563.1,
-  "rsRankAtEntry": 80.16528925619835,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "TORNTPHARM": {
-  "entryDate": "2026-08-17",
-  "entryPrice": 4971,
-  "rsRankAtEntry": 81.19834710743802,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 77
  },
  "GOKULAGRO": {
   "entryDate": "2026-08-18",
   "entryPrice": 243.02,
   "rsRankAtEntry": 80.07889546351085,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "NAM-INDIA": {
-  "entryDate": "2026-08-18",
-  "entryPrice": 1217,
-  "rsRankAtEntry": 81.85404339250493,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 31
  },
  "NYKAA": {
   "entryDate": "2026-08-18",
   "entryPrice": 327.35,
   "rsRankAtEntry": 81.06508875739645,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 25
  },
  "VIYASH": {
   "entryDate": "2026-08-18",
   "entryPrice": 271.4,
   "rsRankAtEntry": 80.27613412228797,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "EPL": {
-  "entryDate": "2026-08-19",
-  "entryPrice": 270.1,
-  "rsRankAtEntry": 80.6706114398422,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "WOCKPHARMA": {
-  "entryDate": "2026-08-19",
-  "entryPrice": 1830.6,
-  "rsRankAtEntry": 80.27613412228797,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "CARBORUNIV": {
-  "entryDate": "2026-08-20",
-  "entryPrice": 1169.8,
-  "rsRankAtEntry": 80.23715415019763,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "WELENT": {
-  "entryDate": "2026-08-20",
-  "entryPrice": 631.45,
-  "rsRankAtEntry": 80.8300395256917,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 34
  }
 }
