@@ -144,6 +144,19 @@ async function seedSymbol(symbol) {
   if (m30.length) forming[`${symbol}:m30`] = { ...m30[m30.length - 1] };
   if (m5.length) forming[`${symbol}:m5`] = { ...m5[m5.length - 1] };
   console.log(`[seed] ${symbol}: 1h=${h1.length} 30m=${m30.length} 5m=${m5.length} bars`);
+
+  // Resume any still-OPEN position from a prior process run (see mtf_engine.js
+  // #resumeTrade -- without this, every restart forgot the open trade and
+  // re-entered fresh, producing duplicate signals and orphaning the original's
+  // outcome forever; fixed 2026-08-21).
+  const openRow = await db.getOpenSignal(symbol);
+  if (openRow) {
+    signalIds[symbol] = Number(openRow.id);
+    await db.abandonOtherOpenSignals(symbol, openRow.id);
+    const events = tracker.resumeTrade(openRow);
+    console.log(`[resume] ${symbol}: reattached open ${openRow.direction} from ${openRow.entry_ts} (signal #${openRow.id})`);
+    if (events.length) enqueue(symbol, events); // e.g. it already hit stop/target/warning while we were down
+  }
 }
 
 // ---- WebSocket (Socket.IO) -------------------------------------------------

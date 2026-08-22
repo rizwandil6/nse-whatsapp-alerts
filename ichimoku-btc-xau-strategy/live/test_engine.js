@@ -154,5 +154,53 @@ check('LONG: early-reversal WARNING fires once when Kijun crosses back below the
   assert.strictEqual(tracker.trade.warningFired, true, 'warningFired flag should be set on the open trade');
 });
 
+// ---------------------------------------------------------------------------
+// G: resume after a restart -- a still-open position (per a DB row) that
+//    hasn't hit stop/target yet must reattach with no spurious events, and
+//    addM5Bar must NOT re-enter a fresh setup while it's tracked.
+// ---------------------------------------------------------------------------
+check('resume: reattaches a still-open position from a DB row, no re-entry while tracked', () => {
+  const { tracker, lastM5, m5 } = buildAlignedTracker('TESTRESUME', 'LONG');
+  const entryBar = m5[m5.length - 2]; // an earlier bar stands in for "the original entry"
+  const row = {
+    id: 1, direction: 'LONG', entry_ts: new Date(entryBar.timestampMs).toISOString(),
+    entry_px: entryBar.close, stop_px: entryBar.close - 1000, target_px: entryBar.close + 1000,
+    r_value: 1000, ema200_at_entry: entryBar.close - 50, criteria: { h1: 'x' }, warning_fired: false,
+  };
+  // seedHistory only kept bars up to (m5.length - 2); re-seed through entryBar's index so
+  // resumeTrade's post-entry replay has the bars between entry and "now" to scan (mirrors what
+  // seedSymbol's real history pull would contain across a restart).
+  tracker.seedHistory({ h1: tracker.h1, m30: tracker.m30, m5: m5.slice(0, m5.length - 1) });
+  const events = tracker.resumeTrade(row);
+  assert.ok(tracker.trade, 'trade must be reattached (open)');
+  assert.strictEqual(tracker.trade.entryPx, entryBar.close);
+  assert.strictEqual(events.some((e) => e.type === 'OUTCOME'), false, 'no stop/target was actually hit -- must not report one');
+
+  const reEvents = tracker.addM5Bar(lastM5);
+  assert.ok(!reEvents.some((e) => e.type === 'SETUP'), 'must not fire a fresh SETUP while a resumed trade is open');
+});
+
+// ---------------------------------------------------------------------------
+// H: resume catch-up -- if the stop was already hit by seeded bars between the
+//    original entry and "now" (i.e. it resolved while the process was down),
+//    resumeTrade must report that OUTCOME immediately instead of losing it.
+// ---------------------------------------------------------------------------
+check('resume: catches up a stop that was already hit while the process was down', () => {
+  const { tracker, lastM5 } = buildAlignedTracker('TESTRESUMESL', 'LONG');
+  const entryPx = lastM5.close;
+  const stop = entryPx - 5;
+  const crash = { timestampMs: lastM5.timestampMs + FIVE_MIN, open: entryPx, high: entryPx, low: stop - 1, close: stop - 0.5, volume: 100 };
+  tracker.seedHistory({ h1: tracker.h1, m30: tracker.m30, m5: [...tracker.m5, lastM5, crash] });
+  const row = {
+    id: 2, direction: 'LONG', entry_ts: new Date(lastM5.timestampMs).toISOString(),
+    entry_px: entryPx, stop_px: stop, target_px: entryPx + 1000, r_value: 5,
+    ema200_at_entry: entryPx - 50, criteria: {}, warning_fired: false,
+  };
+  const events = tracker.resumeTrade(row);
+  const outcome = events.find((e) => e.type === 'OUTCOME');
+  assert.ok(outcome && outcome.result === 'SL', `expected a caught-up SL outcome, got ${outcome && outcome.result}`);
+  assert.strictEqual(tracker.trade, null, 'trade must be cleared once the catch-up finds it already closed');
+});
+
 console.log(failures === 0 ? '\nALL TESTS PASSED' : `\n${failures} TEST(S) FAILED`);
 process.exit(failures === 0 ? 0 : 1);

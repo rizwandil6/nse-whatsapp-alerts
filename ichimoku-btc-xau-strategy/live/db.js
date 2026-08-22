@@ -87,6 +87,34 @@ class DB {
     );
   }
 
+  /** Resume support: the most recent still-open signal for a symbol, if any (survives restarts). */
+  async getOpenSignal(symbol) {
+    const r = await this._q(
+      `SELECT s.id, s.symbol, s.direction, s.entry_ts, s.entry_px, s.stop_px, s.target_px,
+              s.r_value, s.ema200_at_entry, s.criteria, o.warning_fired
+         FROM ichimoku_btcxau.signals s
+         JOIN ichimoku_btcxau.outcomes o ON o.signal_id = s.id
+        WHERE s.symbol = $1 AND o.final_result = 'OPEN'
+        ORDER BY s.entry_ts DESC
+        LIMIT 1`,
+      [symbol]
+    );
+    if (!r || r.rowCount === 0) return null;
+    return r.rows[0];
+  }
+
+  /** Restart hygiene: if more than one OPEN row exists for a symbol (a pre-fix restart artifact),
+   *  keep the one being resumed and flag the rest ABANDONED so they stop polluting outcome stats. */
+  async abandonOtherOpenSignals(symbol, keepSignalId) {
+    await this._q(
+      `UPDATE ichimoku_btcxau.outcomes o
+          SET final_result = 'ABANDONED', updated_at = now()
+         FROM ichimoku_btcxau.signals s
+        WHERE o.signal_id = s.id AND s.symbol = $1 AND o.final_result = 'OPEN' AND s.id != $2`,
+      [symbol, keepSignalId]
+    );
+  }
+
   async insertAlert(a) {
     await this._q(
       `INSERT INTO ichimoku_btcxau.alerts (signal_id, symbol, alert_type, chat_id, text, sent_ok)
