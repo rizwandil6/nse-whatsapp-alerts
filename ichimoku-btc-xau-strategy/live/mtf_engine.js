@@ -27,8 +27,14 @@
  * user's own risk-per-trade discussion, same reasoning pattern as
  * ichimoku-momentum-strategy's SL_BUFFER_PCT).
  * Target = fixed 2R.
- * Early-exit warning (alert-only, no auto-exit, edge-triggered once per open
- * trade): Baseline crosses back through the 200 EMA against the position.
+ * Early reversal exit (changed 2026-08-22 from a discretionary alert to a
+ * hard rule, per the user's request): Baseline crossing back through the
+ * 200 EMA against the position closes the tracked (virtual) position
+ * immediately at that bar's close, logged as result WARNING_EXIT -- same
+ * footing as SL/TARGET, not just an informational nudge to act on manually.
+ * Checked AFTER the intrabar SL/TARGET check on each bar, since an actual
+ * stop/target hit within the bar is a harder outcome than the close-based
+ * Kijun/EMA heuristic.
  *
  * Cooldown / re-entry state machine: once a signal fires for a symbol, no new
  * signal fires until the open trade's outcome (TARGET or SL) is reached.
@@ -162,19 +168,23 @@ class MtfSymbolTracker {
 
     if (s.closed) { this.trade = null; return events; }
 
-    if (!s.warningFired) {
-      const m5s = entryTfState(this.m5);
-      if (m5s) {
-        const against = long ? m5s.kijunBelowEma : m5s.kijunAboveEma;
-        if (against) {
-          s.warningFired = true;
-          const lastBar = this.m5[this.m5.length - 1];
-          events.push({
-            type: 'WARNING', symbol: this.symbol, direction: s.direction,
-            ts: lastBar ? lastBar.timestampMs : Date.now(),
-            kijun: m5s.kijun, ema200: m5s.ema200, price: m5s.close,
-          });
-        }
+    // Same reversal-closes-the-trade rule as _track() (2026-08-22). Evaluated once against
+    // current (latest) state rather than per-historical-bar -- see the class doc comment above
+    // for why per-bar replay isn't safe here (entryTfState always reads the newest bar).
+    const m5s = entryTfState(this.m5);
+    if (m5s) {
+      const against = long ? m5s.kijunBelowEma : m5s.kijunAboveEma;
+      if (against) {
+        s.warningFired = true;
+        const lastBar = this.m5[this.m5.length - 1];
+        const exitPx = lastBar ? lastBar.close : s.entryPx;
+        const ts = lastBar ? lastBar.timestampMs : Date.now();
+        const rMultiple = (long ? exitPx - s.entryPx : s.entryPx - exitPx) / s.r;
+        const outcome = this._close('WARNING_EXIT', exitPx, ts, rMultiple);
+        outcome.kijun = m5s.kijun;
+        outcome.ema200 = m5s.ema200;
+        events.push(outcome);
+        this.trade = null;
       }
     }
     return events;
@@ -238,26 +248,34 @@ class MtfSymbolTracker {
     s.mfeR = Math.max(s.mfeR, (long ? favPx - s.entryPx : s.entryPx - favPx) / s.r);
     s.maeR = Math.min(s.maeR, (long ? advPx - s.entryPx : s.entryPx - advPx) / s.r);
 
-    // Early-exit warning: Baseline crosses back through the 200 EMA against the position.
-    if (!s.warningFired) {
-      const m5s = entryTfState(this.m5);
-      if (m5s) {
-        const against = long ? m5s.kijunBelowEma : m5s.kijunAboveEma;
-        if (against) {
-          s.warningFired = true;
-          events.push({
-            type: 'WARNING', symbol: this.symbol, direction: s.direction, ts: bar.timestampMs,
-            kijun: m5s.kijun, ema200: m5s.ema200, price: bar.close,
-          });
-        }
-      }
-    }
-
+    // Stop/target are intrabar (use the bar's full high/low range) so they take priority over
+    // the close-based reversal check below -- an actual stop/target hit within the bar is a
+    // harder, more definite outcome than the Kijun/EMA heuristic.
     const hitSL = long ? bar.low <= s.stop : bar.high >= s.stop;
     const hitTarget = long ? bar.high >= s.target : bar.low <= s.target;
 
     if (hitSL) { events.push(this._close('SL', s.stop, bar.timestampMs, -1)); return events; }
     if (hitTarget) { events.push(this._close('TARGET', s.target, bar.timestampMs, TARGET_R)); return events; }
+
+    // Early reversal exit (2026-08-22, changed from a discretionary warning to a hard close per
+    // the user's request): Baseline crossing back through the 200 EMA against the position
+    // closes the tracked (virtual) position immediately at the bar's close, logged as a real
+    // outcome (WARNING_EXIT) rather than just an informational alert the user has to act on
+    // manually. Video's own framing treated this as optional judgment; this system treats it as
+    // a rule, same footing as SL/TARGET.
+    const m5s = entryTfState(this.m5);
+    if (m5s) {
+      const against = long ? m5s.kijunBelowEma : m5s.kijunAboveEma;
+      if (against) {
+        s.warningFired = true;
+        const exitPx = bar.close;
+        const rMultiple = (long ? exitPx - s.entryPx : s.entryPx - exitPx) / s.r;
+        const outcome = this._close('WARNING_EXIT', exitPx, bar.timestampMs, rMultiple);
+        outcome.kijun = m5s.kijun;
+        outcome.ema200 = m5s.ema200;
+        events.push(outcome);
+      }
+    }
     return events;
   }
 
