@@ -273,6 +273,10 @@
     if (v == null || isNaN(v)) return '—';
     return (v >= 0 ? '+' : '') + Number(v).toFixed(2) + '%';
   }
+  function fmtPx(v) {
+    if (v == null || isNaN(v)) return '—';
+    return Number(v).toFixed(2);
+  }
 
   async function fetchTabData(key) {
     // Swing tab is never session-cached: it carries LIVE prices for open positions
@@ -506,13 +510,13 @@
         <div class="card-meta">
           <span class="badge ${dirBadge}">${esc(p.direction)}</span>
           <span class="badge ${STATUS_BADGE[p.status] || 'neutral'}">${STATUS_LABEL[p.status] || esc(p.status)}</span>
-          <span>Entry <b>${esc(p.entryPx)}</b></span>
-          ${isOpen && p.currentPrice != null ? `<span>Now <b>${esc(p.currentPrice)}</b></span>` : ''}
-          ${!isOpen && p.exitPx != null ? `<span>Exit <b>${esc(p.exitPx)}</b></span>` : ''}
+          <span>Entry <b>${fmtPx(p.entryPx)}</b></span>
+          ${isOpen && p.currentPrice != null ? `<span>Now <b>${fmtPx(p.currentPrice)}</b></span>` : ''}
+          ${!isOpen && p.exitPx != null ? `<span>Exit <b>${fmtPx(p.exitPx)}</b></span>` : ''}
           ${p.pnlPct != null ? `<span class="pnl ${p.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(p.pnlPct)}</span>` : ''}
           ${!isOpen && p.rMultiple != null ? `<span class="pnl ${p.rMultiple >= 0 ? 'win' : 'loss'}">${p.rMultiple >= 0 ? '+' : ''}${Number(p.rMultiple).toFixed(2)}R</span>` : ''}
-          <span>Stop <b>${esc(p.stopPx)}</b></span>
-          <span>Target (2R) <b>${esc(p.targetPx)}</b></span>
+          <span>Stop <b>${fmtPx(p.stopPx)}</b></span>
+          <span>Target (2R) <b>${fmtPx(p.targetPx)}</b></span>
           ${p.warningFired && isOpen ? '<span class="badge loss">⚠ reversal warned</span>' : ''}
         </div>
       `;
