@@ -41,7 +41,7 @@ public class DashboardDataController {
     private final RsMomentumService rsMomentumService;
     private final SwingSignalService swingSignalService;
     private final SwingLivePriceService swingLivePriceService;
-    private final DarvasboxLiveService darvasboxLiveService;
+    private final CryptoForexService cryptoForexService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
     private final ObjectMapper mapper = new ObjectMapper();
@@ -58,7 +58,7 @@ public class DashboardDataController {
                                     RsMomentumService rsMomentumService,
                                     SwingSignalService swingSignalService,
                                     SwingLivePriceService swingLivePriceService,
-                                    DarvasboxLiveService darvasboxLiveService) {
+                                    CryptoForexService cryptoForexService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
         this.quarterlyResultsService = quarterlyResultsService;
@@ -66,7 +66,7 @@ public class DashboardDataController {
         this.rsMomentumService = rsMomentumService;
         this.swingSignalService = swingSignalService;
         this.swingLivePriceService = swingLivePriceService;
-        this.darvasboxLiveService = darvasboxLiveService;
+        this.cryptoForexService = cryptoForexService;
     }
 
     // Swing Strategy tab -- reads swing.signals from Postgres (written by the
@@ -302,16 +302,14 @@ public class DashboardDataController {
         return data;
     }
 
-    @GetMapping(value = "/api/dashboard/darvasbox-today", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JsonNode> darvasboxToday() {
-        // DarvasBox VARIANT (anti-chase entry, 2% catastrophic stop, EOD square-off --
-        // renko-8-indicators/live-darvasbox-shadow/variant_tracker.js), read from
-        // Postgres (darvasbox.trade_events, tracker='variant'). See DarvasboxLiveService's
-        // module docstring: this replaced a GitHub-branch JSON read that went stale
-        // 2026-08-11 when the writer moved to Postgres, and is scoped to the variant
-        // tracker only because the 'real' tracker's Telegram alerts are muted -- this
-        // tab should mirror what's actually alerted live, not the silent tracker.
-        return darvasboxLiveService.todaysVariantEvents();
+    // Crypto/Forex tab -- currently-OPEN positions from the Ichimoku BTC/XAU MTF
+    // scanner (ichimoku-btc-xau-strategy/live, Node service streaming Pi42),
+    // read straight from this same shared Postgres instance. See
+    // CryptoForexService's doc comment. Replaced the "Today's DarvasBox" tab
+    // (removed 2026-08-22, per the user's request) at this position.
+    @GetMapping(value = "/api/dashboard/crypto-forex", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String, Object>> cryptoForex() {
+        return cryptoForexService.openPositions();
     }
 
     private List<JsonNode> reversedArray(JsonNode node) {
