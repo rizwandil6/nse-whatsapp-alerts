@@ -14,6 +14,26 @@ Strategy write-up: `wiki/concepts/ichimoku-cloud.md` → "Trading strategy — m
 trend system (The Secret Mindset)" and `wiki/sources/secretmindset-ichimoku-mtf-strategy-video.md`
 (Trading Brain vault). Broker reference: `wiki/reference/pi42-api.md`.
 
+## Restart resilience (fixed 2026-08-21)
+
+Open-position state now **survives a process restart** (a Railway redeploy, a crash, a manual
+restart). On startup, `seedSymbol()` checks Postgres for a still-`OPEN` signal per symbol and
+calls `MtfSymbolTracker#resumeTrade()` to reattach it — replaying any seeded bars between the
+original entry and now to catch up a stop/target/warning that happened while the process was
+down, instead of losing it. Before this fix, every restart forgot the open trade in memory and
+re-entered fresh on the next qualifying candle, producing duplicate `signals` rows per symbol and
+orphaning the original's outcome forever (caught in production on 2026-08-21 — three duplicate
+XAUUSDT entries and two duplicate BTCUSDT entries accumulated across that day's redeploys, none
+of which ever resolved). The duplicates were deleted from Postgres (kept only the first entry per
+symbol); any future restart-caused duplicates are instead marked `ABANDONED` in `outcomes.
+final_result` by `db.js#abandonOtherOpenSignals()`, so they're distinguishable from a genuine
+`TARGET`/`SL` close in the stats rather than silently corrupting them.
+
+No EOD force-flat was added despite this incident prompting the question — deliberately: BTC and
+XAU perpetuals trade near-continuously on Pi42 (no NSE-style session close), so the cooldown stays
+purely outcome-based (a position stays open until it actually hits stop or 2R target). Confirmed
+with the user 2026-08-21.
+
 ---
 
 ## What it does
