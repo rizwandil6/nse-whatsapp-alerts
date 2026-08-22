@@ -158,6 +158,20 @@ planned once both of those are settled — it is intentionally **not** built her
 and not half-implemented. See `wiki/reference/pi42-api.md` for the order-management endpoints
 that phase will use.
 
+**Planned addition for that phase — funding rate tracking (noted 2026-08-21, not built yet):**
+Perpetuals charge/credit a periodic funding payment between longs and shorts (see
+`wiki/reference/pi42-api.md`). Confirmed from live `exchangeInfo`: `BTCUSDT` funds every **8h**,
+`XAUUSDT` every **4h** (twice the compounding exposure per unit of holding time). Pi42 publishes
+**no formula and no public endpoint** for the current/historical rate — it only surfaces via the
+private, authenticated `fundingFee` WebSocket event when an account is actually charged/credited,
+so it's completely invisible in this alert-only phase (no API key = no way to see it at all).
+There's also a `GST_ON_FUNDING_FEE` transaction type — India's GST applies to funding fees on top.
+Once the execution phase has an authenticated connection, wire up the `fundingFee` event and log
+actual funding paid/received per open position into `ichimoku_btcxau.*` (a new column/table,
+TBD), so the R-multiple stats reflect real holding cost honestly instead of silently ignoring it —
+this matters more here than it would for a typical NSE intraday bot, since those force-flatten
+same-day and never hold a position through a funding interval at all.
+
 ## Configuration (env vars)
 
 | Var | Purpose | Notes |
