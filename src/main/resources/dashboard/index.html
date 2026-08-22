@@ -500,6 +500,7 @@
           <span class="badge ${dirBadge}">${esc(p.direction)}</span>
           <span class="badge neutral">Open</span>
           <span>Entry <b>${esc(p.entryPx)}</b></span>
+          ${p.currentPrice != null ? `<span>Now <b>${esc(p.currentPrice)}</b></span><span class="pnl ${p.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(p.pnlPct)}</span>` : ''}
           <span>Stop <b>${esc(p.stopPx)}</b></span>
           <span>Target (2R) <b>${esc(p.targetPx)}</b></span>
           ${p.warningFired ? '<span class="badge loss">⚠ reversal warned</span>' : ''}
