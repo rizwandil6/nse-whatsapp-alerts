@@ -302,14 +302,14 @@ public class DashboardDataController {
         return data;
     }
 
-    // Crypto/Forex tab -- currently-OPEN positions from the Ichimoku BTC/XAU MTF
-    // scanner (ichimoku-btc-xau-strategy/live, Node service streaming Pi42),
-    // read straight from this same shared Postgres instance. See
+    // Crypto/Forex tab -- ALL trades (open + closed) from the Ichimoku BTC/XAU
+    // MTF scanner (ichimoku-btc-xau-strategy/live, Node service streaming
+    // Pi42), read straight from this same shared Postgres instance. See
     // CryptoForexService's doc comment. Replaced the "Today's DarvasBox" tab
     // (removed 2026-08-22, per the user's request) at this position.
     @GetMapping(value = "/api/dashboard/crypto-forex", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String, Object>> cryptoForex() {
-        return cryptoForexService.openPositions();
+        return cryptoForexService.allTrades();
     }
 
     private List<JsonNode> reversedArray(JsonNode node) {

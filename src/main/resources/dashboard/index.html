@@ -321,8 +321,11 @@
         const label = { ENTRY: 'Entry', EXIT: 'Exit', ENTRY_PENDING: 'Entry (pending)', FUNDAMENTALS_CONFIRMED: 'Confirmed', FUNDAMENTALS_FAILED: 'Retracted' };
         return `<div class="tile-preview-title">${esc(item.symbol)} — ${label[item.type] || esc(item.type)}</div><div class="tile-preview-time">${esc(item.date)}</div>`;
       }
-      case 'crypto-forex':
-        return `<div class="tile-preview-title">${esc(item.symbol)} ${esc(item.direction)} — Open</div><div class="tile-preview-time">${fmtTime(item.entryTs)}</div>`;
+      case 'crypto-forex': {
+        const label = { OPEN: 'Open', TARGET: 'Target hit', SL: 'Stop hit', WARNING_EXIT: 'Early exit' }[item.status] || item.status;
+        const time = item.status === 'OPEN' ? item.entryTs : item.closedTs;
+        return `<div class="tile-preview-title">${esc(item.symbol)} ${esc(item.direction)} — ${label}</div><div class="tile-preview-time">${fmtTime(time)}</div>`;
+      }
       case 'quarterly-results':
         return `<div class="tile-preview-title">${esc(item.symbol)} — ${esc(item.quarterLabel)}</div>` +
           `<div class="tile-preview-sub">Revenue ${fmtCr(item.revenueCr)}</div>` +
@@ -479,31 +482,38 @@
 
   function renderCryptoForex(items, panel) {
     // Ichimoku BTC/XAU MTF scanner (ichimoku-btc-xau-strategy/live, Pi42) --
-    // currently-OPEN positions only, server-filtered (final_result='OPEN').
-    // Alert-only: these are virtual/tracked positions, not real Pi42 orders --
-    // see that service's README for the full "Execution — a deliberately
-    // separate future phase" boundary.
+    // ALL trades, open and closed (server excludes ABANDONED bookkeeping rows,
+    // see CryptoForexService). Open first, then closed newest-first. Alert-only:
+    // these are virtual/tracked positions, not real Pi42 orders -- see that
+    // service's README for the full "Execution — a deliberately separate
+    // future phase" boundary.
     if (!items.length) {
-      panel.innerHTML = '<div class="state-msg">No open positions right now.</div>';
+      panel.innerHTML = '<div class="state-msg">No trades yet.</div>';
       return;
     }
+    const STATUS_BADGE = { OPEN: 'neutral', TARGET: 'win', SL: 'loss', WARNING_EXIT: 'neutral' };
+    const STATUS_LABEL = { OPEN: 'Open', TARGET: 'Target hit', SL: 'Stop hit', WARNING_EXIT: 'Early reversal exit' };
     for (const p of items) {
       const card = document.createElement('div');
       card.className = 'card';
       const dirBadge = p.direction === 'LONG' ? 'win' : 'loss';
+      const isOpen = p.status === 'OPEN';
       card.innerHTML = `
         <div class="card-top">
           <div class="card-title">${esc(p.symbol)}</div>
-          <div class="card-time">${fmtTime(p.entryTs)} UTC</div>
+          <div class="card-time">${fmtTime(isOpen ? p.entryTs : p.closedTs)} UTC</div>
         </div>
         <div class="card-meta">
           <span class="badge ${dirBadge}">${esc(p.direction)}</span>
-          <span class="badge neutral">Open</span>
+          <span class="badge ${STATUS_BADGE[p.status] || 'neutral'}">${STATUS_LABEL[p.status] || esc(p.status)}</span>
           <span>Entry <b>${esc(p.entryPx)}</b></span>
-          ${p.currentPrice != null ? `<span>Now <b>${esc(p.currentPrice)}</b></span><span class="pnl ${p.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(p.pnlPct)}</span>` : ''}
+          ${isOpen && p.currentPrice != null ? `<span>Now <b>${esc(p.currentPrice)}</b></span>` : ''}
+          ${!isOpen && p.exitPx != null ? `<span>Exit <b>${esc(p.exitPx)}</b></span>` : ''}
+          ${p.pnlPct != null ? `<span class="pnl ${p.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(p.pnlPct)}</span>` : ''}
+          ${!isOpen && p.rMultiple != null ? `<span class="pnl ${p.rMultiple >= 0 ? 'win' : 'loss'}">${p.rMultiple >= 0 ? '+' : ''}${Number(p.rMultiple).toFixed(2)}R</span>` : ''}
           <span>Stop <b>${esc(p.stopPx)}</b></span>
           <span>Target (2R) <b>${esc(p.targetPx)}</b></span>
-          ${p.warningFired ? '<span class="badge loss">⚠ reversal warned</span>' : ''}
+          ${p.warningFired && isOpen ? '<span class="badge loss">⚠ reversal warned</span>' : ''}
         </div>
       `;
       panel.appendChild(card);
