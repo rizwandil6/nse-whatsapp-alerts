@@ -748,14 +748,25 @@
       '</div>';
     panel.appendChild(head);
 
+    // Month dropdown + "all time" checkbox, same dual-control pattern as Swing's own
+    // month/allTime filters. Default view is trimmed to the CURRENT calendar month
+    // (by entry date) since positions accumulate daily and an all-time list gets long
+    // fast; the checkbox opts back into the complete 2026-01-01-onward history.
+    const nowMonth = new Date().toISOString().slice(0, 7);
+    const months = [...new Set(items.map((r) => (r.entryDate || '').slice(0, 7)).filter(Boolean))].sort().reverse();
+    if (!months.includes(nowMonth)) months.unshift(nowMonth);
+    const monthLabel = (m) => { const [y, mo] = m.split('-'); return new Date(Number(y), Number(mo) - 1, 1).toLocaleString('en-US', { month: 'short' }) + ' ' + y; };
+
     const bar = document.createElement('div');
     bar.className = 'swing-filters';
     bar.innerHTML =
       '<div class="pill-group" id="dc-status">' +
       ['all', 'open', 'closed'].map((s, i) => `<button class="pill${i === 0 ? ' active' : ''}" data-status="${s}">${s === 'all' ? 'All' : s.charAt(0).toUpperCase() + s.slice(1)}</button>`).join('') +
       '</div>' +
+      `<select id="dc-month">${months.map((m) => `<option value="${m}"${m === nowMonth ? ' selected' : ''}>${monthLabel(m)}</option>`).join('')}<option value="all">All months</option></select>` +
       '<input id="dc-symbol" type="search" placeholder="Search symbol…" autocomplete="off" />' +
-      '<select id="dc-result"><option value="all">All results</option><option value="win">Wins</option><option value="loss">Losses</option></select>';
+      '<select id="dc-result"><option value="all">All results</option><option value="win">Wins</option><option value="loss">Losses</option></select>' +
+      '<label class="sw-check"><input type="checkbox" id="dc-alltime" /> Show all trades (all time)</label>';
     panel.appendChild(bar);
 
     const list = document.createElement('div');
@@ -764,13 +775,13 @@
     list.style.gap = '10px';
     panel.appendChild(list);
 
-    const state = { status: 'all', symbol: '', result: 'all' };
+    const state = { status: 'all', month: nowMonth, symbol: '', result: 'all', allTime: false };
 
     function cardHtml(r) {
       const isOpen = r.status === 'open';
       const statusBadge = isOpen ? 'amber' : (r.pnlPct >= 0 ? 'win' : 'loss');
       const statusLabel = isOpen ? `Open — ${r.legs} leg(s)` : (r.pnlPct >= 0 ? 'Closed ✓' : 'Closed ✗');
-      const pnl = r.pnlPct != null ? `<span class="pnl ${r.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(r.pnlPct)}</span>` : '';
+      const since = r.pnlPct != null ? `<span class="pnl ${r.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(r.pnlPct)}</span>` : '';
       return `<div class="card">
         <div class="card-top"><div class="card-title">${esc(r.symbol)}</div><div class="card-time">${esc(r.entryDate)}</div></div>
         <div class="card-meta">
@@ -780,7 +791,7 @@
           ${!isOpen ? `<span>Closed <b>${esc(r.exitDate)}</b></span><span class="badge ${r.exitReason === 'STOP_LOSS' ? 'loss' : 'win'}">${esc((r.exitReason || '').replace('_', ' '))}</span>` : ''}
           ${isOpen && r.lastPrice != null ? `<span>LTP <b>₹${fmtPx(r.lastPrice)}</b></span>` : ''}
           ${r.legs > 1 ? `<span class="badge neutral">${r.legs}-leg pyramid</span>` : ''}
-          ${pnl ? `<span>P&amp;L ${pnl}</span>` : ''}
+          ${since ? `<span>Since alert ${since}</span>` : ''}
         </div>
       </div>`;
     }
@@ -788,6 +799,7 @@
     function apply() {
       let f = items.slice();
       if (state.status !== 'all') f = f.filter((r) => r.status === state.status);
+      if (!state.allTime && state.month !== 'all') f = f.filter((r) => (r.entryDate || '').slice(0, 7) === state.month);
       if (state.symbol) { const q = state.symbol.toLowerCase(); f = f.filter((r) => (r.symbol || '').toLowerCase().includes(q)); }
       if (state.result !== 'all') f = f.filter((r) => r.status === 'closed' && (state.result === 'win' ? Number(r.pnlPct) >= 0 : Number(r.pnlPct) < 0));
       list.innerHTML = f.length ? f.map(cardHtml).join('') : '<div class="state-msg">No positions match these filters.</div>';
@@ -815,8 +827,10 @@
       bar.querySelectorAll('#dc-status .pill').forEach((p) => p.classList.remove('active'));
       b.classList.add('active'); state.status = b.dataset.status; apply();
     });
+    bar.querySelector('#dc-month').addEventListener('change', (e) => { state.month = e.target.value; apply(); });
     bar.querySelector('#dc-symbol').addEventListener('input', (e) => { state.symbol = e.target.value.trim(); apply(); });
     bar.querySelector('#dc-result').addEventListener('change', (e) => { state.result = e.target.value; apply(); });
+    bar.querySelector('#dc-alltime').addEventListener('change', (e) => { state.allTime = e.target.checked; apply(); });
     apply();
   }
 

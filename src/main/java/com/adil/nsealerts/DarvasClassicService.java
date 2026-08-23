@@ -30,7 +30,8 @@ public class DarvasClassicService {
                         "       entry_price AS \"entryPx\", status, legs, legs_json::text AS \"legsJson\", " +
                         "       trail_stop AS \"stopPx\", " +
                         "       to_char(exit_date, 'YYYY-MM-DD') AS \"exitDate\", " +
-                        "       exit_price AS \"exitPx\", exit_reason AS \"exitReason\", pnl_pct AS \"pnlPct\", " +
+                        "       exit_price AS \"exitPx\", exit_reason AS \"exitReason\", " +
+                        "       last_price AS \"lastPrice\", pnl_pct AS \"pnlPct\", " +
                         "       to_char(updated_at AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"updatedAt\" " +
                         "FROM darvas_classic.positions " +
                         "ORDER BY (status = 'open') DESC, entry_date DESC, symbol");

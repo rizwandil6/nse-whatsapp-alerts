@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS darvas_classic.positions (
   exit_date       date,
   exit_price      numeric,
   exit_reason     text,                   -- STOP_LOSS | TRAIL_STOP
-  pnl_pct         numeric,                -- realized (closed) or last-computed (open, refreshed with live price by the dashboard) vs entry_price
+  last_price      numeric,                -- open rows only: most recent weekly close seen, as a baseline before any live-price refresh
+  pnl_pct         numeric,                -- realized (closed) or baseline-computed (open, refreshed with live price by the dashboard during market hours) vs entry_price
   updated_at      timestamptz NOT NULL DEFAULT now(),
   UNIQUE (symbol, entry_date)
 );
@@ -46,3 +47,8 @@ CREATE TABLE IF NOT EXISTS darvas_classic.daily_cache (
 );
 
 CREATE INDEX IF NOT EXISTS idx_darvas_classic_positions_status ON darvas_classic.positions (status);
+
+-- Migration: the table above already existed without last_price (added 2026-08-23)
+-- when this scanner first went live -- ALTER is needed on top of CREATE TABLE IF NOT
+-- EXISTS since that clause is a no-op once the table exists.
+ALTER TABLE darvas_classic.positions ADD COLUMN IF NOT EXISTS last_price numeric;

@@ -67,7 +67,7 @@ async function runOnce() {
     }
     if (weekly.length < 52) return null;
     const { closedTrades, openPosition } = computeTradeLog(weekly);
-    return { symbol, closedTrades, openPosition };
+    return { symbol, weekly, closedTrades, openPosition };
   });
 
   let positionsWritten = 0;
@@ -105,6 +105,11 @@ async function runOnce() {
 
     if (openPosition && openPosition.legs[0].entryDate >= TRACK_FROM) {
       const first = openPosition.legs[0];
+      // Baseline P&L off the most recent weekly close, since the dashboard only
+      // overwrites this with a true live price during market hours (see
+      // DashboardDataController.darvasClassic) -- without this, "since alert %"
+      // would show blank outside market hours / before a price attaches.
+      const lastClose = r.weekly[r.weekly.length - 1].close;
       await db.upsertPosition({
         symbol,
         entryDate: first.entryDate,
@@ -113,7 +118,8 @@ async function runOnce() {
         legs: openPosition.legs.length,
         legsJson: openPosition.legs,
         trailStop: f(openPosition.trailStop),
-        pnlPct: null, // dashboard attaches a live price and computes this itself for open rows
+        lastPrice: f(lastClose),
+        pnlPct: pnlPct(first.entryPrice, lastClose),
       });
       positionsWritten++;
     }
