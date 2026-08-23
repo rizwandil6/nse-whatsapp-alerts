@@ -196,7 +196,7 @@ function subscribeTopics(socket) {
   console.log('Subscribed:', topics.join(', '));
 }
 
-function connectAndRun() {
+function connectAndRun(isFirstConnect) {
   return new Promise((resolve) => {
     const socket = io(WS_URL, { transports: ['websocket'], reconnection: false, timeout: 15000 });
     let settled = false;
@@ -205,7 +205,16 @@ function connectAndRun() {
     socket.on('connect', async () => {
       console.log('Connected to Pi42 public WebSocket.');
       subscribeTopics(socket);
-      await emit('STARTUP', null, `🚀 Ichimoku BTC/XAU MTF scanner started. Tracking: ${SYMBOLS.join(', ')}. Alert-only, no orders.`, null);
+      // Fires on every successful connect, including reconnects after a transient WS
+      // drop -- not just the true process boot. Distinguish the wording (2026-08-22,
+      // caught after a user got confused by a "scanner started" alert mid-day for what
+      // was actually just a network blip) so a reconnect never claims the process
+      // restarted, since nothing was actually re-seeded/re-resumed on a mere WS bounce.
+      if (isFirstConnect) {
+        await emit('STARTUP', null, `🚀 Ichimoku BTC/XAU MTF scanner started. Tracking: ${SYMBOLS.join(', ')}. Alert-only, no orders.`, null);
+      } else {
+        await emit('RECONNECTED', null, `🔌 Pi42 WebSocket reconnected after a network blip. Tracking continues uninterrupted -- no history lost, no positions reset.`, null);
+      }
     });
     socket.on('kline', (payload) => { try { onKlineEvent(payload); } catch (e) { console.warn('kline handler error:', e.message); } });
     socket.on('connect_error', (err) => { console.error('WebSocket connect_error:', err.message); finish('connect_error'); });
@@ -225,7 +234,7 @@ async function main() {
 
   let attempt = 0;
   for (;;) {
-    const reason = await connectAndRun();
+    const reason = await connectAndRun(attempt === 0);
     if (reason === 'sigterm' || reason === 'sigint') { console.log('Shutting down (', reason, ').'); process.exit(0); }
     attempt++;
     const delayMs = Math.min(15000 * attempt, 120000);
