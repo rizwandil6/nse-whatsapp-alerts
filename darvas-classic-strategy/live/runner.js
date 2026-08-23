@@ -21,7 +21,7 @@ const symbolMap = require('./symbols.json');
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046']; // personal + group (same as other bots)
-const CONCURRENCY = 8;
+const CONCURRENCY = 4; // unauthenticated Upstox endpoint rate-limits (HTTP 429) above this on a full backfill
 
 let db = null; // set at the top of each runOnce() call
 
@@ -89,7 +89,25 @@ async function runOnce() {
   for (const r of results) {
     if (!r) continue;
     const { symbol, closedTrades, openPosition } = r;
-    const prev = priorState[symbol] || { closedCount: 0, openLegCount: 0, openTrailStop: null };
+
+    // First time this symbol has ever been scanned (no prior state row at all,
+    // as opposed to a row with zero trades) -- seed the baseline from the full
+    // recomputed history WITHOUT alerting on it. Without this guard, every
+    // symbol's entire multi-year trade history looks "new" on its first run
+    // and gets Telegram-alerted as if it just happened (confirmed live 2026-08-23:
+    // years-old trades went out as fresh entry/exit alerts before this was caught).
+    if (!(symbol in priorState)) {
+      await db.saveState(symbol, {
+        closedCount: closedTrades.length,
+        openLegCount: openPosition ? openPosition.totalLegs : 0,
+        openTrailStop: openPosition ? openPosition.trailStop : null,
+        openPosition: openPosition || null,
+        lastClosedTrade: closedTrades.length ? closedTrades[closedTrades.length - 1] : null,
+      });
+      continue;
+    }
+
+    const prev = priorState[symbol];
 
     // New closed trade-leg-groups since last run (STOP_LOSS / TRAIL_STOP exits).
     if (closedTrades.length > prev.closedCount) {
