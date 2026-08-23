@@ -65,6 +65,7 @@ function computeTradeLog(bars) {
   let forming = null;     // { top, bottom, containedCount }
   let confirmed = null;   // { top, bottom }
   let position = null;    // { legs: [{legIndex, entryIdx, entryDate, entryPrice}], trailStop, totalLegs }
+  let nextPositionId = 1; // shared across all legs of one pyramided group, so callers can regroup closedTrades/openPosition by position
 
   for (let i = 0; i < bars.length; i++) {
     const bar = bars[i];
@@ -76,6 +77,7 @@ function computeTradeLog(bars) {
         const exitReason = position.trailStop === position.initialStop ? 'STOP_LOSS' : 'TRAIL_STOP';
         for (const leg of position.legs) {
           closedTrades.push({
+            positionId: position.positionId,
             legIndex: leg.legIndex,
             totalLegs: position.legs.length,
             entryDate: leg.entryDate,
@@ -109,6 +111,7 @@ function computeTradeLog(bars) {
         const entryPrice = breakoutLevel;
         const initialStop = entryPrice * (1 - INITIAL_STOP_PCT);
         position = {
+          positionId: nextPositionId++,
           legs: [{ legIndex: 1, entryIdx: i, entryDate: bar.date, entryPrice, boxTop: confirmed.top }],
           trailStop: initialStop,
           initialStop,
@@ -144,6 +147,7 @@ function computeTradeLog(bars) {
     closedTrades,
     openPosition: position
       ? {
+          positionId: position.positionId,
           legs: position.legs.map(({ legIndex, entryDate, entryPrice, boxTop }) => ({ legIndex, entryDate, entryPrice, boxTop })),
           trailStop: position.trailStop,
           totalLegs: position.legs.length,

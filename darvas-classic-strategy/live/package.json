@@ -1,7 +1,7 @@
 {
   "name": "darvas-classic-weekly-scan",
   "version": "1.0.0",
-  "description": "Daily 17:00 IST scan for the Classic Darvas Box (weekly) strategy over the 530-stock swing universe — Telegram alerts + Postgres forward-tracking. Alert-only, no orders. Long-running service that self-schedules its once-daily run (see service.js), same pattern as swing-strategy/live.",
+  "description": "Daily 17:00 IST scan for the Classic Darvas Box (weekly) strategy over the 530-stock swing universe — positions from 2026-01-01 onward, Postgres forward-tracking for the dashboard's P&L tab. No Telegram alerting, no orders. Long-running service that self-schedules its once-daily run (see service.js), same pattern as swing-strategy/live.",
   "main": "service.js",
   "scripts": {
     "start": "node service.js"
