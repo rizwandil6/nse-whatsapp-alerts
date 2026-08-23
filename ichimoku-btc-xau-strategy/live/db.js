@@ -94,6 +94,20 @@ class DB {
     return r.rows[0];
   }
 
+  /** Phase-out support: every symbol with a currently-OPEN position, regardless of whether
+   *  it's still in the entry universe -- lets streamer.js keep tracking (but not re-enter)
+   *  a symbol that's been dropped from ENTRY_SYMBOLS until its open trade actually resolves. */
+  async getOpenSymbols() {
+    const r = await this._q(
+      `SELECT DISTINCT s.symbol
+         FROM ichimoku_btcxau.signals s
+         JOIN ichimoku_btcxau.outcomes o ON o.signal_id = s.id
+        WHERE o.final_result = 'OPEN'`
+    );
+    if (!r) return [];
+    return r.rows.map((row) => row.symbol);
+  }
+
   /** Restart hygiene: if more than one OPEN row exists for a symbol (a pre-fix restart artifact),
    *  keep the one being resumed and flag the rest ABANDONED so they stop polluting outcome stats. */
   async abandonOtherOpenSignals(symbol, keepSignalId) {

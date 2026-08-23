@@ -1,7 +1,7 @@
 # Ichimoku BTC/XAU MTF — Live Scanner (Pi42)
 
 Live intraday scanner for **"The Secret Mindset"'s multi-timeframe (MTF) Ichimoku trend
-system**, run on **BTCUSDT** and **XAUUSDT** perpetuals via **Pi42** (a crypto/commodity
+system**, run on **BTCINR** and **XAUINR** perpetuals via **Pi42** (a crypto/commodity
 derivatives broker) — the **day-trading timeframe trio** (1H / 30min / 5min). Streams Pi42's
 public market-data socket, evaluates the MTF alignment rules on every completed 5-min bar per
 symbol, pushes **Telegram** alerts, and logs everything to **PostgreSQL** as a forward-test
@@ -33,6 +33,26 @@ No EOD force-flat was added despite this incident prompting the question — del
 XAU perpetuals trade near-continuously on Pi42 (no NSE-style session close), so the cooldown stays
 purely outcome-based (a position stays open until it actually hits stop or 2R target). Confirmed
 with the user 2026-08-21.
+
+## Symbol-set switch: BTCUSDT/XAUUSDT → BTCINR/XAUINR (2026-08-23)
+
+New entries now fire on **`BTCINR`/`XAUINR`** (`ENTRY_SYMBOLS` in `streamer.js`) instead of the
+USDT-margined pairs — per the user's request, to trade directly in INR capital. Same underlying
+products: confirmed via `exchangeInfo` that `XAUINR` is the identical "Gold Derivatives"
+`TRADIFI_PERPETUAL` contract as `XAUUSDT`, just INR-quoted (not the tokenized-gold footgun —
+still avoid `XAUTINR`/`PAXGINR`, same reasoning as §4 below). **Fees are roughly double** on the
+INR pairs: maker 0.05%/taker 0.1% vs. 0.02%/0.06% on the USDT pairs (confirmed via live
+`exchangeInfo`, not yet relevant to this alert-only phase but will matter once execution exists).
+
+This was explicitly **not** a blind symbol swap — the user asked that whatever trade was already
+open on the old symbols keep running to a real outcome rather than being abandoned. `main()` now
+queries `db.getOpenSymbols()` at startup and tracks any symbol with a still-`OPEN` position
+(`legacySymbols`) alongside `ENTRY_SYMBOLS`, but constructs its `MtfSymbolTracker` with
+`entriesEnabled: false` — it keeps seeding/subscribing/resuming/alerting for that symbol until the
+position resolves (SL/TARGET/WARNING_EXIT), it just never fires a fresh SETUP on it again. Same
+"don't orphan an open position" principle as the restart-resume fix above, applied to a deliberate
+symbol-set change instead of a process restart. See `mtf_engine.js`'s `MtfSymbolTracker`
+constructor doc comment and `streamer.js`'s `main()`.
 
 ---
 

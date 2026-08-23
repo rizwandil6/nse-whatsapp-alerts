@@ -105,8 +105,18 @@ function entryTfState(bars) {
 }
 
 class MtfSymbolTracker {
-  constructor(symbol) {
+  /**
+   * entriesEnabled=false marks a "phase-out" symbol: it still tracks an
+   * already-open position through to a real outcome (SL/TARGET/WARNING_EXIT),
+   * but never fires a fresh SETUP. Used when swapping the tracked symbol set
+   * (e.g. BTCUSDT/XAUUSDT -> BTCINR/XAUINR, 2026-08-23) without abandoning
+   * whatever's still open on the old symbol -- same "don't orphan an open
+   * position" principle as the restart-resume fix, just for a deliberate
+   * symbol-set change instead of a process restart.
+   */
+  constructor(symbol, opts = {}) {
     this.symbol = symbol;
+    this.entriesEnabled = opts.entriesEnabled !== false;
     this.h1 = [];
     this.m30 = [];
     this.m5 = [];
@@ -196,7 +206,7 @@ class MtfSymbolTracker {
     const events = [];
     if (this.trade && !this.trade.closed) events.push(...this._track(bar));
     if (this.trade && this.trade.closed) this.trade = null;
-    if (!this.trade) {
+    if (!this.trade && this.entriesEnabled) {
       const setup = this._tryEnter(bar);
       if (setup) events.push(setup);
     }

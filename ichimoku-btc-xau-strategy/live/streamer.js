@@ -31,7 +31,15 @@ const { MtfSymbolTracker, TARGET_R, STOP_BUFFER_PCT } = require('./mtf_engine');
 const { fetchKlines } = require('./pi42_client');
 const { DB } = require('./db');
 
-const SYMBOLS = ['BTCUSDT', 'XAUUSDT']; // see README for why XAUUSDT, not XAUTUSDT/PAXGUSDT
+// ENTRY_SYMBOLS = where NEW setups are allowed to fire. Switched 2026-08-23 from
+// BTCUSDT/XAUUSDT to the INR-margined equivalents (BTCINR/XAUINR -- same underlying
+// products, confirmed via exchangeInfo: XAUINR is the same "Gold Derivatives"
+// TRADIFI_PERPETUAL contract as XAUUSDT, just INR-quoted, not a tokenized-gold
+// footgun like XAUTINR/PAXGINR). Per the user's explicit request, this was NOT a
+// blind swap -- any symbol with a still-OPEN position at startup keeps being
+// tracked (just without new entries) until it actually resolves; see
+// MtfSymbolTracker's entriesEnabled and main()'s ALL_SYMBOLS resolution below.
+const ENTRY_SYMBOLS = ['BTCINR', 'XAUINR'];
 const WS_URL = 'https://fawss.pi42.com/';
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046']; // personal + group, same as every sibling bot
@@ -124,7 +132,7 @@ function enqueue(symbol, events) {
 
 // ---- history seeding ------------------------------------------------------
 async function seedSymbol(symbol) {
-  const tracker = new MtfSymbolTracker(symbol);
+  const tracker = new MtfSymbolTracker(symbol, { entriesEnabled: ENTRY_SYMBOLS.includes(symbol) });
   const [h1, m30, m5] = await Promise.all([
     fetchKlines(symbol, TF_INTERVAL.h1, SEED.h1),
     fetchKlines(symbol, TF_INTERVAL.m30, SEED.m30),
@@ -186,9 +194,9 @@ function finalizeBar(symbol, tfKey, bar) {
   }
 }
 
-function subscribeTopics(socket) {
+function subscribeTopics(socket, symbols) {
   const topics = [];
-  for (const s of SYMBOLS) {
+  for (const s of symbols) {
     const lower = s.toLowerCase();
     for (const interval of ['5m', '30m', '1h']) topics.push(`${lower}@kline_${interval}`);
   }
@@ -196,7 +204,7 @@ function subscribeTopics(socket) {
   console.log('Subscribed:', topics.join(', '));
 }
 
-function connectAndRun(isFirstConnect) {
+function connectAndRun(isFirstConnect, allSymbols, legacySymbols) {
   return new Promise((resolve) => {
     const socket = io(WS_URL, { transports: ['websocket'], reconnection: false, timeout: 15000 });
     let settled = false;
@@ -204,14 +212,17 @@ function connectAndRun(isFirstConnect) {
 
     socket.on('connect', async () => {
       console.log('Connected to Pi42 public WebSocket.');
-      subscribeTopics(socket);
+      subscribeTopics(socket, allSymbols);
       // Fires on every successful connect, including reconnects after a transient WS
       // drop -- not just the true process boot. Distinguish the wording (2026-08-22,
       // caught after a user got confused by a "scanner started" alert mid-day for what
       // was actually just a network blip) so a reconnect never claims the process
       // restarted, since nothing was actually re-seeded/re-resumed on a mere WS bounce.
       if (isFirstConnect) {
-        await emit('STARTUP', null, `🚀 Ichimoku BTC/XAU MTF scanner started. Tracking: ${SYMBOLS.join(', ')}. Alert-only, no orders.`, null);
+        const legacyNote = legacySymbols.length
+          ? ` Also finishing out an already-open position on ${legacySymbols.join(', ')} (no new entries there).`
+          : '';
+        await emit('STARTUP', null, `🚀 Ichimoku BTC/XAU MTF scanner started. New entries on: ${ENTRY_SYMBOLS.join(', ')}.${legacyNote} Alert-only, no orders.`, null);
       } else {
         await emit('RECONNECTED', null, `🔌 Pi42 WebSocket reconnected after a network blip. Tracking continues uninterrupted -- no history lost, no positions reset.`, null);
       }
@@ -227,14 +238,24 @@ function connectAndRun(isFirstConnect) {
 async function main() {
   console.log('Initializing Ichimoku BTC/XAU MTF scanner (Pi42, alert-only)...');
   await db.init();
-  for (const symbol of SYMBOLS) {
+
+  // Phase-out resolution: any symbol with a currently-OPEN position that's NOT in
+  // ENTRY_SYMBOLS still needs seeding/subscribing/tracking (to reach a real
+  // outcome), it just never gets entriesEnabled. See seedSymbol()'s MtfSymbolTracker
+  // construction and mtf_engine.js's class doc comment.
+  const openSymbols = await db.getOpenSymbols();
+  const legacySymbols = openSymbols.filter((s) => !ENTRY_SYMBOLS.includes(s));
+  const allSymbols = [...ENTRY_SYMBOLS, ...legacySymbols];
+  if (legacySymbols.length) console.log(`[phase-out] still tracking (no new entries) until resolved: ${legacySymbols.join(', ')}`);
+
+  for (const symbol of allSymbols) {
     try { await seedSymbol(symbol); }
     catch (e) { console.error(`FATAL: could not seed history for ${symbol}:`, e.message); process.exit(1); }
   }
 
   let attempt = 0;
   for (;;) {
-    const reason = await connectAndRun(attempt === 0);
+    const reason = await connectAndRun(attempt === 0, allSymbols, legacySymbols);
     if (reason === 'sigterm' || reason === 'sigint') { console.log('Shutting down (', reason, ').'); process.exit(0); }
     attempt++;
     const delayMs = Math.min(15000 * attempt, 120000);
