@@ -42,6 +42,7 @@ public class DashboardDataController {
     private final SwingSignalService swingSignalService;
     private final SwingLivePriceService swingLivePriceService;
     private final CryptoForexService cryptoForexService;
+    private final DarvasClassicService darvasClassicService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
     private final ObjectMapper mapper = new ObjectMapper();
@@ -58,7 +59,8 @@ public class DashboardDataController {
                                     RsMomentumService rsMomentumService,
                                     SwingSignalService swingSignalService,
                                     SwingLivePriceService swingLivePriceService,
-                                    CryptoForexService cryptoForexService) {
+                                    CryptoForexService cryptoForexService,
+                                    DarvasClassicService darvasClassicService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
         this.quarterlyResultsService = quarterlyResultsService;
@@ -67,6 +69,17 @@ public class DashboardDataController {
         this.swingSignalService = swingSignalService;
         this.swingLivePriceService = swingLivePriceService;
         this.cryptoForexService = cryptoForexService;
+        this.darvasClassicService = darvasClassicService;
+    }
+
+    // Darvas Classic (Weekly) tab -- reads darvas_classic.symbol_state, written by the
+    // darvas-classic-strategy/live Node service's daily 17:00 IST Cron Job run. Each
+    // row's state_json already carries the full open-position/last-closed-trade
+    // snapshot (see runner.js), so this just passes it through for the frontend to
+    // JSON.parse().
+    @GetMapping(value = "/api/dashboard/darvas-classic", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String, Object>> darvasClassic() {
+        return darvasClassicService.all();
     }
 
     // Swing Strategy tab -- reads swing.signals from Postgres (written by the
