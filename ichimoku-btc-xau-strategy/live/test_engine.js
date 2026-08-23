@@ -37,13 +37,13 @@ function check(name, fn) {
 }
 
 /** Build a tracker with fully-aligned bullish (or bearish) higher timeframes and a long m5 history. */
-function buildAlignedTracker(symbol, direction) {
+function buildAlignedTracker(symbol, direction, opts) {
   const sign = direction === 'LONG' ? 1 : -1;
   const h1 = buildTrend(150, ONE_HOUR, 1000, sign * 2);
   const m30 = buildTrend(150, THIRTY_MIN, 1000, sign * 1.5);
   const m5 = buildTrend(260, FIVE_MIN, 1000, sign * 0.5); // >200 for EMA200 + gate lookback
 
-  const tracker = new MtfSymbolTracker(symbol);
+  const tracker = new MtfSymbolTracker(symbol, opts);
   tracker.seedHistory({ h1, m30, m5: m5.slice(0, m5.length - 1) });
   return { tracker, lastM5: m5[m5.length - 1], m5 };
 }
@@ -204,6 +204,39 @@ check('resume: catches up a stop that was already hit while the process was down
   const outcome = events.find((e) => e.type === 'OUTCOME');
   assert.ok(outcome && outcome.result === 'SL', `expected a caught-up SL outcome, got ${outcome && outcome.result}`);
   assert.strictEqual(tracker.trade, null, 'trade must be cleared once the catch-up finds it already closed');
+});
+
+// ---------------------------------------------------------------------------
+// I: phase-out symbol (entriesEnabled=false) -- must never fire a fresh SETUP
+// even on a fully-aligned MTF stack, but a resumed OPEN trade must still be
+// tracked to a real outcome. Added 2026-08-23 for the BTCUSDT/XAUUSDT ->
+// BTCINR/XAUINR symbol-set switch, where the old symbol's still-open trade
+// had to keep running to completion without any new entries on it.
+// ---------------------------------------------------------------------------
+check('phase-out symbol: never fires a fresh SETUP even when fully aligned', () => {
+  const { tracker, lastM5 } = buildAlignedTracker('TESTPHASEOUT', 'LONG', { entriesEnabled: false });
+  const events = tracker.addM5Bar(lastM5);
+  assert.ok(!events.some((e) => e.type === 'SETUP'), 'entriesEnabled=false must block a fresh SETUP');
+  assert.strictEqual(tracker.trade, null, 'no trade should have opened');
+});
+
+check('phase-out symbol: a resumed OPEN trade still tracks through to a real outcome', () => {
+  const { tracker, lastM5 } = buildAlignedTracker('TESTPHASEOUTRESUME', 'LONG', { entriesEnabled: false });
+  const entryPx = lastM5.close;
+  const target = entryPx + 5;
+  const row = {
+    id: 3, direction: 'LONG', entry_ts: new Date(lastM5.timestampMs - FIVE_MIN).toISOString(),
+    entry_px: entryPx - 10, stop_px: entryPx - 20, target_px: target, r_value: 10,
+    ema200_at_entry: entryPx - 15, criteria: {}, warning_fired: false,
+  };
+  tracker.resumeTrade(row);
+  assert.ok(tracker.trade, 'the resumed trade must still be tracked despite entriesEnabled=false');
+
+  const rally = { timestampMs: lastM5.timestampMs + FIVE_MIN, open: entryPx, high: target + 1, low: entryPx, close: target + 0.5, volume: 100 };
+  const events = tracker.addM5Bar(rally);
+  const outcome = events.find((e) => e.type === 'OUTCOME');
+  assert.ok(outcome && outcome.result === 'TARGET', `expected the phase-out trade to still resolve to TARGET, got ${outcome && outcome.result}`);
+  assert.ok(!events.some((e) => e.type === 'SETUP'), 'must not fire a fresh SETUP after the phase-out trade closes');
 });
 
 console.log(failures === 0 ? '\nALL TESTS PASSED' : `\n${failures} TEST(S) FAILED`);
