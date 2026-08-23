@@ -1,18 +1,13 @@
 'use strict';
 
 /**
- * Classic Darvas Box (weekly) — daily scan.
+ * Classic Darvas Box (weekly) — daily scan (runOnce), scheduled by service.js.
  *
- * One-shot script: refreshes weekly candles for the 530-symbol universe
- * (symbols.json, same universe as swing-strategy/live), runs the box/entry/
- * exit engine (darvas_engine.js) for each, diffs the result against what
- * was persisted last run, and Telegram-alerts + logs whatever is new
- * (box confirmed, entry, pyramid add, trailing stop raised, stop-loss/
- * trail-stop exit).
- *
- * Meant to be run by Railway's Cron Job scheduler at 17:00 IST on trading
- * days (after the market close + a buffer for EOD data to land) -- NOT a
- * long-running process. `node runner.js` runs once and exits.
+ * Refreshes weekly candles for the 530-symbol universe (symbols.json, same
+ * universe as swing-strategy/live), runs the box/entry/exit engine
+ * (darvas_engine.js) for each, diffs the result against what was persisted
+ * last run, and Telegram-alerts + logs whatever is new (entry, pyramid add,
+ * trailing stop raised, stop-loss/trail-stop exit).
  *
  * Requires: TELEGRAM_BOT_TOKEN, and DATABASE_URL (or .secrets/pg_url.txt)
  * for state to persist across runs. No Upstox token needed -- historical
@@ -28,9 +23,7 @@ const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046']; // personal + group (same as other bots)
 const CONCURRENCY = 8;
 
-if (!TELEGRAM_TOKEN) console.warn('WARNING: TELEGRAM_BOT_TOKEN not set. Alerts logged, not sent.');
-
-const db = new DB();
+let db = null; // set at the top of each runOnce() call
 
 async function sendTelegram(text) {
   console.log('[ALERT]', text.replace(/\n/g, ' | '));
@@ -68,7 +61,9 @@ async function mapLimit(items, limit, fn) {
   return results;
 }
 
-async function main() {
+async function runOnce() {
+  if (!TELEGRAM_TOKEN) console.warn('WARNING: TELEGRAM_BOT_TOKEN not set. Alerts logged, not sent.');
+  db = new DB();
   const todayStr = new Date().toISOString().slice(0, 10);
   await db.init();
   const localStore = db.enabled ? {} : loadLocalStore();
@@ -163,7 +158,8 @@ async function main() {
   }
 
   if (!db.enabled) saveLocalStore(localStore);
+  if (db.pool) await db.pool.end();
   console.log(`Scan complete. ${newEvents} new event(s).`);
 }
 
-main().catch((e) => { console.error('FATAL:', e); process.exit(1); });
+module.exports = { runOnce };

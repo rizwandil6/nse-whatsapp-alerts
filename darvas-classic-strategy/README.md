@@ -35,12 +35,17 @@ Trade Ledger" artifact (linked in the vault's `darvasbox-forward-data-source` me
   each run (no incremental engine state — avoids drift).
 - `db.js` / `schema.sql` — Postgres persistence (`darvas_classic.*` schema): daily cache,
   per-symbol state summary (for diffing what's new), trade events, alert log.
-- `runner.js` — the daily job. **One-shot** (`node runner.js`, runs once and exits) — meant
-  to be invoked by **Railway's Cron Job scheduler**, not a long-running process.
+- `runner.js` — the daily job logic (`runOnce()`), diffing + persisting + alerting.
+- `service.js` — long-running wrapper that self-schedules `runOnce()` once per day
+  inside the 17:00–17:10 IST window, same pattern as `swing-strategy/live/service_pg.js`.
+  This is the process Railway actually runs (`npm start`). Set `RUN_ONCE=1` to run
+  immediately and exit, for local testing.
 
 ### Schedule
 
-Railway Cron Job, `30 11 * * 1-5` (UTC) = **17:00 IST, Mon–Fri**.
+Self-scheduled daily at **17:00 IST** (see `service.js`) — deploy as a normal Railway
+service (`npm start`), not a Cron Job, consistent with the other live strategies in
+this repo.
 
 ### Environment
 
