@@ -76,16 +76,16 @@ class DB {
     );
   }
 
-  async upsertPosition({ symbol, entryDate, entryPrice, status, legs, legsJson, trailStop, exitDate, exitPrice, exitReason, pnlPct }) {
+  async upsertPosition({ symbol, entryDate, entryPrice, status, legs, legsJson, trailStop, exitDate, exitPrice, exitReason, lastPrice, pnlPct }) {
     await this._q(
       `INSERT INTO darvas_classic.positions
-         (symbol, entry_date, entry_price, status, legs, legs_json, trail_stop, exit_date, exit_price, exit_reason, pnl_pct, updated_at)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,now())
+         (symbol, entry_date, entry_price, status, legs, legs_json, trail_stop, exit_date, exit_price, exit_reason, last_price, pnl_pct, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,now())
        ON CONFLICT (symbol, entry_date) DO UPDATE SET
          entry_price=$3, status=$4, legs=$5, legs_json=$6, trail_stop=$7,
-         exit_date=$8, exit_price=$9, exit_reason=$10, pnl_pct=$11, updated_at=now()`,
+         exit_date=$8, exit_price=$9, exit_reason=$10, last_price=$11, pnl_pct=$12, updated_at=now()`,
       [symbol, entryDate, entryPrice, status, legs, JSON.stringify(legsJson), trailStop ?? null,
-        exitDate ?? null, exitPrice ?? null, exitReason ?? null, pnlPct ?? null]
+        exitDate ?? null, exitPrice ?? null, exitReason ?? null, lastPrice ?? null, pnlPct ?? null]
     );
   }
 }
