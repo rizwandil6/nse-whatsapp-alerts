@@ -36,6 +36,36 @@ CREATE TABLE IF NOT EXISTS darvas_classic.positions (
   UNIQUE (symbol, entry_date)
 );
 
+-- Symbols with a CONFIRMED box but no open position yet -- candidates for a
+-- breakout entry. Fully replaced (truncate + reinsert) by the daily 17:00 IST
+-- scan; consumed by the market-hours intraday watcher, which checks each one
+-- for a real-time price+volume breakout and Telegram-alerts the moment one
+-- fires (see intraday_watcher.js). This is the ONE place in this service that
+-- still alerts on Telegram -- the daily scan itself does not.
+CREATE TABLE IF NOT EXISTS darvas_classic.watchlist (
+  symbol          text PRIMARY KEY,
+  box_top         numeric NOT NULL,
+  box_bottom      numeric NOT NULL,
+  trigger_price   numeric NOT NULL,   -- box_top * 1.01
+  avg_volume      numeric,            -- trailing 10-week average, the 1.5x baseline
+  last_price      numeric,
+  distance_pct    numeric,            -- (trigger - lastHigh) / trigger * 100; negative = already past trigger on price alone
+  updated_at      timestamptz NOT NULL DEFAULT now()
+);
+
+-- Dedupe log for watchlist breakout alerts -- one alert per symbol per
+-- trading week, so a symbol sitting above its trigger all afternoon doesn't
+-- re-alert on every poll.
+CREATE TABLE IF NOT EXISTS darvas_classic.watchlist_alerts (
+  id            bigserial PRIMARY KEY,
+  symbol        text NOT NULL,
+  week_start    date NOT NULL,        -- Monday of the trading week this alert covers
+  alert_price   numeric,
+  volume_ratio  numeric,
+  alerted_at    timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (symbol, week_start)
+);
+
 -- Raw daily-candle cache per symbol, persisted in Postgres rather than
 -- local disk because Railway's filesystem is ephemeral across redeploys --
 -- without this, every redeploy would force a full re-backfill for all 530

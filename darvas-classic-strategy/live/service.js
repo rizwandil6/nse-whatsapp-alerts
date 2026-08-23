@@ -7,10 +7,16 @@
  * self-scheduling design; deliberately does NOT run on startup so a Railway
  * redeploy is a no-op rather than a re-run.
  *
- * Set RUN_ONCE=1 to run immediately and exit (local testing / manual verify).
+ * Also starts intraday_watcher's market-hours polling loop alongside the
+ * daily scan loop, in the same process -- it Telegram-alerts on a real-time
+ * watchlist breakout (see that file's header).
+ *
+ * Set RUN_ONCE=1 to run the daily scan immediately and exit (local testing /
+ * manual verify) -- skips the watchlist watcher in that mode.
  */
 
 const { runOnce } = require('./runner');
+const watchlistWatcher = require('./intraday_watcher');
 
 const IST_OFFSET_MIN = 5 * 60 + 30;
 const TRIGGER_START_MIN = 17 * 60;      // 17:00 IST
@@ -40,4 +46,5 @@ if (process.env.RUN_ONCE === '1') {
   runOnce().then(() => process.exit(0)).catch((e) => { console.error(e); process.exit(1); });
 } else {
   loop();
+  watchlistWatcher.loop();
 }

@@ -158,4 +158,4 @@ function computeTradeLog(bars) {
   };
 }
 
-module.exports = { computeTradeLog, MIN_BOX_WEEKS, BREAKOUT_PCT, VOLUME_MULT, VOLUME_LOOKBACK, INITIAL_STOP_PCT, HIGH_LOOKBACK };
+module.exports = { computeTradeLog, avgVolume, MIN_BOX_WEEKS, BREAKOUT_PCT, VOLUME_MULT, VOLUME_LOOKBACK, INITIAL_STOP_PCT, HIGH_LOOKBACK };

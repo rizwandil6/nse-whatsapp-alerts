@@ -76,6 +76,41 @@ class DB {
     );
   }
 
+  async replaceWatchlist(rows) {
+    if (!this.enabled) return;
+    await this._q('TRUNCATE darvas_classic.watchlist');
+    for (const r of rows) {
+      await this._q(
+        `INSERT INTO darvas_classic.watchlist (symbol, box_top, box_bottom, trigger_price, avg_volume, last_price, distance_pct, updated_at)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,now())`,
+        [r.symbol, r.boxTop, r.boxBottom, r.triggerPrice, r.avgVolume ?? null, r.lastPrice ?? null, r.distancePct ?? null]
+      );
+    }
+  }
+
+  async getWatchlist() {
+    if (!this.enabled) return [];
+    const r = await this._q('SELECT symbol, box_top, box_bottom, trigger_price, avg_volume FROM darvas_classic.watchlist');
+    return r ? r.rows : [];
+  }
+
+  async hasAlertedThisWeek(symbol, weekStart) {
+    if (!this.enabled) return false;
+    const r = await this._q(
+      'SELECT 1 FROM darvas_classic.watchlist_alerts WHERE symbol=$1 AND week_start=$2',
+      [symbol, weekStart]
+    );
+    return !!(r && r.rowCount > 0);
+  }
+
+  async recordWatchlistAlert({ symbol, weekStart, alertPrice, volumeRatio }) {
+    await this._q(
+      `INSERT INTO darvas_classic.watchlist_alerts (symbol, week_start, alert_price, volume_ratio)
+       VALUES ($1,$2,$3,$4) ON CONFLICT (symbol, week_start) DO NOTHING`,
+      [symbol, weekStart, alertPrice, volumeRatio]
+    );
+  }
+
   async upsertPosition({ symbol, entryDate, entryPrice, status, legs, legsJson, trailStop, exitDate, exitPrice, exitReason, lastPrice, pnlPct }) {
     await this._q(
       `INSERT INTO darvas_classic.positions

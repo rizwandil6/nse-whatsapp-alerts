@@ -748,6 +748,38 @@
       '</div>';
     panel.appendChild(head);
 
+    // Watchlist -- symbols with a confirmed box but no open position yet (refreshed
+    // daily, same 17:00 IST scan). intraday_watcher.js Telegram-alerts the moment one
+    // of these actually breaks out (price + volume) live during market hours; this
+    // section is just the same candidate list for browsing, fetched separately from
+    // the position rows above since it's a different table/endpoint entirely.
+    const watchlistCard = document.createElement('div');
+    watchlistCard.className = 'table-card';
+    watchlistCard.style.marginBottom = '4px';
+    watchlistCard.innerHTML = '<div class="row-count" style="border-top:none;padding:10px 14px 4px;font-weight:600;color:var(--ink-muted)">Watchlist — closest to a confirmed breakout</div><div class="state-msg">Loading…</div>';
+    panel.appendChild(watchlistCard);
+    fetch('/api/dashboard/darvas-classic-watchlist').then((r) => r.json()).then((wl) => {
+      const body = watchlistCard.querySelector('.state-msg') || watchlistCard;
+      if (!wl.length) { watchlistCard.querySelector('.state-msg').outerHTML = '<div class="state-msg">No candidates right now.</div>'; return; }
+      const rowsHtml = wl.slice(0, 15).map((w) => {
+        const brokeOut = w.distancePct < 0;
+        return `<div class="card" style="padding:10px 14px;">
+          <div class="card-meta">
+            <span class="card-title" style="font-size:13px;">${esc(w.symbol)}</span>
+            <span>Box <b>${fmtPx(w.boxBottom)}–${fmtPx(w.boxTop)}</b></span>
+            <span>Trigger <b>₹${fmtPx(w.triggerPrice)}</b></span>
+            <span>Last <b>₹${fmtPx(w.lastPrice)}</b></span>
+            <span class="badge ${brokeOut ? 'amber' : 'neutral'}">${brokeOut ? 'Price broke out' : Math.abs(w.distancePct).toFixed(1) + '% below trigger'}</span>
+          </div>
+        </div>`;
+      }).join('');
+      watchlistCard.querySelector('.state-msg').outerHTML = rowsHtml;
+      const note = document.createElement('div');
+      note.className = 'row-count';
+      note.textContent = `${wl.length} candidate(s) total · alerted on Telegram the moment price + volume both confirm during market hours`;
+      watchlistCard.appendChild(note);
+    }).catch(() => { const m = watchlistCard.querySelector('.state-msg'); if (m) m.textContent = 'Failed to load watchlist.'; });
+
     // Month dropdown + "all time" checkbox, same dual-control pattern as Swing's own
     // month/allTime filters. Default view is trimmed to the CURRENT calendar month
     // (by entry date) since positions accumulate daily and an all-time list gets long
