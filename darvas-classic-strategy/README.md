@@ -1,7 +1,8 @@
 # Classic Darvas Box — Weekly (swing)
 
 Long-only weekly swing strategy over the same 530-stock universe as `swing-strategy/`.
-Alert-only forward-tracking — no orders are ever placed.
+Dashboard-only forward-tracking — no Telegram alerting, no orders are ever placed.
+Positions are tracked from **2026-01-01** onward.
 
 ## Rules
 
@@ -28,14 +29,21 @@ Trade Ledger" artifact (linked in the vault's `darvasbox-forward-data-source` me
 
 - `symbols.json` — 530 symbols → Upstox instrument keys (same file as `swing-strategy/live/symbols.json`).
 - `upstox_fetch.js` — unauthenticated Upstox v2 historical-candle fetch (works for past
-  dates with no access token, just needs a browser `User-Agent` header).
+  dates with no access token, just needs a browser `User-Agent` header), with 429
+  retry/backoff.
 - `weekly_cache.js` — daily→weekly resampling; daily-candle cache persisted in Postgres
   (`darvas_classic.daily_cache`) since Railway's filesystem is ephemeral across redeploys.
+  Backfills 2 years (not the full history) — enough lookback for the 52-week box gate
+  ahead of the 2026-01-01 tracking start, while easing rate-limit pressure on the
+  unauthenticated endpoint.
 - `darvas_engine.js` — pure box/entry/exit state machine, recomputed from full history
-  each run (no incremental engine state — avoids drift).
-- `db.js` / `schema.sql` — Postgres persistence (`darvas_classic.*` schema): daily cache,
-  per-symbol state summary (for diffing what's new), trade events, alert log.
-- `runner.js` — the daily job logic (`runOnce()`), diffing + persisting + alerting.
+  each run (no incremental engine state — avoids drift). Tags every leg of a pyramided
+  group with a shared `positionId` so callers can regroup them.
+- `db.js` / `schema.sql` — Postgres persistence (`darvas_classic.*` schema): daily
+  candle cache + one row per position (open or closed), upserted by `(symbol, entry_date)`.
+- `runner.js` — the daily job logic (`runOnce()`): fetch, recompute, filter to
+  `entryDate >= 2026-01-01`, upsert. Deterministic full recompute every run, so there's
+  no incremental state to drift or reconcile.
 - `service.js` — long-running wrapper that self-schedules `runOnce()` once per day
   inside the 17:00–17:10 IST window, same pattern as `swing-strategy/live/service_pg.js`.
   This is the process Railway actually runs (`npm start`). Set `RUN_ONCE=1` to run
@@ -51,11 +59,18 @@ this repo.
 
 - `DATABASE_URL` — reuses the project's shared Postgres (same one `darvasbox-live` and
   `opening-loser-short-live` use), isolated in its own `darvas_classic` schema.
-- `TELEGRAM_BOT_TOKEN` — same bot as the other live strategies.
-- No `UPSTOX_ACCESS_TOKEN` needed.
+- No `TELEGRAM_BOT_TOKEN`, no `UPSTOX_ACCESS_TOKEN` needed.
+
+### Dashboard tab
+
+`DarvasClassicService.java` reads `darvas_classic.positions` directly; the dashboard
+attaches a live LTP to open positions the same way the Swing Strategy tab does
+(`SwingLivePriceService`, market-hours only), so P&L on open rows tracks the current
+price instead of a frozen snapshot.
 
 ### First run
 
-The first run backfills 5 years of daily candles for all 530 symbols (unauthenticated
-Upstox REST, ~8 concurrent requests) — expect it to take longer than subsequent
-incremental runs. Every run after that only re-fetches the last ~10 days per symbol.
+The first run backfills 2 years of daily candles for all 530 symbols (unauthenticated
+Upstox REST, 3 concurrent requests with a small per-request stagger + 429 retry/backoff)
+— expect it to take a while. Every run after that only re-fetches the last ~10 days per
+symbol.

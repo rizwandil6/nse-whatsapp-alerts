@@ -72,14 +72,34 @@ public class DashboardDataController {
         this.darvasClassicService = darvasClassicService;
     }
 
-    // Darvas Classic (Weekly) tab -- reads darvas_classic.symbol_state, written by the
-    // darvas-classic-strategy/live Node service's daily 17:00 IST Cron Job run. Each
-    // row's state_json already carries the full open-position/last-closed-trade
-    // snapshot (see runner.js), so this just passes it through for the frontend to
-    // JSON.parse().
+    // Darvas Classic (Weekly) tab -- reads darvas_classic.positions, written by the
+    // darvas-classic-strategy/live Node service's daily 17:00 IST run. Same
+    // "attach a live LTP to open rows" pattern as the Swing tab below: closed rows
+    // keep the pnlPct computed at exit time, open rows get it recomputed here against
+    // the current price (market hours only) so it doesn't sit frozen at yesterday's
+    // close. No Telegram alerting on the Node side -- this dataset is dashboard-only.
     @GetMapping(value = "/api/dashboard/darvas-classic", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String, Object>> darvasClassic() {
-        return darvasClassicService.all();
+        List<Map<String, Object>> rows = darvasClassicService.all();
+        List<String> openSymbols = new ArrayList<>();
+        for (Map<String, Object> r : rows) {
+            if ("open".equals(r.get("status")) && r.get("symbol") != null) openSymbols.add(r.get("symbol").toString());
+        }
+        if (!openSymbols.isEmpty() && isMarketHours()) {
+            Map<String, Double> live = swingLivePriceService.pricesFor(openSymbols);
+            for (Map<String, Object> r : rows) {
+                if (!"open".equals(r.get("status"))) continue;
+                Object symO = r.get("symbol"), entO = r.get("entryPx");
+                if (symO == null || !(entO instanceof Number)) continue;
+                Double lp = live.get(symO.toString());
+                if (lp == null) continue;
+                double entry = ((Number) entO).doubleValue();
+                if (entry <= 0) continue;
+                r.put("lastPrice", lp);
+                r.put("pnlPct", Math.round(((lp - entry) / entry) * 1000.0) / 10.0);
+            }
+        }
+        return rows;
     }
 
     // Swing Strategy tab -- reads swing.signals from Postgres (written by the

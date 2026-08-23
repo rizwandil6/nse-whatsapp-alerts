@@ -18,7 +18,11 @@ const path = require('path');
 const { fetchDailyCandles, isoDate } = require('./upstox_fetch');
 
 const LOCAL_STORE_PATH = path.join(__dirname, 'weekly_cache_store.json');
-const BACKFILL_YEARS = 5;
+// 2 years, not 5: tracked positions only start 2026-01-01 (see runner.js's
+// TRACK_FROM), and the 52-week-high box gate only needs ~1 year of lookback
+// before that -- a 2-year window leaves a comfortable margin while roughly
+// halving the unauthenticated-endpoint rate-limit pressure of a full backfill.
+const BACKFILL_YEARS = 2;
 const REFETCH_LOOKBACK_DAYS = 10; // re-pull a small overlap in case the last week was partial
 
 function loadLocalStore() {

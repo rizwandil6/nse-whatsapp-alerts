@@ -4,50 +4,45 @@
 
 CREATE SCHEMA IF NOT EXISTS darvas_classic;
 
--- Per-symbol engine state, persisted so the daily job is resumable across
--- restarts/redeploys. One row per symbol; overwritten in place each run.
-CREATE TABLE IF NOT EXISTS darvas_classic.symbol_state (
-  symbol          text PRIMARY KEY,
-  state_json      jsonb       NOT NULL,   -- { confirmedBox, formingBox, position, ... } — see darvas_engine.js
-  updated_at      timestamptz NOT NULL DEFAULT now()
+-- Superseded by darvas_classic.positions below (2026-08-23): the old
+-- diff-and-Telegram-alert design needed a per-symbol counter to detect
+-- "what's new since last run"; alerting was dropped in favor of a plain
+-- dashboard P&L view (like Swing Strategy), so the whole diff mechanism --
+-- and the bad data from the first run's alert-flood incident -- goes with it.
+DROP TABLE IF EXISTS darvas_classic.alerts;
+DROP TABLE IF EXISTS darvas_classic.trade_events;
+DROP TABLE IF EXISTS darvas_classic.symbol_state;
+
+-- One row per position (a pyramided group of legs sharing one trailing
+-- stop), open or closed. Fully recomputed and upserted every run --
+-- deterministic from the weekly bar history, so there's no drift to
+-- reconcile. Mirrors swing.signals' shape closely so the dashboard tab can
+-- follow the same rendering pattern.
+CREATE TABLE IF NOT EXISTS darvas_classic.positions (
+  id              bigserial PRIMARY KEY,
+  symbol          text        NOT NULL,
+  entry_date      date        NOT NULL,   -- first leg's entry date -- the position's natural key together with symbol
+  entry_price     numeric     NOT NULL,   -- first leg's entry price
+  status          text        NOT NULL,   -- open | closed
+  legs            int         NOT NULL,
+  legs_json       jsonb       NOT NULL,   -- [{legIndex, entryDate, entryPrice, boxTop}, ...]
+  trail_stop      numeric,
+  exit_date       date,
+  exit_price      numeric,
+  exit_reason     text,                   -- STOP_LOSS | TRAIL_STOP
+  pnl_pct         numeric,                -- realized (closed) or last-computed (open, refreshed with live price by the dashboard) vs entry_price
+  updated_at      timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (symbol, entry_date)
 );
 
 -- Raw daily-candle cache per symbol, persisted in Postgres rather than
 -- local disk because Railway's filesystem is ephemeral across redeploys --
--- without this, every redeploy would force a full 5-year re-backfill for
--- all 530 symbols before the day's scan could run.
+-- without this, every redeploy would force a full re-backfill for all 530
+-- symbols before the day's scan could run.
 CREATE TABLE IF NOT EXISTS darvas_classic.daily_cache (
   symbol          text PRIMARY KEY,
   daily_bars_json jsonb       NOT NULL,   -- [{date, open, high, low, close, volume}, ...] ascending
   updated_at      timestamptz NOT NULL DEFAULT now()
 );
 
--- One row per open/closed position leg-group (a pyramided group of legs that
--- share one trailing stop and exit together — mirrors the backtest ledger).
-CREATE TABLE IF NOT EXISTS darvas_classic.trade_events (
-  id              bigserial PRIMARY KEY,
-  symbol          text        NOT NULL,
-  leg_index       int         NOT NULL,       -- 1 = first entry, 2+ = pyramid add
-  event_type      text        NOT NULL,       -- ENTRY | STOP_LOSS | TRAIL_STOP | TRAIL_RAISED
-  event_date      date        NOT NULL,
-  price           numeric     NOT NULL,
-  box_top         numeric,
-  box_bottom      numeric,
-  trail_stop      numeric,
-  volume_ratio    numeric,                    -- volume / avg volume at entry, for ENTRY rows
-  created_at      timestamptz NOT NULL DEFAULT now()
-);
-
--- Audit of what was actually pushed to Telegram (dedupe / idempotency).
-CREATE TABLE IF NOT EXISTS darvas_classic.alerts (
-  id          bigserial PRIMARY KEY,
-  symbol      text,
-  alert_type  text        NOT NULL,          -- BOX_CONFIRMED | ENTRY | PYRAMID | TRAIL_RAISED | STOP_LOSS | TRAIL_STOP
-  chat_id     text,
-  text        text,
-  sent_ok     boolean,
-  sent_at     timestamptz NOT NULL DEFAULT now()
-);
-
-CREATE INDEX IF NOT EXISTS idx_darvas_classic_trade_events_symbol ON darvas_classic.trade_events (symbol);
-CREATE INDEX IF NOT EXISTS idx_darvas_classic_trade_events_date ON darvas_classic.trade_events (event_date);
+CREATE INDEX IF NOT EXISTS idx_darvas_classic_positions_status ON darvas_classic.positions (status);

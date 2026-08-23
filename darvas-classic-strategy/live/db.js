@@ -1,15 +1,15 @@
 'use strict';
 
 /**
- * Postgres persistence for the Classic Darvas Box weekly scanner. Writes
- * per-symbol engine state (so the daily job is resumable) and the
- * forward-tracking trade/alert log described in schema.sql.
+ * Postgres persistence for the Classic Darvas Box weekly scanner. Writes the
+ * daily-candle cache and one row per position (open or closed) -- see
+ * schema.sql. No alert log: this service doesn't push to Telegram, it's a
+ * plain forward-tracking dataset for the dashboard tab (same spirit as
+ * swing.signals).
  *
  * Connection string comes from DATABASE_URL (Railway env) or, for local
  * runs, .secrets/pg_url.txt. If NEITHER is present the module degrades to
- * a no-op — the scanner still runs and sends Telegram alerts, it just
- * doesn't persist (state resets every run, which defeats the point, but
- * won't crash a local dry-run).
+ * a no-op -- the scanner still computes trade logs, it just doesn't persist.
  *
  * NOTE: this file never contains a credential. The connection string is
  * read at runtime from env / .secrets, which the operator populates.
@@ -33,7 +33,7 @@ class DB {
     this.pool = null;
     this.enabled = false;
     const conn = resolveConnString();
-    if (!conn) { console.warn('WARNING: no DATABASE_URL / .secrets/pg_url.txt — Postgres logging DISABLED (alerts still work, but state will not persist across runs).'); return; }
+    if (!conn) { console.warn('WARNING: no DATABASE_URL / .secrets/pg_url.txt — Postgres logging DISABLED.'); return; }
     if (!Pool) { console.warn('WARNING: pg module not installed — Postgres logging DISABLED. Run `npm install`.'); return; }
     const isLocal = /localhost|127\.0\.0\.1/.test(conn);
     const ssl = process.env.PGSSL === 'disable' || isLocal ? false : { rejectUnauthorized: false };
@@ -60,24 +60,6 @@ class DB {
     catch (e) { console.warn('  pg query failed:', e.message); return null; }
   }
 
-  async loadAllState() {
-    if (!this.enabled) return {};
-    const r = await this._q(`SELECT symbol, state_json FROM darvas_classic.symbol_state`);
-    if (!r) return {};
-    const out = {};
-    for (const row of r.rows) out[row.symbol] = row.state_json;
-    return out;
-  }
-
-  async saveState(symbol, stateJson) {
-    await this._q(
-      `INSERT INTO darvas_classic.symbol_state (symbol, state_json, updated_at)
-       VALUES ($1,$2,now())
-       ON CONFLICT (symbol) DO UPDATE SET state_json=$2, updated_at=now()`,
-      [symbol, stateJson]
-    );
-  }
-
   async getDailyBars(symbol) {
     if (!this.enabled) return null;
     const r = await this._q(`SELECT daily_bars_json FROM darvas_classic.daily_cache WHERE symbol=$1`, [symbol]);
@@ -94,20 +76,16 @@ class DB {
     );
   }
 
-  async insertTradeEvent({ symbol, legIndex, eventType, eventDate, price, boxTop, boxBottom, trailStop, volumeRatio }) {
+  async upsertPosition({ symbol, entryDate, entryPrice, status, legs, legsJson, trailStop, exitDate, exitPrice, exitReason, pnlPct }) {
     await this._q(
-      `INSERT INTO darvas_classic.trade_events
-         (symbol, leg_index, event_type, event_date, price, box_top, box_bottom, trail_stop, volume_ratio)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
-      [symbol, legIndex, eventType, eventDate, price, boxTop ?? null, boxBottom ?? null, trailStop ?? null, volumeRatio ?? null]
-    );
-  }
-
-  async insertAlert({ symbol, alertType, chatId, text, sentOk }) {
-    await this._q(
-      `INSERT INTO darvas_classic.alerts (symbol, alert_type, chat_id, text, sent_ok)
-       VALUES ($1,$2,$3,$4,$5)`,
-      [symbol || null, alertType, chatId || null, text || null, sentOk]
+      `INSERT INTO darvas_classic.positions
+         (symbol, entry_date, entry_price, status, legs, legs_json, trail_stop, exit_date, exit_price, exit_reason, pnl_pct, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,now())
+       ON CONFLICT (symbol, entry_date) DO UPDATE SET
+         entry_price=$3, status=$4, legs=$5, legs_json=$6, trail_stop=$7,
+         exit_date=$8, exit_price=$9, exit_reason=$10, pnl_pct=$11, updated_at=now()`,
+      [symbol, entryDate, entryPrice, status, legs, JSON.stringify(legsJson), trailStop ?? null,
+        exitDate ?? null, exitPrice ?? null, exitReason ?? null, pnlPct ?? null]
     );
   }
 }
