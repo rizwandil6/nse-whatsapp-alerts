@@ -20,7 +20,7 @@
  */
 
 const { DB } = require('./db');
-const { computeTradeLog } = require('./darvas_engine');
+const { computeTradeLog, avgVolume } = require('./darvas_engine');
 const { loadLocalStore, saveLocalStore, refreshSymbol } = require('./weekly_cache');
 const symbolMap = require('./symbols.json');
 
@@ -66,14 +66,15 @@ async function runOnce() {
       await sleep(REQUEST_STAGGER_MS);
     }
     if (weekly.length < 52) return null;
-    const { closedTrades, openPosition } = computeTradeLog(weekly);
-    return { symbol, weekly, closedTrades, openPosition };
+    const { closedTrades, openPosition, confirmedBox } = computeTradeLog(weekly);
+    return { symbol, weekly, closedTrades, openPosition, confirmedBox };
   });
 
   let positionsWritten = 0;
+  const watchlist = [];
   for (const r of results) {
     if (!r) continue;
-    const { symbol, closedTrades, openPosition } = r;
+    const { symbol, closedTrades, openPosition, confirmedBox } = r;
 
     // Group closed legs by positionId (darvas_engine.js tags every leg of a
     // pyramided group with the same id) into one row per position.
@@ -123,11 +124,32 @@ async function runOnce() {
       });
       positionsWritten++;
     }
+
+    // Watchlist candidate: a confirmed box with no open position yet -- the
+    // intraday watcher checks these for a real-time breakout during market
+    // hours (see intraday_watcher.js). No entryDate/TRACK_FROM filter here --
+    // this is a forward-looking "could trigger tomorrow" list, not history.
+    if (!openPosition && confirmedBox) {
+      const lastBar = r.weekly[r.weekly.length - 1];
+      const triggerPrice = confirmedBox.top * 1.01;
+      const vol = avgVolume(r.weekly, r.weekly.length - 1);
+      watchlist.push({
+        symbol,
+        boxTop: confirmedBox.top,
+        boxBottom: confirmedBox.bottom,
+        triggerPrice,
+        avgVolume: vol,
+        lastPrice: lastBar.close,
+        distancePct: Math.round((((triggerPrice - lastBar.high) / triggerPrice) * 1000)) / 10,
+      });
+    }
   }
+
+  await db.replaceWatchlist(watchlist);
 
   if (!db.enabled) saveLocalStore(localStore);
   if (db.pool) await db.pool.end();
-  console.log(`Scan complete. ${positionsWritten} position(s) written.`);
+  console.log(`Scan complete. ${positionsWritten} position(s) written, ${watchlist.length} watchlist candidate(s).`);
 }
 
 module.exports = { runOnce };

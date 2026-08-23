@@ -43,6 +43,7 @@ public class DashboardDataController {
     private final SwingLivePriceService swingLivePriceService;
     private final CryptoForexService cryptoForexService;
     private final DarvasClassicService darvasClassicService;
+    private final DarvasWatchlistService darvasWatchlistService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
     private final ObjectMapper mapper = new ObjectMapper();
@@ -60,7 +61,8 @@ public class DashboardDataController {
                                     SwingSignalService swingSignalService,
                                     SwingLivePriceService swingLivePriceService,
                                     CryptoForexService cryptoForexService,
-                                    DarvasClassicService darvasClassicService) {
+                                    DarvasClassicService darvasClassicService,
+                                    DarvasWatchlistService darvasWatchlistService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
         this.quarterlyResultsService = quarterlyResultsService;
@@ -70,6 +72,16 @@ public class DashboardDataController {
         this.swingLivePriceService = swingLivePriceService;
         this.cryptoForexService = cryptoForexService;
         this.darvasClassicService = darvasClassicService;
+        this.darvasWatchlistService = darvasWatchlistService;
+    }
+
+    // Darvas Classic watchlist -- symbols with a confirmed box but no open position
+    // yet, refreshed daily by runner.js and Telegram-alerted in real time by
+    // intraday_watcher.js the moment one actually breaks out (price + volume) during
+    // market hours. This endpoint just surfaces the same candidate list for display.
+    @GetMapping(value = "/api/dashboard/darvas-classic-watchlist", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String, Object>> darvasClassicWatchlist() {
+        return darvasWatchlistService.all();
     }
 
     // Darvas Classic (Weekly) tab -- reads darvas_classic.positions, written by the

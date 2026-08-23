@@ -1,8 +1,10 @@
 # Classic Darvas Box — Weekly (swing)
 
 Long-only weekly swing strategy over the same 530-stock universe as `swing-strategy/`.
-Dashboard-only forward-tracking — no Telegram alerting, no orders are ever placed.
-Positions are tracked from **2026-01-01** onward.
+Positions (dashboard P&L tab) are dashboard-only, no Telegram — but the **watchlist**
+(symbols with a confirmed box, not yet broken out) IS Telegram-alerted in real time the
+moment price + volume both confirm during market hours (see `live/intraday_watcher.js`).
+No orders are ever placed. Positions are tracked from **2026-01-01** onward.
 
 ## Rules
 
@@ -45,9 +47,18 @@ Trade Ledger" artifact (linked in the vault's `darvasbox-forward-data-source` me
   `entryDate >= 2026-01-01`, upsert. Deterministic full recompute every run, so there's
   no incremental state to drift or reconcile.
 - `service.js` — long-running wrapper that self-schedules `runOnce()` once per day
-  inside the 17:00–17:10 IST window, same pattern as `swing-strategy/live/service_pg.js`.
-  This is the process Railway actually runs (`npm start`). Set `RUN_ONCE=1` to run
-  immediately and exit, for local testing.
+  inside the 17:00–17:10 IST window, same pattern as `swing-strategy/live/service_pg.js`,
+  AND starts `intraday_watcher.js`'s market-hours polling loop in the same process.
+  This is the process Railway actually runs (`npm start`). Set `RUN_ONCE=1` to run the
+  daily scan immediately and exit (skips the watcher), for local testing.
+- `intraday_watcher.js` — polls every 5 min, 09:15–15:30 IST on trading days, over
+  `darvas_classic.watchlist` (confirmed box, no open position). For each symbol: fetches
+  today's intraday candles (unauthenticated, same Upstox endpoint), sums this week's
+  volume-so-far (already-closed days from the daily cache + today live), and checks
+  price ≥ trigger AND volume ≥ 1.5× avg. Telegram-alerts once per symbol per week
+  (`darvas_classic.watchlist_alerts` dedupes). This is the only Telegram alerting in
+  this service.
+- `telegram.js` — minimal sender, same chat IDs as the other live bots.
 
 ### Schedule
 
@@ -59,14 +70,18 @@ this repo.
 
 - `DATABASE_URL` — reuses the project's shared Postgres (same one `darvasbox-live` and
   `opening-loser-short-live` use), isolated in its own `darvas_classic` schema.
-- No `TELEGRAM_BOT_TOKEN`, no `UPSTOX_ACCESS_TOKEN` needed.
+- `TELEGRAM_BOT_TOKEN` — used ONLY by the watchlist watcher's real-time breakout alerts,
+  same bot as the other live strategies. The daily scan itself never sends Telegram.
+- No `UPSTOX_ACCESS_TOKEN` needed — even the intraday watcher uses the unauthenticated
+  historical-candle endpoint, which also serves the current in-progress trading day.
 
 ### Dashboard tab
 
 `DarvasClassicService.java` reads `darvas_classic.positions` directly; the dashboard
 attaches a live LTP to open positions the same way the Swing Strategy tab does
 (`SwingLivePriceService`, market-hours only), so P&L on open rows tracks the current
-price instead of a frozen snapshot.
+price instead of a frozen snapshot. `DarvasWatchlistService.java` reads
+`darvas_classic.watchlist` for the watchlist section shown above the position cards.
 
 ### First run
 
