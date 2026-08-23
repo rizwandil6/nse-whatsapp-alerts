@@ -1,0 +1,12 @@
+{
+  "name": "darvas-classic-weekly-scan",
+  "version": "1.0.0",
+  "description": "Daily 5pm IST scan for the Classic Darvas Box (weekly) strategy over the 530-stock swing universe — Telegram alerts + Postgres forward-tracking. Alert-only, no orders. Runs once per invocation (Railway Cron Job), not a long-running process.",
+  "main": "runner.js",
+  "scripts": {
+    "start": "node runner.js"
+  },
+  "dependencies": {
+    "pg": "^8.12.0"
+  }
+}

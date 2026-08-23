@@ -157,6 +157,7 @@
     <button class="tab-btn active" data-tab="home">Home</button>
     <button class="tab-btn" data-tab="news">Market News <span class="count" id="count-news"></span></button>
     <button class="tab-btn" data-tab="swing-strategy">Swing Strategy <span class="count" id="count-swing-strategy"></span></button>
+    <button class="tab-btn" data-tab="darvas-classic">Darvas Classic <span class="count" id="count-darvas-classic"></span></button>
     <button class="tab-btn" data-tab="seasonality">Seasonality</button>
     <button class="tab-btn" data-tab="announcements">Announcements <span class="count" id="count-announcements"></span></button>
     <button class="tab-btn" data-tab="quarterly-results">Quarterly Results <span class="count" id="count-quarterly-results"></span></button>
@@ -167,6 +168,7 @@
   <div class="panel active" id="panel-home"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-news"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-swing-strategy"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-darvas-classic"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-seasonality"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-announcements"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-quarterly-results"><div class="state-msg">Loading…</div></div>
@@ -240,6 +242,7 @@
   const TABS = {
     news: { url: '/api/dashboard/market-news', render: renderNews },
     'swing-strategy': { url: '/api/dashboard/swing', render: renderSwing },
+    'darvas-classic': { url: '/api/dashboard/darvas-classic', render: renderDarvasClassic },
     announcements: { url: '/api/dashboard/announcements', render: renderAnnouncements },
     'quarterly-results': { url: '/api/dashboard/quarterly-results', render: renderQuarterlyResults },
     'rs-momentum': { url: '/api/dashboard/rs-momentum', render: renderRsMomentum },
@@ -250,6 +253,7 @@
   const TILE_LABELS = {
     news: 'Market News',
     'swing-strategy': 'Swing Strategy',
+    'darvas-classic': 'Darvas Classic',
     announcements: 'Announcements',
     'quarterly-results': 'Quarterly Results',
     'rs-momentum': 'RS Momentum',
@@ -338,6 +342,12 @@
         const st = item.status === 'closed' ? (item.rNet >= 0 ? 'Win' : 'Loss') : (item.status.charAt(0).toUpperCase() + item.status.slice(1));
         const since = item.sinceAlertPct != null ? ' ' + fmtPct(item.sinceAlertPct) : '';
         return `<div class="tile-preview-title">${esc(item.symbol)} — ${st}${since}</div><div class="tile-preview-time">${esc(item.signalDate)}</div>`;
+      }
+      case 'darvas-classic': {
+        const st = JSON.parse(item.stateJson || '{}');
+        const isOpen = (st.openLegCount || 0) > 0;
+        const label = isOpen ? `Open — ${st.openLegCount} leg(s)` : 'Closed';
+        return `<div class="tile-preview-title">${esc(item.symbol)} — ${label}</div><div class="tile-preview-time">${esc(fmtTime(item.updatedAt))}</div>`;
       }
       default:
         return '';
@@ -701,6 +711,80 @@
     bar.querySelector('#sw-rsrank').addEventListener('change', (e) => { state.rsrank = e.target.value; apply(); });
     bar.querySelector('#sw-rsrank-entry').addEventListener('change', (e) => { state.rsrankEntry = e.target.value; apply(); });
     bar.querySelector('#sw-index').addEventListener('change', (e) => { state.index = e.target.value; apply(); });
+    apply();
+  }
+
+  // Classic Darvas Box (weekly) tab -- each row is a symbol's full engine-state
+  // snapshot (darvas_classic.symbol_state, written by darvas-classic-strategy/live's
+  // daily 17:00 IST Cron Job run). stateJson is parsed client-side, same pattern as
+  // swing's `rules` column above.
+  function renderDarvasClassic(items, panel) {
+    panel.innerHTML = '';
+    const head = document.createElement('div');
+    head.className = 'swing-head';
+    head.innerHTML = '<div class="tab-header"><p>Classic Darvas Box — weekly, 530-stock swing universe (same as Swing Strategy). ' +
+      'Daily 17:00 IST scan. 52-week-high box, 3-week containment, breakout +1% on ≥1.5× volume, ' +
+      '3% initial stop, trail to each new confirmed box\'s bottom, pyramided legs share one stop. Alert-only, no orders.</p></div>';
+    panel.appendChild(head);
+
+    const bar = document.createElement('div');
+    bar.className = 'swing-filters';
+    bar.innerHTML =
+      '<div class="pill-group" id="dc-status">' +
+      ['all', 'open', 'closed'].map((s, i) => `<button class="pill${i === 0 ? ' active' : ''}" data-status="${s}">${s === 'all' ? 'All' : s.charAt(0).toUpperCase() + s.slice(1)}</button>`).join('') +
+      '</div>' +
+      '<input id="dc-symbol" type="search" placeholder="Search symbol…" autocomplete="off" />';
+    panel.appendChild(bar);
+
+    const list = document.createElement('div');
+    list.style.display = 'flex';
+    list.style.flexDirection = 'column';
+    list.style.gap = '10px';
+    panel.appendChild(list);
+
+    const rows = items.map((item) => {
+      let st = {};
+      try { st = JSON.parse(item.stateJson || '{}'); } catch (_) { /* keep {} */ }
+      return { symbol: item.symbol, updatedAt: item.updatedAt, ...st };
+    });
+
+    const state = { status: 'all', symbol: '' };
+
+    function cardHtml(r) {
+      const isOpen = (r.openLegCount || 0) > 0;
+      const pos = r.openPosition;
+      const last = r.lastClosedTrade;
+      const statusBadge = isOpen ? 'amber' : 'neutral';
+      const statusLabel = isOpen ? `Open — ${r.openLegCount} leg(s)` : 'Closed';
+      const firstLeg = pos && pos.legs && pos.legs[0];
+      return `<div class="card">
+        <div class="card-top"><div class="card-title">${esc(r.symbol)}</div><div class="card-time">${esc(fmtTime(r.updatedAt))}</div></div>
+        <div class="card-meta">
+          <span class="badge ${statusBadge}">${statusLabel}</span>
+          ${isOpen && firstLeg ? `<span>First entry <b>₹${esc(firstLeg.entryPrice.toFixed ? firstLeg.entryPrice.toFixed(2) : firstLeg.entryPrice)}</b> <span class="card-time">(${esc(firstLeg.entryDate)})</span></span>` : ''}
+          ${isOpen ? `<span>Trail stop <b>₹${esc(pos.trailStop.toFixed ? pos.trailStop.toFixed(2) : pos.trailStop)}</b></span>` : ''}
+          ${!isOpen && last ? `<span>Last exit <b>₹${esc(last.exitPrice.toFixed ? last.exitPrice.toFixed(2) : last.exitPrice)}</b> <span class="card-time">(${esc(last.exitDate)})</span></span><span class="badge ${last.exitReason === 'STOP_LOSS' ? 'loss' : 'win'}">${esc((last.exitReason || '').replace('_', ' '))}</span>` : ''}
+          ${!isOpen && !last ? '<span class="card-time">No trades yet — watching for a confirmed box breakout.</span>' : ''}
+        </div>
+      </div>`;
+    }
+
+    function apply() {
+      let f = rows.slice();
+      if (state.status === 'open') f = f.filter((r) => (r.openLegCount || 0) > 0);
+      else if (state.status === 'closed') f = f.filter((r) => !(r.openLegCount > 0));
+      if (state.symbol) { const q = state.symbol.toLowerCase(); f = f.filter((r) => (r.symbol || '').toLowerCase().includes(q)); }
+      list.innerHTML = f.length ? f.map(cardHtml).join('') : '<div class="state-msg">No symbols match these filters.</div>';
+      const badge = document.getElementById('count-darvas-classic');
+      if (badge) badge.textContent = f.length || '';
+    }
+
+    bar.querySelector('#dc-status').addEventListener('click', (e) => {
+      const b = e.target.closest('.pill'); if (!b) return;
+      bar.querySelectorAll('#dc-status .pill').forEach((p) => p.classList.remove('active'));
+      b.classList.add('active'); state.status = b.dataset.status; apply();
+    });
+    bar.querySelector('#dc-symbol').addEventListener('input', (e) => { state.symbol = e.target.value.trim(); apply(); });
     apply();
   }
 
