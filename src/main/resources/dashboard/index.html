@@ -673,16 +673,11 @@
 
     function apply() {
       let f = items.slice();
-      // Keep a row if ANY of its lifecycle dates (signal, half-book, exit) falls within the
-      // tracking window -- not just signalDate. A trade opened before tracking started but
-      // half-booked or exited after is something the user actually watched happen live, so
-      // filtering on signalDate alone was hiding its "action today" card entirely (e.g. a
-      // pre-2026-08-07 entry that gets half-booked today never showed up under Action today).
-      if (!state.allTime) {
-        f = f.filter((s) => (s.signalDate || '') >= SWING_TRACKING_START
-          || (s.halfDate || '') >= SWING_TRACKING_START
-          || (s.exitDate || '') >= SWING_TRACKING_START);
-      }
+      // The tracking-start gate is skipped entirely under "Action today" -- a pre-tracking
+      // entry that gets half-booked/exited today is still something to act on today, and
+      // gating by signalDate hid that card along with its badge (see PR #58 for the bug
+      // this caused, and its fix, which this reverts in favor of a simpler bypass instead).
+      if (!state.allTime && state.status !== 'today') f = f.filter((s) => (s.signalDate || '') >= SWING_TRACKING_START);
       if (state.status === 'today') f = f.filter((s) => s.actionToday);
       else if (state.status !== 'all') f = f.filter((s) => s.status === state.status);
       if (state.month !== 'all') f = f.filter((s) => (s.signalDate || '').slice(0, 7) === state.month);
