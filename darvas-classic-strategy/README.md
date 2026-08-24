@@ -45,7 +45,12 @@ Trade Ledger" artifact (linked in the vault's `darvasbox-forward-data-source` me
   candle cache + one row per position (open or closed), upserted by `(symbol, entry_date)`.
 - `runner.js` — the daily job logic (`runOnce()`): fetch, recompute, filter to
   `entryDate >= 2026-01-01`, upsert. Deterministic full recompute every run, so there's
-  no incremental state to drift or reconcile.
+  no incremental state to drift or reconcile. Also computes the watchlist (see below),
+  filtered to a relevance window (within 10% below the trigger, or up to 5% already past
+  it) -- a symbol's most recent confirmed box can be stale, formed long ago and left
+  behind as price ran away; without this filter, "confirmed box + no open position"
+  matched 395 of 530 symbols (confirmed live 2026-08-24), most 20-100% from their own
+  trigger. The filter brings that down to a genuinely watchable ~50-70.
 - `service.js` — long-running wrapper that self-schedules `runOnce()` once per day
   inside the 17:00–17:10 IST window, same pattern as `swing-strategy/live/service_pg.js`,
   AND starts `intraday_watcher.js`'s market-hours polling loop in the same process.
