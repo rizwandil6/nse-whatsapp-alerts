@@ -103,6 +103,20 @@ function fmtOutcome(e) {
   return lines.join('\n');
 }
 
+// Console-only (no Telegram, no DB) -- one line per completed bar entry is evaluated
+// on, so `railway logs` can answer "why didn't it fire between X and Y" definitively
+// instead of only from whatever the live state happens to be when someone asks.
+function fmtDiagnostic(e) {
+  const when = istLikeUtc(e.ts);
+  if (!e.lookbackReady) return `[check] ${e.symbol} ${when} close=${fmtPx(e.close)} -- insufficient lookback yet`;
+  const side = (s) => (s.aboveCloudAndBaseline ? 'above' : s.belowCloudAndBaseline ? 'below' : 'INSIDE-cloud');
+  const h1 = side(e.h1);
+  const m30 = `${side(e.m30)}${e.m30.cloudGreen ? '+green' : e.m30.cloudRed ? '+red' : '+neither'}`;
+  const m5 = e.m5.kijunAboveEma ? 'kijun>ema' : e.m5.kijunBelowEma ? 'kijun<ema' : 'kijun=ema';
+  const gate = e.m5.invalidated ? 'INVALIDATED' : 'clear';
+  return `[check] ${e.symbol} ${when} close=${fmtPx(e.close)} | 1H:${h1} 30m:${m30} 5m:${m5} gate:${gate} | longOk=${e.longOk} shortOk=${e.shortOk}`;
+}
+
 async function emit(alertType, symbol, text, signalId) {
   const ok = await sendTelegram(text);
   await db.insertAlert({ signalId, symbol, alertType, chatId: TELEGRAM_CHAT_IDS.join(','), text, sentOk: ok });
@@ -117,6 +131,8 @@ async function handleEvents(events) {
     } else if (e.type === 'OUTCOME') {
       await db.closeOutcome(signalIds[e.symbol], e);
       await emit(e.result, e.symbol, fmtOutcome(e), signalIds[e.symbol]);
+    } else if (e.type === 'DIAGNOSTIC') {
+      console.log(fmtDiagnostic(e)); // server logs only -- no Telegram, no DB insert
     }
   }
 }

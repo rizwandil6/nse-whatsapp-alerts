@@ -121,6 +121,7 @@ class MtfSymbolTracker {
     this.m30 = [];
     this.m5 = [];
     this.trade = null; // { direction, entryTs, entryPx, stop, target, r, kijunAboveEmaAtOpen, warningFired, closed }
+    this._lastDiagnostic = null; // set by _tryEnter() on every evaluated bar, see addM5Bar
   }
 
   seedHistory({ h1 = [], m30 = [], m5 = [] } = {}) {
@@ -208,6 +209,12 @@ class MtfSymbolTracker {
     if (this.trade && this.trade.closed) this.trade = null;
     if (!this.trade && this.entriesEnabled) {
       const setup = this._tryEnter(bar);
+      // DIAGNOSTIC fires on every completed bar entry is evaluated, not just when a
+      // SETUP actually fires -- added 2026-08-24 so "why didn't it fire an hour ago"
+      // has a real per-bar log trail (via streamer.js's console-only logging, no
+      // Telegram/DB) instead of only being answerable from a live snapshot at
+      // whatever moment someone happens to ask.
+      if (this._lastDiagnostic) events.push(this._lastDiagnostic);
       if (setup) events.push(setup);
     }
     return events;
@@ -217,12 +224,22 @@ class MtfSymbolTracker {
     const h1s = higherTfState(this.h1);
     const m30s = higherTfState(this.m30);
     const m5s = entryTfState(this.m5);
-    if (!h1s || !m30s || !m5s || !m5s.gateReady) return null; // not enough lookback anywhere yet
+    const lookbackReady = !!(h1s && m30s && m5s && m5s.gateReady);
+    this._lastDiagnostic = {
+      type: 'DIAGNOSTIC', symbol: this.symbol, ts: bar.timestampMs, close: bar.close, lookbackReady,
+    };
+    if (!lookbackReady) return null; // not enough lookback anywhere yet
 
     const longOk = h1s.aboveCloudAndBaseline && m30s.aboveCloudAndBaseline && m30s.cloudGreen
       && m5s.kijunAboveEma && !m5s.invalidated;
     const shortOk = h1s.belowCloudAndBaseline && m30s.belowCloudAndBaseline && m30s.cloudRed
       && m5s.kijunBelowEma && !m5s.invalidated;
+    Object.assign(this._lastDiagnostic, {
+      h1: { aboveCloudAndBaseline: h1s.aboveCloudAndBaseline, belowCloudAndBaseline: h1s.belowCloudAndBaseline, cloudGreen: h1s.cloudGreen },
+      m30: { aboveCloudAndBaseline: m30s.aboveCloudAndBaseline, belowCloudAndBaseline: m30s.belowCloudAndBaseline, cloudGreen: m30s.cloudGreen, cloudRed: m30s.cloudRed },
+      m5: { kijunAboveEma: m5s.kijunAboveEma, kijunBelowEma: m5s.kijunBelowEma, invalidated: m5s.invalidated },
+      longOk, shortOk,
+    });
     if (!longOk && !shortOk) return null;
 
     const direction = longOk ? 'LONG' : 'SHORT';

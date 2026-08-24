@@ -54,6 +54,18 @@ position resolves (SL/TARGET/WARNING_EXIT), it just never fires a fresh SETUP on
 symbol-set change instead of a process restart. See `mtf_engine.js`'s `MtfSymbolTracker`
 constructor doc comment and `streamer.js`'s `main()`.
 
+## Per-bar diagnostic logging (added 2026-08-24)
+
+Every completed 5-min bar that entry conditions get evaluated on now emits a `DIAGNOSTIC` event
+— console-only (`railway logs`), never Telegram, never Postgres — showing the actual state of
+all 4 criteria at that moment: `1H:above/below/INSIDE-cloud`, `30m:above/below+green/red`,
+`5m:kijun>ema/kijun<ema`, `gate:clear/INVALIDATED`, and the resulting `longOk`/`shortOk`
+booleans. Added after a real "why didn't a setup fire in the ~80 minutes after the last TARGET
+close" question couldn't be answered from the logs — the bot previously only logged when a
+SETUP actually fired, so there was no way to reconstruct the in-between state without waiting
+for a live snapshot at whatever moment someone happened to ask. See `mtf_engine.js`'s
+`_tryEnter()` (`this._lastDiagnostic`) and `streamer.js`'s `fmtDiagnostic()`.
+
 ---
 
 ## What it does

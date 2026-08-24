@@ -239,5 +239,32 @@ check('phase-out symbol: a resumed OPEN trade still tracks through to a real out
   assert.ok(!events.some((e) => e.type === 'SETUP'), 'must not fire a fresh SETUP after the phase-out trade closes');
 });
 
+// ---------------------------------------------------------------------------
+// K: per-bar DIAGNOSTIC event -- added 2026-08-24 so "why didn't it fire" has a
+// real per-bar log trail. Must fire on every entry-evaluated bar (both when a
+// SETUP does and doesn't result), carrying the actual criteria booleans.
+// ---------------------------------------------------------------------------
+check('DIAGNOSTIC event fires on every entry-evaluated bar, with real criteria state', () => {
+  const { tracker, lastM5 } = buildAlignedTracker('TESTDIAG', 'LONG');
+  const events = tracker.addM5Bar(lastM5);
+  const diag = events.find((e) => e.type === 'DIAGNOSTIC');
+  assert.ok(diag, 'expected a DIAGNOSTIC event on a fully-evaluated bar');
+  assert.strictEqual(diag.lookbackReady, true);
+  assert.strictEqual(diag.longOk, true, 'a fully-aligned bullish stack should report longOk=true');
+  assert.strictEqual(diag.h1.aboveCloudAndBaseline, true);
+  assert.strictEqual(diag.m5.kijunAboveEma, true);
+
+  // Thin-lookback tracker: DIAGNOSTIC must still fire, just flagged not-ready.
+  const h1 = buildTrend(150, ONE_HOUR, 1000, 2);
+  const m30 = buildTrend(150, THIRTY_MIN, 1000, 1.5);
+  const m5 = buildTrend(50, FIVE_MIN, 1000, 0.5);
+  const thin = new MtfSymbolTracker('TESTDIAGTHIN');
+  thin.seedHistory({ h1, m30, m5: m5.slice(0, m5.length - 1) });
+  const thinEvents = thin.addM5Bar(m5[m5.length - 1]);
+  const thinDiag = thinEvents.find((e) => e.type === 'DIAGNOSTIC');
+  assert.ok(thinDiag, 'expected a DIAGNOSTIC event even with insufficient lookback');
+  assert.strictEqual(thinDiag.lookbackReady, false);
+});
+
 console.log(failures === 0 ? '\nALL TESTS PASSED' : `\n${failures} TEST(S) FAILED`);
 process.exit(failures === 0 ? 0 : 1);
