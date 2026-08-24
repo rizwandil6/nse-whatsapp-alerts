@@ -768,24 +768,34 @@
     watchlistCard.innerHTML = '<div class="row-count" style="border-top:none;padding:10px 14px 4px;font-weight:600;color:var(--ink-muted)">Watchlist — closest to a confirmed breakout</div><div class="state-msg">Loading…</div>';
     panel.appendChild(watchlistCard);
     fetch('/api/dashboard/darvas-classic-watchlist').then((r) => r.json()).then((wl) => {
-      const body = watchlistCard.querySelector('.state-msg') || watchlistCard;
       if (!wl.length) { watchlistCard.querySelector('.state-msg').outerHTML = '<div class="state-msg">No candidates right now.</div>'; return; }
-      const rowsHtml = wl.slice(0, 15).map((w) => {
+      // Full list, not top-N -- confirmed live 2026-08-24: a symbol that ALREADY
+      // fired a real breakout alert (ENTERO) sat at rank ~32 of 65 by distance and
+      // was invisible under a top-15 cap. Scrollable instead, same pattern as the
+      // main results tables, so an already-fired candidate is never hidden.
+      const scroll = document.createElement('div');
+      scroll.style.maxHeight = '420px';
+      scroll.style.overflowY = 'auto';
+      const rowsHtml = wl.map((w) => {
         const brokeOut = w.distancePct < 0;
-        return `<div class="card" style="padding:10px 14px;">
+        return `<div class="card" style="padding:10px 14px;${w.alerted ? 'border-left:3px solid var(--win);' : ''}">
           <div class="card-meta">
             <span class="card-title" style="font-size:13px;">${esc(w.symbol)}</span>
             <span>Box <b>${fmtPx(w.boxBottom)}–${fmtPx(w.boxTop)}</b></span>
             <span>Trigger <b>₹${fmtPx(w.triggerPrice)}</b></span>
             <span>Last <b>₹${fmtPx(w.lastPrice)}</b></span>
-            <span class="badge ${brokeOut ? 'amber' : 'neutral'}">${brokeOut ? 'Price broke out' : Math.abs(w.distancePct).toFixed(1) + '% below trigger'}</span>
+            ${w.alerted
+              ? `<span class="badge win">🔥 Breakout confirmed ${w.alertVolumeRatio != null ? '· ' + Number(w.alertVolumeRatio).toFixed(2) + 'x vol' : ''}</span><span class="card-time">${esc(fmtTime(w.alertedAt))}</span>`
+              : `<span class="badge ${brokeOut ? 'amber' : 'neutral'}">${brokeOut ? 'Price broke out' : Math.abs(w.distancePct).toFixed(1) + '% below trigger'}</span>`}
           </div>
         </div>`;
       }).join('');
-      watchlistCard.querySelector('.state-msg').outerHTML = rowsHtml;
+      scroll.innerHTML = rowsHtml;
+      watchlistCard.querySelector('.state-msg').replaceWith(scroll);
       const note = document.createElement('div');
       note.className = 'row-count';
-      note.textContent = `${wl.length} candidate(s) total · alerted on Telegram the moment price + volume both confirm during market hours`;
+      const alertedCount = wl.filter((w) => w.alerted).length;
+      note.textContent = `${wl.length} candidate(s)${alertedCount ? ` · ${alertedCount} already alerted this week` : ''} · Telegram-alerted the moment price + volume both confirm during market hours`;
       watchlistCard.appendChild(note);
     }).catch(() => { const m = watchlistCard.querySelector('.state-msg'); if (m) m.textContent = 'Failed to load watchlist.'; });
 
