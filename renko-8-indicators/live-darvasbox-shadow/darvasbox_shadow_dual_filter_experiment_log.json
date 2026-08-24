@@ -4435,5 +4435,98 @@
   "timestampMs": 1787565000000,
   "breakoutTimestampMs": 1787565000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 76.641125,
+  "timestampMs": 1787565540000,
+  "breakoutTimestampMs": 1787565540000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 76.641125,
+  "exitPrice": 76.641125,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787565540000,
+  "exitTimestampMs": 1787565540000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 339.4267499999999,
+  "exitPrice": 338.58449999999993,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24813895781637094,
+  "entryTimestampMs": 1787565000000,
+  "exitTimestampMs": 1787565300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 37.76462499999999,
+  "exitPrice": 37.384124999999976,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.0075566750630045,
+  "entryTimestampMs": 1787546700000,
+  "exitTimestampMs": 1787564700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 104.79339999999999,
+  "exitPrice": 104.00349999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7537688442211083,
+  "entryTimestampMs": 1787546400000,
+  "exitTimestampMs": 1787551200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 859.6124999999997,
+  "exitPrice": 840.5100000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -2.222222222222166,
+  "entryTimestampMs": 1787548800000,
+  "exitTimestampMs": 1787564400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.748549999999998,
+  "exitPrice": 10.611799999999997,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2722646310432668,
+  "entryTimestampMs": 1787550000000,
+  "exitTimestampMs": 1787557200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 578.74175,
+  "exitPrice": 577.287625,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25125628140703105,
+  "entryTimestampMs": 1787559600000,
+  "exitTimestampMs": 1787559900000,
+  "shadow": true
  }
 ]
