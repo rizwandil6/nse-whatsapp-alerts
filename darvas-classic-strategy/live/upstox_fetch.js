@@ -41,15 +41,15 @@ function isoDate(d) {
 }
 
 /**
- * Today's intraday candles (interval: '1minute' or '30minute') via the same
- * unauthenticated historical-candle endpoint -- it also serves the current,
- * still-in-progress trading day once candles have formed, no access token
- * needed. Used by the watchlist watcher to compute today's cumulative volume
- * without depending on the shared UPSTOX_ACCESS_TOKEN (which other bots in
- * this repo need daily manual refresh for).
+ * Today's intraday candles (interval: '1minute' or '30minute') via Upstox's
+ * DEDICATED unauthenticated intraday endpoint -- NOT the date-ranged
+ * historical-candle path (confirmed live 2026-08-24: that one returns an
+ * empty candle array for today even mid-market-hours; it only serves
+ * completed past days). This one takes no date params at all and returns
+ * today's candles as they form. No access token needed.
  */
-async function fetchIntradayCandles(instrumentKey, interval, dateStr) {
-  const url = `${UPSTOX_BASE}/historical-candle/${encodeURIComponent(instrumentKey)}/${interval}/${dateStr}/${dateStr}`;
+async function fetchIntradayCandles(instrumentKey, interval) {
+  const url = `${UPSTOX_BASE}/historical-candle/intraday/${encodeURIComponent(instrumentKey)}/${interval}`;
   let lastErr;
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } });
