@@ -4540,5 +4540,26 @@
   "entryTimestampMs": 1787556000000,
   "exitTimestampMs": 1787563800000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 76.641125,
+  "timestampMs": 1787565300000,
+  "breakoutTimestampMs": 1787565300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 76.641125,
+  "exitPrice": 76.641125,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787565300000,
+  "exitTimestampMs": 1787565300000,
+  "shadow": true
  }
 ]
