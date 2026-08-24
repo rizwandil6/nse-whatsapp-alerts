@@ -28,6 +28,17 @@ const CONCURRENCY = 3; // unauthenticated Upstox endpoint rate-limits (HTTP 429)
 const REQUEST_STAGGER_MS = 400; // small per-request delay on top of concurrency limiting
 const TRACK_FROM = '2026-01-01';
 
+// Watchlist relevance window: a symbol's MOST RECENT confirmed box can be
+// stale -- formed a year ago, long since left behind as price ran away in
+// either direction. Without a relevance filter, "confirmed box + no open
+// position" matched 395 of 530 symbols (confirmed live 2026-08-24), most of
+// them 20-100% away from their own trigger -- not a watchlist, just most of
+// the universe. Only keep candidates whose box is still plausibly live:
+// up to WATCHLIST_MAX_BELOW_PCT below the trigger, or already up to
+// WATCHLIST_MAX_ABOVE_PCT past it without volume confirming yet.
+const WATCHLIST_MAX_BELOW_PCT = 10;
+const WATCHLIST_MAX_ABOVE_PCT = 5;
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const f = (x) => (x == null ? null : Number(x));
@@ -132,16 +143,19 @@ async function runOnce() {
     if (!openPosition && confirmedBox) {
       const lastBar = r.weekly[r.weekly.length - 1];
       const triggerPrice = confirmedBox.top * 1.01;
-      const vol = avgVolume(r.weekly, r.weekly.length - 1);
-      watchlist.push({
-        symbol,
-        boxTop: confirmedBox.top,
-        boxBottom: confirmedBox.bottom,
-        triggerPrice,
-        avgVolume: vol,
-        lastPrice: lastBar.close,
-        distancePct: Math.round((((triggerPrice - lastBar.high) / triggerPrice) * 1000)) / 10,
-      });
+      const distancePct = Math.round((((triggerPrice - lastBar.high) / triggerPrice) * 1000)) / 10;
+      if (distancePct <= WATCHLIST_MAX_BELOW_PCT && distancePct >= -WATCHLIST_MAX_ABOVE_PCT) {
+        const vol = avgVolume(r.weekly, r.weekly.length - 1);
+        watchlist.push({
+          symbol,
+          boxTop: confirmedBox.top,
+          boxBottom: confirmedBox.bottom,
+          triggerPrice,
+          avgVolume: vol,
+          lastPrice: lastBar.close,
+          distancePct,
+        });
+      }
     }
   }
 
