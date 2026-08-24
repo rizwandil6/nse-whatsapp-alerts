@@ -269,6 +269,15 @@
     const d = new Date(Number(ms));
     return d.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
   }
+  // The backend's UTC-timestamp ISO strings (e.g. from ichimoku_btcxau) have no
+  // trailing "Z" -- appending one before parsing is required so `new Date(...)`
+  // reads them as UTC rather than the viewer's own local timezone (which would
+  // silently shift the displayed time depending on where the dashboard is opened).
+  function fmtTimeIst(iso) {
+    if (!iso) return '';
+    const d = new Date(iso.endsWith('Z') ? iso : iso + 'Z');
+    return d.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
+  }
   function esc(s) {
     if (s == null) return '';
     return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -332,7 +341,7 @@
       case 'crypto-forex': {
         const label = { OPEN: 'Open', TARGET: 'Target hit', SL: 'Stop hit', WARNING_EXIT: 'Early exit' }[item.status] || item.status;
         const time = item.status === 'OPEN' ? item.entryTs : item.closedTs;
-        return `<div class="tile-preview-title">${esc(item.symbol)} ${esc(item.direction)} — ${label}</div><div class="tile-preview-time">${fmtTime(time)}</div>`;
+        return `<div class="tile-preview-title">${esc(item.symbol)} ${esc(item.direction)} — ${label}</div><div class="tile-preview-time">${fmtTimeIst(time)} IST</div>`;
       }
       case 'quarterly-results':
         return `<div class="tile-preview-title">${esc(item.symbol)} — ${esc(item.quarterLabel)}</div>` +
@@ -515,7 +524,7 @@
       card.innerHTML = `
         <div class="card-top">
           <div class="card-title">${esc(p.symbol)}</div>
-          <div class="card-time">${fmtTime(isOpen ? p.entryTs : p.closedTs)} UTC</div>
+          <div class="card-time">${fmtTimeIst(isOpen ? p.entryTs : p.closedTs)} IST</div>
         </div>
         <div class="card-meta">
           <span class="badge ${dirBadge}">${esc(p.direction)}</span>
