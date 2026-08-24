@@ -12,7 +12,7 @@ No orders are ever placed. Positions are tracked from **2026-01-01** onward.
   the box's range counts toward containment; a new high extends the top and resets the
   count; a break of the bottom invalidates the box.
 - **Box confirmation:** 3 consecutive contained weeks.
-- **Entry:** breakout 1% above the confirmed box top, on volume ≥ 1.5× the trailing
+- **Entry:** breakout 1% above the confirmed box top, on volume ≥ 1.25× the trailing
   10-week average (lookback not specified by the source method — documented assumption,
   see `live/darvas_engine.js` header).
 - **Initial stop:** 3% below entry.
@@ -60,7 +60,7 @@ Trade Ledger" artifact (linked in the vault's `darvasbox-forward-data-source` me
   `darvas_classic.watchlist` (confirmed box, no open position). For each symbol: fetches
   today's intraday candles (unauthenticated, same Upstox endpoint), sums this week's
   volume-so-far (already-closed days from the daily cache + today live), and checks
-  price ≥ trigger AND volume ≥ 1.5× avg. Telegram-alerts once per symbol per week
+  price ≥ trigger AND volume ≥ 1.25× avg. Telegram-alerts once per symbol per week
   (`darvas_classic.watchlist_alerts` dedupes). This is the only Telegram alerting in
   this service.
 - `telegram.js` — minimal sender, same chat IDs as the other live bots.

@@ -13,13 +13,13 @@
  *     the next fresh 52-week high to restart).
  *   - Box confirmation: 3 consecutive contained weeks -> box confirmed.
  *   - Entry: close/high breaks 1% above the confirmed box top, on volume
- *     >= 1.5x the trailing 10-week average volume (lookback not specified
+ *     >= 1.25x the trailing 10-week average volume (lookback not specified
  *     by the source spec; 10 weeks is this implementation's assumption —
  *     documented so it can be tuned).
  *   - Initial stop: 3% below entry.
  *   - Trailing stop: whenever a NEW box confirms while the position is
  *     open, the stop is raised (never lowered) to that box's bottom.
- *   - Pyramiding: every subsequent confirmed box's breakout (same 1%/1.5x
+ *   - Pyramiding: every subsequent confirmed box's breakout (same 1%/1.25x
  *     trigger, off that box's own top) adds another leg. All legs in a
  *     group share one trailing stop and exit together.
  *   - Exit: a week whose low touches/breaks the current trailing stop
@@ -34,7 +34,7 @@
 
 const MIN_BOX_WEEKS = 3;
 const BREAKOUT_PCT = 0.01;      // 1% above box top
-const VOLUME_MULT = 1.5;        // >= 1.5x avg volume
+const VOLUME_MULT = 1.25;       // >= 1.25x avg volume (lowered from 1.5x per explicit request, 2026-08-24)
 const VOLUME_LOOKBACK = 10;     // weeks, trailing average (assumption -- see header)
 const INITIAL_STOP_PCT = 0.03;  // 3% below entry
 const HIGH_LOOKBACK = 52;       // weeks, rolling high gate to start a forming box

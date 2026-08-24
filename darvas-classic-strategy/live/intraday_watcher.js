@@ -7,7 +7,10 @@
  * trading days for a REAL-TIME breakout: today's high crossing the box's
  * +1% trigger, combined with this trading week's cumulative volume (already-
  * closed days from the daily cache + today's volume so far, live) crossing
- * 1.5x the trailing 10-week average. The moment both fire for a symbol, it
+ * darvas_engine's VOLUME_MULT (1.25x) times the trailing 10-week average.
+ * Uses the SAME threshold as darvas_engine.js's actual entry logic -- kept
+ * as one constant so the watcher never alerts on a bar the daily scan
+ * wouldn't also treat as a real entry. The moment both fire for a symbol, it
  * Telegram-alerts once (deduped per symbol per week via
  * darvas_classic.watchlist_alerts) -- this is the only Telegram alerting in
  * this service; the daily scan itself is dashboard-only.
@@ -20,6 +23,7 @@ const { DB } = require('./db');
 const { fetchIntradayCandles } = require('./upstox_fetch');
 const { weekKey } = require('./weekly_cache');
 const { sendTelegram } = require('./telegram');
+const { VOLUME_MULT } = require('./darvas_engine');
 const symbolMap = require('./symbols.json');
 
 const IST_OFFSET_MIN = 5 * 60 + 30;
@@ -93,13 +97,17 @@ async function pollOnce(db) {
 
     const priceOk = todayHigh >= triggerPrice;
     const volRatio = avgVol ? weekVolumeSoFar / avgVol : null;
-    const volumeOk = volRatio != null && volRatio >= 1.5;
+    const volumeOk = volRatio != null && volRatio >= VOLUME_MULT;
 
-    // Track the single closest-to-firing candidate this poll for a one-line
-    // summary log -- without this, a quiet poll (the common case) leaves no
-    // trace at all to check "is this actually working."
+    // Track the closest-to-firing candidate this poll for a one-line summary
+    // log -- without this, a quiet poll (the common case) leaves no trace at
+    // all to check "is this actually working." Ranked by volume ratio, not
+    // price gap: volume is consistently the harder/slower constraint to
+    // clear (confirmed 2026-08-24 -- price-gap ranking kept surfacing a
+    // stock that had already broken out on price but was nowhere close on
+    // volume, while a much closer-on-volume candidate went unmentioned).
     const priceGapPct = ((triggerPrice - todayHigh) / triggerPrice) * 100;
-    if (!closest || priceGapPct < closest.priceGapPct) {
+    if (!closest || (volRatio ?? -1) > (closest.volRatio ?? -1)) {
       closest = { symbol: row.symbol, priceGapPct, volRatio, priceOk, volumeOk };
     }
 
@@ -110,7 +118,7 @@ async function pollOnce(db) {
     await sendTelegram(
       `🟢 DARVAS CLASSIC BREAKOUT — ${row.symbol}\n` +
       `Box top ${f(row.box_top)} · Trigger ${f(triggerPrice)} · Today's high ${f(todayHigh)}\n` +
-      `Week volume ${volRatio.toFixed(2)}x avg (>=1.5x required) · confirmed intraday, not yet in tomorrow's dashboard scan`
+      `Week volume ${volRatio.toFixed(2)}x avg (>=${VOLUME_MULT}x required) · confirmed intraday, not yet in tomorrow's dashboard scan`
     );
   });
 
@@ -118,7 +126,7 @@ async function pollOnce(db) {
     console.log(
       `Watchlist poll done. Closest: ${closest.symbol} — ` +
       `${closest.priceOk ? 'price OK' : closest.priceGapPct.toFixed(1) + '% below trigger'}, ` +
-      `volume ${closest.volRatio != null ? closest.volRatio.toFixed(2) + 'x avg' : 'n/a'} (need >=1.5x)`
+      `volume ${closest.volRatio != null ? closest.volRatio.toFixed(2) + 'x avg' : 'n/a'} (need >=${VOLUME_MULT}x)`
     );
   }
 }
