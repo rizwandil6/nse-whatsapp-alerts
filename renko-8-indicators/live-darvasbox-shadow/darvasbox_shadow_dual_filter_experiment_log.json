@@ -4402,5 +4402,17 @@
   "entryTimestampMs": 1787551800000,
   "exitTimestampMs": 1787564100000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 519.24075,
+  "exitPrice": 515.3268750000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7537688442210981,
+  "entryTimestampMs": 1787556000000,
+  "exitTimestampMs": 1787563500000,
+  "shadow": true
  }
 ]
