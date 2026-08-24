@@ -63,10 +63,12 @@ function closedDaysVolumeThisWeek(dailyBars, todayStr) {
 
 async function pollOnce(db) {
   const watchlist = await db.getWatchlist();
-  if (!watchlist.length) return;
+  if (!watchlist.length) { console.log('Watchlist poll: watchlist is empty, nothing to check.'); return; }
   const { dateStr: todayStr } = istNow();
   const weekStart = weekKey(todayStr);
+  console.log(`Watchlist poll: checking ${watchlist.length} symbol(s) at ${new Date().toISOString()}`);
 
+  let closest = null;
   await mapLimit(watchlist, CONCURRENCY, async (row) => {
     const instrumentKey = symbolMap[row.symbol];
     if (!instrumentKey) return;
@@ -74,7 +76,7 @@ async function pollOnce(db) {
     let intraday, dailyBars;
     try {
       [intraday, dailyBars] = await Promise.all([
-        fetchIntradayCandles(instrumentKey, '30minute', todayStr),
+        fetchIntradayCandles(instrumentKey, '1minute'),
         db.getDailyBars(row.symbol),
       ]);
     } catch (e) {
@@ -93,6 +95,14 @@ async function pollOnce(db) {
     const volRatio = avgVol ? weekVolumeSoFar / avgVol : null;
     const volumeOk = volRatio != null && volRatio >= 1.5;
 
+    // Track the single closest-to-firing candidate this poll for a one-line
+    // summary log -- without this, a quiet poll (the common case) leaves no
+    // trace at all to check "is this actually working."
+    const priceGapPct = ((triggerPrice - todayHigh) / triggerPrice) * 100;
+    if (!closest || priceGapPct < closest.priceGapPct) {
+      closest = { symbol: row.symbol, priceGapPct, volRatio, priceOk, volumeOk };
+    }
+
     if (!priceOk || !volumeOk) return;
     if (await db.hasAlertedThisWeek(row.symbol, weekStart)) return;
 
@@ -103,6 +113,14 @@ async function pollOnce(db) {
       `Week volume ${volRatio.toFixed(2)}x avg (>=1.5x required) · confirmed intraday, not yet in tomorrow's dashboard scan`
     );
   });
+
+  if (closest) {
+    console.log(
+      `Watchlist poll done. Closest: ${closest.symbol} — ` +
+      `${closest.priceOk ? 'price OK' : closest.priceGapPct.toFixed(1) + '% below trigger'}, ` +
+      `volume ${closest.volRatio != null ? closest.volRatio.toFixed(2) + 'x avg' : 'n/a'} (need >=1.5x)`
+    );
+  }
 }
 
 async function loop() {
