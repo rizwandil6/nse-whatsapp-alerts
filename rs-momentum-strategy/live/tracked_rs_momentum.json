@@ -173,5 +173,19 @@
   "entryPrice": 271.4,
   "rsRankAtEntry": 80.27613412228797,
   "salesGrowth3Y": 34
+ },
+ "CARBORUNIV": {
+  "entryDate": "2026-08-20",
+  "entryPrice": 1169.8,
+  "rsRankAtEntry": 80.23715415019763,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "WELENT": {
+  "entryDate": "2026-08-20",
+  "entryPrice": 631.45,
+  "rsRankAtEntry": 80.8300395256917,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
