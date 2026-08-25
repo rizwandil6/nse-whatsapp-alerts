@@ -142,6 +142,16 @@ async function seedSymbol(symbol) {
 
 // ---- WebSocket (Socket.IO) -------------------------------------------------
 const TF_KEY = { '1m': 'm1', '15m': 'm15' };
+// Bug fix (2026-08-25, caught live via the [check] diagnostic log): Pi42 sometimes delivers a
+// LATE/duplicate close event for an already-finalized bar, arriving AFTER the next period has
+// already started forming. The original code treated that late event's timestamp mismatch as a
+// genuine rollover and spuriously finalized the barely-started NEXT bar right then -- observed
+// live as zero-width bars (icHigh === icLow, a single early tick mislabeled as a full closed
+// bar), which are trivially "inside" almost anything and falsely triggered PENDING states.
+// Fixed by rejecting any kline event whose timestamp is <= the last finalized timestamp for that
+// symbol+timeframe BEFORE it can touch the rollover/forming logic at all -- late data is just
+// dropped, not allowed to reopen or re-finalize anything.
+const lastFinalizedTs = {}; // `${symbol}:${tfKey}` -> last finalized bar's timestampMs
 
 function onKlineEvent(payload) {
   const symbol = (payload.ps || payload.s || '').toUpperCase();
@@ -151,8 +161,10 @@ function onKlineEvent(payload) {
 
   const k = payload.k;
   const barTs = Number(k.t);
-  const bar = { timestampMs: barTs, open: Number(k.o), high: Number(k.h), low: Number(k.l), close: Number(k.c), volume: Number(k.v || 0) };
   const formKey = `${symbol}:${tfKey}`;
+  if (lastFinalizedTs[formKey] != null && barTs <= lastFinalizedTs[formKey]) return; // late/duplicate -- drop
+
+  const bar = { timestampMs: barTs, open: Number(k.o), high: Number(k.h), low: Number(k.l), close: Number(k.c), volume: Number(k.v || 0) };
   const prev = forming[formKey];
 
   const isNewBar = !prev || prev.timestampMs !== barTs;
@@ -164,6 +176,9 @@ function onKlineEvent(payload) {
 }
 
 function finalizeBar(symbol, tfKey, bar) {
+  const formKey = `${symbol}:${tfKey}`;
+  if (lastFinalizedTs[formKey] === bar.timestampMs) return; // duplicate close event -- ignore
+  lastFinalizedTs[formKey] = bar.timestampMs;
   const tracker = trackers[symbol];
   if (tfKey === 'm1') {
     enqueue(symbol, tracker.addM1Bar(bar));
