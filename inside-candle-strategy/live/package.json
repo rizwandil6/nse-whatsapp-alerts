@@ -1,0 +1,13 @@
+{
+  "name": "inside-candle-live-streamer",
+  "version": "1.0.0",
+  "description": "Live Inside Candle Sweep+Break scanner for BTCINR and XAUINR on Pi42 (public market data, Socket.IO stream) — Telegram alerts + Postgres forward-tracking. Alert-only, no orders.",
+  "main": "streamer.js",
+  "scripts": {
+    "start": "node streamer.js"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.8.1",
+    "pg": "^8.12.0"
+  }
+}
