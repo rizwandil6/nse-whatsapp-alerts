@@ -131,14 +131,16 @@ class IcSymbolTracker {
     // Rule 3: only the immediately next candle counts -- if we reach a new 15m close without
     // having fired (addM1Bar would have already cleared `pending` if it fired), the window is
     // over, one-shot, no re-check on a later candle.
+    const wasPending = this.pending;
     this.pending = false;
     this.sweptLow = false;
     this.sweptHigh = false;
 
+    let isInside = false;
     const n = this.m15.length;
     if (n >= 1 && !this.openTrade) {
       const prev = this.m15[n - 1];
-      const isInside = bar.high <= prev.high && bar.low >= prev.low;
+      isInside = bar.high <= prev.high && bar.low >= prev.low;
       if (isInside) {
         this.icHigh = bar.high;
         this.icLow = bar.low;
@@ -146,7 +148,15 @@ class IcSymbolTracker {
       }
     }
     this.m15.push(bar);
-    return [];
+    // Console-only liveness/diagnostic signal (never Telegram, never Postgres) -- added after
+    // deploying with zero per-bar logging made it impossible to tell "quiet, no signal yet" apart
+    // from "silently stuck," same problem ichimoku-btc-xau-strategy's README describes hitting
+    // and fixing the same way (fmtDiagnostic there, this event here).
+    return [{
+      type: 'DIAGNOSTIC', symbol: this.symbol, ts: bar.timestampMs, close: bar.close,
+      wasPendingUnresolved: wasPending, isInside, nowPending: this.pending,
+      icHigh: this.icHigh, icLow: this.icLow, openTrade: !!this.openTrade,
+    }];
   }
 }
 

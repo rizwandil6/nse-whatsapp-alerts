@@ -83,6 +83,14 @@ function fmtOutcome(e) {
   ].join('\n');
 }
 
+// Console-only (no Telegram, no DB) -- one line per closed 15m bar, so `railway logs` can
+// confirm the bot is actually receiving/processing live data, not just sitting connected.
+function fmtDiagnostic(e) {
+  const when = istLikeUtc(e.ts);
+  const state = e.openTrade ? 'in-trade' : e.nowPending ? `PENDING (IC ${fmtPx(e.icLow)}-${fmtPx(e.icHigh)})` : e.wasPendingUnresolved ? 'window closed unresolved' : 'watching';
+  return `[check] ${e.symbol} ${when} close=${fmtPx(e.close)} | inside=${e.isInside} | ${state}`;
+}
+
 async function emit(alertType, symbol, text, signalId) {
   const ok = await sendTelegram(text);
   await db.insertAlert({ signalId, symbol, alertType, chatId: TELEGRAM_CHAT_IDS.join(','), text, sentOk: ok });
@@ -97,6 +105,8 @@ async function handleEvents(events) {
     } else if (e.type === 'OUTCOME') {
       await db.closeOutcome(signalIds[e.symbol], e);
       await emit(e.result, e.symbol, fmtOutcome(e), signalIds[e.symbol]);
+    } else if (e.type === 'DIAGNOSTIC') {
+      console.log(fmtDiagnostic(e)); // server logs only -- no Telegram, no DB insert
     }
   }
 }
