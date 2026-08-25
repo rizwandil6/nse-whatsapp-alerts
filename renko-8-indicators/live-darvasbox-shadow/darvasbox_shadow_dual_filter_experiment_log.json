@@ -4645,5 +4645,17 @@
   "timestampMs": 1787636700000,
   "breakoutTimestampMs": 1787636700000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 109.40984999999996,
+  "exitPrice": 107.62,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -1.6359130370802621,
+  "entryTimestampMs": 1787631600000,
+  "exitTimestampMs": 1787638200000,
+  "shadow": true
  }
 ]
