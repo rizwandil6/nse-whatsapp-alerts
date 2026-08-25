@@ -4969,5 +4969,17 @@
   "entryTimestampMs": 1787634600000,
   "exitTimestampMs": 1787649000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 344.609375,
+  "exitPrice": 344.609375,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787649000000,
+  "exitTimestampMs": 1787649000000,
+  "shadow": true
  }
 ]
