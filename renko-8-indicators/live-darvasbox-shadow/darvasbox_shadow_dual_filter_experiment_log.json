@@ -4753,5 +4753,17 @@
   "timestampMs": 1787649300000,
   "breakoutTimestampMs": 1787649300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 147.33075,
+  "exitPrice": 147.6,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.18275207314155364,
+  "entryTimestampMs": 1787644200000,
+  "exitTimestampMs": 1787649900000,
+  "shadow": true
  }
 ]
