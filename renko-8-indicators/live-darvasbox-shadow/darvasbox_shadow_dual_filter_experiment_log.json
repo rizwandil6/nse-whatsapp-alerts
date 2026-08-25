@@ -4666,5 +4666,17 @@
   "timestampMs": 1787638500000,
   "breakoutTimestampMs": 1787638500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 46.573274999999995,
+  "exitPrice": 46.55,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.04997501249374917,
+  "entryTimestampMs": 1787636700000,
+  "exitTimestampMs": 1787643000000,
+  "shadow": true
  }
 ]
