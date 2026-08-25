@@ -55,8 +55,12 @@ public class CryptoForexService {
     }
 
     public List<Map<String, Object>> allTrades() {
+        // Postgres forbids an expression like ("status" = 'OPEN') directly in a UNION's own
+        // ORDER BY (only plain output columns are allowed there) -- wrap the UNION in a
+        // subquery and order the outer SELECT instead, per Postgres's own error hint.
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(
-                "SELECT 'Ichimoku' AS \"strategy\", s.symbol, s.direction, " +
+                "SELECT * FROM ( " +
+                        "SELECT 'Ichimoku' AS \"strategy\", s.symbol, s.direction, " +
                         "       to_char(s.entry_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"entryTs\", " +
                         "       s.entry_px AS \"entryPx\", s.stop_px AS \"stopPx\", s.target_px AS \"targetPx\", " +
                         "       s.r_value AS \"rValue\", s.criteria::text AS \"criteria\", " +
@@ -77,6 +81,7 @@ public class CryptoForexService {
                         "FROM inside_candle.signals s " +
                         "JOIN inside_candle.outcomes o ON o.signal_id = s.id " +
                         "WHERE o.final_result != 'ABANDONED' " +
+                        ") t " +
                         "ORDER BY (\"status\" = 'OPEN') DESC, COALESCE(\"closedTs\", \"entryTs\") DESC");
         for (Map<String, Object> row : rows) {
             attachPnlPct(row);
