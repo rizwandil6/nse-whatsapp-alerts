@@ -4744,5 +4744,14 @@
   "entryTimestampMs": 1787644800000,
   "exitTimestampMs": 1787649000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 344.75975,
+  "timestampMs": 1787649300000,
+  "breakoutTimestampMs": 1787649300000,
+  "shadow": true
  }
 ]
