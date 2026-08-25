@@ -766,5 +766,33 @@
   "date": "2026-08-20",
   "price": 631.45,
   "rsRankAtEntry": 80.8300395256917
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ENTERO",
+  "date": "2026-08-23",
+  "price": 1529.8,
+  "rsRankAtEntry": 82.6086956521739
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "OPTIEMUS",
+  "date": "2026-08-23",
+  "price": 585.7,
+  "rsRankAtEntry": 80.8300395256917
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SKIPPER",
+  "date": "2026-08-23",
+  "price": 575,
+  "rsRankAtEntry": 80.43478260869566
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "THYROCARE",
+  "date": "2026-08-23",
+  "price": 584,
+  "rsRankAtEntry": 84.78260869565217
  }
 ]

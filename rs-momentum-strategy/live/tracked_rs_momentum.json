@@ -187,5 +187,33 @@
   "rsRankAtEntry": 80.8300395256917,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "ENTERO": {
+  "entryDate": "2026-08-23",
+  "entryPrice": 1529.8,
+  "rsRankAtEntry": 82.6086956521739,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "OPTIEMUS": {
+  "entryDate": "2026-08-23",
+  "entryPrice": 585.7,
+  "rsRankAtEntry": 80.8300395256917,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SKIPPER": {
+  "entryDate": "2026-08-23",
+  "entryPrice": 575,
+  "rsRankAtEntry": 80.43478260869566,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "THYROCARE": {
+  "entryDate": "2026-08-23",
+  "entryPrice": 584,
+  "rsRankAtEntry": 84.78260869565217,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
