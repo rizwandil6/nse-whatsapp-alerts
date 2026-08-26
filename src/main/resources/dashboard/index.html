@@ -520,7 +520,8 @@
     const strategies = [...new Set(items.map((p) => p.strategy).filter(Boolean))].sort();
     const bar = document.createElement('div');
     bar.className = 'pill-group';
-    bar.innerHTML = ['All', ...strategies].map((s, i) => `<button class="pill${i === 0 ? ' active' : ''}" data-strategy="${s === 'All' ? 'all' : esc(s)}">${esc(s)}</button>`).join('');
+    const defaultStrategy = strategies.includes('Ichimoku') ? 'Ichimoku' : 'all'; // default pill, per user request
+    bar.innerHTML = ['All', ...strategies].map((s) => { const val = s === 'All' ? 'all' : esc(s); return `<button class="pill${val === defaultStrategy ? ' active' : ''}" data-strategy="${val}">${esc(s)}</button>`; }).join('');
     panel.appendChild(bar);
 
     // Win rate + cumulative P&L% for whatever strategy is currently filtered -- same
@@ -604,7 +605,7 @@
       draw(btn.dataset.strategy);
     });
 
-    draw('all');
+    draw(defaultStrategy);
   }
 
   // Latest date stamped anywhere in this dataset's halfDate/exitDate/(pending)signalDate --
