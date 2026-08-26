@@ -47,6 +47,7 @@ class IcSymbolTracker {
     this.pending = false; // true = the currently-forming 15m bar is "the next candle" to check
     this.sweptLow = false;
     this.sweptHigh = false;
+    this.firstBarChecked = false; // true once addM1Bar has run at least once for this pending window
 
     this.openTrade = null; // { direction, entryPx, stopPx, targetPx, entryTs, r }
   }
@@ -78,14 +79,29 @@ class IcSymbolTracker {
     }
     if (!this.pending || !this.entriesEnabled) return events;
 
+    const isFirstBarOfWindow = !this.firstBarChecked;
+    this.firstBarChecked = true;
+
     if (!this.sweptLow && !this.sweptHigh) {
       if (bar.low < this.icLow) this.sweptLow = true;
       if (bar.high > this.icHigh) this.sweptHigh = true;
       // Both on the exact same 1-min bar: order is genuinely ambiguous at this resolution.
-      // Per the strict "one candle, sweep-then-break" rule this can't be reliably classified,
-      // so it's treated as no signal rather than guessing -- rare in practice (a 1-min bar
-      // wide enough to span both an entire 15m candle's high and low).
-      if (this.sweptLow && this.sweptHigh) { this.sweptLow = false; this.sweptHigh = false; this.pending = false; }
+      // Per the strict "one candle, sweep-then-break" rule this can't be reliably classified.
+      if (this.sweptLow && this.sweptHigh) {
+        this.sweptLow = false;
+        this.sweptHigh = false;
+        if (isFirstBarOfWindow) {
+          // Ambiguous double-breach specifically on the VERY FIRST 1-min candle of the window
+          // is more likely than usual to be boundary noise (a fast continuation/mini-gap
+          // carried over from the last seconds of the just-closed inside candle) rather than a
+          // genuine same-candle sweep-then-break. Per explicit request: skip just this one
+          // candle and keep watching later candles in the same window -- `pending` stays true.
+        } else {
+          // Same ambiguity on any LATER 1-min candle in the window is treated as before --
+          // genuinely no signal, cancel the setup rather than guess.
+          this.pending = false;
+        }
+      }
     } else if (this.sweptLow && !this.sweptHigh && bar.high > this.icHigh) {
       events.push(this._enter('LONG', bar));
     } else if (this.sweptHigh && !this.sweptLow && bar.low < this.icLow) {
@@ -146,6 +162,7 @@ class IcSymbolTracker {
         this.icHigh = bar.high;
         this.icLow = bar.low;
         this.pending = true;
+        this.firstBarChecked = false;
       }
     }
     this.m15.push(bar);
