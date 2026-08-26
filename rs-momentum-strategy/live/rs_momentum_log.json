@@ -794,5 +794,19 @@
   "date": "2026-08-23",
   "price": 584,
   "rsRankAtEntry": 84.78260869565217
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AJANTPHARM",
+  "date": "2026-08-24",
+  "price": 3554.9,
+  "rsRankAtEntry": 80.63241106719367
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GABRIEL",
+  "date": "2026-08-24",
+  "price": 1346,
+  "rsRankAtEntry": 80.03952569169961
  }
 ]

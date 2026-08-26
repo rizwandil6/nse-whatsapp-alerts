@@ -215,5 +215,19 @@
   "rsRankAtEntry": 84.78260869565217,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "AJANTPHARM": {
+  "entryDate": "2026-08-24",
+  "entryPrice": 3554.9,
+  "rsRankAtEntry": 80.63241106719367,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GABRIEL": {
+  "entryDate": "2026-08-24",
+  "entryPrice": 1346,
+  "rsRankAtEntry": 80.03952569169961,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
