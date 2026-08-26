@@ -16,7 +16,16 @@
  */
 
 const BASE_URL = 'https://api.pi42.com';
-const PRICE_TYPE = process.env.PI42_PRICE_TYPE || 'MARK_PRICE';
+// Bug fix (2026-08-26, caught via a user screenshot of Pi42's own chart widget, which has
+// separate "Mark Price" / "Last Traded Price" tabs): the kline WEBSOCKET topic
+// (`{pair}@kline_{interval}`, used for all LIVE data once seeding is done) is a distinct
+// stream from `{pair}@markPrice` -- standard exchange convention (Binance/Bybit etc. all keep
+// kline == trade/last-price candles separate from a dedicated mark-price stream) -- so it is
+// almost certainly Last Traded Price, not Mark Price. This REST client's history-seed call was
+// defaulting to MARK_PRICE, meaning the bot's seeded history and its live-streamed data were two
+// different price series stitched together at startup. Fixed to default LAST_PRICE so the seed
+// matches what the live stream actually delivers.
+const PRICE_TYPE = process.env.PI42_PRICE_TYPE || 'LAST_PRICE';
 
 /**
  * Fetch `limit` completed candles for `pair`/`interval` (e.g. "BTCINR","15m").
