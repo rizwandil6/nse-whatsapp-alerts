@@ -5068,5 +5068,65 @@
   "timestampMs": 1787736900000,
   "breakoutTimestampMs": 1787736900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.68930000000001,
+  "exitPrice": 38.07,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.010101010100984,
+  "entryTimestampMs": 1787720100000,
+  "exitTimestampMs": 1787735100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 548.0171250000005,
+  "exitPrice": 556.0173750000008,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.4598540145985894,
+  "entryTimestampMs": 1787728200000,
+  "exitTimestampMs": 1787737800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 108.99225,
+  "exitPrice": 108.99225,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787737200000,
+  "exitTimestampMs": 1787737200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.583475,
+  "exitPrice": 10.583475,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787731800000,
+  "exitTimestampMs": 1787731800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 124.14599999999999,
+  "exitPrice": 124.14599999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787736900000,
+  "exitTimestampMs": 1787736900000,
+  "shadow": true
  }
 ]
