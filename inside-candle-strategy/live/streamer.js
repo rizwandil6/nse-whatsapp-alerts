@@ -27,9 +27,12 @@ const { fetchKlines } = require('./pi42_client');
 const { DB } = require('./db');
 const { pnlPct } = require('./stats');
 
-// Same symbol set as ichimoku-btc-xau-strategy (INR-margined, per the user's explicit request
-// there -- see that strategy's README "Symbol-set switch: BTCUSDT/XAUUSDT -> BTCINR/XAUINR").
-const ENTRY_SYMBOLS = ['BTCINR', 'XAUINR'];
+// BTCINR/XAUINR: same INR-margined pairs as ichimoku-btc-xau-strategy (per the user's explicit
+// request there -- see that strategy's README "Symbol-set switch: BTCUSDT/XAUUSDT -> BTCINR/XAUINR").
+// SOLINR/XAGINR added 2026-08-26 per explicit request -- Inside Candle only for now (not mirrored
+// to Ichimoku), one crypto (Solana, more volatile than BTC/ETH) and one commodity (Silver, same
+// TRADIFI_PERPETUAL class as gold, the natural precious-metals pairing with XAUINR).
+const ENTRY_SYMBOLS = ['BTCINR', 'XAUINR', 'SOLINR', 'XAGINR'];
 const WS_URL = 'https://fawss.pi42.com/';
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046']; // personal + group, same as every sibling bot

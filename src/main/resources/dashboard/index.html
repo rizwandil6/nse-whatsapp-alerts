@@ -517,12 +517,19 @@
       return;
     }
 
+    // No "All" pill, per explicit request -- always exactly one strategy selected, defaulting
+    // to Ichimoku. A separate instrument <select> (below) narrows further within that strategy.
     const strategies = [...new Set(items.map((p) => p.strategy).filter(Boolean))].sort();
     const bar = document.createElement('div');
     bar.className = 'pill-group';
-    const defaultStrategy = strategies.includes('Ichimoku') ? 'Ichimoku' : 'all'; // default pill, per user request
-    bar.innerHTML = ['All', ...strategies].map((s) => { const val = s === 'All' ? 'all' : esc(s); return `<button class="pill${val === defaultStrategy ? ' active' : ''}" data-strategy="${val}">${esc(s)}</button>`; }).join('');
+    const defaultStrategy = strategies.includes('Ichimoku') ? 'Ichimoku' : strategies[0];
+    bar.innerHTML = strategies.map((s) => `<button class="pill${s === defaultStrategy ? ' active' : ''}" data-strategy="${esc(s)}">${esc(s)}</button>`).join('');
     panel.appendChild(bar);
+
+    const symbolSelect = document.createElement('select');
+    symbolSelect.id = 'cf-symbol';
+    symbolSelect.style.margin = '10px 0';
+    panel.appendChild(symbolSelect);
 
     // Win rate + cumulative P&L% for whatever strategy is currently filtered -- same
     // naive-per-trade-sum convention as the Swing tab's "Cumulative P&L" box (reusing its
@@ -553,9 +560,19 @@
     const STATUS_LABEL = { OPEN: 'Open', TARGET: 'Target hit', SL: 'Stop hit', WARNING_EXIT: 'Early reversal exit' };
     const STRATEGY_TARGET_LABEL = { 'Ichimoku': 'Target (2R)', 'Inside Candle': 'Target (3R)' };
 
-    function draw(filterStrategy) {
+    function draw(filterStrategy, filterSymbol) {
       list.innerHTML = '';
-      const filtered = filterStrategy === 'all' ? items : items.filter((p) => p.strategy === filterStrategy);
+      const byStrategy = items.filter((p) => p.strategy === filterStrategy);
+
+      // Instrument dropdown options depend on the selected strategy (Ichimoku and Inside Candle
+      // don't necessarily trade the same symbol set, e.g. SOLINR/XAGINR are Inside Candle only)
+      // -- rebuild it whenever the strategy changes, preserving the current symbol if still valid.
+      const symbols = [...new Set(byStrategy.map((p) => p.symbol).filter(Boolean))].sort();
+      const validSymbol = filterSymbol !== 'all' && symbols.includes(filterSymbol) ? filterSymbol : 'all';
+      symbolSelect.innerHTML = '<option value="all">All instruments</option>' + symbols.map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+      symbolSelect.value = validSymbol;
+
+      const filtered = validSymbol === 'all' ? byStrategy : byStrategy.filter((p) => p.symbol === validSymbol);
 
       const closed = filtered.filter((p) => p.status !== 'OPEN' && p.pnlPct != null);
       const wins = closed.filter((p) => p.pnlPct >= 0).length;
@@ -597,15 +614,18 @@
       }
     }
 
+    let currentStrategy = defaultStrategy;
     bar.addEventListener('click', (ev) => {
       const btn = ev.target.closest('.pill');
       if (!btn) return;
       bar.querySelectorAll('.pill').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
-      draw(btn.dataset.strategy);
+      currentStrategy = btn.dataset.strategy;
+      draw(currentStrategy, 'all'); // reset instrument filter on strategy change -- its option list just changed
     });
+    symbolSelect.addEventListener('change', () => draw(currentStrategy, symbolSelect.value));
 
-    draw(defaultStrategy);
+    draw(currentStrategy, 'all');
   }
 
   // Latest date stamped anywhere in this dataset's halfDate/exitDate/(pending)signalDate --
