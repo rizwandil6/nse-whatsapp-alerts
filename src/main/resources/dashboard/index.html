@@ -734,6 +734,19 @@
       if (signalDay === s.halfDate) actionBadge = '<span class="badge win">⚡ Half-booked today</span>';
       else if (signalDay === s.exitDate) actionBadge = `<span class="badge ${s.rNet >= 0 ? 'win' : 'loss'}">🚪 Exited today</span>`;
       else if (s.status === 'pending' && signalDay === s.signalDate) actionBadge = '<span class="badge amber">🆕 New signal — plan tomorrow\'s open</span>';
+      // Action-today only: LTP + the live cushion between the stop and the current price,
+      // as a % of the stop level (how far price has already moved away from the stop --
+      // negative means price is now BELOW stop, i.e. it should already be out). Only
+      // meaningful for open positions with a live price attached (see swing() in
+      // DashboardDataController -- lastPrice is only set for status=='open' during market
+      // hours), so pending/closed rows and non-"today" views never show it.
+      const stopLtpPct = s.lastPrice != null && s.stopPx != null && Number(s.stopPx) !== 0
+        ? Math.round(((Number(s.lastPrice) - Number(s.stopPx)) / Number(s.stopPx)) * 1000) / 10
+        : null;
+      const ltpRiskHtml = state.status === 'today' && s.status === 'open' && s.lastPrice != null
+        ? `<span>LTP <b>₹${esc(s.lastPrice)}</b></span>` +
+          (stopLtpPct != null ? `<span>Stop→LTP <b class="pnl ${stopLtpPct >= 0 ? 'win' : 'loss'}">${fmtPct(stopLtpPct)}</b></span>` : '')
+        : '';
       return `<div class="card">
         <div class="card-top"><div class="card-title">${esc(s.symbol)}</div><div class="card-time">${esc(s.signalDate)}</div></div>
         <div class="card-meta">
@@ -742,6 +755,7 @@
           ${s.entryPx != null ? `<span>Entry <b>₹${esc(s.entryPx)}</b></span>` : ''}
           <span>Stop <b>₹${esc(s.stopPx)}</b></span>
           ${s.riskPct != null ? `<span>Risk <b>${esc(s.riskPct)}%</b></span>` : ''}
+          ${ltpRiskHtml}
           ${s.target1Px != null ? `<span>+2R <b>₹${esc(s.target1Px)}</b></span>` : ''}
           ${s.halfDate != null ? `<span>Half-booked <b>₹${esc(s.halfPrice)}</b> <span class="card-time">(${esc(s.halfDate)})</span></span>` : ''}
           ${isClosed ? `<span>Exit <b>₹${esc(s.exitPx)}</b></span><span>Closed <b>${esc(s.exitDate)}</b></span><span class="pnl ${s.rNet >= 0 ? 'win' : 'loss'}">${Number(s.rNet).toFixed(2)}R</span><span class="badge ${s.rNet < 0 ? 'loss' : 'win'}">${s.rNet < 0 ? 'Stopped out (−1R)' : 'Hit +2R → trailed'}</span>` : ''}
