@@ -523,6 +523,25 @@
     bar.innerHTML = ['All', ...strategies].map((s, i) => `<button class="pill${i === 0 ? ' active' : ''}" data-strategy="${s === 'All' ? 'all' : esc(s)}">${esc(s)}</button>`).join('');
     panel.appendChild(bar);
 
+    // Win rate + cumulative P&L% for whatever strategy is currently filtered -- same
+    // naive-per-trade-sum convention as the Swing tab's "Cumulative P&L" box (reusing its
+    // .pnl-total-group styling), computed client-side from CLOSED (non-OPEN) rows only.
+    const statsBox = document.createElement('div');
+    statsBox.className = 'pnl-total-group';
+    statsBox.style.margin = '12px 0';
+    statsBox.innerHTML =
+      '<div class="pnl-total">' +
+      '<div class="pnl-total-label">Win Rate</div>' +
+      '<div class="pnl-total-val" id="cf-winrate-val">—</div>' +
+      '<div class="pnl-total-sub" id="cf-winrate-sub"></div>' +
+      '</div>' +
+      '<div class="pnl-total">' +
+      '<div class="pnl-total-label">Cumulative P&amp;L (naive sum)</div>' +
+      '<div class="pnl-total-val" id="cf-cum-val">—</div>' +
+      '<div class="pnl-total-sub">equal-sized unit per trade, summed, not compounded</div>' +
+      '</div>';
+    panel.appendChild(statsBox);
+
     const list = document.createElement('div');
     list.style.display = 'flex';
     list.style.flexDirection = 'column';
@@ -536,6 +555,18 @@
     function draw(filterStrategy) {
       list.innerHTML = '';
       const filtered = filterStrategy === 'all' ? items : items.filter((p) => p.strategy === filterStrategy);
+
+      const closed = filtered.filter((p) => p.status !== 'OPEN' && p.pnlPct != null);
+      const wins = closed.filter((p) => p.pnlPct >= 0).length;
+      const winRateVal = document.getElementById('cf-winrate-val');
+      const winRateSub = document.getElementById('cf-winrate-sub');
+      const cumVal = document.getElementById('cf-cum-val');
+      const winRate = closed.length ? Math.round((wins / closed.length) * 1000) / 10 : null;
+      const cumPnl = closed.length ? Math.round(closed.reduce((sum, p) => sum + p.pnlPct, 0) * 100) / 100 : null;
+      if (winRateVal) { winRateVal.textContent = winRate == null ? '—' : winRate + '%'; winRateVal.className = 'pnl-total-val' + (winRate == null ? '' : winRate >= 50 ? ' win' : ' loss'); }
+      if (winRateSub) { winRateSub.textContent = closed.length ? `${wins}/${closed.length} closed trades` : 'no closed trades yet'; }
+      if (cumVal) { cumVal.textContent = cumPnl == null ? '—' : fmtPct(cumPnl); cumVal.className = 'pnl-total-val' + (cumPnl == null ? '' : cumPnl >= 0 ? ' win' : ' loss'); }
+
       if (!filtered.length) { list.innerHTML = '<div class="state-msg">No trades for this strategy yet.</div>'; return; }
       for (const p of filtered) {
         const card = document.createElement('div');
