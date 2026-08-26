@@ -122,8 +122,9 @@ class IcSymbolTracker {
     }
     if (!result) return null;
     const rMultiple = result === 'TARGET' ? R_TARGET : -1;
+    const direction = t.direction, entryPx = t.entryPx;
     this.openTrade = null;
-    return { type: 'OUTCOME', symbol: this.symbol, result, exitPx, rMultiple, closedTs: bar.timestampMs };
+    return { type: 'OUTCOME', symbol: this.symbol, result, direction, entryPx, exitPx, rMultiple, closedTs: bar.timestampMs };
   }
 
   /** Called every time a 15-minute bar CLOSES. */

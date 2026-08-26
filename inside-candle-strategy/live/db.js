@@ -11,6 +11,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { computeStats } = require('./stats');
 
 let Pool = null;
 try { ({ Pool } = require('pg')); } catch (_) { /* pg not installed yet */ }
@@ -113,6 +114,20 @@ class DB {
         WHERE o.signal_id = s.id AND s.symbol = $1 AND o.final_result = 'OPEN' AND s.id != $2`,
       [symbol, keepSignalId]
     );
+  }
+
+  /** Win rate + cumulative P&L% (naive sum, per-trade %, not compounded -- same convention as
+   *  the dashboard's Swing tab) across all closed (TARGET/SL) trades. Used to prepend live
+   *  stats to every Telegram alert. Win = r_multiple >= 0 (works for TARGET/SL uniformly). */
+  async getStats() {
+    const r = await this._q(
+      `SELECT s.direction, s.entry_px AS "entryPx", o.exit_px AS "exitPx", o.r_multiple AS "rMultiple"
+         FROM inside_candle.signals s
+         JOIN inside_candle.outcomes o ON o.signal_id = s.id
+        WHERE o.final_result IN ('TARGET','SL')`
+    );
+    if (!r) return null;
+    return computeStats(r.rows);
   }
 
   async insertAlert(a) {

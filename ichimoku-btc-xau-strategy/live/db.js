@@ -10,6 +10,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { computeStats } = require('./stats');
 
 let Pool = null;
 try { ({ Pool } = require('pg')); } catch (_) { /* pg not installed yet */ }
@@ -118,6 +119,19 @@ class DB {
         WHERE o.signal_id = s.id AND s.symbol = $1 AND o.final_result = 'OPEN' AND s.id != $2`,
       [symbol, keepSignalId]
     );
+  }
+
+  /** Win rate + cumulative P&L% (naive sum) across all closed (TARGET/SL/WARNING_EXIT) trades.
+   *  Used to prepend live stats to every Telegram alert -- see stats.js. */
+  async getStats() {
+    const r = await this._q(
+      `SELECT s.direction, s.entry_px AS "entryPx", o.exit_px AS "exitPx", o.r_multiple AS "rMultiple"
+         FROM ichimoku_btcxau.signals s
+         JOIN ichimoku_btcxau.outcomes o ON o.signal_id = s.id
+        WHERE o.final_result IN ('TARGET','SL','WARNING_EXIT')`
+    );
+    if (!r) return null;
+    return computeStats(r.rows);
   }
 
   async insertAlert(a) {

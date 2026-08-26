@@ -25,6 +25,7 @@ const { io } = require('socket.io-client');
 const { IcSymbolTracker, R_TARGET } = require('./ic_engine');
 const { fetchKlines } = require('./pi42_client');
 const { DB } = require('./db');
+const { pnlPct } = require('./stats');
 
 // Same symbol set as ichimoku-btc-xau-strategy (INR-margined, per the user's explicit request
 // there -- see that strategy's README "Symbol-set switch: BTCUSDT/XAUUSDT -> BTCINR/XAUINR").
@@ -74,13 +75,22 @@ function fmtSetup(e) {
     `${istLikeUtc(e.entryTs)} · alert-only, no order placed.`,
   ].join('\n');
 }
-function fmtOutcome(e) {
+// stats = { count, winRate, cumPnlPct } from db.getStats() -- prepended so every outcome alert
+// carries the strategy's live track record, not just this one trade's result. AFTER this trade
+// is included (see handleEvents: db.closeOutcome runs before db.getStats() is called).
+function fmtOutcome(e, stats) {
   const icon = e.result === 'TARGET' ? '✅' : '🛑';
-  return [
+  const pct = pnlPct(e.direction, e.entryPx, e.exitPx);
+  const lines = [];
+  if (stats && stats.count > 0) {
+    lines.push(`📊 Inside Candle so far: ${stats.winRate}% win rate (${stats.count} trades) · cum P&L ${stats.cumPnlPct >= 0 ? '+' : ''}${stats.cumPnlPct}%`);
+  }
+  lines.push(
     `${icon} ${e.symbol} closed — ${e.result} @ ${fmtPx(e.exitPx)}`,
-    `R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R`,
+    `P&L: ${pct != null ? `${pct >= 0 ? '+' : ''}${pct}%` : '—'}  |  R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R`,
     `${istLikeUtc(e.closedTs)}.`,
-  ].join('\n');
+  );
+  return lines.join('\n');
 }
 
 // Console-only (no Telegram, no DB) -- one line per closed 15m bar, so `railway logs` can
@@ -104,7 +114,8 @@ async function handleEvents(events) {
       await emit('SETUP', e.symbol, fmtSetup(e), signalIds[e.symbol]);
     } else if (e.type === 'OUTCOME') {
       await db.closeOutcome(signalIds[e.symbol], e);
-      await emit(e.result, e.symbol, fmtOutcome(e), signalIds[e.symbol]);
+      const stats = await db.getStats(); // AFTER closeOutcome so this trade counts in the stats
+      await emit(e.result, e.symbol, fmtOutcome(e, stats), signalIds[e.symbol]);
     } else if (e.type === 'DIAGNOSTIC') {
       console.log(fmtDiagnostic(e)); // server logs only -- no Telegram, no DB insert
     }
@@ -152,6 +163,10 @@ const TF_KEY = { '1m': 'm1', '15m': 'm15' };
 // symbol+timeframe BEFORE it can touch the rollover/forming logic at all -- late data is just
 // dropped, not allowed to reopen or re-finalize anything.
 const lastFinalizedTs = {}; // `${symbol}:${tfKey}` -> last finalized bar's timestampMs
+// (2026-08-25 21:15 IST: this exact build failed 4x identically at the "railpack prepare" stage
+// with the same content hash each time -- forcing a hash change here to rule out a stuck/bad
+// Railway build cache entry rather than a real problem with the code, which node --check already
+// confirmed is syntactically valid.)
 
 function onKlineEvent(payload) {
   const symbol = (payload.ps || payload.s || '').toUpperCase();

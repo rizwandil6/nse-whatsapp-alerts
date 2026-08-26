@@ -30,6 +30,7 @@ const { io } = require('socket.io-client');
 const { MtfSymbolTracker, TARGET_R, STOP_BUFFER_PCT } = require('./mtf_engine');
 const { fetchKlines } = require('./pi42_client');
 const { DB } = require('./db');
+const { pnlPct } = require('./stats');
 
 // ENTRY_SYMBOLS = where NEW setups are allowed to fire. Switched 2026-08-23 from
 // BTCUSDT/XAUUSDT to the INR-margined equivalents (BTCINR/XAUINR -- same underlying
@@ -87,17 +88,23 @@ function fmtSetup(e) {
     `${istLikeUtc(e.entryTs)} · alert-only, no order placed.`,
   ].join('\n');
 }
-function fmtOutcome(e) {
+// stats = { count, winRate, cumPnlPct } from db.getStats() -- prepended so every outcome alert
+// carries the strategy's live track record, not just this one trade's result. AFTER this trade
+// is included (see handleEvents: db.closeOutcome runs before db.getStats() is called).
+function fmtOutcome(e, stats) {
   const icon = e.result === 'TARGET' ? '✅' : e.result === 'WARNING_EXIT' ? '⚠️' : '🛑';
   const label = e.result === 'WARNING_EXIT' ? 'EARLY REVERSAL EXIT' : e.result;
-  const lines = [
-    `${icon} ${e.symbol} closed — ${label} @ ${fmtPx(e.exitPx)}`,
-  ];
+  const pct = pnlPct(e.direction, e.entryPx, e.exitPx);
+  const lines = [];
+  if (stats && stats.count > 0) {
+    lines.push(`📊 Ichimoku so far: ${stats.winRate}% win rate (${stats.count} trades) · cum P&L ${stats.cumPnlPct >= 0 ? '+' : ''}${stats.cumPnlPct}%`);
+  }
+  lines.push(`${icon} ${e.symbol} closed — ${label} @ ${fmtPx(e.exitPx)}`);
   if (e.result === 'WARNING_EXIT') {
     lines.push(`Baseline (Kijun) crossed back through the 200 EMA against the position (kijun ${fmtPx(e.kijun)} vs ema200 ${fmtPx(e.ema200)}) — closed immediately, not just flagged.`);
   }
   lines.push(
-    `R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R  ·  MFE ${Number(e.mfeR).toFixed(2)}R / MAE ${Number(e.maeR).toFixed(2)}R`,
+    `P&L: ${pct != null ? `${pct >= 0 ? '+' : ''}${pct}%` : '—'}  |  R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R  ·  MFE ${Number(e.mfeR).toFixed(2)}R / MAE ${Number(e.maeR).toFixed(2)}R`,
     `${istLikeUtc(e.closedTs)}.`,
   );
   return lines.join('\n');
@@ -130,7 +137,8 @@ async function handleEvents(events) {
       await emit('SETUP', e.symbol, fmtSetup(e), signalIds[e.symbol]);
     } else if (e.type === 'OUTCOME') {
       await db.closeOutcome(signalIds[e.symbol], e);
-      await emit(e.result, e.symbol, fmtOutcome(e), signalIds[e.symbol]);
+      const stats = await db.getStats(); // AFTER closeOutcome so this trade counts in the stats
+      await emit(e.result, e.symbol, fmtOutcome(e, stats), signalIds[e.symbol]);
     } else if (e.type === 'DIAGNOSTIC') {
       console.log(fmtDiagnostic(e)); // server logs only -- no Telegram, no DB insert
     }
