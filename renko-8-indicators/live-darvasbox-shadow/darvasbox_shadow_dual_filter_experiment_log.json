@@ -5167,5 +5167,14 @@
   "entryTimestampMs": 1787807400000,
   "exitTimestampMs": 1787811300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 124.2486,
+  "timestampMs": 1787811300000,
+  "breakoutTimestampMs": 1787811300000,
+  "shadow": true
  }
 ]
