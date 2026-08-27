@@ -808,5 +808,26 @@
   "date": "2026-08-24",
   "price": 1346,
   "rsRankAtEntry": 80.03952569169961
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ANTHEM",
+  "date": "2026-08-25",
+  "price": 923.05,
+  "rsRankAtEntry": 80.6706114398422
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "JYOTICNC",
+  "date": "2026-08-25",
+  "price": 1012.7,
+  "rsRankAtEntry": 81.85404339250493
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "YATHARTH",
+  "date": "2026-08-25",
+  "price": 965.3,
+  "rsRankAtEntry": 82.44575936883629
  }
 ]

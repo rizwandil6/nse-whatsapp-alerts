@@ -229,5 +229,26 @@
   "rsRankAtEntry": 80.03952569169961,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "ANTHEM": {
+  "entryDate": "2026-08-25",
+  "entryPrice": 923.05,
+  "rsRankAtEntry": 80.6706114398422,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "JYOTICNC": {
+  "entryDate": "2026-08-25",
+  "entryPrice": 1012.7,
+  "rsRankAtEntry": 81.85404339250493,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "YATHARTH": {
+  "entryDate": "2026-08-25",
+  "entryPrice": 965.3,
+  "rsRankAtEntry": 82.44575936883629,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
