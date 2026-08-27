@@ -5254,5 +5254,101 @@
   "timestampMs": 1787820300000,
   "breakoutTimestampMs": 1787820300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 538.3608750000002,
+  "exitPrice": 538.3608750000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787819700000,
+  "exitTimestampMs": 1787824500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 279.848625,
+  "exitPrice": 279,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.30324429859179286,
+  "entryTimestampMs": 1787814300000,
+  "exitTimestampMs": 1787823600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 108.32875000000003,
+  "exitPrice": 107.83649999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.45440384016250623,
+  "entryTimestampMs": 1787817600000,
+  "exitTimestampMs": 1787824200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 913,
+  "exitPrice": 913.2,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.02190580503834014,
+  "entryTimestampMs": 1787808300000,
+  "exitTimestampMs": 1787808300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 150.6714000000001,
+  "exitPrice": 150.30120000000008,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.24570024570025298,
+  "entryTimestampMs": 1787820300000,
+  "exitTimestampMs": 1787823900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 836.05,
+  "exitPrice": 829.7796250000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.7499999999999798,
+  "entryTimestampMs": 1787814900000,
+  "exitTimestampMs": 1787823600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 181.25782500000008,
+  "exitPrice": 179.5,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.9697926144706202,
+  "entryTimestampMs": 1787818500000,
+  "exitTimestampMs": 1787824200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 124.2486,
+  "exitPrice": 122.69159999999997,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2531328320802253,
+  "entryTimestampMs": 1787811300000,
+  "exitTimestampMs": 1787824200000,
+  "shadow": true
  }
 ]
