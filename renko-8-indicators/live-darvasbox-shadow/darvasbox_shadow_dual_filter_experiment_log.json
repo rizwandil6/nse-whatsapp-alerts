@@ -5497,5 +5497,38 @@
   "entryTimestampMs": 1787898600000,
   "exitTimestampMs": 1787900700000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 511.50775,
+  "exitPrice": 513.15,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.32106062909115063,
+  "entryTimestampMs": 1787891100000,
+  "exitTimestampMs": 1787902500000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 517.8540000000003,
+  "timestampMs": 1787903400000,
+  "breakoutTimestampMs": 1787903400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 517.8540000000003,
+  "exitPrice": 515.3155000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.49019607843139407,
+  "entryTimestampMs": 1787903400000,
+  "exitTimestampMs": 1787906100000,
+  "shadow": true
  }
 ]
