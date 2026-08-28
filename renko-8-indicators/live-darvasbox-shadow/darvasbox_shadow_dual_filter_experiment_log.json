@@ -5542,5 +5542,17 @@
   "entryTimestampMs": 1787898600000,
   "exitTimestampMs": 1787908500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 210.59175000000002,
+  "exitPrice": 210.59175000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1787899200000,
+  "exitTimestampMs": 1787910300000,
+  "shadow": true
  }
 ]
