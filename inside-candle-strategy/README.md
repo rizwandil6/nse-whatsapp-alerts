@@ -30,16 +30,23 @@ engine mirrors — no trend filter, no structure filter, the simplified version 
 
 Ported from the source's own trend rule (confirmed via NotebookLM re-verification — see
 `wiki/concepts/inside-candle-liquidity-sweep-scalp.md`) and mirrors
-`wiki/reference/inside-candle-next-candle-trend-filtered.pine` (IC-NextCandle-Trend) exactly:
-HH/HL vs LH/LL swing structure over a trailing window decides both the trend bias and whether a
-candle's mother sits at a swing extreme. This is **this wiki's own codification** of the source's
-undefined "look at the chart, a kid could tell you the trend" trend-read, not a decoded rule.
+`wiki/reference/inside-candle-next-candle-trend-filtered.pine` (IC-NextCandle-Trend, v3) exactly:
+**trend = 15m close vs. an EMA** (above = bullish, below = bearish); **location** (is the mother
+candle at a swing extreme) is separate, still swing-structure-based over a trailing window. Both
+this rule's EMA-based trend and the swing-based location are **this wiki's own codification** of
+the source's undefined "look at the chart, a kid could tell you the trend" trend-read, not a
+decoded rule. (An earlier HH/HL-vs-LH/LL swing-ladder trend construction was tried first and
+scrapped after live debugging showed it going stale/contradictory in ways that didn't match a
+naked-eye trend read — see the Pine reference doc's "v2"/"v3" history for the full story.)
 
-- `TREND_FILTER_ENABLED` (env, default **true`/unset**) — set to `false` to run the original
+- `TREND_FILTER_ENABLED` (env, default **true**/unset) — set to `false` to run the original
   untrended IC-NextCandle behaviour (fires whichever direction the sweep order happens to
   produce, no trend/location gate).
-- `SWING_LOOKBACK` (env, default **5**) — trailing-bar window for the swing-extreme/trend read,
-  matches the commercial indicator's own "Swing Pivot Lookback" setting.
+- `EMA_LENGTH` (env, default **20**) — the EMA (of 15m closes) that decides trend: close above it
+  = bullish, below = bearish.
+- `SWING_LOOKBACK` (env, default **5**) — trailing-bar window for the swing-extreme **location**
+  read only (trend itself no longer uses this), matches the commercial indicator's own "Swing
+  Pivot Lookback" setting.
 
 Order-of-events within the single next 15-min candle is resolved using **1-minute bars streamed
 in real time** (`ic_engine.js#addM1Bar`) — the same role `request.security_lower_tf()` plays in
@@ -68,7 +75,8 @@ Same pattern as every sibling strategy — a **separate Railway service** in the
 3. **Start command:** `npm start` (build/install inferred from `package.json`).
 4. **Variables:** `TELEGRAM_BOT_TOKEN`, `DATABASE_URL` (+ `PGSSL=disable` if needed), optionally
    `R_TARGET` to override the default 3R target, `TREND_FILTER_ENABLED=false` to disable the
-   trend filter (default on), `SWING_LOOKBACK` to override the default 5-bar swing window.
+   trend filter (default on), `EMA_LENGTH` to override the default 20-period trend EMA,
+   `SWING_LOOKBACK` to override the default 5-bar swing window (location only).
 
 ## Dashboard
 

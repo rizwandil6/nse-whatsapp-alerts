@@ -20,10 +20,15 @@
  *      it's inside of) sits at a swing extreme AND that extreme lines up with
  *      the current trend read: bearish trend + mother is a swing LOW ->
  *      pre-commit LONG; bullish trend + mother is a swing HIGH -> pre-commit
- *      SHORT. Trend and "mother is a swing extreme" are both derived from
- *      HH/HL (bullish) vs LH/LL (bearish) swing structure over a trailing
- *      `swingLookback` window -- this wiki's own codification of the
- *      source's undefined "look at the chart" trend read, not a decoded rule.
+ *      SHORT. Location ("mother is a swing extreme") is still swingLookback-
+ *      based swing structure. Trend itself is v3 (2026-08-28): simply the
+ *      15m close vs an EMA (EMA_LENGTH, default 20) -- above = bullish, below
+ *      = bearish. An earlier swing-ladder trend construction (HH/HL vs LH/LL)
+ *      was tried and scrapped in the Pine version after live debugging showed
+ *      it going stale/contradictory in ways that didn't match a naked-eye
+ *      trend read -- see wiki/reference/inside-candle-liquidity-sweep-pine.md
+ *      "v3" for the full story. This wiki's own codification of the source's
+ *      undefined "look at the chart" trend read either way, not a decoded rule.
  *   3. Check ONLY the immediately next 15-min candle. The pre-committed
  *      direction only fires if its expected extreme sweeps FIRST and the
  *      opposite extreme then breaks, within that same next candle. If the
@@ -51,18 +56,21 @@ const R_TARGET = Number(process.env.R_TARGET || 3); // fixed R-multiple, source 
 // Default ON: this is now the production rule, matching IC-NextCandle-Trend.pine. Set
 // TREND_FILTER_ENABLED=false to run the original untrended IC-NextCandle behaviour instead.
 const TREND_FILTER_ENABLED = process.env.TREND_FILTER_ENABLED !== 'false';
-const SWING_LOOKBACK = Number(process.env.SWING_LOOKBACK || 5); // matches the Pine default / the commercial indicator's own "Swing Pivot Lookback" setting (see wiki/reference/inside-candle-liquidity-sweep-pine.md v3.6)
+const SWING_LOOKBACK = Number(process.env.SWING_LOOKBACK || 5); // location only (mother-is-swing-extreme) -- see wiki/reference/inside-candle-liquidity-sweep-pine.md v3.6
+const EMA_LENGTH = Number(process.env.EMA_LENGTH || 20); // trend = 15m close vs this EMA (v3, see inside-candle-next-candle-trend-filtered.pine)
 
 class IcSymbolTracker {
   constructor(symbol, {
     entriesEnabled = true,
     trendFilterEnabled = TREND_FILTER_ENABLED,
     swingLookback = SWING_LOOKBACK,
+    emaLength = EMA_LENGTH,
   } = {}) {
     this.symbol = symbol;
     this.entriesEnabled = entriesEnabled;
     this.trendFilterEnabled = trendFilterEnabled;
     this.swingLookback = swingLookback;
+    this.emaLength = emaLength;
     this.m15 = []; // closed 15-min bars, oldest-first
 
     this.icHigh = null;
@@ -73,20 +81,30 @@ class IcSymbolTracker {
     this.sweptHigh = false;
     this.firstBarChecked = false; // true once addM1Bar has run at least once for this pending window
 
-    // Trend/swing-structure state (only meaningful when trendFilterEnabled) -- mirrors the Pine
-    // shift-register pattern: lastSwingHighVal/prevSwingHighVal (etc.) track the last two
-    // confirmed swing points so HH/HL vs LH/LL can be read off them.
-    this.lastSwingHighVal = null;
-    this.prevSwingHighVal = null;
-    this.lastSwingLowVal = null;
-    this.prevSwingLowVal = null;
-    this.trendBias = 0; // 1 = bullish, -1 = bearish, 0 = unclear
+    // Trend state (only meaningful when trendFilterEnabled) -- v3: stateless EMA of 15m closes.
+    // `ema` is the running EMA value; `trendBias` is recomputed fresh every 15m close from
+    // bar.close vs `ema`, no ladders/history to fold in (see header comment for why the earlier
+    // swing-ladder construction was scrapped).
+    this.ema = null;
+    this.trendBias = 0; // 1 = bullish (close > EMA), -1 = bearish (close < EMA), 0 = unclear (== EMA)
 
     this.openTrade = null; // { direction, entryPx, stopPx, targetPx, entryTs, r }
   }
 
   seedHistory(m15Bars) {
     this.m15 = (m15Bars || []).slice();
+    // Warm up the EMA from seed history too -- without this, every process restart (Railway
+    // redeploys periodically) would reset `ema` to null and cold-start the trend read from
+    // scratch, needing many live bars to converge instead of picking up where it left off.
+    if (this.trendFilterEnabled && this.m15.length) {
+      const k = 2 / (this.emaLength + 1);
+      this.ema = null;
+      for (const b of this.m15) {
+        this.ema = this.ema == null ? b.close : b.close * k + this.ema * (1 - k);
+      }
+      const lastClose = this.m15[this.m15.length - 1].close;
+      this.trendBias = lastClose > this.ema ? 1 : lastClose < this.ema ? -1 : 0;
+    }
   }
 
   /** Restart resilience: reattach a still-OPEN position from Postgres (see db.js#getOpenSignal). */
@@ -229,11 +247,21 @@ class IcSymbolTracker {
     const n = this.m15.length;
     const prev = n >= 1 ? this.m15[n - 1] : null; // "mother" candle -- the one the inside candle sits inside of
 
-    // Mother-is-swing-extreme + trend read, only computed when the filter is on. Uses `prev`
+    // Trend = this bar's own close vs. a running EMA of 15m closes (v3) -- update the EMA with
+    // THIS bar's close first (matches Pine's ta.ema, which includes the current bar), then read
+    // trendBias off it. Stateless per-bar read otherwise: no ladders, no history to fold in, so
+    // (unlike the old swing-ladder version) this can safely happen before the arming decision
+    // below without any self-reference concern.
+    if (this.trendFilterEnabled) {
+      const k = 2 / (this.emaLength + 1);
+      this.ema = this.ema == null ? bar.close : bar.close * k + this.ema * (1 - k);
+      this.trendBias = bar.close > this.ema ? 1 : bar.close < this.ema ? -1 : 0;
+    }
+
+    // Mother-is-swing-extreme (location only), only computed when the filter is on. Uses `prev`
     // (mother) against a trailing swingLookback window ENDING AT mother -- same high[1] vs.
     // ta.highest(high, swingLookback)[1] construction as
-    // inside-candle-next-candle-trend-filtered.pine, evaluated on every bar close (not just when
-    // an inside candle forms), so trend history stays current even through non-inside candles.
+    // inside-candle-next-candle-trend-filtered.pine.
     let motherIsSwingHigh = false;
     let motherIsSwingLow = false;
     if (this.trendFilterEnabled && prev) {
@@ -267,19 +295,6 @@ class IcSymbolTracker {
       }
     }
 
-    // Fold mother's swing status into trend history AFTER the arming decision above (this
-    // candle's own trend contribution only affects the NEXT candle's read, never gates its own
-    // arming) -- matches the Pine version's ordering exactly.
-    if (this.trendFilterEnabled && prev) {
-      if (motherIsSwingHigh) { this.prevSwingHighVal = this.lastSwingHighVal; this.lastSwingHighVal = prev.high; }
-      if (motherIsSwingLow) { this.prevSwingLowVal = this.lastSwingLowVal; this.lastSwingLowVal = prev.low; }
-      const bullish = this.lastSwingHighVal != null && this.prevSwingHighVal != null && this.lastSwingHighVal > this.prevSwingHighVal
-        && this.lastSwingLowVal != null && this.prevSwingLowVal != null && this.lastSwingLowVal > this.prevSwingLowVal;
-      const bearish = this.lastSwingHighVal != null && this.prevSwingHighVal != null && this.lastSwingHighVal < this.prevSwingHighVal
-        && this.lastSwingLowVal != null && this.prevSwingLowVal != null && this.lastSwingLowVal < this.prevSwingLowVal;
-      this.trendBias = bullish ? 1 : bearish ? -1 : 0;
-    }
-
     this.m15.push(bar);
     // Console-only liveness/diagnostic signal (never Telegram, never Postgres) -- added after
     // deploying with zero per-bar logging made it impossible to tell "quiet, no signal yet" apart
@@ -289,9 +304,9 @@ class IcSymbolTracker {
       type: 'DIAGNOSTIC', symbol: this.symbol, ts: bar.timestampMs, close: bar.close,
       wasPendingUnresolved: wasPending, isInside, nowPending: this.pending,
       icHigh: this.icHigh, icLow: this.icLow, openTrade: !!this.openTrade,
-      trendBias: this.trendBias, icDirection: this.icDirection,
+      trendBias: this.trendBias, icDirection: this.icDirection, ema: this.ema,
     }];
   }
 }
 
-module.exports = { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED, SWING_LOOKBACK };
+module.exports = { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED, SWING_LOOKBACK, EMA_LENGTH };

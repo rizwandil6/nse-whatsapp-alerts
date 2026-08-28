@@ -19,7 +19,7 @@
  */
 
 const { fetchKlines, fetchKlinesRange } = require('./pi42_client');
-const { IcSymbolTracker, TREND_FILTER_ENABLED, SWING_LOOKBACK } = require('./ic_engine');
+const { IcSymbolTracker, TREND_FILTER_ENABLED, SWING_LOOKBACK, EMA_LENGTH } = require('./ic_engine');
 
 const SYMBOL = process.argv[2] || 'XAUINR';
 const LOOKBACK = Number(process.argv[3] || 1500); // 1500 x 1min ~= 25 hours
@@ -90,7 +90,7 @@ function analyzeRAchieved(setups, bars1m) {
 
   const bars15m = aggregate15m(bars1m);
   console.log(`Aggregated into ${bars15m.length} 15-min bars.`);
-  console.log(`Trend filter: ${TREND_FILTER_ENABLED ? `ON (swing lookback ${SWING_LOOKBACK})` : 'OFF'}\n`);
+  console.log(`Trend filter: ${TREND_FILTER_ENABLED ? `ON (EMA${EMA_LENGTH}, swing lookback ${SWING_LOOKBACK})` : 'OFF'}\n`);
 
   const tracker = new IcSymbolTracker(SYMBOL, { entriesEnabled: true });
   tracker.seedHistory([]); // start fresh -- no external seed, fully transparent replay

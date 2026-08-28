@@ -22,7 +22,7 @@
 
 const { io } = require('socket.io-client');
 
-const { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED, SWING_LOOKBACK } = require('./ic_engine');
+const { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED, SWING_LOOKBACK, EMA_LENGTH } = require('./ic_engine');
 const { fetchKlines } = require('./pi42_client');
 const { DB } = require('./db');
 const { pnlPct } = require('./stats');
@@ -75,7 +75,7 @@ function fmtSetup(e) {
     `IC high ${fmtPx(e.icHigh)}  |  IC low ${fmtPx(e.icLow)}`,
     `Entry ${fmtPx(e.entryPx)}  |  Stop ${fmtPx(e.stop)}  |  R ${fmtPx(e.r)}`,
     `Target (${R_TARGET}R) ${fmtPx(e.target)}`,
-    TREND_FILTER_ENABLED ? `Trend-filtered entry (swing lookback ${SWING_LOOKBACK}).` : null,
+    TREND_FILTER_ENABLED ? `Trend-filtered entry (EMA${EMA_LENGTH}, swing lookback ${SWING_LOOKBACK}).` : null,
     `${istLikeUtc(e.entryTs)} · alert-only, no order placed.`,
   ].filter(Boolean).join('\n');
 }
@@ -226,7 +226,7 @@ function connectAndRun(isFirstConnect, allSymbols) {
       console.log('Connected to Pi42 public WebSocket.');
       subscribeTopics(socket, allSymbols);
       if (isFirstConnect) {
-        const trendMsg = TREND_FILTER_ENABLED ? `trend-filtered, swing lookback ${SWING_LOOKBACK}` : 'no trend filter';
+        const trendMsg = TREND_FILTER_ENABLED ? `trend-filtered, EMA${EMA_LENGTH}, swing lookback ${SWING_LOOKBACK}` : 'no trend filter';
         await emit('STARTUP', null, `🚀 Inside Candle Sweep+Break scanner started (15m/1m, ${R_TARGET}R target, ${trendMsg}). New entries on: ${ENTRY_SYMBOLS.join(', ')}. Alert-only, no orders.`, null);
       } else {
         await emit('RECONNECTED', null, `🔌 Pi42 WebSocket reconnected after a network blip. Tracking continues uninterrupted -- no history lost, no positions reset.`, null);
