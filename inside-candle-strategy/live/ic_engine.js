@@ -7,20 +7,33 @@
  * v1.2, and wiki/concepts/inside-candle-liquidity-sweep-scalp.md for the
  * source-confirmed rules).
  *
- * Rule (no trend/structure filter -- deliberately the simplified version the
- * user confirmed "looks convincing," matching IC-NextCandle.pine exactly,
- * not the fuller IC-Sweep.pine with trend/structure gates):
+ * Rule, WITH the trend filter (default, see TREND_FILTER_ENABLED below) --
+ * ported from
+ * "/Users/adilrizwan/Downloads/second brain/wiki/reference/inside-candle-next-candle-trend-filtered.pine"
+ * (IC-NextCandle-Trend): direction is decided by trend BEFORE the sweep
+ * happens -- this is a counter-trend/reversal trade, and the sweep-then-break
+ * sequence only CONFIRMS or CANCELS that pre-committed direction, it never
+ * determines it:
  *   1. An inside candle forms on the 15-min timeframe (its range fully
  *      contained inside the previous 15-min candle's range).
- *   2. Check ONLY the immediately next 15-min candle. Within that one
- *      candle: if the low sweeps first (breaches ic_low) and THEN the high
- *      breaks (exceeds ic_high) -- LONG, entry = ic_high, stop = ic_low.
- *      Mirror for SHORT (high sweeps first, then low breaks).
- *   3. If the next candle does only one of the two, or neither, or breaks
- *      the wrong side first -- no signal. Not tracked further; wait for the
- *      next inside candle.
+ *   2. It only ARMS (becomes a pending setup) if its "mother" candle (the one
+ *      it's inside of) sits at a swing extreme AND that extreme lines up with
+ *      the current trend read: bearish trend + mother is a swing LOW ->
+ *      pre-commit LONG; bullish trend + mother is a swing HIGH -> pre-commit
+ *      SHORT. Trend and "mother is a swing extreme" are both derived from
+ *      HH/HL (bullish) vs LH/LL (bearish) swing structure over a trailing
+ *      `swingLookback` window -- this wiki's own codification of the
+ *      source's undefined "look at the chart" trend read, not a decoded rule.
+ *   3. Check ONLY the immediately next 15-min candle. The pre-committed
+ *      direction only fires if its expected extreme sweeps FIRST and the
+ *      opposite extreme then breaks, within that same next candle. If the
+ *      wrong extreme sweeps first, the setup is silently cancelled.
  *   4. Target = fixed R_TARGET multiple of risk (ic_high - ic_low). Source
  *      states minimum 1:3, sometimes 1:4 -- default 3, see R_TARGET below.
+ *
+ * Set TREND_FILTER_ENABLED=false (env) or { trendFilterEnabled: false } to
+ * fall back to the original untrended behaviour (fires whichever direction
+ * the sweep order happens to produce, matching IC-NextCandle.pine exactly).
  *
  * WHICH side happened first within the single next 15-min candle requires
  * sub-candle resolution -- this engine gets that by being fed 1-minute bars
@@ -35,19 +48,39 @@
  */
 
 const R_TARGET = Number(process.env.R_TARGET || 3); // fixed R-multiple, source states min 1:3 (sometimes 1:4)
+// Default ON: this is now the production rule, matching IC-NextCandle-Trend.pine. Set
+// TREND_FILTER_ENABLED=false to run the original untrended IC-NextCandle behaviour instead.
+const TREND_FILTER_ENABLED = process.env.TREND_FILTER_ENABLED !== 'false';
+const SWING_LOOKBACK = Number(process.env.SWING_LOOKBACK || 5); // matches the Pine default / the commercial indicator's own "Swing Pivot Lookback" setting (see wiki/reference/inside-candle-liquidity-sweep-pine.md v3.6)
 
 class IcSymbolTracker {
-  constructor(symbol, { entriesEnabled = true } = {}) {
+  constructor(symbol, {
+    entriesEnabled = true,
+    trendFilterEnabled = TREND_FILTER_ENABLED,
+    swingLookback = SWING_LOOKBACK,
+  } = {}) {
     this.symbol = symbol;
     this.entriesEnabled = entriesEnabled;
+    this.trendFilterEnabled = trendFilterEnabled;
+    this.swingLookback = swingLookback;
     this.m15 = []; // closed 15-min bars, oldest-first
 
     this.icHigh = null;
     this.icLow = null;
+    this.icDirection = null; // pre-committed 'LONG'/'SHORT' when trendFilterEnabled, else null (either side can fire)
     this.pending = false; // true = the currently-forming 15m bar is "the next candle" to check
     this.sweptLow = false;
     this.sweptHigh = false;
     this.firstBarChecked = false; // true once addM1Bar has run at least once for this pending window
+
+    // Trend/swing-structure state (only meaningful when trendFilterEnabled) -- mirrors the Pine
+    // shift-register pattern: lastSwingHighVal/prevSwingHighVal (etc.) track the last two
+    // confirmed swing points so HH/HL vs LH/LL can be read off them.
+    this.lastSwingHighVal = null;
+    this.prevSwingHighVal = null;
+    this.lastSwingLowVal = null;
+    this.prevSwingLowVal = null;
+    this.trendBias = 0; // 1 = bullish, -1 = bearish, 0 = unclear
 
     this.openTrade = null; // { direction, entryPx, stopPx, targetPx, entryTs, r }
   }
@@ -82,6 +115,44 @@ class IcSymbolTracker {
     const isFirstBarOfWindow = !this.firstBarChecked;
     this.firstBarChecked = true;
 
+    if (this.trendFilterEnabled && this.icDirection) {
+      // Direction is pre-committed (icDirection) -- the sweep only needs to happen on the
+      // EXPECTED side first; if the opposite side breaches first instead, the setup is wrong-order
+      // and cancelled outright (no waiting for the expected side afterward), per
+      // inside-candle-next-candle-trend-filtered.pine's debugEntryCode==2 case.
+      const wantLong = this.icDirection === 'LONG';
+      const breachLow = bar.low < this.icLow;
+      const breachHigh = bar.high > this.icHigh;
+
+      if (!this.sweptLow && !this.sweptHigh) {
+        if (breachLow && breachHigh) {
+          // Both sides on the same 1-min bar -- order genuinely ambiguous, same boundary-noise
+          // handling as the untrended path below.
+          if (isFirstBarOfWindow) {
+            // skip this bar only, keep watching -- `pending` stays true
+          } else {
+            this.pending = false;
+            this.icDirection = null;
+          }
+        } else if (wantLong && breachLow) {
+          this.sweptLow = true; // expected-first side swept -- watching for the high break now
+        } else if (!wantLong && breachHigh) {
+          this.sweptHigh = true;
+        } else if ((wantLong && breachHigh) || (!wantLong && breachLow)) {
+          // Wrong side swept first for the pre-committed direction -- cancelled, per rule.
+          this.pending = false;
+          this.icDirection = null;
+        }
+      } else if (wantLong && this.sweptLow && bar.high > this.icHigh) {
+        events.push(this._enter('LONG', bar));
+      } else if (!wantLong && this.sweptHigh && bar.low < this.icLow) {
+        events.push(this._enter('SHORT', bar));
+      }
+      return events;
+    }
+
+    // Untrended path (trendFilterEnabled=false, or icDirection unset): fires whichever direction
+    // the sweep order happens to produce -- original IC-NextCandle behaviour.
     if (!this.sweptLow && !this.sweptHigh) {
       if (bar.low < this.icLow) this.sweptLow = true;
       if (bar.high > this.icHigh) this.sweptHigh = true;
@@ -119,6 +190,7 @@ class IcSymbolTracker {
     this.pending = false;
     this.sweptLow = false;
     this.sweptHigh = false;
+    this.icDirection = null;
     return {
       type: 'SETUP', symbol: this.symbol, direction, entryPx, stop: stopPx, target: targetPx,
       r: risk, entryTs: bar.timestampMs, icHigh: this.icHigh, icLow: this.icLow,
@@ -152,19 +224,62 @@ class IcSymbolTracker {
     this.pending = false;
     this.sweptLow = false;
     this.sweptHigh = false;
+    this.icDirection = null;
+
+    const n = this.m15.length;
+    const prev = n >= 1 ? this.m15[n - 1] : null; // "mother" candle -- the one the inside candle sits inside of
+
+    // Mother-is-swing-extreme + trend read, only computed when the filter is on. Uses `prev`
+    // (mother) against a trailing swingLookback window ENDING AT mother -- same high[1] vs.
+    // ta.highest(high, swingLookback)[1] construction as
+    // inside-candle-next-candle-trend-filtered.pine, evaluated on every bar close (not just when
+    // an inside candle forms), so trend history stays current even through non-inside candles.
+    let motherIsSwingHigh = false;
+    let motherIsSwingLow = false;
+    if (this.trendFilterEnabled && prev) {
+      const winStart = Math.max(0, n - this.swingLookback);
+      const window = this.m15.slice(winStart, n); // ends at prev, inclusive
+      const maxHigh = Math.max(...window.map((b) => b.high));
+      const minLow = Math.min(...window.map((b) => b.low));
+      motherIsSwingHigh = prev.high >= maxHigh;
+      motherIsSwingLow = prev.low <= minLow;
+    }
 
     let isInside = false;
-    const n = this.m15.length;
-    if (n >= 1 && !this.openTrade) {
-      const prev = this.m15[n - 1];
+    if (prev && !this.openTrade) {
       isInside = bar.high <= prev.high && bar.low >= prev.low;
       if (isInside) {
-        this.icHigh = bar.high;
-        this.icLow = bar.low;
-        this.pending = true;
-        this.firstBarChecked = false;
+        let armDirection = null; // null = don't arm; 'LONG'/'SHORT' = trend-gated pre-commit; undefined trend filter -> arms either way
+        if (this.trendFilterEnabled) {
+          if (this.trendBias === -1 && motherIsSwingLow) armDirection = 'LONG';
+          else if (this.trendBias === 1 && motherIsSwingHigh) armDirection = 'SHORT';
+          // else: trend/location don't line up -- this inside candle never arms, no sweep watched.
+        } else {
+          armDirection = 'ANY';
+        }
+        if (armDirection) {
+          this.icHigh = bar.high;
+          this.icLow = bar.low;
+          this.pending = true;
+          this.firstBarChecked = false;
+          this.icDirection = armDirection === 'ANY' ? null : armDirection;
+        }
       }
     }
+
+    // Fold mother's swing status into trend history AFTER the arming decision above (this
+    // candle's own trend contribution only affects the NEXT candle's read, never gates its own
+    // arming) -- matches the Pine version's ordering exactly.
+    if (this.trendFilterEnabled && prev) {
+      if (motherIsSwingHigh) { this.prevSwingHighVal = this.lastSwingHighVal; this.lastSwingHighVal = prev.high; }
+      if (motherIsSwingLow) { this.prevSwingLowVal = this.lastSwingLowVal; this.lastSwingLowVal = prev.low; }
+      const bullish = this.lastSwingHighVal != null && this.prevSwingHighVal != null && this.lastSwingHighVal > this.prevSwingHighVal
+        && this.lastSwingLowVal != null && this.prevSwingLowVal != null && this.lastSwingLowVal > this.prevSwingLowVal;
+      const bearish = this.lastSwingHighVal != null && this.prevSwingHighVal != null && this.lastSwingHighVal < this.prevSwingHighVal
+        && this.lastSwingLowVal != null && this.prevSwingLowVal != null && this.lastSwingLowVal < this.prevSwingLowVal;
+      this.trendBias = bullish ? 1 : bearish ? -1 : 0;
+    }
+
     this.m15.push(bar);
     // Console-only liveness/diagnostic signal (never Telegram, never Postgres) -- added after
     // deploying with zero per-bar logging made it impossible to tell "quiet, no signal yet" apart
@@ -174,8 +289,9 @@ class IcSymbolTracker {
       type: 'DIAGNOSTIC', symbol: this.symbol, ts: bar.timestampMs, close: bar.close,
       wasPendingUnresolved: wasPending, isInside, nowPending: this.pending,
       icHigh: this.icHigh, icLow: this.icLow, openTrade: !!this.openTrade,
+      trendBias: this.trendBias, icDirection: this.icDirection,
     }];
   }
 }
 
-module.exports = { IcSymbolTracker, R_TARGET };
+module.exports = { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED, SWING_LOOKBACK };
