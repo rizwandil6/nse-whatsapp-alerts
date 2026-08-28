@@ -174,81 +174,46 @@
   "rsRankAtEntry": 80.27613412228797,
   "salesGrowth3Y": 34
  },
- "CARBORUNIV": {
-  "entryDate": "2026-08-20",
-  "entryPrice": 1169.8,
-  "rsRankAtEntry": 80.23715415019763,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "WELENT": {
-  "entryDate": "2026-08-20",
-  "entryPrice": 631.45,
-  "rsRankAtEntry": 80.8300395256917,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
  "ENTERO": {
   "entryDate": "2026-08-23",
   "entryPrice": 1529.8,
   "rsRankAtEntry": 82.6086956521739,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 26
  },
  "OPTIEMUS": {
   "entryDate": "2026-08-23",
   "entryPrice": 585.7,
   "rsRankAtEntry": 80.8300395256917,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 15
  },
  "SKIPPER": {
   "entryDate": "2026-08-23",
   "entryPrice": 575,
   "rsRankAtEntry": 80.43478260869566,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 41
  },
  "THYROCARE": {
   "entryDate": "2026-08-23",
   "entryPrice": 584,
   "rsRankAtEntry": 84.78260869565217,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "AJANTPHARM": {
-  "entryDate": "2026-08-24",
-  "entryPrice": 3554.9,
-  "rsRankAtEntry": 80.63241106719367,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GABRIEL": {
-  "entryDate": "2026-08-24",
-  "entryPrice": 1346,
-  "rsRankAtEntry": 80.03952569169961,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 16
  },
  "ANTHEM": {
   "entryDate": "2026-08-25",
   "entryPrice": 923.05,
   "rsRankAtEntry": 80.6706114398422,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 26
  },
  "JYOTICNC": {
   "entryDate": "2026-08-25",
   "entryPrice": 1012.7,
   "rsRankAtEntry": 81.85404339250493,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 31
  },
  "YATHARTH": {
   "entryDate": "2026-08-25",
   "entryPrice": 965.3,
   "rsRankAtEntry": 82.44575936883629,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 36
  }
 }

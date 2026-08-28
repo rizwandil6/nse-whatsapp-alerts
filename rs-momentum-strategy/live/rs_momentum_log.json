@@ -829,5 +829,89 @@
   "date": "2026-08-25",
   "price": 965.3,
   "rsRankAtEntry": 82.44575936883629
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "CARBORUNIV",
+  "date": "2026-08-28",
+  "price": 1169.8,
+  "rsRankAtEntry": 80.23715415019763
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "WELENT",
+  "date": "2026-08-28",
+  "price": 631.45,
+  "rsRankAtEntry": 80.8300395256917
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "ENTERO",
+  "date": "2026-08-28",
+  "price": 1529.8,
+  "rsRankAtEntry": 82.6086956521739,
+  "salesGrowth3Y": 26
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "OPTIEMUS",
+  "date": "2026-08-28",
+  "price": 585.7,
+  "rsRankAtEntry": 80.8300395256917,
+  "salesGrowth3Y": 15
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "SKIPPER",
+  "date": "2026-08-28",
+  "price": 575,
+  "rsRankAtEntry": 80.43478260869566,
+  "salesGrowth3Y": 41
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "THYROCARE",
+  "date": "2026-08-28",
+  "price": 584,
+  "rsRankAtEntry": 84.78260869565217,
+  "salesGrowth3Y": 16
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "AJANTPHARM",
+  "date": "2026-08-28",
+  "price": 3554.9,
+  "rsRankAtEntry": 80.63241106719367
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GABRIEL",
+  "date": "2026-08-28",
+  "price": 1346,
+  "rsRankAtEntry": 80.03952569169961
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "ANTHEM",
+  "date": "2026-08-28",
+  "price": 923.05,
+  "rsRankAtEntry": 80.6706114398422,
+  "salesGrowth3Y": 26
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "JYOTICNC",
+  "date": "2026-08-28",
+  "price": 1012.7,
+  "rsRankAtEntry": 81.85404339250493,
+  "salesGrowth3Y": 31
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "YATHARTH",
+  "date": "2026-08-28",
+  "price": 965.3,
+  "rsRankAtEntry": 82.44575936883629,
+  "salesGrowth3Y": 36
  }
 ]
