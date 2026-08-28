@@ -82,14 +82,15 @@ class DB {
 
   /**
    * Resume support: the most recent still-open signal for a (symbol, timeframe) pair, if any
-   * (survives restarts). Scoped by BOTH symbol and timeframe -- since 2026-08-28, 15m and 30m run
+   * (survives restarts). Scoped by BOTH symbol and timeframe -- since 2026-08-28, 15m and 5m run
    * as independent trackers per symbol and can each have their own genuinely-open trade at the
    * same time; scoping by symbol alone would return only one of them and, worse, would make
    * abandonOtherOpenSignals below incorrectly abandon the other timeframe's real open trade.
+   * Includes trailing_active -- see ic_engine.js#resumeTrade for why this must survive a restart.
    */
   async getOpenSignal(symbol, timeframe) {
     const r = await this._q(
-      `SELECT s.id, s.symbol, s.timeframe, s.direction, s.entry_ts, s.entry_px, s.stop_px, s.target_px, s.r_value
+      `SELECT s.id, s.symbol, s.timeframe, s.direction, s.entry_ts, s.entry_px, s.stop_px, s.target_px, s.r_value, s.trailing_active
          FROM inside_candle.signals s
          JOIN inside_candle.outcomes o ON o.signal_id = s.id
         WHERE s.symbol = $1 AND s.timeframe = $2 AND o.final_result = 'OPEN'
@@ -99,6 +100,13 @@ class DB {
     );
     if (!r || r.rowCount === 0) return null;
     return r.rows[0];
+  }
+
+  /** Floor + EMA trail (2026-08-28): mark a still-open signal as having crossed into trailing
+   *  mode, so a restart mid-trail resumes correctly (see ic_engine.js#resumeTrade). */
+  async activateTrailing(signalId) {
+    if (signalId == null) return;
+    await this._q(`UPDATE inside_candle.signals SET trailing_active = true WHERE id = $1`, [signalId]);
   }
 
   async getOpenSymbols() {
@@ -123,14 +131,16 @@ class DB {
   }
 
   /** Win rate + cumulative P&L% (naive sum, per-trade %, not compounded -- same convention as
-   *  the dashboard's Swing tab) across all closed (TARGET/SL) trades. Used to prepend live
-   *  stats to every Telegram alert. Win = r_multiple >= 0 (works for TARGET/SL uniformly). */
+   *  the dashboard's Swing tab) across all closed (TARGET/TRAIL/SL) trades. Used to prepend live
+   *  stats to every Telegram alert. Win = r_multiple >= 0 (works uniformly across result types).
+   *  TRAIL added 2026-08-28 (floor-then-EMA-trail exit) -- omitting it here would silently drop
+   *  every trailing-exit trade from the strategy's own reported win rate/P&L. */
   async getStats() {
     const r = await this._q(
       `SELECT s.direction, s.entry_px AS "entryPx", o.exit_px AS "exitPx", o.r_multiple AS "rMultiple"
          FROM inside_candle.signals s
          JOIN inside_candle.outcomes o ON o.signal_id = s.id
-        WHERE o.final_result IN ('TARGET','SL')`
+        WHERE o.final_result IN ('TARGET','TRAIL','SL')`
     );
     if (!r) return null;
     return computeStats(r.rows);

@@ -33,8 +33,22 @@
  *      direction only fires if its expected extreme sweeps FIRST and the
  *      opposite extreme then breaks, within that same next candle. If the
  *      wrong extreme sweeps first, the setup is silently cancelled.
- *   4. Target = fixed R_TARGET multiple of risk (ic_high - ic_low). Source
- *      states minimum 1:3, sometimes 1:4 -- default 3, see R_TARGET below.
+ *   4. Target/exit (2026-08-28, floor + EMA trail): R_TARGET (default 3) is
+ *      now a MINIMUM FLOOR, not a hard exit. Reaching it doesn't close the
+ *      trade -- it switches the trade into "trailing" mode, where the exit
+ *      becomes the first 1-minute CLOSE that crosses back against the
+ *      position through the tracker's own EMA (same EMA instance used for
+ *      the trend gate, same signal timeframe the trade was entered on --
+ *      never a different timeframe's EMA). If price never reaches the
+ *      floor, behaviour is unchanged: exits at the fixed floor or the fixed
+ *      stop, whichever comes first, same as before this change. The
+ *      stop-loss NEVER trails -- stays fixed at the inside candle's
+ *      opposite extreme for the life of the trade, both phases, so a trade
+ *      that touches the floor and then fully reverses can still give back
+ *      to the original -1R stop (a deliberate choice, not an oversight --
+ *      see wiki/reference/inside-candle-liquidity-sweep-pine.md for the
+ *      discussion). R-multiple on close is now computed from the ACTUAL
+ *      exit price, not assumed to equal R_TARGET.
  *
  * Set TREND_FILTER_ENABLED=false (env) or { trendFilterEnabled: false } to
  * fall back to the original untrended behaviour (fires whichever direction
@@ -65,7 +79,7 @@ const R_TARGET = Number(process.env.R_TARGET || 3); // fixed R-multiple, source 
 // TREND_FILTER_ENABLED=false to run the original untrended IC-NextCandle behaviour instead.
 const TREND_FILTER_ENABLED = process.env.TREND_FILTER_ENABLED !== 'false';
 const SWING_LOOKBACK = Number(process.env.SWING_LOOKBACK || 5); // location only (mother-is-swing-extreme) -- see wiki/reference/inside-candle-liquidity-sweep-pine.md v3.6
-const EMA_LENGTH = Number(process.env.EMA_LENGTH || 20); // trend = 15m close vs this EMA (v3, see inside-candle-next-candle-trend-filtered.pine)
+const EMA_LENGTH = Number(process.env.EMA_LENGTH || 9); // trend AND trail-exit both use this same EMA (v4, 2026-08-28 -- was 20, changed to 9 to open up 1:6-1:10R potential via trailing)
 
 class IcSymbolTracker {
   constructor(symbol, {
@@ -120,7 +134,13 @@ class IcSymbolTracker {
     }
   }
 
-  /** Restart resilience: reattach a still-OPEN position from Postgres (see db.js#getOpenSignal). */
+  /**
+   * Restart resilience: reattach a still-OPEN position from Postgres (see db.js#getOpenSignal).
+   * `trailing` MUST be restored from row.trailing_active, not left to re-derive from the current
+   * bar -- if a trade already crossed into trailing mode and price has since pulled back below
+   * the floor, re-deriving from scratch would incorrectly leave it stuck checking for the floor
+   * again instead of continuing to trail, changing its exit behaviour after a restart.
+   */
   resumeTrade(row) {
     this.openTrade = {
       direction: row.direction,
@@ -129,6 +149,7 @@ class IcSymbolTracker {
       targetPx: Number(row.target_px),
       entryTs: new Date(row.entry_ts).getTime(),
       r: Number(row.r_value),
+      trailing: !!row.trailing_active,
     };
     return [];
   }
@@ -217,7 +238,7 @@ class IcSymbolTracker {
     const entryPx = direction === 'LONG' ? this.icHigh : this.icLow;
     const stopPx = direction === 'LONG' ? this.icLow : this.icHigh;
     const targetPx = direction === 'LONG' ? entryPx + risk * R_TARGET : entryPx - risk * R_TARGET;
-    this.openTrade = { direction, entryPx, stopPx, targetPx, entryTs: bar.timestampMs, r: risk };
+    this.openTrade = { direction, entryPx, stopPx, targetPx, entryTs: bar.timestampMs, r: risk, trailing: false };
     this.pending = false;
     this.sweptLow = false;
     this.sweptHigh = false;
@@ -228,20 +249,46 @@ class IcSymbolTracker {
     };
   }
 
+  /**
+   * Floor + EMA trail (v4, 2026-08-28). Two phases:
+   *   Phase 1 (t.trailing === false): fixed stop, fixed floor target. SL closes at -1R as always;
+   *     reaching the floor does NOT close the trade -- it flips t.trailing to true and emits a
+   *     TRAIL_ACTIVATED event instead (streamer.js persists this via db.activateTrailing so a
+   *     restart mid-trail doesn't lose the state -- see resumeTrade above).
+   *   Phase 2 (t.trailing === true): stop is STILL the original fixed stop (never moves -- see
+   *     header comment for why). Exit fires on the first 1-min CLOSE that crosses back against
+   *     the position through `this.ema` -- the same EMA instance the trend gate uses, on this
+   *     tracker's own signal timeframe (a 5m-entered trade trails the 5m EMA, never the 15m one).
+   * SL is checked every bar in BOTH phases, ahead of everything else -- it's the one thing that
+   * can end the trade regardless of phase.
+   */
   _checkOpenTrade(bar) {
     const t = this.openTrade;
     if (!t) return null;
-    let result = null, exitPx = null;
-    if (t.direction === 'LONG') {
-      if (bar.low <= t.stopPx) { result = 'SL'; exitPx = t.stopPx; }
-      else if (bar.high >= t.targetPx) { result = 'TARGET'; exitPx = t.targetPx; }
-    } else {
-      if (bar.high >= t.stopPx) { result = 'SL'; exitPx = t.stopPx; }
-      else if (bar.low <= t.targetPx) { result = 'TARGET'; exitPx = t.targetPx; }
+
+    const slHit = t.direction === 'LONG' ? bar.low <= t.stopPx : bar.high >= t.stopPx;
+    if (slHit) return this._closeTrade('SL', t.stopPx, bar);
+
+    if (!t.trailing) {
+      const reachedFloor = t.direction === 'LONG' ? bar.high >= t.targetPx : bar.low <= t.targetPx;
+      if (!reachedFloor) return null;
+      t.trailing = true;
+      return {
+        type: 'TRAIL_ACTIVATED', symbol: this.symbol, signalTf: this.signalTf,
+        direction: t.direction, floorR: R_TARGET, emaLength: this.emaLength, ts: bar.timestampMs,
+      };
     }
-    if (!result) return null;
-    const rMultiple = result === 'TARGET' ? R_TARGET : -1;
-    const direction = t.direction, entryPx = t.entryPx;
+
+    if (this.ema == null) return null; // shouldn't happen (trend filter must be on to reach floor-gated entries), but guard anyway
+    const crossedBack = t.direction === 'LONG' ? bar.close < this.ema : bar.close > this.ema;
+    if (!crossedBack) return null;
+    return this._closeTrade('TRAIL', bar.close, bar);
+  }
+
+  _closeTrade(result, exitPx, bar) {
+    const t = this.openTrade;
+    const direction = t.direction, entryPx = t.entryPx, risk = t.r;
+    const rMultiple = direction === 'LONG' ? (exitPx - entryPx) / risk : (entryPx - exitPx) / risk;
     this.openTrade = null;
     return { type: 'OUTCOME', symbol: this.symbol, signalTf: this.signalTf, result, direction, entryPx, exitPx, rMultiple, closedTs: bar.timestampMs };
   }

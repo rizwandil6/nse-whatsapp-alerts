@@ -30,10 +30,17 @@ CREATE TABLE IF NOT EXISTS inside_candle.signals (
 -- that's the only timeframe that existed before 2026-08-28.
 ALTER TABLE inside_candle.signals ADD COLUMN IF NOT EXISTS timeframe text NOT NULL DEFAULT '15m';
 
+-- Floor + EMA trail (2026-08-28, v4): whether an OPEN trade has already crossed the R_TARGET
+-- floor and switched into EMA-trail mode. Must be persisted (not re-derived on restart) --
+-- ic_engine.js#resumeTrade explains why: a trade can be trailing with price now BELOW the floor
+-- price, and re-deriving from scratch would incorrectly leave it stuck waiting to re-reach the
+-- floor instead of continuing to trail.
+ALTER TABLE inside_candle.signals ADD COLUMN IF NOT EXISTS trailing_active boolean NOT NULL DEFAULT false;
+
 -- 2. Outcome -- 1:1 with a signal, filled in live as price develops.
 CREATE TABLE IF NOT EXISTS inside_candle.outcomes (
   signal_id       bigint PRIMARY KEY REFERENCES inside_candle.signals(id) ON DELETE CASCADE,
-  final_result    text,                          -- TARGET | SL | OPEN
+  final_result    text,                          -- TARGET | SL | TRAIL | OPEN | ABANDONED -- TRAIL added 2026-08-28 (floor-then-EMA-trail exit)
   exit_px         numeric,
   r_multiple      numeric,
   closed_ts       timestamptz,

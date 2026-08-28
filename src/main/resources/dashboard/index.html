@@ -556,9 +556,9 @@
     list.style.gap = '10px';
     panel.appendChild(list);
 
-    const STATUS_BADGE = { OPEN: 'neutral', TARGET: 'win', SL: 'loss', WARNING_EXIT: 'neutral' };
-    const STATUS_LABEL = { OPEN: 'Open', TARGET: 'Target hit', SL: 'Stop hit', WARNING_EXIT: 'Early reversal exit' };
-    const STRATEGY_TARGET_LABEL = { 'Ichimoku': 'Target (2R)', 'Inside Candle': 'Target (3R)' };
+    const STATUS_BADGE = { OPEN: 'neutral', TARGET: 'win', TRAIL: 'win', SL: 'loss', WARNING_EXIT: 'neutral' };
+    const STATUS_LABEL = { OPEN: 'Open', TARGET: 'Target hit', TRAIL: 'Trailed out', SL: 'Stop hit', WARNING_EXIT: 'Early reversal exit' };
+    const STRATEGY_TARGET_LABEL = { 'Ichimoku': 'Target (2R)', 'Inside Candle': 'Floor (3R, then trails)' };
 
     function draw(filterStrategy, filterSymbol) {
       list.innerHTML = '';

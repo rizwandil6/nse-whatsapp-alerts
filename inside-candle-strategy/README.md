@@ -28,8 +28,9 @@ Runs on **multiple signal timeframes concurrently** per symbol (default `15m` + 
      stop = IC high.
    - Wrong side breaches first, only one side happens, or neither happens → **no trade** —
      cancelled, not retried.
-4. Target = fixed **`R_TARGET`** multiple of risk (env-overridable, default **3** — source states
-   minimum 1:3, sometimes 1:4).
+4. **Exit (2026-08-28: floor + EMA trail, see "Floor + EMA trail" below).** `R_TARGET` (default
+   **3**, env-overridable) is a *minimum floor*, not a hard exit — source states minimum 1:3,
+   sometimes 1:4; reaching it switches the trade into trailing mode instead of closing it.
 
 ### Trend filter
 
@@ -47,9 +48,10 @@ naked-eye trend read — see the Pine reference doc's "v2"/"v3" history for the 
 - `TREND_FILTER_ENABLED` (env, default **true**/unset) — set to `false` to run the original
   untrended IC-NextCandle behaviour (fires whichever direction the sweep order happens to
   produce, no trend/location gate).
-- `EMA_LENGTH` (env, default **20**) — the EMA (of the tracker's own signal-timeframe closes,
-  e.g. 15m closes for the 15m tracker, 5m closes for the 5m tracker) that decides trend: close
-  above it = bullish, below = bearish.
+- `EMA_LENGTH` (env, default **9**, was 20 before 2026-08-28) — the EMA (of the tracker's own
+  signal-timeframe closes, e.g. 15m closes for the 15m tracker, 5m closes for the 5m tracker)
+  that decides trend: close above it = bullish, below = bearish. This same EMA instance also now
+  serves as the trail-exit line once a trade reaches its floor (below) — one EMA, two jobs.
 - `SWING_LOOKBACK` (env, default **5**) — trailing-bar window for the swing-extreme **location**
   read only (trend itself no longer uses this), matches the commercial indicator's own "Swing
   Pivot Lookback" setting.
@@ -57,6 +59,33 @@ naked-eye trend read — see the Pine reference doc's "v2"/"v3" history for the 
 Order-of-events within the single next candle is resolved using **1-minute bars streamed
 in real time** (`ic_engine.js#addM1Bar`) — the same role `request.security_lower_tf()` plays in
 the Pine version.
+
+## Floor + EMA trail (2026-08-28)
+
+`R_TARGET` (default 3R) is a **minimum floor**, not a hard exit. Reaching it doesn't close the
+trade — it flips it into **trailing mode**:
+
+- **Phase 1 (before the floor):** fixed stop, fixed floor. Exactly the old behaviour if the floor
+  is never reached — hits the floor or the stop, nothing else changes.
+- **Phase 2 (trailing, after the floor):** exit is the first **1-minute CLOSE** that crosses back
+  against the position through the tracker's own EMA (`EMA_LENGTH`, default 9) — the *same* EMA
+  instance the trend gate uses, on the *same* signal timeframe the trade was entered on (a
+  5m-entered trade only ever trails the 5m EMA, never 15m's).
+- **Stop-loss never trails** — stays fixed at the inside candle's opposite extreme for the whole
+  trade, both phases. A trade that touches the floor and then fully reverses can still give back
+  to the full -1R stop. Deliberate, confirmed choice, not an oversight — the intent is opening up
+  1:6–1:10R potential on strong moves, not building a full ratcheting trailing-stop system.
+- **R-multiple on close is now computed from the actual exit price**, not assumed to equal
+  `R_TARGET` — real backtest range seen: SL at -1R up to a single trade at **+7.09R**.
+- New `inside_candle.outcomes.final_result` value: `TRAIL` (alongside `TARGET`/`SL`). New
+  `inside_candle.signals.trailing_active` column persists the phase across restarts (`db.js`'s
+  `activateTrailing`, `ic_engine.js`'s `resumeTrade`) — without this, a restart mid-trail would
+  incorrectly reset a trade to "waiting to reach the floor" even if price has since pulled back
+  below it.
+- Telegram: the "reached floor, now trailing" transition is **console-only** (`railway logs`), no
+  Telegram ping, to keep alert volume down. SETUP alerts no longer print the
+  `Trend-filtered entry (EMA9, swing lookback 5)` parameter line; `Target (3R)` is now labelled
+  `Floor (3R min, then trails)`.
 
 ## Multi-timeframe (2026-08-28)
 
@@ -104,8 +133,8 @@ Same pattern as every sibling strategy — a **separate Railway service** in the
 2. **Root directory:** `inside-candle-strategy/live`
 3. **Start command:** `npm start` (build/install inferred from `package.json`).
 4. **Variables:** `TELEGRAM_BOT_TOKEN`, `DATABASE_URL` (+ `PGSSL=disable` if needed), optionally
-   `R_TARGET` to override the default 3R target, `TREND_FILTER_ENABLED=false` to disable the
-   trend filter (default on), `EMA_LENGTH` to override the default 20-period trend EMA,
+   `R_TARGET` to override the default 3R floor, `TREND_FILTER_ENABLED=false` to disable the
+   trend filter (default on), `EMA_LENGTH` to override the default 9-period trend+trail EMA,
    `SWING_LOOKBACK` to override the default 5-bar swing window (location only),
    `SIGNAL_TIMEFRAMES` to override the default `15m,5m` timeframe set.
 

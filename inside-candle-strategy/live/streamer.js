@@ -29,7 +29,7 @@
 
 const { io } = require('socket.io-client');
 
-const { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED, SWING_LOOKBACK, EMA_LENGTH } = require('./ic_engine');
+const { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED } = require('./ic_engine');
 const { fetchKlines } = require('./pi42_client');
 const { DB } = require('./db');
 const { pnlPct } = require('./stats');
@@ -85,8 +85,7 @@ function fmtSetup(e) {
     `${e.direction === 'LONG' ? '🟢 LONG' : '🔴 SHORT'} INSIDE CANDLE SWEEP+BREAK — ${e.symbol} (${e.signalTf})`,
     `IC high ${fmtPx(e.icHigh)}  |  IC low ${fmtPx(e.icLow)}`,
     `Entry ${fmtPx(e.entryPx)}  |  Stop ${fmtPx(e.stop)}  |  R ${fmtPx(e.r)}`,
-    `Target (${R_TARGET}R) ${fmtPx(e.target)}`,
-    TREND_FILTER_ENABLED ? `Trend-filtered entry (EMA${EMA_LENGTH}, swing lookback ${SWING_LOOKBACK}).` : null,
+    `Floor (${R_TARGET}R min, then trails) ${fmtPx(e.target)}`,
     `${istLikeUtc(e.entryTs)} · alert-only, no order placed.`,
   ].filter(Boolean).join('\n');
 }
@@ -95,14 +94,15 @@ function fmtSetup(e) {
 // is included (see handleEvents: db.closeOutcome runs before db.getStats() is called). Combined
 // across ALL timeframes deliberately (whole-strategy track record, not split by 15m/5m).
 function fmtOutcome(e, stats) {
-  const icon = e.result === 'TARGET' ? '✅' : '🛑';
+  const icon = e.result === 'SL' ? '🛑' : '✅'; // TARGET and TRAIL both win-style icons
+  const resultLabel = e.result === 'TRAIL' ? 'TRAILED OUT' : e.result;
   const pct = pnlPct(e.direction, e.entryPx, e.exitPx);
   const lines = [];
   if (stats && stats.count > 0) {
     lines.push(`📊 Inside Candle so far: ${stats.winRate}% win rate (${stats.count} trades) · cum P&L ${stats.cumPnlPct >= 0 ? '+' : ''}${stats.cumPnlPct}%`);
   }
   lines.push(
-    `${icon} ${e.symbol} (${e.signalTf}) closed — ${e.result} @ ${fmtPx(e.exitPx)}`,
+    `${icon} ${e.symbol} (${e.signalTf}) closed — ${resultLabel} @ ${fmtPx(e.exitPx)}`,
     `P&L: ${pct != null ? `${pct >= 0 ? '+' : ''}${pct}%` : '—'}  |  R-multiple: ${e.rMultiple >= 0 ? '+' : ''}${Number(e.rMultiple).toFixed(2)}R`,
     `${istLikeUtc(e.closedTs)}.`,
   );
@@ -135,6 +135,12 @@ async function handleEvents(events) {
       await emit(e.result, e.symbol, fmtOutcome(e, stats), signalIds[trackerKey]);
     } else if (e.type === 'DIAGNOSTIC') {
       console.log(fmtDiagnostic(e)); // server logs only -- no Telegram, no DB insert
+    } else if (e.type === 'TRAIL_ACTIVATED') {
+      // Reached the R_TARGET floor, switched into EMA-trail mode -- persist so a restart
+      // mid-trail resumes correctly (db.js#activateTrailing, ic_engine.js#resumeTrade).
+      // Console-only, no Telegram ping -- keeping alert volume down per explicit request.
+      await db.activateTrailing(signalIds[trackerKey]);
+      console.log(`[trail] ${e.symbol} (${e.signalTf}) ${e.direction} reached ${e.floorR}R floor, now trailing via EMA${e.emaLength}`);
     }
   }
 }
@@ -254,8 +260,8 @@ function connectAndRun(isFirstConnect, allSymbols) {
       console.log('Connected to Pi42 public WebSocket.');
       subscribeTopics(socket, allSymbols);
       if (isFirstConnect) {
-        const trendMsg = TREND_FILTER_ENABLED ? `trend-filtered, EMA${EMA_LENGTH}, swing lookback ${SWING_LOOKBACK}` : 'no trend filter';
-        await emit('STARTUP', null, `🚀 Inside Candle Sweep+Break scanner started (${SIGNAL_TIMEFRAMES.join('/')} + 1m, ${R_TARGET}R target, ${trendMsg}). New entries on: ${ENTRY_SYMBOLS.join(', ')}. Alert-only, no orders.`, null);
+        const trendMsg = TREND_FILTER_ENABLED ? 'trend-filtered' : 'no trend filter';
+        await emit('STARTUP', null, `🚀 Inside Candle Sweep+Break scanner started (${SIGNAL_TIMEFRAMES.join('/')} + 1m, ${R_TARGET}R floor + EMA trail, ${trendMsg}). New entries on: ${ENTRY_SYMBOLS.join(', ')}. Alert-only, no orders.`, null);
       } else {
         await emit('RECONNECTED', null, `🔌 Pi42 WebSocket reconnected after a network blip. Tracking continues uninterrupted -- no history lost, no positions reset.`, null);
       }
