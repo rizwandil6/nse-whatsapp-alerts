@@ -66,7 +66,8 @@ public class CryptoForexService {
                         "       s.r_value AS \"rValue\", s.criteria::text AS \"criteria\", " +
                         "       o.warning_fired AS \"warningFired\", o.final_result AS \"status\", " +
                         "       o.exit_px AS \"exitPx\", o.r_multiple AS \"rMultiple\", " +
-                        "       to_char(o.closed_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"closedTs\" " +
+                        "       to_char(o.closed_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"closedTs\", " +
+                        "       NULL::text AS \"timeframe\" " +
                         "FROM ichimoku_btcxau.signals s " +
                         "JOIN ichimoku_btcxau.outcomes o ON o.signal_id = s.id " +
                         "WHERE o.final_result != 'ABANDONED' " +
@@ -77,7 +78,8 @@ public class CryptoForexService {
                         "       s.r_value AS \"rValue\", NULL::text AS \"criteria\", " +
                         "       NULL::boolean AS \"warningFired\", o.final_result AS \"status\", " +
                         "       o.exit_px AS \"exitPx\", o.r_multiple AS \"rMultiple\", " +
-                        "       to_char(o.closed_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"closedTs\" " +
+                        "       to_char(o.closed_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"closedTs\", " +
+                        "       s.timeframe AS \"timeframe\" " +
                         "FROM inside_candle.signals s " +
                         "JOIN inside_candle.outcomes o ON o.signal_id = s.id " +
                         "WHERE o.final_result != 'ABANDONED' " +

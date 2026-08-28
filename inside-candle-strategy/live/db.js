@@ -58,10 +58,10 @@ class DB {
   async insertSignal(e) {
     const r = await this._q(
       `INSERT INTO inside_candle.signals
-         (symbol, direction, entry_ts, entry_px, stop_px, target_px, r_value, ic_high, ic_low)
-       VALUES ($1,$2,to_timestamp($3/1000.0),$4,$5,$6,$7,$8,$9)
+         (symbol, timeframe, direction, entry_ts, entry_px, stop_px, target_px, r_value, ic_high, ic_low)
+       VALUES ($1,$2,$3,to_timestamp($4/1000.0),$5,$6,$7,$8,$9,$10)
        RETURNING id`,
-      [e.symbol, e.direction, e.entryTs, e.entryPx, e.stop, e.target, e.r, e.icHigh, e.icLow]
+      [e.symbol, e.signalTf || '15m', e.direction, e.entryTs, e.entryPx, e.stop, e.target, e.r, e.icHigh, e.icLow]
     );
     if (!r || r.rowCount === 0) return null;
     const id = r.rows[0].id;
@@ -80,16 +80,22 @@ class DB {
     );
   }
 
-  /** Resume support: the most recent still-open signal for a symbol, if any (survives restarts). */
-  async getOpenSignal(symbol) {
+  /**
+   * Resume support: the most recent still-open signal for a (symbol, timeframe) pair, if any
+   * (survives restarts). Scoped by BOTH symbol and timeframe -- since 2026-08-28, 15m and 30m run
+   * as independent trackers per symbol and can each have their own genuinely-open trade at the
+   * same time; scoping by symbol alone would return only one of them and, worse, would make
+   * abandonOtherOpenSignals below incorrectly abandon the other timeframe's real open trade.
+   */
+  async getOpenSignal(symbol, timeframe) {
     const r = await this._q(
-      `SELECT s.id, s.symbol, s.direction, s.entry_ts, s.entry_px, s.stop_px, s.target_px, s.r_value
+      `SELECT s.id, s.symbol, s.timeframe, s.direction, s.entry_ts, s.entry_px, s.stop_px, s.target_px, s.r_value
          FROM inside_candle.signals s
          JOIN inside_candle.outcomes o ON o.signal_id = s.id
-        WHERE s.symbol = $1 AND o.final_result = 'OPEN'
+        WHERE s.symbol = $1 AND s.timeframe = $2 AND o.final_result = 'OPEN'
         ORDER BY s.entry_ts DESC
         LIMIT 1`,
-      [symbol]
+      [symbol, timeframe]
     );
     if (!r || r.rowCount === 0) return null;
     return r.rows[0];
@@ -97,22 +103,22 @@ class DB {
 
   async getOpenSymbols() {
     const r = await this._q(
-      `SELECT DISTINCT s.symbol
+      `SELECT DISTINCT s.symbol, s.timeframe
          FROM inside_candle.signals s
          JOIN inside_candle.outcomes o ON o.signal_id = s.id
         WHERE o.final_result = 'OPEN'`
     );
     if (!r) return [];
-    return r.rows.map((row) => row.symbol);
+    return r.rows.map((row) => ({ symbol: row.symbol, timeframe: row.timeframe }));
   }
 
-  async abandonOtherOpenSignals(symbol, keepSignalId) {
+  async abandonOtherOpenSignals(symbol, timeframe, keepSignalId) {
     await this._q(
       `UPDATE inside_candle.outcomes o
           SET final_result = 'ABANDONED', updated_at = now()
          FROM inside_candle.signals s
-        WHERE o.signal_id = s.id AND s.symbol = $1 AND o.final_result = 'OPEN' AND s.id != $2`,
-      [symbol, keepSignalId]
+        WHERE o.signal_id = s.id AND s.symbol = $1 AND s.timeframe = $2 AND o.final_result = 'OPEN' AND s.id != $3`,
+      [symbol, timeframe, keepSignalId]
     );
   }
 

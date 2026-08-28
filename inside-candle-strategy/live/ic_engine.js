@@ -50,6 +50,14 @@
  *
  * Alert-only. This file makes zero authenticated Pi42 requests and contains
  * no order-placement code -- same boundary as ichimoku-btc-xau-strategy.
+ *
+ * Multi-timeframe (2026-08-28): this class is internally timeframe-agnostic -- it just processes
+ * whatever closed "signal timeframe" bar gets fed to addM15Bar() (the method name is a legacy
+ * label, not a hardcoded 15-minute assumption). streamer.js runs ONE independent IcSymbolTracker
+ * instance per (symbol, timeframe) pair -- e.g. BTCINR gets a 15m tracker AND a separate 5m
+ * tracker, each with its own EMA/swing/pending state, sharing only the 1-minute bar stream for
+ * intrabar sweep-sequencing. `signalTf` is purely a label on emitted events so downstream (DB,
+ * Telegram) can tell which tracker a signal came from.
  */
 
 const R_TARGET = Number(process.env.R_TARGET || 3); // fixed R-multiple, source states min 1:3 (sometimes 1:4)
@@ -65,8 +73,13 @@ class IcSymbolTracker {
     trendFilterEnabled = TREND_FILTER_ENABLED,
     swingLookback = SWING_LOOKBACK,
     emaLength = EMA_LENGTH,
+    signalTf = '15m', // '15m' | '5m' -- purely a label on emitted events; the engine itself is
+                       // timeframe-agnostic (it just processes whatever "addM15Bar" is fed), so
+                       // this only exists so downstream (DB, Telegram) can tell which tracker a
+                       // signal came from when multiple timeframes run concurrently per symbol.
   } = {}) {
     this.symbol = symbol;
+    this.signalTf = signalTf;
     this.entriesEnabled = entriesEnabled;
     this.trendFilterEnabled = trendFilterEnabled;
     this.swingLookback = swingLookback;
@@ -210,7 +223,7 @@ class IcSymbolTracker {
     this.sweptHigh = false;
     this.icDirection = null;
     return {
-      type: 'SETUP', symbol: this.symbol, direction, entryPx, stop: stopPx, target: targetPx,
+      type: 'SETUP', symbol: this.symbol, signalTf: this.signalTf, direction, entryPx, stop: stopPx, target: targetPx,
       r: risk, entryTs: bar.timestampMs, icHigh: this.icHigh, icLow: this.icLow,
     };
   }
@@ -230,7 +243,7 @@ class IcSymbolTracker {
     const rMultiple = result === 'TARGET' ? R_TARGET : -1;
     const direction = t.direction, entryPx = t.entryPx;
     this.openTrade = null;
-    return { type: 'OUTCOME', symbol: this.symbol, result, direction, entryPx, exitPx, rMultiple, closedTs: bar.timestampMs };
+    return { type: 'OUTCOME', symbol: this.symbol, signalTf: this.signalTf, result, direction, entryPx, exitPx, rMultiple, closedTs: bar.timestampMs };
   }
 
   /** Called every time a 15-minute bar CLOSES. */
@@ -301,7 +314,7 @@ class IcSymbolTracker {
     // from "silently stuck," same problem ichimoku-btc-xau-strategy's README describes hitting
     // and fixing the same way (fmtDiagnostic there, this event here).
     return [{
-      type: 'DIAGNOSTIC', symbol: this.symbol, ts: bar.timestampMs, close: bar.close,
+      type: 'DIAGNOSTIC', symbol: this.symbol, signalTf: this.signalTf, ts: bar.timestampMs, close: bar.close,
       wasPendingUnresolved: wasPending, isInside, nowPending: this.pending,
       icHigh: this.icHigh, icLow: this.icLow, openTrade: !!this.openTrade,
       trendBias: this.trendBias, icDirection: this.icDirection, ema: this.ema,

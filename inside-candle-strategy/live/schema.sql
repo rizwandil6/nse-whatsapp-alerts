@@ -1,6 +1,10 @@
 -- Inside Candle Sweep+Break strategy -- forward-tracking schema (Pi42, alert-only).
 -- Isolated in its own `inside_candle` schema, same pattern as ichimoku_btcxau.
 -- Idempotent: safe to re-run on startup.
+--
+-- 2026-08-28: added multi-timeframe support (15m + 30m run concurrently per symbol, each an
+-- independent IcSymbolTracker instance in ic_engine.js/streamer.js) -- `timeframe` column added
+-- via ALTER TABLE below since this table may already exist in production.
 
 CREATE SCHEMA IF NOT EXISTS inside_candle;
 
@@ -8,7 +12,8 @@ CREATE SCHEMA IF NOT EXISTS inside_candle;
 --    boundary; cooldown is a runtime state machine (see ic_engine.js), not a DB constraint.
 CREATE TABLE IF NOT EXISTS inside_candle.signals (
   id            bigserial PRIMARY KEY,
-  symbol        text        NOT NULL,          -- BTCINR | XAUINR
+  symbol        text        NOT NULL,          -- BTCINR | XAUINR | SOLINR | XAGINR
+  timeframe     text        NOT NULL DEFAULT '15m', -- 15m | 30m -- see 2026-08-28 multi-timeframe note below
   direction     text        NOT NULL,          -- LONG | SHORT
   entry_ts      timestamptz NOT NULL,
   entry_px      numeric     NOT NULL,           -- = ic_high (LONG) or ic_low (SHORT)
@@ -19,6 +24,11 @@ CREATE TABLE IF NOT EXISTS inside_candle.signals (
   ic_low        numeric     NOT NULL,           -- the inside candle's own low
   created_at    timestamptz NOT NULL DEFAULT now()
 );
+-- Migration for pre-existing deployments: CREATE TABLE IF NOT EXISTS won't add a column to an
+-- already-existing table, so add it explicitly (idempotent, safe to re-run every startup).
+-- Existing rows (all pre-dating multi-timeframe support) default to '15m', which is correct --
+-- that's the only timeframe that existed before 2026-08-28.
+ALTER TABLE inside_candle.signals ADD COLUMN IF NOT EXISTS timeframe text NOT NULL DEFAULT '15m';
 
 -- 2. Outcome -- 1:1 with a signal, filled in live as price develops.
 CREATE TABLE IF NOT EXISTS inside_candle.outcomes (
@@ -42,4 +52,6 @@ CREATE TABLE IF NOT EXISTS inside_candle.alerts (
   sent_at     timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE INDEX IF NOT EXISTS idx_inside_candle_signals_symbol ON inside_candle.signals (symbol, entry_ts);
+-- (symbol, timeframe) together, not symbol alone -- getOpenSignal/abandonOtherOpenSignals (db.js)
+-- now scope by both, since a symbol can have an independent OPEN trade per timeframe.
+CREATE INDEX IF NOT EXISTS idx_inside_candle_signals_symbol ON inside_candle.signals (symbol, timeframe, entry_ts);

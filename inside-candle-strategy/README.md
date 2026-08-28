@@ -1,22 +1,27 @@
-# Inside Candle Sweep+Break — BTCINR/XAUINR (Pi42, alert-only)
+# Inside Candle Sweep+Break — BTCINR/XAUINR/SOLINR/XAGINR (Pi42, alert-only)
 
 Live scanner for the Inside Candle Sweep+Break setup, validated as Pine indicators against
 live TradingView data before this port — see
 `/Users/adilrizwan/Downloads/second brain/wiki/concepts/inside-candle-liquidity-sweep-scalp.md`
 (the strategy writeup, source-confirmed rules) and
-`wiki/reference/inside-candle-next-candle-sweep-break.pine` (the exact Pine version this Node
-engine mirrors — no trend filter, no structure filter, the simplified version confirmed live).
+`wiki/reference/inside-candle-next-candle-trend-filtered.pine` (the exact Pine version this Node
+engine mirrors as of 2026-08-28 — trend-filtered, EMA-based trend + swing-based location; see
+`inside-candle-next-candle-sweep-break.pine` for the earlier, simpler untrended version, still
+available via `TREND_FILTER_ENABLED=false`).
 
 ## The rule
 
-1. A **15-minute** candle forms whose full range sits inside the immediately preceding 15-min
-   candle's range ("inside candle").
+Runs on **multiple signal timeframes concurrently** per symbol (default `15m` + `5m`, see
+"Multi-timeframe" below) — everything in this section applies independently on each one.
+
+1. A candle forms whose full range sits inside the immediately preceding same-timeframe candle's
+   range ("inside candle").
 2. **Trend filter (default ON, see below) gates which candles even arm.** The "mother" candle
    (the one the inside candle sits inside of) must be a swing extreme, and that extreme must line
    up with the current trend: bearish trend + mother at a swing low → pre-commit **LONG**;
    bullish trend + mother at a swing high → pre-commit **SHORT**. Trend/location don't line up →
    the inside candle never arms, no sweep is watched for at all.
-3. Check **only the very next 15-min candle**, against the pre-committed direction:
+3. Check **only the very next candle on that same timeframe**, against the pre-committed direction:
    - Pre-committed LONG: low must breach first, then high breaks → **LONG**, entry = IC high,
      stop = IC low.
    - Pre-committed SHORT: high must breach first, then low breaks → **SHORT**, entry = IC low,
@@ -31,7 +36,7 @@ engine mirrors — no trend filter, no structure filter, the simplified version 
 Ported from the source's own trend rule (confirmed via NotebookLM re-verification — see
 `wiki/concepts/inside-candle-liquidity-sweep-scalp.md`) and mirrors
 `wiki/reference/inside-candle-next-candle-trend-filtered.pine` (IC-NextCandle-Trend, v3) exactly:
-**trend = 15m close vs. an EMA** (above = bullish, below = bearish); **location** (is the mother
+**trend = close vs. an EMA on that same timeframe** (above = bullish, below = bearish); **location** (is the mother
 candle at a swing extreme) is separate, still swing-structure-based over a trailing window. Both
 this rule's EMA-based trend and the swing-based location are **this wiki's own codification** of
 the source's undefined "look at the chart, a kid could tell you the trend" trend-read, not a
@@ -42,29 +47,54 @@ naked-eye trend read — see the Pine reference doc's "v2"/"v3" history for the 
 - `TREND_FILTER_ENABLED` (env, default **true**/unset) — set to `false` to run the original
   untrended IC-NextCandle behaviour (fires whichever direction the sweep order happens to
   produce, no trend/location gate).
-- `EMA_LENGTH` (env, default **20**) — the EMA (of 15m closes) that decides trend: close above it
-  = bullish, below = bearish.
+- `EMA_LENGTH` (env, default **20**) — the EMA (of the tracker's own signal-timeframe closes,
+  e.g. 15m closes for the 15m tracker, 5m closes for the 5m tracker) that decides trend: close
+  above it = bullish, below = bearish.
 - `SWING_LOOKBACK` (env, default **5**) — trailing-bar window for the swing-extreme **location**
   read only (trend itself no longer uses this), matches the commercial indicator's own "Swing
   Pivot Lookback" setting.
 
-Order-of-events within the single next 15-min candle is resolved using **1-minute bars streamed
+Order-of-events within the single next candle is resolved using **1-minute bars streamed
 in real time** (`ic_engine.js#addM1Bar`) — the same role `request.security_lower_tf()` plays in
 the Pine version.
+
+## Multi-timeframe (2026-08-28)
+
+Runs **15m and 5m concurrently per symbol**, each as a fully independent tracker — its own EMA,
+its own swing/location state, its own pending-setup state, own entries/exits. They only share the
+1-minute bar stream (each needs it separately for intrabar sweep-sequencing).
+
+- `SIGNAL_TIMEFRAMES` (env, comma-separated, default **`15m,5m`**) — which timeframes run. Set to
+  e.g. `15m` to go back to single-timeframe, or add more (any interval Pi42's kline API/WebSocket
+  supports) as a comma-separated list.
+- Telegram alerts and dashboard rows are tagged with which timeframe fired (`(15m)`/`(5m)` in the
+  message text, a small badge on the dashboard card) so 15m and 5m signals for the same symbol
+  never look like the same trade.
+- **DB:** `inside_candle.signals.timeframe` (added via `ALTER TABLE ... ADD COLUMN IF NOT EXISTS`
+  in `schema.sql`, defaults existing rows to `'15m'` since that's the only timeframe that existed
+  before this). Restart-resilience (`getOpenSignal`/`abandonOtherOpenSignals` in `db.js`) is scoped
+  by **(symbol, timeframe)**, not symbol alone — a symbol can have a genuinely open trade on both
+  timeframes at once, and scoping by symbol alone would incorrectly abandon one of them as a
+  "stale duplicate" on restart.
+- Combined win-rate/P&L stats in Telegram outcome alerts (`db.getStats()`) are deliberately **not**
+  split by timeframe — whole-strategy track record, same as before.
 
 ## Architecture (mirrors `ichimoku-btc-xau-strategy` exactly)
 
 - `live/pi42_client.js` — public, unauthenticated Pi42 REST client (history seeding only).
-- `live/ic_engine.js` — per-symbol state machine (`IcSymbolTracker`), emits `SETUP`/`OUTCOME` events.
+- `live/ic_engine.js` — per-(symbol, timeframe) state machine (`IcSymbolTracker`, internally
+  timeframe-agnostic), emits `SETUP`/`OUTCOME` events tagged with `signalTf`.
 - `live/db.js` / `live/schema.sql` — Postgres persistence, own `inside_candle.*` schema, same
   shared instance as every other strategy in this repo.
 - `live/streamer.js` — main entry: seeds history via REST, streams live via Pi42's public
-  Socket.IO WebSocket (`{symbol}@kline_1m`, `{symbol}@kline_15m`), fires Telegram alerts.
+  Socket.IO WebSocket (`{symbol}@kline_1m` + one topic per `SIGNAL_TIMEFRAMES` entry), runs one
+  `IcSymbolTracker` per (symbol, timeframe) pair, fires Telegram alerts.
 
 ## Symbols
 
 `BTCINR`/`XAUINR` — same INR-margined pairs as `ichimoku-btc-xau-strategy` (see that strategy's
 README, "Symbol-set switch"), for consistency and to trade directly in INR capital.
+`SOLINR`/`XAGINR` added 2026-08-26 (Inside Candle only, not mirrored to Ichimoku).
 
 ## Deploy on Railway
 
@@ -76,7 +106,8 @@ Same pattern as every sibling strategy — a **separate Railway service** in the
 4. **Variables:** `TELEGRAM_BOT_TOKEN`, `DATABASE_URL` (+ `PGSSL=disable` if needed), optionally
    `R_TARGET` to override the default 3R target, `TREND_FILTER_ENABLED=false` to disable the
    trend filter (default on), `EMA_LENGTH` to override the default 20-period trend EMA,
-   `SWING_LOOKBACK` to override the default 5-bar swing window (location only).
+   `SWING_LOOKBACK` to override the default 5-bar swing window (location only),
+   `SIGNAL_TIMEFRAMES` to override the default `15m,5m` timeframe set.
 
 ## Dashboard
 
@@ -92,10 +123,10 @@ own Pi42 account.
 
 ## Known limitations / assumptions not yet empirically verified
 
-- **Pi42's `15m`/`1m` kline WebSocket topics are assumed to exist** in the same shape as the
-  `5m`/`30m`/`1h` topics `ichimoku-btc-xau-strategy` already confirmed live — not independently
-  re-verified for this bot before first deploy. Watch the first `[seed]`/`Subscribed:` log lines
-  and the first few `kline` events on deploy to confirm.
+- **Pi42's `15m`/`5m`/`1m` kline REST + WebSocket topics** are confirmed live for all four symbols
+  (verified 2026-08-28 via direct REST calls before deploy; `5m` was already confirmed live via
+  `ichimoku-btc-xau-strategy`, same as `30m`/`1h`). Watch the first `[seed]`/`Subscribed:` log
+  lines and the first few `kline` events on deploy to confirm the WebSocket side too.
 - **Same-1-min-bar-breaches-both-sides edge case** (see `ic_engine.js#addM1Bar`) is treated as no
   signal — a deliberate simplification, not a source-confirmed rule, since order can't be
   determined at 1-min resolution in that case.

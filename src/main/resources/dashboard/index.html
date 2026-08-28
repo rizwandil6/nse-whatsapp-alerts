@@ -598,6 +598,7 @@
           </div>
           <div class="card-meta">
             <span class="badge neutral">${esc(p.strategy || '—')}</span>
+            ${p.timeframe ? `<span class="badge neutral">${esc(p.timeframe)}</span>` : ''}
             <span class="badge ${dirBadge}">${esc(p.direction)}</span>
             <span class="badge ${STATUS_BADGE[p.status] || 'neutral'}">${STATUS_LABEL[p.status] || esc(p.status)}</span>
             <span>Entry <b>${fmtPx(p.entryPx)}</b></span>
