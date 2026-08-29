@@ -913,5 +913,26 @@
   "price": 965.3,
   "rsRankAtEntry": 82.44575936883629,
   "salesGrowth3Y": 36
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PPLPHARMA",
+  "date": "2026-08-27",
+  "price": 218.68,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SAIL",
+  "date": "2026-08-27",
+  "price": 200,
+  "rsRankAtEntry": 80.86785009861933
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SPARC",
+  "date": "2026-08-27",
+  "price": 207.71,
+  "rsRankAtEntry": 83.4319526627219
  }
 ]
