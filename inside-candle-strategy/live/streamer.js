@@ -44,6 +44,13 @@ const ENTRY_SYMBOLS = ['BTCINR', 'XAUINR', 'SOLINR', 'XAGINR'];
 // IcSymbolTracker (own EMA, own pending/sweep state). 5m added 2026-08-28 per explicit request
 // (originally scoped as 30m, changed to 5m before implementation).
 const SIGNAL_TIMEFRAMES = (process.env.SIGNAL_TIMEFRAMES || '15m,5m').split(',').map((s) => s.trim()).filter(Boolean);
+// Per-(symbol, timeframe) entry kill-switch -- the tracker still seeds history, watches, and logs
+// diagnostics (so it's easy to re-enable later without losing continuity), it just never actually
+// fires an entry. SOLINR:5m disabled 2026-08-29 after a 45-day backtest showed a real, not-just-
+// unlucky negative edge there (13.3% win rate, -25.37R over 60 trades) -- distinct from BTCINR/
+// XAUINR/XAGINR 5m, which backtested net positive despite similarly low win rates (the low-win-
+// rate/big-winner profile this strategy is designed around). SOLINR stays fully enabled on 15m.
+const DISABLED_ENTRIES = new Set((process.env.DISABLED_ENTRIES || 'SOLINR:5m').split(',').map((s) => s.trim()).filter(Boolean));
 const WS_URL = 'https://fawss.pi42.com/';
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046']; // personal + group, same as every sibling bot
@@ -160,12 +167,13 @@ function enqueue(trackerKey, events) {
 // AND an independent 5m tracker, each with its own EMA/swing/pending state.
 async function seedSymbolTf(symbol, tf) {
   const trackerKey = `${symbol}:${tf}`;
-  const tracker = new IcSymbolTracker(symbol, { entriesEnabled: ENTRY_SYMBOLS.includes(symbol), signalTf: tf });
+  const entriesEnabled = ENTRY_SYMBOLS.includes(symbol) && !DISABLED_ENTRIES.has(trackerKey);
+  const tracker = new IcSymbolTracker(symbol, { entriesEnabled, signalTf: tf });
   const bars = await fetchKlines(symbol, tf, SEED_BARS);
   tracker.seedHistory(bars);
   trackers[trackerKey] = tracker;
   if (bars.length) forming[`${symbol}:${tf}`] = { ...bars[bars.length - 1] };
-  console.log(`[seed] ${trackerKey}: ${bars.length} bars`);
+  console.log(`[seed] ${trackerKey}: ${bars.length} bars${entriesEnabled ? '' : ' (entries DISABLED -- watching only)'}`);
 
   // Resume any still-OPEN position from a prior process run (same restart-resilience pattern
   // as ichimoku-btc-xau-strategy -- see that strategy's README for the incident that motivated it).

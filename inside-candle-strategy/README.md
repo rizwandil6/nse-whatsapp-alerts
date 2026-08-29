@@ -96,6 +96,14 @@ its own swing/location state, its own pending-setup state, own entries/exits. Th
 - `SIGNAL_TIMEFRAMES` (env, comma-separated, default **`15m,5m`**) — which timeframes run. Set to
   e.g. `15m` to go back to single-timeframe, or add more (any interval Pi42's kline API/WebSocket
   supports) as a comma-separated list.
+- `DISABLED_ENTRIES` (env, comma-separated `SYMBOL:TF` pairs, default **`SOLINR:5m`**) — a
+  per-(symbol, timeframe) kill switch. A disabled tracker still seeds history, watches, logs
+  diagnostics, and manages any already-open trade to closure — it just never fires a *new* entry.
+  `SOLINR:5m` disabled 2026-08-29 after a 45-day backtest showed a genuine negative edge there
+  (13.3% win rate, **-25.37R over 60 trades**) — not just an unlucky live streak, unlike
+  BTCINR/XAUINR/XAGINR 5m, which backtested net positive despite similarly low win rates (the
+  low-win-rate/big-winner profile this strategy is built around — see "Floor + EMA trail" above).
+  SOLINR stays fully enabled on 15m.
 - Telegram alerts and dashboard rows are tagged with which timeframe fired (`(15m)`/`(5m)` in the
   message text, a small badge on the dashboard card) so 15m and 5m signals for the same symbol
   never look like the same trade.
@@ -136,7 +144,8 @@ Same pattern as every sibling strategy — a **separate Railway service** in the
    `R_TARGET` to override the default 3R floor, `TREND_FILTER_ENABLED=false` to disable the
    trend filter (default on), `EMA_LENGTH` to override the default 9-period trend+trail EMA,
    `SWING_LOOKBACK` to override the default 5-bar swing window (location only),
-   `SIGNAL_TIMEFRAMES` to override the default `15m,5m` timeframe set.
+   `SIGNAL_TIMEFRAMES` to override the default `15m,5m` timeframe set, `DISABLED_ENTRIES` to
+   override the default `SOLINR:5m` kill-switch list.
 
 ## Dashboard
 
