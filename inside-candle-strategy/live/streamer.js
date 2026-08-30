@@ -4,10 +4,15 @@
  * Live Inside Candle Sweep+Break scanner for BTCINR/XAUINR/SOLINR/XAGINR on Pi42.
  *
  * Data source: Pi42's PUBLIC market data only, same pattern as
- * ichimoku-btc-xau-strategy/live/streamer.js:
- *   - History seed: POST /v1/market/klines (REST, unauthenticated) -- pi42_client.js.
- *   - Live bars: the public Socket.IO WebSocket at https://fawss.pi42.com/,
- *     subscribed to `{symbol}@kline_1m` plus one topic per entry in SIGNAL_TIMEFRAMES.
+ * ichimoku-btc-xau-strategy/live/streamer.js. Two price sources, selected by `PRICE_SOURCE` env
+ * (default `MARK_PRICE`, see 2026-08-30 note below):
+ *   - `LAST_PRICE`: History seed via REST (priceType=LAST_PRICE), live bars from Pi42's own
+ *     pre-built `{pair}@kline_{interval}` WebSocket topic.
+ *   - `MARK_PRICE`: History seed via REST (priceType=MARK_PRICE), live bars built HERE from
+ *     Pi42's raw `{pair}@markPrice` tick stream (~1/sec, single price field `p`) -- Pi42 has no
+ *     ready-made Mark Price *kline* topic, so tick_aggregator.js does the OHLC bucketing that
+ *     Pi42 does for us on the Last-Price side. Confirmed empirically that tick field `p` matches
+ *     the REST MARK_PRICE kline close exactly.
  *
  * Strategy: wiki/concepts/inside-candle-liquidity-sweep-scalp.md +
  * wiki/reference/inside-candle-next-candle-trend-filtered.pine (the validated
@@ -20,6 +25,15 @@
  * closed 15m/5m bar is fed only to its own matching tracker. `SIGNAL_TIMEFRAMES` env
  * (comma-separated, default `15m,5m`) controls which timeframes run.
  *
+ * Mark Price switch (2026-08-30): a 62-day backtest (after fixing a pagination bug that had been
+ * silently truncating history to ~35 days, see pi42_client.js) showed Mark Price net +28.88%
+ * across all six symbols/four timeframes vs Last Price's -29.24% on the identical rule -- broad
+ * (23/24 symbol-timeframe combos positive on 5m/15m/30m), not one outlier. Before building this,
+ * verified entry/stop/trail-exit price levels computed from Mark Price were actually reachable on
+ * Last Price (the real tradeable market) 99%+ of the time with sub-1% gaps -- so the advantage
+ * isn't an artifact of assuming fills at prices you can't get. `PRICE_SOURCE=LAST_PRICE` reverts
+ * to the original behaviour if needed.
+ *
  * Alert-only. NO orders are ever placed -- this file makes zero authenticated
  * Pi42 requests, same boundary as every sibling strategy in this repo.
  *
@@ -27,10 +41,19 @@
  * get alerts/persistence; runs (streams + logs to console) without either.
  */
 
+// Must run BEFORE requiring pi42_client.js -- its PRICE_TYPE constant is captured once at
+// module-load time from PI42_PRICE_TYPE. Deriving it from the single PRICE_SOURCE switch here
+// (rather than requiring two separately-set env vars) is deliberate: two independent env vars
+// that must agree is exactly the kind of thing that caused the 2026-08-26 seed/live price-type
+// mismatch bug in the first place.
+const PRICE_SOURCE = process.env.PRICE_SOURCE || 'MARK_PRICE'; // 'MARK_PRICE' | 'LAST_PRICE'
+process.env.PI42_PRICE_TYPE = PRICE_SOURCE;
+
 const { io } = require('socket.io-client');
 
 const { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED } = require('./ic_engine');
 const { fetchKlines } = require('./pi42_client');
+const { TickAggregator } = require('./tick_aggregator');
 const { DB } = require('./db');
 const { pnlPct } = require('./stats');
 
@@ -64,8 +87,10 @@ const db = new DB();
 const trackers = {}; // `${symbol}:${tf}` -> IcSymbolTracker
 const signalIds = {}; // `${symbol}:${tf}` -> latest Postgres signals.id
 // Per-symbol, per-timeframe "currently forming" bar, keyed by its startTime (ms) -- same
-// rollover-detection idiom as ichimoku-btc-xau-strategy/live/streamer.js.
+// rollover-detection idiom as ichimoku-btc-xau-strategy/live/streamer.js. Only used for the
+// LAST_PRICE (kline-topic) path -- MARK_PRICE builds its own forming state inside TickAggregator.
 const forming = {}; // `${symbol}:${tfKey}` -> { timestampMs, open, high, low, close, volume }
+const tickAggregators = {}; // symbol -> TickAggregator, MARK_PRICE path only
 
 function fmtPx(x) { return x == null ? '—' : Number(x).toFixed(2); }
 function istLikeUtc(ms) { return new Date(ms).toISOString().replace('T', ' ').slice(0, 19) + ' UTC'; }
@@ -248,11 +273,28 @@ function finalizeBar(symbol, interval, bar) {
   }
 }
 
+// ---- MARK_PRICE tick path -----------------------------------------------
+// `p` confirmed empirically (2026-08-30) to match the REST MARK_PRICE kline close exactly.
+function onMarkPriceTick(payload) {
+  const symbol = (payload.s || '').toUpperCase();
+  const agg = tickAggregators[symbol];
+  if (!agg) return; // stray topic echo for a symbol we didn't seed
+  const price = Number(payload.p);
+  const ts = Number(payload.E);
+  if (!Number.isFinite(price) || !Number.isFinite(ts)) return;
+  const closed = agg.addTick(price, ts);
+  for (const { tf, bar } of closed) finalizeBar(symbol, tf, bar);
+}
+
 function subscribeTopics(socket, symbols) {
   const topics = [];
   for (const s of symbols) {
     const lower = s.toLowerCase();
-    for (const interval of ['1m', ...SIGNAL_TIMEFRAMES]) topics.push(`${lower}@kline_${interval}`);
+    if (PRICE_SOURCE === 'MARK_PRICE') {
+      topics.push(`${lower}@markPrice`);
+    } else {
+      for (const interval of ['1m', ...SIGNAL_TIMEFRAMES]) topics.push(`${lower}@kline_${interval}`);
+    }
   }
   socket.emit('subscribe', { params: topics });
   console.log('Subscribed:', topics.join(', '));
@@ -269,12 +311,16 @@ function connectAndRun(isFirstConnect, allSymbols) {
       subscribeTopics(socket, allSymbols);
       if (isFirstConnect) {
         const trendMsg = TREND_FILTER_ENABLED ? 'trend-filtered' : 'no trend filter';
-        await emit('STARTUP', null, `🚀 Inside Candle Sweep+Break scanner started (${SIGNAL_TIMEFRAMES.join('/')} + 1m, ${R_TARGET}R floor + EMA trail, ${trendMsg}). New entries on: ${ENTRY_SYMBOLS.join(', ')}. Alert-only, no orders.`, null);
+        await emit('STARTUP', null, `🚀 Inside Candle Sweep+Break scanner started (${SIGNAL_TIMEFRAMES.join('/')} + 1m, ${PRICE_SOURCE}, ${R_TARGET}R floor + EMA trail, ${trendMsg}). New entries on: ${ENTRY_SYMBOLS.join(', ')}. Alert-only, no orders.`, null);
       } else {
         await emit('RECONNECTED', null, `🔌 Pi42 WebSocket reconnected after a network blip. Tracking continues uninterrupted -- no history lost, no positions reset.`, null);
       }
     });
-    socket.on('kline', (payload) => { try { onKlineEvent(payload); } catch (e) { console.warn('kline handler error:', e.message); } });
+    if (PRICE_SOURCE === 'MARK_PRICE') {
+      socket.on('markPriceUpdate', (payload) => { try { onMarkPriceTick(payload); } catch (e) { console.warn('markPriceUpdate handler error:', e.message); } });
+    } else {
+      socket.on('kline', (payload) => { try { onKlineEvent(payload); } catch (e) { console.warn('kline handler error:', e.message); } });
+    }
     socket.on('connect_error', (err) => { console.error('WebSocket connect_error:', err.message); finish('connect_error'); });
     socket.on('disconnect', (reason) => { console.log('Disconnected:', reason); finish('disconnect'); });
     process.once('SIGTERM', () => finish('sigterm'));
@@ -283,8 +329,12 @@ function connectAndRun(isFirstConnect, allSymbols) {
 }
 
 async function main() {
-  console.log('Initializing Inside Candle Sweep+Break scanner (Pi42, alert-only)...');
+  console.log(`Initializing Inside Candle Sweep+Break scanner (Pi42, alert-only, ${PRICE_SOURCE})...`);
   await db.init();
+
+  if (PRICE_SOURCE === 'MARK_PRICE') {
+    for (const symbol of ENTRY_SYMBOLS) tickAggregators[symbol] = new TickAggregator(symbol, ['1m', ...SIGNAL_TIMEFRAMES]);
+  }
 
   for (const symbol of ENTRY_SYMBOLS) {
     for (const tf of SIGNAL_TIMEFRAMES) {

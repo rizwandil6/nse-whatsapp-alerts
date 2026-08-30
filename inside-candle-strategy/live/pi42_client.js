@@ -68,7 +68,7 @@ async function fetchKlines(pair, interval, limit, { startTime, endTime } = {}) {
  * on timestampMs in case of any page-boundary overlap.
  */
 async function fetchKlinesRange(pair, interval, totalBars, { endTime, delayMs = 350 } = {}) {
-  const intervalMs = { '1m': 60000, '15m': 15 * 60000 }[interval];
+  const intervalMs = { '1m': 60000, '15m': 15 * 60000, '30m': 30 * 60000, '1h': 60 * 60000 }[interval];
   if (!intervalMs) throw new Error(`fetchKlinesRange: unsupported interval ${interval}`);
   const PAGE = 1500;
   const byTs = new Map();
@@ -78,11 +78,18 @@ async function fetchKlinesRange(pair, interval, totalBars, { endTime, delayMs = 
     const pageLimit = Math.min(PAGE, remaining + 5); // small overlap buffer, deduped below
     const pageStart = cursor - pageLimit * intervalMs;
     const bars = await fetchKlines(pair, interval, pageLimit, { startTime: pageStart, endTime: cursor });
-    if (!bars.length) break; // no more history available
+    if (!bars.length) break; // genuinely no data in this window -- true end of history, stop here
     for (const b of bars) byTs.set(b.timestampMs, b);
     cursor = bars[0].timestampMs - 1; // page further back, just before the oldest bar received
     remaining -= bars.length;
-    if (bars.length < pageLimit) break; // exchange ran out of history for this pair/interval
+    // Bug fix (2026-08-30, caught mid-session: XAGINR's paged history silently stopped at
+    // 2026-08-22 even though real trading data continues for weeks further back). A page
+    // returning FEWER than pageLimit bars does NOT mean "end of history" -- ordinary data gaps
+    // (a few missing minutes here and there, same class of gap already documented in
+    // backtest.js's own bucket-transition comment) routinely produce partial pages in the middle
+    // of a long, otherwise-continuous history. The only reliable "no more history" signal is a
+    // page that comes back completely EMPTY (handled above) -- so a partial-but-nonzero page just
+    // continues paging further back, same as a full page would.
     await new Promise((r) => setTimeout(r, delayMs));
   }
   return Array.from(byTs.values()).sort((a, b) => a.timestampMs - b.timestampMs);

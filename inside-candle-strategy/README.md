@@ -87,6 +87,33 @@ trade — it flips it into **trailing mode**:
   `Trend-filtered entry (EMA9, swing lookback 5)` parameter line; `Target (3R)` is now labelled
   `Floor (3R min, then trails)`.
 
+## Price source: Mark Price vs Last Price (2026-08-30)
+
+`PRICE_SOURCE` (env, default **`MARK_PRICE`**) controls both history-seed AND live streaming from
+a single switch — deliberately one env var, not two, since two independently-set values that must
+agree is exactly what caused the 2026-08-26 seed/live mismatch bug. `PRICE_SOURCE=LAST_PRICE`
+reverts fully to the original behaviour (REST seed + Pi42's own pre-built `kline` WebSocket topic).
+
+**Why:** a 62-day backtest (after fixing a `pi42_client.js` pagination bug that had silently
+truncated history to ~35 days — a page returning fewer than the max bars doesn't mean "end of
+history," ordinary small data gaps produce partial pages all the time) showed Mark Price net
+**+28.88%** across all six symbols/four timeframes on the identical rule, vs Last Price's
+**−29.24%** — broad (23 of 24 symbol-timeframe combos positive on 5m/15m/30m), not one outlier.
+Before switching, verified entry/stop/trail-exit price levels computed from Mark Price were
+actually **reachable on Last Price** (the real tradeable market) **99%+ of the time**, gaps under
+1% when not — so the advantage isn't just an artifact of assuming fills at prices the real market
+never touched.
+
+**How live streaming works:** Pi42 has no ready-made Mark Price *candle* topic on its WebSocket —
+only `{pair}@markPrice`, a raw tick stream (~1/sec, single price field `p`, confirmed empirically
+to match the REST `priceType=MARK_PRICE` kline close exactly). `live/tick_aggregator.js` builds
+the same OHLC candles from these ticks that Pi42's own `kline` topic provides for Last Price —
+one `TickAggregator` per symbol, tracking every configured timeframe (`1m` + each of
+`SIGNAL_TIMEFRAMES`) simultaneously, using the same transition-style rollover detection (a bucket
+closes the moment a tick lands in the next one) as the existing kline-based path. Volume is always
+0 (`markPriceUpdate` carries no trade-volume field; confirmed Mark Price REST klines report
+volume=0 too) — inert, since `ic_engine.js` never reads volume for any decision.
+
 ## Multi-timeframe (2026-08-28)
 
 Runs **15m and 5m concurrently per symbol**, each as a fully independent tracker — its own EMA,
@@ -118,14 +145,18 @@ its own swing/location state, its own pending-setup state, own entries/exits. Th
 
 ## Architecture (mirrors `ichimoku-btc-xau-strategy` exactly)
 
-- `live/pi42_client.js` — public, unauthenticated Pi42 REST client (history seeding only).
+- `live/pi42_client.js` — public, unauthenticated Pi42 REST client (history seeding + backtest
+  paging; `fetchKlinesRange`'s pagination bug fixed 2026-08-30).
+- `live/tick_aggregator.js` — builds OHLC candles from Pi42's raw `markPriceUpdate` tick stream
+  (`PRICE_SOURCE=MARK_PRICE` path only; unused when `PRICE_SOURCE=LAST_PRICE`).
 - `live/ic_engine.js` — per-(symbol, timeframe) state machine (`IcSymbolTracker`, internally
   timeframe-agnostic), emits `SETUP`/`OUTCOME` events tagged with `signalTf`.
 - `live/db.js` / `live/schema.sql` — Postgres persistence, own `inside_candle.*` schema, same
   shared instance as every other strategy in this repo.
 - `live/streamer.js` — main entry: seeds history via REST, streams live via Pi42's public
-  Socket.IO WebSocket (`{symbol}@kline_1m` + one topic per `SIGNAL_TIMEFRAMES` entry), runs one
-  `IcSymbolTracker` per (symbol, timeframe) pair, fires Telegram alerts.
+  Socket.IO WebSocket (`{symbol}@markPrice` tick stream, or `{symbol}@kline_1m` + one topic per
+  `SIGNAL_TIMEFRAMES` entry for `PRICE_SOURCE=LAST_PRICE`), runs one `IcSymbolTracker` per
+  (symbol, timeframe) pair, fires Telegram alerts.
 
 ## Symbols
 
@@ -141,11 +172,11 @@ Same pattern as every sibling strategy — a **separate Railway service** in the
 2. **Root directory:** `inside-candle-strategy/live`
 3. **Start command:** `npm start` (build/install inferred from `package.json`).
 4. **Variables:** `TELEGRAM_BOT_TOKEN`, `DATABASE_URL` (+ `PGSSL=disable` if needed), optionally
-   `R_TARGET` to override the default 3R floor, `TREND_FILTER_ENABLED=false` to disable the
-   trend filter (default on), `EMA_LENGTH` to override the default 9-period trend+trail EMA,
-   `SWING_LOOKBACK` to override the default 5-bar swing window (location only),
-   `SIGNAL_TIMEFRAMES` to override the default `15m,5m` timeframe set, `DISABLED_ENTRIES` to
-   override the default `SOLINR:5m` kill-switch list.
+   `PRICE_SOURCE=LAST_PRICE` to revert from the default Mark Price feed, `R_TARGET` to override
+   the default 3R floor, `TREND_FILTER_ENABLED=false` to disable the trend filter (default on),
+   `EMA_LENGTH` to override the default 9-period trend+trail EMA, `SWING_LOOKBACK` to override
+   the default 5-bar swing window (location only), `SIGNAL_TIMEFRAMES` to override the default
+   `15m,5m` timeframe set, `DISABLED_ENTRIES` to override the default `SOLINR:5m` kill-switch list.
 
 ## Dashboard
 
@@ -168,3 +199,10 @@ own Pi42 account.
 - **Same-1-min-bar-breaches-both-sides edge case** (see `ic_engine.js#addM1Bar`) is treated as no
   signal — a deliberate simplification, not a source-confirmed rule, since order can't be
   determined at 1-min resolution in that case.
+- **`tick_aggregator.js` (Mark Price live path) is validated by a ~2-minute local smoke test
+  against real Pi42 ticks (2026-08-30) — confirmed correct bucketing and end-to-end processing
+  through to a real diagnostic log line, but not yet battle-tested over hours/days of live
+  operation the way the original kline-based path has been (multiple real bugs found and fixed
+  there over time: late/duplicate events, zero-width bars). Watch `railway logs` closely after
+  first deploy — the `[check]` diagnostic lines should show sensible, real prices at correct
+  interval boundaries for every symbol.
