@@ -76,33 +76,70 @@ public class PortfolioAnalysisScheduler {
 
     private record AnalysisResultPayload(String decision, String reasoning) {}
 
+    // Poll interval while waiting for a job to finish -- not a fixed sleep before the
+    // whole call, just the gap between status checks once the job is queued.
+    private static final Duration POLL_INTERVAL = Duration.ofSeconds(15);
+
+    /**
+     * POST /analyze returns a job_id immediately; the actual multi-minute TradingAgents
+     * run happens server-side and is polled via GET /analyze/{job_id} -- NOT a single
+     * synchronous request. Confirmed live (2026-08-30): Railway's edge proxy cuts a
+     * long-held synchronous request before a real run finishes (502), even though the
+     * backend was still working -- this poll loop is the fix, not a nice-to-have.
+     */
     private AnalysisResultPayload callAnalysisService(String ticker, LocalDate date) throws Exception {
         var body = objectMapper.createObjectNode();
         body.put("ticker", ticker);
         body.put("date", date.toString());
 
-        HttpRequest request = HttpRequest.newBuilder()
+        HttpRequest startRequest = HttpRequest.newBuilder()
                 .uri(URI.create(analysisServiceUrl.replaceAll("/+$", "") + "/analyze"))
-                .timeout(REQUEST_TIMEOUT)
+                .timeout(Duration.ofSeconds(30))
                 .header("Content-Type", "application/json")
                 .header("X-API-Token", analysisServiceToken)
                 .POST(HttpRequest.BodyPublishers.ofString(body.toString(), StandardCharsets.UTF_8))
                 .build();
 
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-        if (response.statusCode() != 200) {
-            throw new RuntimeException("analysis-service returned " + response.statusCode() + ": " + response.body());
+        HttpResponse<String> startResponse = httpClient.send(startRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (startResponse.statusCode() != 200) {
+            throw new RuntimeException("analysis-service /analyze returned " + startResponse.statusCode() + ": " + startResponse.body());
+        }
+        String jobId = objectMapper.readTree(startResponse.body()).path("job_id").asText();
+        if (jobId.isBlank()) {
+            throw new RuntimeException("analysis-service /analyze response had no job_id: " + startResponse.body());
         }
 
-        JsonNode node = objectMapper.readTree(response.body());
-        JsonNode decisionNode = node.path("decision");
-        // TradingAgents' propagate() return shape isn't a fixed contract on our side --
-        // store it as plain text either way. A structured decision (object) commonly
-        // carries an "action"/"reasoning"-ish field; fall back to the raw JSON text
-        // for `decision` and leave `reasoning` null rather than guessing at field names.
-        if (decisionNode.isTextual()) {
-            return new AnalysisResultPayload(decisionNode.asText(), null);
+        URI statusUri = URI.create(analysisServiceUrl.replaceAll("/+$", "") + "/analyze/" + jobId);
+        long deadline = System.currentTimeMillis() + REQUEST_TIMEOUT.toMillis();
+        while (System.currentTimeMillis() < deadline) {
+            Thread.sleep(POLL_INTERVAL.toMillis());
+
+            HttpRequest statusRequest = HttpRequest.newBuilder()
+                    .uri(statusUri)
+                    .timeout(Duration.ofSeconds(30))
+                    .header("X-API-Token", analysisServiceToken)
+                    .GET()
+                    .build();
+            HttpResponse<String> statusResponse = httpClient.send(statusRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (statusResponse.statusCode() != 200) {
+                throw new RuntimeException("analysis-service /analyze/" + jobId + " returned " + statusResponse.statusCode() + ": " + statusResponse.body());
+            }
+            JsonNode node = objectMapper.readTree(statusResponse.body());
+            String jobStatus = node.path("status").asText();
+            if ("done".equals(jobStatus)) {
+                JsonNode decisionNode = node.path("decision");
+                // TradingAgents' propagate() return shape isn't a fixed contract on our side --
+                // store it as plain text either way. A structured decision (object) commonly
+                // carries an "action"/"reasoning"-ish field; fall back to the raw JSON text
+                // for `decision` and leave `reasoning` null rather than guessing at field names.
+                String decisionText = decisionNode.isTextual() ? decisionNode.asText() : decisionNode.toString();
+                return new AnalysisResultPayload(decisionText, null);
+            }
+            if ("error".equals(jobStatus)) {
+                throw new RuntimeException("analysis-service job failed: " + node.path("error").asText());
+            }
+            // else "running" -- keep polling
         }
-        return new AnalysisResultPayload(decisionNode.toString(), null);
+        throw new RuntimeException("analysis-service job for " + ticker + " did not finish within " + REQUEST_TIMEOUT);
     }
 }
