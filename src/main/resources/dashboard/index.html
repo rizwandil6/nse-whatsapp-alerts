@@ -232,10 +232,17 @@
   .seas-foot-cell { background: var(--surface-2); border-top: 2px solid var(--border-strong); font-weight: 800; }
   .seas-foot-cell.seas-empty { background: repeating-linear-gradient(45deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 7px); border-top: 2px solid var(--border-strong); }
 
-  .pf-add-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .pf-add-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; position: relative; }
+  .pf-add-field { position: relative; }
   .pf-add-row input[type="text"] { font: inherit; font-size: 13px; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; width: 160px; text-transform: uppercase; }
   .pf-add-row button { font: inherit; font-size: 13px; font-weight: 600; color: #fff; background: var(--accent); border: none; border-radius: 8px; padding: 8px 16px; cursor: pointer; }
   .pf-add-row button:disabled { opacity: .5; cursor: default; }
+  .pf-suggestions { position: absolute; top: calc(100% + 4px); left: 0; z-index: 20; min-width: 220px; max-height: 240px; overflow-y: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.12); display: none; }
+  .pf-suggestions.open { display: block; }
+  .pf-suggestion-item { display: flex; justify-content: space-between; gap: 10px; padding: 7px 12px; font-size: 12.5px; cursor: pointer; }
+  .pf-suggestion-item:hover, .pf-suggestion-item.active { background: var(--accent-soft); }
+  .pf-suggestion-symbol { font-weight: 700; color: var(--ink); }
+  .pf-suggestion-index { color: var(--ink-faint); font-size: 11px; white-space: nowrap; }
   .pf-error { font-size: 12px; color: var(--loss); margin: -8px 0 12px; }
   .pf-remove { font: inherit; font-size: 11px; color: var(--ink-faint); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; cursor: pointer; margin-left: auto; }
   .pf-decision { font-size: 13px; font-weight: 700; }
@@ -1491,7 +1498,10 @@
         decision + reasoning shown below, unchanged until the next day's run.</p>
       </div>
       <div class="pf-add-row">
-        <input type="text" id="pf-ticker-input" placeholder="e.g. RELIANCE" maxlength="20" />
+        <div class="pf-add-field">
+          <input type="text" id="pf-ticker-input" placeholder="e.g. RELIANCE" maxlength="20" autocomplete="off" />
+          <div class="pf-suggestions" id="pf-suggestions"></div>
+        </div>
         <button type="button" id="pf-add-btn">Add</button>
       </div>
       <div class="pf-error" id="pf-error" style="display:none;"></div>
@@ -1520,6 +1530,7 @@
       const ticker = input.value.trim().toUpperCase();
       if (!ticker) return;
       clearError();
+      closeSuggestions();
       try {
         const res = await fetch('/api/dashboard/portfolio/tickers', {
           method: 'POST',
@@ -1536,9 +1547,76 @@
         showError(e.message);
       }
     });
-    document.getElementById('pf-ticker-input').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') document.getElementById('pf-add-btn').click();
+
+    // Ticker suggestions -- reuses INDEX_MEMBERSHIP (already loaded client-side for the
+    // Swing tab's index badges, ~700+ NSE symbols) rather than a server round-trip.
+    // Kicks in at 3+ characters, matches by substring (prefix matches ranked first),
+    // capped to keep the dropdown scannable.
+    const suggestionsEl = document.getElementById('pf-suggestions');
+    const ALL_SYMBOLS = Object.keys(INDEX_MEMBERSHIP).sort();
+    let suggestionItems = [];
+    let activeSuggestion = -1;
+
+    function closeSuggestions() {
+      suggestionsEl.classList.remove('open');
+      suggestionsEl.innerHTML = '';
+      suggestionItems = [];
+      activeSuggestion = -1;
+    }
+
+    function renderSuggestions(query) {
+      const q = query.trim().toUpperCase();
+      if (q.length < 3) { closeSuggestions(); return; }
+      const starts = ALL_SYMBOLS.filter((s) => s.startsWith(q));
+      const contains = ALL_SYMBOLS.filter((s) => !s.startsWith(q) && s.includes(q));
+      suggestionItems = [...starts, ...contains].slice(0, 8);
+      if (!suggestionItems.length) { closeSuggestions(); return; }
+      activeSuggestion = -1;
+      suggestionsEl.innerHTML = suggestionItems.map((s) =>
+        `<div class="pf-suggestion-item" data-symbol="${esc(s)}"><span class="pf-suggestion-symbol">${esc(s)}</span><span class="pf-suggestion-index">${esc(INDEX_MEMBERSHIP[s] || '')}</span></div>`
+      ).join('');
+      suggestionsEl.classList.add('open');
+    }
+
+    function pickSuggestion(symbol) {
+      document.getElementById('pf-ticker-input').value = symbol;
+      closeSuggestions();
+      document.getElementById('pf-ticker-input').focus();
+    }
+
+    document.getElementById('pf-ticker-input').addEventListener('input', (e) => renderSuggestions(e.target.value));
+
+    suggestionsEl.addEventListener('click', (e) => {
+      const item = e.target.closest('.pf-suggestion-item');
+      if (item) pickSuggestion(item.dataset.symbol);
     });
+
+    document.getElementById('pf-ticker-input').addEventListener('keydown', (e) => {
+      const open = suggestionsEl.classList.contains('open');
+      if (open && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+        e.preventDefault();
+        const delta = e.key === 'ArrowDown' ? 1 : -1;
+        activeSuggestion = (activeSuggestion + delta + suggestionItems.length) % suggestionItems.length;
+        [...suggestionsEl.children].forEach((el, i) => el.classList.toggle('active', i === activeSuggestion));
+        return;
+      }
+      if (e.key === 'Enter') {
+        if (open && activeSuggestion >= 0) {
+          e.preventDefault();
+          pickSuggestion(suggestionItems[activeSuggestion]);
+          return;
+        }
+        document.getElementById('pf-add-btn').click();
+        return;
+      }
+      if (e.key === 'Escape') closeSuggestions();
+    });
+
+    // loadPortfolio() re-runs on every tab reselect (see selectTab) -- replace the prior
+    // document-level listener rather than stacking a new one on top each time.
+    if (window.__pfOutsideClickHandler) document.removeEventListener('click', window.__pfOutsideClickHandler);
+    window.__pfOutsideClickHandler = (e) => { if (!e.target.closest('.pf-add-field')) closeSuggestions(); };
+    document.addEventListener('click', window.__pfOutsideClickHandler);
 
     await refreshList();
   }
