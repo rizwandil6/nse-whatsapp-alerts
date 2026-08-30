@@ -1780,21 +1780,45 @@
   // starting a new one cancels whatever was playing. Each button's own onend/onerror
   // closure resets ONLY that button's label, so a stale event from a since-replaced
   // utterance can't clobber a newer one's state.
+  // Two known Safari/iOS speechSynthesis bugs, both worked around below:
+  // 1. speak() called synchronously right after cancel() silently no-ops the new
+  //    utterance -- needs a short delay between the two.
+  // 2. Long single utterances (this reasoning text can run several thousand
+  //    characters) are unreliable on iOS Safari -- can silently fail or stop partway.
+  //    Chaining a sequence of shorter sentence-chunks (each utterance's onend triggers
+  //    the next) is the standard workaround, and works fine on every other browser too.
   const SPEECH_SUPPORTED = 'speechSynthesis' in window;
   let activeSpeechBtn = null;
-  function toggleSpeech(btn, text) {
-    if (activeSpeechBtn === btn) {
-      window.speechSynthesis.cancel();
+  let activeUtterance = null; // kept referenced -- some browsers stop speech if the utterance gets GC'd mid-playback
+
+  function speakChunks(chunks, idx, btn) {
+    if (idx >= chunks.length) {
+      if (activeSpeechBtn === btn) activeSpeechBtn = null;
+      btn.textContent = '🔊 Listen';
       return;
     }
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.onstart = () => { activeSpeechBtn = btn; btn.textContent = '⏹ Stop'; };
-    utter.onend = utter.onerror = () => {
+    const utter = new SpeechSynthesisUtterance(chunks[idx]);
+    activeUtterance = utter;
+    utter.onend = () => speakChunks(chunks, idx + 1, btn);
+    utter.onerror = () => {
       if (activeSpeechBtn === btn) activeSpeechBtn = null;
       btn.textContent = '🔊 Listen';
     };
     window.speechSynthesis.speak(utter);
+  }
+
+  function toggleSpeech(btn, text) {
+    if (activeSpeechBtn === btn) {
+      window.speechSynthesis.cancel();
+      activeSpeechBtn = null;
+      btn.textContent = '🔊 Listen';
+      return;
+    }
+    window.speechSynthesis.cancel();
+    activeSpeechBtn = btn;
+    btn.textContent = '⏹ Stop';
+    const chunks = text.match(/[^.!?]+[.!?]+|\S+$/g) || [text];
+    setTimeout(() => speakChunks(chunks, 0, btn), 50);
   }
 
   function renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError, pollAfterTrigger) {
