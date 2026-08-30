@@ -85,6 +85,14 @@ public class PortfolioService {
                 "SELECT browser_id FROM portfolio.tickers WHERE ticker = ?", String.class, ticker);
     }
 
+    /** Guards the per-ticker "Refresh" button -- only analyze tickers actually in this browser's portfolio, not arbitrary free text. */
+    public boolean isInPortfolio(String browserId, String ticker) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM portfolio.tickers WHERE browser_id = ? AND ticker = ?",
+                Integer.class, browserId, ticker);
+        return count != null && count > 0;
+    }
+
     public void upsertAnalysis(String browserId, String ticker, LocalDate analysisDate, String decision, String reasoning) {
         jdbcTemplate.update(
                 "INSERT INTO portfolio.analysis (browser_id, ticker, analysis_date, decision, reasoning) " +

@@ -62,6 +62,27 @@ public class PortfolioController {
         return ResponseEntity.ok(Map.of("status", "ok", "count", pending.size()));
     }
 
+    // Per-card "Refresh" button -- force a fresh analysis for ONE ticker today, regardless
+    // of whether it already has a result for today (unlike /analyze-pending, which skips
+    // anything already analyzed). Needed because a ticker's existing row can predate a
+    // change to what gets captured (e.g. reasoning text added 2026-08-30 -- older rows
+    // have decision but reasoning=null, and won't be picked up again until tomorrow's
+    // cron without this). Same fan-out-to-every-holder + in-flight-dedup behavior as
+    // every other analyzeTickers() caller.
+    @PostMapping("/analyze-ticker")
+    public ResponseEntity<?> analyzeTicker(@RequestBody TickerRequest req) {
+        String browserId = validateBrowserId(req.browserId());
+        String ticker = validateTicker(req.ticker());
+        if (browserId == null || ticker == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "invalid browserId or ticker"));
+        }
+        if (!portfolioService.isInPortfolio(browserId, ticker)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "ticker not in this portfolio"));
+        }
+        new Thread(() -> portfolioAnalysisScheduler.analyzeTickers(List.of(ticker))).start();
+        return ResponseEntity.ok(Map.of("status", "ok"));
+    }
+
     public record TickerRequest(String browserId, String ticker) {}
 
     @PostMapping("/tickers")

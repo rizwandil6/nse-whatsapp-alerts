@@ -248,7 +248,9 @@
   .pf-run-row button { font: inherit; font-size: 12.5px; font-weight: 600; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 14px; cursor: pointer; }
   .pf-run-row button:disabled { opacity: .5; cursor: default; }
   .pf-run-status { font-size: 12px; color: var(--ink-faint); }
-  .pf-remove { font: inherit; font-size: 11px; color: var(--ink-faint); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; cursor: pointer; margin-left: auto; }
+  .pf-card-actions { display: flex; gap: 6px; margin-left: auto; }
+  .pf-remove, .pf-refresh { font: inherit; font-size: 11px; color: var(--ink-faint); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; cursor: pointer; }
+  .pf-refresh:disabled { opacity: .5; cursor: default; }
   .pf-decision { font-size: 13px; font-weight: 700; }
   .pf-reasoning { font-size: 12.5px; color: var(--ink-muted); white-space: pre-wrap; }
   .pf-pending { font-size: 12px; color: var(--ink-faint); font-style: italic; }
@@ -403,6 +405,22 @@
       `;
       grid.appendChild(tile);
     }
+    // Portfolio -- not in TABS (per-browser data, not a generic alert feed, see
+    // selectTab's own special-case), so built here directly rather than through the
+    // loop above. No tab-bar count span to mirror either (that tab deliberately has
+    // none, since "count" there would mean something different -- tickers, not alerts).
+    const pfTile = document.createElement('button');
+    pfTile.className = 'tile';
+    pfTile.dataset.tab = 'portfolio';
+    pfTile.innerHTML = `
+      <div class="tile-top">
+        <div class="tile-title">Portfolio</div>
+        <span class="tile-count" id="tile-count-portfolio"></span>
+      </div>
+      <div class="tile-preview" id="tile-preview-portfolio"><div class="tile-empty">Loading…</div></div>
+    `;
+    grid.appendChild(pfTile);
+
     await Promise.all(Object.keys(TABS).map(async (key) => {
       const countEl = document.getElementById('tile-count-' + key);
       const previewEl = document.getElementById('tile-preview-' + key);
@@ -416,6 +434,28 @@
         previewEl.innerHTML = '<div class="tile-empty">Failed to load.</div>';
       }
     }));
+
+    try {
+      const pfBrowserId = getBrowserId();
+      const res = await fetch('/api/dashboard/portfolio/analysis?browserId=' + encodeURIComponent(pfBrowserId));
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const rows = await res.json();
+      const pfCountEl = document.getElementById('tile-count-portfolio');
+      const pfPreviewEl = document.getElementById('tile-preview-portfolio');
+      pfCountEl.textContent = rows.length ? String(rows.length) : '';
+      if (!rows.length) {
+        pfPreviewEl.innerHTML = '<div class="tile-empty">No tickers yet.</div>';
+      } else {
+        const pending = rows.filter((r) => r.analysisDate == null).length;
+        const latest = rows.filter((r) => r.analysisDate != null).sort((a, b) => b.analysisDate.localeCompare(a.analysisDate))[0];
+        const pendingLine = pending ? `<div class="tile-preview-sub">${pending} pending analysis</div>` : '';
+        pfPreviewEl.innerHTML = latest
+          ? `<div class="tile-preview-title">${esc(latest.ticker)} — ${esc(latest.decision)}</div>${pendingLine}<div class="tile-preview-time">${esc(latest.analysisDate)}</div>`
+          : `<div class="tile-empty">${pending} of ${rows.length} pending analysis</div>`;
+      }
+    } catch (e) {
+      document.getElementById('tile-preview-portfolio').innerHTML = '<div class="tile-empty">Failed to load.</div>';
+    }
   }
 
   function selectTab(key) {
@@ -1542,7 +1582,7 @@
         const res = await fetch('/api/dashboard/portfolio/analysis?browserId=' + encodeURIComponent(browserId));
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const rows = await res.json();
-        renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError);
+        renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError, pollAfterTrigger);
         const pendingCount = rows.filter((r) => r.analysisDate == null).length;
         runBtn.disabled = pendingCount === 0;
         runBtn.textContent = pendingCount ? `Run analysis (${pendingCount} pending)` : 'Run analysis';
@@ -1551,6 +1591,24 @@
         listEl.innerHTML = '<div class="state-msg">Failed to load — ' + esc(e.message) + '</div>';
         return 0;
       }
+    }
+
+    // Backs the per-card "Refresh" button -- unlike the bulk "Run analysis" flow, a
+    // single-ticker refresh has no server-side "still pending" signal to poll against
+    // (the ticker already has a result), so this just re-fetches on a fixed schedule for
+    // up to ~21 min (above the analysis-service's own 20-min job timeout) and stops --
+    // refreshList()'s own re-render picks up the new result as soon as it lands, with no
+    // explicit "done" detection needed.
+    function pollAfterTrigger() {
+      stopPolling();
+      let ticks = 0;
+      const MAX_TICKS = 63; // ~21 min at 20s
+      const poll = async () => {
+        await refreshList();
+        ticks++;
+        if (ticks < MAX_TICKS) pfPollTimer = setTimeout(poll, 20000);
+      };
+      pfPollTimer = setTimeout(poll, 20000);
     }
 
     runBtn.addEventListener('click', async () => {
@@ -1687,7 +1745,7 @@
     await refreshList();
   }
 
-  function renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError) {
+  function renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError, pollAfterTrigger) {
     if (!rows.length) {
       listEl.innerHTML = '<div class="state-msg">No tickers yet — add one above.</div>';
       return;
@@ -1704,7 +1762,10 @@
         <div class="card-top">
           <div class="card-title">${esc(r.ticker)}</div>
           ${hasAnalysis ? `<div class="card-time">as of ${esc(r.analysisDate)}</div>` : ''}
-          <button type="button" class="pf-remove" data-ticker="${esc(r.ticker)}">Remove</button>
+          <div class="pf-card-actions">
+            ${hasAnalysis ? `<button type="button" class="pf-refresh" data-ticker="${esc(r.ticker)}">Refresh</button>` : ''}
+            <button type="button" class="pf-remove" data-ticker="${esc(r.ticker)}">Remove</button>
+          </div>
         </div>
         ${hasAnalysis
           ? `<div class="pf-decision">${esc(r.decision)}</div>${r.reasoning ? `<div class="pf-reasoning">${esc(r.reasoning)}</div>` : ''}`
@@ -1724,6 +1785,34 @@
           showError(e.message);
         }
       });
+      // Force a fresh analysis for just this ticker, even though it already has a
+      // result for today -- e.g. an older row missing reasoning text added later, or
+      // just wanting an updated take. Unlike the bulk "Run analysis" button (only
+      // truly-pending tickers), this always re-triggers on click.
+      const refreshBtn = card.querySelector('.pf-refresh');
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', async () => {
+          clearError();
+          refreshBtn.disabled = true;
+          refreshBtn.textContent = 'Refreshing…';
+          try {
+            const res = await fetch('/api/dashboard/portfolio/analyze-ticker', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ browserId, ticker: r.ticker }),
+            });
+            if (!res.ok) {
+              const body = await res.json().catch(() => ({}));
+              throw new Error(body.error || ('HTTP ' + res.status));
+            }
+            pollAfterTrigger();
+          } catch (e) {
+            showError(e.message);
+            refreshBtn.disabled = false;
+            refreshBtn.textContent = 'Refresh';
+          }
+        });
+      }
       listEl.appendChild(card);
     }
   }
