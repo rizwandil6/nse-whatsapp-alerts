@@ -100,7 +100,12 @@ public class PortfolioAnalysisScheduler {
      */
     private AnalysisResultPayload callAnalysisService(String ticker, LocalDate date) throws Exception {
         var body = objectMapper.createObjectNode();
-        body.put("ticker", ticker);
+        // TradingAgents' default data vendor (yfinance) can't resolve a bare NSE symbol --
+        // confirmed live, "ENRIN" 404'd as "possibly delisted" while "ENRIN.NS" returns real
+        // data. Every ticker in the Portfolio tab's autocomplete (INDEX_MEMBERSHIP in
+        // index.html) is an NSE symbol, so ".NS" is always correct here -- suffix only for
+        // the analysis-service call, keep the plain symbol for DB storage/display.
+        body.put("ticker", ticker + ".NS");
         body.put("date", date.toString());
 
         HttpRequest startRequest = HttpRequest.newBuilder()
