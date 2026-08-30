@@ -251,6 +251,7 @@
   .pf-card-actions { display: flex; gap: 6px; margin-left: auto; }
   .pf-remove, .pf-refresh { font: inherit; font-size: 11px; color: var(--ink-faint); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; cursor: pointer; }
   .pf-refresh:disabled { opacity: .5; cursor: default; }
+  .pf-listen { font: inherit; font-size: 11px; color: var(--ink-faint); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; cursor: pointer; }
   .pf-decision { font-size: 13px; font-weight: 700; }
   .pf-reasoning { font-size: 12.5px; color: var(--ink-muted); margin-top: 8px; }
   .pf-reasoning p { margin: 0 0 10px; }
@@ -468,6 +469,9 @@
     // otherwise navigating away mid-poll (or back in, which creates a fresh loop of its
     // own via loadPortfolio) leaves a stale timer hitting the API against detached DOM.
     if (window.__pfStopPolling) window.__pfStopPolling();
+    // Same reasoning as the poll-loop stop above -- don't leave a card reading aloud in
+    // the background after navigating to a different tab.
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === key));
     document.querySelectorAll('.panel').forEach((p) => p.classList.toggle('active', p.id === 'panel-' + key));
     // Swing tab is deliberately excluded from dataCache in fetchTabData (it carries
@@ -1757,8 +1761,40 @@
   // text), so this stays XSS-safe the same way esc() already is elsewhere.
   function mdLiteToHtml(raw) {
     const escaped = esc(raw);
-    const bolded = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    // Force a paragraph break before each numbered sub-point ("**1. Title**...") even when
+    // the source only used a single newline there -- otherwise a run of "**1.**... **2.**..."
+    // with no blank line between them collapses into one dense paragraph instead of a list.
+    const spaced = escaped.replace(/\n(?=\*\*\d+\.)/g, '\n\n');
+    const bolded = spaced.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     return bolded.split(/\n\s*\n/).map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+  }
+
+  // Plain-text version for text-to-speech -- strip markdown markers (asterisks read
+  // aloud sound wrong) and collapse the numbered-point spacing back into normal prose.
+  function mdLiteToSpeechText(raw) {
+    return raw.replace(/\*\*/g, '').replace(/\s+/g, ' ').trim();
+  }
+
+  // Browser-native text-to-speech (window.speechSynthesis) -- no server call, no API
+  // key, works fully offline once the page is loaded. Only one card speaks at a time:
+  // starting a new one cancels whatever was playing. Each button's own onend/onerror
+  // closure resets ONLY that button's label, so a stale event from a since-replaced
+  // utterance can't clobber a newer one's state.
+  const SPEECH_SUPPORTED = 'speechSynthesis' in window;
+  let activeSpeechBtn = null;
+  function toggleSpeech(btn, text) {
+    if (activeSpeechBtn === btn) {
+      window.speechSynthesis.cancel();
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.onstart = () => { activeSpeechBtn = btn; btn.textContent = '⏹ Stop'; };
+    utter.onend = utter.onerror = () => {
+      if (activeSpeechBtn === btn) activeSpeechBtn = null;
+      btn.textContent = '🔊 Listen';
+    };
+    window.speechSynthesis.speak(utter);
   }
 
   function renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError, pollAfterTrigger) {
@@ -1780,6 +1816,7 @@
           <div class="card-title${canExpand ? ' pf-ticker-toggle' : ''}">${esc(r.ticker)}${canExpand ? ' <span class="pf-toggle-hint">(tap for full reasoning)</span>' : ''}</div>
           ${hasAnalysis ? `<div class="card-time">as of ${esc(r.analysisDate)}</div>` : ''}
           <div class="pf-card-actions">
+            ${canExpand && SPEECH_SUPPORTED ? `<button type="button" class="pf-listen">🔊 Listen</button>` : ''}
             ${hasAnalysis ? `<button type="button" class="pf-refresh" data-ticker="${esc(r.ticker)}">Refresh</button>` : ''}
             <button type="button" class="pf-remove" data-ticker="${esc(r.ticker)}">Remove</button>
           </div>
@@ -1792,6 +1829,10 @@
         card.querySelector('.pf-ticker-toggle').addEventListener('click', () => {
           card.querySelector('.pf-reasoning').hidden = !card.querySelector('.pf-reasoning').hidden;
         });
+        const listenBtn = card.querySelector('.pf-listen');
+        if (listenBtn) {
+          listenBtn.addEventListener('click', () => toggleSpeech(listenBtn, `${r.ticker}. ${r.decision}. ${mdLiteToSpeechText(r.reasoning)}`));
+        }
       }
       card.querySelector('.pf-remove').addEventListener('click', async () => {
         clearError();
