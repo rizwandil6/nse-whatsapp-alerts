@@ -24,9 +24,20 @@ public class PortfolioController {
     private static final Pattern BROWSER_ID_PATTERN = Pattern.compile("^[A-Za-z0-9-]{8,64}$");
 
     private final PortfolioService portfolioService;
+    private final PortfolioAnalysisScheduler portfolioAnalysisScheduler;
 
-    public PortfolioController(PortfolioService portfolioService) {
+    public PortfolioController(PortfolioService portfolioService, PortfolioAnalysisScheduler portfolioAnalysisScheduler) {
         this.portfolioService = portfolioService;
+        this.portfolioAnalysisScheduler = portfolioAnalysisScheduler;
+    }
+
+    // Manual trigger for the normally-08:00-IST-only job -- same fire-and-forget-on-a-
+    // background-thread pattern as BulletinController's /trigger-bulletin, so testing
+    // (or an ops re-run) doesn't require waiting for tomorrow's cron.
+    @GetMapping(value = "/trigger-analysis", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String triggerAnalysis() {
+        new Thread(portfolioAnalysisScheduler::runDailyAnalysis).start();
+        return "Portfolio analysis triggered -- check /api/dashboard/portfolio/analysis in a few minutes.";
     }
 
     public record TickerRequest(String browserId, String ticker) {}
