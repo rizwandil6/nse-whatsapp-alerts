@@ -16,13 +16,14 @@ Bearer-token gated (API_TOKEN env var) on every endpoint since this is a
 public Railway URL and every /analyze call triggers real LLM + data-provider
 API spend.
 """
+import json
 import os
 import threading
 import uuid
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import FastAPI, Header, HTTPException, Response
 from pydantic import BaseModel
 
 from tradingagents.graph.trading_graph import TradingAgentsGraph
@@ -148,4 +149,15 @@ def analyze_status(job_id: str, x_api_token: str | None = Header(default=None)):
         job = _jobs.get(job_id)
     if job is None:
         raise HTTPException(status_code=404, detail="job not found (may have expired or the service redeployed)")
-    return {k: v for k, v in job.items() if k != "created_at"}
+    body = {k: v for k, v in job.items() if k != "created_at"}
+    # Explicit json.dumps rather than returning the dict for FastAPI's default response
+    # class to serialize -- confirmed live (2026-08-30): the `reasoning` field's
+    # multi-paragraph text came back over the wire with RAW unescaped newline bytes
+    # (verified: stdlib json.dumps does NOT do this in isolation, so something in the
+    # default response path here does), producing technically invalid JSON per RFC
+    # 8259 -- one that Java's strict Jackson parser (the real caller, in
+    # PortfolioAnalysisScheduler) would very likely reject outright. json.dumps here is
+    # directly verified correct (always escapes control characters), so this sidesteps
+    # whatever the framework-default path was doing wrong, rather than chasing the
+    # exact root cause through FastAPI/Starlette internals.
+    return Response(content=json.dumps(body), media_type="application/json")
