@@ -1,0 +1,3 @@
+git+https://github.com/TauricResearch/TradingAgents.git
+fastapi
+uvicorn[standard]

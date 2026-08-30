@@ -127,6 +127,14 @@ tradelog:
 github:
   token: ${GITHUB_TOKEN:}
 
+# ── Portfolio tab ──────────────────────────────────────────────────────────────
+# trading-agents-service (separate Railway service, wraps TauricResearch/TradingAgents)
+# is called once per distinct portfolio ticker by PortfolioAnalysisScheduler's 08:00 IST
+# daily run. Blank url = scheduler no-ops (logs and skips) rather than failing startup.
+portfolio:
+  analysis-service-url: ${PORTFOLIO_ANALYSIS_SERVICE_URL:}
+  analysis-service-token: ${PORTFOLIO_ANALYSIS_SERVICE_TOKEN:}
+
 # ── Daily Market Bulletin ─────────────────────────────────────────────────────
 # Sent every day at 7:30 AM IST via Telegram.
 bulletin:
