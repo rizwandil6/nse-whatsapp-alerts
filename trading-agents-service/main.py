@@ -29,7 +29,7 @@ from tradingagents.graph.trading_graph import TradingAgentsGraph
 from tradingagents.default_config import DEFAULT_CONFIG
 
 API_TOKEN = os.environ.get("API_TOKEN", "")
-LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "anthropic")
+LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "google")
 JOB_RETENTION = timedelta(hours=24)
 
 app = FastAPI()
@@ -71,10 +71,17 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
         # DEFAULT_CONFIG's deep_think_llm/quick_think_llm default to OpenAI model
         # names (e.g. "gpt-5.5") regardless of llm_provider -- confirmed live, this
         # 404'd calling Anthropic for a model named "gpt-5.4-mini". Must override
-        # both model names whenever provider = anthropic.
+        # both model names whenever provider is switched.
         if LLM_PROVIDER == "anthropic":
             config["deep_think_llm"] = "claude-sonnet-5"
             config["quick_think_llm"] = "claude-haiku-4-5-20251001"
+        elif LLM_PROVIDER == "google":
+            # gemini-3.5-flash for both -- Google's free tier covers the flash tier;
+            # gemini-3.1-pro-preview (TradingAgents' model_catalog.py also lists it)
+            # is not expected to be free-tier eligible, so deliberately not used here
+            # even for deep_think.
+            config["deep_think_llm"] = "gemini-3.5-flash"
+            config["quick_think_llm"] = "gemini-3.5-flash"
 
         ta = TradingAgentsGraph(debug=False, config=config)
         _, decision = ta.propagate(ticker, analysis_date)
