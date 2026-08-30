@@ -36,6 +36,12 @@ LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "google")
 DEBUG = os.environ.get("TRADINGAGENTS_DEBUG", "false").lower() == "true"
 JOB_RETENTION = timedelta(hours=24)
 
+# TradingAgents' own signal_processing.process_signal() extracts one of five
+# hardcoded labels from final_trade_decision: Buy/Overweight/Hold/Underweight/Sell
+# (institutional portfolio-weighting terms, not configurable upstream). Collapsed to
+# plain retail terms for the Portfolio tab -- Buy/Sell/Hold already read fine as-is.
+_RETAIL_LABELS = {"Overweight": "Buy", "Underweight": "Sell"}
+
 app = FastAPI()
 
 # In-memory job store -- fine at this scale (single replica, at most a
@@ -92,10 +98,18 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
             config["quick_think_llm"] = "gemini-3.5-flash"
 
         ta = TradingAgentsGraph(debug=DEBUG, config=config)
-        _, decision = ta.propagate(ticker, analysis_date)
+        # propagate() returns (final_state, decision) -- decision is final_state's
+        # "final_trade_decision" boiled down to one word (Buy/Sell/Hold/Overweight/
+        # Underweight) via process_signal(). The full final_trade_decision text is
+        # the actual reasoning behind that word and was previously discarded here
+        # (returned as reasoning=None on every job) -- surfaced now so the Portfolio
+        # tab shows more than just a one-word label.
+        final_state, decision = ta.propagate(ticker, analysis_date)
+        reasoning = final_state.get("final_trade_decision")
+        decision = _RETAIL_LABELS.get(decision, decision)
 
         with _jobs_lock:
-            _jobs[job_id].update(status="done", decision=decision)
+            _jobs[job_id].update(status="done", decision=decision, reasoning=reasoning)
     except Exception as e:
         with _jobs_lock:
             _jobs[job_id].update(status="error", error=str(e))

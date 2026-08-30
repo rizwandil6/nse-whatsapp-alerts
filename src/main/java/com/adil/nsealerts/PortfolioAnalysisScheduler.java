@@ -163,9 +163,16 @@ public class PortfolioAnalysisScheduler {
                 // TradingAgents' propagate() return shape isn't a fixed contract on our side --
                 // store it as plain text either way. A structured decision (object) commonly
                 // carries an "action"/"reasoning"-ish field; fall back to the raw JSON text
-                // for `decision` and leave `reasoning` null rather than guessing at field names.
+                // for `decision` if it's ever not a plain string, rather than guessing at field names.
                 String decisionText = decisionNode.isTextual() ? decisionNode.asText() : decisionNode.toString();
-                return new AnalysisResultPayload(decisionText, null);
+                // "reasoning" is final_state's raw final_trade_decision text (see main.py) -- the
+                // narrative behind the one-word `decision` above. Null (job predates this field,
+                // or the model produced no narrative) is fine -- the Portfolio tab already renders
+                // a decision-only card when reasoning is absent.
+                JsonNode reasoningNode = node.path("reasoning");
+                String reasoningText = reasoningNode.isMissingNode() || reasoningNode.isNull() ? null
+                        : reasoningNode.isTextual() ? reasoningNode.asText() : reasoningNode.toString();
+                return new AnalysisResultPayload(decisionText, reasoningText);
             }
             if ("error".equals(jobStatus)) {
                 throw new RuntimeException("analysis-service job failed: " + node.path("error").asText());
