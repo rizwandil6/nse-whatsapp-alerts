@@ -1764,9 +1764,15 @@
     // Force a paragraph break before each numbered sub-point ("**1. Title**...") even when
     // the source only used a single newline there -- otherwise a run of "**1.**... **2.**..."
     // with no blank line between them collapses into one dense paragraph instead of a list.
-    const spaced = escaped.replace(/\n(?=\*\*\d+\.)/g, '\n\n');
-    const bolded = spaced.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    return bolded.split(/\n\s*\n/).map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+    const spaced1 = escaped.replace(/\n(?=\*\*\d+\.)/g, '\n\n');
+    // Also break before inline enumerated points like "(1) The..." embedded within a
+    // flowing paragraph -- a different style TradingAgents sometimes uses instead of
+    // "**N. Title**" on its own line. Requires sentence-ending punctuation before the
+    // parenthesized number AND a capitalized word after it, so an inline aside like
+    // "(see note 1)" doesn't get mistaken for a new point.
+    const spaced2 = spaced1.replace(/([:.]\s+)(\(\d+\)\s+[A-Z])/g, '$1\n\n$2');
+    const bolded = spaced2.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    return bolded.split(/\n\s*\n/).map((p) => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`).join('');
   }
 
   // Plain-text version for text-to-speech -- strip markdown markers (asterisks read
