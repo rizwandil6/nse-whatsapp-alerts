@@ -191,3 +191,34 @@ CREATE TABLE IF NOT EXISTS swing.signals (
 CREATE INDEX IF NOT EXISTS swing_signals_status_idx ON swing.signals (status);
 CREATE INDEX IF NOT EXISTS swing_signals_date_idx   ON swing.signals (signal_date DESC);
 
+-- Portfolio tab (2026-08-30): each browser gets an anonymous UUID (generated
+-- and stored in localStorage client-side, never a real login) that separates
+-- one visitor's ticker watchlist from another's on the same dashboard URL.
+-- browser_id is plain TEXT, not a foreign key to any user table -- there is
+-- no user table, by design (see the tab's "no accounts" requirement).
+-- PortfolioAnalysisScheduler (Java, @Scheduled 08:00 IST daily) dedupes
+-- across ALL browser_ids before calling the trading-agents-service, then
+-- fans the one result per distinct ticker back out to every
+-- (browser_id, ticker) pair holding it -- so analysis is keyed per-browser
+-- even though the underlying LLM call is shared. Plain statements only
+-- (no dollar-quoting), matching every other schema addition in this file.
+CREATE SCHEMA IF NOT EXISTS portfolio;
+
+CREATE TABLE IF NOT EXISTS portfolio.tickers (
+    browser_id  TEXT NOT NULL,
+    ticker      TEXT NOT NULL,
+    added_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT portfolio_tickers_browser_ticker_uniq UNIQUE (browser_id, ticker)
+);
+
+CREATE TABLE IF NOT EXISTS portfolio.analysis (
+    browser_id     TEXT NOT NULL,
+    ticker         TEXT NOT NULL,
+    analysis_date  DATE NOT NULL,
+    decision       TEXT,
+    reasoning      TEXT,
+    updated_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT portfolio_analysis_browser_ticker_date_uniq UNIQUE (browser_id, ticker, analysis_date)
+);
+CREATE INDEX IF NOT EXISTS portfolio_analysis_lookup_idx ON portfolio.analysis (browser_id, ticker, analysis_date DESC);
+

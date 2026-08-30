@@ -163,6 +163,7 @@
     <button class="tab-btn" data-tab="quarterly-results">Quarterly Results <span class="count" id="count-quarterly-results"></span></button>
     <button class="tab-btn" data-tab="rs-momentum">RS Momentum <span class="count" id="count-rs-momentum"></span></button>
     <button class="tab-btn" data-tab="crypto-forex">Crypto/Forex <span class="count" id="count-crypto-forex"></span></button>
+    <button class="tab-btn" data-tab="portfolio">Portfolio</button>
   </div>
 
   <div class="panel active" id="panel-home"><div class="state-msg">Loading…</div></div>
@@ -174,6 +175,7 @@
   <div class="panel" id="panel-quarterly-results"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-rs-momentum"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-crypto-forex"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-portfolio"><div class="state-msg">Loading…</div></div>
 </div>
 
 <style>
@@ -229,6 +231,16 @@
   .seas-foot-row .seas-rowlabel { color: var(--ink); font-weight: 800; }
   .seas-foot-cell { background: var(--surface-2); border-top: 2px solid var(--border-strong); font-weight: 800; }
   .seas-foot-cell.seas-empty { background: repeating-linear-gradient(45deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 7px); border-top: 2px solid var(--border-strong); }
+
+  .pf-add-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .pf-add-row input[type="text"] { font: inherit; font-size: 13px; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; width: 160px; text-transform: uppercase; }
+  .pf-add-row button { font: inherit; font-size: 13px; font-weight: 600; color: #fff; background: var(--accent); border: none; border-radius: 8px; padding: 8px 16px; cursor: pointer; }
+  .pf-add-row button:disabled { opacity: .5; cursor: default; }
+  .pf-error { font-size: 12px; color: var(--loss); margin: -8px 0 12px; }
+  .pf-remove { font: inherit; font-size: 11px; color: var(--ink-faint); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; cursor: pointer; margin-left: auto; }
+  .pf-decision { font-size: 13px; font-weight: 700; }
+  .pf-reasoning { font-size: 12.5px; color: var(--ink-muted); white-space: pre-wrap; }
+  .pf-pending { font-size: 12px; color: var(--ink-faint); font-style: italic; }
 </style>
 
 <script>
@@ -411,6 +423,14 @@
     // TABS entry, so falling into loadTab(key) crashes on TABS[key].url being undefined.
     if (key === 'seasonality') {
       if (!loaded.seasonality) { loaded.seasonality = true; loadSeasonality(); }
+      return;
+    }
+    // Portfolio isn't in TABS either -- it needs a ticker-input form and per-browser
+    // identity, not the generic alert-feed data.length/data[0] rendering. Re-fetched
+    // on every reselect (not "loaded once"), same reasoning as the Swing tab: analysis
+    // can go stale after tonight's 08:00 IST run while the dashboard sits open.
+    if (key === 'portfolio') {
+      loadPortfolio();
       return;
     }
     if (key !== 'home' && (!loaded[key] || key === 'swing-strategy')) { loaded[key] = true; loadTab(key); }
@@ -1444,6 +1464,124 @@
       html += '</tr></tfoot>';
     }
     table.innerHTML = html;
+  }
+
+  // Portfolio tab -- anonymous per-browser watchlist, no login. browserId is generated
+  // once with crypto.randomUUID() and persisted in localStorage; it's the ENTIRE identity
+  // mechanism (clearing site data silently starts a fresh, empty portfolio) -- see
+  // PortfolioController.java for the server side.
+  function getBrowserId() {
+    let id;
+    try { id = localStorage.getItem('portfolioBrowserId'); } catch (e) { /* storage blocked */ }
+    if (!id) {
+      id = crypto.randomUUID();
+      try { localStorage.setItem('portfolioBrowserId', id); } catch (e) { /* storage blocked -- id still works for this page load */ }
+    }
+    return id;
+  }
+
+  async function loadPortfolio() {
+    const panel = document.getElementById('panel-portfolio');
+    const browserId = getBrowserId();
+    panel.innerHTML = `
+      <div class="tab-header">
+        <p>Your own watchlist, stored only in THIS browser (up to 20 tickers) -- nobody else
+        opening this dashboard sees it. Every morning at 08:00 IST, before market open, each
+        stock is run through TradingAgents (a multi-agent LLM analysis framework) and its
+        decision + reasoning shown below, unchanged until the next day's run.</p>
+      </div>
+      <div class="pf-add-row">
+        <input type="text" id="pf-ticker-input" placeholder="e.g. RELIANCE" maxlength="20" />
+        <button type="button" id="pf-add-btn">Add</button>
+      </div>
+      <div class="pf-error" id="pf-error" style="display:none;"></div>
+      <div id="pf-list"></div>
+    `;
+
+    const errorEl = document.getElementById('pf-error');
+    const showError = (msg) => { errorEl.textContent = msg; errorEl.style.display = ''; };
+    const clearError = () => { errorEl.style.display = 'none'; };
+
+    async function refreshList() {
+      const listEl = document.getElementById('pf-list');
+      listEl.innerHTML = '<div class="state-msg">Loading…</div>';
+      try {
+        const res = await fetch('/api/dashboard/portfolio/analysis?browserId=' + encodeURIComponent(browserId));
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const rows = await res.json();
+        renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError);
+      } catch (e) {
+        listEl.innerHTML = '<div class="state-msg">Failed to load — ' + esc(e.message) + '</div>';
+      }
+    }
+
+    document.getElementById('pf-add-btn').addEventListener('click', async () => {
+      const input = document.getElementById('pf-ticker-input');
+      const ticker = input.value.trim().toUpperCase();
+      if (!ticker) return;
+      clearError();
+      try {
+        const res = await fetch('/api/dashboard/portfolio/tickers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ browserId, ticker }),
+        });
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}));
+          throw new Error(body.error || ('HTTP ' + res.status));
+        }
+        input.value = '';
+        await refreshList();
+      } catch (e) {
+        showError(e.message);
+      }
+    });
+    document.getElementById('pf-ticker-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('pf-add-btn').click();
+    });
+
+    await refreshList();
+  }
+
+  function renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError) {
+    if (!rows.length) {
+      listEl.innerHTML = '<div class="state-msg">No tickers yet — add one above.</div>';
+      return;
+    }
+    listEl.innerHTML = '';
+    listEl.style.display = 'flex';
+    listEl.style.flexDirection = 'column';
+    listEl.style.gap = '10px';
+    for (const r of rows) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const hasAnalysis = r.analysisDate != null;
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-title">${esc(r.ticker)}</div>
+          ${hasAnalysis ? `<div class="card-time">as of ${esc(r.analysisDate)}</div>` : ''}
+          <button type="button" class="pf-remove" data-ticker="${esc(r.ticker)}">Remove</button>
+        </div>
+        ${hasAnalysis
+          ? `<div class="pf-decision">${esc(r.decision)}</div>${r.reasoning ? `<div class="pf-reasoning">${esc(r.reasoning)}</div>` : ''}`
+          : '<div class="pf-pending">No analysis yet — the next 08:00 IST run will pick this up.</div>'}
+      `;
+      card.querySelector('.pf-remove').addEventListener('click', async () => {
+        clearError();
+        try {
+          const res = await fetch('/api/dashboard/portfolio/tickers', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ browserId, ticker: r.ticker }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          await refreshList();
+        } catch (e) {
+          showError(e.message);
+        }
+      });
+      listEl.appendChild(card);
+    }
   }
 
   document.getElementById('tabs').addEventListener('click', (e) => {
