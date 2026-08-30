@@ -199,10 +199,14 @@ own Pi42 account.
 - **Same-1-min-bar-breaches-both-sides edge case** (see `ic_engine.js#addM1Bar`) is treated as no
   signal — a deliberate simplification, not a source-confirmed rule, since order can't be
   determined at 1-min resolution in that case.
-- **`tick_aggregator.js` (Mark Price live path) is validated by a ~2-minute local smoke test
-  against real Pi42 ticks (2026-08-30) — confirmed correct bucketing and end-to-end processing
-  through to a real diagnostic log line, but not yet battle-tested over hours/days of live
-  operation the way the original kline-based path has been (multiple real bugs found and fixed
-  there over time: late/duplicate events, zero-width bars). Watch `railway logs` closely after
-  first deploy — the `[check]` diagnostic lines should show sensible, real prices at correct
-  interval boundaries for every symbol.
+- **`tick_aggregator.js` restart-resilience bug, found and fixed live (2026-08-30):** the very
+  first production run caught a real false signal (SOLINR:15m) whose `icHigh`/`icLow` exactly
+  matched a single 1-minute bar's range instead of a real 15-minute bucket — traced to the
+  aggregator's in-memory `forming` state having no persistence across a process restart. Unlike
+  `IcSymbolTracker`'s own history (re-seeded from REST via `seedHistory()` on every start), a
+  mid-period restart meant the first bucket after reconnect only reflected however many ticks
+  arrived post-restart, not the whole period, while still carrying a technically-correct
+  timestamp. Fixed: the first bucket per timeframe after every (re)start is now always discarded,
+  never emitted — every bucket from the second one onward is guaranteed fully accumulated. Only
+  one signal was affected (closed at -1R, small loss, confirmed no other symbol/timeframe hit in
+  the same window, nothing was left open).
