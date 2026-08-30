@@ -51,6 +51,13 @@ def analyze(req: AnalyzeRequest, x_api_token: str | None = Header(default=None))
     config = DEFAULT_CONFIG.copy()
     config["llm_provider"] = LLM_PROVIDER
     config["max_debate_rounds"] = 1  # keep each run bounded (cost + latency)
+    # DEFAULT_CONFIG's deep_think_llm/quick_think_llm default to OpenAI model names
+    # (e.g. "gpt-5.5") regardless of llm_provider -- setting llm_provider alone is not
+    # enough, confirmed live: it 404'd trying to call Anthropic for a model named
+    # "gpt-5.4-mini". Must override both model names whenever provider = anthropic.
+    if LLM_PROVIDER == "anthropic":
+        config["deep_think_llm"] = "claude-sonnet-5"
+        config["quick_think_llm"] = "claude-haiku-4-5-20251001"
 
     ta = TradingAgentsGraph(debug=False, config=config)
     _, decision = ta.propagate(req.ticker, analysis_date)
