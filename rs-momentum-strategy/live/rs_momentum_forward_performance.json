@@ -1,5 +1,16 @@
 [
  {
+  "symbol": "SPARC",
+  "entryDate": "2026-08-30",
+  "entryPrice": 207.71,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 207.71,
+  "returnSinceEntry": 0
+ },
+ {
   "symbol": "ENTERO",
   "entryDate": "2026-08-28",
   "entryPrice": 1529.8,
@@ -75,39 +86,6 @@
   "returnWhileOpen": null,
   "currentPrice": 967.4,
   "returnSinceEntry": 0.2175489485134179
- },
- {
-  "symbol": "PPLPHARMA",
-  "entryDate": "2026-08-27",
-  "entryPrice": 218.68,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 218.68,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "SAIL",
-  "entryDate": "2026-08-27",
-  "entryPrice": 200,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 200,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "SPARC",
-  "entryDate": "2026-08-27",
-  "entryPrice": 207.71,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 207.71,
-  "returnSinceEntry": 0
  },
  {
   "symbol": "ACE",

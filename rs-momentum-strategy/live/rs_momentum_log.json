@@ -934,5 +934,27 @@
   "date": "2026-08-27",
   "price": 207.71,
   "rsRankAtEntry": 83.4319526627219
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "PPLPHARMA",
+  "date": "2026-08-30",
+  "price": 218.68,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SAIL",
+  "date": "2026-08-30",
+  "price": 200,
+  "rsRankAtEntry": 80.86785009861933
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "SPARC",
+  "date": "2026-08-30",
+  "price": 207.71,
+  "rsRankAtEntry": 83.4319526627219,
+  "salesGrowth3Y": 99
  }
 ]

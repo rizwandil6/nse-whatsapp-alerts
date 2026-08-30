@@ -216,25 +216,10 @@
   "rsRankAtEntry": 82.44575936883629,
   "salesGrowth3Y": 36
  },
- "PPLPHARMA": {
-  "entryDate": "2026-08-27",
-  "entryPrice": 218.68,
-  "rsRankAtEntry": 80.07889546351085,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "SAIL": {
-  "entryDate": "2026-08-27",
-  "entryPrice": 200,
-  "rsRankAtEntry": 80.86785009861933,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
  "SPARC": {
   "entryDate": "2026-08-27",
   "entryPrice": 207.71,
   "rsRankAtEntry": 83.4319526627219,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 99
  }
 }
