@@ -16,6 +16,8 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Fires every day at 08:00 IST (NSE opens 09:15), well before DailyBulletinScheduler's
@@ -41,6 +43,14 @@ public class PortfolioAnalysisScheduler {
     private final PortfolioService portfolioService;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpClient httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
+    // Confirmed live (2026-08-30): the 08:00 IST cron and a manual "Run analysis" click
+    // (or two overlapping manual clicks) can both see the same ticker as pending and each
+    // kick off their own multi-minute TradingAgents run -- pendingTickersFor only checks
+    // for a COMPLETED analysis row, not an in-progress one. Tracked here instead, so a
+    // second trigger for a ticker already being analyzed just skips it -- the first run's
+    // fan-out (see analyzeTickers below) already covers every browser holding it, including
+    // whoever triggered the redundant second call.
+    private final Set<String> inFlightTickers = ConcurrentHashMap.newKeySet();
 
     @Value("${portfolio.analysis-service-url:}")
     private String analysisServiceUrl;
@@ -74,6 +84,10 @@ public class PortfolioAnalysisScheduler {
         }
         LocalDate today = LocalDate.now();
         for (String ticker : tickers) {
+            if (!inFlightTickers.add(ticker)) {
+                logger.info("[PortfolioAnalysis] Skipping {} -- already being analyzed by another in-flight run", ticker);
+                continue;
+            }
             try {
                 AnalysisResultPayload result = callAnalysisService(ticker, today);
                 for (String browserId : portfolioService.browsersHolding(ticker)) {
@@ -81,6 +95,8 @@ public class PortfolioAnalysisScheduler {
                 }
             } catch (Exception e) {
                 logger.warn("[PortfolioAnalysis] Analysis failed for {}: {}", ticker, e.getMessage());
+            } finally {
+                inFlightTickers.remove(ticker);
             }
         }
     }
