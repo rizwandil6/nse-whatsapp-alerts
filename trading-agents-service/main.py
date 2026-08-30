@@ -30,6 +30,10 @@ from tradingagents.default_config import DEFAULT_CONFIG
 
 API_TOKEN = os.environ.get("API_TOKEN", "")
 LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "google")
+# Verbose per-node TradingAgentsGraph logging -- off by default (noisy, and every
+# portfolio ticker runs through this daily), toggle on via Railway var when diagnosing
+# a specific run (e.g. tracking down where time actually goes mid-pipeline).
+DEBUG = os.environ.get("TRADINGAGENTS_DEBUG", "false").lower() == "true"
 JOB_RETENTION = timedelta(hours=24)
 
 app = FastAPI()
@@ -83,7 +87,7 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
             config["deep_think_llm"] = "gemini-3.5-flash"
             config["quick_think_llm"] = "gemini-3.5-flash"
 
-        ta = TradingAgentsGraph(debug=False, config=config)
+        ta = TradingAgentsGraph(debug=DEBUG, config=config)
         _, decision = ta.propagate(ticker, analysis_date)
 
         with _jobs_lock:
