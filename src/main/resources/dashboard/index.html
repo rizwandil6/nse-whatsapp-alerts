@@ -252,7 +252,12 @@
   .pf-remove, .pf-refresh { font: inherit; font-size: 11px; color: var(--ink-faint); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; cursor: pointer; }
   .pf-refresh:disabled { opacity: .5; cursor: default; }
   .pf-decision { font-size: 13px; font-weight: 700; }
-  .pf-reasoning { font-size: 12.5px; color: var(--ink-muted); white-space: pre-wrap; }
+  .pf-reasoning { font-size: 12.5px; color: var(--ink-muted); margin-top: 8px; }
+  .pf-reasoning p { margin: 0 0 10px; }
+  .pf-reasoning p:last-child { margin-bottom: 0; }
+  .pf-reasoning strong { color: var(--ink); }
+  .pf-ticker-toggle { cursor: pointer; }
+  .pf-toggle-hint { font-size: 10.5px; font-weight: 400; color: var(--ink-faint); }
   .pf-pending { font-size: 12px; color: var(--ink-faint); font-style: italic; }
 </style>
 
@@ -1745,6 +1750,17 @@
     await refreshList();
   }
 
+  // TradingAgents' reasoning text uses a small, consistent markdown subset (**bold**
+  // section labels, blank-line-separated paragraphs) -- not full markdown, just enough
+  // to make **Rating**: Hold / **Executive Summary**: ... readable instead of showing
+  // raw asterisks. Escapes first, then only ever inserts tags itself (never raw user
+  // text), so this stays XSS-safe the same way esc() already is elsewhere.
+  function mdLiteToHtml(raw) {
+    const escaped = esc(raw);
+    const bolded = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    return bolded.split(/\n\s*\n/).map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+  }
+
   function renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError, pollAfterTrigger) {
     if (!rows.length) {
       listEl.innerHTML = '<div class="state-msg">No tickers yet — add one above.</div>';
@@ -1758,9 +1774,10 @@
       const card = document.createElement('div');
       card.className = 'card';
       const hasAnalysis = r.analysisDate != null;
+      const canExpand = hasAnalysis && !!r.reasoning;
       card.innerHTML = `
         <div class="card-top">
-          <div class="card-title">${esc(r.ticker)}</div>
+          <div class="card-title${canExpand ? ' pf-ticker-toggle' : ''}">${esc(r.ticker)}${canExpand ? ' <span class="pf-toggle-hint">(tap for full reasoning)</span>' : ''}</div>
           ${hasAnalysis ? `<div class="card-time">as of ${esc(r.analysisDate)}</div>` : ''}
           <div class="pf-card-actions">
             ${hasAnalysis ? `<button type="button" class="pf-refresh" data-ticker="${esc(r.ticker)}">Refresh</button>` : ''}
@@ -1768,9 +1785,14 @@
           </div>
         </div>
         ${hasAnalysis
-          ? `<div class="pf-decision">${esc(r.decision)}</div>${r.reasoning ? `<div class="pf-reasoning">${esc(r.reasoning)}</div>` : ''}`
+          ? `<div class="pf-decision">${esc(r.decision)}</div>${canExpand ? `<div class="pf-reasoning" hidden>${mdLiteToHtml(r.reasoning)}</div>` : ''}`
           : '<div class="pf-pending">No analysis yet — the next 08:00 IST run will pick this up.</div>'}
       `;
+      if (canExpand) {
+        card.querySelector('.pf-ticker-toggle').addEventListener('click', () => {
+          card.querySelector('.pf-reasoning').hidden = !card.querySelector('.pf-reasoning').hidden;
+        });
+      }
       card.querySelector('.pf-remove').addEventListener('click', async () => {
         clearError();
         try {
