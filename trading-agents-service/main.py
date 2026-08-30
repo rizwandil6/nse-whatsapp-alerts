@@ -77,7 +77,11 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
         # 404'd calling Anthropic for a model named "gpt-5.4-mini". Must override
         # both model names whenever provider is switched.
         if LLM_PROVIDER == "anthropic":
-            config["deep_think_llm"] = "claude-sonnet-5"
+            # Cost cut (2026-08-30): deep_think_llm was claude-sonnet-5 ($2/$10 per
+            # 1M tokens) -- Haiku ($1/$5) for both, matching every other Anthropic
+            # call already made elsewhere in this repo (NewsPoller, PromptRatingService,
+            # MarketBulletinService all already use claude-haiku-4-5-20251001).
+            config["deep_think_llm"] = "claude-haiku-4-5-20251001"
             config["quick_think_llm"] = "claude-haiku-4-5-20251001"
         elif LLM_PROVIDER == "google":
             # gemini-3.5-flash for both -- Google's free tier covers the flash tier;

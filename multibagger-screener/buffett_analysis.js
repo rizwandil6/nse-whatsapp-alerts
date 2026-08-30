@@ -7,15 +7,24 @@
  * candidates, since it's a real per-call API cost and only a handful of
  * stocks clear the quantitative bar on any given day.
  *
- * Uses Claude Opus with adaptive thinking (this is a genuinely complex,
- * judgment-heavy analytical task, not a simple extraction) via the
- * official Anthropic SDK, streamed (the response can run long across 8
- * sections) and resolved via .finalMessage().
+ * Was Claude Opus (this is a genuinely complex, judgment-heavy analytical
+ * task, not a simple extraction) -- switched to Haiku 2026-08-30 as part of
+ * a repo-wide cost cut, matching every other Anthropic call in this repo
+ * (NewsPoller, PromptRatingService, MarketBulletinService, trading-agents-
+ * service all use claude-haiku-4-5-20251001). Note this is a real quality
+ * tradeoff for this specific feature, not a free win -- flagged explicitly
+ * when the cut was requested, since Opus was a deliberate choice here, not
+ * an oversight; low volume (a handful of stocks/day) meant it wasn't a
+ * meaningful cost driver on its own. Revert to 'claude-opus-4-8' if the
+ * multi-section write-up quality regresses noticeably.
+ *
+ * Uses the official Anthropic SDK, streamed (the response can run long
+ * across 8 sections) and resolved via .finalMessage().
  */
 
 const Anthropic = require('@anthropic-ai/sdk');
 
-const MODEL = 'claude-opus-4-8';
+const MODEL = 'claude-haiku-4-5-20251001';
 const MAX_TOKENS = 12000;
 
 const PROMPT_TEMPLATE = `Analyze {{COMPANY}} (NSE: {{TICKER}}) as Warren Buffett would evaluate a potential 100-bagger for a 20-30 year holding period. My capital: ₹{{CAPITAL}}.
@@ -68,10 +77,13 @@ function buildPrompt(companyName, ticker, capitalRupees) {
 async function generateBuffettAnalysis(companyName, ticker, capitalRupees, apiKey) {
   const client = new Anthropic({ apiKey });
   const prompt = buildPrompt(companyName, ticker, capitalRupees);
+  // No `thinking` param -- adaptive thinking (used when this called Opus) is only
+  // valid on the 4.6+/5 model family; Haiku 4.5 rejects it with a 400. None of this
+  // repo's other Haiku calls (NewsPoller, PromptRatingService, MarketBulletinService)
+  // request thinking either.
   const stream = client.messages.stream({
     model: MODEL,
     max_tokens: MAX_TOKENS,
-    thinking: { type: 'adaptive' },
     messages: [{ role: 'user', content: prompt }],
   });
   const message = await stream.finalMessage();
