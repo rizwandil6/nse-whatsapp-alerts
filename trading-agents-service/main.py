@@ -98,7 +98,13 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
             config["deep_think_llm"] = "gemini-3.5-flash"
             config["quick_think_llm"] = "gemini-3.5-flash"
 
-        ta = TradingAgentsGraph(debug=DEBUG, config=config)
+        # Drops the default "social" analyst (Reddit/StockTwits sentiment) -- confirmed
+        # live on every run so far: those sources 429/404 for essentially every NSE
+        # ticker (they're US-retail-platform-centric), so that analyst still burns a
+        # full LLM call synthesizing a report from data that's mostly empty. Cuts real
+        # call volume, not analysis quality, for this market. Keeps market/news/
+        # fundamentals (TradingAgentsGraph's other three default analysts).
+        ta = TradingAgentsGraph(debug=DEBUG, config=config, selected_analysts=("market", "news", "fundamentals"))
         # propagate() returns (final_state, decision) -- decision is final_state's
         # "final_trade_decision" boiled down to one word (Buy/Sell/Hold/Overweight/
         # Underweight) via process_signal(). The full final_trade_decision text is

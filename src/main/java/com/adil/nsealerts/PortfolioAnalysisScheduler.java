@@ -38,7 +38,13 @@ public class PortfolioAnalysisScheduler {
     private static final Logger logger = LoggerFactory.getLogger(PortfolioAnalysisScheduler.class);
     // Multi-minute LLM pipeline per ticker on a single external service -- no benefit to
     // parallelizing against it, and it keeps the analysis-service's own load predictable.
-    private static final Duration REQUEST_TIMEOUT = Duration.ofMinutes(10);
+    // Was 10 min -- confirmed live (2026-08-30) that real Haiku runs regularly take
+    // 13-14 min, and the job kept succeeding server-side (still 200 OK on every poll)
+    // well after Java gave up at the old 10-min mark. That's a real cost bug, not just
+    // a missed result: the analysis-service run still gets paid for in full even when
+    // Java discards it as a timeout, so a too-short timeout here throws away money, not
+    // just data. 20 min gives real headroom above the slowest run observed so far.
+    private static final Duration REQUEST_TIMEOUT = Duration.ofMinutes(20);
 
     private final PortfolioService portfolioService;
     private final ObjectMapper objectMapper = new ObjectMapper();
