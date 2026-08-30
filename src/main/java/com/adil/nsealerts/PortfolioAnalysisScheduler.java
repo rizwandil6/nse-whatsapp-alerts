@@ -54,14 +54,25 @@ public class PortfolioAnalysisScheduler {
 
     @Scheduled(cron = "0 0 8 * * *", zone = "Asia/Kolkata")
     public void runDailyAnalysis() {
+        List<String> tickers = portfolioService.distinctTickers();
+        logger.info("[PortfolioAnalysis] Triggered at 08:00 IST for {} distinct ticker(s)", tickers.size());
+        analyzeTickers(tickers);
+    }
+
+    /**
+     * Shared by the 08:00 IST cron (every distinct ticker across all portfolios) and the
+     * Portfolio tab's "Run analysis" button (just one browser's still-pending tickers,
+     * see PortfolioController#analyzePending) -- either way, each ticker's result is
+     * fanned out to EVERY browser holding it (see runDailyAnalysis's own doc comment),
+     * so triggering your own pending tickers also refreshes anyone else's portfolio
+     * that shares one, instead of duplicating the LLM call for the same ticker+day.
+     */
+    public void analyzeTickers(List<String> tickers) {
         if (analysisServiceUrl == null || analysisServiceUrl.isBlank()) {
             logger.info("[PortfolioAnalysis] Skipped -- portfolio.analysis-service-url not configured");
             return;
         }
-        List<String> tickers = portfolioService.distinctTickers();
-        logger.info("[PortfolioAnalysis] Triggered at 08:00 IST for {} distinct ticker(s)", tickers.size());
         LocalDate today = LocalDate.now();
-
         for (String ticker : tickers) {
             try {
                 AnalysisResultPayload result = callAnalysisService(ticker, today);

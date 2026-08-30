@@ -244,6 +244,10 @@
   .pf-suggestion-symbol { font-weight: 700; color: var(--ink); }
   .pf-suggestion-index { color: var(--ink-faint); font-size: 11px; white-space: nowrap; }
   .pf-error { font-size: 12px; color: var(--loss); margin: -8px 0 12px; }
+  .pf-run-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .pf-run-row button { font: inherit; font-size: 12.5px; font-weight: 600; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 14px; cursor: pointer; }
+  .pf-run-row button:disabled { opacity: .5; cursor: default; }
+  .pf-run-status { font-size: 12px; color: var(--ink-faint); }
   .pf-remove { font: inherit; font-size: 11px; color: var(--ink-faint); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; cursor: pointer; margin-left: auto; }
   .pf-decision { font-size: 13px; font-weight: 700; }
   .pf-reasoning { font-size: 12.5px; color: var(--ink-muted); white-space: pre-wrap; }
@@ -415,6 +419,10 @@
   }
 
   function selectTab(key) {
+    // Stop any "Run analysis" poll loop left over from a previous Portfolio tab visit --
+    // otherwise navigating away mid-poll (or back in, which creates a fresh loop of its
+    // own via loadPortfolio) leaves a stale timer hitting the API against detached DOM.
+    if (window.__pfStopPolling) window.__pfStopPolling();
     document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === key));
     document.querySelectorAll('.panel').forEach((p) => p.classList.toggle('active', p.id === 'panel-' + key));
     // Swing tab is deliberately excluded from dataCache in fetchTabData (it carries
@@ -1505,12 +1513,27 @@
         <button type="button" id="pf-add-btn">Add</button>
       </div>
       <div class="pf-error" id="pf-error" style="display:none;"></div>
+      <div class="pf-run-row">
+        <button type="button" id="pf-run-btn" disabled>Run analysis</button>
+        <span class="pf-run-status" id="pf-run-status"></span>
+      </div>
       <div id="pf-list"></div>
     `;
 
     const errorEl = document.getElementById('pf-error');
     const showError = (msg) => { errorEl.textContent = msg; errorEl.style.display = ''; };
     const clearError = () => { errorEl.style.display = 'none'; };
+
+    const runBtn = document.getElementById('pf-run-btn');
+    const runStatusEl = document.getElementById('pf-run-status');
+    let pfPollTimer = null;
+    // Stops the background poll started after clicking "Run analysis" -- called both when
+    // it finds nothing left pending AND when the panel is torn down (tab switched away),
+    // so a stale timer from a previous visit never keeps firing after the user has moved on.
+    function stopPolling() {
+      if (pfPollTimer) { clearTimeout(pfPollTimer); pfPollTimer = null; }
+    }
+    window.__pfStopPolling = stopPolling;
 
     async function refreshList() {
       const listEl = document.getElementById('pf-list');
@@ -1520,10 +1543,53 @@
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const rows = await res.json();
         renderPortfolio(rows, listEl, browserId, refreshList, showError, clearError);
+        const pendingCount = rows.filter((r) => r.analysisDate == null).length;
+        runBtn.disabled = pendingCount === 0;
+        runBtn.textContent = pendingCount ? `Run analysis (${pendingCount} pending)` : 'Run analysis';
+        return pendingCount;
       } catch (e) {
         listEl.innerHTML = '<div class="state-msg">Failed to load — ' + esc(e.message) + '</div>';
+        return 0;
       }
     }
+
+    runBtn.addEventListener('click', async () => {
+      clearError();
+      stopPolling();
+      runBtn.disabled = true;
+      runStatusEl.textContent = 'Starting…';
+      try {
+        const res = await fetch('/api/dashboard/portfolio/analyze-pending', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ browserId }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const body = await res.json();
+        if (!body.count) {
+          runStatusEl.textContent = 'Nothing pending.';
+          runBtn.disabled = false;
+          return;
+        }
+        // TradingAgents runs take several minutes per stock -- poll every 20s rather than
+        // once, so the cards fill in as results land instead of the user re-clicking.
+        runStatusEl.textContent = `Running ${body.count} stock(s)… this can take several minutes.`;
+        const poll = async () => {
+          const pending = await refreshList();
+          if (pending > 0) {
+            pfPollTimer = setTimeout(poll, 20000);
+          } else {
+            runStatusEl.textContent = 'Done.';
+            stopPolling();
+          }
+        };
+        pfPollTimer = setTimeout(poll, 20000);
+      } catch (e) {
+        showError(e.message);
+        runStatusEl.textContent = '';
+        runBtn.disabled = false;
+      }
+    });
 
     document.getElementById('pf-add-btn').addEventListener('click', async () => {
       const input = document.getElementById('pf-ticker-input');

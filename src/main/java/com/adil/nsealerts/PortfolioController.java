@@ -31,13 +31,35 @@ public class PortfolioController {
         this.portfolioAnalysisScheduler = portfolioAnalysisScheduler;
     }
 
-    // Manual trigger for the normally-08:00-IST-only job -- same fire-and-forget-on-a-
-    // background-thread pattern as BulletinController's /trigger-bulletin, so testing
-    // (or an ops re-run) doesn't require waiting for tomorrow's cron.
+    // Ops/testing escape hatch -- re-runs the FULL 08:00 IST job (every distinct ticker
+    // across every browser) on demand. Same fire-and-forget-on-a-background-thread
+    // pattern as BulletinController's /trigger-bulletin.
     @GetMapping(value = "/trigger-analysis", produces = MediaType.TEXT_PLAIN_VALUE)
     public String triggerAnalysis() {
         new Thread(portfolioAnalysisScheduler::runDailyAnalysis).start();
         return "Portfolio analysis triggered -- check /api/dashboard/portfolio/analysis in a few minutes.";
+    }
+
+    public record AnalyzePendingRequest(String browserId) {}
+
+    // Backs the Portfolio tab's "Run analysis" button -- only this browser's tickers
+    // with no analysis row for today, not a re-run of the whole distinct-ticker set
+    // (avoids re-analyzing stocks that already have today's result, and avoids one
+    // browser's click re-triggering everyone else's already-fresh tickers). Still fans
+    // each result out to every OTHER browser holding the same pending ticker -- see
+    // PortfolioAnalysisScheduler#analyzeTickers -- so this doubles as free coverage for
+    // anyone else's matching pending ticker, not just the caller's.
+    @PostMapping("/analyze-pending")
+    public ResponseEntity<?> analyzePending(@RequestBody AnalyzePendingRequest req) {
+        String browserId = validateBrowserId(req.browserId());
+        if (browserId == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "invalid browserId"));
+        }
+        List<String> pending = portfolioService.pendingTickersFor(browserId);
+        if (!pending.isEmpty()) {
+            new Thread(() -> portfolioAnalysisScheduler.analyzeTickers(pending)).start();
+        }
+        return ResponseEntity.ok(Map.of("status", "ok", "count", pending.size()));
     }
 
     public record TickerRequest(String browserId, String ticker) {}

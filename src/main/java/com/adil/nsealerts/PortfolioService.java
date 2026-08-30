@@ -68,6 +68,17 @@ public class PortfolioService {
         return jdbcTemplate.queryForList("SELECT DISTINCT ticker FROM portfolio.tickers", String.class);
     }
 
+    /** This browser's tickers with no analysis row for today yet -- what the "Run analysis" button needs. */
+    public List<String> pendingTickersFor(String browserId) {
+        return jdbcTemplate.queryForList(
+                "SELECT t.ticker FROM portfolio.tickers t " +
+                        "WHERE t.browser_id = ? AND NOT EXISTS ( " +
+                        "  SELECT 1 FROM portfolio.analysis a " +
+                        "  WHERE a.browser_id = t.browser_id AND a.ticker = t.ticker AND a.analysis_date = CURRENT_DATE" +
+                        ")",
+                String.class, browserId);
+    }
+
     /** Every browser_id currently holding this ticker -- the nightly job fans one analysis result out to all of them. */
     public List<String> browsersHolding(String ticker) {
         return jdbcTemplate.queryForList(
