@@ -244,7 +244,7 @@ _PROVIDER_MODELS = {
         # that, still meaningfully stronger reasoning than flash-lite for the handful
         # of decision-critical calls per run ($1.50/$9.00 per 1M if billing WERE
         # enabled -- more than flash-lite, but low volume keeps the blended cost down).
-        "deep": "gemini-3.1-pro-preview",  # TEMPORARY: forces a real 429 to verify the fallback retry actually works
+        "deep": "gemini-3.5-flash",
         # NOT gemini-3.5-flash for quick_think -- confirmed live 2026-08-31 that's
         # $1.50/$9.00 per 1M, MORE expensive than Haiku. flash-lite ($0.25/$1.50) is
         # the actually-cheap tier, used for the bulk of each run's calls.
