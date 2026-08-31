@@ -49,13 +49,17 @@ _RETAIL_LABELS = {"Overweight": "Buy", "Underweight": "Sell"}
 # collide across Anthropic/Google), so lookup stays provider-agnostic.
 _PRICE_PER_1M = {
     "claude-haiku-4-5-20251001": {"input": 1.00, "output": 5.00},
-    # NOT gemini-3.5-flash ($1.50/$9.00 -- confirmed live 2026-08-31 that's MORE
-    # expensive than Haiku, despite "Gemini free/cheap tier" assumptions from
-    # gemini-2.5-flash-era pricing). flash-lite is the actually-cheap Gemini tier.
+    # The actually-cheap Gemini tier -- used for quick_think (the bulk of each run's calls).
     "gemini-3.1-flash-lite": {"input": 0.25, "output": 1.50},
     # deep_think_llm only (2026-08-31) -- stronger judgment on the decision-critical
     # synthesis steps (research manager, trader plan, risk judge), a small minority of
-    # each run's ~18 calls, while quick_think stays on flash-lite for the rest.
+    # each run's ~18 calls. MORE expensive than Haiku per-token, despite "Gemini free/
+    # cheap tier" assumptions from gemini-2.5-flash-era pricing -- but low call volume
+    # keeps the blended per-run cost down.
+    "gemini-3.5-flash": {"input": 1.50, "output": 9.00},
+    # Not currently used -- confirmed live 2026-08-31 this tier has a hard 0 free-tier
+    # quota, needs real billing enabled on the Google account. Priced here in case that
+    # changes later.
     "gemini-3.1-pro-preview": {"input": 2.00, "output": 12.00},
 }
 
@@ -209,12 +213,18 @@ _PROVIDER_MODELS = {
     # No deep/quick split for Anthropic -- only Gemini is the active provider right now.
     "anthropic": {"deep": "claude-haiku-4-5-20251001", "quick": "claude-haiku-4-5-20251001"},
     "google": {
-        # $2/$12 per 1M -- confirmed live 2026-08-31. Only used for the handful of
-        # decision-critical calls per run, so the blended per-run cost stays well below
-        # what full-Haiku pricing was, while the final rating uses the stronger model.
-        "deep": "gemini-3.1-pro-preview",
-        # NOT gemini-3.5-flash -- confirmed live 2026-08-31 that's $1.50/$9.00 per 1M,
-        # MORE expensive than Haiku. flash-lite ($0.25/$1.50) is the actually-cheap tier.
+        # NOT gemini-3.1-pro-preview -- confirmed live 2026-08-31: that tier has a HARD
+        # 0 free-tier quota (RESOURCE_EXHAUSTED on the very first call, "limit: 0"),
+        # unlike flash-lite/flash which both have real (if capped) free allowances.
+        # Pro-tier models need actual billing enabled on the Google account to use at
+        # all -- gemini-3.5-flash is the strongest model this account can use without
+        # that, still meaningfully stronger reasoning than flash-lite for the handful
+        # of decision-critical calls per run ($1.50/$9.00 per 1M if billing WERE
+        # enabled -- more than flash-lite, but low volume keeps the blended cost down).
+        "deep": "gemini-3.5-flash",
+        # NOT gemini-3.5-flash for quick_think -- confirmed live 2026-08-31 that's
+        # $1.50/$9.00 per 1M, MORE expensive than Haiku. flash-lite ($0.25/$1.50) is
+        # the actually-cheap tier, used for the bulk of each run's calls.
         "quick": "gemini-3.1-flash-lite",
     },
     # International DashScope endpoint (not "qwen-cn" -- that's the separate mainland-
