@@ -44,46 +44,76 @@ JOB_RETENTION = timedelta(hours=24)
 # plain retail terms for the Portfolio tab -- Buy/Sell/Hold already read fine as-is.
 _RETAIL_LABELS = {"Overweight": "Buy", "Underweight": "Sell"}
 
-# $/1M tokens, Anthropic's own published rates -- update this if the models used above
-# ever change (currently both deep/quick-think are claude-haiku-4-5-20251001).
-_ANTHROPIC_PRICE_PER_1M = {
+# $/1M tokens, each provider's own published rates -- update this if the models used
+# below ever change. Model name is the dict key regardless of provider (names don't
+# collide across Anthropic/Google), so lookup stays provider-agnostic.
+_PRICE_PER_1M = {
     "claude-haiku-4-5-20251001": {"input": 1.00, "output": 5.00},
+    # NOT gemini-3.5-flash ($1.50/$9.00 -- confirmed live 2026-08-31 that's MORE
+    # expensive than Haiku, despite "Gemini free/cheap tier" assumptions from
+    # gemini-2.5-flash-era pricing). flash-lite is the actually-cheap Gemini tier.
+    "gemini-3.1-flash-lite": {"input": 0.25, "output": 1.50},
 }
 
 # Real per-run token usage/cost logging (2026-08-31, after burning through Anthropic
-# credits faster than expected during earlier testing) -- patches the actual `anthropic`
-# SDK's raw Messages.create, NOT a LangChain-level hook. LangChain's own usage-tracking
+# credits faster than expected during earlier testing) -- patches the actual provider
+# SDKs' raw call methods, NOT a LangChain-level hook. LangChain's own usage-tracking
 # callbacks (get_openai_callback()-style) are provider-specific and not guaranteed to
-# fire correctly through TradingAgents' own langchain_anthropic wiring; patching the SDK
-# call every LLM call ultimately goes through, regardless of abstraction layers on top,
-# is the one point guaranteed to see every real request. thread-local, not global --
-# each /analyze job runs in its own dedicated thread (see _run_job), so this keeps
-# concurrent jobs' usage from mixing.
+# fire correctly through TradingAgents' own langchain_anthropic/langchain_google_genai
+# wiring; patching the SDK call every LLM call ultimately goes through, regardless of
+# abstraction layers on top, is the one point guaranteed to see every real request.
+# thread-local, not global -- each /analyze job runs in its own dedicated thread (see
+# _run_job), so this keeps concurrent jobs' usage from mixing. Model name is passed in
+# explicitly by _start_usage_tracking (not parsed from each SDK's own response field --
+# Anthropic's is reliable but Gemini's response.model_version carries a versioned
+# suffix that wouldn't match the price table's key), since each provider branch in
+# _run_job already knows deterministically which single model it's using.
 _usage_local = threading.local()
-_original_messages_create = anthropic.resources.messages.Messages.create
+
+_original_anthropic_create = anthropic.resources.messages.Messages.create
 
 
-def _usage_tracking_create(self, *args, **kwargs):
-    response = _original_messages_create(self, *args, **kwargs)
+def _usage_tracking_anthropic(self, *args, **kwargs):
+    response = _original_anthropic_create(self, *args, **kwargs)
     bucket = getattr(_usage_local, "usage", None)
     if bucket is not None and getattr(response, "usage", None) is not None:
         bucket["input_tokens"] += response.usage.input_tokens
         bucket["output_tokens"] += response.usage.output_tokens
         bucket["calls"] += 1
-        bucket["model"] = getattr(response, "model", bucket.get("model"))
     return response
 
 
-anthropic.resources.messages.Messages.create = _usage_tracking_create
+anthropic.resources.messages.Messages.create = _usage_tracking_anthropic
+
+try:
+    from google.ai.generativelanguage_v1beta import GenerativeServiceClient
+
+    _original_gemini_generate_content = GenerativeServiceClient.generate_content
+
+    def _usage_tracking_gemini(self, *args, **kwargs):
+        response = _original_gemini_generate_content(self, *args, **kwargs)
+        bucket = getattr(_usage_local, "usage", None)
+        if bucket is not None and getattr(response, "usage_metadata", None) is not None:
+            bucket["input_tokens"] += response.usage_metadata.prompt_token_count
+            bucket["output_tokens"] += response.usage_metadata.candidates_token_count
+            bucket["calls"] += 1
+        return response
+
+    GenerativeServiceClient.generate_content = _usage_tracking_gemini
+except ImportError:
+    # Verified present as a transitive dependency (langchain-google-genai -> this
+    # package) as of 2026-08-31, but don't crash the whole service over usage-tracking
+    # if that ever changes -- Gemini calls would just go untracked, not fail outright.
+    pass
 
 
-def _start_usage_tracking():
-    _usage_local.usage = {"input_tokens": 0, "output_tokens": 0, "calls": 0, "model": None}
+def _start_usage_tracking(model_name: str):
+    _usage_local.usage = {"input_tokens": 0, "output_tokens": 0, "calls": 0, "model": model_name}
 
 
 def _finish_usage_tracking() -> dict[str, Any]:
     usage = getattr(_usage_local, "usage", None) or {"input_tokens": 0, "output_tokens": 0, "calls": 0, "model": None}
-    prices = _ANTHROPIC_PRICE_PER_1M.get(usage["model"])
+    prices = _PRICE_PER_1M.get(usage["model"])
     cost = None
     if prices:
         cost = round(
@@ -97,11 +127,9 @@ def _finish_usage_tracking() -> dict[str, Any]:
 
 
 def _log_usage(ticker: str, job_id: str, usage: dict[str, Any], failed: bool):
-    # Only Anthropic calls are tracked (the SDK-level patch above) -- if LLM_PROVIDER is
-    # "google" this always logs 0 calls/no pricing, which is expected, not a bug.
     status_word = "FAILED" if failed else "done"
-    cost_str = f"${usage['estimated_cost_usd']}" if usage["estimated_cost_usd"] is not None else "cost unknown (non-Anthropic run or no pricing on file)"
-    print(f"[usage] {ticker} job={job_id} {status_word}: {usage['calls']} Anthropic call(s), "
+    cost_str = f"${usage['estimated_cost_usd']}" if usage["estimated_cost_usd"] is not None else "cost unknown (no pricing on file for this model)"
+    print(f"[usage] {ticker} job={job_id} {status_word}: {usage['calls']} call(s) on {usage['model']}, "
           f"{usage['input_tokens']} in / {usage['output_tokens']} out tokens, est. {cost_str}")
 
 
@@ -136,8 +164,28 @@ def _prune_old_jobs():
             del _jobs[jid]
 
 
+# Single source of truth for which model each provider uses -- both deep_think_llm and
+# quick_think_llm use the same model per provider (no separate cheap/expensive split),
+# and usage tracking needs this same name to look up pricing (see _start_usage_tracking).
+_PROVIDER_MODEL = {
+    # Cost cut (2026-08-30): was claude-sonnet-5 ($2/$10 per 1M tokens) -- Haiku ($1/$5),
+    # matching every other Anthropic call already made elsewhere in this repo
+    # (NewsPoller, PromptRatingService, MarketBulletinService all use this same model).
+    "anthropic": "claude-haiku-4-5-20251001",
+    # NOT gemini-3.5-flash -- confirmed live 2026-08-31 that's $1.50/$9.00 per 1M,
+    # MORE expensive than Haiku. flash-lite ($0.25/$1.50) is the actually-cheap tier.
+    "google": "gemini-3.1-flash-lite",
+    # International DashScope endpoint (not "qwen-cn" -- that's the separate mainland-
+    # China-account endpoint, different API key, not interchangeable). Confirmed live
+    # against Alibaba's own model-list docs (2026-08-31) -- ~$0.15/1M input, $0.47/1M
+    # output. Requires DASHSCOPE_API_KEY.
+    "qwen": "qwen3.8-flash",
+}
+
+
 def _run_job(job_id: str, ticker: str, analysis_date: str):
-    _start_usage_tracking()
+    model_name = _PROVIDER_MODEL.get(LLM_PROVIDER)
+    _start_usage_tracking(model_name)
     try:
         config = DEFAULT_CONFIG.copy()
         config["llm_provider"] = LLM_PROVIDER
@@ -146,28 +194,9 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
         # names (e.g. "gpt-5.5") regardless of llm_provider -- confirmed live, this
         # 404'd calling Anthropic for a model named "gpt-5.4-mini". Must override
         # both model names whenever provider is switched.
-        if LLM_PROVIDER == "anthropic":
-            # Cost cut (2026-08-30): deep_think_llm was claude-sonnet-5 ($2/$10 per
-            # 1M tokens) -- Haiku ($1/$5) for both, matching every other Anthropic
-            # call already made elsewhere in this repo (NewsPoller, PromptRatingService,
-            # MarketBulletinService all already use claude-haiku-4-5-20251001).
-            config["deep_think_llm"] = "claude-haiku-4-5-20251001"
-            config["quick_think_llm"] = "claude-haiku-4-5-20251001"
-        elif LLM_PROVIDER == "google":
-            # gemini-3.5-flash for both -- Google's free tier covers the flash tier;
-            # gemini-3.1-pro-preview (TradingAgents' model_catalog.py also lists it)
-            # is not expected to be free-tier eligible, so deliberately not used here
-            # even for deep_think.
-            config["deep_think_llm"] = "gemini-3.5-flash"
-            config["quick_think_llm"] = "gemini-3.5-flash"
-        elif LLM_PROVIDER == "qwen":
-            # International DashScope endpoint (not "qwen-cn" -- that's the separate
-            # mainland-China-account endpoint, different API key, not interchangeable).
-            # qwen3.8-flash confirmed live against Alibaba's own model-list docs
-            # (2026-08-31) -- ~$0.15/1M input, $0.47/1M output, roughly 6-10x cheaper
-            # than the Haiku pricing above. Requires DASHSCOPE_API_KEY.
-            config["deep_think_llm"] = "qwen3.8-flash"
-            config["quick_think_llm"] = "qwen3.8-flash"
+        if model_name:
+            config["deep_think_llm"] = model_name
+            config["quick_think_llm"] = model_name
 
         # Drops the default "social" analyst (Reddit/StockTwits sentiment) -- confirmed
         # live on every run so far: those sources 429/404 for essentially every NSE
