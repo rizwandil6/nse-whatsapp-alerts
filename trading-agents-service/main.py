@@ -23,6 +23,7 @@ import uuid
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
+import anthropic
 from fastapi import FastAPI, Header, HTTPException, Response
 from pydantic import BaseModel
 
@@ -42,6 +43,67 @@ JOB_RETENTION = timedelta(hours=24)
 # (institutional portfolio-weighting terms, not configurable upstream). Collapsed to
 # plain retail terms for the Portfolio tab -- Buy/Sell/Hold already read fine as-is.
 _RETAIL_LABELS = {"Overweight": "Buy", "Underweight": "Sell"}
+
+# $/1M tokens, Anthropic's own published rates -- update this if the models used above
+# ever change (currently both deep/quick-think are claude-haiku-4-5-20251001).
+_ANTHROPIC_PRICE_PER_1M = {
+    "claude-haiku-4-5-20251001": {"input": 1.00, "output": 5.00},
+}
+
+# Real per-run token usage/cost logging (2026-08-31, after burning through Anthropic
+# credits faster than expected during earlier testing) -- patches the actual `anthropic`
+# SDK's raw Messages.create, NOT a LangChain-level hook. LangChain's own usage-tracking
+# callbacks (get_openai_callback()-style) are provider-specific and not guaranteed to
+# fire correctly through TradingAgents' own langchain_anthropic wiring; patching the SDK
+# call every LLM call ultimately goes through, regardless of abstraction layers on top,
+# is the one point guaranteed to see every real request. thread-local, not global --
+# each /analyze job runs in its own dedicated thread (see _run_job), so this keeps
+# concurrent jobs' usage from mixing.
+_usage_local = threading.local()
+_original_messages_create = anthropic.resources.messages.Messages.create
+
+
+def _usage_tracking_create(self, *args, **kwargs):
+    response = _original_messages_create(self, *args, **kwargs)
+    bucket = getattr(_usage_local, "usage", None)
+    if bucket is not None and getattr(response, "usage", None) is not None:
+        bucket["input_tokens"] += response.usage.input_tokens
+        bucket["output_tokens"] += response.usage.output_tokens
+        bucket["calls"] += 1
+        bucket["model"] = getattr(response, "model", bucket.get("model"))
+    return response
+
+
+anthropic.resources.messages.Messages.create = _usage_tracking_create
+
+
+def _start_usage_tracking():
+    _usage_local.usage = {"input_tokens": 0, "output_tokens": 0, "calls": 0, "model": None}
+
+
+def _finish_usage_tracking() -> dict[str, Any]:
+    usage = getattr(_usage_local, "usage", None) or {"input_tokens": 0, "output_tokens": 0, "calls": 0, "model": None}
+    prices = _ANTHROPIC_PRICE_PER_1M.get(usage["model"])
+    cost = None
+    if prices:
+        cost = round(
+            usage["input_tokens"] / 1_000_000 * prices["input"]
+            + usage["output_tokens"] / 1_000_000 * prices["output"],
+            4,
+        )
+    usage["estimated_cost_usd"] = cost
+    _usage_local.usage = None
+    return usage
+
+
+def _log_usage(ticker: str, job_id: str, usage: dict[str, Any], failed: bool):
+    # Only Anthropic calls are tracked (the SDK-level patch above) -- if LLM_PROVIDER is
+    # "google" this always logs 0 calls/no pricing, which is expected, not a bug.
+    status_word = "FAILED" if failed else "done"
+    cost_str = f"${usage['estimated_cost_usd']}" if usage["estimated_cost_usd"] is not None else "cost unknown (non-Anthropic run or no pricing on file)"
+    print(f"[usage] {ticker} job={job_id} {status_word}: {usage['calls']} Anthropic call(s), "
+          f"{usage['input_tokens']} in / {usage['output_tokens']} out tokens, est. {cost_str}")
+
 
 app = FastAPI()
 
@@ -75,6 +137,7 @@ def _prune_old_jobs():
 
 
 def _run_job(job_id: str, ticker: str, analysis_date: str):
+    _start_usage_tracking()
     try:
         config = DEFAULT_CONFIG.copy()
         config["llm_provider"] = LLM_PROVIDER
@@ -115,11 +178,16 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
         reasoning = final_state.get("final_trade_decision")
         decision = _RETAIL_LABELS.get(decision, decision)
 
+        usage = _finish_usage_tracking()
+        _log_usage(ticker, job_id, usage, failed=False)
+
         with _jobs_lock:
-            _jobs[job_id].update(status="done", decision=decision, reasoning=reasoning)
+            _jobs[job_id].update(status="done", decision=decision, reasoning=reasoning, usage=usage)
     except Exception as e:
+        usage = _finish_usage_tracking()
+        _log_usage(ticker, job_id, usage, failed=True)
         with _jobs_lock:
-            _jobs[job_id].update(status="error", error=str(e))
+            _jobs[job_id].update(status="error", error=str(e), usage=usage)
 
 
 @app.get("/healthz")
