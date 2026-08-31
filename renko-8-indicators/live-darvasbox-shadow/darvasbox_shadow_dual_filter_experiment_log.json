@@ -5953,5 +5953,17 @@
   "entryTimestampMs": 1788160800000,
   "exitTimestampMs": 1788170100000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 825.082125,
+  "exitPrice": 818.8785000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.751879699248105,
+  "entryTimestampMs": 1788164400000,
+  "exitTimestampMs": 1788169200000,
+  "shadow": true
  }
 ]
