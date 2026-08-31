@@ -86,20 +86,27 @@ def _usage_tracking_anthropic(self, *args, **kwargs):
 anthropic.resources.messages.Messages.create = _usage_tracking_anthropic
 
 try:
-    from google.ai.generativelanguage_v1beta import GenerativeServiceClient
+    # Confirmed live (2026-08-31) via a temporary diagnostic endpoint against the
+    # actual deployed langchain-google-genai (4.3.7): it calls self.client.models.
+    # generate_content(...), i.e. google.genai.models.Models.generate_content -- the
+    # NEW unified google-genai SDK, not the older google.ai.generativelanguage_v1beta
+    # client this was originally (wrongly) patched against, which silently caught
+    # nothing (0 tokens logged on confirmed-successful runs, no error either --
+    # the old class still exists and imports fine, it's just not what's actually called).
+    from google.genai.models import Models
 
-    _original_gemini_generate_content = GenerativeServiceClient.generate_content
+    _original_gemini_generate_content = Models.generate_content
 
     def _usage_tracking_gemini(self, *args, **kwargs):
         response = _original_gemini_generate_content(self, *args, **kwargs)
         bucket = getattr(_usage_local, "usage", None)
         if bucket is not None and getattr(response, "usage_metadata", None) is not None:
-            bucket["input_tokens"] += response.usage_metadata.prompt_token_count
-            bucket["output_tokens"] += response.usage_metadata.candidates_token_count
+            bucket["input_tokens"] += response.usage_metadata.prompt_token_count or 0
+            bucket["output_tokens"] += response.usage_metadata.candidates_token_count or 0
             bucket["calls"] += 1
         return response
 
-    GenerativeServiceClient.generate_content = _usage_tracking_gemini
+    Models.generate_content = _usage_tracking_gemini
 except ImportError:
     # Verified present as a transitive dependency (langchain-google-genai -> this
     # package) as of 2026-08-31, but don't crash the whole service over usage-tracking
@@ -230,36 +237,6 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
 @app.get("/healthz")
 def healthz():
     return {"status": "ok"}
-
-
-@app.get("/debug/gemini-client")
-def debug_gemini_client(x_api_token: str | None = Header(default=None)):
-    # Temporary diagnostic (2026-08-31) -- the Gemini usage-tracking patch isn't
-    # catching real calls (0 tokens logged on confirmed-successful runs). Rather than
-    # guess again at which SDK class the deployed langchain-google-genai version
-    # actually routes through, introspect it directly inside the real container.
-    # Remove once the correct patch target is confirmed and fixed.
-    _check_token(x_api_token)
-    import inspect
-    import langchain_google_genai
-
-    info: dict[str, Any] = {"lc_google_genai_file": langchain_google_genai.__file__}
-    try:
-        import importlib.metadata
-        info["lc_google_genai_version"] = importlib.metadata.version("langchain-google-genai")
-    except Exception as e:
-        info["version_error"] = str(e)
-    try:
-        src = inspect.getsource(langchain_google_genai.chat_models.ChatGoogleGenerativeAI._generate)
-        info["generate_source"] = src
-    except Exception as e:
-        info["generate_source_error"] = str(e)
-    try:
-        client_prop_src = inspect.getsource(langchain_google_genai.chat_models.ChatGoogleGenerativeAI.client.fget)
-        info["client_property_source"] = client_prop_src
-    except Exception as e:
-        info["client_property_error"] = str(e)
-    return Response(content=json.dumps(info), media_type="application/json")
 
 
 @app.post("/analyze")
