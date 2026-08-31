@@ -38,8 +38,12 @@ public class NewsPoller {
     private final Set<String> seenUrls = new HashSet<>();
     private volatile boolean newsSeedCompleted = false;
 
-    @Value("${anthropic.api-key:}")
-    private String anthropicApiKey;
+    @Value("${google.api-key:}")
+    private String googleApiKey;
+    // Switched from Anthropic (claude-haiku-4-5-20251001) to Gemini 2026-08-31 --
+    // confirmed live via trading-agents-service that gemini-3.1-flash-lite runs
+    // roughly 20-40x cheaper than Haiku for this kind of single-prompt classification.
+    private static final String GEMINI_MODEL = "gemini-3.1-flash-lite";
 
     private final TelegramSender telegramSender;
     private final AlertLogService alertLogService;
@@ -83,8 +87,8 @@ public class NewsPoller {
 
     @Scheduled(fixedDelay = 15 * 60 * 1000)
     public void pollNews() {
-        if (anthropicApiKey == null || anthropicApiKey.isBlank()) {
-            logger.debug("[News] Anthropic key not configured — skipping");
+        if (googleApiKey == null || googleApiKey.isBlank()) {
+            logger.debug("[News] Google API key not configured — skipping");
             return;
         }
 
@@ -207,7 +211,7 @@ public class NewsPoller {
     private void analyzeAndAlert(NewsItem item) {
         try {
             String prompt       = buildPrompt(item.title(), item.description());
-            String responseText = callAnthropic(prompt);
+            String responseText = callGemini(prompt);
             if (responseText == null || responseText.isBlank()) return;
 
             String json = responseText.trim();
@@ -259,22 +263,26 @@ public class NewsPoller {
             + "- No markdown formatting in any text field";
     }
 
-    private String callAnthropic(String prompt) throws Exception {
+    private String callGemini(String prompt) throws Exception {
         var rootNode = mapper.createObjectNode();
-        var messages = mapper.createArrayNode();
-        var msg      = mapper.createObjectNode();
-        msg.put("role", "user");
-        msg.put("content", prompt);
-        messages.add(msg);
-        rootNode.put("model", "claude-haiku-4-5-20251001");
-        rootNode.put("max_tokens", 600);
-        rootNode.set("messages", messages);
+        var contents = mapper.createArrayNode();
+        var content = mapper.createObjectNode();
+        content.put("role", "user");
+        var parts = mapper.createArrayNode();
+        var part = mapper.createObjectNode();
+        part.put("text", prompt);
+        parts.add(part);
+        content.set("parts", parts);
+        contents.add(content);
+        rootNode.set("contents", contents);
+        var generationConfig = mapper.createObjectNode();
+        generationConfig.put("maxOutputTokens", 600);
+        rootNode.set("generationConfig", generationConfig);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.anthropic.com/v1/messages"))
+                .uri(URI.create("https://generativelanguage.googleapis.com/v1beta/models/"
+                        + GEMINI_MODEL + ":generateContent?key=" + googleApiKey))
                 .header("Content-Type", "application/json")
-                .header("x-api-key", anthropicApiKey)
-                .header("anthropic-version", "2023-06-01")
                 .POST(HttpRequest.BodyPublishers.ofString(rootNode.toString(), StandardCharsets.UTF_8))
                 .build();
 
@@ -282,10 +290,10 @@ public class NewsPoller {
                 HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
-            logger.warn("[News] Anthropic error {}", response.statusCode());
+            logger.warn("[News] Gemini error {}", response.statusCode());
             return null;
         }
-        return mapper.readTree(response.body()).at("/content/0/text").asText();
+        return mapper.readTree(response.body()).at("/candidates/0/content/parts/0/text").asText();
     }
 
     private String buildMessage(JsonNode result, NewsItem item) {

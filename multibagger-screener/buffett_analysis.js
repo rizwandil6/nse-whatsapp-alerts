@@ -7,25 +7,25 @@
  * candidates, since it's a real per-call API cost and only a handful of
  * stocks clear the quantitative bar on any given day.
  *
- * Was Claude Opus (this is a genuinely complex, judgment-heavy analytical
- * task, not a simple extraction) -- switched to Haiku 2026-08-30 as part of
- * a repo-wide cost cut, matching every other Anthropic call in this repo
+ * Was Claude Opus, then Haiku (2026-08-30 repo-wide cost cut) -- switched to
+ * Gemini 2026-08-31, matching every other former-Anthropic call in this repo
  * (NewsPoller, PromptRatingService, MarketBulletinService, trading-agents-
- * service all use claude-haiku-4-5-20251001). Note this is a real quality
- * tradeoff for this specific feature, not a free win -- flagged explicitly
- * when the cut was requested, since Opus was a deliberate choice here, not
- * an oversight; low volume (a handful of stocks/day) meant it wasn't a
- * meaningful cost driver on its own. Revert to 'claude-opus-4-8' if the
- * multi-section write-up quality regresses noticeably.
+ * service). Confirmed live via trading-agents-service that gemini-3.1-flash-
+ * lite runs roughly 20-40x cheaper than Haiku was for equivalent tasks. Note
+ * this is still a real quality tradeoff vs. the original Opus choice for this
+ * specific multi-section write-up (see the 2026-08-30 note this superseded);
+ * low volume (a handful of stocks/day) means cost alone was never the
+ * deciding factor here.
  *
- * Uses the official Anthropic SDK, streamed (the response can run long
- * across 8 sections) and resolved via .finalMessage().
+ * Raw REST call (Gemini's generateContent, non-streaming) rather than a new
+ * SDK dependency -- this repo has no existing @google/genai usage to build
+ * on, and a single non-streaming request is simpler than replicating the
+ * Anthropic SDK's streaming pattern for a REST API with a 131K output-token
+ * ceiling (comfortably above this prompt's ~12K-token needs either way).
  */
 
-const Anthropic = require('@anthropic-ai/sdk');
-
-const MODEL = 'claude-haiku-4-5-20251001';
-const MAX_TOKENS = 12000;
+const MODEL = 'gemini-3.1-flash-lite';
+const MAX_OUTPUT_TOKENS = 12000;
 
 const PROMPT_TEMPLATE = `Analyze {{COMPANY}} (NSE: {{TICKER}}) as Warren Buffett would evaluate a potential 100-bagger for a 20-30 year holding period. My capital: ₹{{CAPITAL}}.
 
@@ -75,23 +75,23 @@ function buildPrompt(companyName, ticker, capitalRupees) {
 
 /** Returns the analysis as plain text, or throws (caller should catch and treat as "skip, don't block the alert"). */
 async function generateBuffettAnalysis(companyName, ticker, capitalRupees, apiKey) {
-  const client = new Anthropic({ apiKey });
   const prompt = buildPrompt(companyName, ticker, capitalRupees);
-  // No `thinking` param -- adaptive thinking (used when this called Opus) is only
-  // valid on the 4.6+/5 model family; Haiku 4.5 rejects it with a 400. None of this
-  // repo's other Haiku calls (NewsPoller, PromptRatingService, MarketBulletinService)
-  // request thinking either.
-  const stream = client.messages.stream({
-    model: MODEL,
-    max_tokens: MAX_TOKENS,
-    messages: [{ role: 'user', content: prompt }],
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS },
+    }),
   });
-  const message = await stream.finalMessage();
-  return message.content
-    .filter((b) => b.type === 'text')
-    .map((b) => b.text)
-    .join('\n')
-    .trim();
+  if (!res.ok) {
+    throw new Error(`Gemini API error: ${res.status} ${await res.text()}`);
+  }
+  const data = await res.json();
+  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!text) throw new Error('Gemini response had no text content');
+  return text.trim();
 }
 
 /** Splits long text into Telegram-safe chunks (<4096 chars), breaking on paragraph boundaries where possible. */

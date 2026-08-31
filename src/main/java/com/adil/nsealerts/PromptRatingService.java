@@ -21,43 +21,67 @@ public class PromptRatingService {
     private static final Logger logger = LoggerFactory.getLogger(PromptRatingService.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Value("${anthropic.api-key:}")
-    private String anthropicApiKey;
+    // Switched from Anthropic (claude-haiku-4-5-20251001) to Gemini 2026-08-31 --
+    // confirmed live via trading-agents-service that gemini-3.1-flash-lite runs
+    // roughly 20-40x cheaper than Haiku for equivalent short classification/summary
+    // tasks (this file's three methods are all exactly that: no multi-turn agentic
+    // work, just single-prompt-in, short-verdict-out).
+    private static final String GEMINI_MODEL = "gemini-3.1-flash-lite";
+
+    @Value("${google.api-key:}")
+    private String googleApiKey;
 
     public AnalysisResult analyze(String companyName, String subject, String link, String documentText) {
-        if (anthropicApiKey != null && !anthropicApiKey.isBlank()) {
+        if (googleApiKey != null && !googleApiKey.isBlank()) {
             try {
-                return analyzeWithAnthropic(companyName, subject, link, documentText);
+                return analyzeWithGemini(companyName, subject, link, documentText);
             } catch (Exception e) {
-                logger.error("Anthropic analysis failed: {}", e.getMessage());
+                logger.error("Gemini analysis failed: {}", e.getMessage());
             }
         }
         return fallbackAnalysis(companyName, subject, link, documentText);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // Anthropic (Claude Haiku)
+    // Gemini (gemini-3.1-flash-lite) -- shared call helper, see callGemini() below
     // ─────────────────────────────────────────────────────────────────────────
 
-    private AnalysisResult analyzeWithAnthropic(String companyName, String subject,
-                                                 String link, String documentText) throws Exception {
+    private AnalysisResult analyzeWithGemini(String companyName, String subject,
+                                              String link, String documentText) throws Exception {
         String prompt = buildPrompt(companyName, subject, documentText);
+        String content = callGemini(prompt, 600);
+        logger.debug("[Gemini] Response: {}", content);
+        return parseResponse(content, companyName, link, documentText);
+    }
 
+    /**
+     * Shared Gemini REST call -- POST https://generativelanguage.googleapis.com/v1beta/
+     * models/{model}:generateContent?key=..., body {contents:[{role:"user",parts:[{text}]}]},
+     * response text at candidates[0].content.parts[0].text. Auth via ?key= query param
+     * (Gemini's documented default) rather than a header -- server-side outbound call,
+     * not browser-exposed, so the key appearing in the request URL is an acceptable
+     * tradeoff for using the officially documented auth style directly.
+     */
+    private String callGemini(String prompt, int maxOutputTokens) throws Exception {
         var rootNode = objectMapper.createObjectNode();
-        var messages = objectMapper.createArrayNode();
-        var message  = objectMapper.createObjectNode();
-        message.put("role", "user");
-        message.put("content", prompt);
-        messages.add(message);
-        rootNode.put("model", "claude-haiku-4-5-20251001");
-        rootNode.put("max_tokens", 600);
-        rootNode.set("messages", messages);
+        var contents = objectMapper.createArrayNode();
+        var content = objectMapper.createObjectNode();
+        content.put("role", "user");
+        var parts = objectMapper.createArrayNode();
+        var part = objectMapper.createObjectNode();
+        part.put("text", prompt);
+        parts.add(part);
+        content.set("parts", parts);
+        contents.add(content);
+        rootNode.set("contents", contents);
+        var generationConfig = objectMapper.createObjectNode();
+        generationConfig.put("maxOutputTokens", maxOutputTokens);
+        rootNode.set("generationConfig", generationConfig);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.anthropic.com/v1/messages"))
+                .uri(URI.create("https://generativelanguage.googleapis.com/v1beta/models/"
+                        + GEMINI_MODEL + ":generateContent?key=" + googleApiKey))
                 .header("Content-Type", "application/json")
-                .header("x-api-key", anthropicApiKey)
-                .header("anthropic-version", "2023-06-01")
                 .POST(HttpRequest.BodyPublishers.ofString(rootNode.toString(), StandardCharsets.UTF_8))
                 .build();
 
@@ -65,12 +89,10 @@ public class PromptRatingService {
                 .send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
 
         if (response.statusCode() != 200) {
-            throw new RuntimeException("Anthropic API error: " + response.statusCode() + " " + response.body());
+            throw new RuntimeException("Gemini API error: " + response.statusCode() + " " + response.body());
         }
 
-        String content = objectMapper.readTree(response.body()).at("/content/0/text").asText();
-        logger.debug("[Anthropic] Response: {}", content);
-        return parseResponse(content, companyName, link, documentText);
+        return objectMapper.readTree(response.body()).at("/candidates/0/content/parts/0/text").asText();
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -98,7 +120,7 @@ public class PromptRatingService {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // Parse Anthropic JSON response
+    // Parse Gemini JSON response
     // ─────────────────────────────────────────────────────────────────────────
 
     private AnalysisResult parseResponse(String content, String companyName, String link, String documentText) {
@@ -133,7 +155,7 @@ public class PromptRatingService {
             return new AnalysisResult(rating, orderSizeCr, quickVerdict, orderSummary, scannerLabel, msg);
 
         } catch (Exception e) {
-            logger.warn("[Anthropic] JSON parse failed: {}", e.getMessage());
+            logger.warn("[Gemini] JSON parse failed: {}", e.getMessage());
             return null;
         }
     }
@@ -186,37 +208,10 @@ public class PromptRatingService {
     public record BoardMeetingAnalysis(String message, Double rating) {}
 
     public BoardMeetingAnalysis analyzeBoardMeetingPdf(String companyName, String subject, String documentText) {
-        if (anthropicApiKey == null || anthropicApiKey.isBlank()) return new BoardMeetingAnalysis(null, null);
+        if (googleApiKey == null || googleApiKey.isBlank()) return new BoardMeetingAnalysis(null, null);
         try {
             String prompt = buildBoardMeetingPrompt(companyName, subject, documentText);
-
-            var rootNode = objectMapper.createObjectNode();
-            var messages = objectMapper.createArrayNode();
-            var message  = objectMapper.createObjectNode();
-            message.put("role", "user");
-            message.put("content", prompt);
-            messages.add(message);
-            rootNode.put("model", "claude-haiku-4-5-20251001");
-            rootNode.put("max_tokens", 700);
-            rootNode.set("messages", messages);
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.anthropic.com/v1/messages"))
-                    .header("Content-Type", "application/json")
-                    .header("x-api-key", anthropicApiKey)
-                    .header("anthropic-version", "2023-06-01")
-                    .POST(HttpRequest.BodyPublishers.ofString(rootNode.toString(), StandardCharsets.UTF_8))
-                    .build();
-
-            HttpResponse<String> response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-
-            if (response.statusCode() != 200) {
-                logger.warn("[BoardMeeting] Anthropic API error: {} {}", response.statusCode(), response.body());
-                return new BoardMeetingAnalysis(null, null);
-            }
-
-            String content = objectMapper.readTree(response.body()).at("/content/0/text").asText();
+            String content = callGemini(prompt, 700);
             return formatBoardMeetingResult(content);
         } catch (Exception e) {
             logger.warn("[BoardMeeting] Analysis failed: {}", e.getMessage());
@@ -234,7 +229,7 @@ public class PromptRatingService {
      * "substantive financial data unavailable", not a useful judgment. Feeds
      * the AI ONLY the already-reliable Screener.in-sourced YoY/QoQ figures
      * instead, so the verdict is grounded in real numbers every time.
-     * Returns null if ANTHROPIC_API_KEY isn't set or the call fails --
+     * Returns null if GOOGLE_API_KEY isn't set or the call fails --
      * callers must treat this as optional, same as the board-meeting analysis.
      */
     public String judgeQuarterlyTrend(String companyName, String quarterLabel,
@@ -245,40 +240,14 @@ public class PromptRatingService {
                                        Double eps, Double epsYoyPct, Double epsQoqPct,
                                        Double ebitdaCr, Double ebitdaYoyPct, Double ebitdaQoqPct,
                                        String ebitdaYoySwingType, String ebitdaQoqSwingType) {
-        if (anthropicApiKey == null || anthropicApiKey.isBlank()) return null;
+        if (googleApiKey == null || googleApiKey.isBlank()) return null;
         try {
             String prompt = buildQuarterlyTrendPrompt(companyName, quarterLabel, revenueCr, revenueYoyPct, revenueQoqPct,
                     netProfitCr, netProfitYoyPct, netProfitQoqPct, profitYoySwingType, profitQoqSwingType,
                     operatingMarginPct, marginYoyPp, marginQoqPp, eps, epsYoyPct, epsQoqPct,
                     ebitdaCr, ebitdaYoyPct, ebitdaQoqPct, ebitdaYoySwingType, ebitdaQoqSwingType);
 
-            var rootNode = objectMapper.createObjectNode();
-            var messages = objectMapper.createArrayNode();
-            var message = objectMapper.createObjectNode();
-            message.put("role", "user");
-            message.put("content", prompt);
-            messages.add(message);
-            rootNode.put("model", "claude-haiku-4-5-20251001");
-            rootNode.put("max_tokens", 60); // one short line -- no need for a large budget
-            rootNode.set("messages", messages);
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.anthropic.com/v1/messages"))
-                    .header("Content-Type", "application/json")
-                    .header("x-api-key", anthropicApiKey)
-                    .header("anthropic-version", "2023-06-01")
-                    .POST(HttpRequest.BodyPublishers.ofString(rootNode.toString(), StandardCharsets.UTF_8))
-                    .build();
-
-            HttpResponse<String> response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
-
-            if (response.statusCode() != 200) {
-                logger.warn("[QuarterlyTrend] Anthropic API error: {} {}", response.statusCode(), response.body());
-                return null;
-            }
-
-            String content = objectMapper.readTree(response.body()).at("/content/0/text").asText();
+            String content = callGemini(prompt, 60);
             String verdict = content.trim();
             if (verdict.startsWith("\"") && verdict.endsWith("\"") && verdict.length() > 1) {
                 verdict = verdict.substring(1, verdict.length() - 1).trim();

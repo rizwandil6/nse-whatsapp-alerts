@@ -30,14 +30,14 @@ public class MarketBulletinService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper mapper = new ObjectMapper();
     private final List<String> watchlist;
-    private final String anthropicApiKey;
+    private final String googleApiKey;
 
     public MarketBulletinService(TelegramSender telegramSender,
                                   NseClient nseClient,
                                   Environment env) {
         this.telegramSender = telegramSender;
         this.nseClient = nseClient;
-        this.anthropicApiKey = env.getProperty("anthropic.api-key", "");
+        this.googleApiKey = env.getProperty("google.api-key", "");
 
         List<String> wl = new ArrayList<>();
         int i = 0;
@@ -92,7 +92,7 @@ public class MarketBulletinService {
         sb.append("FII / DII Activity (Previous Day)\n");
         sb.append(parseFiiDii(fiiJson)).append("\n\n");
 
-        // Market Bias (Claude)
+        // Market Bias (Gemini)
         String rawData = sb.toString();
         sb.append("Market Bias\n");
         sb.append(generateMarketBias(rawData)).append("\n\n");
@@ -331,12 +331,16 @@ public class MarketBulletinService {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // Market Bias via Claude (Anthropic API)
+    // Market Bias via Gemini (switched from Anthropic 2026-08-31 -- confirmed live
+    // via trading-agents-service that gemini-3.1-flash-lite runs roughly 20-40x
+    // cheaper than Haiku for this kind of single-prompt classification)
     // ─────────────────────────────────────────────────────────────────────────
 
+    private static final String GEMINI_MODEL = "gemini-3.1-flash-lite";
+
     private String generateMarketBias(String marketData) {
-        if (anthropicApiKey == null || anthropicApiKey.isBlank()) {
-            return "Bias: N/A — set anthropic.api-key in application.yml";
+        if (googleApiKey == null || googleApiKey.isBlank()) {
+            return "Bias: N/A — set google.api-key in application.yml";
         }
         try {
             String prompt =
@@ -350,15 +354,13 @@ public class MarketBulletinService {
                 + "Max 80 words. Be direct and specific.";
 
             Map<String, Object> body = new LinkedHashMap<>();
-            body.put("model", "claude-haiku-4-5-20251001");
-            body.put("max_tokens", 300);
-            body.put("messages", List.of(Map.of("role", "user", "content", prompt)));
+            body.put("contents", List.of(Map.of("role", "user", "parts", List.of(Map.of("text", prompt)))));
+            body.put("generationConfig", Map.of("maxOutputTokens", 300));
 
             java.net.http.HttpRequest req = java.net.http.HttpRequest.newBuilder()
-                    .uri(java.net.URI.create("https://api.anthropic.com/v1/messages"))
+                    .uri(java.net.URI.create("https://generativelanguage.googleapis.com/v1beta/models/"
+                            + GEMINI_MODEL + ":generateContent?key=" + googleApiKey))
                     .timeout(java.time.Duration.ofSeconds(20))
-                    .header("x-api-key", anthropicApiKey)
-                    .header("anthropic-version", "2023-06-01")
                     .header("Content-Type", "application/json")
                     .POST(java.net.http.HttpRequest.BodyPublishers.ofString(
                             mapper.writeValueAsString(body)))
@@ -368,11 +370,11 @@ public class MarketBulletinService {
                     req, java.net.http.HttpResponse.BodyHandlers.ofString());
 
             return mapper.readTree(resp.body())
-                    .path("content").get(0).path("text").asText("N/A");
+                    .path("candidates").get(0).path("content").path("parts").get(0).path("text").asText("N/A");
 
         } catch (Exception e) {
-            logger.warn("[Bulletin] Claude bias call failed: {}", e.getMessage());
-            return "Bias: Generation failed — check anthropic.api-key";
+            logger.warn("[Bulletin] Gemini bias call failed: {}", e.getMessage());
+            return "Bias: Generation failed — check google.api-key";
         }
     }
 }

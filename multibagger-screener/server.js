@@ -23,7 +23,9 @@ const { computeForwardPerformance } = require('./forward_performance');
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046'];
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+// Switched from Anthropic to Gemini 2026-08-31 -- confirmed live via trading-agents-
+// service that gemini-3.1-flash-lite runs roughly 20-40x cheaper than Haiku.
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 const BUFFETT_CAPITAL_RUPEES = 100000; // Rs 1,00,000, per direct instruction
 const BATCH_SIZE = parseInt(process.env.BATCH_SIZE || '100', 10);
 const IST_OFFSET_MIN = 5 * 60 + 30;
@@ -56,17 +58,17 @@ async function sendTelegramAlert(text) {
 
 /**
  * Deep qualitative analysis for a new candidate — best-effort, never blocks
- * or fails the run: a Claude API error here (rate limit, credit issue,
+ * or fails the run: a Gemini API error here (rate limit, credit issue,
  * transient failure) should not stop the rest of today's alerts/state push.
  */
 async function sendBuffettAnalysis(symbol, data) {
-  if (!ANTHROPIC_API_KEY) {
-    console.warn(`  ANTHROPIC_API_KEY not set — skipping Buffett analysis for ${symbol}.`);
+  if (!GOOGLE_API_KEY) {
+    console.warn(`  GOOGLE_API_KEY not set — skipping Buffett analysis for ${symbol}.`);
     return;
   }
   try {
     const companyName = data.companyName || symbol;
-    const text = await generateBuffettAnalysis(companyName, symbol, BUFFETT_CAPITAL_RUPEES, ANTHROPIC_API_KEY);
+    const text = await generateBuffettAnalysis(companyName, symbol, BUFFETT_CAPITAL_RUPEES, GOOGLE_API_KEY);
     const chunks = chunkForTelegram(text);
     for (let i = 0; i < chunks.length; i++) {
       const header = chunks.length > 1 ? `[BUFFETT ANALYSIS ${i + 1}/${chunks.length}] ${symbol}\n\n` : `[BUFFETT ANALYSIS] ${symbol}\n\n`;

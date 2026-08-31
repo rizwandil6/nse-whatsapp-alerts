@@ -88,6 +88,15 @@ analysis:
 anthropic:
   api-key: ${ANTHROPIC_API_KEY:}
 
+# NewsPoller, PromptRatingService, and MarketBulletinService switched from Anthropic
+# (claude-haiku-4-5-20251001) to Gemini (gemini-3.1-flash-lite) 2026-08-31 -- confirmed
+# live via trading-agents-service that Gemini's flash-lite tier runs roughly 20-40x
+# cheaper than Haiku for this kind of short single-prompt classification/summary task.
+# ANTHROPIC_API_KEY above is no longer read by any of the three -- left in place only
+# in case something is reverted later, not actively used by this app right now.
+google:
+  api-key: ${GOOGLE_API_KEY:}
+
 news:
   api-key: ${NEWS_API_KEY:}
 
