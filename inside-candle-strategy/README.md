@@ -123,14 +123,35 @@ its own swing/location state, its own pending-setup state, own entries/exits. Th
 - `SIGNAL_TIMEFRAMES` (env, comma-separated, default **`15m,5m`**) — which timeframes run. Set to
   e.g. `15m` to go back to single-timeframe, or add more (any interval Pi42's kline API/WebSocket
   supports) as a comma-separated list.
-- `DISABLED_ENTRIES` (env, comma-separated `SYMBOL:TF` pairs, default **`SOLINR:5m`**) — a
-  per-(symbol, timeframe) kill switch. A disabled tracker still seeds history, watches, logs
-  diagnostics, and manages any already-open trade to closure — it just never fires a *new* entry.
-  `SOLINR:5m` disabled 2026-08-29 after a 45-day backtest showed a genuine negative edge there
-  (13.3% win rate, **-25.37R over 60 trades**) — not just an unlucky live streak, unlike
-  BTCINR/XAUINR/XAGINR 5m, which backtested net positive despite similarly low win rates (the
-  low-win-rate/big-winner profile this strategy is built around — see "Floor + EMA trail" above).
-  SOLINR stays fully enabled on 15m.
+- `DISABLED_ENTRIES` (env, comma-separated `SYMBOL:TF` pairs, default
+  **`SOLINR:5m,XAUINR:5m,BTCINR:5m`**) — a per-(symbol, timeframe) kill switch. A disabled tracker
+  still seeds history, watches, logs diagnostics, and manages any already-open trade to closure —
+  it just never fires a *new* entry.
+  - `SOLINR:5m` disabled 2026-08-29 after a 45-day backtest showed a genuine negative edge there
+    (13.3% win rate, **-25.37R over 60 trades**) — not just an unlucky live streak. SOLINR stays
+    fully enabled on 15m.
+  - `XAUINR:5m` and `BTCINR:5m` disabled 2026-08-31 after discovering the "tiny-risk-trade"
+    R-multiple artifact (see `MIN_RISK_PCT` below) — a 62-day clean backtest (filtering setups
+    with risk < 0.05% of price) showed their previously-reported strong 5m edge was almost
+    entirely that artifact: XAUINR:5m's reported +165.11R collapsed to a real **+6.69R** (96%
+    artifact, 43 clean trades), BTCINR:5m's +33.59R collapsed to **+6.24R** (81% artifact, 53
+    clean trades) — both statistically indistinguishable from noise. `MIN_RISK_PCT` prevents new
+    tiny-risk setups from arming going forward, but these two pairs' entire historical track
+    record was built on the artifact rather than validated real performance, so they stay
+    disabled on top of the gate pending a fresh live sample. XAUINR/BTCINR stay fully enabled on
+    15m (XAUINR:15m's edge was only ~30% artifact and remains strongly positive clean; BTCINR:15m
+    similarly holds up at +20.98R clean).
+- `MIN_RISK_PCT` (env, default **`0.05`**, % of price) — an inside candle only arms a setup if its
+  range (`high - low`) is at least this fraction of price. Added 2026-08-31 after finding that
+  during quiet/illiquid stretches the inside candle range can shrink to a few rupees on a
+  lakhs-priced instrument (gold especially) — the strategy's R-multiple (`price move / range`)
+  then blows up to absurd values (60R, 24R...) on perfectly ordinary subsequent moves, because
+  that "risk" was never actually a holdable stop (narrower than normal spread/slippage), not
+  because of real edge. A 62-day sweep across all 6 symbols found the total R stable between
+  0.03%–0.05% (the artifact is gone) and dropping steadily above that (real profitable trades
+  start getting cut) — chose 0.05% as the cutoff. Across the full production symbol×timeframe
+  matrix this cut reported +499.57R down to a real **+215.96R** (57% of the previous headline
+  number was the artifact) — see `DISABLED_ENTRIES` above for the two pairs hit hardest.
 - Telegram alerts and dashboard rows are tagged with which timeframe fired (`(15m)`/`(5m)` in the
   message text, a small badge on the dashboard card) so 15m and 5m signals for the same symbol
   never look like the same trade.
@@ -176,7 +197,8 @@ Same pattern as every sibling strategy — a **separate Railway service** in the
    the default 3R floor, `TREND_FILTER_ENABLED=false` to disable the trend filter (default on),
    `EMA_LENGTH` to override the default 9-period trend+trail EMA, `SWING_LOOKBACK` to override
    the default 5-bar swing window (location only), `SIGNAL_TIMEFRAMES` to override the default
-   `15m,5m` timeframe set, `DISABLED_ENTRIES` to override the default `SOLINR:5m` kill-switch list.
+   `15m,5m` timeframe set, `DISABLED_ENTRIES` to override the default `SOLINR:5m,XAUINR:5m,BTCINR:5m`
+   kill-switch list, `MIN_RISK_PCT` to override the default 0.05% minimum inside-candle-range gate.
 
 ## Dashboard
 

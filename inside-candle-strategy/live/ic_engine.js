@@ -75,6 +75,17 @@
  */
 
 const R_TARGET = Number(process.env.R_TARGET || 3); // fixed R-multiple, source states min 1:3 (sometimes 1:4)
+// Minimum inside-candle range, as % of price, required to arm a setup (2026-08-31). Found via
+// backtest: during quiet/illiquid stretches the inside candle range can shrink to a few rupees on
+// a lakhs-priced instrument (e.g. gold), and R-multiple = price move / range then blows up to
+// absurd values (60R, 24R...) on perfectly real subsequent moves -- because that "risk" was never
+// actually a holdable stop (narrower than normal spread/slippage), not because of real edge. A
+// 62-day sweep across all 6 symbols found the R-multiple total stable between 0.03% and 0.05%
+// (the artifact is gone) and dropping steadily above that (real trades start getting cut) --
+// 0.05% is the chosen cutoff. See DISABLED_ENTRIES in streamer.js for the two pairs (XAUINR:5m,
+// BTCINR:5m) whose entire historical track record was built on this artifact and stayed disabled
+// even with this gate in place, pending a fresh live sample.
+const MIN_RISK_PCT = Number(process.env.MIN_RISK_PCT || 0.05);
 // Default ON: this is now the production rule, matching IC-NextCandle-Trend.pine. Set
 // TREND_FILTER_ENABLED=false to run the original untrended IC-NextCandle behaviour instead.
 const TREND_FILTER_ENABLED = process.env.TREND_FILTER_ENABLED !== 'false';
@@ -345,6 +356,11 @@ class IcSymbolTracker {
         } else {
           armDirection = 'ANY';
         }
+        // Reject setups whose stop distance would be too small to actually hold (see MIN_RISK_PCT
+        // above) -- checked last so it doesn't interfere with the trend/location gates above.
+        if (armDirection && bar.close > 0 && ((bar.high - bar.low) / bar.close) * 100 < MIN_RISK_PCT) {
+          armDirection = null;
+        }
         if (armDirection) {
           this.icHigh = bar.high;
           this.icLow = bar.low;
@@ -369,4 +385,4 @@ class IcSymbolTracker {
   }
 }
 
-module.exports = { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED, SWING_LOOKBACK, EMA_LENGTH };
+module.exports = { IcSymbolTracker, R_TARGET, TREND_FILTER_ENABLED, SWING_LOOKBACK, EMA_LENGTH, MIN_RISK_PCT };

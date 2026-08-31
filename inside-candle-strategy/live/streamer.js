@@ -70,10 +70,18 @@ const SIGNAL_TIMEFRAMES = (process.env.SIGNAL_TIMEFRAMES || '15m,5m').split(',')
 // Per-(symbol, timeframe) entry kill-switch -- the tracker still seeds history, watches, and logs
 // diagnostics (so it's easy to re-enable later without losing continuity), it just never actually
 // fires an entry. SOLINR:5m disabled 2026-08-29 after a 45-day backtest showed a real, not-just-
-// unlucky negative edge there (13.3% win rate, -25.37R over 60 trades) -- distinct from BTCINR/
-// XAUINR/XAGINR 5m, which backtested net positive despite similarly low win rates (the low-win-
-// rate/big-winner profile this strategy is designed around). SOLINR stays fully enabled on 15m.
-const DISABLED_ENTRIES = new Set((process.env.DISABLED_ENTRIES || 'SOLINR:5m').split(',').map((s) => s.trim()).filter(Boolean));
+// unlucky negative edge there (13.3% win rate, -25.37R over 60 trades).
+//
+// XAUINR:5m and BTCINR:5m disabled 2026-08-31 after discovering the "tiny-risk-trade" R-multiple
+// artifact (see MIN_RISK_PCT below): a 62-day clean backtest (filtering setups with risk < 0.05%
+// of price) showed their previously-reported strong 5m edge was almost entirely that artifact --
+// XAUINR:5m collapsed from a reported +165.11R to a real +6.69R (96% artifact), BTCINR:5m from
+// +33.59R to +6.24R (81% artifact) -- both statistically indistinguishable from noise over
+// 43-53 clean trades. MIN_RISK_PCT (added same day) should prevent NEW tiny-risk setups from
+// arming at all going forward; these two are disabled on top of that because their entire
+// historical track record was built on the artifact, not validated real performance -- re-enable
+// only after MIN_RISK_PCT has accumulated its own live sample on these pairs.
+const DISABLED_ENTRIES = new Set((process.env.DISABLED_ENTRIES || 'SOLINR:5m,XAUINR:5m,BTCINR:5m').split(',').map((s) => s.trim()).filter(Boolean));
 const WS_URL = 'https://fawss.pi42.com/';
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046']; // personal + group, same as every sibling bot
