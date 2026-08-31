@@ -232,6 +232,36 @@ def healthz():
     return {"status": "ok"}
 
 
+@app.get("/debug/gemini-client")
+def debug_gemini_client(x_api_token: str | None = Header(default=None)):
+    # Temporary diagnostic (2026-08-31) -- the Gemini usage-tracking patch isn't
+    # catching real calls (0 tokens logged on confirmed-successful runs). Rather than
+    # guess again at which SDK class the deployed langchain-google-genai version
+    # actually routes through, introspect it directly inside the real container.
+    # Remove once the correct patch target is confirmed and fixed.
+    _check_token(x_api_token)
+    import inspect
+    import langchain_google_genai
+
+    info: dict[str, Any] = {"lc_google_genai_file": langchain_google_genai.__file__}
+    try:
+        import importlib.metadata
+        info["lc_google_genai_version"] = importlib.metadata.version("langchain-google-genai")
+    except Exception as e:
+        info["version_error"] = str(e)
+    try:
+        src = inspect.getsource(langchain_google_genai.chat_models.ChatGoogleGenerativeAI._generate)
+        info["generate_source"] = src
+    except Exception as e:
+        info["generate_source_error"] = str(e)
+    try:
+        client_prop_src = inspect.getsource(langchain_google_genai.chat_models.ChatGoogleGenerativeAI.client.fget)
+        info["client_property_source"] = client_prop_src
+    except Exception as e:
+        info["client_property_error"] = str(e)
+    return Response(content=json.dumps(info), media_type="application/json")
+
+
 @app.post("/analyze")
 def analyze(req: AnalyzeRequest, x_api_token: str | None = Header(default=None)):
     _check_token(x_api_token)
