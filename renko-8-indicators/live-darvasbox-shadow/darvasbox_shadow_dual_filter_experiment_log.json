@@ -5659,5 +5659,23 @@
   "timestampMs": 1788158160000,
   "breakoutTimestampMs": 1788158160000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 210.31074999999998,
+  "timestampMs": 1788160800000,
+  "breakoutTimestampMs": 1788160800000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 584.9607499999996,
+  "timestampMs": 1788160800000,
+  "breakoutTimestampMs": 1788158400000,
+  "shadow": true
  }
 ]
