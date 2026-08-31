@@ -857,11 +857,13 @@
 
     function apply() {
       let f = items.slice();
-      // The tracking-start gate is skipped entirely under "Action today" -- a pre-tracking
-      // entry that gets half-booked/exited today is still something to act on today, and
-      // gating by signalDate hid that card along with its badge (see PR #58 for the bug
-      // this caused, and its fix, which this reverts in favor of a simpler bypass instead).
-      if (!state.allTime && state.status !== 'today') f = f.filter((s) => (s.signalDate || '') >= SWING_TRACKING_START);
+      // The tracking-start gate is skipped under "Action today" -- a pre-tracking entry that
+      // gets half-booked/exited today is still something to act on today, and gating by
+      // signalDate hid that card along with its badge (see PR #58 for the bug this caused,
+      // and its fix, which this reverts in favor of a simpler bypass instead) -- and under an
+      // explicit month pick, since choosing e.g. "Jun 2026" is already an explicit request for
+      // pre-tracking history and the gate was making it return nothing instead.
+      if (!state.allTime && state.status !== 'today' && state.month === 'all') f = f.filter((s) => (s.signalDate || '') >= SWING_TRACKING_START);
       if (state.status === 'today') f = f.filter((s) => s.actionToday);
       else if (state.status !== 'all') f = f.filter((s) => s.status === state.status);
       if (state.month !== 'all') f = f.filter((s) => (s.signalDate || '').slice(0, 7) === state.month);
