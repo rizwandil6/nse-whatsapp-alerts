@@ -160,6 +160,14 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
             # even for deep_think.
             config["deep_think_llm"] = "gemini-3.5-flash"
             config["quick_think_llm"] = "gemini-3.5-flash"
+        elif LLM_PROVIDER == "qwen":
+            # International DashScope endpoint (not "qwen-cn" -- that's the separate
+            # mainland-China-account endpoint, different API key, not interchangeable).
+            # qwen3.8-flash confirmed live against Alibaba's own model-list docs
+            # (2026-08-31) -- ~$0.15/1M input, $0.47/1M output, roughly 6-10x cheaper
+            # than the Haiku pricing above. Requires DASHSCOPE_API_KEY.
+            config["deep_think_llm"] = "qwen3.8-flash"
+            config["quick_think_llm"] = "qwen3.8-flash"
 
         # Drops the default "social" analyst (Reddit/StockTwits sentiment) -- confirmed
         # live on every run so far: those sources 429/404 for essentially every NSE
