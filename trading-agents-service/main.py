@@ -53,6 +53,10 @@ _PRICE_PER_1M = {
     # expensive than Haiku, despite "Gemini free/cheap tier" assumptions from
     # gemini-2.5-flash-era pricing). flash-lite is the actually-cheap Gemini tier.
     "gemini-3.1-flash-lite": {"input": 0.25, "output": 1.50},
+    # deep_think_llm only (2026-08-31) -- stronger judgment on the decision-critical
+    # synthesis steps (research manager, trader plan, risk judge), a small minority of
+    # each run's ~18 calls, while quick_think stays on flash-lite for the rest.
+    "gemini-3.1-pro-preview": {"input": 2.00, "output": 12.00},
 }
 
 # Real per-run token usage/cost logging (2026-08-31, after burning through Anthropic
@@ -63,11 +67,15 @@ _PRICE_PER_1M = {
 # wiring; patching the SDK call every LLM call ultimately goes through, regardless of
 # abstraction layers on top, is the one point guaranteed to see every real request.
 # thread-local, not global -- each /analyze job runs in its own dedicated thread (see
-# _run_job), so this keeps concurrent jobs' usage from mixing. Model name is passed in
-# explicitly by _start_usage_tracking (not parsed from each SDK's own response field --
-# Anthropic's is reliable but Gemini's response.model_version carries a versioned
-# suffix that wouldn't match the price table's key), since each provider branch in
-# _run_job already knows deterministically which single model it's using.
+# _run_job), so this keeps concurrent jobs' usage from mixing.
+#
+# Tracked PER MODEL, not one model per job (2026-08-31 revision) -- deep_think_llm and
+# quick_think_llm can now differ within a single run (see _run_job), so a single
+# job-wide model name is no longer enough to price the run correctly. Anthropic's
+# response.model is reliable for this; Gemini's response.model_version carries a
+# versioned suffix that wouldn't match the price table's key, so the Gemini patch reads
+# the model straight from the call's own kwargs (generate_content(model=..., ...)) --
+# the exact string this service requested, guaranteed to match _PRICE_PER_1M's keys.
 _usage_local = threading.local()
 
 _original_anthropic_create = anthropic.resources.messages.Messages.create
@@ -77,9 +85,11 @@ def _usage_tracking_anthropic(self, *args, **kwargs):
     response = _original_anthropic_create(self, *args, **kwargs)
     bucket = getattr(_usage_local, "usage", None)
     if bucket is not None and getattr(response, "usage", None) is not None:
-        bucket["input_tokens"] += response.usage.input_tokens
-        bucket["output_tokens"] += response.usage.output_tokens
-        bucket["calls"] += 1
+        model = getattr(response, "model", None) or "unknown"
+        entry = bucket["by_model"].setdefault(model, {"input_tokens": 0, "output_tokens": 0, "calls": 0})
+        entry["input_tokens"] += response.usage.input_tokens
+        entry["output_tokens"] += response.usage.output_tokens
+        entry["calls"] += 1
     return response
 
 
@@ -101,9 +111,11 @@ try:
         response = _original_gemini_generate_content(self, *args, **kwargs)
         bucket = getattr(_usage_local, "usage", None)
         if bucket is not None and getattr(response, "usage_metadata", None) is not None:
-            bucket["input_tokens"] += response.usage_metadata.prompt_token_count or 0
-            bucket["output_tokens"] += response.usage_metadata.candidates_token_count or 0
-            bucket["calls"] += 1
+            model = kwargs.get("model") or "unknown"
+            entry = bucket["by_model"].setdefault(model, {"input_tokens": 0, "output_tokens": 0, "calls": 0})
+            entry["input_tokens"] += response.usage_metadata.prompt_token_count or 0
+            entry["output_tokens"] += response.usage_metadata.candidates_token_count or 0
+            entry["calls"] += 1
         return response
 
     Models.generate_content = _usage_tracking_gemini
@@ -114,30 +126,43 @@ except ImportError:
     pass
 
 
-def _start_usage_tracking(model_name: str):
-    _usage_local.usage = {"input_tokens": 0, "output_tokens": 0, "calls": 0, "model": model_name}
+def _start_usage_tracking():
+    _usage_local.usage = {"by_model": {}}
 
 
 def _finish_usage_tracking() -> dict[str, Any]:
-    usage = getattr(_usage_local, "usage", None) or {"input_tokens": 0, "output_tokens": 0, "calls": 0, "model": None}
-    prices = _PRICE_PER_1M.get(usage["model"])
-    cost = None
-    if prices:
-        cost = round(
-            usage["input_tokens"] / 1_000_000 * prices["input"]
-            + usage["output_tokens"] / 1_000_000 * prices["output"],
-            4,
-        )
-    usage["estimated_cost_usd"] = cost
+    usage = getattr(_usage_local, "usage", None) or {"by_model": {}}
+    by_model = usage["by_model"]
+    total_input = sum(m["input_tokens"] for m in by_model.values())
+    total_output = sum(m["output_tokens"] for m in by_model.values())
+    total_calls = sum(m["calls"] for m in by_model.values())
+    total_cost = 0.0
+    cost_known = True
+    for model, m in by_model.items():
+        prices = _PRICE_PER_1M.get(model)
+        if not prices:
+            cost_known = False
+            continue
+        total_cost += m["input_tokens"] / 1_000_000 * prices["input"] + m["output_tokens"] / 1_000_000 * prices["output"]
     _usage_local.usage = None
-    return usage
+    return {
+        "by_model": by_model,
+        "input_tokens": total_input,
+        "output_tokens": total_output,
+        "calls": total_calls,
+        "estimated_cost_usd": round(total_cost, 4) if (cost_known and by_model) else None,
+    }
 
 
 def _log_usage(ticker: str, job_id: str, usage: dict[str, Any], failed: bool):
     status_word = "FAILED" if failed else "done"
-    cost_str = f"${usage['estimated_cost_usd']}" if usage["estimated_cost_usd"] is not None else "cost unknown (no pricing on file for this model)"
-    print(f"[usage] {ticker} job={job_id} {status_word}: {usage['calls']} call(s) on {usage['model']}, "
-          f"{usage['input_tokens']} in / {usage['output_tokens']} out tokens, est. {cost_str}")
+    cost_str = f"${usage['estimated_cost_usd']}" if usage["estimated_cost_usd"] is not None else "cost unknown (no pricing on file for one or more models used)"
+    breakdown = ", ".join(
+        f"{m}: {v['calls']} call(s) {v['input_tokens']}in/{v['output_tokens']}out"
+        for m, v in usage["by_model"].items()
+    ) or "no calls"
+    print(f"[usage] {ticker} job={job_id} {status_word}: {usage['calls']} total call(s) "
+          f"[{breakdown}], est. {cost_str}")
 
 
 app = FastAPI()
@@ -171,28 +196,37 @@ def _prune_old_jobs():
             del _jobs[jid]
 
 
-# Single source of truth for which model each provider uses -- both deep_think_llm and
-# quick_think_llm use the same model per provider (no separate cheap/expensive split),
-# and usage tracking needs this same name to look up pricing (see _start_usage_tracking).
-_PROVIDER_MODEL = {
-    # Cost cut (2026-08-30): was claude-sonnet-5 ($2/$10 per 1M tokens) -- Haiku ($1/$5),
-    # matching every other Anthropic call already made elsewhere in this repo
+# Single source of truth for which model(s) each provider uses. deep_think_llm handles
+# the decision-critical synthesis steps (research manager judge, trader plan, risk
+# judge) -- a small minority of each run's calls; quick_think_llm handles the bulk
+# (analyst reports, debate arguments). Split 2026-08-31 per explicit request: shorter
+# reasoning text is fine, but the final judgment/rating should stay accurate -- so
+# quick_think stays on the cheap flash-lite tier while deep_think gets a stronger model.
+_PROVIDER_MODELS = {
+    # Cost cut (2026-08-30): was claude-sonnet-5 ($2/$10 per 1M tokens) -- Haiku ($1/$5)
+    # for both, matching every other Anthropic call already made elsewhere in this repo
     # (NewsPoller, PromptRatingService, MarketBulletinService all use this same model).
-    "anthropic": "claude-haiku-4-5-20251001",
-    # NOT gemini-3.5-flash -- confirmed live 2026-08-31 that's $1.50/$9.00 per 1M,
-    # MORE expensive than Haiku. flash-lite ($0.25/$1.50) is the actually-cheap tier.
-    "google": "gemini-3.1-flash-lite",
+    # No deep/quick split for Anthropic -- only Gemini is the active provider right now.
+    "anthropic": {"deep": "claude-haiku-4-5-20251001", "quick": "claude-haiku-4-5-20251001"},
+    "google": {
+        # $2/$12 per 1M -- confirmed live 2026-08-31. Only used for the handful of
+        # decision-critical calls per run, so the blended per-run cost stays well below
+        # what full-Haiku pricing was, while the final rating uses the stronger model.
+        "deep": "gemini-3.1-pro-preview",
+        # NOT gemini-3.5-flash -- confirmed live 2026-08-31 that's $1.50/$9.00 per 1M,
+        # MORE expensive than Haiku. flash-lite ($0.25/$1.50) is the actually-cheap tier.
+        "quick": "gemini-3.1-flash-lite",
+    },
     # International DashScope endpoint (not "qwen-cn" -- that's the separate mainland-
     # China-account endpoint, different API key, not interchangeable). Confirmed live
     # against Alibaba's own model-list docs (2026-08-31) -- ~$0.15/1M input, $0.47/1M
-    # output. Requires DASHSCOPE_API_KEY.
-    "qwen": "qwen3.8-flash",
+    # output. Requires DASHSCOPE_API_KEY. No deep/quick split configured for Qwen yet.
+    "qwen": {"deep": "qwen3.8-flash", "quick": "qwen3.8-flash"},
 }
 
 
 def _run_job(job_id: str, ticker: str, analysis_date: str):
-    model_name = _PROVIDER_MODEL.get(LLM_PROVIDER)
-    _start_usage_tracking(model_name)
+    _start_usage_tracking()
     try:
         config = DEFAULT_CONFIG.copy()
         config["llm_provider"] = LLM_PROVIDER
@@ -201,9 +235,10 @@ def _run_job(job_id: str, ticker: str, analysis_date: str):
         # names (e.g. "gpt-5.5") regardless of llm_provider -- confirmed live, this
         # 404'd calling Anthropic for a model named "gpt-5.4-mini". Must override
         # both model names whenever provider is switched.
-        if model_name:
-            config["deep_think_llm"] = model_name
-            config["quick_think_llm"] = model_name
+        models = _PROVIDER_MODELS.get(LLM_PROVIDER)
+        if models:
+            config["deep_think_llm"] = models["deep"]
+            config["quick_think_llm"] = models["quick"]
 
         # Drops the default "social" analyst (Reddit/StockTwits sentiment) -- confirmed
         # live on every run so far: those sources 429/404 for essentially every NSE
