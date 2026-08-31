@@ -107,16 +107,39 @@ try:
     # client this was originally (wrongly) patched against, which silently caught
     # nothing (0 tokens logged on confirmed-successful runs, no error either --
     # the old class still exists and imports fine, it's just not what's actually called).
+    from google.genai import errors as genai_errors
     from google.genai.models import Models
 
     _original_gemini_generate_content = Models.generate_content
+    # Last-resort fallback target on a 429 (quota exhausted) -- confirmed live
+    # (2026-08-31) to have the most generous free-tier allowance of any model this
+    # service uses, so it's the one most likely to still have headroom when a
+    # stronger tier (gemini-3.5-flash, gemini-3.1-pro-preview) is out for the day.
+    _FALLBACK_MODEL = "gemini-3.1-flash-lite"
 
     def _usage_tracking_gemini(self, *args, **kwargs):
-        response = _original_gemini_generate_content(self, *args, **kwargs)
+        model = kwargs.get("model")
+        try:
+            response = _original_gemini_generate_content(self, *args, **kwargs)
+        except genai_errors.APIError as e:
+            # Confirmed live (2026-08-31): gemini-3.1-pro-preview 429'd with a hard 0
+            # free-tier quota; gemini-3.5-flash (deep_think_llm) has a real but capped
+            # (~20/day) free quota and will eventually hit the same wall as portfolio
+            # size grows. Retry once on the fallback model rather than failing the
+            # whole ticker's analysis -- degrades to a less-detailed judgment for that
+            # one call instead of an error. Never retries when the ORIGINAL call was
+            # already the fallback model itself (no infinite loop, and if flash-lite's
+            # own generous quota is exhausted, there's nothing cheaper left to try).
+            if e.code == 429 and model and model != _FALLBACK_MODEL:
+                print(f"[usage] {model} hit quota limit (429) -- retrying this call on {_FALLBACK_MODEL}")
+                kwargs = {**kwargs, "model": _FALLBACK_MODEL}
+                response = _original_gemini_generate_content(self, *args, **kwargs)
+                model = _FALLBACK_MODEL
+            else:
+                raise
         bucket = getattr(_usage_local, "usage", None)
         if bucket is not None and getattr(response, "usage_metadata", None) is not None:
-            model = kwargs.get("model") or "unknown"
-            entry = bucket["by_model"].setdefault(model, {"input_tokens": 0, "output_tokens": 0, "calls": 0})
+            entry = bucket["by_model"].setdefault(model or "unknown", {"input_tokens": 0, "output_tokens": 0, "calls": 0})
             entry["input_tokens"] += response.usage_metadata.prompt_token_count or 0
             entry["output_tokens"] += response.usage_metadata.candidates_token_count or 0
             entry["calls"] += 1
