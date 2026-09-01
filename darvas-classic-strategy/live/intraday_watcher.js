@@ -72,7 +72,7 @@ async function pollOnce(db) {
   const weekStart = weekKey(todayStr);
   console.log(`Watchlist poll: checking ${watchlist.length} symbol(s) at ${new Date().toISOString()}`);
 
-  let closest = null;
+  const checked = [];
   await mapLimit(watchlist, CONCURRENCY, async (row) => {
     const instrumentKey = symbolMap[row.symbol];
     if (!instrumentKey) return;
@@ -99,17 +99,19 @@ async function pollOnce(db) {
     const volRatio = avgVol ? weekVolumeSoFar / avgVol : null;
     const volumeOk = volRatio != null && volRatio >= VOLUME_MULT;
 
-    // Track the closest-to-firing candidate this poll for a one-line summary
-    // log -- without this, a quiet poll (the common case) leaves no trace at
-    // all to check "is this actually working." Ranked by volume ratio, not
-    // price gap: volume is consistently the harder/slower constraint to
-    // clear (confirmed 2026-08-24 -- price-gap ranking kept surfacing a
-    // stock that had already broken out on price but was nowhere close on
-    // volume, while a much closer-on-volume candidate went unmentioned).
+    // Record every symbol checked this poll for a one-line summary log --
+    // without this, a quiet poll (the common case) leaves no trace at all to
+    // check "is this actually working." Ranking by raw volume ratio alone
+    // (tried 2026-08-24->09-01) was wrong: a stock can sit at 20x its average
+    // volume while still 15% below its price trigger (high-volume names with
+    // no real setup) and permanently hog the "closest" slot, burying a
+    // genuine near-fire (price already confirmed, volume approaching) with
+    // zero lead-up visibility -- which is exactly why an alert then looked
+    // like it came "out of nowhere." Priced-confirmed candidates always rank
+    // above price-not-yet-confirmed ones; within each group, higher volume
+    // ratio (closer to VOLUME_MULT) ranks first.
     const priceGapPct = ((triggerPrice - todayHigh) / triggerPrice) * 100;
-    if (!closest || (volRatio ?? -1) > (closest.volRatio ?? -1)) {
-      closest = { symbol: row.symbol, priceGapPct, volRatio, priceOk, volumeOk };
-    }
+    checked.push({ symbol: row.symbol, priceGapPct, volRatio, priceOk, volumeOk });
 
     if (!priceOk || !volumeOk) return;
     if (await db.hasAlertedThisWeek(row.symbol, weekStart)) return;
@@ -122,12 +124,16 @@ async function pollOnce(db) {
     );
   });
 
-  if (closest) {
-    console.log(
-      `Watchlist poll done. Closest: ${closest.symbol} — ` +
-      `${closest.priceOk ? 'price OK' : closest.priceGapPct.toFixed(1) + '% below trigger'}, ` +
-      `volume ${closest.volRatio != null ? closest.volRatio.toFixed(2) + 'x avg' : 'n/a'} (need >=${VOLUME_MULT}x)`
+  if (checked.length) {
+    checked.sort((a, b) => {
+      if (a.priceOk !== b.priceOk) return a.priceOk ? -1 : 1; // price-confirmed first
+      return (b.volRatio ?? -1) - (a.volRatio ?? -1);
+    });
+    const lines = checked.slice(0, 3).map((c) =>
+      `${c.symbol} (${c.priceOk ? 'price OK' : c.priceGapPct.toFixed(1) + '% below trigger'}, ` +
+      `vol ${c.volRatio != null ? c.volRatio.toFixed(2) + 'x' : 'n/a'})`
     );
+    console.log(`Watchlist poll done. Top candidates (need >=${VOLUME_MULT}x vol once price confirms): ${lines.join(' · ')}`);
   }
 }
 
