@@ -6310,5 +6310,17 @@
   "entryTimestampMs": 1788248100000,
   "exitTimestampMs": 1788256500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 881.6463749999999,
+  "exitPrice": 879.4029999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25445292620865306,
+  "entryTimestampMs": 1788251100000,
+  "exitTimestampMs": 1788255600000,
+  "shadow": true
  }
 ]
