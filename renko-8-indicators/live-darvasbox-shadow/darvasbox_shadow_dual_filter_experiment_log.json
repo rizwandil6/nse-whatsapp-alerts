@@ -6100,5 +6100,17 @@
   "timestampMs": 1788248100000,
   "breakoutTimestampMs": 1788248100000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 515.565,
+  "exitPrice": 514.8,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.14838090250503816,
+  "entryTimestampMs": 1788239400000,
+  "exitTimestampMs": 1788248700000,
+  "shadow": true
  }
 ]
