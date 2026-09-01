@@ -6001,5 +6001,17 @@
   "timestampMs": 1788238200000,
   "breakoutTimestampMs": 1788235500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 41.33079999999998,
+  "exitPrice": 41.06,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.6552014478306253,
+  "entryTimestampMs": 1788237300000,
+  "exitTimestampMs": 1788238800000,
+  "shadow": true
  }
 ]
