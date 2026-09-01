@@ -6250,5 +6250,65 @@
   "entryTimestampMs": 1788249900000,
   "exitTimestampMs": 1788256500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 335.68800000000016,
+  "exitPrice": 334.8360000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2538071065989773,
+  "entryTimestampMs": 1788250800000,
+  "exitTimestampMs": 1788255300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 209.40757499999998,
+  "exitPrice": 208.88009999999997,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2518891687657477,
+  "entryTimestampMs": 1788237300000,
+  "exitTimestampMs": 1788255300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 881.6463749999999,
+  "exitPrice": 879.4029999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25445292620865306,
+  "entryTimestampMs": 1788251100000,
+  "exitTimestampMs": 1788255900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 10.493999999999998,
+  "exitPrice": 10.546999999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.505050505050513,
+  "entryTimestampMs": 1788251400000,
+  "exitTimestampMs": 1788255300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 119.58822500000001,
+  "exitPrice": 119.29,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2493765586034931,
+  "entryTimestampMs": 1788248100000,
+  "exitTimestampMs": 1788256500000,
+  "shadow": true
  }
 ]
