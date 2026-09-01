@@ -956,5 +956,26 @@
   "price": 207.71,
   "rsRankAtEntry": 83.4319526627219,
   "salesGrowth3Y": 99
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "BAJAJ-AUTO",
+  "date": "2026-08-30",
+  "price": 12130,
+  "rsRankAtEntry": 80.4733727810651
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GLAXO",
+  "date": "2026-08-30",
+  "price": 3050.1,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SCHNEIDER",
+  "date": "2026-08-30",
+  "price": 1219.2,
+  "rsRankAtEntry": 81.65680473372781
  }
 ]

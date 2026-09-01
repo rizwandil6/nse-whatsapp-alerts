@@ -221,5 +221,26 @@
   "entryPrice": 207.71,
   "rsRankAtEntry": 83.4319526627219,
   "salesGrowth3Y": 99
+ },
+ "BAJAJ-AUTO": {
+  "entryDate": "2026-08-30",
+  "entryPrice": 12130,
+  "rsRankAtEntry": 80.4733727810651,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GLAXO": {
+  "entryDate": "2026-08-30",
+  "entryPrice": 3050.1,
+  "rsRankAtEntry": 80.07889546351085,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SCHNEIDER": {
+  "entryDate": "2026-08-30",
+  "entryPrice": 1219.2,
+  "rsRankAtEntry": 81.65680473372781,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
