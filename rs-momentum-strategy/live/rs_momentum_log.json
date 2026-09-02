@@ -977,5 +977,26 @@
   "date": "2026-08-30",
   "price": 1219.2,
   "rsRankAtEntry": 81.65680473372781
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ENGINERSIN",
+  "date": "2026-08-31",
+  "price": 280.05,
+  "rsRankAtEntry": 84.41814595660749
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "MINDACORP",
+  "date": "2026-08-31",
+  "price": 712.4,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SUDARSCHEM",
+  "date": "2026-08-31",
+  "price": 1240.7,
+  "rsRankAtEntry": 80.4733727810651
  }
 ]

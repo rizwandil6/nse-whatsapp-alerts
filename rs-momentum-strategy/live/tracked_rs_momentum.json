@@ -242,5 +242,26 @@
   "rsRankAtEntry": 81.65680473372781,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "ENGINERSIN": {
+  "entryDate": "2026-08-31",
+  "entryPrice": 280.05,
+  "rsRankAtEntry": 84.41814595660749,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "MINDACORP": {
+  "entryDate": "2026-08-31",
+  "entryPrice": 712.4,
+  "rsRankAtEntry": 80.07889546351085,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SUDARSCHEM": {
+  "entryDate": "2026-08-31",
+  "entryPrice": 1240.7,
+  "rsRankAtEntry": 80.4733727810651,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
