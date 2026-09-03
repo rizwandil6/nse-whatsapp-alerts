@@ -6676,5 +6676,41 @@
   "timestampMs": 1788428100000,
   "breakoutTimestampMs": 1788428100000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 509.20212499999997,
+  "exitPrice": 507.91949999999997,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2518891687657423,
+  "entryTimestampMs": 1788417300000,
+  "exitTimestampMs": 1788426600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 76.199025,
+  "exitPrice": 76.00805000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2506265664160329,
+  "entryTimestampMs": 1788425400000,
+  "exitTimestampMs": 1788426600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 209.111475,
+  "exitPrice": 209.111475,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1788427800000,
+  "exitTimestampMs": 1788427800000,
+  "shadow": true
  }
 ]
