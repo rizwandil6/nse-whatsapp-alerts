@@ -6826,5 +6826,26 @@
   "entryTimestampMs": 1788429000000,
   "exitTimestampMs": 1788429000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 105.11212499999999,
+  "timestampMs": 1788428700000,
+  "breakoutTimestampMs": 1788428700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 105.11212499999999,
+  "exitPrice": 105.11212499999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1788428700000,
+  "exitTimestampMs": 1788428700000,
+  "shadow": true
  }
 ]
