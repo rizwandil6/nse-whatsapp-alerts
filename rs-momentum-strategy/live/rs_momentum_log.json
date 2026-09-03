@@ -998,5 +998,26 @@
   "date": "2026-08-31",
   "price": 1240.7,
   "rsRankAtEntry": 80.4733727810651
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ABB",
+  "date": "2026-09-01",
+  "price": 7447.5,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "LALPATHLAB",
+  "date": "2026-09-01",
+  "price": 1916.1,
+  "rsRankAtEntry": 80.86785009861933
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PPLPHARMA",
+  "date": "2026-09-01",
+  "price": 213.78,
+  "rsRankAtEntry": 80.6706114398422
  }
 ]

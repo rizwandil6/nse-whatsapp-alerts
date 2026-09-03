@@ -263,5 +263,26 @@
   "rsRankAtEntry": 80.4733727810651,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "ABB": {
+  "entryDate": "2026-09-01",
+  "entryPrice": 7447.5,
+  "rsRankAtEntry": 80.07889546351085,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LALPATHLAB": {
+  "entryDate": "2026-09-01",
+  "entryPrice": 1916.1,
+  "rsRankAtEntry": 80.86785009861933,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "PPLPHARMA": {
+  "entryDate": "2026-09-01",
+  "entryPrice": 213.78,
+  "rsRankAtEntry": 80.6706114398422,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
