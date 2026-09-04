@@ -7057,5 +7057,17 @@
   "timestampMs": 1788514500000,
   "breakoutTimestampMs": 1788514500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 270.839,
+  "exitPrice": 271.3,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.17021182326031803,
+  "entryTimestampMs": 1788510360000,
+  "exitTimestampMs": 1788515700000,
+  "shadow": true
  }
 ]
