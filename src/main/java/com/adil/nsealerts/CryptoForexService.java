@@ -30,7 +30,9 @@ import java.util.Map;
  * Excludes ABANDONED rows -- those are bookkeeping artifacts from restart-
  * duplicate-signal bugs (see each strategy's README "Restart resilience"),
  * not real trade outcomes, so showing them here would misrepresent the trade
- * history rather than inform it.
+ * history rather than inform it. Also excludes BTCINR from the Ichimoku
+ * branch specifically (2026-09-04) -- see the SQL comment in allTrades()
+ * for the win-rate data behind that call.
  *
  * Every row gets a direction-aware P&L%: OPEN rows compute it against a LIVE
  * current price fetched from Pi42's public (unauthenticated) ticker24Hr
@@ -58,6 +60,17 @@ public class CryptoForexService {
         // Postgres forbids an expression like ("status" = 'OPEN') directly in a UNION's own
         // ORDER BY (only plain output columns are allowed there) -- wrap the UNION in a
         // subquery and order the outer SELECT instead, per Postgres's own error hint.
+        //
+        // BTCINR excluded from the Ichimoku branch only (2026-09-04, per the user's request,
+        // after the win-rate review found it net-negative there -- see ENTRY_SYMBOLS in
+        // ichimoku-btc-xau-strategy/live/streamer.js for the full reasoning). Deliberately
+        // scoped to Ichimoku, NOT applied to the Inside Candle strategy's BTCINR rows below --
+        // that's a different strategy with its own signal logic that was never part of this
+        // review, so pausing it there would be an unjustified leap from data that doesn't apply.
+        //
+        // "durationSec": seconds from entry to close (or to now() if still OPEN), added so the
+        // dashboard can show how long a trade took to resolve (or how long it's been sitting
+        // open) instead of just the raw entry/close timestamps.
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(
                 "SELECT * FROM ( " +
                         "SELECT 'Ichimoku' AS \"strategy\", s.symbol, s.direction, " +
@@ -67,10 +80,11 @@ public class CryptoForexService {
                         "       o.warning_fired AS \"warningFired\", o.final_result AS \"status\", " +
                         "       o.exit_px AS \"exitPx\", o.r_multiple AS \"rMultiple\", " +
                         "       to_char(o.closed_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"closedTs\", " +
-                        "       NULL::text AS \"timeframe\" " +
+                        "       NULL::text AS \"timeframe\", " +
+                        "       EXTRACT(EPOCH FROM (COALESCE(o.closed_ts, now()) - s.entry_ts))::bigint AS \"durationSec\" " +
                         "FROM ichimoku_btcxau.signals s " +
                         "JOIN ichimoku_btcxau.outcomes o ON o.signal_id = s.id " +
-                        "WHERE o.final_result != 'ABANDONED' " +
+                        "WHERE o.final_result != 'ABANDONED' AND s.symbol != 'BTCINR' " +
                         "UNION ALL " +
                         "SELECT 'Inside Candle' AS \"strategy\", s.symbol, s.direction, " +
                         "       to_char(s.entry_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"entryTs\", " +
@@ -79,7 +93,8 @@ public class CryptoForexService {
                         "       NULL::boolean AS \"warningFired\", o.final_result AS \"status\", " +
                         "       o.exit_px AS \"exitPx\", o.r_multiple AS \"rMultiple\", " +
                         "       to_char(o.closed_ts AT TIME ZONE 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS') AS \"closedTs\", " +
-                        "       s.timeframe AS \"timeframe\" " +
+                        "       s.timeframe AS \"timeframe\", " +
+                        "       EXTRACT(EPOCH FROM (COALESCE(o.closed_ts, now()) - s.entry_ts))::bigint AS \"durationSec\" " +
                         "FROM inside_candle.signals s " +
                         "JOIN inside_candle.outcomes o ON o.signal_id = s.id " +
                         "WHERE o.final_result != 'ABANDONED' " +
