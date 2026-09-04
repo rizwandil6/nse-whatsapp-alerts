@@ -284,5 +284,19 @@
   "rsRankAtEntry": 80.6706114398422,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "AARTIPHARM": {
+  "entryDate": "2026-09-02",
+  "entryPrice": 868.1,
+  "rsRankAtEntry": 80.07889546351085,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "BRIGADE": {
+  "entryDate": "2026-09-02",
+  "entryPrice": 712.3,
+  "rsRankAtEntry": 81.85404339250493,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

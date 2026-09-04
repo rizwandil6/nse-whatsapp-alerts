@@ -1019,5 +1019,19 @@
   "date": "2026-09-01",
   "price": 213.78,
   "rsRankAtEntry": 80.6706114398422
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AARTIPHARM",
+  "date": "2026-09-02",
+  "price": 868.1,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "BRIGADE",
+  "date": "2026-09-02",
+  "price": 712.3,
+  "rsRankAtEntry": 81.85404339250493
  }
 ]
