@@ -36,11 +36,19 @@ const { pnlPct } = require('./stats');
 // BTCUSDT/XAUUSDT to the INR-margined equivalents (BTCINR/XAUINR -- same underlying
 // products, confirmed via exchangeInfo: XAUINR is the same "Gold Derivatives"
 // TRADIFI_PERPETUAL contract as XAUUSDT, just INR-quoted, not a tokenized-gold
-// footgun like XAUTINR/PAXGINR). Per the user's explicit request, this was NOT a
-// blind swap -- any symbol with a still-OPEN position at startup keeps being
-// tracked (just without new entries) until it actually resolves; see
-// MtfSymbolTracker's entriesEnabled and main()'s ALL_SYMBOLS resolution below.
-const ENTRY_SYMBOLS = ['BTCINR', 'XAUINR'];
+// footgun like XAUTINR/PAXGINR).
+//
+// BTCINR paused 2026-09-04, per the user's explicit request, after a real
+// performance-data review: across 46 closed trades, XAUINR ran +0.44R/trade
+// (53% win rate) while BTCINR ran -0.17R/trade (23% win rate) -- negative in
+// BOTH directions (LONG -0.14R, SHORT -0.23R), not a one-sided fluke. Stop
+// size wasn't the cause (winners/losers had near-identical avg risk %). This
+// isn't a blind removal either -- same phase-out mechanism as the earlier
+// BTCUSDT/XAUUSDT switch: any symbol with a still-OPEN position at startup
+// keeps being tracked (just without new entries) until it actually resolves;
+// see MtfSymbolTracker's entriesEnabled and main()'s legacySymbols resolution
+// below. To resume BTCINR entries later, just add it back here.
+const ENTRY_SYMBOLS = ['XAUINR'];
 const WS_URL = 'https://fawss.pi42.com/';
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = ['5937539323', '-5338709046']; // personal + group, same as every sibling bot

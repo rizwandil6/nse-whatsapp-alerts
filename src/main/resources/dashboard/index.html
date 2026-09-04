@@ -321,6 +321,18 @@
     if (v == null || isNaN(v)) return '—';
     return Number(v).toFixed(2);
   }
+  // durationSec: seconds from entry to close (or to "now" if still OPEN, from
+  // CryptoForexService's SQL). Formatted as "Xh Ym" (or "Xd Yh" once it's a day+).
+  function fmtDuration(sec) {
+    if (sec == null || isNaN(sec) || sec < 0) return '—';
+    const totalMin = Math.round(sec / 60);
+    const days = Math.floor(totalMin / 1440);
+    const hours = Math.floor((totalMin % 1440) / 60);
+    const mins = totalMin % 60;
+    if (days > 0) return `${days}d ${hours}h`;
+    if (hours > 0) return `${hours}h ${mins}m`;
+    return `${mins}m`;
+  }
 
   async function fetchTabData(key) {
     // Swing tab is never session-cached: it carries LIVE prices for open positions
@@ -692,6 +704,7 @@
             ${!isOpen && p.rMultiple != null ? `<span class="pnl ${p.rMultiple >= 0 ? 'win' : 'loss'}">${p.rMultiple >= 0 ? '+' : ''}${Number(p.rMultiple).toFixed(2)}R</span>` : ''}
             <span>Stop <b>${fmtPx(p.stopPx)}</b></span>
             <span>${STRATEGY_TARGET_LABEL[p.strategy] || 'Target'} <b>${fmtPx(p.targetPx)}</b></span>
+            <span>${isOpen ? 'Open for' : 'Took'} <b>${fmtDuration(p.durationSec)}</b></span>
             ${p.warningFired && isOpen ? '<span class="badge loss">⚠ reversal warned</span>' : ''}
           </div>
         `;

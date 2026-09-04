@@ -1,8 +1,11 @@
 # Ichimoku BTC/XAU MTF — Live Scanner (Pi42)
 
 Live intraday scanner for **"The Secret Mindset"'s multi-timeframe (MTF) Ichimoku trend
-system**, run on **BTCINR** and **XAUINR** perpetuals via **Pi42** (a crypto/commodity
-derivatives broker) — the **day-trading timeframe trio** (1H / 30min / 5min). Streams Pi42's
+system**, run on **XAUINR** perpetuals via **Pi42** (a crypto/commodity
+derivatives broker) — the **day-trading timeframe trio** (1H / 30min / 5min). New entries on
+**BTCINR are paused** (2026-09-04, see "Symbol-set switch" below) — a still-open BTCINR
+position at pause time keeps being tracked to a real outcome, it just doesn't get new signals.
+Streams Pi42's
 public market-data socket, evaluates the MTF alignment rules on every completed 5-min bar per
 symbol, pushes **Telegram** alerts, and logs everything to **PostgreSQL** as a forward-test
 dataset.
@@ -65,6 +68,29 @@ close" question couldn't be answered from the logs — the bot previously only l
 SETUP actually fired, so there was no way to reconstruct the in-between state without waiting
 for a live snapshot at whatever moment someone happened to ask. See `mtf_engine.js`'s
 `_tryEnter()` (`this._lastDiagnostic`) and `streamer.js`'s `fmtDiagnostic()`.
+
+## BTCINR entries paused (2026-09-04)
+
+`ENTRY_SYMBOLS` narrowed to `['XAUINR']` — `BTCINR` removed, per the user's request after a
+real performance review. Across 46 closed trades at the time: **XAUINR ran +0.44R/trade (53%
+win rate)**, **BTCINR ran -0.17R/trade (23% win rate)** — negative in *both* directions
+(LONG -0.14R, SHORT -0.23R), not a one-sided fluke of a bad LONG or SHORT run. Checked and
+ruled out as the cause: stop size (winners/losers had near-identical average risk %, ~0.75%
+of entry price either way). The overall combined average across all trades was only +0.14R —
+barely positive — because BTCINR's drag was pulling down what XAUINR alone would show as a much
+stronger result.
+
+Same phase-out mechanism as the earlier symbol-set switch, reused as-is (this is exactly the
+scenario it was built for): if `BTCINR` has a still-`OPEN` position when the service restarts,
+`main()`'s `db.getOpenSymbols()` / `legacySymbols` logic keeps tracking it to a real outcome
+with `entriesEnabled: false`, it just never fires a fresh SETUP on it again. To resume BTCINR
+entries later (e.g. after a rule change that might fix its performance), just add it back to
+`ENTRY_SYMBOLS`.
+
+Separately, the dashboard's Crypto/Forex tab (`CryptoForexService.java`) also excludes BTCINR
+from the Ichimoku strategy's rows specifically — scoped narrowly, NOT applied to the unrelated
+Inside Candle strategy's own BTCINR trades, since that strategy's performance was never part of
+this review.
 
 ---
 
