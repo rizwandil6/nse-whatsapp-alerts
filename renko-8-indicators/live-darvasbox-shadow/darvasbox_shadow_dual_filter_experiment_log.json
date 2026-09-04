@@ -7069,5 +7069,77 @@
   "entryTimestampMs": 1788510360000,
   "exitTimestampMs": 1788515700000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 333.0333750000001,
+  "exitPrice": 333.0333750000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1788514500000,
+  "exitTimestampMs": 1788514500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 38.25477500000001,
+  "exitPrice": 38.159850000000006,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.2481389578163862,
+  "entryTimestampMs": 1788513900000,
+  "exitTimestampMs": 1788513900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 104.67897499999998,
+  "exitPrice": 104.41529999999997,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2518891687657492,
+  "entryTimestampMs": 1788504000000,
+  "exitTimestampMs": 1788514860000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 147.17114999999998,
+  "exitPrice": 149.75310000000005,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.7543859649123237,
+  "entryTimestampMs": 1788506100000,
+  "exitTimestampMs": 1788515100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 872.6674999999996,
+  "exitPrice": 872.6674999999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1788509100000,
+  "exitTimestampMs": 1788514200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 118.902,
+  "exitPrice": 118.902,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1788506700000,
+  "exitTimestampMs": 1788506700000,
+  "shadow": true
  }
 ]
