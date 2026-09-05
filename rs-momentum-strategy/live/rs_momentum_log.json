@@ -1033,5 +1033,47 @@
   "date": "2026-09-02",
   "price": 712.3,
   "rsRankAtEntry": 81.85404339250493
+ },
+ {
+  "type": "EXIT",
+  "symbol": "POLYCAB",
+  "date": "2026-09-03",
+  "price": 8300,
+  "pnlPct": -8.695891315109181
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "LOTUSDEV",
+  "date": "2026-09-03",
+  "price": 193.25,
+  "rsRankAtEntry": 84.61538461538461
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "MANYAVAR",
+  "date": "2026-09-03",
+  "price": 594.2,
+  "rsRankAtEntry": 81.4595660749507
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "POWERINDIA",
+  "date": "2026-09-03",
+  "price": 31650,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SAIL",
+  "date": "2026-09-03",
+  "price": 196.8,
+  "rsRankAtEntry": 80.27613412228797
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "WOCKPHARMA",
+  "date": "2026-09-03",
+  "price": 2088.7,
+  "rsRankAtEntry": 84.41814595660749
  }
 ]

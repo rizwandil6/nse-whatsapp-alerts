@@ -24,12 +24,6 @@
   "salesGrowth3Y": 15,
   "note": "Manually added 2026-07-18 — genuinely qualified (RS>=80, Sales Growth 3Y=15%) but never fired as a fresh crossing since it was already >=80 the day before; added directly per user request rather than waiting for a dip-and-recross."
  },
- "POLYCAB": {
-  "entryDate": "2026-07-21",
-  "entryPrice": 9090.5,
-  "rsRankAtEntry": 81.95266272189349,
-  "salesGrowth3Y": 27
- },
  "HINDCOPPER": {
   "entryDate": "2026-07-22",
   "entryPrice": 491.8,
@@ -296,6 +290,41 @@
   "entryDate": "2026-09-02",
   "entryPrice": 712.3,
   "rsRankAtEntry": 81.85404339250493,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LOTUSDEV": {
+  "entryDate": "2026-09-03",
+  "entryPrice": 193.25,
+  "rsRankAtEntry": 84.61538461538461,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "MANYAVAR": {
+  "entryDate": "2026-09-03",
+  "entryPrice": 594.2,
+  "rsRankAtEntry": 81.4595660749507,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "POWERINDIA": {
+  "entryDate": "2026-09-03",
+  "entryPrice": 31650,
+  "rsRankAtEntry": 80.07889546351085,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SAIL": {
+  "entryDate": "2026-09-03",
+  "entryPrice": 196.8,
+  "rsRankAtEntry": 80.27613412228797,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "WOCKPHARMA": {
+  "entryDate": "2026-09-03",
+  "entryPrice": 2088.7,
+  "rsRankAtEntry": 84.41814595660749,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }
