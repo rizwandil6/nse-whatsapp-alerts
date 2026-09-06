@@ -266,7 +266,6 @@ public class MarketBulletinService {
                     .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                     .header("Accept-Language", "en-US,en;q=0.9")
                     .header("Referer", "https://www.moneycontrol.com/")
-                    .header("Connection", "keep-alive")
                     .GET().build();
 
             java.net.http.HttpResponse<String> resp =
