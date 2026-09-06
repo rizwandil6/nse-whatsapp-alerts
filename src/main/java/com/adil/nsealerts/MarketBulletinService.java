@@ -140,7 +140,7 @@ public class MarketBulletinService {
             sb.append(advanceDeclineLine()).append("\n\n");
 
             sb.append("Pre-Open Cue\n");
-            sb.append(indexLine("GIFT Nifty (Nifty 50 proxy)", "^NSEI")).append("\n");
+            sb.append(indexLine("SGX Nifty", "^NSEI")).append("\n");
 
             telegramSender.send(sb.toString());
             logger.info("[Bulletin] Market open alert sent successfully");
