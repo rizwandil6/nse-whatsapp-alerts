@@ -134,6 +134,13 @@ public class NseClient {
                 "https://www.nseindia.com/reports/fii-dii");
     }
 
+    /** Market-wide advances/declines/unchanged counts across all NSE-listed securities. */
+    public String fetchAdvanceDecline() {
+        return fetchNseApi(
+                "https://www.nseindia.com/api/live-analysis-advance",
+                "https://www.nseindia.com/market-data/advance");
+    }
+
     /**
      * Fetches the shareholding pattern JSON for a given NSE symbol.
      * Used to obtain the promoter pledged-shares percentage for the latest quarter.

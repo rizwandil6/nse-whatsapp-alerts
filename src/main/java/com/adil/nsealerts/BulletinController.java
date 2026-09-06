@@ -22,4 +22,10 @@ public class BulletinController {
         new Thread(bulletinService::buildAndSend).start();
         return "Bulletin triggered — check Telegram in ~30 seconds.";
     }
+
+    @GetMapping(value = "/trigger-market-open-alert", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String triggerMarketOpenAlert() {
+        new Thread(bulletinService::buildAndSendMarketOpenAlert).start();
+        return "Market open alert triggered — check Telegram in ~30 seconds.";
+    }
 }
