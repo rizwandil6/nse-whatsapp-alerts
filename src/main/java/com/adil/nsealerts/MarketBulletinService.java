@@ -140,7 +140,7 @@ public class MarketBulletinService {
             sb.append(advanceDeclineLine()).append("\n\n");
 
             sb.append("Pre-Open Cue\n");
-            sb.append(giftNiftyLine()).append("\n");
+            sb.append(indexLine("GIFT Nifty (Nifty 50 proxy)", "^NSEI")).append("\n");
 
             telegramSender.send(sb.toString());
             logger.info("[Bulletin] Market open alert sent successfully");
@@ -248,55 +248,6 @@ public class MarketBulletinService {
         } catch (Exception e) {
             logger.warn("[Bulletin] Advance/decline fetch failed: {}", e.getMessage());
             return "• Advance/Decline: N/A";
-        }
-    }
-
-    /**
-     * GIFT Nifty (SGX Nifty successor) direction, scraped from Moneycontrol's global
-     * indices table -- investing.com and Yahoo Finance don't carry this instrument
-     * (investing.com blocks server-side requests with a flat 403; Yahoo has no symbol
-     * for it), so Moneycontrol's server-rendered HTML is the reliable source here.
-     */
-    private String giftNiftyLine() {
-        try {
-            java.net.http.HttpRequest req = java.net.http.HttpRequest.newBuilder()
-                    .uri(java.net.URI.create("https://www.moneycontrol.com/indian-indices/gift-nifty-38.html"))
-                    .timeout(java.time.Duration.ofSeconds(15))
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
-                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-                    .header("Accept-Language", "en-US,en;q=0.9")
-                    .header("Referer", "https://www.moneycontrol.com/")
-                    .GET().build();
-
-            java.net.http.HttpResponse<String> resp =
-                    HTTP_CLIENT.send(req, java.net.http.HttpResponse.BodyHandlers.ofString());
-
-            String html = resp.body();
-            int idx = html.indexOf("GIFT NIFTY");
-            if (idx < 0) {
-                logger.warn("[Bulletin] GIFT Nifty marker not found — status={}, bodyLen={}",
-                        resp.statusCode(), html == null ? 0 : html.length());
-                return "• GIFT Nifty (SGX proxy): N/A";
-            }
-            int end = html.indexOf("</tr>", idx);
-            String row = html.substring(idx, end < 0 ? html.length() : end);
-
-            java.util.regex.Matcher valueM = java.util.regex.Pattern.compile("<td>([\\d,.]+)</td>").matcher(row);
-            java.util.regex.Matcher colorM = java.util.regex.Pattern.compile("class=\"(green|red)_color\">\\(([+-]?[\\d.]+)%\\)").matcher(row);
-
-            String value = valueM.find() ? valueM.group(1) : "N/A";
-            if (colorM.find()) {
-                boolean green = colorM.group(1).equals("green");
-                String icon = green ? "🟢" : "🔴";
-                return String.format("  %s GIFT Nifty: %s (%s%s%%)", icon, value,
-                        green ? "+" : "", colorM.group(2));
-            }
-            logger.warn("[Bulletin] GIFT Nifty row found but color/% pattern didn't match: {}", row);
-            return "• GIFT Nifty (SGX proxy): N/A";
-
-        } catch (Exception e) {
-            logger.warn("[Bulletin] GIFT Nifty fetch failed: {}", e.getMessage());
-            return "• GIFT Nifty (SGX proxy): N/A";
         }
     }
 
