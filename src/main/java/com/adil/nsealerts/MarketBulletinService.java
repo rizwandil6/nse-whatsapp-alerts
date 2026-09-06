@@ -264,6 +264,9 @@ public class MarketBulletinService {
                     .timeout(java.time.Duration.ofSeconds(15))
                     .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
                     .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                    .header("Accept-Language", "en-US,en;q=0.9")
+                    .header("Referer", "https://www.moneycontrol.com/")
+                    .header("Connection", "keep-alive")
                     .GET().build();
 
             java.net.http.HttpResponse<String> resp =
@@ -271,7 +274,11 @@ public class MarketBulletinService {
 
             String html = resp.body();
             int idx = html.indexOf("GIFT NIFTY");
-            if (idx < 0) return "• GIFT Nifty (SGX proxy): N/A";
+            if (idx < 0) {
+                logger.warn("[Bulletin] GIFT Nifty marker not found — status={}, bodyLen={}",
+                        resp.statusCode(), html == null ? 0 : html.length());
+                return "• GIFT Nifty (SGX proxy): N/A";
+            }
             int end = html.indexOf("</tr>", idx);
             String row = html.substring(idx, end < 0 ? html.length() : end);
 
@@ -285,6 +292,7 @@ public class MarketBulletinService {
                 return String.format("  %s GIFT Nifty: %s (%s%s%%)", icon, value,
                         green ? "+" : "", colorM.group(2));
             }
+            logger.warn("[Bulletin] GIFT Nifty row found but color/% pattern didn't match: {}", row);
             return "• GIFT Nifty (SGX proxy): N/A";
 
         } catch (Exception e) {
