@@ -216,116 +216,28 @@
   "rsRankAtEntry": 83.4319526627219,
   "salesGrowth3Y": 99
  },
- "BAJAJ-AUTO": {
-  "entryDate": "2026-08-30",
-  "entryPrice": 12130,
-  "rsRankAtEntry": 80.4733727810651,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GLAXO": {
-  "entryDate": "2026-08-30",
-  "entryPrice": 3050.1,
-  "rsRankAtEntry": 80.07889546351085,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "SCHNEIDER": {
-  "entryDate": "2026-08-30",
-  "entryPrice": 1219.2,
-  "rsRankAtEntry": 81.65680473372781,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "ENGINERSIN": {
-  "entryDate": "2026-08-31",
-  "entryPrice": 280.05,
-  "rsRankAtEntry": 84.41814595660749,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "MINDACORP": {
-  "entryDate": "2026-08-31",
-  "entryPrice": 712.4,
-  "rsRankAtEntry": 80.07889546351085,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
  "SUDARSCHEM": {
   "entryDate": "2026-08-31",
   "entryPrice": 1240.7,
   "rsRankAtEntry": 80.4733727810651,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "ABB": {
-  "entryDate": "2026-09-01",
-  "entryPrice": 7447.5,
-  "rsRankAtEntry": 80.07889546351085,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "LALPATHLAB": {
-  "entryDate": "2026-09-01",
-  "entryPrice": 1916.1,
-  "rsRankAtEntry": 80.86785009861933,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "PPLPHARMA": {
-  "entryDate": "2026-09-01",
-  "entryPrice": 213.78,
-  "rsRankAtEntry": 80.6706114398422,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "AARTIPHARM": {
-  "entryDate": "2026-09-02",
-  "entryPrice": 868.1,
-  "rsRankAtEntry": 80.07889546351085,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 62
  },
  "BRIGADE": {
   "entryDate": "2026-09-02",
   "entryPrice": 712.3,
   "rsRankAtEntry": 81.85404339250493,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 18
  },
  "LOTUSDEV": {
   "entryDate": "2026-09-03",
   "entryPrice": 193.25,
   "rsRankAtEntry": 84.61538461538461,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 66
  },
  "MANYAVAR": {
   "entryDate": "2026-09-03",
   "entryPrice": 594.2,
   "rsRankAtEntry": 81.4595660749507,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "POWERINDIA": {
-  "entryDate": "2026-09-03",
-  "entryPrice": 31650,
-  "rsRankAtEntry": 80.07889546351085,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "SAIL": {
-  "entryDate": "2026-09-03",
-  "entryPrice": 196.8,
-  "rsRankAtEntry": 80.27613412228797,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "WOCKPHARMA": {
-  "entryDate": "2026-09-03",
-  "entryPrice": 2088.7,
-  "rsRankAtEntry": 84.41814595660749,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 34
  }
 }

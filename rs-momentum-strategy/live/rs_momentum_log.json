@@ -1075,5 +1075,121 @@
   "date": "2026-09-03",
   "price": 2088.7,
   "rsRankAtEntry": 84.41814595660749
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "BAJAJ-AUTO",
+  "date": "2026-09-07",
+  "price": 12130,
+  "rsRankAtEntry": 80.4733727810651
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GLAXO",
+  "date": "2026-09-07",
+  "price": 3050.1,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SCHNEIDER",
+  "date": "2026-09-07",
+  "price": 1219.2,
+  "rsRankAtEntry": 81.65680473372781
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "ENGINERSIN",
+  "date": "2026-09-07",
+  "price": 280.05,
+  "rsRankAtEntry": 84.41814595660749
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "MINDACORP",
+  "date": "2026-09-07",
+  "price": 712.4,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "SUDARSCHEM",
+  "date": "2026-09-07",
+  "price": 1240.7,
+  "rsRankAtEntry": 80.4733727810651,
+  "salesGrowth3Y": 62
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "ABB",
+  "date": "2026-09-07",
+  "price": 7447.5,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "LALPATHLAB",
+  "date": "2026-09-07",
+  "price": 1916.1,
+  "rsRankAtEntry": 80.86785009861933
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "PPLPHARMA",
+  "date": "2026-09-07",
+  "price": 213.78,
+  "rsRankAtEntry": 80.6706114398422
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "AARTIPHARM",
+  "date": "2026-09-07",
+  "price": 868.1,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "BRIGADE",
+  "date": "2026-09-07",
+  "price": 712.3,
+  "rsRankAtEntry": 81.85404339250493,
+  "salesGrowth3Y": 18
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "LOTUSDEV",
+  "date": "2026-09-07",
+  "price": 193.25,
+  "rsRankAtEntry": 84.61538461538461,
+  "salesGrowth3Y": 66
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "MANYAVAR",
+  "date": "2026-09-07",
+  "price": 594.2,
+  "rsRankAtEntry": 81.4595660749507,
+  "salesGrowth3Y": 34
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "POWERINDIA",
+  "date": "2026-09-07",
+  "price": 31650,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SAIL",
+  "date": "2026-09-07",
+  "price": 196.8,
+  "rsRankAtEntry": 80.27613412228797
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "WOCKPHARMA",
+  "date": "2026-09-07",
+  "price": 2088.7,
+  "rsRankAtEntry": 84.41814595660749
  }
 ]

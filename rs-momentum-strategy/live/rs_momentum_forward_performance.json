@@ -1,29 +1,29 @@
 [
  {
-  "symbol": "WOCKPHARMA",
-  "entryDate": "2026-09-03",
-  "entryPrice": 2088.7,
+  "symbol": "SUDARSCHEM",
+  "entryDate": "2026-09-07",
+  "entryPrice": 1240.7,
   "status": "open",
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 2088.7,
-  "returnSinceEntry": 0
+  "currentPrice": 1222.8,
+  "returnSinceEntry": -1.4427339405174573
  },
  {
-  "symbol": "SAIL",
-  "entryDate": "2026-09-03",
-  "entryPrice": 196.8,
+  "symbol": "BRIGADE",
+  "entryDate": "2026-09-07",
+  "entryPrice": 712.3,
   "status": "open",
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 196.8,
-  "returnSinceEntry": 0
+  "currentPrice": 696.1,
+  "returnSinceEntry": -2.274322616874903
  },
  {
   "symbol": "LOTUSDEV",
-  "entryDate": "2026-09-03",
+  "entryDate": "2026-09-07",
   "entryPrice": 193.25,
   "status": "open",
   "exitDate": null,
@@ -34,7 +34,7 @@
  },
  {
   "symbol": "MANYAVAR",
-  "entryDate": "2026-09-03",
+  "entryDate": "2026-09-07",
   "entryPrice": 594.2,
   "status": "open",
   "exitDate": null,
@@ -42,116 +42,6 @@
   "returnWhileOpen": null,
   "currentPrice": 594.2,
   "returnSinceEntry": 0
- },
- {
-  "symbol": "POWERINDIA",
-  "entryDate": "2026-09-03",
-  "entryPrice": 31650,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 31650,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "AARTIPHARM",
-  "entryDate": "2026-09-02",
-  "entryPrice": 868.1,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 858.8,
-  "returnSinceEntry": -1.07130514917637
- },
- {
-  "symbol": "BRIGADE",
-  "entryDate": "2026-09-02",
-  "entryPrice": 712.3,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 696.1,
-  "returnSinceEntry": -2.274322616874903
- },
- {
-  "symbol": "LALPATHLAB",
-  "entryDate": "2026-09-01",
-  "entryPrice": 1916.1,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1877.5,
-  "returnSinceEntry": -2.0145086373362515
- },
- {
-  "symbol": "PPLPHARMA",
-  "entryDate": "2026-09-01",
-  "entryPrice": 213.78,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 214.22,
-  "returnSinceEntry": 0.20581906632987076
- },
- {
-  "symbol": "ABB",
-  "entryDate": "2026-09-01",
-  "entryPrice": 7447.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 7410,
-  "returnSinceEntry": -0.5035246727089627
- },
- {
-  "symbol": "ENGINERSIN",
-  "entryDate": "2026-08-31",
-  "entryPrice": 280.05,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 279.45,
-  "returnSinceEntry": -0.21424745581147034
- },
- {
-  "symbol": "MINDACORP",
-  "entryDate": "2026-08-31",
-  "entryPrice": 712.4,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 702.8,
-  "returnSinceEntry": -1.3475575519371172
- },
- {
-  "symbol": "SUDARSCHEM",
-  "entryDate": "2026-08-31",
-  "entryPrice": 1240.7,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1222.8,
-  "returnSinceEntry": -1.4427339405174573
- },
- {
-  "symbol": "BAJAJ-AUTO",
-  "entryDate": "2026-08-30",
-  "entryPrice": 12130,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 11919,
-  "returnSinceEntry": -1.7394888705688376
  },
  {
   "symbol": "SPARC",
@@ -163,28 +53,6 @@
   "returnWhileOpen": null,
   "currentPrice": 199.47,
   "returnSinceEntry": -3.967069471859809
- },
- {
-  "symbol": "GLAXO",
-  "entryDate": "2026-08-30",
-  "entryPrice": 3050.1,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 2958.1,
-  "returnSinceEntry": -3.0162945477197467
- },
- {
-  "symbol": "SCHNEIDER",
-  "entryDate": "2026-08-30",
-  "entryPrice": 1219.2,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1232.4,
-  "returnSinceEntry": 1.0826771653543343
  },
  {
   "symbol": "ENTERO",
