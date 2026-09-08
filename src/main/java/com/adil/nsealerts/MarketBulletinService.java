@@ -119,11 +119,11 @@ public class MarketBulletinService {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // 9:15 AM market-open alert (US close recap) -- more fields added on request
+    // 9:00 AM market-open alert (US close recap) -- more fields added on request
     // ─────────────────────────────────────────────────────────────────────────
 
     public void buildAndSendMarketOpenAlert() {
-        logger.info("[Bulletin] Building 9:15 AM market open alert...");
+        logger.info("[Bulletin] Building 9:00 AM market open alert...");
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("Market Open Alert\n");
