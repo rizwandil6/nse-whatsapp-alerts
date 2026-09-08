@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-23T15:02:24",
-  "title" : "$1 trillion giant eyes India insurance with HDFC ace",
-  "impact" : "Positive sentiment for financial services and insurance sector as global capital inflow signals confidence in Indian market. Nifty likely to see upside bias with financial stocks leading gains. Rupee may strengthen on FDI inflows into insurance sector.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Jul-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-23T15:32:47",
   "title" : "Oil prices near $100 a barrel: Analysts see risks to India’s economy",
   "impact" : "Elevated oil prices at $100/barrel pose headwinds for India's growth trajectory and corporate margins, likely pressuring Nifty in near term. Rupee expected to weaken further as import costs rise and current account deficit widens. Inflation concerns may prompt RBI to maintain hawkish stance, limiting equity rally potential.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "08-Sep-2026 15:52 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-08T16:17:47",
+  "title" : "Sensex today | Stock Market Highlights: Sensex down 555 pts, Nifty ends at 23,635 as crude oil nears $100",
+  "impact" : "The Indian equity market is facing significant downward pressure due to rising crude oil prices and geopolitical instability. Nifty is expected to remain volatile with a bearish bias, while the rupee faces depreciation risks against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "08-Sep-2026 16:05 IST",
+  "score" : 8
 } ]
