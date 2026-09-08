@@ -7354,5 +7354,65 @@
   "timestampMs": 1788860400000,
   "breakoutTimestampMs": 1788860400000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.7,
+  "exitPrice": 37.60575,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.2500000000000063,
+  "entryTimestampMs": 1788860100000,
+  "exitTimestampMs": 1788860400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 101.15300000000002,
+  "exitPrice": 101.90600000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7444168734491455,
+  "entryTimestampMs": 1788859500000,
+  "exitTimestampMs": 1788861300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 149.00125000000003,
+  "exitPrice": 148.62687500000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.251256281407026,
+  "entryTimestampMs": 1788860100000,
+  "exitTimestampMs": 1788860700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 118.68255,
+  "exitPrice": 118.08765000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5012531328320764,
+  "entryTimestampMs": 1788853200000,
+  "exitTimestampMs": 1788855600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 577.7199999999998,
+  "exitPrice": 583.4,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.9831752406010141,
+  "entryTimestampMs": 1788860400000,
+  "exitTimestampMs": 1788860700000,
+  "shadow": true
  }
 ]
