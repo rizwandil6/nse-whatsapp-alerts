@@ -223,8 +223,12 @@ public class MarketBulletinService {
             JsonNode meta  = mapper.readTree(resp.body()).path("chart").path("result").get(0).path("meta");
             double price   = meta.path("regularMarketPrice").asDouble();
 
-            String icon = price > threshold ? "🟢" : "🔴";
-            return String.format("  %s %s: %.2f", icon, label, price);
+            boolean volatile_ = price > threshold;
+            String icon = volatile_ ? "🟢" : "🔴";
+            String condition = volatile_
+                    ? String.format("Volatile (>%.0f)", threshold)
+                    : String.format("Stable (<%.0f)", threshold);
+            return String.format("  %s %s: %.2f — %s", icon, label, price, condition);
 
         } catch (Exception e) {
             logger.warn("[Bulletin] VIX fetch failed for {} ({}): {}", label, symbol, e.getMessage());
@@ -232,7 +236,7 @@ public class MarketBulletinService {
         }
     }
 
-    /** NSE market-wide advances vs declines: green if advances > declines, else red. */
+    /** NSE market-wide advances vs declines: green/Bull if advances > declines, else red/Bear. */
     private String advanceDeclineLine() {
         try {
             String json = nseClient.fetchAdvanceDecline();
@@ -242,8 +246,10 @@ public class MarketBulletinService {
             int advances = count.path("Advances").asInt();
             int declines = count.path("Declines").asInt();
 
-            String icon = advances > declines ? "🟢" : "🔴";
-            return String.format("  %s Advances: %d | Declines: %d", icon, advances, declines);
+            boolean bull = advances > declines;
+            String icon = bull ? "🟢" : "🔴";
+            String condition = bull ? "Bull (Advances > Declines)" : "Bear (Declines >= Advances)";
+            return String.format("  %s Advances: %d | Declines: %d — %s", icon, advances, declines, condition);
 
         } catch (Exception e) {
             logger.warn("[Bulletin] Advance/decline fetch failed: {}", e.getMessage());

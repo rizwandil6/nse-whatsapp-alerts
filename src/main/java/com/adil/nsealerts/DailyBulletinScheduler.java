@@ -27,12 +27,12 @@ public class DailyBulletinScheduler {
     }
 
     /**
-     * Fires every market day (Mon-Fri) at 9:15 AM IST.
+     * Fires every market day (Mon-Fri) at 9:00 AM IST.
      * cron = second minute hour day month weekday
      */
-    @Scheduled(cron = "0 15 9 * * MON-FRI", zone = "Asia/Kolkata")
+    @Scheduled(cron = "0 0 9 * * MON-FRI", zone = "Asia/Kolkata")
     public void sendMarketOpenAlert() {
-        logger.info("[DailyBulletin] Triggered at 9:15 AM IST (market days)");
+        logger.info("[DailyBulletin] Triggered at 9:00 AM IST (market days)");
         bulletinService.buildAndSendMarketOpenAlert();
     }
 }
