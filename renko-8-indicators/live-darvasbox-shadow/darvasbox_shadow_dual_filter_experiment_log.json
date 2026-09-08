@@ -7321,5 +7321,29 @@
   "timestampMs": 1788860100000,
   "breakoutTimestampMs": 1788860100000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 503.104625,
+  "exitPrice": 504.35925,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2493765586034865,
+  "entryTimestampMs": 1788850200000,
+  "exitTimestampMs": 1788854700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2580.9315,
+  "exitPrice": 2574.463,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2506265664160381,
+  "entryTimestampMs": 1788859800000,
+  "exitTimestampMs": 1788860100000,
+  "shadow": true
  }
 ]
