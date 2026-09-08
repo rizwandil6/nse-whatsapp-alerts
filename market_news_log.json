@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-23T19:42:17",
-  "title" : "Brent crude briefly crosses $100 after attacks on Saudi oil tankers",
-  "impact" : "Oil price spike above $100/barrel will increase input costs for Indian refiners and transportation sector, pressuring margins and inflation expectations. Nifty likely to see selling in energy-intensive sectors while defensive plays may attract buyers. Rupee expected to weaken as crude imports become costlier, increasing current account deficit concerns.",
-  "source" : "BusinessLine",
-  "publishedAt" : "23-Jul-2026 19:22 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-23T19:57:38",
   "title" : "Iran hits CIA sites, Russia role probed",
   "impact" : "Geopolitical tensions in Middle East will trigger risk-off sentiment, pressuring Indian equities and weakening rupee against dollar. Nifty likely to open 1-2% lower with defensive positioning across sectors. Oil-sensitive stocks face headwinds if crude prices spike from regional tensions.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "08-Sep-2026 14:28 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-08T21:55:30",
+  "title" : "NSE IPO could ring the bell on Sept 25",
+  "impact" : "The NSE IPO is a major liquidity event likely to attract significant domestic and global institutional capital. Nifty is expected to see a consolidation phase as funds rotate into the primary market, with minimal immediate impact on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Sep-2026 18:14 IST",
+  "score" : 9
 } ]
