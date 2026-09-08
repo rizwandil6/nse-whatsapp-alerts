@@ -66,12 +66,6 @@
   "rsRankAtEntry": 81.36094674556213,
   "salesGrowth3Y": 27
  },
- "KEI": {
-  "entryDate": "2026-08-03",
-  "entryPrice": 5500,
-  "rsRankAtEntry": 84.31952662721893,
-  "salesGrowth3Y": 19
- },
  "IPCALAB": {
   "entryDate": "2026-08-04",
   "entryPrice": 1765,
@@ -239,5 +233,40 @@
   "entryPrice": 594.2,
   "rsRankAtEntry": 81.4595660749507,
   "salesGrowth3Y": 34
+ },
+ "GMMPFAUDLR": {
+  "entryDate": "2026-09-06",
+  "entryPrice": 1235.7,
+  "rsRankAtEntry": 85.79881656804734,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LALPATHLAB": {
+  "entryDate": "2026-09-06",
+  "entryPrice": 1901.9,
+  "rsRankAtEntry": 80.07889546351085,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "NAM-INDIA": {
+  "entryDate": "2026-09-06",
+  "entryPrice": 1195,
+  "rsRankAtEntry": 82.84023668639054,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "PCJEWELLER": {
+  "entryDate": "2026-09-06",
+  "entryPrice": 13.93,
+  "rsRankAtEntry": 86.58777120315581,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "PPLPHARMA": {
+  "entryDate": "2026-09-06",
+  "entryPrice": 219.66,
+  "rsRankAtEntry": 81.4595660749507,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
