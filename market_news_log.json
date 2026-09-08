@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-23T09:57:11",
-  "title" : "Crude oil prices top $96 as Houthis target Saudi ships in Red Sea",
-  "impact" : "Rising crude oil prices above $96 will increase input costs for Indian economy, pressuring margins for transport and energy sectors while boosting upstream oil stocks. Nifty likely to see mixed signals with energy stocks gaining but auto, aviation, and logistics weighing down. Rupee expected to depreciate as higher oil imports increase current account deficit pressure.",
-  "source" : "BusinessLine",
-  "publishedAt" : "23-Jul-2026 09:43 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-23T11:28:47",
   "title" : "Taxman gets muscle to examine biz in Mauritius",
   "impact" : "Increased tax scrutiny on Mauritius-routed investments may trigger capital outflows and restructuring of offshore structures, creating near-term market volatility. Nifty likely to face headwinds as FII flows could be impacted by compliance uncertainty. Rupee may weaken due to potential repatriation concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "The large procurement order provides a significant boost to investor sentiment for capital goods and manufacturing. Nifty is expected to sustain its bullish momentum with a positive bias, while the rupee remains relatively stable against the dollar despite the high import-dependent nature of some tech components.",
   "source" : "BusinessLine",
   "publishedAt" : "08-Sep-2026 11:20 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-08T12:45:06",
+  "title" : "Old oil club retains grip on India's oil imports",
+  "impact" : "The high dependency on Russian oil amid rising Brent prices creates significant inflationary pressure and trade deficit risks. Expect Nifty to face volatility due to margin compression in refiners and potential rupee depreciation against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Sep-2026 05:30 IST",
   "score" : 7
 } ]
