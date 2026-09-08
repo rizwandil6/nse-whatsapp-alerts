@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-23T17:40:32",
-  "title" : "'India's credit growth strongest since 2012'",
-  "impact" : "Strong credit growth indicates robust economic momentum and increased borrowing capacity, likely supporting equity valuations across cyclical sectors. Nifty expected to trend higher as improved credit conditions benefit consumption and capex-driven growth. Rupee may strengthen on positive growth narrative and potential FII inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Jul-2026 16:50 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-23T19:26:58",
   "title" : "Brent oil's price briefly tops USD 100 per barrel, as stocks are set to drop on Wall Street",
   "impact" : "Indian equities likely to open lower tracking Wall Street weakness, with energy and transport sectors facing headwinds. Nifty expected to decline 1-2% as higher oil prices increase input costs and inflation concerns. Rupee may weaken further as higher oil imports widen current account deficit.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "08-Sep-2026 19:48 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-08T20:22:03",
+  "title" : "Crude shock sends Nifty to three-month low; Rupee slips",
+  "impact" : "Rising crude prices trigger significant volatility and risk-off sentiment in Indian equities. Nifty faces downward pressure toward key support levels, while the rupee remains under depreciation stress against the USD.",
+  "source" : "BusinessLine",
+  "publishedAt" : "08-Sep-2026 20:06 IST",
+  "score" : 8
 } ]
