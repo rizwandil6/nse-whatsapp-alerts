@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-23T19:26:58",
-  "title" : "Brent oil's price briefly tops USD 100 per barrel, as stocks are set to drop on Wall Street",
-  "impact" : "Indian equities likely to open lower tracking Wall Street weakness, with energy and transport sectors facing headwinds. Nifty expected to decline 1-2% as higher oil prices increase input costs and inflation concerns. Rupee may weaken further as higher oil imports widen current account deficit.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "23-Jul-2026 19:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-23T19:42:17",
   "title" : "Brent crude briefly crosses $100 after attacks on Saudi oil tankers",
   "impact" : "Oil price spike above $100/barrel will increase input costs for Indian refiners and transportation sector, pressuring margins and inflation expectations. Nifty likely to see selling in energy-intensive sectors while defensive plays may attract buyers. Rupee expected to weaken as crude imports become costlier, increasing current account deficit concerns.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "08-Sep-2026 20:06 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-08T21:08:14",
+  "title" : "Banks may’ve left $127 bn exposed to a big risk",
+  "impact" : "The report suggests systemic financial risk in bank loan books, likely leading to increased volatility in Nifty. Expect a cautious opening with potential downward pressure on the rupee due to institutional risk-off sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Sep-2026 14:28 IST",
+  "score" : 7
 } ]
