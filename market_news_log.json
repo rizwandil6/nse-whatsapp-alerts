@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-23T11:59:15",
-  "title" : "Indian auto parts industry seen growing at 10% CAGR till FY30: Goldman Sachs",
-  "impact" : "Positive structural tailwind for Indian auto sector with 10% CAGR growth through FY30 supporting broader manufacturing narrative. Nifty likely to see auto and auto-ancillary stocks outperform, supporting index gains in near term. Rupee strength potential from increased export revenue in auto components sector.",
-  "source" : "BusinessLine",
-  "publishedAt" : "23-Jul-2026 11:45 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-23T12:14:42",
   "title" : "Cutting off Red Sea route may be one crisis too many",
   "impact" : "Red Sea disruptions increase shipping costs and logistics delays, pressuring India's import-dependent sectors and raising inflation concerns. Nifty likely to face headwinds with focus shifting to domestic-consumption and logistics-efficiency plays. Rupee may weaken further due to elevated crude oil prices and global risk-off sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The large-scale infrastructure push is expected to boost Nifty's industrial and capital goods segments. Increased domestic capex supports long-term growth sentiment despite potential near-term rupee volatility from high import-led demand.",
   "source" : "Economic Times",
   "publishedAt" : "08-Sep-2026 12:54 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-08T14:01:13",
+  "title" : "India’s AI spend to cross 21% of IT budgets by 2027",
+  "impact" : "Accelerated AI adoption acts as a structural tailwind for Indian IT and infrastructure digitalization. Nifty expected to maintain a positive bias as enterprise efficiency increases, while increased tech imports may exert mild pressure on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Sep-2026 13:54 IST",
   "score" : 7
 } ]
