@@ -1233,5 +1233,40 @@
   "date": "2026-09-06",
   "price": 219.66,
   "rsRankAtEntry": 81.4595660749507
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GMMPFAUDLR",
+  "date": "2026-09-09",
+  "price": 1235.7,
+  "rsRankAtEntry": 85.79881656804734
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "LALPATHLAB",
+  "date": "2026-09-09",
+  "price": 1901.9,
+  "rsRankAtEntry": 80.07889546351085
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "NAM-INDIA",
+  "date": "2026-09-09",
+  "price": 1195,
+  "rsRankAtEntry": 82.84023668639054
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "PCJEWELLER",
+  "date": "2026-09-09",
+  "price": 13.93,
+  "rsRankAtEntry": 86.58777120315581
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "PPLPHARMA",
+  "date": "2026-09-09",
+  "price": 219.66,
+  "rsRankAtEntry": 81.4595660749507
  }
 ]
