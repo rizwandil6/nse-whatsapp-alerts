@@ -1268,5 +1268,26 @@
   "date": "2026-09-09",
   "price": 219.66,
   "rsRankAtEntry": 81.4595660749507
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GVT&D",
+  "date": "2026-09-07",
+  "price": 4750,
+  "rsRankAtEntry": 83.62919132149902
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "MIDHANI",
+  "date": "2026-09-07",
+  "price": 477,
+  "rsRankAtEntry": 81.26232741617358
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SCHNEIDER",
+  "date": "2026-09-07",
+  "price": 1229.7,
+  "rsRankAtEntry": 82.44575936883629
  }
 ]

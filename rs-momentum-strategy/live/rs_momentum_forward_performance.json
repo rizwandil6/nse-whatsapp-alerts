@@ -1,5 +1,16 @@
 [
  {
+  "symbol": "GVT&D",
+  "entryDate": "2026-09-07",
+  "entryPrice": 4750,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 4750,
+  "returnSinceEntry": 0
+ },
+ {
   "symbol": "SUDARSCHEM",
   "entryDate": "2026-09-07",
   "entryPrice": 1240.7,
@@ -42,6 +53,17 @@
   "returnWhileOpen": null,
   "currentPrice": 579.55,
   "returnSinceEntry": -2.465499831706511
+ },
+ {
+  "symbol": "MIDHANI",
+  "entryDate": "2026-09-07",
+  "entryPrice": 477,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 477,
+  "returnSinceEntry": 0
  },
  {
   "symbol": "SPARC",

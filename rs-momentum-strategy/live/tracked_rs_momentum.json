@@ -233,5 +233,26 @@
   "entryPrice": 594.2,
   "rsRankAtEntry": 81.4595660749507,
   "salesGrowth3Y": 34
+ },
+ "GVT&D": {
+  "entryDate": "2026-09-07",
+  "entryPrice": 4750,
+  "rsRankAtEntry": 83.62919132149902,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "MIDHANI": {
+  "entryDate": "2026-09-07",
+  "entryPrice": 477,
+  "rsRankAtEntry": 81.26232741617358,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SCHNEIDER": {
+  "entryDate": "2026-09-07",
+  "entryPrice": 1229.7,
+  "rsRankAtEntry": 82.44575936883629,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
