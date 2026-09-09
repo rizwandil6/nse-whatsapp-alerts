@@ -43,6 +43,8 @@ const VOL_MIN_HISTORY = 1;      // apply the gate against whatever history exist
 const TARGET_PCT = 0.005;       // 0.5%
 const POLL_INTERVAL_MS = 60 * 1000;
 const BUCKET_MIN = 15;
+const PRIOR_DAY_TAIL_BARS = VOL_AVG_LOOKBACK; // how many of the previous session's closing 15-min bars to carry forward as pure lookback context
+const PRIOR_DAY_SEARCH_MAX_BACK = 7;           // calendar days to search backward for the last real trading day (covers weekends + a holiday or two, no NSE calendar needed)
 
 const TELEGRAM_TOKEN = process.env.SABBAL_TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = (process.env.SABBAL_TELEGRAM_CHAT_IDS || '5937539323').split(',');
@@ -75,7 +77,38 @@ async function fetchIntraday1min(instrumentKey) {
     .sort((a, b) => a.ts - b.ts); // oldest-first
 }
 
-/** Aggregate 1-min bars into 15-min buckets, keeping only FULLY ELAPSED buckets. */
+/** Same shape as fetchIntraday1min, but for a single PAST calendar date (date-ranged endpoint, not "today"). */
+async function fetchDay1min(instrumentKey, dateStr) {
+  const enc = encodeURIComponent(instrumentKey);
+  const url = `https://api.upstox.com/v3/historical-candle/${enc}/minutes/1/${dateStr}/${dateStr}`;
+  const data = await httpGetJson(url);
+  const candles = (data && data.data && data.data.candles) || [];
+  return candles
+    .map((c) => ({ ts: new Date(c[0]), open: c[1], high: c[2], low: c[3], close: c[4], volume: c[5] }))
+    .sort((a, b) => a.ts - b.ts);
+}
+
+const LAST_SESSION_BUCKET_MIN = 15 * 60 + 15; // 15:15 -- NSE cash-equity closes 15:30 (confirmed 2026-09-09, unchanged; only F&O derivatives shifted to 15:40 from Aug 2026 -- doesn't apply here), so 15:15-15:29 is a real, valid trading window
+
+/**
+ * Aggregate 1-min bars into 15-min buckets, keeping only FULLY ELAPSED
+ * buckets, and dropping the final 15:15 bucket of each day. That bucket is
+ * real (NSE trades through 15:30) but Upstox's public candle API is the
+ * only place it shows up -- confirmed 2026-09-09 by cross-checking Pine's
+ * own Data Window against real chart values: TradingView's NSE feed simply
+ * doesn't produce a distinct 15:15 candle (its bar_index only advances by 1
+ * from the prior day's 15:00 bar to the next day's 9:15 bar). Left in, that
+ * phantom-relative-to-TradingView bucket silently changes which candle is
+ * "previous" for the 50%-rule/engulf check -- caught a real false LONG this
+ * way on RVNL 2026-09-08 (75.6% cover against the spurious 15:15 bar vs.
+ * 35.1% against the real previous bar, 15:00 -- a hard fail). Dropping it
+ * keeps this monitor's bar boundaries matching what the user actually sees
+ * on their own chart before acting on an alert. Tradeoff: the very last 15
+ * minutes of each session (15:15-15:29) are no longer evaluated for a fresh
+ * signal or an exit check -- acceptable since new entries already cut off
+ * at 15:00 (see newEntriesAllowed), so this mainly delays the LAST possible
+ * exit check of the day by up to ~15-29 minutes.
+ */
 function aggregateTo15min(oneMinBars) {
   if (!oneMinBars.length) return [];
   const buckets = new Map();
@@ -99,6 +132,7 @@ function aggregateTo15min(oneMinBars) {
   })();
   const out = [];
   for (const b of [...buckets.values()].sort((x, y) => x.bucketStartMin - y.bucketStartMin)) {
+    if (b.bucketStartMin === LAST_SESSION_BUCKET_MIN) continue; // see docstring above
     const bucketEndMin = b.bucketStartMin + BUCKET_MIN;
     // only keep buckets whose window has fully elapsed (last available 1-min bar is at/after bucket end - 1min)
     if (lastBarMinOfDay >= bucketEndMin - 1) {
@@ -229,6 +263,38 @@ function nowIst() {
   return new Date(istMs);
 }
 
+function istDateOffset(ist, daysBack) {
+  const d = new Date(ist.getTime() - daysBack * 24 * 60 * 60 * 1000);
+  return istDateStr(d);
+}
+
+/**
+ * The previous trading session's closing 15-min bars (up to
+ * PRIOR_DAY_TAIL_BARS of them), used ONLY as lookback context for the
+ * run-length/50%-rule/volume checks on today's early bars -- never as a bar
+ * that can itself be entered or exited on. Without this, the 9:15 (and
+ * often 9:30/9:45) candle could never generate a signal at all: idx <
+ * RUN_LEN_MIN blocked the run-length check outright, and the volume gate had
+ * nothing to compare against yet. Walks backward day-by-day (no NSE holiday
+ * calendar available -- see wiki/reference/upstox-api.md) until it finds a
+ * real trading day with data, rather than assuming "yesterday" is always one.
+ */
+async function fetchPriorDayTail(instrumentKey, ist) {
+  for (let back = 1; back <= PRIOR_DAY_SEARCH_MAX_BACK; back++) {
+    const dateStr = istDateOffset(ist, back);
+    try {
+      const oneMin = await fetchDay1min(instrumentKey, dateStr);
+      if (!oneMin.length) continue; // weekend/holiday -- try further back
+      const bars = aggregateTo15min(oneMin);
+      if (!bars.length) continue;
+      return bars.slice(-PRIOR_DAY_TAIL_BARS);
+    } catch (e) {
+      console.error(`[SABBAL] fetchPriorDayTail(${instrumentKey}, ${dateStr}) failed:`, e.message);
+    }
+  }
+  return [];
+}
+
 function isMarketWindow(ist) {
   const day = ist.getDay(); // 0 Sun .. 6 Sat (evaluated against the IST-shifted Date, safe since we only read day/hour/min)
   if (day === 0 || day === 6) return false;
@@ -263,6 +329,25 @@ function startSabbalStickMonitor({ sabbalDb } = {}) {
   let dayStats = { date: null, trades: 0, wins: 0, totalPnlPct: 0 };
   let eodSummarySent = false;
 
+  let priorDayTail = {};       // symbol -> bars[] (previous session's closing bars, lookback-only)
+  let priorDayTailDate = null; // the IST date this cache was built for -- naturally invalidates on a new day
+
+  /** (Re)loads priorDayTail once per IST calendar day. Cheap to call every cycle -- no-ops once already loaded for today. */
+  async function ensurePriorDayTail(ist) {
+    const today = istDateStr(ist);
+    if (priorDayTailDate === today) return;
+    priorDayTailDate = today;
+    for (const [symbol, key] of Object.entries(SYMBOLS)) {
+      try {
+        priorDayTail[symbol] = await fetchPriorDayTail(key, ist);
+        console.log(`[SABBAL] Loaded ${priorDayTail[symbol].length} prior-day tail bars for ${symbol}.`);
+      } catch (e) {
+        console.error(`[SABBAL] ensurePriorDayTail failed for ${symbol} (continuing with no lookback context):`, e.message);
+        priorDayTail[symbol] = [];
+      }
+    }
+  }
+
   /** Reset the running day-stats on a calendar-day change (IST). Mirrors DarvasBox's maybeResetForNewDay. */
   function maybeResetForNewDay(ist) {
     const today = istDateStr(ist);
@@ -292,6 +377,7 @@ function startSabbalStickMonitor({ sabbalDb } = {}) {
   async function warmStart() {
     const ist = nowIst();
     dayStats = { date: istDateStr(ist), trades: 0, wins: 0, totalPnlPct: 0 }; // set BEFORE any restore, same reasoning as DarvasBox's currentDate-before-first-tick fix
+    await ensurePriorDayTail(ist);
     if (!sabbalDb) return;
     try {
       await sabbalDb.ensureSchema();
@@ -318,6 +404,7 @@ function startSabbalStickMonitor({ sabbalDb } = {}) {
     const ist = nowIst();
     if (ist.getDay() === 0 || ist.getDay() === 6) return; // weekend, nothing to do
     maybeResetForNewDay(ist);
+    await ensurePriorDayTail(ist); // no-op once already loaded for today
     await maybeSendEodSummary(ist); // checked every poll, independent of the 15-min boundary gate below
 
     if (!isMarketWindow(ist)) return;
@@ -326,13 +413,19 @@ function startSabbalStickMonitor({ sabbalDb } = {}) {
     for (const [symbol, key] of Object.entries(SYMBOLS)) {
       try {
         const oneMin = await fetchIntraday1min(key);
-        const bars = aggregateTo15min(oneMin);
-        if (!bars.length) continue;
-        const lastBucket = bars[bars.length - 1].bucketStartMin;
+        const todayBars = aggregateTo15min(oneMin);
+        if (!todayBars.length) continue;
+        // Prior session's tail is lookback context ONLY -- evaluateSignal always
+        // reads bars[bars.length-1] as the candidate bar, which is always
+        // todayBars' own last element (prepending never changes that), so a
+        // signal can never fire "on" yesterday's data, only see further back
+        // through it for run-length/volume context.
+        const bars = [...(priorDayTail[symbol] || []), ...todayBars];
+        const lastBucket = todayBars[todayBars.length - 1].bucketStartMin;
         if (lastProcessedBucket[symbol] === lastBucket) continue; // already handled this bar
         lastProcessedBucket[symbol] = lastBucket;
 
-        const lastBar = bars[bars.length - 1];
+        const lastBar = todayBars[todayBars.length - 1];
         const open = openPositions[symbol];
 
         if (open) {
