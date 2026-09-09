@@ -112,6 +112,17 @@ const { DB: PdhPdlDB } = require('./pdhpdl_db');
 // DarvasBox's or PDH/PDL's real trades.
 const { DB: OlsDB } = require('./ols_db');
 
+// Sabbal Stick (Qutub Minar) 15-min sell-high/buy-low monitor for
+// RVNL/WAAREEENER/SUZLON -- same isolation pattern as Opening Loser Short
+// above, but does NOT share the WebSocket feed: it polls Upstox's PUBLIC
+// intraday REST candles on its own setInterval, fully decoupled from
+// main()'s connect/reconnect loop. Own Postgres schema (sabbal.*), own
+// Telegram sender, own try/catch per cycle -- see sabbal_monitor.js's
+// docstring for why. A bug here cannot affect DarvasBox/PDH-PDL/OLS real
+// trades or crash the WebSocket connection. Alert-only, no order placement.
+const { startSabbalStickMonitor } = require('./sabbal_monitor');
+const { SabbalDB } = require('./sabbal_db');
+
 const UPSTOX_TOKEN = process.env.UPSTOX_ACCESS_TOKEN;
 const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_IDS = (process.env.DARVAS_TELEGRAM_CHAT_IDS || '5937539323,-5338709046').split(',');
@@ -129,6 +140,17 @@ const HISTORICAL_RANGE_BASE = 'https://api.upstox.com/v3/historical-candle'; // 
 const FLUSH_POLL_MS = 15 * 1000;
 const BACKFILL_DELAY_MS = 150;
 const EMA_WARMUP_LOOKBACK_DAYS = 12; // calendar days back (~8 trading days) -- comfortably converges EMA(9)/EMA(20) before today's first bar; see bar_aggregator.js's aggregateTo5MinMultiDay docstring
+
+// Started immediately at module load, independent of main()'s WS
+// connect/reconnect loop (unlike PDH/PDL and Opening Loser Short, this
+// doesn't read from the shared feed, so it doesn't need main() at all). If
+// this throws during startup, log it and keep the rest of the process
+// (DarvasBox/PDH-PDL/OLS) running untouched.
+try {
+  startSabbalStickMonitor({ sabbalDb: new SabbalDB() });
+} catch (e) {
+  console.error('[SABBAL] failed to start (rest of process unaffected):', e.message);
+}
 
 const BRICK_PCT = 0.0025; // 0.25%, deliberate -- see module docstring
 const BRICK_LABEL = '0.25';
