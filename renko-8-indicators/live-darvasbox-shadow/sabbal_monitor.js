@@ -249,11 +249,49 @@ function justAfterBoundary(ist) {
   return rem >= 1 && rem <= 3;
 }
 
+function istDateStr(ist) { return ist.toISOString().slice(0, 10); }
+
+function formatEodSummary(dayStats, ist) {
+  const winRate = dayStats.trades > 0 ? ((dayStats.wins / dayStats.trades) * 100).toFixed(1) : '0.0';
+  const sign = dayStats.totalPnlPct >= 0 ? '+' : '';
+  return `Sabbal Stick — EOD SUMMARY, ${istDateStr(ist)}\nTrades: ${dayStats.trades} | Wins: ${dayStats.wins} (${winRate}%)\nTotal gross P&L: ${sign}${dayStats.totalPnlPct.toFixed(2)}%\n(gross, no costs applied)`;
+}
+
 function startSabbalStickMonitor({ sabbalDb } = {}) {
   const lastProcessedBucket = {}; // symbol -> bucketStartMin already acted on
   const openPositions = {};       // symbol -> position | undefined
+  let dayStats = { date: null, trades: 0, wins: 0, totalPnlPct: 0 };
+  let eodSummarySent = false;
+
+  /** Reset the running day-stats on a calendar-day change (IST). Mirrors DarvasBox's maybeResetForNewDay. */
+  function maybeResetForNewDay(ist) {
+    const today = istDateStr(ist);
+    if (dayStats.date === today) return;
+    dayStats = { date: today, trades: 0, wins: 0, totalPnlPct: 0 };
+    eodSummarySent = false;
+  }
+
+  /**
+   * Sends the one-time EOD summary once market close has passed and no
+   * position is still open. Checked every poll (not just at 15-min
+   * boundaries) so it fires promptly rather than waiting for the next
+   * aligned cycle. Same defense-in-depth gating as DarvasBox's
+   * maybeSendEodSummary (see its docstring re: a real unexplained early-fire
+   * observed there once) -- explicit market-close-minute check here too,
+   * not just reliance on the caller only invoking this in-window.
+   */
+  async function maybeSendEodSummary(ist) {
+    if (eodSummarySent) return;
+    const mins = ist.getHours() * 60 + ist.getMinutes();
+    if (mins < 15 * 60 + 30) return;
+    if (Object.keys(openPositions).length > 0) return; // wait for remaining positions to close first
+    eodSummarySent = true;
+    await sendSabbalTelegramAlert(formatEodSummary(dayStats, ist));
+  }
 
   async function warmStart() {
+    const ist = nowIst();
+    dayStats = { date: istDateStr(ist), trades: 0, wins: 0, totalPnlPct: 0 }; // set BEFORE any restore, same reasoning as DarvasBox's currentDate-before-first-tick fix
     if (!sabbalDb) return;
     try {
       await sabbalDb.ensureSchema();
@@ -262,6 +300,15 @@ function startSabbalStickMonitor({ sabbalDb } = {}) {
         openPositions[sym] = { direction: pos.direction, entryPx: pos.entryPx, slPx: pos.slPx, targetPx: pos.targetPx, entryTs: pos.entryTs };
         console.log(`[SABBAL] Restored open ${pos.direction} position on ${sym} from Postgres (entry ₹${pos.entryPx}).`);
       }
+      const todaysExits = await sabbalDb.getTodaysExits(dayStats.date);
+      for (const pnlPct of todaysExits) {
+        dayStats.trades += 1;
+        if (pnlPct > 0) dayStats.wins += 1;
+        dayStats.totalPnlPct += pnlPct;
+      }
+      if (dayStats.trades > 0) {
+        console.log(`[SABBAL] Restored today's running P&L from Postgres: ${dayStats.trades} trades, ${dayStats.wins} wins, total ${dayStats.totalPnlPct.toFixed(2)}% so far.`);
+      }
     } catch (e) {
       console.error('[SABBAL] warmStart failed (continuing without restored state):', e.message);
     }
@@ -269,6 +316,10 @@ function startSabbalStickMonitor({ sabbalDb } = {}) {
 
   async function runCycle() {
     const ist = nowIst();
+    if (ist.getDay() === 0 || ist.getDay() === 6) return; // weekend, nothing to do
+    maybeResetForNewDay(ist);
+    await maybeSendEodSummary(ist); // checked every poll, independent of the 15-min boundary gate below
+
     if (!isMarketWindow(ist)) return;
     if (!justAfterBoundary(ist)) return;
 
@@ -291,8 +342,11 @@ function startSabbalStickMonitor({ sabbalDb } = {}) {
               ? ((exit.exitPx - open.entryPx) / open.entryPx) * 100
               : ((open.entryPx - exit.exitPx) / open.entryPx) * 100;
             const sign = pnlPct >= 0 ? '+' : '';
+            dayStats.trades += 1;
+            if (pnlPct > 0) dayStats.wins += 1;
+            dayStats.totalPnlPct += pnlPct;
             await sendSabbalTelegramAlert(
-              `Sabbal Stick — EXIT (${exit.reason})\n${symbol} ${open.direction}\nEntry: ₹${open.entryPx.toFixed(2)} -> Exit: ₹${exit.exitPx.toFixed(2)}\nP&L: ${sign}${pnlPct.toFixed(2)}% (gross, no costs)`
+              `Sabbal Stick — EXIT (${exit.reason})\n${symbol} ${open.direction}\nEntry: ₹${open.entryPx.toFixed(2)} -> Exit: ₹${exit.exitPx.toFixed(2)}\nP&L: ${sign}${pnlPct.toFixed(2)}%\n\nDay so far: ${dayStats.trades} trades, ${dayStats.wins} wins, total ${dayStats.totalPnlPct >= 0 ? '+' : ''}${dayStats.totalPnlPct.toFixed(2)}% (gross, no costs)`
             );
             if (sabbalDb) {
               await sabbalDb.recordExit({

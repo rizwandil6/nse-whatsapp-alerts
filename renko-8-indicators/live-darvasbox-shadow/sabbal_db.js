@@ -41,6 +41,16 @@ class SabbalDB {
     await this.pool.query(sql);
   }
 
+  /** Today's already-recorded EXIT events, for dayStats restore on a mid-day restart -- see sabbal_monitor.js's maybeResetForNewDay/warmStart docstrings for why this matters. */
+  async getTodaysExits(tradeDate) {
+    if (!this.enabled) return [];
+    const { rows } = await this.pool.query(
+      `SELECT pnl_pct FROM sabbal.trade_events WHERE event_type = 'EXIT' AND trade_date = $1 ORDER BY exit_ts ASC`,
+      [tradeDate]
+    );
+    return rows.map((r) => Number(r.pnl_pct));
+  }
+
   async loadOpenPositions() {
     if (!this.enabled) return {};
     const { rows } = await this.pool.query('SELECT * FROM sabbal.open_positions');
