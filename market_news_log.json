@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-26T06:46:40",
-  "title" : "Dharmendra Pradhan resigns, Gen Z wins",
-  "impact" : "Dharmendra Pradhan's resignation as Coal and Power Minister signals potential policy shift in energy sector, likely to create near-term volatility in PSU stocks. Market may see mixed reactions depending on successor's mandate; energy stocks could face uncertainty on coal monetization and power distribution priorities. Rupee likely stable but energy sector sentiment will be watched closely.",
-  "source" : "Economic Times",
-  "publishedAt" : "26-Jul-2026 06:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-26T10:48:04",
   "title" : "Oil near $100 puts fed and peers in interest-rate spotlight",
   "impact" : "Oil near $100 increases inflation concerns, pressuring RBI to maintain hawkish stance on rates, which could weigh on Nifty near-term. Rupee weakens as higher oil imports worsen current account deficit and increase import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sticky inflation pressures dampen rate cut expectations, likely keeping Nifty under bearish pressure. The rupee is expected to face depreciation risk due to elevated import costs and potential FII outflows.",
   "source" : "Economic Times",
   "publishedAt" : "09-Sep-2026 14:53 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-09T23:13:04",
+  "title" : "Indian Railways gets Rs 20,000 crore boost",
+  "impact" : "This significant capital infusion will boost investor sentiment for infrastructure and capital goods sectors. Nifty is expected to trend bullishly as government spending acts as a catalyst for economic growth. The rupee may see marginal support due to improved infrastructure efficiency.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Sep-2026 21:03 IST",
   "score" : 7
 } ]
