@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-24T18:48:07",
-  "title" : "Nifty bleeds for fifth day as $100 oil rattles D-Street",
-  "impact" : "Nifty experiencing significant weakness for fifth consecutive day as crude oil breach of $100/barrel triggers broad-based selloff. Rate-sensitive sectors under pressure with expectation of continued volatility; rupee likely to depreciate further due to higher import costs and widening current account deficit.",
-  "source" : "BusinessLine",
-  "publishedAt" : "24-Jul-2026 18:41 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-24T20:34:33",
   "title" : "Trump’s 10% tariff blow could work in India’s favour",
   "impact" : "Trump's 10% tariffs could redirect global supply chains toward India, benefiting export-oriented sectors and infrastructure. Nifty likely to see mixed movement with IT and engineering stocks gaining while import-dependent sectors face headwinds. Rupee may strengthen due to increased FDI inflows targeting India as an alternative manufacturing hub.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian equity market is facing significant downward pressure due to geopolitical instability and supply chain risks. Nifty is expected to test lower support levels as risk-off sentiment prevails and the rupee remains vulnerable to higher crude oil prices.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Sep-2026 10:46 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-09T14:05:20",
+  "title" : "GFF: AI could soon turn bank accounts into agents",
+  "impact" : "The integration of AI agents in banking is expected to accelerate digital transformation, driving long-term efficiency and market capitalization. Nifty should see positive momentum in the financial services index, while the Rupee remains neutral as the development is tech-agnostic.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Sep-2026 13:14 IST",
   "score" : 7
 } ]
