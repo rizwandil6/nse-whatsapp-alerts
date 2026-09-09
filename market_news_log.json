@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-24T20:34:33",
-  "title" : "Trump’s 10% tariff blow could work in India’s favour",
-  "impact" : "Trump's 10% tariffs could redirect global supply chains toward India, benefiting export-oriented sectors and infrastructure. Nifty likely to see mixed movement with IT and engineering stocks gaining while import-dependent sectors face headwinds. Rupee may strengthen due to increased FDI inflows targeting India as an alternative manufacturing hub.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Jul-2026 17:02 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-24T21:50:39",
   "title" : "Double trouble puts India’s lifelines on ‘Red’ alert",
   "impact" : "India's infrastructure and logistics sectors face operational challenges affecting growth momentum, potentially pressuring Nifty's infrastructure-heavy constituents. Currency volatility may increase if transportation bottlenecks worsen supply chains and inflation expectations.",
@@ -3497,5 +3490,12 @@
   "impact" : "The integration of AI agents in banking is expected to accelerate digital transformation, driving long-term efficiency and market capitalization. Nifty should see positive momentum in the financial services index, while the Rupee remains neutral as the development is tech-agnostic.",
   "source" : "Economic Times",
   "publishedAt" : "09-Sep-2026 13:14 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-09T14:51:06",
+  "title" : "IT stocks crash as Coforge leads selloff; Infosys, Tech Mahindra, HCL Tech, TCS slide as H1-B visa fee hike adds to sector pressure",
+  "impact" : "The IT sector slump will likely drag down the Nifty 50, dampening overall market sentiment. Expect downward pressure on the index while the rupee may face marginal weakness due to reduced export-related dollar inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Sep-2026 13:31 IST",
   "score" : 7
 } ]
