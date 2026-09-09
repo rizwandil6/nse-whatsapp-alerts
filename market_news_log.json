@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-24T21:50:39",
-  "title" : "Double trouble puts India’s lifelines on ‘Red’ alert",
-  "impact" : "India's infrastructure and logistics sectors face operational challenges affecting growth momentum, potentially pressuring Nifty's infrastructure-heavy constituents. Currency volatility may increase if transportation bottlenecks worsen supply chains and inflation expectations.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Jul-2026 00:35 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-25T00:51:26",
   "title" : "Iran hits US bases in West Asia",
   "impact" : "Indian equity markets likely to open lower due to geopolitical risk-off sentiment and crude oil price spike. Nifty expected to trade cautiously with 1-2% downside pressure. Rupee may weaken 0.5-1% against USD as investors seek safe-haven assets.",
@@ -3497,5 +3490,12 @@
   "impact" : "The IT sector slump will likely drag down the Nifty 50, dampening overall market sentiment. Expect downward pressure on the index while the rupee may face marginal weakness due to reduced export-related dollar inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Sep-2026 13:31 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-09T14:51:10",
+  "title" : "India-US trade deal ‘more or less’ finalised",
+  "impact" : "The finalization of a US-India trade deal acts as a major sentiment booster for the Indian markets. Nifty is expected to witness upward momentum with foreign capital inflows, while the rupee may see modest appreciation against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Sep-2026 14:13 IST",
   "score" : 7
 } ]
