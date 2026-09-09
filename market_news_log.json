@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-25T00:51:26",
-  "title" : "Iran hits US bases in West Asia",
-  "impact" : "Indian equity markets likely to open lower due to geopolitical risk-off sentiment and crude oil price spike. Nifty expected to trade cautiously with 1-2% downside pressure. Rupee may weaken 0.5-1% against USD as investors seek safe-haven assets.",
-  "source" : "Economic Times",
-  "publishedAt" : "25-Jul-2026 00:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-25T09:39:04",
   "title" : "Wall Street Week Ahead: US stocks face tests from Fed decision, tech-led earnings deluge",
   "impact" : "Fed's hawkish signals and rising oil prices will pressure Indian equities, particularly energy and rate-sensitive sectors. Nifty likely to see mild bearish pressure with defensive positioning as global rates harden. Rupee may weaken further as US rates remain elevated, impacting import-heavy sectors.",
@@ -3497,5 +3490,12 @@
   "impact" : "The finalization of a US-India trade deal acts as a major sentiment booster for the Indian markets. Nifty is expected to witness upward momentum with foreign capital inflows, while the rupee may see modest appreciation against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "09-Sep-2026 14:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-09T15:06:33",
+  "title" : "India’s supply-chain wonder shifts growth gears",
+  "impact" : "India's supply chain transformation reinforces long-term structural growth and capital expenditure cycles. Nifty is expected to maintain a bullish bias as logistics efficiency lowers operational costs, while the rupee remains stable amid increased industrial competitiveness.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Sep-2026 14:21 IST",
   "score" : 7
 } ]
