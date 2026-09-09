@@ -449,8 +449,17 @@ function startSabbalStickMonitor({ sabbalDb } = {}) {
               });
             }
             delete openPositions[symbol];
+            // Fall through (no `continue`) -- the exit and a fresh entry are
+            // independent events that can both genuinely happen on the same
+            // candle (e.g. a stop-loss gets tapped intrabar, price recovers,
+            // and the candle closes as a valid opposite-direction reversal).
+            // Confirmed missed 2026-08-25 on IDEA: SL hit at 12:00, but that
+            // same 12:00 candle was also a clean BUY LOW signal that would
+            // have won (+0.50% by 12:15) -- silently dropped by an
+            // unjustified "one signal per cycle" restriction.
+          } else {
+            continue; // position survives this bar -- don't also look for a new entry while still holding
           }
-          continue; // one position at a time per symbol -- don't also evaluate a fresh entry same cycle
         }
 
         if (!newEntriesAllowed(ist)) continue; // past 3pm: manage open positions only, no new entries
