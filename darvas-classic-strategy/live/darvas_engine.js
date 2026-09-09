@@ -5,12 +5,17 @@
  *
  * Rules (as specified in the "Classic Darvas Box · Weekly Trade Ledger"
  * reference backtest — see darvas-classic-strategy/README.md):
- *   - Box formation: a new 52-week high starts a forming box (top = that
- *     week's high, bottom = that week's low). A week that stays fully
+ *   - Box formation: a week whose high breaks the FIXED high of the prior
+ *     complete calendar year starts a forming box (top = that week's high,
+ *     bottom = that week's low) -- e.g. for any week in 2025, the gate is
+ *     2024's Jan-Dec high, a single number that doesn't change as 2025's
+ *     weeks roll by (corrected 2026-09-09 from a rolling 52-bar window,
+ *     which could "forget" a genuine higher peak the moment it aged past
+ *     bar #52 -- see calendarYearHighs() below). A week that stays fully
  *     inside [bottom, top] counts toward containment; a week that makes a
  *     NEW high extends the top and resets the containment count; a week
  *     that breaks the bottom invalidates the forming box (must wait for
- *     the next fresh 52-week high to restart).
+ *     the next break of that same fixed prior-year high to restart).
  *   - Box confirmation: 3 consecutive contained weeks -> box confirmed.
  *   - Entry: close/high breaks 1% above the confirmed box top, on volume
  *     >= 1.25x the trailing 10-week average volume (lookback not specified
@@ -37,7 +42,6 @@ const BREAKOUT_PCT = 0.01;      // 1% above box top
 const VOLUME_MULT = 1.25;       // >= 1.25x avg volume (lowered from 1.5x per explicit request, 2026-08-24)
 const VOLUME_LOOKBACK = 10;     // weeks, trailing average (assumption -- see header)
 const INITIAL_STOP_PCT = 0.06;  // 6% below entry (widened from 3% per explicit request, 2026-09-09 -- backtested +1.29pp avg/position vs 3% on 2025 data)
-const HIGH_LOOKBACK = 52;       // weeks, rolling high gate to start a forming box
 
 function avgVolume(bars, uptoIdxExclusive) {
   const start = Math.max(0, uptoIdxExclusive - VOLUME_LOOKBACK);
@@ -46,11 +50,23 @@ function avgVolume(bars, uptoIdxExclusive) {
   return slice.reduce((s, b) => s + b.volume, 0) / slice.length;
 }
 
-function rollingHigh(bars, uptoIdxExclusive, lookback) {
-  const start = Math.max(0, uptoIdxExclusive - lookback);
-  const slice = bars.slice(start, uptoIdxExclusive);
-  if (slice.length === 0) return -Infinity;
-  return Math.max(...slice.map((b) => b.high));
+// Fixed-calendar-year high per year present in `bars` -- e.g. map.get(2024) is
+// the highest weekly high anywhere in Jan-Dec 2024. Corrected 2026-09-09: the
+// box-formation gate previously used a rolling 52-BAR window, which "forgets"
+// a genuine higher peak the moment it ages past bar #52 -- confirmed on
+// NESTLEIND: Sep 23 2024's 1389 high was excluded from the reference for an
+// Oct 2025 bar purely because it fell a few bars outside a 52-bar slice,
+// letting a lower 1311.60 pass as a "new high." Fixed-calendar-year avoids
+// that: a bar in year Y is checked against the ENTIRE prior calendar year
+// Y-1's high, a number that doesn't shift as weeks roll by -- exactly "fetch
+// previous year's high, then check forward for the break."
+function calendarYearHighs(bars) {
+  const map = new Map();
+  for (const b of bars) {
+    const year = Number(b.date.slice(0, 4));
+    map.set(year, Math.max(map.get(year) ?? -Infinity, b.high));
+  }
+  return map;
 }
 
 /**
@@ -74,6 +90,7 @@ function rollingHigh(bars, uptoIdxExclusive, lookback) {
 function computeTradeLog(bars, overrides) {
   const initialStopPct = overrides?.initialStopPct ?? INITIAL_STOP_PCT;
   const independentLegStops = overrides?.independentLegStops ?? false;
+  const yearHighs = calendarYearHighs(bars); // fixed prior-calendar-year high gate -- see calendarYearHighs() header
   const closedTrades = [];
   let forming = null;     // { top, bottom, containedCount }
   let confirmed = null;   // { top, bottom }
@@ -183,7 +200,10 @@ function computeTradeLog(bars, overrides) {
     }
 
     // ---- 2. box formation/confirmation (strictly prior-history gate, no lookahead) ----
-    const priorHigh = rollingHigh(bars, i, HIGH_LOOKBACK);
+    // Fixed prior-calendar-year high, not a rolling 52-bar window -- see
+    // calendarYearHighs() header. -Infinity (no gate at all) only for a bar
+    // whose year has no complete prior year in the data at all.
+    const priorHigh = yearHighs.get(Number(bar.date.slice(0, 4)) - 1) ?? -Infinity;
     if (!forming) {
       if (bar.high > priorHigh) {
         forming = { top: bar.high, bottom: bar.low, containedCount: 0 };
@@ -233,4 +253,4 @@ function computeTradeLog(bars, overrides) {
   };
 }
 
-module.exports = { computeTradeLog, avgVolume, MIN_BOX_WEEKS, BREAKOUT_PCT, VOLUME_MULT, VOLUME_LOOKBACK, INITIAL_STOP_PCT, HIGH_LOOKBACK };
+module.exports = { computeTradeLog, avgVolume, calendarYearHighs, MIN_BOX_WEEKS, BREAKOUT_PCT, VOLUME_MULT, VOLUME_LOOKBACK, INITIAL_STOP_PCT };
