@@ -15,7 +15,7 @@ No orders are ever placed. Positions are tracked from **2026-01-01** onward.
 - **Entry:** breakout 1% above the confirmed box top, on volume ≥ 1.25× the trailing
   10-week average (lookback not specified by the source method — documented assumption,
   see `live/darvas_engine.js` header).
-- **Initial stop:** 3% below entry.
+- **Initial stop:** 6% below entry (widened from 3%, 2026-09-09).
 - **Trailing stop:** raised (never lowered) to each new confirmed box's bottom while the
   position is open.
 - **Pyramiding:** every subsequent confirmed box's breakout adds a leg; all legs in a
