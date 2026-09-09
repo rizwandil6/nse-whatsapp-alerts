@@ -58,9 +58,13 @@ function rollingHigh(bars, uptoIdxExclusive, lookback) {
  *   Weekly bars, ascending by date. The LAST bar may be the current,
  *   still-forming week (partial data) -- that's fine, it's treated like
  *   any other bar.
+ * @param {{initialStopPct?: number}} [overrides] -- for sensitivity analysis
+ *   only (e.g. comparing SL widths); production callers pass nothing and get
+ *   the module's INITIAL_STOP_PCT.
  * @returns {{ closedTrades: Array, openPosition: object|null, formingBox: object|null, confirmedBox: object|null }}
  */
-function computeTradeLog(bars) {
+function computeTradeLog(bars, overrides) {
+  const initialStopPct = overrides?.initialStopPct ?? INITIAL_STOP_PCT;
   const closedTrades = [];
   let forming = null;     // { top, bottom, containedCount }
   let confirmed = null;   // { top, bottom }
@@ -109,7 +113,7 @@ function computeTradeLog(bars) {
       const brokeOut = bar.high >= breakoutLevel && avgVol != null && bar.volume >= VOLUME_MULT * avgVol;
       if (brokeOut) {
         const entryPrice = breakoutLevel;
-        const initialStop = entryPrice * (1 - INITIAL_STOP_PCT);
+        const initialStop = entryPrice * (1 - initialStopPct);
         position = {
           positionId: nextPositionId++,
           legs: [{ legIndex: 1, entryIdx: i, entryDate: bar.date, entryPrice, boxTop: confirmed.top }],

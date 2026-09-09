@@ -111,6 +111,26 @@ class DB {
     );
   }
 
+  // Deletes any position rows for this symbol NOT in validEntryDates -- the
+  // recompute is deterministic and full each run, so a row that no longer
+  // appears in the fresh output is stale (superseded by a logic/threshold
+  // change, or a past bug) and should not linger forever. Plain upsert alone
+  // can never remove a row; without this, a fixed bug still leaves its bad
+  // output sitting in the table under an entry_date key nothing writes to
+  // anymore (confirmed live 2026-09-09: a grouping bug produced a wrong-P&L
+  // SAILIFE row that the code fix alone would not have cleaned up).
+  async prunePositions(symbol, validEntryDates) {
+    if (!this.enabled) return;
+    if (validEntryDates.length === 0) {
+      await this._q('DELETE FROM darvas_classic.positions WHERE symbol=$1', [symbol]);
+      return;
+    }
+    await this._q(
+      'DELETE FROM darvas_classic.positions WHERE symbol=$1 AND entry_date <> ALL($2::date[])',
+      [symbol, validEntryDates]
+    );
+  }
+
   async upsertPosition({ symbol, entryDate, entryPrice, status, legs, legsJson, trailStop, exitDate, exitPrice, exitReason, lastPrice, pnlPct }) {
     await this._q(
       `INSERT INTO darvas_classic.positions
