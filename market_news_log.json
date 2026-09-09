@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-25T09:39:04",
-  "title" : "Wall Street Week Ahead: US stocks face tests from Fed decision, tech-led earnings deluge",
-  "impact" : "Fed's hawkish signals and rising oil prices will pressure Indian equities, particularly energy and rate-sensitive sectors. Nifty likely to see mild bearish pressure with defensive positioning as global rates harden. Rupee may weaken further as US rates remain elevated, impacting import-heavy sectors.",
-  "source" : "Economic Times",
-  "publishedAt" : "25-Jul-2026 09:11 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-25T09:54:29",
   "title" : "Oil falls on report China pushing for end US-Iran war",
   "impact" : "Oil price correction on peace talk hopes will ease inflation concerns and benefit India's import-dependent economy, supporting Nifty upside. Rupee likely to strengthen as crude moderates, reducing current account deficit pressure. Energy sector volatility remains high given geopolitical tensions and supply disruption risks.",
@@ -3497,5 +3490,12 @@
   "impact" : "India's supply chain transformation reinforces long-term structural growth and capital expenditure cycles. Nifty is expected to maintain a bullish bias as logistics efficiency lowers operational costs, while the rupee remains stable amid increased industrial competitiveness.",
   "source" : "Economic Times",
   "publishedAt" : "09-Sep-2026 14:21 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-09T15:36:55",
+  "title" : "8th CPC: How basic pay may double after DA merger",
+  "impact" : "The implementation of the 8th CPC is expected to boost domestic consumption and provide a bullish sentiment for Nifty due to increased disposable income. The rupee may face slight downward pressure due to increased liquidity and potential inflationary concerns.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Sep-2026 15:06 IST",
   "score" : 7
 } ]
