@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-24T12:42:54",
-  "title" : "Second chokepoint piles pressure on India's oil",
-  "impact" : "India's oil supply chain disruption from second chokepoint creates inflationary pressures, likely weighing on Nifty 50 near-term sentiment. Rupee vulnerability increases as oil import costs rise, putting depreciation pressure on INR. Energy sector volatility expected with downstream inflation concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Jul-2026 00:35 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-24T12:42:59",
   "title" : "Houthi threat to Saudi shipping raises oil fears",
   "impact" : "Houthi threats to Saudi shipping elevate global oil supply concerns, likely pushing crude prices higher and benefiting Indian energy stocks. Nifty may face headwinds from inflation fears but gains in energy sector could provide support. Rupee expected to weaken as oil import costs rise, increasing current account pressure.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian equity market faces significant downward pressure due to surging oil prices, which threaten to increase the fiscal deficit and inflationary risks. Expect Nifty to consolidate at lower levels as the rupee weakens against the dollar due to rising import bills.",
   "source" : "Economic Times",
   "publishedAt" : "09-Sep-2026 07:47 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-09T09:29:20",
+  "title" : "Iran war: US destroys 5 Iranian crude oil tankers",
+  "impact" : "Heightened geopolitical risk will likely trigger a sharp sell-off in Nifty due to surging crude oil prices. The Indian Rupee is expected to face significant depreciation pressure as import costs rise and FIIs move toward safe-haven assets.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Sep-2026 06:03 IST",
   "score" : 8
 } ]
