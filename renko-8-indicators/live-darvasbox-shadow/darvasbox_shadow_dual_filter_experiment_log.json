@@ -7432,5 +7432,32 @@
   "timestampMs": 1788935100000,
   "breakoutTimestampMs": 1788935100000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 115.91407500000003,
+  "timestampMs": 1788935100000,
+  "breakoutTimestampMs": 1788935100000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 264.83625,
+  "timestampMs": 1788935100000,
+  "breakoutTimestampMs": 1788935100000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 146.939625,
+  "timestampMs": 1788935100000,
+  "breakoutTimestampMs": 1788935100000,
+  "shadow": true
  }
 ]
