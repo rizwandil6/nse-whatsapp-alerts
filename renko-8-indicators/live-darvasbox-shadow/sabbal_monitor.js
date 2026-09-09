@@ -39,7 +39,7 @@ const DOJI_BODY_PCT = 15;       // body as % of range below this = doji, skip
 const REVERSAL_PCT = 50;        // 50% rule
 const VOL_STRONG_MULT = 1.2;
 const VOL_AVG_LOOKBACK = 20;
-const VOL_MIN_HISTORY = 5;      // below this, skip the volume gate (insufficient data), don't block the signal
+const VOL_MIN_HISTORY = 1;      // apply the gate against whatever history exists (even 1 prior bar) -- was 5, which let the gate skip unchecked for the first ~4 bars of every session (caught 2026-09-09: a false RVNL 10:00 LONG that real 3-bar volume data would have rejected)
 const TARGET_PCT = 0.005;       // 0.5%
 const POLL_INTERVAL_MS = 60 * 1000;
 const BUCKET_MIN = 15;
