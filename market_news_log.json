@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-24T12:42:59",
-  "title" : "Houthi threat to Saudi shipping raises oil fears",
-  "impact" : "Houthi threats to Saudi shipping elevate global oil supply concerns, likely pushing crude prices higher and benefiting Indian energy stocks. Nifty may face headwinds from inflation fears but gains in energy sector could provide support. Rupee expected to weaken as oil import costs rise, increasing current account pressure.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Jul-2026 21:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-24T14:45:16",
   "title" : "8th CPC- Will govt restore Old Pension Scheme?",
   "impact" : "Restoration of Old Pension Scheme would increase government fiscal burden and impact budget allocation, potentially pressuring Nifty if announced without revenue measures. Higher pension liabilities could affect infrastructure spending and capital expenditure priorities. Rupee may face mild pressure if fiscal deficit concerns emerge.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk will likely trigger a sharp sell-off in Nifty due to surging crude oil prices. The Indian Rupee is expected to face significant depreciation pressure as import costs rise and FIIs move toward safe-haven assets.",
   "source" : "Economic Times",
   "publishedAt" : "09-Sep-2026 06:03 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-09T10:29:52",
+  "title" : "India’s crude oil import basket prices breaches $100/bbl",
+  "impact" : "Rising crude oil prices will pressure India's current account deficit and inflation, likely leading to a bearish trend for the Nifty index. The rupee is expected to face significant depreciation against the dollar due to increased import costs.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Sep-2026 10:20 IST",
   "score" : 8
 } ]
