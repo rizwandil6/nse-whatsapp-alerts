@@ -88,16 +88,30 @@ async function runOnce() {
     const { symbol, closedTrades, openPosition, confirmedBox } = r;
 
     // Group closed legs by positionId (darvas_engine.js tags every leg of a
-    // pyramided group with the same id) into one row per position.
+    // pyramided group with the same id) into one row per position. Group
+    // FIRST, filter SECOND -- filtering individual legs by entryDate before
+    // grouping (as this used to) can silently drop a pyramided group's true
+    // leg 1 while keeping a later leg, making that later leg look like "the
+    // first entry": P&L then gets computed against the wrong entry price
+    // entirely, since the shared exit stop was set relative to the real
+    // leg 1 (confirmed live 2026-09-09: SAILIFE showed a -16.8% "STOP_LOSS"
+    // exit, mathematically impossible -- a STOP_LOSS exit is always exactly
+    // entry*0.97 by construction, but leg 1 had been filtered out, so the
+    // P&L used leg 2's much higher entry price against leg 1's stop level).
+    // The whole group is included only if its TRUE first leg is on/after
+    // TRACK_FROM -- a pyramid that started before the tracking window doesn't
+    // get "partially" tracked from a later leg.
     const groups = new Map();
     for (const leg of closedTrades) {
-      if (leg.entryDate < TRACK_FROM) continue;
       if (!groups.has(leg.positionId)) groups.set(leg.positionId, []);
       groups.get(leg.positionId).push(leg);
     }
+    const validEntryDates = [];
     for (const legs of groups.values()) {
       legs.sort((a, b) => a.legIndex - b.legIndex);
       const first = legs[0];
+      if (first.entryDate < TRACK_FROM) continue;
+      validEntryDates.push(first.entryDate);
       const last = legs[legs.length - 1];
       await db.upsertPosition({
         symbol,
@@ -134,7 +148,10 @@ async function runOnce() {
         pnlPct: pnlPct(first.entryPrice, lastClose),
       });
       positionsWritten++;
+      validEntryDates.push(first.entryDate);
     }
+
+    await db.prunePositions(symbol, validEntryDates);
 
     // Watchlist candidate: a confirmed box with no open position yet -- the
     // intraday watcher checks these for a real-time breakout during market
