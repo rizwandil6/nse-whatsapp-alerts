@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-25T12:26:19",
-  "title" : "Builders, brands bet big on India's new retail hub",
-  "impact" : "India's emerging retail hub development signals strong domestic consumption and infrastructure growth, likely supporting Nifty 50 with positive sentiment towards real estate and logistics sectors. This should support the rupee through increased FDI interest in retail and infrastructure projects.",
-  "source" : "Economic Times",
-  "publishedAt" : "25-Jul-2026 11:52 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-26T06:46:40",
   "title" : "Dharmendra Pradhan resigns, Gen Z wins",
   "impact" : "Dharmendra Pradhan's resignation as Coal and Power Minister signals potential policy shift in energy sector, likely to create near-term volatility in PSU stocks. Market may see mixed reactions depending on successor's mandate; energy stocks could face uncertainty on coal monetization and power distribution priorities. Rupee likely stable but energy sector sentiment will be watched closely.",
@@ -3497,5 +3490,12 @@
   "impact" : "The RBI move to absorb excess rupee liquidity helps stabilize the currency and manage inflationary pressures. Expect Nifty to consolidate in a range while the rupee gains strength against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "09-Sep-2026 18:20 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-09T19:41:44",
+  "title" : "2 suspects conspire to trigger 20-mnth high inflation",
+  "impact" : "Sticky inflation pressures dampen rate cut expectations, likely keeping Nifty under bearish pressure. The rupee is expected to face depreciation risk due to elevated import costs and potential FII outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Sep-2026 14:53 IST",
   "score" : 7
 } ]
