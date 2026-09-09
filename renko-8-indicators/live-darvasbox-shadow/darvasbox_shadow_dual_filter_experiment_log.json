@@ -7522,5 +7522,14 @@
   "timestampMs": 1788943500000,
   "breakoutTimestampMs": 1788943500000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 173.69549999999998,
+  "timestampMs": 1788943800000,
+  "breakoutTimestampMs": 1788943800000,
+  "shadow": true
  }
 ]
