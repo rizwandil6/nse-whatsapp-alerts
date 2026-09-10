@@ -20,11 +20,12 @@
  *   - Entry: close/high breaks 1% above the confirmed box top, on volume
  *     >= 1.25x the trailing 10-week average volume (lookback not specified
  *     by the source spec; 10 weeks is this implementation's assumption —
- *     documented so it can be tuned), AND daily RSI(14) > 70 at the time of
- *     breakout (added 2026-09-10 per explicit request + backtest: roughly
- *     halves trade count but return 8.47% -> 19.95%, win rate 44% -> 71% --
- *     an EMA50/100/200-above filter was also tested and found almost fully
- *     redundant with this, so only RSI was kept).
+ *     documented so it can be tuned), AND daily RSI(14) > 70 AND close above
+ *     EMA50/100/200, all at the time of breakout (added 2026-09-10 per
+ *     explicit request + backtest: RSI alone roughly halved trade count but
+ *     took return 8.47% -> 19.95%, win rate 44% -> 71%; adding EMA50/100/200
+ *     on top nudged that further to 22.26%/73% -- a small, near-redundant
+ *     improvement over RSI alone, kept per explicit instruction).
  *   - Initial stop: 6% below entry.
  *   - Trailing stop: whenever a NEW box confirms while the position is
  *     open, the stop is raised (never lowered) to that box's bottom.
@@ -48,6 +49,7 @@ const VOLUME_LOOKBACK = 10;     // weeks, trailing average (assumption -- see he
 const INITIAL_STOP_PCT = 0.06;  // 6% below entry (widened from 3% per explicit request, 2026-09-09 -- backtested +1.29pp avg/position vs 3% on 2025 data)
 const RSI_PERIOD = 14;          // daily
 const RSI_THRESHOLD = 70;       // added 2026-09-10 -- see header
+const EMA_PERIODS = [50, 100, 200]; // daily, added 2026-09-10 -- see header
 
 function avgVolume(bars, uptoIdxExclusive) {
   const start = Math.max(0, uptoIdxExclusive - VOLUME_LOOKBACK);
@@ -98,6 +100,23 @@ function dailyRsi(dailyBars) {
   return out;
 }
 
+// Standard EMA, seeded with a plain SMA of the first `period` closes (same
+// convention as dailyRsi's Wilder seed above).
+function ema(values, period) {
+  const out = new Array(values.length).fill(null);
+  if (values.length < period) return out;
+  let sum = 0;
+  for (let i = 0; i < period; i++) sum += values[i];
+  let prev = sum / period;
+  out[period - 1] = prev;
+  const k = 2 / (period + 1);
+  for (let i = period; i < values.length; i++) {
+    prev = values[i] * k + prev * (1 - k);
+    out[i] = prev;
+  }
+  return out;
+}
+
 // Duplicated from weekly_cache.js's weekKey() (Monday of the trading week a
 // date falls in) rather than imported -- this module is documented as a pure
 // state-machine engine with no I/O/module dependencies, and this is 6 lines.
@@ -109,18 +128,27 @@ function weekKeyOf(dateStr) {
   return d.toISOString().slice(0, 10);
 }
 
-// Map<weekMondayDate, boolean> -- true only if RSI(14) > RSI_THRESHOLD on the
-// LAST daily bar of that week (a later day in the same week overwrites an
-// earlier one, so this naturally ends up as the week's most recent trading
-// day). A week with no daily bars mapped to it, or not enough RSI history
-// yet, is simply absent from the map -- gatePasses() below treats that as
-// "no", not "yes by default".
+// Map<weekMondayDate, boolean> -- true only if, on the LAST daily bar of that
+// week (a later day in the same week overwrites an earlier one, so this
+// naturally ends up as the week's most recent trading day): RSI(14) >
+// RSI_THRESHOLD AND close is above EMA50, EMA100, AND EMA200 (added
+// 2026-09-10 alongside RSI per explicit request -- backtested on top of the
+// RSI-only gate: 138->137 legs, return 22.07%->22.26%, win rate 72.5%->73% --
+// confirms the earlier finding that EMA is nearly redundant with RSI alone,
+// kept anyway per explicit instruction). A week with no daily bars mapped to
+// it, or not enough RSI/EMA history yet, is simply absent from the map --
+// gatePasses() below treats that as "no", not "yes by default".
 function weeklyRsiGate(dailyBars) {
   const rsi = dailyRsi(dailyBars);
+  const closes = dailyBars.map((b) => b.close);
+  const emas = EMA_PERIODS.map((p) => ema(closes, p));
   const gate = new Map();
   for (let i = 0; i < dailyBars.length; i++) {
     if (rsi[i] == null) continue;
-    gate.set(weekKeyOf(dailyBars[i].date), rsi[i] > RSI_THRESHOLD);
+    if (emas.some((e) => e[i] == null)) continue;
+    const close = dailyBars[i].close;
+    const pass = rsi[i] > RSI_THRESHOLD && emas.every((e) => close > e[i]);
+    gate.set(weekKeyOf(dailyBars[i].date), pass);
   }
   return gate;
 }
@@ -131,14 +159,15 @@ function weeklyRsiGate(dailyBars) {
  *   still-forming week (partial data) -- that's fine, it's treated like
  *   any other bar.
  * @param {Array<{date:string, close:number}>} [dailyBars] -- daily candles
- *   for the SAME symbol (ascending by date), used to compute the RSI(14)>70
- *   entry condition. Production callers (runner.js) always pass this. If
- *   omitted, the RSI gate is simply not applied (permissive) -- useful for
- *   isolated box-mechanics testing that doesn't care about RSI at all.
+ *   for the SAME symbol (ascending by date), used to compute the
+ *   RSI(14)>70 AND close>EMA50/100/200 entry condition. Production callers
+ *   (runner.js) always pass this. If omitted, the gate is simply not applied
+ *   (permissive) -- useful for isolated box-mechanics testing that doesn't
+ *   care about RSI/EMA at all.
  * @param {{initialStopPct?: number, independentLegStops?: boolean, dailyGate?: Map|Function}} [overrides]
  *   -- for sensitivity analysis only; production callers pass nothing and
  *   get INITIAL_STOP_PCT with one shared group-level trailing stop, and the
- *   default RSI(14)>70 gate derived from dailyBars. independentLegStops=true
+ *   default RSI(14)>70+EMA50/100/200 gate derived from dailyBars. independentLegStops=true
  *   switches to each pyramid leg carrying its OWN trailing stop (own initial
  *   entry*(1-pct), independently raised by later box confirmations,
  *   independently exited) instead of the whole group sharing one stop set
@@ -155,11 +184,12 @@ function weeklyRsiGate(dailyBars) {
 function computeTradeLog(bars, dailyBars, overrides) {
   const initialStopPct = overrides?.initialStopPct ?? INITIAL_STOP_PCT;
   const independentLegStops = overrides?.independentLegStops ?? false;
-  // Entry condition beyond price+volume: by default, RSI(14)>70 derived from
-  // dailyBars (see header) -- EVERY entry (fresh or pyramid leg) requires
-  // this to be true for that week's date. overrides.dailyGate replaces it
-  // entirely (ad-hoc backtest use); passing neither dailyBars nor an
-  // override leaves the gate permissive (always passes).
+  // Entry condition beyond price+volume: by default, RSI(14)>70 AND
+  // close>EMA50/100/200 derived from dailyBars (see header) -- EVERY entry
+  // (fresh or pyramid leg) requires this to be true for that week's date.
+  // overrides.dailyGate replaces it entirely (ad-hoc backtest use); passing
+  // neither dailyBars nor an override leaves the gate permissive (always
+  // passes).
   const dailyGate = overrides?.dailyGate ?? (dailyBars ? weeklyRsiGate(dailyBars) : null);
   function gatePasses(barDate) {
     if (!dailyGate) return true;
@@ -328,4 +358,4 @@ function computeTradeLog(bars, dailyBars, overrides) {
   };
 }
 
-module.exports = { computeTradeLog, avgVolume, calendarYearHighs, dailyRsi, weeklyRsiGate, MIN_BOX_WEEKS, BREAKOUT_PCT, VOLUME_MULT, VOLUME_LOOKBACK, INITIAL_STOP_PCT, RSI_PERIOD, RSI_THRESHOLD };
+module.exports = { computeTradeLog, avgVolume, calendarYearHighs, dailyRsi, ema, weeklyRsiGate, MIN_BOX_WEEKS, BREAKOUT_PCT, VOLUME_MULT, VOLUME_LOOKBACK, INITIAL_STOP_PCT, RSI_PERIOD, RSI_THRESHOLD, EMA_PERIODS };
