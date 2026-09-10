@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-27T20:24:23",
-  "title" : "NTPC posts record ₹27,546 crore profit in FY26, eyes 250 GW capacity by 2037",
-  "impact" : "NTPC's record profit and aggressive capex signals strong government push toward renewable energy transition, likely supporting infrastructure-heavy indices like Nifty 50. Positive sentiment for PSU stocks and energy sector may provide mild tailwind to broader market. Rupee likely to remain stable with strong domestic earnings growth supporting FII inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "27-Jul-2026 20:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-27T20:24:28",
   "title" : "Indo-MIM IPO closes at 72.34 times subscription; QIBs bid over 204 times",
   "impact" : "Indo-MIM IPO's exceptional 72.34x subscription signals strong investor appetite for manufacturing/industrial plays, likely supporting broader market sentiment and driving Nifty upward. Strong QIB participation, especially from FIIs at 204x, indicates foreign capital inflow supporting rupee stability.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising crude oil prices will likely exert downward pressure on Nifty due to imported inflation and fiscal deficit concerns. The rupee is expected to weaken against the dollar, potentially triggering FII outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Sep-2026 10:10 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-10T08:21:18",
+  "title" : "Crude shock sends Nifty to three-month low; Rupee slips",
+  "impact" : "Rising crude prices trigger inflationary fears and FII outflows, putting downward pressure on Nifty. The rupee is expected to remain weak against the dollar due to rising energy import bills and geopolitical uncertainty.",
+  "source" : "BusinessLine",
+  "publishedAt" : "08-Sep-2026 20:06 IST",
   "score" : 8
 } ]
