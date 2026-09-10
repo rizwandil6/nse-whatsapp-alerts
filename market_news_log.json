@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-29T10:03:21",
-  "title" : "Crude oil futures jump after US-Saudi strikes on Iran-backed targets",
-  "impact" : "Rising crude oil prices will pressure Indian inflation and fiscal metrics, likely dampening near-term Nifty sentiment as energy import costs surge. Rupee expected to weaken further against the dollar due to higher oil import bills and capital outflows. RBI may face headwinds in rate-cut decisions.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Jul-2026 09:46 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-29T11:50:24",
   "title" : "HDFC &amp; other giants count the cost of a dollar magnet",
   "impact" : "Strong dollar inflow attracts foreign capital away from Indian equities, pressuring Nifty near-term. Rupee depreciation risk increases import costs for corporates and impacts earnings. Market sentiment likely mixed as FII flows face headwinds from dollar strength.",
@@ -3497,5 +3490,12 @@
   "impact" : "The BRICS summit is expected to drive positive sentiment for infrastructure and trade logistics, supporting Nifty stability. Increased geopolitical engagement may lead to a marginal strengthening of the rupee against the USD due to potential trade partnership announcements.",
   "source" : "Economic Times",
   "publishedAt" : "10-Sep-2026 20:14 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-11T01:18:21",
+  "title" : "GST turbocharges truck demand, CV makers raise bets",
+  "impact" : "Positive sentiment for the industrial and logistics sectors will likely support a Nifty bullish bias. Increased freight activity is expected to strengthen domestic economic indicators and provide underlying support to the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Sep-2026 00:48 IST",
   "score" : 7
 } ]
