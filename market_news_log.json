@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-27T15:20:08",
-  "title" : "MRPL seeks to avoid Red Sea and Hormuz",
-  "impact" : "Shipping route disruptions in Red Sea and Hormuz strait increase logistics costs for Indian refiners and exporters, putting pressure on margins and potentially raising inflation. Nifty may face headwinds from energy and logistics stocks, while rupee could weaken due to higher crude import costs. Policy focus on alternative routes and domestic logistics gains importance.",
-  "source" : "Economic Times",
-  "publishedAt" : "27-Jul-2026 14:45 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-27T16:21:14",
   "title" : "Monsoon may upend forecasts of July fade-out as it scripts another comeback",
   "impact" : "Improved monsoon rainfall reducing agricultural distress supports rural consumption and infrastructure demand, potentially lifting Nifty sentiment. However, flood-related property damage and loss of life create near-term uncertainty for affected regions, pressuring sentiment moderately.",
@@ -3497,5 +3490,12 @@
   "impact" : "The NSE IPO is a major liquidity event likely to attract significant institutional and retail capital. Nifty may experience short-term volatility due to liquidity diversion, with the rupee expected to remain stable despite capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Sep-2026 10:34 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-10T08:20:23",
+  "title" : "India’s crude oil import basket prices breaches $100/bbl",
+  "impact" : "Rising crude prices increase the current account deficit and inflation risks, likely putting downward pressure on Nifty. The rupee is expected to face depreciation pressure due to higher dollar demand for energy imports.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Sep-2026 10:20 IST",
   "score" : 8
 } ]
