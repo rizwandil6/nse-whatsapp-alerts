@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-27T09:53:29",
-  "title" : "SBI sees India attracting $85 billion in forex",
-  "impact" : "Strong forex inflow of $85 billion will support rupee stability and reduce import costs, providing tailwinds for the broader market. Nifty expected to gain moderate upside as foreign capital inflows typically boost sentiment and valuations. Rupee appreciation benefits domestic exporters and reduces inflation pressure.",
-  "source" : "Economic Times",
-  "publishedAt" : "27-Jul-2026 08:55 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-27T11:17:11",
   "title" : "RBI to hold rates through 2026: Economists",
   "impact" : "RBI holding rates through 2026 signals monetary policy stability, likely supporting equity valuations and reducing refinancing risks for corporates. Nifty expected to remain resilient with potential gains from lower cost of capital, though rupee may remain vulnerable to global rate differentials.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "10-Sep-2026 07:37 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-10T08:17:59",
+  "title" : "Surging crude oil prices: Rupee breaches 95/dollar mark",
+  "impact" : "The breach of the 95 rupee mark signals significant macroeconomic stress and likely FII outflows. Nifty is expected to face heavy selling pressure due to inflation concerns, while the weakening rupee will squeeze corporate margins and trigger a risk-off sentiment.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Sep-2026 22:10 IST",
+  "score" : 8
 } ]
