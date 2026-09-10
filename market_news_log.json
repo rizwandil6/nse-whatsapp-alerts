@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-26T16:51:14",
-  "title" : "60 nations, one tariff: Trump's new play",
-  "impact" : "Uniform global tariff regime creates headwinds for Indian exporters and manufacturing competitiveness, potentially pressuring Nifty 50 in near term. Rupee likely to weaken as capital outflows increase from tariff-induced global uncertainty. Import substitution plays may gain traction domestically.",
-  "source" : "Economic Times",
-  "publishedAt" : "26-Jul-2026 16:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-27T00:33:28",
   "title" : "Russia crude prices swing wildly amid Iran war",
   "impact" : "Crude price volatility amid Iran tensions will pressure Indian equities through higher energy costs and inflation concerns. Nifty likely to trade cautiously with downward bias if crude sustains above $80/barrel. Rupee may weaken against USD as crude imports increase India's current account deficit.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "10-Sep-2026 06:22 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-10T07:12:00",
+  "title" : "'Iran war-led spike in oil prices won't cool down'",
+  "impact" : "The Indian market faces significant bearish pressure due to imported inflation and a widening current account deficit. Nifty is expected to correct amid weak sentiment, and the rupee is likely to weaken further against the USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Sep-2026 06:36 IST",
+  "score" : 9
 } ]
