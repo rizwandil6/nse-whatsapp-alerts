@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-28T18:40:19",
-  "title" : "Infra projects log Rs 4.92 lakh cr cost overrun",
-  "impact" : "Significant negative sentiment on infrastructure sector due to massive cost overruns, likely to weigh on Nifty's infrastructure and PSU indices. Government spending constraints may emerge as a concern, potentially strengthening rupee on reduced capex outlook.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Jul-2026 18:02 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-28T21:12:42",
   "title" : "600 rules, one reset: Big healthcare cleanup is here",
   "impact" : "Healthcare sector regulatory overhaul will create compliance costs and operational restructuring, potentially pressuring near-term margins but improving long-term sustainability. Nifty likely to see healthcare stocks reallocate capital towards compliant operations, with mixed sentiment on pharma and hospital stocks. Rupee may see minor appreciation if foreign investors view reforms as governance positive.",
@@ -3497,5 +3490,12 @@
   "impact" : "A diplomatic thaw would boost investor sentiment and stabilize Nifty by reducing geopolitical risk premiums. The rupee is likely to strengthen as improved bilateral trade relations lower volatility and attract foreign capital inflows.",
   "source" : "Economic Times",
   "publishedAt" : "10-Sep-2026 17:17 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-10T18:22:49",
+  "title" : "New India industrial revolution takes shape",
+  "impact" : "This signals a long-term structural upgrade for Indian manufacturing, likely driving Nifty higher as capital expenditure cycles accelerate. Expect moderate rupee stability supported by increased foreign direct investment inflows into high-tech sectors.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Sep-2026 17:44 IST",
   "score" : 7
 } ]
