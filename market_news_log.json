@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-27T16:21:14",
-  "title" : "Monsoon may upend forecasts of July fade-out as it scripts another comeback",
-  "impact" : "Improved monsoon rainfall reducing agricultural distress supports rural consumption and infrastructure demand, potentially lifting Nifty sentiment. However, flood-related property damage and loss of life create near-term uncertainty for affected regions, pressuring sentiment moderately.",
-  "source" : "BusinessLine",
-  "publishedAt" : "27-Jul-2026 16:15 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-27T17:51:59",
   "title" : "Tata flies over losses to log a Rs 31,961 crore profit",
   "impact" : "Tata Group's strong Rs 31,961 crore profit demonstrates resilience across conglomerate operations, likely supporting positive sentiment in large-cap index stocks and boosting Nifty 50. Strong corporate earnings may attract institutional inflows, providing mild support to rupee stability.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "09-Sep-2026 10:20 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-10T08:20:26",
+  "title" : "Rupee falls 21 paise to 94.95 against US dollar in early trade",
+  "impact" : "The sharp decline in the rupee combined with rising crude prices poses a significant risk to macroeconomic stability. Nifty is likely to face sustained selling pressure as FII outflows accelerate due to currency devaluation and import cost concerns.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Sep-2026 10:18 IST",
+  "score" : 7
 } ]
