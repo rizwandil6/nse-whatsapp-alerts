@@ -14,10 +14,11 @@ No orders are ever placed. Positions are tracked from **2026-01-01** onward.
 - **Box confirmation:** 3 consecutive contained weeks.
 - **Entry:** breakout 1% above the confirmed box top, on volume ≥ 1.25× the trailing
   10-week average (lookback not specified by the source method — documented assumption,
-  see `live/darvas_engine.js` header), AND daily RSI(14) > 70 at the time of breakout
-  (added 2026-09-10, backtested: ~halves trade count, return 8.47% → 19.95%, win rate
-  44% → 71% -- an EMA50/100/200-above condition was also tested and found almost fully
-  redundant with RSI alone, so only RSI was kept).
+  see `live/darvas_engine.js` header), AND daily RSI(14) > 70 AND close above daily
+  EMA50/100/200, all at the time of breakout (RSI added 2026-09-10, backtested: ~halves
+  trade count, return 8.47% → 19.95%, win rate 44% → 71%; EMA50/100/200 added on top the
+  same day, backtested: 138→137 legs, 22.07% → 22.26%, 72.5% → 73% -- a small, near-
+  redundant improvement over RSI alone, kept per explicit instruction).
 - **Initial stop:** 6% below entry (widened from 3%, 2026-09-09).
 - **Trailing stop:** raised (never lowered) to each new confirmed box's bottom while the
   position is open.
