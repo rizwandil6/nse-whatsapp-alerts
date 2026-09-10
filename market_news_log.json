@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-28T06:22:27",
-  "title" : "Govt dives deep for oil with ₹80k cr push",
-  "impact" : "Bullish sentiment for energy and infrastructure sectors as government's 80k crore oil exploration push signals long-term energy security focus. Nifty likely to see modest gains in energy and PSU stocks. Rupee may strengthen slightly due to reduced import dependency expectations from increased domestic oil production.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Jul-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-28T06:22:38",
   "title" : "FIIs increase PSU exposure, trim stakes in private banks",
   "impact" : "Moderate positive impact on Indian equities with a structural shift favoring PSU banks over private lenders. Nifty banking index likely to see continued divergence between PSU and private bank performance. Rupee may strengthen marginally due to increased FII inflows into PSU banking stocks.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sustained high crude oil prices will pressure the Nifty due to fiscal deficit concerns and inflationary risks. The Indian Rupee is likely to weaken further against the USD, increasing import costs for the economy.",
   "source" : "BusinessLine",
   "publishedAt" : "10-Sep-2026 10:10 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-10T10:30:27",
+  "title" : "India’s new industrial revolution: Jefferies flags space, semiconductors, solar among 6 high-growth sectors",
+  "impact" : "The report reinforces a long-term structural bull run for Indian industrial and infrastructure stocks. Nifty is expected to sustain upward momentum with capital expenditure themes driving sentiment, while the rupee remains stable amid increased FDI inflows into these sectors.",
+  "source" : "BusinessLine",
+  "publishedAt" : "10-Sep-2026 10:18 IST",
   "score" : 7
 } ]
