@@ -67,9 +67,9 @@ async function runOnce() {
   console.log(`Darvas Classic weekly scan — ${todayStr} — ${entries.length} symbols — tracking positions from ${TRACK_FROM}`);
 
   const results = await mapLimit(entries, CONCURRENCY, async ([symbol, instrumentKey]) => {
-    let weekly;
+    let weekly, dailyBars;
     try {
-      weekly = await refreshSymbol(db, localStore, symbol, instrumentKey, todayStr);
+      ({ weekly, dailyBars } = await refreshSymbol(db, localStore, symbol, instrumentKey, todayStr));
     } catch (e) {
       console.warn(`  ${symbol}: fetch failed — ${e.message}`);
       return null;
@@ -77,7 +77,7 @@ async function runOnce() {
       await sleep(REQUEST_STAGGER_MS);
     }
     if (weekly.length < 52) return null;
-    const { closedTrades, openPosition, confirmedBox } = computeTradeLog(weekly);
+    const { closedTrades, openPosition, confirmedBox } = computeTradeLog(weekly, dailyBars);
     return { symbol, weekly, closedTrades, openPosition, confirmedBox };
   });
 

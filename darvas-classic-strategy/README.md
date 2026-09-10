@@ -14,7 +14,10 @@ No orders are ever placed. Positions are tracked from **2026-01-01** onward.
 - **Box confirmation:** 3 consecutive contained weeks.
 - **Entry:** breakout 1% above the confirmed box top, on volume ≥ 1.25× the trailing
   10-week average (lookback not specified by the source method — documented assumption,
-  see `live/darvas_engine.js` header).
+  see `live/darvas_engine.js` header), AND daily RSI(14) > 70 at the time of breakout
+  (added 2026-09-10, backtested: ~halves trade count, return 8.47% → 19.95%, win rate
+  44% → 71% -- an EMA50/100/200-above condition was also tested and found almost fully
+  redundant with RSI alone, so only RSI was kept).
 - **Initial stop:** 6% below entry (widened from 3%, 2026-09-09).
 - **Trailing stop:** raised (never lowered) to each new confirmed box's bottom while the
   position is open.
@@ -37,7 +40,8 @@ Trade Ledger" artifact (linked in the vault's `darvasbox-forward-data-source` me
   (`darvas_classic.daily_cache`) since Railway's filesystem is ephemeral across redeploys.
   Backfills 2 years (not the full history) — enough lookback for the 52-week box gate
   ahead of the 2026-01-01 tracking start, while easing rate-limit pressure on the
-  unauthenticated endpoint.
+  unauthenticated endpoint. `refreshSymbol()` returns both the resampled weekly bars
+  AND the raw daily bars (the latter needed by `darvas_engine.js`'s RSI(14) entry gate).
 - `darvas_engine.js` — pure box/entry/exit state machine, recomputed from full history
   each run (no incremental engine state — avoids drift). Tags every leg of a pyramided
   group with a shared `positionId` so callers can regroup them.

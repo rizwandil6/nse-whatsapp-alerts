@@ -20,7 +20,11 @@
  *   - Entry: close/high breaks 1% above the confirmed box top, on volume
  *     >= 1.25x the trailing 10-week average volume (lookback not specified
  *     by the source spec; 10 weeks is this implementation's assumption —
- *     documented so it can be tuned).
+ *     documented so it can be tuned), AND daily RSI(14) > 70 at the time of
+ *     breakout (added 2026-09-10 per explicit request + backtest: roughly
+ *     halves trade count but return 8.47% -> 19.95%, win rate 44% -> 71% --
+ *     an EMA50/100/200-above filter was also tested and found almost fully
+ *     redundant with this, so only RSI was kept).
  *   - Initial stop: 6% below entry.
  *   - Trailing stop: whenever a NEW box confirms while the position is
  *     open, the stop is raised (never lowered) to that box's bottom.
@@ -42,6 +46,8 @@ const BREAKOUT_PCT = 0.01;      // 1% above box top
 const VOLUME_MULT = 1.25;       // >= 1.25x avg volume (lowered from 1.5x per explicit request, 2026-08-24)
 const VOLUME_LOOKBACK = 10;     // weeks, trailing average (assumption -- see header)
 const INITIAL_STOP_PCT = 0.06;  // 6% below entry (widened from 3% per explicit request, 2026-09-09 -- backtested +1.29pp avg/position vs 3% on 2025 data)
+const RSI_PERIOD = 14;          // daily
+const RSI_THRESHOLD = 70;       // added 2026-09-10 -- see header
 
 function avgVolume(bars, uptoIdxExclusive) {
   const start = Math.max(0, uptoIdxExclusive - VOLUME_LOOKBACK);
@@ -69,27 +75,96 @@ function calendarYearHighs(bars) {
   return map;
 }
 
+// Wilder's RSI(14) on daily closes. Standard smoothing: first avg gain/loss
+// is a plain average of the first RSI_PERIOD deltas, every value after that
+// rolls forward with the (period-1)/period Wilder smoothing factor.
+function dailyRsi(dailyBars) {
+  const out = new Array(dailyBars.length).fill(null);
+  if (dailyBars.length < RSI_PERIOD + 1) return out;
+  let gainSum = 0, lossSum = 0;
+  for (let i = 1; i <= RSI_PERIOD; i++) {
+    const delta = dailyBars[i].close - dailyBars[i - 1].close;
+    if (delta >= 0) gainSum += delta; else lossSum -= delta;
+  }
+  let avgGain = gainSum / RSI_PERIOD, avgLoss = lossSum / RSI_PERIOD;
+  out[RSI_PERIOD] = avgLoss === 0 ? 100 : 100 - 100 / (1 + avgGain / avgLoss);
+  for (let i = RSI_PERIOD + 1; i < dailyBars.length; i++) {
+    const delta = dailyBars[i].close - dailyBars[i - 1].close;
+    const gain = delta >= 0 ? delta : 0, loss = delta < 0 ? -delta : 0;
+    avgGain = (avgGain * (RSI_PERIOD - 1) + gain) / RSI_PERIOD;
+    avgLoss = (avgLoss * (RSI_PERIOD - 1) + loss) / RSI_PERIOD;
+    out[i] = avgLoss === 0 ? 100 : 100 - 100 / (1 + avgGain / avgLoss);
+  }
+  return out;
+}
+
+// Duplicated from weekly_cache.js's weekKey() (Monday of the trading week a
+// date falls in) rather than imported -- this module is documented as a pure
+// state-machine engine with no I/O/module dependencies, and this is 6 lines.
+function weekKeyOf(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00Z');
+  const day = d.getUTCDay();
+  const diffToMonday = (day + 6) % 7;
+  d.setUTCDate(d.getUTCDate() - diffToMonday);
+  return d.toISOString().slice(0, 10);
+}
+
+// Map<weekMondayDate, boolean> -- true only if RSI(14) > RSI_THRESHOLD on the
+// LAST daily bar of that week (a later day in the same week overwrites an
+// earlier one, so this naturally ends up as the week's most recent trading
+// day). A week with no daily bars mapped to it, or not enough RSI history
+// yet, is simply absent from the map -- gatePasses() below treats that as
+// "no", not "yes by default".
+function weeklyRsiGate(dailyBars) {
+  const rsi = dailyRsi(dailyBars);
+  const gate = new Map();
+  for (let i = 0; i < dailyBars.length; i++) {
+    if (rsi[i] == null) continue;
+    gate.set(weekKeyOf(dailyBars[i].date), rsi[i] > RSI_THRESHOLD);
+  }
+  return gate;
+}
+
 /**
  * @param {Array<{date:string, open:number, high:number, low:number, close:number, volume:number}>} bars
  *   Weekly bars, ascending by date. The LAST bar may be the current,
  *   still-forming week (partial data) -- that's fine, it's treated like
  *   any other bar.
- * @param {{initialStopPct?: number, independentLegStops?: boolean}} [overrides]
+ * @param {Array<{date:string, close:number}>} [dailyBars] -- daily candles
+ *   for the SAME symbol (ascending by date), used to compute the RSI(14)>70
+ *   entry condition. Production callers (runner.js) always pass this. If
+ *   omitted, the RSI gate is simply not applied (permissive) -- useful for
+ *   isolated box-mechanics testing that doesn't care about RSI at all.
+ * @param {{initialStopPct?: number, independentLegStops?: boolean, dailyGate?: Map|Function}} [overrides]
  *   -- for sensitivity analysis only; production callers pass nothing and
- *   get INITIAL_STOP_PCT with one shared group-level trailing stop.
- *   independentLegStops=true switches to each pyramid leg carrying its OWN
- *   trailing stop (own initial entry*(1-pct), independently raised by later
- *   box confirmations, independently exited) instead of the whole group
- *   sharing one stop set from leg 1. Under the shared-stop default, a late
- *   pyramid add can lose far more than the nominal stop % if the group gets
- *   stopped out at leg 1's (much lower) level before any new box confirms --
- *   confirmed live 2025 backtest: a leg entered at 853 lost -33.5% when the
- *   group's shared stop, set from a leg entered near 585, finally hit.
+ *   get INITIAL_STOP_PCT with one shared group-level trailing stop, and the
+ *   default RSI(14)>70 gate derived from dailyBars. independentLegStops=true
+ *   switches to each pyramid leg carrying its OWN trailing stop (own initial
+ *   entry*(1-pct), independently raised by later box confirmations,
+ *   independently exited) instead of the whole group sharing one stop set
+ *   from leg 1. Under the shared-stop default, a late pyramid add can lose
+ *   far more than the nominal stop % if the group gets stopped out at leg
+ *   1's (much lower) level before any new box confirms -- confirmed live
+ *   2025 backtest: a leg entered at 853 lost -33.5% when the group's shared
+ *   stop, set from a leg entered near 585, finally hit. overrides.dailyGate
+ *   (a Map<weekDate,boolean> or (weekDate)=>boolean), when given, REPLACES
+ *   the default RSI-derived gate entirely -- for testing a different daily
+ *   condition (e.g. an EMA-only gate) instead of RSI.
  * @returns {{ closedTrades: Array, openPosition: object|null, formingBox: object|null, confirmedBox: object|null }}
  */
-function computeTradeLog(bars, overrides) {
+function computeTradeLog(bars, dailyBars, overrides) {
   const initialStopPct = overrides?.initialStopPct ?? INITIAL_STOP_PCT;
   const independentLegStops = overrides?.independentLegStops ?? false;
+  // Entry condition beyond price+volume: by default, RSI(14)>70 derived from
+  // dailyBars (see header) -- EVERY entry (fresh or pyramid leg) requires
+  // this to be true for that week's date. overrides.dailyGate replaces it
+  // entirely (ad-hoc backtest use); passing neither dailyBars nor an
+  // override leaves the gate permissive (always passes).
+  const dailyGate = overrides?.dailyGate ?? (dailyBars ? weeklyRsiGate(dailyBars) : null);
+  function gatePasses(barDate) {
+    if (!dailyGate) return true;
+    return typeof dailyGate === 'function' ? dailyGate(barDate) === true : dailyGate.get(barDate) === true;
+  }
   const yearHighs = calendarYearHighs(bars); // fixed prior-calendar-year high gate -- see calendarYearHighs() header
   const closedTrades = [];
   let forming = null;     // { top, bottom, containedCount }
@@ -126,7 +201,7 @@ function computeTradeLog(bars, overrides) {
         } else if (confirmed) {
           const avgVol = avgVolume(bars, i);
           const breakoutLevel = confirmed.top * (1 + BREAKOUT_PCT);
-          const brokeOut = bar.high >= breakoutLevel && avgVol != null && bar.volume >= VOLUME_MULT * avgVol;
+          const brokeOut = bar.high >= breakoutLevel && avgVol != null && bar.volume >= VOLUME_MULT * avgVol && gatePasses(bar.date);
           if (brokeOut && !position.legs.some((l) => l.boxTop === confirmed.top)) {
             const initialStop = breakoutLevel * (1 - initialStopPct);
             position.legs.push({
@@ -140,7 +215,7 @@ function computeTradeLog(bars, overrides) {
       } else if (confirmed) {
         const avgVol = avgVolume(bars, i);
         const breakoutLevel = confirmed.top * (1 + BREAKOUT_PCT);
-        const brokeOut = bar.high >= breakoutLevel && avgVol != null && bar.volume >= VOLUME_MULT * avgVol;
+        const brokeOut = bar.high >= breakoutLevel && avgVol != null && bar.volume >= VOLUME_MULT * avgVol && gatePasses(bar.date);
         if (brokeOut) {
           const initialStop = breakoutLevel * (1 - initialStopPct);
           position = {
@@ -171,7 +246,7 @@ function computeTradeLog(bars, overrides) {
       } else if (confirmed) {
         const avgVol = avgVolume(bars, i);
         const breakoutLevel = confirmed.top * (1 + BREAKOUT_PCT);
-        const brokeOut = bar.high >= breakoutLevel && avgVol != null && bar.volume >= VOLUME_MULT * avgVol;
+        const brokeOut = bar.high >= breakoutLevel && avgVol != null && bar.volume >= VOLUME_MULT * avgVol && gatePasses(bar.date);
         if (brokeOut && !position.legs.some((l) => l.boxTop === confirmed.top)) {
           const legIndex = position.legs.length + 1;
           position.legs.push({
@@ -186,7 +261,7 @@ function computeTradeLog(bars, overrides) {
     } else if (confirmed) {
       const avgVol = avgVolume(bars, i);
       const breakoutLevel = confirmed.top * (1 + BREAKOUT_PCT);
-      const brokeOut = bar.high >= breakoutLevel && avgVol != null && bar.volume >= VOLUME_MULT * avgVol;
+      const brokeOut = bar.high >= breakoutLevel && avgVol != null && bar.volume >= VOLUME_MULT * avgVol && gatePasses(bar.date);
       if (brokeOut) {
         const entryPrice = breakoutLevel;
         const initialStop = entryPrice * (1 - initialStopPct);
@@ -253,4 +328,4 @@ function computeTradeLog(bars, overrides) {
   };
 }
 
-module.exports = { computeTradeLog, avgVolume, calendarYearHighs, MIN_BOX_WEEKS, BREAKOUT_PCT, VOLUME_MULT, VOLUME_LOOKBACK, INITIAL_STOP_PCT };
+module.exports = { computeTradeLog, avgVolume, calendarYearHighs, dailyRsi, weeklyRsiGate, MIN_BOX_WEEKS, BREAKOUT_PCT, VOLUME_MULT, VOLUME_LOOKBACK, INITIAL_STOP_PCT, RSI_PERIOD, RSI_THRESHOLD };
