@@ -1289,5 +1289,26 @@
   "date": "2026-09-07",
   "price": 1229.7,
   "rsRankAtEntry": 82.44575936883629
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GRAPHITE",
+  "date": "2026-09-08",
+  "price": 844.65,
+  "rsRankAtEntry": 87.77120315581854
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "POWERINDIA",
+  "date": "2026-09-08",
+  "price": 31580,
+  "rsRankAtEntry": 80.27613412228797
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SHAREINDIA",
+  "date": "2026-09-08",
+  "price": 189.46,
+  "rsRankAtEntry": 85.79881656804734
  }
 ]

@@ -254,5 +254,26 @@
   "rsRankAtEntry": 82.44575936883629,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "GRAPHITE": {
+  "entryDate": "2026-09-08",
+  "entryPrice": 844.65,
+  "rsRankAtEntry": 87.77120315581854,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "POWERINDIA": {
+  "entryDate": "2026-09-08",
+  "entryPrice": 31580,
+  "rsRankAtEntry": 80.27613412228797,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SHAREINDIA": {
+  "entryDate": "2026-09-08",
+  "entryPrice": 189.46,
+  "rsRankAtEntry": 85.79881656804734,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
