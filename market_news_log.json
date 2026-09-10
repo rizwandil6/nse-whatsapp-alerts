@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-29T08:47:26",
-  "title" : "Auto demand stays in top gear",
-  "impact" : "Strong auto sector momentum should provide positive tailwinds to Nifty, with domestic PV and CV volumes growing 20%+ YoY in July 2026 signaling sustained economic demand. Rupee likely to remain stable given healthy export growth across emerging markets supporting corporate earnings.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Jul-2026 08:38 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-29T09:17:44",
   "title" : "Oil prices jump nearly 4% as West Asia tensions escalate and US crude inventories fall",
   "impact" : "Higher crude oil prices will pressurize inflation and current account deficit, likely weighing on Nifty50 in near-term despite positive sentiment for energy stocks. Rupee expected to depreciate further as import costs rise and FII flows remain sensitive to crude trajectory. Energy and defensive sectors may outperform while discretionary and import-heavy sectors face headwinds.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "10-Sep-2026 19:29 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-10T20:44:49",
+  "title" : "US wholesale prices rise in latest sign",
+  "impact" : "Heightened US wholesale inflation and rising crude oil prices will pressure Indian indices with likely Nifty volatility. The rupee faces significant depreciation risk due to the strengthening dollar and elevated import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Sep-2026 19:38 IST",
+  "score" : 8
 } ]
