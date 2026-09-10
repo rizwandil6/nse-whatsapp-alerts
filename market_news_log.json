@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-28T21:12:42",
-  "title" : "600 rules, one reset: Big healthcare cleanup is here",
-  "impact" : "Healthcare sector regulatory overhaul will create compliance costs and operational restructuring, potentially pressuring near-term margins but improving long-term sustainability. Nifty likely to see healthcare stocks reallocate capital towards compliant operations, with mixed sentiment on pharma and hospital stocks. Rupee may see minor appreciation if foreign investors view reforms as governance positive.",
-  "source" : "Economic Times",
-  "publishedAt" : "27-Jul-2026 23:36 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-29T07:18:48",
   "title" : "Gift Nifty signals positive opening; markets await US Fed decision despite West Asia tensions",
   "impact" : "Gift Nifty signals positive opening supported by strong industrial growth and healthy earnings, but market momentum remains capped by pending US Fed decision and West Asia geopolitical tensions. Investors likely to adopt cautious stance before fresh positions, with rupee volatility expected based on Fed outcome and crude oil price movements.",
@@ -3497,5 +3490,12 @@
   "impact" : "This signals a long-term structural upgrade for Indian manufacturing, likely driving Nifty higher as capital expenditure cycles accelerate. Expect moderate rupee stability supported by increased foreign direct investment inflows into high-tech sectors.",
   "source" : "Economic Times",
   "publishedAt" : "10-Sep-2026 17:44 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-10T18:53:05",
+  "title" : "SIP inflows hit record ₹32,297 crore in August despite market volatility",
+  "impact" : "Record SIP inflows act as a strong structural floor for the Indian equity market, providing stability during global volatility. Nifty is expected to maintain its long-term bullish bias with resilience, while consistent domestic buying helps buffer potential currency depreciation against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "10-Sep-2026 18:49 IST",
   "score" : 7
 } ]
