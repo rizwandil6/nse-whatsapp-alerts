@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-28T16:23:00",
-  "title" : "Brookfield chases grid-ready clean energy in India",
-  "impact" : "Brookfield's grid-ready clean energy expansion in India signals strong renewable sector growth and infrastructure investment momentum, likely supporting Nifty 50's upward trajectory. Positive sentiment around clean energy transition could strengthen the rupee through increased FDI inflows into the renewable energy sector.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Jul-2026 15:36 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-28T16:38:22",
   "title" : "Industrial output rises 7.3% in June on strong manufacturing performance",
   "impact" : "Strong industrial growth at 7.3% signals robust manufacturing momentum, likely to support Nifty50 with positive bias toward cyclical sectors. Growth momentum may support INR stability against weak global cues. Manufacturing-led expansion indicates healthy capex cycle continuation.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential thaw in India-China trade relations and strategic bilateral outcomes could boost market sentiment. Improved trade outlooks for infrastructure and tech supply chains may stabilize the Nifty, while easing geopolitical tensions could reduce pressure on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "10-Sep-2026 10:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-10T13:19:37",
+  "title" : "Mutual fund SIP inflows rise to record ₹32,297 crore in August",
+  "impact" : "Record SIP inflows act as a crucial liquidity buffer against global volatility, bolstering structural support for the Nifty 50. The sustained domestic buying strengthens the rupee by reducing reliance on volatile FII capital.",
+  "source" : "BusinessLine",
+  "publishedAt" : "10-Sep-2026 13:12 IST",
   "score" : 7
 } ]
