@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-29T08:32:11",
-  "title" : "India urges calm as Hormuz attacks disrupt shipping",
-  "impact" : "Hormuz shipping disruptions will create moderate headwinds for Indian markets, particularly impacting energy costs and logistics efficiency. Nifty likely to face selling pressure in energy and transport sectors, while rupee may weaken due to higher crude oil import costs and geopolitical risk premium.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Jul-2026 07:52 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-29T08:47:26",
   "title" : "Auto demand stays in top gear",
   "impact" : "Strong auto sector momentum should provide positive tailwinds to Nifty, with domestic PV and CV volumes growing 20%+ YoY in July 2026 signaling sustained economic demand. Rupee likely to remain stable given healthy export growth across emerging markets supporting corporate earnings.",
@@ -3497,5 +3490,12 @@
   "impact" : "The plan introduces geopolitical volatility potentially disrupting oil supply chains and increasing global risk aversion. Nifty may face downward pressure due to energy cost uncertainty and foreign capital outflows. The rupee is expected to weaken as crude oil import costs rise and dollar demand increases.",
   "source" : "Economic Times",
   "publishedAt" : "10-Sep-2026 09:38 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-10T19:54:14",
+  "title" : "'India's new-age economy to triple to $300 bn'",
+  "impact" : "The projected growth in the new-age economy signals a structural shift towards digital and infrastructure-led expansion. Nifty is expected to maintain a bullish bias with long-term growth optimism, while the rupee remains stable amid increased foreign investment interest.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Sep-2026 19:29 IST",
   "score" : 7
 } ]
