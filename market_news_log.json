@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-29T10:03:15",
-  "title" : "IT stocks, FII buying lift Sensex 657 points; Fed rate decision in focus",
-  "impact" : "Sensex gained 657 points driven by IT and FII inflows, indicating positive momentum ahead of Fed decision. Nifty expected to track IT strength and FII sentiment closely. Rupee likely to strengthen on positive domestic equity flows and await Fed outcome for directional clarity.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Jul-2026 09:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-29T10:03:21",
   "title" : "Crude oil futures jump after US-Saudi strikes on Iran-backed targets",
   "impact" : "Rising crude oil prices will pressure Indian inflation and fiscal metrics, likely dampening near-term Nifty sentiment as energy import costs surge. Rupee expected to weaken further against the dollar due to higher oil import bills and capital outflows. RBI may face headwinds in rate-cut decisions.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Nifty outlook remains cautious with a potential support test at 23,260 following recent volatility. Market sentiment hinges on stabilizing rupee trends and a return of foreign capital to support a recovery toward the 30,000 target.",
   "source" : "Economic Times",
   "publishedAt" : "10-Sep-2026 10:50 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-10T21:00:17",
+  "title" : "'All set for BRICS 2026!': PM Modi",
+  "impact" : "The BRICS summit is expected to drive positive sentiment for infrastructure and trade logistics, supporting Nifty stability. Increased geopolitical engagement may lead to a marginal strengthening of the rupee against the USD due to potential trade partnership announcements.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Sep-2026 20:14 IST",
   "score" : 7
 } ]
