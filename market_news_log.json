@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-28T06:22:38",
-  "title" : "FIIs increase PSU exposure, trim stakes in private banks",
-  "impact" : "Moderate positive impact on Indian equities with a structural shift favoring PSU banks over private lenders. Nifty banking index likely to see continued divergence between PSU and private bank performance. Rupee may strengthen marginally due to increased FII inflows into PSU banking stocks.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Jul-2026 05:42 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-28T11:06:46",
   "title" : "A nuclear door opens, and only Hindalco walks in",
   "impact" : "Nuclear energy opening to private sector is a structural positive for India's energy transition and renewable capacity goals, likely to boost investor sentiment in infrastructure and energy stocks. Nifty expected to show modest positive bias with focus shifting to clean energy and infrastructure plays. Rupee may strengthen marginally on expectations of increased FDI in nuclear sector.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "10-Sep-2026 10:18 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-10T10:30:32",
+  "title" : "Iran attacks 10 ships near Hormuz after US strikes",
+  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a sharp sell-off in Indian indices as risk appetite wanes. Nifty is expected to open with a significant gap down while the rupee faces intense depreciation pressure due to soaring crude oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Sep-2026 06:26 IST",
+  "score" : 8
 } ]
