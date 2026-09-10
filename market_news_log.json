@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-29T07:18:48",
-  "title" : "Gift Nifty signals positive opening; markets await US Fed decision despite West Asia tensions",
-  "impact" : "Gift Nifty signals positive opening supported by strong industrial growth and healthy earnings, but market momentum remains capped by pending US Fed decision and West Asia geopolitical tensions. Investors likely to adopt cautious stance before fresh positions, with rupee volatility expected based on Fed outcome and crude oil price movements.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Jul-2026 07:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-29T08:32:11",
   "title" : "India urges calm as Hormuz attacks disrupt shipping",
   "impact" : "Hormuz shipping disruptions will create moderate headwinds for Indian markets, particularly impacting energy costs and logistics efficiency. Nifty likely to face selling pressure in energy and transport sectors, while rupee may weaken due to higher crude oil import costs and geopolitical risk premium.",
@@ -3497,5 +3490,12 @@
   "impact" : "Record SIP inflows act as a strong structural floor for the Indian equity market, providing stability during global volatility. Nifty is expected to maintain its long-term bullish bias with resilience, while consistent domestic buying helps buffer potential currency depreciation against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "10-Sep-2026 18:49 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-10T19:38:42",
+  "title" : "Trump presses for 'Trump Strait' plan for Hormuz",
+  "impact" : "The plan introduces geopolitical volatility potentially disrupting oil supply chains and increasing global risk aversion. Nifty may face downward pressure due to energy cost uncertainty and foreign capital outflows. The rupee is expected to weaken as crude oil import costs rise and dollar demand increases.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Sep-2026 09:38 IST",
   "score" : 7
 } ]
