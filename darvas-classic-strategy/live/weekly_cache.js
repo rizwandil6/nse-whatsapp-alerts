@@ -60,9 +60,12 @@ function resampleToWeekly(dailyBars) {
 }
 
 /**
- * Refreshes and returns weekly bars for one symbol.
+ * Refreshes and returns both weekly bars AND the underlying daily bars for
+ * one symbol -- the daily bars are needed by darvas_engine.js's RSI(14)
+ * entry gate, which operates on the daily chart, not the weekly one.
  * @param {import('./db').DB} db
  * @param {object} localStore  in-memory local fallback store (only used when db.enabled is false)
+ * @returns {{weekly: Array, dailyBars: Array}}
  */
 async function refreshSymbol(db, localStore, symbol, instrumentKey, todayStr) {
   const existingBars = db.enabled ? await db.getDailyBars(symbol) : localStore[symbol]?.dailyBars;
@@ -88,7 +91,7 @@ async function refreshSymbol(db, localStore, symbol, instrumentKey, todayStr) {
   if (db.enabled) await db.saveDailyBars(symbol, dailyBars);
   else localStore[symbol] = { dailyBars };
 
-  return resampleToWeekly(dailyBars);
+  return { weekly: resampleToWeekly(dailyBars), dailyBars };
 }
 
 module.exports = { loadLocalStore, saveLocalStore, refreshSymbol, resampleToWeekly, weekKey };
