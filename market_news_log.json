@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-10T07:20:20",
-  "title" : "India stages a comeback as AI trade gets crowded",
-  "impact" : "India's AI narrative revival could attract tech and infrastructure capital inflows, supporting Nifty's upward momentum. Increased investor interest in AI-related sectors may strengthen the rupee through FII inflows, though concentrated gains could create sector rotation risks.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Aug-2026 11:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-10T11:20:25",
   "title" : "'Adani lying brazenly to BSE over airline plans'",
   "impact" : "Significant negative sentiment toward Adani Group entities; potential regulatory scrutiny may weigh on infrastructure and conglomerate stocks. Nifty could face headwinds if disclosure credibility concerns spread to broader market confidence. Rupee may face mild pressure if FPI sentiment deteriorates due to governance concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "The sharp liquidity withdrawal will likely tighten money market conditions and increase short-term interest rates. This is expected to exert downward pressure on the Nifty as liquidity-driven rallies fade and the Rupee may appreciate marginally due to the reduction in surplus liquidity.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Sep-2026 19:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-11T20:37:49",
+  "title" : "FII index futures shorts hit 5-month high, bearish positioning raises odds of sharp market move",
+  "impact" : "Heightened short positioning by FIIs in index futures signals increased volatility and a high probability of a near-term correction for Nifty. Increased hedging activity may exert downward pressure on the rupee due to foreign capital outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Sep-2026 20:29 IST",
   "score" : 7
 } ]
