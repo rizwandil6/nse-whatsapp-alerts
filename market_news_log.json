@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-10T13:07:26",
-  "title" : "El Nino may push up India’s power demand during August-September",
-  "impact" : "El Nino conditions will drive substantial power demand growth during Aug-Sep 2026, supporting electricity infrastructure and renewable energy stocks. Nifty likely to see selective strength in power and infrastructure sectors while broader market remains stable. Rupee may face minor depreciation pressure due to increased energy import costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "10-Aug-2026 12:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-10T14:08:26",
   "title" : "After hot dollars, India dives deep for sticky money",
   "impact" : "India shifting focus from hot FPI flows to attracting long-term domestic and stable foreign capital, indicating maturing equity markets and reduced volatility dependency. Nifty likely to see consolidation as markets recalibrate from short-term FPI-driven rallies to sticky institutional money. Rupee expected to stabilize as capital flows become more predictable and less speculative.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising crude oil transport costs will exert downward pressure on equity markets by increasing inflation risks and trade deficit concerns. Nifty is expected to face resistance near key levels while the rupee may weaken against the USD due to higher energy import costs.",
   "source" : "Economic Times",
   "publishedAt" : "11-Sep-2026 21:19 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-11T22:24:24",
+  "title" : "NSE looks to diversify revenue beyond weekly options ahead of ₹22,569 crore IPO",
+  "impact" : "The NSE IPO announcement signals significant liquidity inflow and regulatory scrutiny over trading volumes. Nifty may face short-term volatility as index options trading patterns are re-evaluated. Rupee expected to remain stable with no direct impact from exchange revenue shifts.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Sep-2026 22:08 IST",
   "score" : 7
 } ]
