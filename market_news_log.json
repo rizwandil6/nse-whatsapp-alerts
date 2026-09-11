@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-10T12:06:23",
-  "title" : "Global stock rally extends, oil advances on Iran: Markets Wrap",
-  "impact" : "Indian equities likely to open positive tracking global rally, with Nifty50 expected to reach new highs on softer US inflation expectations reducing rate-hike fears. Rupee may strengthen marginally as FII inflows increase on improved global risk sentiment.",
-  "source" : "BusinessLine",
-  "publishedAt" : "10-Aug-2026 12:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-10T13:07:26",
   "title" : "El Nino may push up India’s power demand during August-September",
   "impact" : "El Nino conditions will drive substantial power demand growth during Aug-Sep 2026, supporting electricity infrastructure and renewable energy stocks. Nifty likely to see selective strength in power and infrastructure sectors while broader market remains stable. Rupee may face minor depreciation pressure due to increased energy import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Red Sea threatens global supply chains and elevates crude oil prices. Expect Nifty to face short-term volatility with a bearish bias and potential pressure on the Indian Rupee due to rising import costs.",
   "source" : "Economic Times",
   "publishedAt" : "11-Sep-2026 20:35 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-11T21:54:04",
+  "title" : "Oil tanker rates hit record highs following attacks",
+  "impact" : "Rising crude oil transport costs will exert downward pressure on equity markets by increasing inflation risks and trade deficit concerns. Nifty is expected to face resistance near key levels while the rupee may weaken against the USD due to higher energy import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Sep-2026 21:19 IST",
   "score" : 7
 } ]
