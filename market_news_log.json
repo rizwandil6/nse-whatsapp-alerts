@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-30T15:57:53",
-  "title" : "Maruti's million moment rolls in at the big garage",
-  "impact" : "Maruti's production milestone signals strong domestic auto demand and recovery in the automotive sector, likely supporting Nifty's auto index component. Positive sentiment for rupee as strong domestic consumption reduces external dependency concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Jul-2026 14:14 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-30T22:22:45",
   "title" : "Five months in, the US-Iran war keeps spreading",
   "impact" : "Geopolitical tensions typically trigger risk-off sentiment, pressuring Indian equities and weakening the rupee due to foreign fund outflows. Nifty likely to face headwinds with increased volatility, while defensive sectors may see selective support. Rupee expected to depreciate against the US dollar amid global uncertainty.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "11-Sep-2026 10:12 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-11T10:31:06",
+  "title" : "Hormuz a bit freer, but Iran war far from over",
+  "impact" : "Sustained high crude prices will likely drive Nifty lower due to persistent inflationary pressures and fiscal deficit concerns. The rupee is expected to depreciate against the dollar, further squeezing corporate margins and domestic liquidity.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Sep-2026 10:07 IST",
+  "score" : 8
 } ]
