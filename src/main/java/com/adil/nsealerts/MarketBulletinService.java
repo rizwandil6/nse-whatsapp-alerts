@@ -140,7 +140,7 @@ public class MarketBulletinService {
             sb.append(advanceDeclineLine()).append("\n\n");
 
             sb.append("Pre-Open Cue\n");
-            sb.append(giftNiftyLine()).append("\n");
+            sb.append(indexLine("SGX Nifty", "^NSEI")).append("\n");
 
             telegramSender.send(sb.toString());
             logger.info("[Bulletin] Market open alert sent successfully");
@@ -254,32 +254,6 @@ public class MarketBulletinService {
         } catch (Exception e) {
             logger.warn("[Bulletin] Advance/decline fetch failed: {}", e.getMessage());
             return "• Advance/Decline: N/A";
-        }
-    }
-
-    /**
-     * Live GIFT Nifty futures quote from NSE's own feed -- not the ^NSEI (Nifty 50
-     * cash) proxy previously used here, which only reflects the prior session's
-     * close-to-close change and misses overnight/pre-market moves entirely.
-     */
-    private String giftNiftyLine() {
-        try {
-            String json = nseClient.fetchGiftNifty();
-            if (json == null || json.isBlank()) return "• GIFT Nifty: N/A";
-
-            JsonNode gift = mapper.readTree(json).path("data").path("giftNifty");
-            if (gift.isMissingNode()) return "• GIFT Nifty: N/A";
-
-            double last      = gift.path("lastprice").asDouble();
-            double perChange = gift.path("perchange").asDouble();
-
-            String sign = perChange >= 0 ? "+" : "";
-            String icon = perChange >= 0.5 ? "🟢" : perChange <= -0.5 ? "🔴" : "🟡";
-            return String.format("  %s SGX Nifty: %.2f (%s%.2f%%)", icon, last, sign, perChange);
-
-        } catch (Exception e) {
-            logger.warn("[Bulletin] GIFT Nifty fetch failed: {}", e.getMessage());
-            return "• SGX Nifty: N/A";
         }
     }
 

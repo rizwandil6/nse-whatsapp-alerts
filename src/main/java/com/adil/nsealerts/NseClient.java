@@ -141,13 +141,6 @@ public class NseClient {
                 "https://www.nseindia.com/market-data/advance");
     }
 
-    /** Live GIFT Nifty futures quote (NSE's own official feed, not a proxy). */
-    public String fetchGiftNifty() {
-        return fetchNseApi(
-                "https://www.nseindia.com/api/NextApi/apiClient?functionName=getGiftNifty",
-                "https://www.nseindia.com/");
-    }
-
     /**
      * Fetches the shareholding pattern JSON for a given NSE symbol.
      * Used to obtain the promoter pledged-shares percentage for the latest quarter.
