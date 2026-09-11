@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-10T14:08:26",
-  "title" : "After hot dollars, India dives deep for sticky money",
-  "impact" : "India shifting focus from hot FPI flows to attracting long-term domestic and stable foreign capital, indicating maturing equity markets and reduced volatility dependency. Nifty likely to see consolidation as markets recalibrate from short-term FPI-driven rallies to sticky institutional money. Rupee expected to stabilize as capital flows become more predictable and less speculative.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Aug-2026 13:56 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-10T15:25:13",
   "title" : "Adani’s $125 bn capex boom creating new winners",
   "impact" : "Adani's $125 billion capex investment signals strong infrastructure push, likely supporting Nifty 50 with infrastructure and logistics tailwinds. Capital-intensive projects may increase rupee depreciation pressure due to import-heavy construction materials and equipment. Positive sentiment for infrastructure-linked equities and project execution stocks.",
@@ -3497,5 +3490,12 @@
   "impact" : "The NSE IPO announcement signals significant liquidity inflow and regulatory scrutiny over trading volumes. Nifty may face short-term volatility as index options trading patterns are re-evaluated. Rupee expected to remain stable with no direct impact from exchange revenue shifts.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Sep-2026 22:08 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-11T23:09:59",
+  "title" : "India’s forex reserves jump by a record $44.903 billion",
+  "impact" : "Record forex reserves strengthen the Rupee and boost investor sentiment regarding India's macroeconomic stability. Nifty is expected to sustain its upward momentum with reduced volatility as FII confidence improves.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "11-Sep-2026 23:05 IST",
   "score" : 7
 } ]
