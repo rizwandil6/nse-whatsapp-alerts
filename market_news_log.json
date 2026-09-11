@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-31T11:44:55",
-  "title" : "Asian stocks post biggest gain in four months on AI optimism",
-  "impact" : "Indian equity markets likely to open strong on AI-driven global rally, with Nifty 50 expected to gain 1-1.5% supported by tech and infrastructure sectors. Positive sentiment may provide mild support to rupee against dollar in near term.",
-  "source" : "BusinessLine",
-  "publishedAt" : "31-Jul-2026 11:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-31T12:15:44",
   "title" : "Oil companies are expected to reap big profits because of US-Iran conflict",
   "impact" : "US-Iran conflict will push crude oil prices higher, benefiting Indian oil majors with integrated refining operations. Nifty expected to see mixed movement with energy stocks gaining while downstream sectors face margin pressure. Rupee likely to weaken due to higher oil import costs and widening current account deficit.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "11-Sep-2026 10:56 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-11T14:19:14",
+  "title" : "As NSE, Reliance Jio eye listings, what are India's biggest share offerings?",
+  "impact" : "The potential mega-listings of NSE and Reliance Jio are expected to drive significant foreign institutional liquidity into the Indian equity market. This capital influx supports a bullish outlook for the Nifty index and provides structural strength to the rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Sep-2026 14:07 IST",
+  "score" : 8
 } ]
