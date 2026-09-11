@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-10T11:20:25",
-  "title" : "'Adani lying brazenly to BSE over airline plans'",
-  "impact" : "Significant negative sentiment toward Adani Group entities; potential regulatory scrutiny may weigh on infrastructure and conglomerate stocks. Nifty could face headwinds if disclosure credibility concerns spread to broader market confidence. Rupee may face mild pressure if FPI sentiment deteriorates due to governance concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Aug-2026 10:40 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-10T11:51:11",
   "title" : "Govt uses 'Phone-a-Friend' to woo dollars &amp; rescue ₹",
   "impact" : "Government's dollar-raising initiatives through diplomatic channels aim to stabilize the rupee and shore up forex reserves, supporting currency stability. This should provide positive sentiment for Nifty as rupee strength reduces import costs and inflation pressures. Direct positive impact on rupee expected through increased dollar inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened short positioning by FIIs in index futures signals increased volatility and a high probability of a near-term correction for Nifty. Increased hedging activity may exert downward pressure on the rupee due to foreign capital outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Sep-2026 20:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-11T21:23:32",
+  "title" : "Modi, Putin focus on trade, defence, energy ties ahead of BRICS Summit",
+  "impact" : "Strengthening bilateral trade and energy cooperation between India and Russia will likely bolster market sentiment and investor confidence. Nifty is expected to remain range-bound with a bullish tilt, while the rupee may find support through reduced import costs and strategic trade settlements.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Sep-2026 21:15 IST",
   "score" : 7
 } ]
