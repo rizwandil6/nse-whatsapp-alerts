@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-10T11:51:11",
-  "title" : "Govt uses 'Phone-a-Friend' to woo dollars &amp; rescue ₹",
-  "impact" : "Government's dollar-raising initiatives through diplomatic channels aim to stabilize the rupee and shore up forex reserves, supporting currency stability. This should provide positive sentiment for Nifty as rupee strength reduces import costs and inflation pressures. Direct positive impact on rupee expected through increased dollar inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Aug-2026 00:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-10T12:06:23",
   "title" : "Global stock rally extends, oil advances on Iran: Markets Wrap",
   "impact" : "Indian equities likely to open positive tracking global rally, with Nifty50 expected to reach new highs on softer US inflation expectations reducing rate-hike fears. Rupee may strengthen marginally as FII inflows increase on improved global risk sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strengthening bilateral trade and energy cooperation between India and Russia will likely bolster market sentiment and investor confidence. Nifty is expected to remain range-bound with a bullish tilt, while the rupee may find support through reduced import costs and strategic trade settlements.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Sep-2026 21:15 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-11T21:23:53",
+  "title" : "Houthis seize Yemen’s entire Red Sea coast",
+  "impact" : "Heightened geopolitical risk in the Red Sea threatens global supply chains and elevates crude oil prices. Expect Nifty to face short-term volatility with a bearish bias and potential pressure on the Indian Rupee due to rising import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Sep-2026 20:35 IST",
   "score" : 7
 } ]
