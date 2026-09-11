@@ -7801,5 +7801,14 @@
   "timestampMs": 1789106700000,
   "breakoutTimestampMs": 1789101600000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 10.150499999999997,
+  "timestampMs": 1789107900000,
+  "breakoutTimestampMs": 1789107900000,
+  "shadow": true
  }
 ]
