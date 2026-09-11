@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-29T21:11:11",
-  "title" : "Sustained resurgence in crude prices could pressure twin deficits, says Finmin report",
-  "impact" : "Rising crude prices will weigh on Nifty50 as inflation concerns resurface and fiscal pressures mount. The rupee will likely depreciate further against the dollar, increasing import costs. Growth momentum may slow as RBI faces difficult monetary policy choices between inflation control and growth support.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Jul-2026 20:57 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-30T00:58:08",
   "title" : "Coal India to fire up capex with ₹68,000 cr spend",
   "impact" : "Coal India's ₹68,000 crore capex announcement signals strong domestic infrastructure push, likely supporting Nifty's infrastructure and energy themes. The spending will boost coal production capacity and support India's energy security narrative, maintaining positive sentiment for PSU-heavy indices.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "11-Sep-2026 08:19 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-11T09:45:04",
+  "title" : "India's 10-year bond yield surpasses 7% on rising oil, Treasury yields",
+  "impact" : "Rising oil and US yields will pressure Nifty towards lower support levels due to FII outflows. The Indian Rupee is expected to weaken significantly against the dollar, tightening domestic liquidity conditions.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Sep-2026 09:35 IST",
+  "score" : 8
 } ]
