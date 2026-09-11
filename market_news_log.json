@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-31T01:54:10",
-  "title" : "US stocks: Microsoft adds $485 billion to investors' wealth as shares rise 16%. Check why",
-  "impact" : "Positive sentiment flow to Indian IT and tech stocks as Microsoft's AI monetization success validates enterprise cloud spending trends. Nifty likely to see modest gains with IT sector leading; rupee may weaken slightly against USD as risk-on sentiment favors emerging markets but capital flows remain cautious.",
-  "source" : "Economic Times",
-  "publishedAt" : "31-Jul-2026 01:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-31T07:25:35",
   "title" : "Iran destroys drone hangars at US base in Kuwait",
   "impact" : "Indian markets likely to face headwinds due to geopolitical escalation in Middle East, impacting crude oil prices and rupee depreciation. Nifty expected to open lower with defensive positioning as risk-off sentiment prevails. Rupee may weaken further against the dollar amid global flight to safety.",
@@ -3497,5 +3490,12 @@
   "impact" : "Increased foreign direct investment flows from BRICS nations are expected to bolster liquidity and sustain the Nifty50's upward momentum. Anticipate a strengthening of the rupee as capital inflows reduce reliance on Western currency markets.",
   "source" : "Economic Times",
   "publishedAt" : "11-Sep-2026 11:10 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-11T12:18:33",
+  "title" : "What's on agenda under Modi-Xi Jinping meeting",
+  "impact" : "Normalization of India-China diplomatic ties is expected to stabilize market sentiment and reduce geopolitical risk premiums. Nifty may see a relief rally, while the rupee is likely to remain steady with a slight strengthening bias due to improved trade outlook.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Sep-2026 12:00 IST",
   "score" : 7
 } ]
