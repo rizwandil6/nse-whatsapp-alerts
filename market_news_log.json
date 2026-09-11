@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-09T15:23:47",
-  "title" : "Crude oil, developments in West Asia, inflation data to drive markets this week, say analysts",
-  "impact" : "Indian markets likely to experience volatility with crude oil prices and West Asia geopolitical tensions being key drivers. Nifty could see pressure if crude spikes above $85-90/barrel, impacting inflation trajectory and RBI policy outlook. Rupee may weaken if oil prices surge, increasing import costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Aug-2026 15:09 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-09T19:04:59",
   "title" : "RBI survey sees stronger FY27 growth, higher inflation; FY28 outlook points to ‘Goldilocks’ economy",
   "impact" : "Stronger FY27 growth of 6.6% supports positive market sentiment with Nifty likely to sustain uptrend, though higher inflation concerns may cap gains. FY28 Goldilocks outlook suggests stable growth-inflation balance, supportive for rupee stability against external headwinds.",
@@ -3497,5 +3490,12 @@
   "impact" : "The escalation increases geopolitical risk premiums, likely leading to a bearish trend for Indian indices. Nifty may face sharp selling pressure on rising crude prices, while the rupee is expected to weaken against the dollar due to safe-haven demand.",
   "source" : "Economic Times",
   "publishedAt" : "11-Sep-2026 17:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-11T18:36:54",
+  "title" : "EU tables India FTA for Council signature, move closer to landmark deal",
+  "impact" : "The EU-India FTA progress acts as a significant long-term sentiment booster for Indian equities, signaling closer trade ties and potential for increased FDI. Nifty is expected to maintain a bullish bias while the Rupee may see stability due to improved export competitiveness.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Sep-2026 18:21 IST",
   "score" : 7
 } ]
