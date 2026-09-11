@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-30T06:45:34",
-  "title" : "India’s goods exports in April-July 2026 likely to grow 15%: Piyush Goyal",
-  "impact" : "Positive sentiment for Indian exporters with 15% growth outlook in goods exports strengthens rupee and Nifty near-term. US trade deal conditional on comparative advantage signals protectionist stance but benefits India's export competitiveness. Infrastructure and export-linked sectors likely to outperform.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Jul-2026 21:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-07-30T11:48:33",
   "title" : "Trump, Netanyahu discuss multiple Iran options",
   "impact" : "Geopolitical tensions over Iran could trigger risk-off sentiment, pressuring Indian equities and weakening the rupee due to safe-haven outflows. Energy stocks may see volatility while defensive sectors gain traction. Nifty likely to face headwinds with increased crude oil prices impacting inflation concerns.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "11-Sep-2026 09:51 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-11T10:00:20",
+  "title" : "Oil prices set to end week over $100",
+  "impact" : "The surge in crude oil prices will trigger significant selling pressure on Indian indices due to inflation and fiscal deficit concerns. Nifty is expected to open with a sharp gap down, while the rupee will likely face intense depreciation pressure against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Sep-2026 06:52 IST",
+  "score" : 9
 } ]
