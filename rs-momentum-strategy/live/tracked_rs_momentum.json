@@ -275,5 +275,19 @@
   "rsRankAtEntry": 85.79881656804734,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "GAEL": {
+  "entryDate": "2026-09-09",
+  "entryPrice": 164.8,
+  "rsRankAtEntry": 80.27613412228797,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LALPATHLAB": {
+  "entryDate": "2026-09-09",
+  "entryPrice": 1916.7,
+  "rsRankAtEntry": 81.4595660749507,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
