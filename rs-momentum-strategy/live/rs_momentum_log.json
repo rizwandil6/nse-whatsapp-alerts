@@ -1324,5 +1324,61 @@
   "date": "2026-09-09",
   "price": 1916.7,
   "rsRankAtEntry": 81.4595660749507
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GVT&D",
+  "date": "2026-09-12",
+  "price": 4750,
+  "rsRankAtEntry": 83.62919132149902
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "MIDHANI",
+  "date": "2026-09-12",
+  "price": 477,
+  "rsRankAtEntry": 81.26232741617358
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SCHNEIDER",
+  "date": "2026-09-12",
+  "price": 1229.7,
+  "rsRankAtEntry": 82.44575936883629
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GRAPHITE",
+  "date": "2026-09-12",
+  "price": 844.65,
+  "rsRankAtEntry": 87.77120315581854
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "POWERINDIA",
+  "date": "2026-09-12",
+  "price": 31580,
+  "rsRankAtEntry": 80.27613412228797
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SHAREINDIA",
+  "date": "2026-09-12",
+  "price": 189.46,
+  "rsRankAtEntry": 85.79881656804734
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GAEL",
+  "date": "2026-09-12",
+  "price": 164.8,
+  "rsRankAtEntry": 80.27613412228797
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "LALPATHLAB",
+  "date": "2026-09-12",
+  "price": 1916.7,
+  "rsRankAtEntry": 81.4595660749507
  }
 ]
