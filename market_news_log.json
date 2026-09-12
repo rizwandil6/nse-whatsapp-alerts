@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-12T12:00:20",
-  "title" : "India finds key to unlock its $5 tn sleeping giant",
-  "impact" : "India's infrastructure unlocking narrative likely to drive significant capital allocation toward growth stocks and infrastructure sectors, potentially supporting Nifty upside with renewed focus on asset monetization and development projects. Positive sentiment may provide mild support to the rupee through FII inflows targeting infrastructure plays.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Aug-2026 10:57 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-08-12T14:07:02",
   "title" : "N Chandrasekaran resigns from Tata Sons",
   "impact" : "Moderate negative impact on Tata Group stocks and conglomerate sector due to leadership uncertainty and potential governance concerns. Nifty may see weakness in Tata-heavy indices, though broader market impact contained. Rupee likely unaffected as this is domestic governance matter.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising US yields and falling equities will likely trigger FII outflows from Indian markets. Nifty faces downward pressure toward key support levels as risk-off sentiment strengthens, putting downward pressure on the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Sep-2026 20:43 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-13T00:34:22",
+  "title" : "RBI shuts Tata Sons’ escape, ₹2.01 L cr listing looms",
+  "impact" : "The mandatory listing of Tata Sons will likely trigger a major liquidity event and reallocation in Nifty 50. Expect significant volatility as institutional funds adjust portfolios for the potential mega-IPO, while the rupee remains stable against this event.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Sep-2026 17:33 IST",
   "score" : 7
 } ]
