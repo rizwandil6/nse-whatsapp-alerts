@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-11T11:06:37",
-  "title" : "27,000-member body opened Sun Pharma’s eye",
-  "impact" : "Article highlights Sun Pharma's engagement with industry body representing 27,000 members, suggesting collaborative regulatory approach benefiting pharmaceutical sector. Positive sentiment for pharma stocks and Nifty healthcare index. INR likely stable with pharma export competitiveness reinforced.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Aug-2026 01:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-11T11:06:51",
   "title" : "Adani speaks after US drops criminal charges",
   "impact" : "Positive sentiment for Indian markets as legal overhang on major business group is removed, supporting investor confidence in rule of law. Nifty expected to see modest gains as risk premium on Adani-linked stocks diminishes. Rupee likely to strengthen marginally on improved macroeconomic sentiment and reduced uncertainty.",
@@ -3497,5 +3490,12 @@
   "impact" : "The record-breaking primary market activity will likely drain liquidity from the secondary market as investors reallocate capital for the mega NSE IPO. Nifty may face short-term consolidation or volatility due to massive institutional and retail subscription outflows.",
   "source" : "Economic Times",
   "publishedAt" : "12-Sep-2026 09:46 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-12T10:44:34",
+  "title" : "Indian stock markets are losing their sheen as global funds exit. Here’s why",
+  "impact" : "Continued FPI outflows are likely to keep Nifty under sustained selling pressure in the near term. Persistent dollar strength against the rupee will further dampen sentiment and trigger liquidity stress for large-caps.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Sep-2026 10:39 IST",
   "score" : 8
 } ]
