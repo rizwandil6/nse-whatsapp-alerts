@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-11T11:06:51",
-  "title" : "Adani speaks after US drops criminal charges",
-  "impact" : "Positive sentiment for Indian markets as legal overhang on major business group is removed, supporting investor confidence in rule of law. Nifty expected to see modest gains as risk premium on Adani-linked stocks diminishes. Rupee likely to strengthen marginally on improved macroeconomic sentiment and reduced uncertainty.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Aug-2026 06:37 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-11T12:52:48",
   "title" : "India bonds skid as crude soars, Treasuries fall",
   "impact" : "Indian equities likely to face headwinds as bond yields rise and inflation concerns mount from crude spike. Nifty expected to trade cautiously lower with defensive bias. Rupee may weaken further as foreign capital flows reverse on rising US yields.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "12-Sep-2026 10:39 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-12T10:44:39",
+  "title" : "A 'rare' Gulf huddle soon over a Hormuz headache",
+  "impact" : "Heightened geopolitical tensions in the Strait of Hormuz increase volatility and risk aversion in Indian markets. Nifty is expected to face downward pressure as crude oil prices climb, leading to rupee depreciation against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Sep-2026 00:55 IST",
+  "score" : 7
 } ]
