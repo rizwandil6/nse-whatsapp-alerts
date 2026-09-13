@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-12T20:59:37",
-  "title" : "Only 65% get jobs as 6 lakh youth remain jobless",
-  "impact" : "High youth unemployment of 35% signals weak domestic consumption and labor market stress, likely to pressure consumer-discretionary stocks and overall market sentiment. Nifty may face headwinds as investor confidence in economic growth narrative weakens. Rupee could depreciate if FII flows reduce due to growth concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Aug-2026 20:34 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-12T20:59:44",
   "title" : "India’s inflation outlook comes with a food threat",
   "impact" : "Food inflation threat pressures RBI's rate-cut cycle expectations, likely keeping Nifty volatile in 40,000-42,000 range. Rupee faces depreciation pressure if inflation remains sticky and rate cuts are delayed. Growth concerns may offset inflation relief narrative.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market faces a bearish outlook due to persistent FII outflows and geopolitical risks. Nifty is expected to remain volatile with support levels tested, while the rupee faces downward pressure from rising oil costs.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Sep-2026 13:56 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-13T14:07:59",
+  "title" : "All eyes on Warsh as rate-hike fever spreads across G7 central banks",
+  "impact" : "Global rate-hike expectations will trigger FII outflows from Indian equities, likely leading to a bearish Nifty trend. The Rupee is expected to face significant depreciation pressure against the dollar due to widening interest rate differentials.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Sep-2026 13:55 IST",
   "score" : 8
 } ]
