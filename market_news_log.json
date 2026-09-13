@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-13T06:02:34",
-  "title" : "Bank deposits hit decade-high growth as NRI dollar inflows cross $37 billion",
-  "impact" : "Strong positive for Indian equities as deposit mobilization and credit growth acceleration indicate robust banking system health and corporate borrowing demand. Nifty likely to gain support from improved liquidity conditions and strong credit offtake. Rupee strengthens due to substantial $37 billion NRI dollar inflows providing forex buffer.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Aug-2026 22:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-13T06:17:45",
   "title" : "Bank of America invests around Rs 18,268 crore for 49.9% stake in Jio Credit",
   "impact" : "Significant positive signal for Indian financial services and fintech ecosystem, reinforcing investor confidence in India's growth trajectory. Nifty expected to receive modest support from financial sector strength and increased FDI sentiment. Rupee likely to strengthen marginally due to large dollar inflow and positive FDI momentum.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global volatility driven by Fed policy and geopolitical tensions will likely trigger a cautious Nifty outlook with potential consolidation. The Indian Rupee is expected to remain under pressure against the dollar, potentially leading to imported inflation concerns.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Sep-2026 18:51 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-14T00:10:20",
+  "title" : "Saudi pipeline hit puts 4% of global oil supply at risk",
+  "impact" : "The Indian equity market is expected to face volatility due to supply-side inflation fears and crude oil price spikes. Nifty is likely to trade with a bearish bias as rising energy costs pressure margins, while the rupee may weaken against the dollar due to a higher import bill.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Sep-2026 18:35 IST",
   "score" : 7
 } ]
