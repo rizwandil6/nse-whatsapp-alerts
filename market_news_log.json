@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-13T06:02:28",
-  "title" : "Vedanta, Vedanta Aluminium post strong Q1 gains as metal prices lift earnings",
-  "impact" : "Positive sentiment for commodity and metals sector on strong earnings and elevated commodity prices. Nifty likely to see support from metals & mining stocks though broader market impact moderate. Rupee may face headwind if foreign flows into commodity plays increase.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Aug-2026 05:57 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-13T06:02:34",
   "title" : "Bank deposits hit decade-high growth as NRI dollar inflows cross $37 billion",
   "impact" : "Strong positive for Indian equities as deposit mobilization and credit growth acceleration indicate robust banking system health and corporate borrowing demand. Nifty likely to gain support from improved liquidity conditions and strong credit offtake. Rupee strengthens due to substantial $37 billion NRI dollar inflows providing forex buffer.",
@@ -3497,5 +3490,12 @@
   "impact" : "The India-EU FTA is expected to provide a medium-term boost to export-oriented manufacturing, keeping the Nifty sentiment cautiously optimistic. Increased FDI inflows and export competitiveness should provide fundamental support to the rupee against the Euro and Dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Sep-2026 18:40 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-13T19:09:14",
+  "title" : "Gold and silver prices: Analysts warn of volatility ahead",
+  "impact" : "Global volatility driven by Fed policy and geopolitical tensions will likely trigger a cautious Nifty outlook with potential consolidation. The Indian Rupee is expected to remain under pressure against the dollar, potentially leading to imported inflation concerns.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Sep-2026 18:51 IST",
   "score" : 7
 } ]
