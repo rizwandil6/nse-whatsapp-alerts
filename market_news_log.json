@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-12T14:07:02",
-  "title" : "N Chandrasekaran resigns from Tata Sons",
-  "impact" : "Moderate negative impact on Tata Group stocks and conglomerate sector due to leadership uncertainty and potential governance concerns. Nifty may see weakness in Tata-heavy indices, though broader market impact contained. Rupee likely unaffected as this is domestic governance matter.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Aug-2026 11:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-12T16:43:56",
   "title" : "Chandra’s exit takes the shine off Tata stocks &amp; D-St",
   "impact" : "Chandra's exit from Tata group leadership creates uncertainty around succession and strategic direction, likely to weigh on Tata conglomerate stocks and broader market sentiment. Nifty may face mild to moderate headwinds as Tata stocks form significant index weight. Rupee likely to remain stable unless broader FII selling pressure emerges.",
@@ -3497,5 +3490,12 @@
   "impact" : "The mandatory listing of Tata Sons will likely trigger a major liquidity event and reallocation in Nifty 50. Expect significant volatility as institutional funds adjust portfolios for the potential mega-IPO, while the rupee remains stable against this event.",
   "source" : "Economic Times",
   "publishedAt" : "12-Sep-2026 17:33 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-13T09:06:32",
+  "title" : "BRICS Summit 2026 Day 2 Live Updates: India steers BRICS to consensus on trade, coercive measures amid West Asia rift",
+  "impact" : "Consensus on trade and strategic cooperation is expected to boost investor sentiment and Nifty stability. Enhanced trade ties may marginally strengthen the rupee against volatility.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Sep-2026 08:58 IST",
   "score" : 7
 } ]
