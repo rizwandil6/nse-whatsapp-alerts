@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-12T20:59:44",
-  "title" : "India’s inflation outlook comes with a food threat",
-  "impact" : "Food inflation threat pressures RBI's rate-cut cycle expectations, likely keeping Nifty volatile in 40,000-42,000 range. Rupee faces depreciation pressure if inflation remains sticky and rate cuts are delayed. Growth concerns may offset inflation relief narrative.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Aug-2026 20:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-12T22:15:26",
   "title" : "NRI dollar rush sends bank deposits soaring",
   "impact" : "NRI dollar inflows strengthen rupee and boost liquidity in banking system, supporting domestic credit growth and asset prices. Nifty likely to see tailwind from improved forex reserves and stable rupee near 83.5 levels. Banking sector benefits from deposit growth enabling higher lending and better NIMs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global rate-hike expectations will trigger FII outflows from Indian equities, likely leading to a bearish Nifty trend. The Rupee is expected to face significant depreciation pressure against the dollar due to widening interest rate differentials.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Sep-2026 13:55 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-13T15:53:17",
+  "title" : "Hormuz attacks fan fears of oil supply threats",
+  "impact" : "Heightened geopolitical risk will likely trigger a sharp sell-off in Indian equities driven by a spike in Brent crude oil prices. Expect Nifty to face significant resistance and potential downside as the Rupee weakens due to rising import bills.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Sep-2026 15:17 IST",
   "score" : 8
 } ]
