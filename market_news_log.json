@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-19T06:11:42",
-  "title" : "Crude costs are biting Indian refiners' pockets",
-  "impact" : "Rising crude oil costs pressurize refiner margins and increase input costs for downstream industries, likely dampening Nifty sentiment in the near term. Rupee may weaken further as higher oil imports increase current account deficit concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Aug-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-19T06:57:10",
   "title" : "Iran hits back at Trump's Hormuz claim",
   "impact" : "Geopolitical tensions in Hormuz Strait elevate crude oil prices, benefiting domestic energy companies but pressuring margins for oil-dependent sectors. Nifty likely to see mixed signals with energy stocks gaining while transportation and aviation face headwinds. Rupee expected to weaken against dollar due to oil import concerns.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "14-Sep-2026 17:30 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-14T19:44:09",
+  "title" : "Oil surges on report Saudi pipeline will take weeks to reopen",
+  "impact" : "Oil price surge threatens to widen India's trade deficit and accelerate retail inflation. Nifty is expected to open with significant downside pressure while the rupee may weaken against the USD due to increased import costs.",
+  "source" : "BusinessLine",
+  "publishedAt" : "14-Sep-2026 19:30 IST",
+  "score" : 8
 } ]
