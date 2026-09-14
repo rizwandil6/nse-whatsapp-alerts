@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-13T20:04:03",
-  "title" : "India's electronics exports surge 11-fold to ₹4.24 lakh crore, women's workforce nears 30%",
-  "impact" : "Positive for Indian equities as electronics exports surge indicates strong manufacturing capabilities and export competitiveness, supporting Nifty's upward bias. Rupee likely to strengthen on back of higher forex inflows from increased electronics exports, benefiting import-heavy sectors.",
-  "source" : "BusinessLine",
-  "publishedAt" : "13-Aug-2026 18:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-13T20:35:20",
   "title" : "Parliament passes Mines Bill 2026",
   "impact" : "Mines Bill 2026 passage is moderately positive for Indian equities as it streamlines mining operations and attracts investment in mineral extraction. Nifty likely to see support from infrastructure and mining-linked stocks, with modest upside bias. Rupee may strengthen marginally on improved FDI inflows into mining sector.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential listing of Tata Sons acts as a major liquidity event likely to boost Nifty through massive institutional inflows. The rupee may see support due to expected large-scale foreign investment inflows during the IPO process.",
   "source" : "Economic Times",
   "publishedAt" : "14-Sep-2026 05:30 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-14T11:56:25",
+  "title" : "$120 oil nightmare looms as Middle East risks deepen",
+  "impact" : "Oil price spikes act as a major headwind for Indian equities, likely triggering Nifty selling pressure. The rupee is expected to face significant depreciation against the USD, tightening liquidity and imported inflation risks.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Sep-2026 07:45 IST",
   "score" : 8
 } ]
