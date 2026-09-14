@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-13T09:37:49",
-  "title" : "Chandra's exit leaves $120B spending dream in limbo",
-  "impact" : "Chandra's exit creates uncertainty around a $120B infrastructure spending plan, likely to weigh on infrastructure and government capex-linked sectors. Nifty may face headwinds if the spending plan gets delayed or scaled back, with negative sentiment for large-cap infrastructure stocks. Rupee could face mild pressure if FDI inflows into infrastructure projects get impacted.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Aug-2026 09:14 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-08-13T11:24:28",
   "title" : "Mutual Funds hit all-time high net inflows of ₹85.75 lakh crore in July 2026: Report",
   "impact" : "Record MF inflows of Rs 85.75 lakh crore signal strong domestic investor confidence, likely to provide sustained support to Nifty50 and broader indices. Positive liquidity conditions should support equity valuations and potentially strengthen the rupee due to increased foreign portfolio inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global liquidity easing expectations may trigger foreign capital inflows into Indian equities. Nifty could trend bullish on risk-on sentiment, while the rupee might appreciate against a weakening dollar.",
   "source" : "Economic Times",
   "publishedAt" : "13-Sep-2026 20:32 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-14T06:56:23",
+  "title" : "Houthis leave Gulf with uncomfortable choice",
+  "impact" : "Heightened geopolitical risk in the Middle East threatens to spike crude oil prices and drive inflation, negatively impacting the Indian equity market and likely weakening the Indian Rupee due to higher import bills. Expect Nifty to face volatility and potential downward pressure as trade logistics costs rise.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Sep-2026 06:30 IST",
   "score" : 7
 } ]
