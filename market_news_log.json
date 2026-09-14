@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-13T11:54:39",
-  "title" : "Passenger vehicle dispatches rise 34.3% YoY to 4,57,810 units in July: SIAM",
-  "impact" : "Strong double-digit growth in passenger vehicles and 2-wheelers signals robust domestic consumption and economic momentum, likely supporting Nifty upside. Positive macro data may support rupee stability and attract domestic investment flows into discretionary sectors.",
-  "source" : "BusinessLine",
-  "publishedAt" : "13-Aug-2026 11:37 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-13T12:10:04",
   "title" : "Passenger vehicle dispatches jump 34.3% YoY",
   "impact" : "Strong 34.3% YoY growth in passenger vehicle dispatches signals robust domestic demand and economic recovery, likely to lift Nifty on positive auto sector sentiment. Improved consumer spending and manufacturing activity may support broader market indices and provide stability to INR against external headwinds.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "14-Sep-2026 06:13 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-09-14T07:41:36",
+  "title" : "Oil prices jump more than $3 after new strikes on Saudi, Strait of Hormuz",
+  "impact" : "Rising crude oil prices will trigger significant selling pressure on Indian indices as energy import costs surge and inflation concerns intensify. Expect a bearish Nifty opening with the Indian Rupee likely to weaken against the US Dollar due to widened trade deficit fears.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "14-Sep-2026 07:29 IST",
+  "score" : 8
 } ]
