@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-13T16:07:09",
-  "title" : "Chandra’s exit leaves $120 bn spending aim in limbo",
-  "impact" : "Chandra's exit from a $120bn infrastructure spending program creates significant uncertainty in India's capex cycle and project execution timeline. Nifty likely to face near-term headwinds as infrastructure and public sector stocks correct on delayed spending. Rupee may weaken as large-scale infrastructure investments were expected to support growth narrative.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Aug-2026 09:14 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-13T16:07:15",
   "title" : "Electronics exports surge 11-fold to Rs 4.24 lakh cr",
   "impact" : "Significant positive for Indian equities as electronics export surge signals strong manufacturing momentum and global demand recovery. Nifty likely to trend higher on manufacturing strength and export optimism. Rupee may appreciate on increased forex inflows from electronics exports.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Middle East will likely trigger FII outflows and risk-off sentiment in Indian markets. Nifty is expected to face significant selling pressure and volatility, while the Rupee will likely weaken due to higher crude oil prices and safe-haven buying of the USD.",
   "source" : "Economic Times",
   "publishedAt" : "14-Sep-2026 10:50 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-14T11:41:03",
+  "title" : "Emerging market stocks decline on West Asia tensions",
+  "impact" : "Heightened West Asia tensions and surging crude prices will likely trigger a sharp sell-off in Indian equity indices. Nifty is expected to open with a significant gap down, while the rupee will face downward pressure due to increased import costs and foreign capital outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "14-Sep-2026 11:35 IST",
   "score" : 8
 } ]
