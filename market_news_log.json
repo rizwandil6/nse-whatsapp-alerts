@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-18T21:08:45",
-  "title" : "Sitharaman has a task at hand for banking bigwigs",
-  "impact" : "Banking sector likely to face regulatory scrutiny and potential policy changes affecting profitability and lending practices. Nifty may see mixed signals with defensive banking stocks under pressure while PSU banks could stabilize on policy clarity. Rupee may remain stable with focus on domestic monetary policy rather than external flows.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Aug-2026 18:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-18T21:54:39",
   "title" : "Hormuz now a US territory? Trump has a hint",
   "impact" : "Geopolitical tensions around Hormuz Strait escalation would significantly impact Indian markets, particularly energy security and import costs. Nifty likely to face downward pressure with increased volatility and flight-to-safety moves. Indian Rupee expected to weaken further due to oil price spike and capital outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Long-term structural risk to agricultural and industrial output creates macro headwinds. Expect Nifty to face volatility in infrastructure and utility segments while the Rupee may weaken due to potential inflationary supply shocks.",
   "source" : "Economic Times",
   "publishedAt" : "14-Sep-2026 14:41 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-14T15:57:58",
+  "title" : "WPI inflation rises to 9.92% in Aug on costlier food, fuel, manufactured items",
+  "impact" : "Sticky WPI inflation signals sustained pressure on input costs, likely dampening Nifty sentiment. Expect increased volatility in the index and potential rupee depreciation due to hawkish rate expectations.",
+  "source" : "BusinessLine",
+  "publishedAt" : "14-Sep-2026 15:38 IST",
   "score" : 7
 } ]
