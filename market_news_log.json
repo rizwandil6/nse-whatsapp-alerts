@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-13T12:10:13",
-  "title" : "Parliament passes MMDR Amendment Bill 2026",
-  "impact" : "MMDR Amendment Bill 2026 is moderately significant for India's mineral sector, supporting long-term critical mineral development and mining flexibility. Nifty may see sector rotation toward mining and infrastructure stocks in the near term. Positive for rupee as it addresses mineral import dependency.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Aug-2026 12:02 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-13T14:41:46",
   "title" : "ITA backs 11 Indian projects; to advance over $18 billion in clean industry investment",
   "impact" : "Positive sentiment for clean energy and industrial infrastructure sectors with $18 billion investment inflow expected to support growth narratives. Nifty likely to see sustained support in energy transition plays, particularly in renewable and steel segments. Rupee may benefit from FDI inflows through clean energy channels.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Middle East is likely to trigger a bearish sentiment in the Indian market. Nifty may face downward pressure due to potential crude oil volatility, further weakening the Indian Rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "14-Sep-2026 08:44 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-14T10:55:17",
+  "title" : "Indian equity markets closed for Ganesh Chaturthi; Asian stocks fall amid West Asia tensions",
+  "impact" : "Global geopolitical instability and rising energy prices will likely lead to a gap-down opening for Nifty on Tuesday. The rupee is expected to face significant depreciation pressure due to surging Brent crude oil costs and risk-off sentiment.",
+  "source" : "BusinessLine",
+  "publishedAt" : "14-Sep-2026 10:38 IST",
   "score" : 7
 } ]
