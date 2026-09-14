@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-13T12:10:04",
-  "title" : "Passenger vehicle dispatches jump 34.3% YoY",
-  "impact" : "Strong 34.3% YoY growth in passenger vehicle dispatches signals robust domestic demand and economic recovery, likely to lift Nifty on positive auto sector sentiment. Improved consumer spending and manufacturing activity may support broader market indices and provide stability to INR against external headwinds.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Aug-2026 11:43 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-13T12:10:13",
   "title" : "Parliament passes MMDR Amendment Bill 2026",
   "impact" : "MMDR Amendment Bill 2026 is moderately significant for India's mineral sector, supporting long-term critical mineral development and mining flexibility. Nifty may see sector rotation toward mining and infrastructure stocks in the near term. Positive for rupee as it addresses mineral import dependency.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "14-Sep-2026 07:29 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-14T08:54:44",
+  "title" : "Oman postpones regional talks on Hormuz",
+  "impact" : "Heightened geopolitical risk in the Middle East is likely to trigger a bearish sentiment in the Indian market. Nifty may face downward pressure due to potential crude oil volatility, further weakening the Indian Rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Sep-2026 08:44 IST",
+  "score" : 7
 } ]
