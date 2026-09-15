@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-19T09:43:40",
-  "title" : "Energy stocks hit record as oil rises on fading deal hopes",
-  "impact" : "Rising global oil prices will support Indian energy stocks and reduce import costs, providing tailwind to Nifty's energy-heavy composition. Nifty 50 expected to see modest gains driven by oil & gas and power sectors. Rupee may strengthen slightly as lower oil imports reduce current account deficit pressure.",
-  "source" : "BusinessLine",
-  "publishedAt" : "19-Aug-2026 09:39 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-19T11:00:37",
   "title" : "HDFC Bank shares slide nearly 30% from peak, hit 52-week low",
   "impact" : "HDFC Bank's 30% decline from peak signals weakness in the financial sector and consumer confidence, likely pressuring Nifty 50 downward as banking stocks are key index constituents. The underperformance versus Nifty suggests sector-specific headwinds rather than broad market strength, potentially weakening rupee as FII confidence in Indian financials diminishes.",
@@ -3497,5 +3490,12 @@
   "impact" : "Disruption in energy corridors may trigger a risk-off sentiment in the Indian market, putting downward pressure on Nifty. The rupee is expected to weaken due to higher oil import costs and capital outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Sep-2026 06:21 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-15T06:32:01",
+  "title" : "Analysts remain bullish on L&amp;T, see up to 16% upside on order book strength",
+  "impact" : "L&T's performance reflects broader infrastructure resilience which supports a positive Nifty outlook. Positive sentiment on domestic capex acts as a counter-weight to FII outflows and currency volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Sep-2026 05:48 IST",
   "score" : 7
 } ]
