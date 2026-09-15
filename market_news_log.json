@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-19T22:35:19",
-  "title" : "RBI flags inflation risks, seeks clearer rate roadmap",
-  "impact" : "RBI's inflation concerns and unclear rate roadmap create near-term uncertainty, likely pressuring Nifty as investors await clearer monetary policy direction. Higher inflation risks may support rate hikes, weakening rupee in the short term. Growth-sensitive sectors face headwinds while defensive plays gain traction.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Aug-2026 18:05 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-20T00:50:50",
   "title" : "RIL plans ₹2.73 lakh cr coal gasification project",
   "impact" : "RIL's massive ₹2.73 lakh cr capex signals strong infrastructure and energy sector momentum, likely supporting Nifty with positive sentiment toward energy transition and PSU plays. Capital-intensive projects may support INR stability through FDI inflows and long-term economic growth narrative.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for IT exports as AI disruption fears ease. Expect Nifty IT index to outperform the broader Nifty 50 with a stable outlook for the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Sep-2026 08:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-15T09:50:27",
+  "title" : "IT stocks power Nifty's gap-up as crude, Fed weigh on outlook",
+  "impact" : "Rising crude oil prices and geopolitical tensions create a cautious outlook for Nifty. Expect volatility as higher import costs pressure the rupee and weigh on net-oil-importing sectors.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Sep-2026 09:35 IST",
   "score" : 7
 } ]
