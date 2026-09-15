@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-20T02:06:17",
-  "title" : "India may see $1.5 tn family wealth shift",
-  "impact" : "India's $1.5 trillion family wealth shift will likely create structural demand for financial services, wealth management, and infrastructure sectors over the medium term. Nifty expected to benefit from increased capital deployment into equity markets and real assets. Rupee may face mild pressure if wealth flows trigger overseas investments.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Aug-2026 01:10 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-20T07:07:26",
   "title" : "Trump declares economic war on Iran",
   "impact" : "Trump's Iran sanctions will increase crude oil prices, benefiting domestic energy sector but raising input costs for oil-dependent industries. Nifty likely to see mixed signals with energy stocks gaining but transportation and manufacturing facing headwinds. Rupee may weaken as geopolitical premium on crude strengthens USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "The sharp depreciation of the rupee combined with elevated crude oil prices will weigh on investor sentiment. Nifty is expected to open lower with sustained pressure on indices due to FII selling and inflation risks.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Sep-2026 10:01 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-15T10:05:37",
+  "title" : "Crude oil futures rise after Saudi pipeline shutdown",
+  "impact" : "Rising crude prices will likely pressure the Nifty index due to increased import costs and inflationary concerns. The Indian Rupee is expected to weaken further against the USD, creating headwinds for equity benchmarks.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Sep-2026 09:58 IST",
   "score" : 7
 } ]
