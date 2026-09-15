@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-21T06:42:06",
-  "title" : "HDFC Bank raises record $1.75 billion in overseas bond sale",
-  "impact" : "Positive sentiment for Indian financial sector and banking stocks as record $1.75B bond raise demonstrates strong global confidence in Indian banks. Rupee likely to strengthen marginally due to increased dollar inflows into banking system. Nifty expected to see modest upward bias with financial stocks leading.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Aug-2026 20:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-21T09:18:30",
   "title" : "Hormuz ship crossings hover in single digits",
   "impact" : "Single-digit Hormuz crossings signal severe geopolitical risk to global oil supply, threatening India's energy security and import costs. Nifty likely to face headwinds as crude oil prices spike, pressuring inflation and current account deficit. Rupee expected to weaken as oil import bills rise and foreign investors reassess emerging market risks.",
@@ -3497,5 +3490,12 @@
   "impact" : "The NSE IPO is a major liquidity event likely to boost overall market sentiment and investor participation. Nifty is expected to maintain its upward trajectory supported by strong domestic inflows, with neutral impact on the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Sep-2026 18:47 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-15T18:56:06",
+  "title" : "India’s 26% goods exports surge lowers August 2026 trade deficit",
+  "impact" : "The narrowing trade deficit acts as a significant tailwind for the Nifty 50, reducing macro-economic pressure and improving current account stability. This positive sentiment supports a stronger Rupee and strengthens investor confidence in export-oriented Indian manufacturers.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "15-Sep-2026 18:52 IST",
   "score" : 7
 } ]
