@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-19T11:00:37",
-  "title" : "HDFC Bank shares slide nearly 30% from peak, hit 52-week low",
-  "impact" : "HDFC Bank's 30% decline from peak signals weakness in the financial sector and consumer confidence, likely pressuring Nifty 50 downward as banking stocks are key index constituents. The underperformance versus Nifty suggests sector-specific headwinds rather than broad market strength, potentially weakening rupee as FII confidence in Indian financials diminishes.",
-  "source" : "BusinessLine",
-  "publishedAt" : "19-Aug-2026 10:46 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-19T11:30:55",
   "title" : "India’s missile &amp; bomb club opens up to pvt players",
   "impact" : "Opening defense manufacturing to private sector is moderately positive for Indian equities, signaling structural economic reforms and capex opportunities. Nifty likely to see selective strength in defense-linked industrials with positive sentiment on Make in India narrative. Rupee may strengthen marginally on improved industrial growth prospects.",
@@ -3497,5 +3490,12 @@
   "impact" : "L&T's performance reflects broader infrastructure resilience which supports a positive Nifty outlook. Positive sentiment on domestic capex acts as a counter-weight to FII outflows and currency volatility.",
   "source" : "Economic Times",
   "publishedAt" : "15-Sep-2026 05:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-15T06:32:06",
+  "title" : "SBI Research, IDFC First expect rate hike in October as crude prices climb: Higher oil prices &amp; inflation raise likelihood of policy tightening",
+  "impact" : "The market is likely to see volatility and a cautious consolidation phase as liquidity tightens and borrowing costs rise. Nifty may face downward pressure while the rupee could find temporary support from higher interest rate differentials.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Sep-2026 00:23 IST",
   "score" : 7
 } ]
