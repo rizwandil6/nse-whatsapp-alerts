@@ -8203,5 +8203,77 @@
   "entryTimestampMs": 1789455600000,
   "exitTimestampMs": 1789464900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 38.411100000000005,
+  "exitPrice": 37.83779999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.492537313432881,
+  "entryTimestampMs": 1789449900000,
+  "exitTimestampMs": 1789465500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 98.72750000000002,
+  "exitPrice": 96.70750000000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 2.0460358056265795,
+  "entryTimestampMs": 1789453200000,
+  "exitTimestampMs": 1789466100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 811.1206249999999,
+  "exitPrice": 798.8618749999997,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.5113350125944822,
+  "entryTimestampMs": 1789451100000,
+  "exitTimestampMs": 1789465800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 112.82370000000002,
+  "exitPrice": 110.75625000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.8324607329842875,
+  "entryTimestampMs": 1789459200000,
+  "exitTimestampMs": 1789464000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 834.7680000000003,
+  "exitPrice": 811.5800000000008,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 2.7777777777777075,
+  "entryTimestampMs": 1789446900000,
+  "exitTimestampMs": 1789464000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 171.61649999999995,
+  "exitPrice": 169.8829999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.010101010101039,
+  "entryTimestampMs": 1789456200000,
+  "exitTimestampMs": 1789466100000,
+  "shadow": true
  }
 ]
