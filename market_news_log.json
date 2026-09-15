@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-20T09:02:24",
-  "title" : "Selloff likely for India bonds on RBI's rate hike mention in policy minutes",
-  "impact" : "RBI rate hike mention signals tightening monetary policy, likely to pressure equity valuations and trigger bond selloff. Nifty expected to face headwinds as investors reassess growth and discount rates across sectors. Rupee may strengthen initially on higher yield differential but growth concerns could weigh on sentiment.",
-  "source" : "BusinessLine",
-  "publishedAt" : "20-Aug-2026 08:47 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-20T10:03:23",
   "title" : "Nifty snaps seven-session losing streak; IT leads gains as bond yield relief lifts sentiment",
   "impact" : "Nifty ends seven-session losing streak with IT sector leading recovery on bond yield relief. Market sentiment improves as US Treasury bond buyback announcement reduces long-duration yield pressure, supporting equity valuations. Rupee likely to stabilize as risk-on sentiment returns and foreign capital flows improve.",
@@ -3497,5 +3490,12 @@
   "impact" : "US-led selloff triggers will likely induce volatility in Indian markets, forcing Nifty to test support levels. Increased FII outflows and global risk aversion will exert downward pressure on the Indian Rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "15-Sep-2026 06:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-15T12:36:46",
+  "title" : "India’s rich are fuelling a market-investing boom",
+  "impact" : "The influx of domestic retail and HNI capital is providing structural support to the Nifty, buffering against FII outflows. Expect a bullish bias for large-caps and high-alpha mid-caps as liquidity remains robust, keeping the rupee range-bound against volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Sep-2026 12:17 IST",
   "score" : 7
 } ]
