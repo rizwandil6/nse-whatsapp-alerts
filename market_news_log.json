@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-21T00:44:22",
-  "title" : "Rupee flexes its muscles in India’s new trade play",
-  "impact" : "Stronger rupee supports India's export competitiveness and improves corporate margins for exporters, likely supporting Nifty in near term. However, it may pressure import-heavy sectors and FII inflows. Overall positive for manufacturing and infrastructure-led growth narrative.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Aug-2026 19:20 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-21T00:44:31",
   "title" : "SC modifies 1978 ‘triple test’ for industry",
   "impact" : "SC modification of 1978 triple test significantly impacts infrastructure and PSU sectors by clarifying industry classification criteria, potentially unlocking regulatory approvals for projects. Nifty likely to see selective strength in infrastructure and utilities on clarity. Rupee relatively stable as domestic focus shifts to project execution timelines.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "15-Sep-2026 11:33 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-15T18:10:24",
+  "title" : "Crude shock, bond jitters send Sensex, Nifty into a rout",
+  "impact" : "The confluence of rising crude prices and rising bond yields has triggered a risk-off sentiment in Indian equities. Nifty faces immediate downside pressure towards support levels near 22,800, while the rupee is expected to depreciate due to oil-linked dollar demand.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Sep-2026 17:53 IST",
+  "score" : 8
 } ]
