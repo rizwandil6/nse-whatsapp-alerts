@@ -8080,5 +8080,14 @@
   "timestampMs": 1789114500000,
   "breakoutTimestampMs": 1789114500000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 260.4495,
+  "timestampMs": 1789119900000,
+  "breakoutTimestampMs": 1789119900000,
+  "shadow": true
  }
 ]
