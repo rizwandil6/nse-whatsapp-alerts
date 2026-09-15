@@ -8179,5 +8179,29 @@
   "timestampMs": 1789459200000,
   "breakoutTimestampMs": 1789459200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 76.06775,
+  "exitPrice": 75.6855,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5025125628140692,
+  "entryTimestampMs": 1789453500000,
+  "exitTimestampMs": 1789458000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2582.5275,
+  "exitPrice": 2550.165000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2531328320801722,
+  "entryTimestampMs": 1789455600000,
+  "exitTimestampMs": 1789464900000,
+  "shadow": true
  }
 ]
