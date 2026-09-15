@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-19T12:16:51",
-  "title" : "'Will correct delusions: Iran hits back at Trump",
-  "impact" : "Iran-US tensions will likely trigger risk-off sentiment in Indian markets with Nifty expected to face selling pressure. Rupee may weaken against dollar as investors seek safe-haven assets amid geopolitical uncertainty.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Aug-2026 06:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-19T13:18:08",
   "title" : "Markets fall for seventh straight session; banks, metals drag as crude weighs on sentiment",
   "impact" : "Nifty likely to extend losses in the near term as seven consecutive sessions of selling indicate strong bearish momentum. Rupee weakness combined with crude oil price pressures will continue to weigh on corporate earnings and FII sentiment. Banking and metal sectors remain under pressure, limiting recovery prospects.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "14-Sep-2026 20:43 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-15T08:19:41",
+  "title" : "Oil tankers earn $1 million a day as war leaves ship shortage",
+  "impact" : "Escalating conflict risks triggering a sharp Nifty sell-off due to rising crude import costs and safe-haven outflows. The rupee is expected to face significant depreciation pressure against the dollar, potentially impacting inflationary expectations.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Sep-2026 08:06 IST",
+  "score" : 8
 } ]
