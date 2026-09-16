@@ -8743,5 +8743,53 @@
   "entryTimestampMs": 1789536600000,
   "exitTimestampMs": 1789552500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 191.62705000000003,
+  "exitPrice": 193.071475,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.7537688442210883,
+  "entryTimestampMs": 1789543800000,
+  "exitTimestampMs": 1789552500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 251.28725000000003,
+  "exitPrice": 253.181375,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.7537688442210951,
+  "entryTimestampMs": 1789546200000,
+  "exitTimestampMs": 1789550100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 795.3165,
+  "exitPrice": 791.29975,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5050505050505053,
+  "entryTimestampMs": 1789551300000,
+  "exitTimestampMs": 1789551600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 811.7009999999999,
+  "exitPrice": 813.7507499999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25252525252525465,
+  "entryTimestampMs": 1789550700000,
+  "exitTimestampMs": 1789551600000,
+  "shadow": true
  }
 ]
