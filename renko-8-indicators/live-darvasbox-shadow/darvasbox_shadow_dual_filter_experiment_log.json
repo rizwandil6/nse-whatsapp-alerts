@@ -8437,5 +8437,23 @@
   "timestampMs": 1789535700000,
   "breakoutTimestampMs": 1789535700000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 169.73050000000006,
+  "timestampMs": 1789536600000,
+  "breakoutTimestampMs": 1789535700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 134.8872,
+  "timestampMs": 1789536600000,
+  "breakoutTimestampMs": 1789536600000,
+  "shadow": true
  }
 ]
