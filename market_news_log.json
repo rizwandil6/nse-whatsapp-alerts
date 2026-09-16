@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-22T18:23:06",
-  "title" : "$400bn to $20tn: India’s rich fuel investments",
-  "impact" : "Strong positive sentiment for Indian markets as wealth accumulation drives investment demand, supporting Nifty upside momentum. Capital inflows into equities likely to strengthen rupee and boost domestic consumption-linked sectors. Infrastructure and financial services sectors expected to benefit significantly from increased HNI participation.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Aug-2026 18:00 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-08-22T21:44:54",
   "title" : "India’s defence moment: Can buyer become builder?",
   "impact" : "Defence sector development signals structural growth opportunity for India's economy and long-term capex cycle. Nifty likely to see selective strength in defence and infrastructure plays with moderate upside bias. Rupee may strengthen on FII inflows into defence manufacturing theme.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential for high US tariffs creates significant headwinds for Indian exporters and energy importers, leading to heightened volatility in the Nifty. Expect a bearish sentiment in the near term with the rupee likely facing depreciation pressure against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "16-Sep-2026 13:51 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-16T15:28:16",
+  "title" : "China's foreign minister urges reopening of Hormuz",
+  "impact" : "Heightened geopolitical risk in the Strait of Hormuz creates volatility for Indian markets. Nifty may face downward pressure due to supply chain concerns, while the rupee is likely to weaken against the dollar due to rising oil import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Sep-2026 14:40 IST",
   "score" : 7
 } ]
