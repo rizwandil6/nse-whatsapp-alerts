@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-21T18:12:36",
-  "title" : "Iran vows 'devastating' response after US threats",
-  "impact" : "Geopolitical tensions between US and Iran will likely trigger risk-off sentiment in Indian markets, pressuring Nifty lower as investors move to safety. Crude oil prices expected to spike significantly, which will pressurize the rupee and increase import costs for India.",
-  "source" : "Economic Times",
-  "publishedAt" : "21-Aug-2026 17:13 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-21T22:24:57",
   "title" : "El Nino heads for an ‘unheard-of’ peak this year",
   "impact" : "El Nino peak conditions will boost renewable energy demand and infrastructure spending, supporting Nifty's growth trajectory. Increased power demand and weather volatility may pressure traditional energy stocks. Rupee likely to strengthen as renewable energy exports and related FDI inflows increase.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a sharp spike in crude oil prices, leading to sustained Nifty volatility. The Indian Rupee is expected to face significant downward pressure as imported inflation risks increase and FIIs shift toward safe-haven assets.",
   "source" : "Economic Times",
   "publishedAt" : "16-Sep-2026 06:16 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-16T06:46:56",
+  "title" : "Indian stock market value drops below $5 trillion as oil prices surge &amp; US bond yields climb",
+  "impact" : "The Indian market faces a bearish outlook as macro headwinds drive capital outflows. Nifty is expected to test deeper support levels, and the rupee will likely face depreciation pressure due to rising oil import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Sep-2026 06:20 IST",
   "score" : 8
 } ]
