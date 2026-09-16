@@ -8626,5 +8626,14 @@
   "entryTimestampMs": 1789540800000,
   "exitTimestampMs": 1789546200000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 251.28725000000003,
+  "timestampMs": 1789546200000,
+  "breakoutTimestampMs": 1789539300000,
+  "shadow": true
  }
 ]
