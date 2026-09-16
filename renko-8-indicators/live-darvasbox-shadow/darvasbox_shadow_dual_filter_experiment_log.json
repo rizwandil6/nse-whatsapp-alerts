@@ -8683,5 +8683,53 @@
   "timestampMs": 1789551300000,
   "breakoutTimestampMs": 1789551300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 75.42524999999999,
+  "exitPrice": 75.42524999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1789551000000,
+  "exitTimestampMs": 1789551000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 42.059500000000014,
+  "exitPrice": 42.059500000000014,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1789550400000,
+  "exitTimestampMs": 1789550400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2502.7239999999993,
+  "exitPrice": 2502.7239999999993,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1789543500000,
+  "exitTimestampMs": 1789543500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 170.735775,
+  "exitPrice": 171.16154999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2493765586034839,
+  "entryTimestampMs": 1789542300000,
+  "exitTimestampMs": 1789548000000,
+  "shadow": true
  }
 ]
