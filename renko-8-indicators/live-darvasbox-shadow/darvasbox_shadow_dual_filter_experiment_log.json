@@ -8329,5 +8329,23 @@
   "timestampMs": 1789464300000,
   "breakoutTimestampMs": 1789464300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 98.25375,
+  "timestampMs": 1789458300000,
+  "breakoutTimestampMs": 1789458300000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 803.96,
+  "timestampMs": 1789458900000,
+  "breakoutTimestampMs": 1789451100000,
+  "shadow": true
  }
 ]
