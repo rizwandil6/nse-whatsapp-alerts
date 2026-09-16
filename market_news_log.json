@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T00:08:58",
-  "title" : "India’s rich eye new bets as $2 tn opportunity emerges",
-  "impact" : "The $2 trillion opportunity signals strong structural growth tailwinds for Indian infrastructure and renewable energy sectors, likely supporting Nifty upside with positive sentiment toward capex-driven stories. Rupee may strengthen on increased foreign investor interest in growth opportunities. Market rotation expected toward infrastructure and clean energy beneficiaries.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Aug-2026 18:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-24T00:09:04",
   "title" : "Munir heads to Tehran as US readies Iran sanctions",
   "impact" : "US Iran sanctions escalation will likely pressure crude oil prices lower, benefiting India's import-dependent energy sector and rupee. Nifty may see mixed signals with energy stocks under pressure but downstream sectors gaining relief. Rupee expected to strengthen due to lower oil import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "The PM Surya Ghar scheme acts as a structural tailwind for the domestic renewable energy ecosystem. Nifty may see positive sentiment in power and infra indices with long-term stability for the rupee due to reduced fossil fuel import dependency.",
   "source" : "BusinessLine",
   "publishedAt" : "16-Sep-2026 20:50 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-16T21:48:08",
+  "title" : "World shares rise as markets await Fed rate decision",
+  "impact" : "Global optimism ahead of the Fed decision likely provides a positive opening for Indian indices. Nifty is expected to sustain momentum near record highs with FII inflows supporting a stable rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "16-Sep-2026 21:33 IST",
   "score" : 7
 } ]
