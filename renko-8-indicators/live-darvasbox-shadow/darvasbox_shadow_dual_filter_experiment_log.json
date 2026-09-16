@@ -8284,5 +8284,23 @@
   "timestampMs": 1789464000000,
   "breakoutTimestampMs": 1789464000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 325.534125,
+  "timestampMs": 1789464900000,
+  "breakoutTimestampMs": 1789464900000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2551.50525,
+  "timestampMs": 1789464600000,
+  "breakoutTimestampMs": 1789464600000,
+  "shadow": true
  }
 ]
