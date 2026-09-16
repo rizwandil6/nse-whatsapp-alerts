@@ -8539,5 +8539,29 @@
   "timestampMs": 1789542300000,
   "breakoutTimestampMs": 1789542300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 108.41999999999994,
+  "exitPrice": 109.13,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.6548607268032198,
+  "entryTimestampMs": 1789539000000,
+  "exitTimestampMs": 1789542600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 192.10852500000001,
+  "exitPrice": 193.05,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.4900745555149085,
+  "entryTimestampMs": 1789540560000,
+  "exitTimestampMs": 1789542600000,
+  "shadow": true
  }
 ]
