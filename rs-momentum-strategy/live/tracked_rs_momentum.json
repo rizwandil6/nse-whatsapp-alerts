@@ -233,5 +233,26 @@
   "entryPrice": 594.2,
   "rsRankAtEntry": 81.4595660749507,
   "salesGrowth3Y": 34
+ },
+ "AJANTPHARM": {
+  "entryDate": "2026-09-14",
+  "entryPrice": 3510.4,
+  "rsRankAtEntry": 81.65680473372781,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "BAJAJ-AUTO": {
+  "entryDate": "2026-09-14",
+  "entryPrice": 11424,
+  "rsRankAtEntry": 80.86785009861933,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LALPATHLAB": {
+  "entryDate": "2026-09-14",
+  "entryPrice": 1906.4,
+  "rsRankAtEntry": 82.64299802761342,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

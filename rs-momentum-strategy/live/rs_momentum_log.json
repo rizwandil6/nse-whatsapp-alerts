@@ -1380,5 +1380,26 @@
   "date": "2026-09-12",
   "price": 1916.7,
   "rsRankAtEntry": 81.4595660749507
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AJANTPHARM",
+  "date": "2026-09-14",
+  "price": 3510.4,
+  "rsRankAtEntry": 81.65680473372781
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "BAJAJ-AUTO",
+  "date": "2026-09-14",
+  "price": 11424,
+  "rsRankAtEntry": 80.86785009861933
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "LALPATHLAB",
+  "date": "2026-09-14",
+  "price": 1906.4,
+  "rsRankAtEntry": 82.64299802761342
  }
 ]
