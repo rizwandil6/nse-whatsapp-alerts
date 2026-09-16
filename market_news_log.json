@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-23T09:01:42",
-  "title" : "From energy consumer to energy producer: The rise of the renewable-energy farmer",
-  "impact" : "Positive sentiment for renewable energy infrastructure and agri-tech convergence, supporting green energy transition narrative. Nifty likely to see modest gains in renewable and infrastructure segments. Rupee may strengthen slightly due to reduced energy import dependency long-term.",
-  "source" : "BusinessLine",
-  "publishedAt" : "22-Aug-2026 08:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-23T16:04:54",
   "title" : "India construction boom hits a steel, bitumen wall",
   "impact" : "Supply constraints in steel and bitumen will likely pressure Nifty as construction sector faces cost inflation and project delays. Infrastructure and real estate stocks may see near-term weakness, but long-term growth outlook remains intact. Rupee may strengthen slightly if import costs reduce project competitiveness.",
@@ -3497,5 +3490,12 @@
   "impact" : "Hawkish Fed stance triggers FII outflows from Indian equities leading to a bearish trend. Nifty is expected to face immediate selling pressure at higher levels while the rupee is likely to weaken against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "16-Sep-2026 11:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-16T18:30:44",
+  "title" : "Why India's oil bill could get heavier",
+  "impact" : "Rising oil prices increase current account deficit concerns and inflationary pressure on the Indian economy. Nifty may face consolidation or downward pressure due to FII selling, while the Rupee is likely to depreciate against the USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Sep-2026 17:39 IST",
   "score" : 7
 } ]
