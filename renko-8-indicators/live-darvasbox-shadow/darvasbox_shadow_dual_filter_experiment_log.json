@@ -8302,5 +8302,23 @@
   "timestampMs": 1789464600000,
   "breakoutTimestampMs": 1789464600000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 37.99,
+  "timestampMs": 1789465200000,
+  "breakoutTimestampMs": 1789465200000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 194.155325,
+  "timestampMs": 1789457400000,
+  "breakoutTimestampMs": 1789457400000,
+  "shadow": true
  }
 ]
