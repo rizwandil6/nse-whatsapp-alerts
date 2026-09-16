@@ -8464,5 +8464,29 @@
   "timestampMs": 1789539000000,
   "breakoutTimestampMs": 1789539000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 253.181375,
+  "exitPrice": 251.65,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.6048529438628718,
+  "entryTimestampMs": 1789535700000,
+  "exitTimestampMs": 1789539300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 193.071475,
+  "exitPrice": 192.11,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.4979891514269411,
+  "entryTimestampMs": 1789534500000,
+  "exitTimestampMs": 1789539300000,
+  "shadow": true
  }
 ]
