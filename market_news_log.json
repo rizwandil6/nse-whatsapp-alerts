@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T01:08:08",
-  "title" : "ET WLF: Bihar eyes 4x growth, 10 mn jobs",
-  "impact" : "Bihar's 4x growth target and 10 million job creation plan signals significant infrastructure and industrial investment opportunity, likely to boost Nifty's infrastructure and PSU segments. Positive sentiment for state-level development could attract FII flows to infrastructure stocks, with moderate rupee stability expected from increased domestic investment activity.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Aug-2026 00:48 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-24T02:08:43",
   "title" : "India has what the world longs for: Satyan",
   "impact" : "Article suggests India possesses competitive advantages the world seeks, likely supporting positive sentiment for Indian equities and infrastructure/energy sectors. Nifty expected to trade with bullish bias as global demand tailwinds support domestic growth narrative. Rupee may strengthen on positive FII flows and improved risk appetite toward Indian assets.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened tax uncertainty creates a negative sentiment for FPI-heavy mid-caps and large-caps. Nifty may face short-term volatility and selling pressure as foreign investors re-evaluate tax liabilities, potentially weakening the rupee due to potential capital outflows.",
   "source" : "Economic Times",
   "publishedAt" : "17-Sep-2026 00:09 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-17T00:49:49",
+  "title" : "What India’s growth really means",
+  "impact" : "Energy security focus reinforces long-term structural growth for the Indian equity market. Nifty is expected to maintain a positive bias supported by infrastructure investment, with the rupee showing stability due to reduced external energy dependency.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "17-Sep-2026 00:39 IST",
   "score" : 7
 } ]
