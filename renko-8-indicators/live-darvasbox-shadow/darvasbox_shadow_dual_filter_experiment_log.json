@@ -8419,5 +8419,23 @@
   "timestampMs": 1789535400000,
   "breakoutTimestampMs": 1789535400000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 109.41,
+  "timestampMs": 1789535700000,
+  "breakoutTimestampMs": 1789534200000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 253.181375,
+  "timestampMs": 1789535700000,
+  "breakoutTimestampMs": 1789535700000,
+  "shadow": true
  }
 ]
