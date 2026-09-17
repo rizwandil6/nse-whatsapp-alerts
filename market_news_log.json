@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T23:37:53",
-  "title" : "India faces weakest monsoon in nearly two decades",
-  "impact" : "Weakest monsoon in nearly two decades will pressure agricultural output, rural consumption, and hydropower generation, likely dampening GDP growth expectations. Nifty may face headwinds as investors rotate away from consumption and power stocks. Rupee weakness expected due to lower agricultural exports and potential RBI rate cut expectations.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Aug-2026 20:44 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-25T01:08:28",
   "title" : "Consumer cos' forex wallet glows despite gobal woes",
   "impact" : "Strong forex inflows to consumer companies provide currency tailwind and support Nifty despite global uncertainties. Rupee likely to remain stable or appreciate moderately, reducing import costs for consumer goods manufacturers.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising bond yields signal tighter liquidity, exerting downward pressure on Indian equities. Expect Nifty to consolidate with a negative bias as the cost of borrowing increases and the rupee faces depreciation pressure against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "17-Sep-2026 10:23 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-17T10:57:23",
+  "title" : "India stands firm on Russian oil amid US tariff threat",
+  "impact" : "Rising geopolitical friction with the US creates short-term volatility and downward pressure on Nifty. Rupee is likely to face depreciation against the dollar due to concerns over trade tariffs and capital outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "17-Sep-2026 10:55 IST",
   "score" : 7
 } ]
