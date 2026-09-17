@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-25T10:13:22",
-  "title" : "Hormuz six months on: Ships still stay away",
-  "impact" : "Hormuz shipping disruption poses significant risk to India's crude oil and LNG imports, potentially pushing inflation higher and pressuring Nifty if energy costs spike. Rupee likely to weaken as higher import costs increase current account deficit concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "25-Aug-2026 09:57 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-25T12:46:16",
   "title" : "A missing piece may derail govt's ₹37,500 cr coal plan",
   "impact" : "Delays in a 37500 cr coal infrastructure plan could dampen sentiment in energy and infrastructure sectors, potentially weighing on Nifty-50 in near term. Negative sentiment may extend to rupee if foreign investors reassess India's energy security narrative.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global sentiment and cooling oil prices are expected to drive a strong opening for Indian markets. Nifty is likely to test immediate resistance levels as FII inflows stabilize, providing support to the Rupee against the Dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "17-Sep-2026 15:53 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-17T19:35:03",
+  "title" : "As U.S. readies 100% tariffs, Russia provided more than half of India’s oil imports in July",
+  "impact" : "The US tariff threat creates significant geopolitical risk for India, likely pressuring Nifty due to potential import cost spikes. Increased volatility may weaken the Rupee against the Dollar as energy import bills potentially inflate.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "17-Sep-2026 19:25 IST",
   "score" : 7
 } ]
