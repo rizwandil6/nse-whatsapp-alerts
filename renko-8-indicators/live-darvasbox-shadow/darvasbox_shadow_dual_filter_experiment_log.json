@@ -8839,5 +8839,14 @@
   "timestampMs": 1789629000000,
   "breakoutTimestampMs": 1789629000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 42.72254999999999,
+  "timestampMs": 1789630200000,
+  "breakoutTimestampMs": 1789630200000,
+  "shadow": true
  }
 ]
