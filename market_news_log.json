@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-25T12:46:16",
-  "title" : "A missing piece may derail govt's ₹37,500 cr coal plan",
-  "impact" : "Delays in a 37500 cr coal infrastructure plan could dampen sentiment in energy and infrastructure sectors, potentially weighing on Nifty-50 in near term. Negative sentiment may extend to rupee if foreign investors reassess India's energy security narrative.",
-  "source" : "Economic Times",
-  "publishedAt" : "25-Aug-2026 00:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-25T14:02:26",
   "title" : "AI keeps Asia afloat as inflation bites: Moody’s",
   "impact" : "AI-driven growth in Asia provides tailwind for Indian tech and infrastructure sectors despite inflationary pressures. Nifty likely to see selective gains in tech and digital infrastructure plays while rate-sensitive sectors remain under pressure. Rupee may find support from increased foreign inflows into AI-focused Indian companies.",
@@ -3497,5 +3490,12 @@
   "impact" : "The US tariff threat creates significant geopolitical risk for India, likely pressuring Nifty due to potential import cost spikes. Increased volatility may weaken the Rupee against the Dollar as energy import bills potentially inflate.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "17-Sep-2026 19:25 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-17T19:35:19",
+  "title" : "Iran war drives clean energy development",
+  "impact" : "Heightened geopolitical risk in Iran typically triggers risk-off sentiment in the Nifty, leading to potential near-term volatility. The rupee faces depreciation pressure due to rising crude oil import costs and safe-haven flows into the USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Sep-2026 19:08 IST",
   "score" : 7
 } ]
