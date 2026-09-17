@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T08:26:39",
-  "title" : "Hormuz oil debate misses Asia’s fuel squeeze",
-  "impact" : "Oil supply concerns via Hormuz Strait will elevate crude prices, pressuring India's import bill and current account deficit while boosting domestic energy stocks. Nifty likely to face headwinds from energy inflation but gains in renewable/alternative energy sectors could provide partial offset. Rupee expected to depreciate against USD due to higher oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Aug-2026 07:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-24T09:27:53",
   "title" : "India’s $10 billion equity rush puts August on track for record",
   "impact" : "Record August IPO activity signals strong investor appetite and government's divestment momentum, likely supporting broader market sentiment and Nifty50 upside. Large capital inflows from IPOs could marginally strengthen rupee as foreign investor participation increases.",
@@ -3497,5 +3490,12 @@
   "impact" : "The reduction in crude oil supply from Aramco creates immediate upward pressure on global oil prices and India's import bill. Nifty faces volatility as higher energy costs threaten margins across sectors, likely putting downward pressure on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "17-Sep-2026 05:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-17T05:51:08",
+  "title" : "Fed raises rates despite Trump pressure, signals another hike likely in 2026",
+  "impact" : "The US rate hike exerts downward pressure on Indian equities as foreign institutional outflows increase. Nifty is expected to face volatility with a bearish bias, while the Rupee will likely weaken further against the Dollar due to widened interest rate differentials.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Sep-2026 05:05 IST",
   "score" : 7
 } ]
