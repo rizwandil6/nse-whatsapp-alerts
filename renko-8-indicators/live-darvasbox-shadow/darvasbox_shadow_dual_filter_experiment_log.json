@@ -8911,5 +8911,29 @@
   "entryTimestampMs": 1789631700000,
   "exitTimestampMs": 1789636500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 487.8485,
+  "exitPrice": 486.62275,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2512562814070362,
+  "entryTimestampMs": 1789633500000,
+  "exitTimestampMs": 1789636800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "LONG",
+  "entry": 199.79825000000002,
+  "exitPrice": 200.79475000000005,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.49875311720699544,
+  "entryTimestampMs": 1789628700000,
+  "exitTimestampMs": 1789636500000,
+  "shadow": true
  }
 ]
