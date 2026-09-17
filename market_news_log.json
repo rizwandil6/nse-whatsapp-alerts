@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T09:27:53",
-  "title" : "India’s $10 billion equity rush puts August on track for record",
-  "impact" : "Record August IPO activity signals strong investor appetite and government's divestment momentum, likely supporting broader market sentiment and Nifty50 upside. Large capital inflows from IPOs could marginally strengthen rupee as foreign investor participation increases.",
-  "source" : "BusinessLine",
-  "publishedAt" : "24-Aug-2026 08:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-24T09:28:02",
   "title" : "Hormuz ship crossings dip below 20",
   "impact" : "Hormuz strait shipping decline signals potential crude oil supply concerns, supporting energy prices and benefiting domestic oil/gas companies while raising inflation risks. Nifty likely to see mixed signals with energy stocks gaining but broader market sentiment cautious on potential cost-push inflation. Rupee may weaken if crude prices spike, increasing import costs.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "17-Sep-2026 05:05 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-17T06:51:19",
+  "title" : "Bond yields could rise to 7.5% on crude, inflation and global debt costs",
+  "impact" : "Rising bond yields are likely to trigger a bearish trend for Indian equities due to higher borrowing costs and FII outflows. Nifty is expected to face significant resistance and downward pressure as the rupee faces volatility against a stronger dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Sep-2026 06:14 IST",
+  "score" : 8
 } ]
