@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T11:13:08",
-  "title" : "Demand lifts India Inc earnings, but oil is a risk",
-  "impact" : "Strong domestic demand supports earnings growth across India Inc, but elevated crude oil prices pose inflation and margin compression risks. Nifty likely to consolidate with selective sector outperformance, while rupee may face depreciation pressure from higher oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Aug-2026 06:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-24T11:13:18",
   "title" : "Pharma top sector in 2026 with 16.5% returns",
   "impact" : "Pharma sector outperformance projection of 16.5% returns signals strong investor confidence in healthcare space, likely supporting Nifty with defensive positioning. This could attract flows into pharma stocks while potentially creating rotation pressure on other sectors.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "17-Sep-2026 06:43 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-17T07:52:57",
+  "title" : "Domestic market to open on flat to negative note as US Fed talks hawkish",
+  "impact" : "Indian markets are expected to open lower tracking global cues, with Nifty likely testing support levels near 17900-18000. FII outflows may intensify, putting downward pressure on the rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "17-Sep-2026 07:35 IST",
+  "score" : 7
 } ]
