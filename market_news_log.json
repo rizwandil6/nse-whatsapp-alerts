@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T18:13:01",
-  "title" : "TCS secures €1.25b strategic deal with Porsche",
-  "impact" : "TCS's €1.25b Porsche deal signals strong IT services export momentum and global client confidence, likely supporting Nifty's IT index upside. Strong order inflow from premium automotive clients strengthens rupee sentiment amid global deal activity.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Aug-2026 17:09 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-24T18:13:08",
   "title" : "TCS to acquire Porsche IT unit for €320 mln",
   "impact" : "Positive sentiment for Indian IT services and technology sector, reinforcing India's dominance in global AI and digital transformation. TCS's strategic expansion into European automotive and €1.25 billion deal signals strong order book momentum; mild positive impact on Nifty IT index and rupee stability as it demonstrates FX inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Trump demanding lower interest rates amid potential Fed policy shifts creates volatility for Indian equities. Nifty may face short-term consolidation as foreign institutional flows react to USD strength and US yield curves. Rupee likely to remain under pressure against a volatile dollar as market uncertainty prevails.",
   "source" : "Economic Times",
   "publishedAt" : "17-Sep-2026 09:15 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-17T09:56:45",
+  "title" : "Fed rate hike, FII selling weigh on Nifty; IT drags, FMCG leads",
+  "impact" : "Indian markets are facing downward pressure due to hawkish Fed policy and persistent FII outflows. Nifty is expected to remain volatile with a bearish bias as the rupee struggles against a strengthening dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "17-Sep-2026 09:47 IST",
   "score" : 7
 } ]
