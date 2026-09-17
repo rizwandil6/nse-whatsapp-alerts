@@ -8944,5 +8944,41 @@
   "timestampMs": 1789637700000,
   "breakoutTimestampMs": 1789637700000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 795.05,
+  "exitPrice": 796.9875,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24369536507137918,
+  "entryTimestampMs": 1789637700000,
+  "exitTimestampMs": 1789638000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 110.275,
+  "exitPrice": 111.65000000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2468827930174822,
+  "entryTimestampMs": 1789626000000,
+  "exitTimestampMs": 1789636200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 547.2056250000002,
+  "exitPrice": 557.8023750000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.9365206635074201,
+  "entryTimestampMs": 1789629000000,
+  "exitTimestampMs": 1789636500000,
+  "shadow": true
  }
 ]
