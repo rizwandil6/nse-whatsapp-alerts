@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T12:14:04",
-  "title" : "Indian banks in best shape in a decade: Motilal",
-  "impact" : "Positive sentiment for banking sector and overall market confidence. Nifty expected to see modest upside bias with financial stocks leading. Rupee likely to stabilize as improved bank health supports economic confidence.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Aug-2026 11:40 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-24T14:54:23",
   "title" : "Hormuz ship crossings dip below 20",
   "impact" : "Hormuz strait shipping decline signals potential crude oil supply constraints and elevated geopolitical risk, likely to pressure Nifty in the near term. Rupee could weaken as oil import costs rise and risk sentiment deteriorates, pushing broader market volatility.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "17-Sep-2026 07:32 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-17T08:56:11",
+  "title" : "'Xi suffers stroke during BRICS summit'",
+  "impact" : "Global market sentiment will turn significantly risk-off due to geopolitical uncertainty regarding Chinese leadership. Nifty 50 is expected to gap down sharply, and the Indian Rupee will likely face depreciation pressure against the USD as investors flee to safe-haven assets.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Sep-2026 08:17 IST",
+  "score" : 9
 } ]
