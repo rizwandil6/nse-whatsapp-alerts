@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T19:06:04",
-  "title" : "Iran shadow looms over Dalal Street as Nifty ends in red",
-  "impact" : "Nifty ends in red due to Iran geopolitical tensions escalating crude oil prices, creating headwinds for the broader market. Energy cost inflation concerns weigh on investor sentiment with elevated commodity prices limiting upside. Rupee expected to depreciate against the dollar as oil prices surge, increasing import costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "24-Aug-2026 18:44 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-24T23:37:53",
   "title" : "India faces weakest monsoon in nearly two decades",
   "impact" : "Weakest monsoon in nearly two decades will pressure agricultural output, rural consumption, and hydropower generation, likely dampening GDP growth expectations. Nifty may face headwinds as investors rotate away from consumption and power stocks. Rupee weakness expected due to lower agricultural exports and potential RBI rate cut expectations.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "17-Sep-2026 10:36 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-17T10:42:11",
+  "title" : "Govt bonds dip as US Fed move seen as final straw pushing RBI toward hikes",
+  "impact" : "Rising bond yields signal tighter liquidity, exerting downward pressure on Indian equities. Expect Nifty to consolidate with a negative bias as the cost of borrowing increases and the rupee faces depreciation pressure against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "17-Sep-2026 10:23 IST",
+  "score" : 7
 } ]
