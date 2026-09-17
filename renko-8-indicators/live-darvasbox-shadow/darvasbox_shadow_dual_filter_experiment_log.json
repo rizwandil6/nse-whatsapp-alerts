@@ -8848,5 +8848,14 @@
   "timestampMs": 1789630200000,
   "breakoutTimestampMs": 1789630200000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 787.8961249999999,
+  "timestampMs": 1789631700000,
+  "breakoutTimestampMs": 1789631700000,
+  "shadow": true
  }
 ]
