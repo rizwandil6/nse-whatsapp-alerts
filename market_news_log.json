@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T08:26:26",
-  "title" : "Sector-focussed funds look to ride deeptech wave",
-  "impact" : "Deeptech sector focus signals India's pivot toward advanced technology infrastructure, likely supporting mid-cap growth and attracting institutional capital flows. Nifty expected to see moderate strength in infrastructure and technology sub-segments. Rupee may benefit from increased FDI interest in deeptech manufacturing and innovation hubs.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Aug-2026 06:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-24T08:26:39",
   "title" : "Hormuz oil debate misses Asia’s fuel squeeze",
   "impact" : "Oil supply concerns via Hormuz Strait will elevate crude prices, pressuring India's import bill and current account deficit while boosting domestic energy stocks. Nifty likely to face headwinds from energy inflation but gains in renewable/alternative energy sectors could provide partial offset. Rupee expected to depreciate against USD due to higher oil import costs.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "17-Sep-2026 05:30 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-17T05:51:03",
+  "title" : "Aramco closes supply tap for Indian refiners",
+  "impact" : "The reduction in crude oil supply from Aramco creates immediate upward pressure on global oil prices and India's import bill. Nifty faces volatility as higher energy costs threaten margins across sectors, likely putting downward pressure on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Sep-2026 05:30 IST",
+  "score" : 7
 } ]
