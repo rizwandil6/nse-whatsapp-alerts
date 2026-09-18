@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-26T07:47:18",
-  "title" : "Indian stocks set for strong opening as crude oil falls, global cues improve",
-  "impact" : "Indian equities poised for strong opening on back of falling crude oil and softer global yields, reducing inflation concerns and improving FPI sentiment. Nifty expected to open positive with sustained momentum if international cues remain supportive. Rupee likely to strengthen on lower oil import costs and improved capital flows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "26-Aug-2026 07:37 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-26T09:32:55",
   "title" : "India Q1 growth likely slowed to 7.1%: Reuters poll",
   "impact" : "A slowdown to 7.1% GDP growth signals moderating economic momentum, likely pressuring cyclical stocks and infrastructure plays while benefiting defensive sectors. Nifty expected to consolidate with a cautious bias as FII flows may weaken on growth concerns. Rupee could depreciate modestly as growth concerns may delay RBI rate hikes.",
@@ -3497,5 +3490,12 @@
   "impact" : "Driest monsoon poses upside risk to food inflation and curbs rural demand, likely keeping the Nifty cautious. The rupee may face downward pressure due to potential import-driven inflation and broader economic headwinds.",
   "source" : "BusinessLine",
   "publishedAt" : "18-Sep-2026 10:52 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-18T11:22:00",
+  "title" : "Tata Group stocks fall 8% as Tata Trusts calls Chandrasekaran’s extension illegal",
+  "impact" : "The internal leadership conflict within the Tata Group creates significant volatility, potentially dragging down the Nifty due to the heavy weightage of Tata stocks. The uncertainty surrounding the holding company IPO and board stability may dampen broader investor sentiment and put downward pressure on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "18-Sep-2026 09:23 IST",
   "score" : 7
 } ]
