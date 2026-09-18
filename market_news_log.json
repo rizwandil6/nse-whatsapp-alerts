@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-25T22:54:24",
-  "title" : "RBI warns fuel costs could reignite broader inflation",
-  "impact" : "RBI's inflation warning on fuel costs creates near-term headwinds for Nifty as higher energy prices pressure margins across sectors and limit RBI's rate-cut window. Rupee likely to weaken on imported crude oil cost pressures and potential capital outflows from rate hike expectations.",
-  "source" : "Economic Times",
-  "publishedAt" : "25-Aug-2026 18:35 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-26T00:46:24",
   "title" : "India, China seek 'political settlement' on border",
   "impact" : "India-China border negotiations reduce geopolitical tensions, likely supporting risk-on sentiment for Indian equities. Nifty expected to gain 0.5-1% as FPI inflows improve on de-escalation hopes. Rupee may strengthen slightly due to reduced safe-haven outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The upward revision to 7% GDP growth provides a strong medium-term foundation for Nifty to sustain its bullish trajectory. The rupee is likely to remain stable or strengthen slightly as foreign institutional flows favor the resilient Indian growth story.",
   "source" : "BusinessLine",
   "publishedAt" : "18-Sep-2026 10:27 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-18T10:36:30",
+  "title" : "Moody's raises India fiscal 2027 GDP growth forecast to 7% on West Asia resilience",
+  "impact" : "Positive outlook on long-term GDP growth boosts investor sentiment for Indian equities. Nifty expected to trend upwards on strong fundamentals, though rupee may face minor pressure from elevated energy import costs.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "18-Sep-2026 10:28 IST",
   "score" : 7
 } ]
