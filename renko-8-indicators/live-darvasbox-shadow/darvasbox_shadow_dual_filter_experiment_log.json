@@ -9142,5 +9142,53 @@
   "entryTimestampMs": 1789716300000,
   "exitTimestampMs": 1789725300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 350.27699999999976,
+  "exitPrice": 350.27699999999976,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1789724700000,
+  "exitTimestampMs": 1789724700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 496.33500000000015,
+  "exitPrice": 497.5575000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24630541871921677,
+  "entryTimestampMs": 1789719300000,
+  "exitTimestampMs": 1789720500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 197.82262499999996,
+  "exitPrice": 199.7861249999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.9925558312654854,
+  "entryTimestampMs": 1789714500000,
+  "exitTimestampMs": 1789722600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 552.2658749999999,
+  "exitPrice": 567.3987500000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -2.7401430515691607,
+  "entryTimestampMs": 1789707000000,
+  "exitTimestampMs": 1789724100000,
+  "shadow": true
  }
 ]
