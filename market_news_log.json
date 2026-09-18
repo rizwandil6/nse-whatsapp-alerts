@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-25T19:22:27",
-  "title" : "Indian economy continues to display strength despite headwinds: RBI Bulletin",
-  "impact" : "Positive sentiment for Indian equities with manufacturing and services strength supporting economic resilience. Nifty likely to consolidate higher as robust activity offsets external headwinds. Rupee may strengthen on sustained economic performance and capital inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "25-Aug-2026 19:07 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-25T20:23:22",
   "title" : "Govt to cut foreign reliance in power infra by 2029",
   "impact" : "Government push to reduce foreign reliance in power infrastructure is bullish for domestic power and infra sectors, supporting capex-driven growth. Nifty likely to see strength in power and renewable energy stocks with infrastructure tailwinds. Rupee may appreciate marginally due to reduced forex outflows for power imports.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "18-Sep-2026 07:14 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-18T08:20:08",
+  "title" : "Trump may not see another rate cut as Prez",
+  "impact" : "The US Fed's hawkish stance will likely trigger FII outflows from Indian equities, putting Nifty under selling pressure. A stronger dollar driven by high US yields will exert downward pressure on the Indian Rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "18-Sep-2026 07:39 IST",
+  "score" : 8
 } ]
