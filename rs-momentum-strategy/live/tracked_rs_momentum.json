@@ -275,5 +275,19 @@
   "rsRankAtEntry": 80.6706114398422,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "POWERINDIA": {
+  "entryDate": "2026-09-16",
+  "entryPrice": 31230,
+  "rsRankAtEntry": 81.49606299212599,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SHYAMMETL": {
+  "entryDate": "2026-09-16",
+  "entryPrice": 1077,
+  "rsRankAtEntry": 80.70866141732283,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

@@ -1422,5 +1422,19 @@
   "date": "2026-09-15",
   "price": 202.37,
   "rsRankAtEntry": 80.6706114398422
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "POWERINDIA",
+  "date": "2026-09-16",
+  "price": 31230,
+  "rsRankAtEntry": 81.49606299212599
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SHYAMMETL",
+  "date": "2026-09-16",
+  "price": 1077,
+  "rsRankAtEntry": 80.70866141732283
  }
 ]
