@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-27T10:29:38",
-  "title" : "Trump leaves no immigration route untouched",
-  "impact" : "Negative medium-term impact on Indian IT/ITeS sector and rupee. Stricter US immigration policies will reduce H-1B hiring, increasing operational costs and reducing revenue visibility for Indian IT service exporters. INR likely to weaken as dollar inflows from US revenue decline.",
-  "source" : "Economic Times",
-  "publishedAt" : "25-Aug-2026 11:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-27T12:31:21",
   "title" : "The chip king sends a loud message to AI doubters",
   "impact" : "Positive sentiment for semiconductor and technology sectors, likely supporting IT and infrastructure plays. Nifty expected to see modest upside from chip-related optimism and AI infrastructure tailwinds. Rupee may strengthen on increased foreign inflows into tech-heavy indices.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Tata IPO is expected to infuse significant liquidity into the Indian equity market and improve retail investor sentiment. Nifty is likely to witness bullish momentum driven by heavy institutional interest, with neutral impact on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "19-Sep-2026 06:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-19T10:23:47",
+  "title" : "Oil is high, but Xi may have spared Trump more",
+  "impact" : "Elevated crude oil prices create headwinds for Indian equity indices by increasing import bills and inflationary pressure. Nifty may face volatility and pressure near key resistance levels as the rupee weakens against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Sep-2026 09:48 IST",
   "score" : 7
 } ]
