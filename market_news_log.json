@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-27T12:31:21",
-  "title" : "The chip king sends a loud message to AI doubters",
-  "impact" : "Positive sentiment for semiconductor and technology sectors, likely supporting IT and infrastructure plays. Nifty expected to see modest upside from chip-related optimism and AI infrastructure tailwinds. Rupee may strengthen on increased foreign inflows into tech-heavy indices.",
-  "source" : "Economic Times",
-  "publishedAt" : "27-Aug-2026 08:27 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-27T17:05:27",
   "title" : "100% FDI, Insurance for All by 2047 provide great opportunities for Canadian firms: FM Sitharaman",
   "impact" : "Positive sentiment for Indian equities as increased FDI inflows and insurance expansion signal long-term growth confidence. Nifty likely to see steady upside on infrastructure and financial services tailwinds. Rupee may appreciate modestly due to anticipated capital inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Elevated crude oil prices create headwinds for Indian equity indices by increasing import bills and inflationary pressure. Nifty may face volatility and pressure near key resistance levels as the rupee weakens against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "19-Sep-2026 09:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-19T10:23:54",
+  "title" : "Dollar advances vs yen as BOJ dissent clouds rate-hike outlook",
+  "impact" : "The strengthening dollar is likely to exert downward pressure on the rupee, potentially triggering FII outflows. Expect volatility in the Nifty as rising US rate expectations dampen risk appetite for emerging market equities.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Sep-2026 09:55 IST",
   "score" : 7
 } ]
