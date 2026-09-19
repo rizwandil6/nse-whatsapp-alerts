@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-28T00:39:30",
-  "title" : "Faster KYC, nods key to boosting FDI flows",
-  "impact" : "Faster KYC and regulatory approvals for FDI will boost foreign capital inflows, strengthening Nifty sentiment particularly in infrastructure and PSU sectors. Rupee likely to appreciate moderately as FDI inflows increase forex reserves.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Aug-2026 00:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-28T05:55:23",
   "title" : "Close to clearing NSE IPO: Sebi Chief Tuhin Kanta Pandey",
   "impact" : "NSE IPO approval signals strong market confidence and will boost investor sentiment in Indian equities. Nifty expected to trade positively on regulatory clarity and major capital inflow expectations. Rupee may strengthen marginally due to anticipated foreign institutional investor participation in NSE IPO.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong positive sentiment expected for Indian equities as long-term macro growth narratives gain credibility. Nifty likely to see buying support across infrastructure and manufacturing led by institutional confidence. Rupee to remain stable or slightly appreciate due to sustained FDI interest.",
   "source" : "Economic Times",
   "publishedAt" : "19-Sep-2026 15:05 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-19T15:56:15",
+  "title" : "Bank of India MF CIO Alok Singh sees banks poised for a re-rating. Here’s what could trigger it",
+  "impact" : "The Indian market is expected to remain range-bound with a shift toward earnings-driven growth as multiple expansion plateaus. Rupee remains under pressure from rising oil prices and FCNR flows, though banking fundamentals may support a Nifty recovery.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Sep-2026 15:22 IST",
   "score" : 7
 } ]
