@@ -289,5 +289,19 @@
   "rsRankAtEntry": 80.70866141732283,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "PRUDENT": {
+  "entryDate": "2026-09-17",
+  "entryPrice": 3501.6,
+  "rsRankAtEntry": 82.8740157480315,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SHAILY": {
+  "entryDate": "2026-09-17",
+  "entryPrice": 3149.8,
+  "rsRankAtEntry": 81.49606299212599,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

@@ -1436,5 +1436,19 @@
   "date": "2026-09-16",
   "price": 1077,
   "rsRankAtEntry": 80.70866141732283
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PRUDENT",
+  "date": "2026-09-17",
+  "price": 3501.6,
+  "rsRankAtEntry": 82.8740157480315
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SHAILY",
+  "date": "2026-09-17",
+  "price": 3149.8,
+  "rsRankAtEntry": 81.49606299212599
  }
 ]
