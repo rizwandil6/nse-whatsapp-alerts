@@ -79,7 +79,7 @@ async function runOnce() {
   const entries = Object.entries(symbolMap);
   console.log(`Triple RSI scan — ${todayStr} — ${entries.length} symbols`);
 
-  let newEntries = 0, newExits = 0, positionsWritten = 0, failures = 0;
+  let newEntries = 0, newExits = 0, positionsWritten = 0, failures = 0, done = 0;
 
   await mapLimit(entries, CONCURRENCY, async ([symbol, instrumentKey]) => {
     let dailyBars;
@@ -91,6 +91,8 @@ async function runOnce() {
       return;
     } finally {
       await sleep(REQUEST_STAGGER_MS);
+      done++;
+      if (done % 50 === 0) console.log(`  [${done}/${entries.length}] processed`);
     }
     if (dailyBars.length < 210) return; // not enough history for the 200-day MA yet
 

@@ -13,6 +13,7 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (
 
 const MAX_RETRIES = 4;
 const RETRY_BASE_MS = 2000;
+const REQUEST_TIMEOUT_MS = 15000; // a hung TCP connection should fail fast, not stall the whole scan
 
 function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
@@ -21,7 +22,10 @@ async function fetchDailyCandles(instrumentKey, from, to) {
   const url = `${UPSTOX_BASE}/historical-candle/${encodeURIComponent(instrumentKey)}/day/${to}/${from}`;
   let lastErr;
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-    const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json' } });
+    const res = await fetch(url, {
+      headers: { 'User-Agent': UA, Accept: 'application/json' },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
     if (res.ok) {
       const body = await res.json();
       const raw = body?.data?.candles || [];
