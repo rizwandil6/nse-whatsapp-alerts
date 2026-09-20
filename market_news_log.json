@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-28T20:28:08",
-  "title" : "FCNR (B) inflows: India’s forex reserves soar to an all-time high of $729.328 billion",
-  "impact" : "Strong forex reserves at all-time high of $729.328 billion provides macroeconomic stability and supports rupee strength, creating positive sentiment for Nifty-50. Expected bullish momentum as RBI has stronger cushion for monetary policy flexibility and external sector resilience.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Aug-2026 20:15 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-28T22:42:34",
   "title" : "Jio Platforms gets SEBI nod for biggest IPO listing of around ₹37,700 crore",
   "impact" : "Jio Platforms IPO of ₹37,700 crore is a major market event that will boost investor sentiment and liquidity in Indian equities. Nifty likely to trade positive as retail and institutional inflows accelerate around this mega IPO. Rupee expected to strengthen due to strong FII inflows anticipated from the offering.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "20-Sep-2026 11:47 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-20T15:37:55",
+  "title" : "Iran says Hormuz will remain closed",
+  "impact" : "Global crude oil supply fears will trigger a sharp sell-off in Indian markets, likely pushing Nifty lower as risk appetite wanes. The Indian Rupee is expected to depreciate significantly against the US Dollar due to rising oil import costs and geopolitical uncertainty.",
+  "source" : "Economic Times",
+  "publishedAt" : "20-Sep-2026 15:06 IST",
+  "score" : 8
 } ]
