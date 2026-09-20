@@ -1,0 +1,12 @@
+{
+  "name": "triple-rsi-strategy-live",
+  "version": "1.0.0",
+  "description": "Daily 16:00 IST scan for the Triple RSI strategy over the 353-stock halal-500 universe — Telegram alerts on new entry signals (AMO for next-day open) and closed positions (stop or RSI exit). Alert-only, no orders ever placed. Long-running service that self-schedules its once-daily run (see service.js), same pattern as darvas-classic-strategy/live.",
+  "main": "service.js",
+  "scripts": {
+    "start": "node service.js"
+  },
+  "dependencies": {
+    "pg": "^8.12.0"
+  }
+}

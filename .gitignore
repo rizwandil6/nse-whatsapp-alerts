@@ -1,6 +1,7 @@
 .secrets/
 node_modules/
 *_cache.json
+triple-rsi-strategy/live/daily_cache_store.json
 multibagger-screener/batch_checkpoint.json
 
 # renko-python-backtest: regenerable outputs and runtime state, not source
