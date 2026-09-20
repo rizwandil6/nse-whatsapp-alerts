@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-29T12:47:16",
-  "title" : "Is India prepared for a Glacial Outburst Flood?",
-  "impact" : "Glacial Outburst Floods (GLOFs) pose significant infrastructure and hydro-power generation risks, particularly affecting northern India. Nifty likely to face pressure in infrastructure and power sectors with increased volatility. Rupee may weaken due to potential disaster recovery spending and reduced power exports.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Aug-2026 12:11 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-29T13:32:36",
   "title" : "Steel demand outruns capacity, prices rebound",
   "impact" : "Steel demand outpacing capacity signals strong economic growth and infrastructure activity, likely supporting Nifty with positive bias. Capital goods and infrastructure sectors should see tailwinds, while rupee may weaken slightly due to increased commodity imports.",
@@ -3497,5 +3490,12 @@
   "impact" : "Robust IPO pipeline indicates high investor liquidity and confidence in Indian equity markets. Nifty may face volatility due to capital diversion, while the rupee remains stable amid strong foreign capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "20-Sep-2026 22:19 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-21T02:22:11",
+  "title" : "SP Group backs Tata Sons listing",
+  "impact" : "The potential listing of Tata Sons would be a landmark event for Indian capital markets, increasing institutional liquidity and Nifty market capitalization. It would likely attract significant FII inflows, strengthening the rupee due to the expected multi-billion dollar scale of the IPO.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Sep-2026 01:13 IST",
   "score" : 7
 } ]
