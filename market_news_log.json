@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-28T11:05:34",
-  "title" : "Oil goes down 5% as Trump shuts door on Iran deal",
-  "impact" : "Oil price decline of 5% is moderately positive for India's import-dependent economy, reducing inflation pressures and fiscal burden. Nifty likely to see modest gains as energy costs ease, though gains may be capped by geopolitical uncertainty. Rupee expected to strengthen against dollar as oil import bill decreases.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Aug-2026 07:50 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-28T12:51:58",
   "title" : "GCCs to keep India office mkt growing",
   "impact" : "GCC expansion signals strong office real estate demand and economic optimism, likely supporting Nifty's upward trajectory. The commercial real estate boost will attract FII inflows and strengthen rupee through increased business activity and forex inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The government push for rail infrastructure will improve long-term capex sentiment, likely boosting Nifty sentiment toward the 25,000 mark. The rupee is expected to remain stable with marginal support from sustained infrastructure-led capital inflows.",
   "source" : "Economic Times",
   "publishedAt" : "19-Sep-2026 23:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-20T09:20:03",
+  "title" : "Hormuz oil shipments hit six-month high, US commander says",
+  "impact" : "Heightened geopolitical tension in the Middle East poses a risk to Nifty through rising crude prices and inflationary pressures. Expect Nifty to face short-term volatility and a potential depreciation of the Rupee against the Dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "20-Sep-2026 09:03 IST",
   "score" : 7
 } ]
