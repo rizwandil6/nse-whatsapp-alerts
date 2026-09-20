@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-28T17:10:06",
-  "title" : "Jio Platforms gets SEBI nod to launch IPO",
-  "impact" : "Major positive sentiment for Indian capital markets as largest IPO signals strong institutional confidence and liquidity inflow. Nifty likely to see modest gains on market-broadening narrative and retail participation boost. Rupee may strengthen slightly due to expected FII inflows during IPO subscription period.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Aug-2026 17:02 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-08-28T17:40:43",
   "title" : "TCS, Infy &amp; others get chip push to rally up to 5%",
   "impact" : "IT and semiconductor-related stocks expected to rally 3-5% as global chip demand strengthens, supporting TCS, Infy and peers. Nifty likely to see positive momentum with IT index outperformance. Rupee may appreciate marginally if FII inflows accelerate into tech stocks.",
@@ -3497,5 +3490,12 @@
   "impact" : "Geopolitical tensions in the Middle East increase uncertainty, likely leading to a bearish trend for Indian markets. Nifty may face downward pressure due to FII outflows, while the Rupee is expected to weaken against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "20-Sep-2026 06:39 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-20T10:35:27",
+  "title" : "Trump’s China war takes a dinner-table turn",
+  "impact" : "Escalating US-China trade tensions likely trigger global risk-off sentiment causing volatility in Indian indices. Nifty may face downward pressure due to FII outflows, while the rupee faces depreciation risks against a strengthening dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "20-Sep-2026 09:53 IST",
   "score" : 7
 } ]
