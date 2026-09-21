@@ -9379,5 +9379,89 @@
   "timestampMs": 1789983900000,
   "breakoutTimestampMs": 1789983900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.0266,
+  "exitPrice": 37.0266,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1789983600000,
+  "exitTimestampMs": 1789983600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 502.75375,
+  "exitPrice": 505.2612500000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.4987531172069925,
+  "entryTimestampMs": 1789980300000,
+  "exitTimestampMs": 1789981800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 197.607,
+  "exitPrice": 201.57899999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 2.0100502512562715,
+  "entryTimestampMs": 1789975320000,
+  "exitTimestampMs": 1789984500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 137.48284999999998,
+  "exitPrice": 135.7686,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2468827930174513,
+  "entryTimestampMs": 1789978200000,
+  "exitTimestampMs": 1789983300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 114.4731,
+  "exitPrice": 114.4731,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1789983900000,
+  "exitTimestampMs": 1789983900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 167.13150000000002,
+  "exitPrice": 168.42794999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.7757065544197022,
+  "entryTimestampMs": 1789981200000,
+  "exitTimestampMs": 1789982460000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 564.186,
+  "exitPrice": 555.7020000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.503759398496227,
+  "entryTimestampMs": 1789965000000,
+  "exitTimestampMs": 1789984200000,
+  "shadow": true
  }
 ]
