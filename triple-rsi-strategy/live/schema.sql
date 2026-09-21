@@ -39,3 +39,20 @@ CREATE TABLE IF NOT EXISTS triple_rsi.positions (
 );
 
 CREATE INDEX IF NOT EXISTS idx_triple_rsi_positions_status ON triple_rsi.positions (status);
+
+-- One row per (symbol, day) for currently OPEN positions only -- a daily history of
+-- day-over-day price move + that day's TradingAgents verdict (portfolio.analysis,
+-- browser_id='triple-rsi-auto', see db.js's syncPortfolioWatchlist), so both are kept
+-- even after portfolio.tickers/analysis rows get overwritten or the position closes.
+-- Written once per symbol per 16:00 IST run, right after that position's own upsert.
+CREATE TABLE IF NOT EXISTS triple_rsi.daily_snapshots (
+  symbol           text        NOT NULL,
+  snapshot_date    date        NOT NULL,   -- the daily bar's own date (the day this % change is for)
+  day_change_pct   numeric,                -- (close - prevClose) / prevClose * 100, from that day's bar
+  ta_decision      text,                   -- portfolio.analysis.decision as of this run, if analyzed yet
+  ta_analysis_date date,                   -- which day's TradingAgents run produced that decision
+  created_at       timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (symbol, snapshot_date)
+);
+
+CREATE INDEX IF NOT EXISTS idx_triple_rsi_daily_snapshots_symbol ON triple_rsi.daily_snapshots (symbol, snapshot_date DESC);

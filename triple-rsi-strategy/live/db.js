@@ -172,6 +172,33 @@ class DB {
     }
     return { added: toAdd.length, removed: toRemove.length };
   }
+
+  /** Latest TradingAgents decision for this symbol under the system watchlist, or null if not analyzed yet. */
+  async getLatestAnalysis(symbol) {
+    if (!this.enabled) return null;
+    const r = await this._q(
+      `SELECT decision, analysis_date FROM portfolio.analysis WHERE browser_id=$1 AND ticker=$2 ORDER BY analysis_date DESC LIMIT 1`,
+      [PORTFOLIO_SYSTEM_BROWSER_ID, symbol]
+    );
+    return r && r.rowCount > 0 ? r.rows[0] : null;
+  }
+
+  /**
+   * One row per (symbol, day) for currently open positions -- day-over-day % move
+   * (from that day's own daily bar) plus whatever TradingAgents verdict exists as of
+   * this run. Called once per open symbol per 16:00 IST run (see runner.js) so this
+   * builds into a daily history over time, independent of portfolio.tickers/analysis
+   * (which only ever hold the LATEST state, and get pruned when a position closes).
+   */
+  async saveDailySnapshot({ symbol, snapshotDate, dayChangePct, taDecision, taAnalysisDate }) {
+    await this._q(
+      `INSERT INTO triple_rsi.daily_snapshots (symbol, snapshot_date, day_change_pct, ta_decision, ta_analysis_date)
+       VALUES ($1,$2,$3,$4,$5)
+       ON CONFLICT (symbol, snapshot_date) DO UPDATE SET
+         day_change_pct=$3, ta_decision=$4, ta_analysis_date=$5`,
+      [symbol, snapshotDate, dayChangePct ?? null, taDecision ?? null, taAnalysisDate ?? null]
+    );
+  }
 }
 
 module.exports = { DB, PORTFOLIO_SYSTEM_BROWSER_ID };

@@ -580,10 +580,12 @@
     panel.insertAdjacentHTML('beforeend', TRIPLE_RSI_HEADER_HTML);
     const withPnl = items.filter((r) => r.pnlPct != null);
     const avgPnl = withPnl.length ? withPnl.reduce((a, r) => a + Number(r.pnlPct), 0) / withPnl.length : null;
+    const winners = withPnl.filter((r) => Number(r.pnlPct) >= 0).length;
+    const winRate = withPnl.length ? Math.round((100 * winners) / withPnl.length) : null;
     const avgVal = panel.querySelector('#tr-avg-val');
     const avgSub = panel.querySelector('#tr-avg-sub');
     if (avgVal) { avgVal.textContent = avgPnl == null ? '—' : fmtPct(avgPnl); avgVal.className = 'pnl-total-val' + (avgPnl == null ? '' : avgPnl >= 0 ? ' win' : ' loss'); }
-    if (avgSub) avgSub.textContent = `${items.length} open position${items.length === 1 ? '' : 's'}`;
+    if (avgSub) avgSub.textContent = `${items.length} open position${items.length === 1 ? '' : 's'}` + (winRate == null ? '' : ` · ${winRate}% currently in profit`);
     for (const r of items) {
       const card = document.createElement('div');
       card.className = 'card';

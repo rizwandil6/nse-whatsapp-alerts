@@ -152,6 +152,21 @@ async function runOnce() {
         lastPrice: round2(openPosition.lastPrice), entryAlerted: isNewToday || alreadyEntryAlerted, exitAlerted: false,
       });
       positionsWritten++;
+
+      // Daily history for open positions only (see db.saveDailySnapshot): that day's
+      // own day-over-day % move, plus whatever TradingAgents verdict exists as of this
+      // run (usually that same morning's 08:00 IST analysis, since it runs before this
+      // 16:00 IST scan). Uses the latest bar's OWN date, not todayStr -- the data
+      // source can lag a day or more behind (see daily_cache), and this should record
+      // what day the move actually happened on, not when the scan ran.
+      const latestBar = dailyBars[dailyBars.length - 1];
+      const prevBar = dailyBars[dailyBars.length - 2];
+      const dayChangePct = prevBar?.close ? round2(((latestBar.close - prevBar.close) / prevBar.close) * 100) : null;
+      const analysis = await db.getLatestAnalysis(symbol);
+      await db.saveDailySnapshot({
+        symbol, snapshotDate: latestBar.date, dayChangePct,
+        taDecision: analysis?.decision ?? null, taAnalysisDate: analysis?.analysis_date ?? null,
+      });
     }
 
     await db.prunePositions(symbol, validEntryDates);
