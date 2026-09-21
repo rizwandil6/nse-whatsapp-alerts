@@ -570,6 +570,11 @@
     </div>
     <div class="pnl-total-group">
       <div class="pnl-total">
+        <div class="pnl-total-label">Win Rate</div>
+        <div class="pnl-total-val" id="tr-winrate-val">—</div>
+        <div class="pnl-total-sub" id="tr-winrate-sub"></div>
+      </div>
+      <div class="pnl-total">
         <div class="pnl-total-label">Open P&amp;L (avg/trade)</div>
         <div class="pnl-total-val" id="tr-avg-val">—</div>
         <div class="pnl-total-sub" id="tr-avg-sub"></div>
@@ -578,14 +583,21 @@
 
   function renderTripleRsi(items, panel) {
     panel.insertAdjacentHTML('beforeend', TRIPLE_RSI_HEADER_HTML);
+    // Win rate here means "currently in profit" (unrealized), not a closed-trade win rate --
+    // this tab only ever shows open positions, unlike the Crypto/Forex tab's closed-trade
+    // win rate (renderCryptoForex), which this box is styled to match.
     const withPnl = items.filter((r) => r.pnlPct != null);
     const avgPnl = withPnl.length ? withPnl.reduce((a, r) => a + Number(r.pnlPct), 0) / withPnl.length : null;
     const winners = withPnl.filter((r) => Number(r.pnlPct) >= 0).length;
     const winRate = withPnl.length ? Math.round((100 * winners) / withPnl.length) : null;
+    const winRateVal = panel.querySelector('#tr-winrate-val');
+    const winRateSub = panel.querySelector('#tr-winrate-sub');
+    if (winRateVal) { winRateVal.textContent = winRate == null ? '—' : winRate + '%'; winRateVal.className = 'pnl-total-val' + (winRate == null ? '' : winRate >= 50 ? ' win' : ' loss'); }
+    if (winRateSub) winRateSub.textContent = withPnl.length ? `${winners}/${withPnl.length} currently in profit` : 'no open positions';
     const avgVal = panel.querySelector('#tr-avg-val');
     const avgSub = panel.querySelector('#tr-avg-sub');
     if (avgVal) { avgVal.textContent = avgPnl == null ? '—' : fmtPct(avgPnl); avgVal.className = 'pnl-total-val' + (avgPnl == null ? '' : avgPnl >= 0 ? ' win' : ' loss'); }
-    if (avgSub) avgSub.textContent = `${items.length} open position${items.length === 1 ? '' : 's'}` + (winRate == null ? '' : ` · ${winRate}% currently in profit`);
+    if (avgSub) avgSub.textContent = `${items.length} open position${items.length === 1 ? '' : 's'}`;
     for (const r of items) {
       const card = document.createElement('div');
       card.className = 'card';
