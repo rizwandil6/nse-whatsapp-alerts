@@ -9349,5 +9349,26 @@
   "timestampMs": 1789983600000,
   "breakoutTimestampMs": 1789983600000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 209.78099999999998,
+  "timestampMs": 1789983600000,
+  "breakoutTimestampMs": 1789983600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 209.78099999999998,
+  "exitPrice": 209.78099999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1789983600000,
+  "exitTimestampMs": 1789983600000,
+  "shadow": true
  }
 ]
