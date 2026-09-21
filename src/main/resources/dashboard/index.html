@@ -610,7 +610,7 @@
           ${pnl}
         </div>
         ${hasAnalysis
-          ? `<div class="pf-decision">${esc(r.decision)} <span class="card-time">as of ${esc(r.analysisDate)}</span></div>${canExpand ? `<div class="pf-reasoning" hidden>${mdLiteToHtml(r.reasoning)}</div>` : ''}`
+          ? `<div class="pf-decision">${esc((r.decision || '').toUpperCase())} by TradingAgents <span class="card-time">as of ${esc(r.analysisDate)}</span></div>${canExpand ? `<div class="pf-reasoning" hidden>${mdLiteToHtml(r.reasoning)}</div>` : ''}`
           : ''}
       `;
       if (canExpand) {
