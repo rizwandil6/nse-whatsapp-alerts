@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-30T10:08:53",
-  "title" : "Inflation risks mount as monsoon deficit persists",
-  "impact" : "Monsoon deficit will likely push inflation higher, pressuring RBI's rate-cut timeline and dampening Nifty sentiment. Increased input costs across agriculture and manufacturing will weigh on earnings, while rupee may weaken on inflation concerns and potential policy divergence.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Aug-2026 09:42 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-30T10:09:05",
   "title" : "GDP data, crude prices among 7 factors likely to steer D-Street this week",
   "impact" : "Nifty50 likely to consolidate in 24000-24400 range with positive bias, guided by Q1 GDP data and US jobs report. Rupee expected to remain firm supported by softer crude and lower US yields, providing cushion against geopolitical risks.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "21-Sep-2026 06:55 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-21T14:09:31",
+  "title" : "Nearly 40% of India's coal power plants running critically low on fuel, data show",
+  "impact" : "Heightened energy supply concerns may weigh on broader market sentiment and raise inflationary pressures. Nifty is expected to face volatility near resistance levels, while the rupee may face minor pressure due to potential energy import costs.",
+  "source" : "BusinessLine",
+  "publishedAt" : "21-Sep-2026 14:05 IST",
+  "score" : 7
 } ]
