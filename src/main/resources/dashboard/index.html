@@ -611,7 +611,7 @@
           <span>Entry <b>₹${esc(r.entryPx)}</b></span>
           ${isOpen
             ? `<span>Stop <b>₹${esc(r.stopPx)}</b></span>${r.lastPrice != null ? `<span>Last <b>₹${esc(r.lastPrice)}</b></span>` : ''}`
-            : `<span>Exit <b>₹${esc(r.exitPx)}</b></span><span>Closed <b>${esc(r.exitDate)}</b></span>`}
+            : `<span>Exit <b>₹${esc(r.exitPx)}</b></span><span>Closed <b>${esc(r.exitDate)}</b></span><span>Held <b>${esc(r.barsHeld)}d</b></span>`}
           ${pnl}
         </div>
         ${hasAnalysis
