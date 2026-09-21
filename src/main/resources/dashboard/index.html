@@ -556,20 +556,22 @@
     return `<span>Now <b>₹${esc(item.currentPrice)}</b></span><span class="pnl ${item.returnSinceAlert >= 0 ? 'win' : 'loss'}">Since alert: ${fmtPct(item.returnSinceAlert)}</span>`;
   }
 
-  // Open AND closed positions since this service's 2026-09-18 live go-live date
+  // Every open position, plus every closed position ENTERED on/after 2026-09-01
   // (Postgres triple_rsi.positions, written by triple-rsi-strategy/live -- see
-  // TripleRsiService, scoped there to entry_date >= 2026-09-18 so the ~1,100
-  // backtest-reconstructed closed trades from before go-live don't drown out real
-  // live-tracked ones). Alert-only strategy: entry/exit notifications go to Telegram
-  // too, this tab is just a browsable record of the same positions.
+  // TripleRsiService, scoped there to (status='open') OR (status='closed' AND
+  // entry_date >= 2026-09-01) so a closed trade only counts as "logged since entry"
+  // if it was actually live-tracked from the start, not one mostly backtest-
+  // reconstructed history that happened to close recently). Alert-only strategy:
+  // entry/exit notifications go to Telegram too, this tab is just a browsable record.
   const TRIPLE_RSI_HEADER_HTML = `
     <div class="tab-header">
       <p>Halal-500 mean-reversion strategy: RSI(5)&lt;30 after 3 down days, RSI(5) was
       &lt;60 three days ago, close ≥15% above the 200-day MA. Exit on RSI(5)&gt;50 after
-      a 7-day minimum hold, or a 15% stop-loss, whichever first. Tracking positions
-      entered since 2026-09-18 (this service's live go-live date) — both open and
-      closed shown here; entry/exit events are also Telegram-alerted. Each open
-      symbol is synced into the Portfolio tab's daily TradingAgents run (08:00 IST,
+      a 7-day minimum hold, or a 15% stop-loss, whichever first. Shows every open
+      position, plus closed trades entered on or after 2026-09-01 (so only trades
+      logged from their own entry onward, not backtest-era ones that merely closed
+      recently) — entry/exit events are also Telegram-alerted. Each open symbol is
+      synced into the Portfolio tab's daily TradingAgents run (08:00 IST,
       market+news+fundamentals) — its latest decision shows below when available.</p>
     </div>
     <div class="pnl-total-group">

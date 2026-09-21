@@ -13,11 +13,15 @@ import java.util.Map;
  *
  * Scoped to: every position still OPEN today (regardless of entry date -- most were
  * entered before go-live, from the engine's full historical recompute, but are
- * genuinely being tracked/alerted on now) plus any position that CLOSED on or after
- * LIVE_START_DATE. Without this filter the dashboard would mix ~1,100 backtest-
- * reconstructed closed trades (back to 2023) in with what's actually live now.
- * 2026-09-18 chosen as the cutoff per explicit request, even though this service's
- * actual first deploy was 2026-09-20 (see [[triple-rsi-forward-data-source]] memory).
+ * genuinely being tracked/alerted on now) plus any CLOSED position whose ENTRY was on
+ * or after LIVE_START_DATE -- i.e. closed trades are included only if they were
+ * actually logged from entry onward within the live window, not ones (like an
+ * August-entered position that happened to close recently) that were mostly
+ * backtest-reconstructed history before ever being live-tracked. Without this filter
+ * the dashboard would mix ~1,100 backtest-reconstructed closed trades (back to 2023)
+ * in with what's actually live now. 2026-09-01 chosen as the cutoff per explicit
+ * request, even though this service's actual first deploy was 2026-09-20 (see
+ * [[triple-rsi-forward-data-source]] memory).
  *
  * Also left-joins portfolio.analysis for the fixed 'triple-rsi-auto' system browser_id
  * (see triple-rsi-strategy/live/db.js's syncPortfolioWatchlist, which keeps that
@@ -32,7 +36,7 @@ import java.util.Map;
 public class TripleRsiService {
 
     private static final String PORTFOLIO_SYSTEM_BROWSER_ID = "triple-rsi-auto";
-    private static final String LIVE_START_DATE = "2026-09-18";
+    private static final String LIVE_START_DATE = "2026-09-01";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -40,7 +44,7 @@ public class TripleRsiService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    /** Every open position plus every position closed since go-live, open first then most recent entry first, with each symbol's latest TradingAgents take (if any). */
+    /** Every open position plus every closed position entered since go-live, open first then most recent entry first, with each symbol's latest TradingAgents take (if any). */
     public List<Map<String, Object>> positions() {
         return jdbcTemplate.queryForList(
                 "SELECT p.symbol, p.status, " +
@@ -59,7 +63,7 @@ public class TripleRsiService {
                         "  WHERE browser_id = ? AND ticker = p.symbol " +
                         "  ORDER BY analysis_date DESC LIMIT 1 " +
                         ") a ON true " +
-                        "WHERE p.status = 'open' OR p.exit_date >= ?::date " +
+                        "WHERE p.status = 'open' OR (p.status = 'closed' AND p.entry_date >= ?::date) " +
                         "ORDER BY (p.status = 'open') DESC, p.entry_date DESC, p.symbol",
                 PORTFOLIO_SYSTEM_BROWSER_ID, LIVE_START_DATE);
     }
