@@ -277,7 +277,7 @@ public class DashboardDataController {
     // the engine itself, not tracked against a live intraday price.
     @GetMapping(value = "/api/dashboard/triple-rsi", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String, Object>> tripleRsi() {
-        return tripleRsiService.openPositions();
+        return tripleRsiService.positions();
     }
 
     @GetMapping(value = "/api/dashboard/multibagger", produces = MediaType.APPLICATION_JSON_VALUE)

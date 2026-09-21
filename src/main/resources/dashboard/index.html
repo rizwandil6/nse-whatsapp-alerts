@@ -556,17 +556,21 @@
     return `<span>Now <b>₹${esc(item.currentPrice)}</b></span><span class="pnl ${item.returnSinceAlert >= 0 ? 'win' : 'loss'}">Since alert: ${fmtPct(item.returnSinceAlert)}</span>`;
   }
 
-  // Open positions only (Postgres triple_rsi.positions, written by
-  // triple-rsi-strategy/live -- see TripleRsiService). Alert-only strategy: entry/exit
-  // notifications go to Telegram, this tab just surfaces the current open book.
+  // Open AND closed positions since this service's 2026-09-18 live go-live date
+  // (Postgres triple_rsi.positions, written by triple-rsi-strategy/live -- see
+  // TripleRsiService, scoped there to entry_date >= 2026-09-18 so the ~1,100
+  // backtest-reconstructed closed trades from before go-live don't drown out real
+  // live-tracked ones). Alert-only strategy: entry/exit notifications go to Telegram
+  // too, this tab is just a browsable record of the same positions.
   const TRIPLE_RSI_HEADER_HTML = `
     <div class="tab-header">
       <p>Halal-500 mean-reversion strategy: RSI(5)&lt;30 after 3 down days, RSI(5) was
       &lt;60 three days ago, close ≥15% above the 200-day MA. Exit on RSI(5)&gt;50 after
-      a 7-day minimum hold, or a 15% stop-loss, whichever first. Currently open positions
-      only — closed trades are Telegram-alerted, not shown here. Each symbol is also synced
-      into the Portfolio tab's daily TradingAgents run (08:00 IST, market+news+fundamentals) —
-      its latest decision shows below when available.</p>
+      a 7-day minimum hold, or a 15% stop-loss, whichever first. Tracking positions
+      entered since 2026-09-18 (this service's live go-live date) — both open and
+      closed shown here; entry/exit events are also Telegram-alerted. Each open
+      symbol is synced into the Portfolio tab's daily TradingAgents run (08:00 IST,
+      market+news+fundamentals) — its latest decision shows below when available.</p>
     </div>
     <div class="pnl-total-group">
       <div class="pnl-total">
@@ -575,7 +579,7 @@
         <div class="pnl-total-sub" id="tr-winrate-sub"></div>
       </div>
       <div class="pnl-total">
-        <div class="pnl-total-label">Open P&amp;L (avg/trade)</div>
+        <div class="pnl-total-label">P&amp;L (avg/trade)</div>
         <div class="pnl-total-val" id="tr-avg-val">—</div>
         <div class="pnl-total-sub" id="tr-avg-sub"></div>
       </div>
@@ -583,31 +587,34 @@
 
   function renderTripleRsi(items, panel) {
     panel.insertAdjacentHTML('beforeend', TRIPLE_RSI_HEADER_HTML);
-    // Win rate here means "currently in profit" (unrealized), not a closed-trade win rate --
-    // this tab only ever shows open positions, unlike the Crypto/Forex tab's closed-trade
-    // win rate (renderCryptoForex), which this box is styled to match.
+    // Win rate = closed-trade win rate (matches renderCryptoForex's convention) --
+    // open positions' unrealized P&L still feeds the avg P&L box below, just not this one.
     const withPnl = items.filter((r) => r.pnlPct != null);
     const avgPnl = withPnl.length ? withPnl.reduce((a, r) => a + Number(r.pnlPct), 0) / withPnl.length : null;
-    const winners = withPnl.filter((r) => Number(r.pnlPct) >= 0).length;
-    const winRate = withPnl.length ? Math.round((100 * winners) / withPnl.length) : null;
+    const closedRows = items.filter((r) => r.status === 'closed');
+    const wins = closedRows.filter((r) => Number(r.pnlPct) >= 0).length;
+    const winRate = closedRows.length ? Math.round((100 * wins) / closedRows.length) : null;
     const winRateVal = panel.querySelector('#tr-winrate-val');
     const winRateSub = panel.querySelector('#tr-winrate-sub');
     if (winRateVal) { winRateVal.textContent = winRate == null ? '—' : winRate + '%'; winRateVal.className = 'pnl-total-val' + (winRate == null ? '' : winRate >= 50 ? ' win' : ' loss'); }
-    if (winRateSub) winRateSub.textContent = withPnl.length ? `${winners}/${withPnl.length} currently in profit` : 'no open positions';
+    if (winRateSub) winRateSub.textContent = closedRows.length ? `${wins}/${closedRows.length} closed trades` : 'no closed trades yet';
     const avgVal = panel.querySelector('#tr-avg-val');
     const avgSub = panel.querySelector('#tr-avg-sub');
     if (avgVal) { avgVal.textContent = avgPnl == null ? '—' : fmtPct(avgPnl); avgVal.className = 'pnl-total-val' + (avgPnl == null ? '' : avgPnl >= 0 ? ' win' : ' loss'); }
-    if (avgSub) avgSub.textContent = `${items.length} open position${items.length === 1 ? '' : 's'}`;
+    if (avgSub) avgSub.textContent = `${items.length} position${items.length === 1 ? '' : 's'} · ${closedRows.length} closed`;
     for (const r of items) {
+      const isOpen = r.status === 'open';
       const card = document.createElement('div');
       card.className = 'card';
       const pnl = r.pnlPct != null ? `<span class="pnl ${r.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(r.pnlPct)}</span>` : '';
-      const holdBadge = r.minHoldSatisfied
-        ? `<span class="badge win">Min hold satisfied</span>`
-        : `<span class="badge amber">${esc(r.barsHeld)}d of 7 held</span>`;
+      const statusBadge = isOpen
+        ? (r.minHoldSatisfied ? `<span class="badge win">Min hold satisfied</span>` : `<span class="badge amber">${esc(r.barsHeld)}d of 7 held</span>`)
+        : `<span class="badge ${r.pnlPct >= 0 ? 'win' : 'loss'}">Closed — ${r.exitReason === 'stop' ? '15% stop' : 'RSI exit'}</span>`;
       // Same TradingAgents decision/reasoning the Portfolio tab shows (renderPortfolio) --
-      // this symbol was synced into that tab's watchlist by the live service, see
-      // TripleRsiService's LEFT JOIN against portfolio.analysis.
+      // this symbol was synced into that tab's watchlist by the live service while open
+      // (see TripleRsiService's LEFT JOIN against portfolio.analysis); once closed it just
+      // shows whatever was last recorded, since syncPortfolioWatchlist removes it from
+      // portfolio.tickers and no further analysis runs for it.
       const hasAnalysis = r.analysisDate != null;
       const canExpand = hasAnalysis && !!r.reasoning;
       card.innerHTML = `
@@ -616,11 +623,12 @@
           <div class="card-time">${esc(r.entryDate)}</div>
         </div>
         <div class="card-meta">
-          <span class="badge neutral">Open</span>
-          ${holdBadge}
+          <span class="badge neutral">${isOpen ? 'Open' : 'Closed'}</span>
+          ${statusBadge}
           <span>Entry <b>₹${esc(r.entryPx)}</b></span>
-          <span>Stop <b>₹${esc(r.stopPx)}</b></span>
-          ${r.lastPrice != null ? `<span>Last <b>₹${esc(r.lastPrice)}</b></span>` : ''}
+          ${isOpen
+            ? `<span>Stop <b>₹${esc(r.stopPx)}</b></span>${r.lastPrice != null ? `<span>Last <b>₹${esc(r.lastPrice)}</b></span>` : ''}`
+            : `<span>Exit <b>₹${esc(r.exitPx)}</b></span><span>Closed <b>${esc(r.exitDate)}</b></span>`}
           ${pnl}
         </div>
         ${hasAnalysis
