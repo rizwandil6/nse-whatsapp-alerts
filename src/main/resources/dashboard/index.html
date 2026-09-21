@@ -161,7 +161,7 @@
     <button class="tab-btn" data-tab="seasonality">Seasonality</button>
     <button class="tab-btn" data-tab="announcements">Announcements <span class="count" id="count-announcements"></span></button>
     <button class="tab-btn" data-tab="quarterly-results">Quarterly Results <span class="count" id="count-quarterly-results"></span></button>
-    <button class="tab-btn" data-tab="rs-momentum">RS Momentum <span class="count" id="count-rs-momentum"></span></button>
+    <button class="tab-btn" data-tab="triple-rsi">Triple RSI <span class="count" id="count-triple-rsi"></span></button>
     <button class="tab-btn" data-tab="crypto-forex">Crypto/Forex <span class="count" id="count-crypto-forex"></span></button>
     <button class="tab-btn" data-tab="portfolio">Portfolio</button>
   </div>
@@ -173,7 +173,7 @@
   <div class="panel" id="panel-seasonality"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-announcements"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-quarterly-results"><div class="state-msg">Loading…</div></div>
-  <div class="panel" id="panel-rs-momentum"><div class="state-msg">Loading…</div></div>
+  <div class="panel" id="panel-triple-rsi"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-crypto-forex"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panel-portfolio"><div class="state-msg">Loading…</div></div>
 </div>
@@ -276,7 +276,7 @@
     'darvas-classic': { url: '/api/dashboard/darvas-classic', render: renderDarvasClassic },
     announcements: { url: '/api/dashboard/announcements', render: renderAnnouncements },
     'quarterly-results': { url: '/api/dashboard/quarterly-results', render: renderQuarterlyResults },
-    'rs-momentum': { url: '/api/dashboard/rs-momentum', render: renderRsMomentum },
+    'triple-rsi': { url: '/api/dashboard/triple-rsi', render: renderTripleRsi },
     'crypto-forex': { url: '/api/dashboard/crypto-forex', render: renderCryptoForex },
   };
   const loaded = {};
@@ -287,7 +287,7 @@
     'darvas-classic': 'Darvas Classic',
     announcements: 'Announcements',
     'quarterly-results': 'Quarterly Results',
-    'rs-momentum': 'RS Momentum',
+    'triple-rsi': 'Triple RSI',
     'crypto-forex': 'Crypto/Forex',
   };
 
@@ -377,9 +377,10 @@
         return `<div class="tile-preview-title">${esc(item.symbol) || esc(item.companyName) || 'NSE'}</div>` +
           `<div class="tile-preview-sub">${esc(item.subject)}</div>` +
           `<div class="tile-preview-time">${fmtTime(item.timestamp)}</div>`;
-      case 'rs-momentum': {
-        const label = { ENTRY: 'Entry', EXIT: 'Exit', ENTRY_PENDING: 'Entry (pending)', FUNDAMENTALS_CONFIRMED: 'Confirmed', FUNDAMENTALS_FAILED: 'Retracted' };
-        return `<div class="tile-preview-title">${esc(item.symbol)} — ${label[item.type] || esc(item.type)}</div><div class="tile-preview-time">${esc(item.date)}</div>`;
+      case 'triple-rsi': {
+        const held = item.minHoldSatisfied ? 'hold satisfied' : `${item.barsHeld}d held`;
+        const pnl = item.pnlPct != null ? ' ' + fmtPct(item.pnlPct) : '';
+        return `<div class="tile-preview-title">${esc(item.symbol)} — Open${pnl}</div><div class="tile-preview-time">${esc(item.entryDate)} (${held})</div>`;
       }
       case 'crypto-forex': {
         const label = { OPEN: 'Open', TARGET: 'Target hit', SL: 'Stop hit', WARNING_EXIT: 'Early exit' }[item.status] || item.status;
@@ -555,44 +556,38 @@
     return `<span>Now <b>₹${esc(item.currentPrice)}</b></span><span class="pnl ${item.returnSinceAlert >= 0 ? 'win' : 'loss'}">Since alert: ${fmtPct(item.returnSinceAlert)}</span>`;
   }
 
-  // One row per symbol, current status only (Postgres rs_momentum_status, upserted
-  // in place by rs-momentum-strategy-live -- see RsMomentumService) -- NOT a raw
-  // event log, so a symbol that cycles through multiple statuses over time shows
-  // as a single card, sorted by when its status last changed.
-  const RS_MOMENTUM_HEADER_HTML = `
+  // Open positions only (Postgres triple_rsi.positions, written by
+  // triple-rsi-strategy/live -- see TripleRsiService). Alert-only strategy: entry/exit
+  // notifications go to Telegram, this tab just surfaces the current open book.
+  const TRIPLE_RSI_HEADER_HTML = `
     <div class="tab-header">
-      <p>Stocks whose Relative Strength rank crossed the entry/exit thresholds of this
-      strategy's universe (~300 stocks). One card per stock, showing its <b>current</b>
-      status — newest change first.</p>
-      <ul class="status-legend">
-        <li><span class="badge amber">Entry (pending)</span> RS rank crossed ≥80; Sales Growth 3Y fundamentals gate not checked yet (Screener.in was unreachable).</li>
-        <li><span class="badge win">Entry</span> RS rank crossed ≥80 and Sales Growth 3Y ≥15% gate cleared — tracked as a live long position.</li>
-        <li><span class="badge win">Confirmed</span> A pending entry's fundamentals gate cleared on retry.</li>
-        <li><span class="badge loss">Retracted</span> A pending entry's fundamentals gate failed on retry — no longer tracked.</li>
-        <li><span class="badge neutral">Exit</span> RS rank dropped below 50 — position closed.</li>
-      </ul>
+      <p>Halal-500 mean-reversion strategy: RSI(5)&lt;30 after 3 down days, RSI(5) was
+      &lt;60 three days ago, close ≥15% above the 200-day MA. Exit on RSI(5)&gt;50 after
+      a 7-day minimum hold, or a 15% stop-loss, whichever first. Currently open positions
+      only — closed trades are Telegram-alerted, not shown here.</p>
     </div>`;
 
-  function renderRsMomentum(items, panel) {
-    panel.insertAdjacentHTML('beforeend', RS_MOMENTUM_HEADER_HTML);
-    const badge = { ENTRY: 'win', EXIT: 'neutral', ENTRY_PENDING: 'amber', FUNDAMENTALS_CONFIRMED: 'win', FUNDAMENTALS_FAILED: 'loss' };
-    const label = { ENTRY: 'Entry', EXIT: 'Exit', ENTRY_PENDING: 'Entry (pending)', FUNDAMENTALS_CONFIRMED: 'Confirmed', FUNDAMENTALS_FAILED: 'Retracted' };
+  function renderTripleRsi(items, panel) {
+    panel.insertAdjacentHTML('beforeend', TRIPLE_RSI_HEADER_HTML);
     for (const r of items) {
       const card = document.createElement('div');
       card.className = 'card';
       const pnl = r.pnlPct != null ? `<span class="pnl ${r.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(r.pnlPct)}</span>` : '';
+      const holdBadge = r.minHoldSatisfied
+        ? `<span class="badge win">Min hold satisfied</span>`
+        : `<span class="badge amber">${esc(r.barsHeld)}d of 7 held</span>`;
       card.innerHTML = `
         <div class="card-top">
           <div class="card-title">${esc(r.symbol)}</div>
-          <div class="card-time">${esc(r.date)}</div>
+          <div class="card-time">${esc(r.entryDate)}</div>
         </div>
         <div class="card-meta">
-          <span class="badge ${badge[r.type] || 'neutral'}">${label[r.type] || esc(r.type)}</span>
-          ${r.price != null ? `<span>Price <b>₹${esc(r.price)}</b></span>` : ''}
-          ${r.rsRankAtEntry != null ? `<span>RS Rank <b>${Number(r.rsRankAtEntry).toFixed(1)}</b></span>` : ''}
-          ${r.salesGrowth3Y != null ? `<span>Sales Growth 3Y <b>${esc(r.salesGrowth3Y)}%</b></span>` : ''}
+          <span class="badge neutral">Open</span>
+          ${holdBadge}
+          <span>Entry <b>₹${esc(r.entryPx)}</b></span>
+          <span>Stop <b>₹${esc(r.stopPx)}</b></span>
+          ${r.lastPrice != null ? `<span>Last <b>₹${esc(r.lastPrice)}</b></span>` : ''}
           ${pnl}
-          ${forwardPerfMeta(r)}
         </div>
       `;
       panel.appendChild(card);

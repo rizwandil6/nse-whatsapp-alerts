@@ -22,14 +22,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Backs the 5 dashboard tabs. Two tabs (market news, announcements) read
- * from this same service's own AlertLogService; the other three read a
- * SIBLING Railway service's alert log from GitHub, since rs-momentum-strategy-
- * live, multibagger-screener, and the DarvasBox shadow-trade service each
- * persist their own state to their own branch/path and there's no shared
- * filesystem or database between services. Cross-branch reads are cached
- * briefly (60s) so opening the dashboard or switching tabs repeatedly
- * doesn't hammer the GitHub API.
+ * Backs the dashboard tabs. Market news and announcements read from this same
+ * service's own AlertLogService; multibagger and the DarvasBox shadow-trade
+ * tab read a SIBLING Railway service's alert log from GitHub, since each
+ * persists its own state to its own branch/path and there's no shared
+ * filesystem between services. Cross-branch reads are cached briefly (60s) so
+ * opening the dashboard or switching tabs repeatedly doesn't hammer the
+ * GitHub API. Darvas Classic and Triple RSI instead read straight from the
+ * shared Postgres database their respective live Node services write to.
  */
 @RestController
 public class DashboardDataController {
@@ -38,12 +38,12 @@ public class DashboardDataController {
     private final GithubJsonStore githubJsonStore;
     private final QuarterlyResultsService quarterlyResultsService;
     private final RsRankLookupService rsRankLookupService;
-    private final RsMomentumService rsMomentumService;
     private final SwingSignalService swingSignalService;
     private final SwingLivePriceService swingLivePriceService;
     private final CryptoForexService cryptoForexService;
     private final DarvasClassicService darvasClassicService;
     private final DarvasWatchlistService darvasWatchlistService;
+    private final TripleRsiService tripleRsiService;
     private final Map<String, CacheEntry> cache = new ConcurrentHashMap<>();
     private static final long CACHE_TTL_MS = 60_000;
     private final ObjectMapper mapper = new ObjectMapper();
@@ -57,22 +57,22 @@ public class DashboardDataController {
     public DashboardDataController(AlertLogService alertLogService, GithubJsonStore githubJsonStore,
                                     QuarterlyResultsService quarterlyResultsService,
                                     RsRankLookupService rsRankLookupService,
-                                    RsMomentumService rsMomentumService,
                                     SwingSignalService swingSignalService,
                                     SwingLivePriceService swingLivePriceService,
                                     CryptoForexService cryptoForexService,
                                     DarvasClassicService darvasClassicService,
-                                    DarvasWatchlistService darvasWatchlistService) {
+                                    DarvasWatchlistService darvasWatchlistService,
+                                    TripleRsiService tripleRsiService) {
         this.alertLogService = alertLogService;
         this.githubJsonStore = githubJsonStore;
         this.quarterlyResultsService = quarterlyResultsService;
         this.rsRankLookupService = rsRankLookupService;
-        this.rsMomentumService = rsMomentumService;
         this.swingSignalService = swingSignalService;
         this.swingLivePriceService = swingLivePriceService;
         this.cryptoForexService = cryptoForexService;
         this.darvasClassicService = darvasClassicService;
         this.darvasWatchlistService = darvasWatchlistService;
+        this.tripleRsiService = tripleRsiService;
     }
 
     // Darvas Classic watchlist -- symbols with a confirmed box but no open position
@@ -269,19 +269,15 @@ public class DashboardDataController {
         return list;
     }
 
-    // Reads rs_momentum_status (Postgres) instead of the old append-only
-    // rs_momentum_log.json cross-branch read -- one row per symbol, upserted in place
-    // by rs-momentum-strategy-live on every status change, so the same stock no longer
-    // piles up duplicate rows across daily runs. See RsMomentumService.
-    @GetMapping(value = "/api/dashboard/rs-momentum", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Map<String, Object>> rsMomentum() {
-        List<Map<String, Object>> statuses = rsMomentumService.all();
-        // "How did it do after we alerted it" (2026-07-28) -- a per-symbol rollup still
-        // computed daily by server.js/forward_performance.js and pushed to the same
-        // GitHub branch as before; only the log itself moved off GitHub, not this file.
-        JsonNode perf = cachedRead("rs-momentum-perf", "data/rs-momentum-log", "rs-momentum-strategy/live/rs_momentum_forward_performance.json");
-        attachForwardPerformanceToMaps(statuses, perf, "returnSinceEntry");
-        return statuses;
+    // Triple RSI tab -- reads triple_rsi.positions, written by the
+    // triple-rsi-strategy/live Node service's daily 16:00 IST run. Alert-only service
+    // (see that service's README) -- this dashboard tab is read-only surfacing of the
+    // same open/closed position rows, no live-price enrichment (unlike Darvas
+    // Classic/Swing above) since this strategy's return is computed at entry/exit by
+    // the engine itself, not tracked against a live intraday price.
+    @GetMapping(value = "/api/dashboard/triple-rsi", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String, Object>> tripleRsi() {
+        return tripleRsiService.openPositions();
     }
 
     @GetMapping(value = "/api/dashboard/multibagger", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -289,28 +285,10 @@ public class DashboardDataController {
         // Same fix, same date -- multibagger-screener/git_state.js.
         JsonNode node = cachedRead("multibagger", "data/multibagger-log", "multibagger-screener/forward_performance_log.json");
         List<JsonNode> events = reversedArray(node);
-        // Same addition as rsMomentum() above, sourced from
-        // multibagger-screener/forward_performance.js's daily computation.
+        // Sourced from multibagger-screener/forward_performance.js's daily computation.
         JsonNode perf = cachedRead("multibagger-perf", "data/multibagger-log", "multibagger-screener/forward_performance_summary.json");
         attachForwardPerformance(events, perf, "returnSinceQualification");
         return events;
-    }
-
-    /** Same merge as attachForwardPerformance, for the rs-momentum-status Map rows (Postgres)
-     * instead of JsonNode events (GitHub JSON logs) -- kept separate rather than converting
-     * Maps to ObjectNode just to share one method. */
-    private void attachForwardPerformanceToMaps(List<Map<String, Object>> rows, JsonNode perfArray, String returnFieldName) {
-        if (perfArray == null || !perfArray.isArray()) return;
-        Map<String, JsonNode> bySymbol = new HashMap<>();
-        for (JsonNode row : perfArray) {
-            bySymbol.put(row.path("symbol").asText(""), row);
-        }
-        for (Map<String, Object> row : rows) {
-            JsonNode perf = bySymbol.get(String.valueOf(row.get("symbol")));
-            if (perf == null) continue;
-            if (perf.has("currentPrice") && !perf.get("currentPrice").isNull()) row.put("currentPrice", perf.get("currentPrice").asDouble());
-            if (perf.has(returnFieldName) && !perf.get(returnFieldName).isNull()) row.put("returnSinceAlert", perf.get(returnFieldName).asDouble());
-        }
     }
 
     /** Merges a per-symbol forward-performance summary row (currentPrice + the named return field, as "returnSinceAlert") onto every event belonging to that symbol. */
