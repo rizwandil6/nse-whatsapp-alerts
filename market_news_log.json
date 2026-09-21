@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-30T10:09:05",
-  "title" : "GDP data, crude prices among 7 factors likely to steer D-Street this week",
-  "impact" : "Nifty50 likely to consolidate in 24000-24400 range with positive bias, guided by Q1 GDP data and US jobs report. Rupee expected to remain firm supported by softer crude and lower US yields, providing cushion against geopolitical risks.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Aug-2026 09:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-30T11:46:46",
   "title" : "Mcap of 7 of top-10 most-valued firms erodes ₹1.13 lakh crore; Airtel, Reliance worst hit",
   "impact" : "Significant market correction with top-10 bluechips losing 1.13 lakh crore in valuation indicates broad-based profit-taking and investor caution. Nifty likely to face downward pressure with negative sentiment affecting large-cap performance. Rupee may weaken as foreign institutional investors reassess Indian equity valuations.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened energy supply concerns may weigh on broader market sentiment and raise inflationary pressures. Nifty is expected to face volatility near resistance levels, while the rupee may face minor pressure due to potential energy import costs.",
   "source" : "BusinessLine",
   "publishedAt" : "21-Sep-2026 14:05 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-21T14:39:55",
+  "title" : "'World interest in India at all-time high'",
+  "impact" : "The sentiment reinforces India's structural growth narrative, supporting a bullish long-term outlook for Nifty. Increased global investment inflow likely strengthens the Rupee against major currencies.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Sep-2026 14:19 IST",
   "score" : 7
 } ]
