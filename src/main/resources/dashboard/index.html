@@ -587,39 +587,20 @@
       </div>
     </div>`;
 
-  function renderTripleRsi(items, panel) {
-    panel.insertAdjacentHTML('beforeend', TRIPLE_RSI_HEADER_HTML);
-    // Win rate = closed-trade win rate (matches renderCryptoForex's convention) --
-    // open positions' unrealized P&L still feeds the avg P&L box below, just not this one.
-    const withPnl = items.filter((r) => r.pnlPct != null);
-    const avgPnl = withPnl.length ? withPnl.reduce((a, r) => a + Number(r.pnlPct), 0) / withPnl.length : null;
-    const closedRows = items.filter((r) => r.status === 'closed');
-    const wins = closedRows.filter((r) => Number(r.pnlPct) >= 0).length;
-    const winRate = closedRows.length ? Math.round((100 * wins) / closedRows.length) : null;
-    const winRateVal = panel.querySelector('#tr-winrate-val');
-    const winRateSub = panel.querySelector('#tr-winrate-sub');
-    if (winRateVal) { winRateVal.textContent = winRate == null ? '—' : winRate + '%'; winRateVal.className = 'pnl-total-val' + (winRate == null ? '' : winRate >= 50 ? ' win' : ' loss'); }
-    if (winRateSub) winRateSub.textContent = closedRows.length ? `${wins}/${closedRows.length} closed trades` : 'no closed trades yet';
-    const avgVal = panel.querySelector('#tr-avg-val');
-    const avgSub = panel.querySelector('#tr-avg-sub');
-    if (avgVal) { avgVal.textContent = avgPnl == null ? '—' : fmtPct(avgPnl); avgVal.className = 'pnl-total-val' + (avgPnl == null ? '' : avgPnl >= 0 ? ' win' : ' loss'); }
-    if (avgSub) avgSub.textContent = `${items.length} position${items.length === 1 ? '' : 's'} · ${closedRows.length} closed`;
-    for (const r of items) {
-      const isOpen = r.status === 'open';
-      const card = document.createElement('div');
-      card.className = 'card';
-      const pnl = r.pnlPct != null ? `<span class="pnl ${r.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(r.pnlPct)}</span>` : '';
-      const statusBadge = isOpen
-        ? (r.minHoldSatisfied ? `<span class="badge win">Min hold satisfied</span>` : `<span class="badge amber">${esc(r.barsHeld)}d of 7 held</span>`)
-        : `<span class="badge ${r.pnlPct >= 0 ? 'win' : 'loss'}">Closed — ${r.exitReason === 'stop' ? '15% stop' : 'RSI exit'}</span>`;
-      // Same TradingAgents decision/reasoning the Portfolio tab shows (renderPortfolio) --
-      // this symbol was synced into that tab's watchlist by the live service while open
-      // (see TripleRsiService's LEFT JOIN against portfolio.analysis); once closed it just
-      // shows whatever was last recorded, since syncPortfolioWatchlist removes it from
-      // portfolio.tickers and no further analysis runs for it.
-      const hasAnalysis = r.analysisDate != null;
-      const canExpand = hasAnalysis && !!r.reasoning;
-      card.innerHTML = `
+  function tripleRsiCardHtml(r) {
+    const isOpen = r.status === 'open';
+    const pnl = r.pnlPct != null ? `<span class="pnl ${r.pnlPct >= 0 ? 'win' : 'loss'}">${fmtPct(r.pnlPct)}</span>` : '';
+    const statusBadge = isOpen
+      ? (r.minHoldSatisfied ? `<span class="badge win">Min hold satisfied</span>` : `<span class="badge amber">${esc(r.barsHeld)}d of 7 held</span>`)
+      : `<span class="badge ${r.pnlPct >= 0 ? 'win' : 'loss'}">Closed — ${r.exitReason === 'stop' ? '15% stop' : 'RSI exit'}</span>`;
+    // Same TradingAgents decision/reasoning the Portfolio tab shows (renderPortfolio) --
+    // this symbol was synced into that tab's watchlist by the live service while open
+    // (see TripleRsiService's LEFT JOIN against portfolio.analysis); once closed it just
+    // shows whatever was last recorded, since syncPortfolioWatchlist removes it from
+    // portfolio.tickers and no further analysis runs for it.
+    const hasAnalysis = r.analysisDate != null;
+    const canExpand = hasAnalysis && !!r.reasoning;
+    return `<div class="card" data-symbol="${esc(r.symbol)}" data-entry="${esc(r.entryDate)}">
         <div class="card-top">
           <div class="card-title${canExpand ? ' pf-ticker-toggle' : ''}">${esc(r.symbol)}${canExpand ? ' <span class="pf-toggle-hint">(tap for full reasoning)</span>' : ''}</div>
           <div class="card-time">${esc(r.entryDate)}</div>
@@ -636,14 +617,64 @@
         ${hasAnalysis
           ? `<div class="pf-decision">${esc((r.decision || '').toUpperCase())} by TradingAgents <span class="card-time">as of ${esc(r.analysisDate)}</span></div>${canExpand ? `<div class="pf-reasoning" hidden>${mdLiteToHtml(r.reasoning)}</div>` : ''}`
           : ''}
-      `;
-      if (canExpand) {
-        card.querySelector('.pf-ticker-toggle').addEventListener('click', () => {
-          card.querySelector('.pf-reasoning').hidden = !card.querySelector('.pf-reasoning').hidden;
+      </div>`;
+  }
+
+  function renderTripleRsi(items, panel) {
+    panel.innerHTML = '';
+    panel.insertAdjacentHTML('beforeend', TRIPLE_RSI_HEADER_HTML);
+
+    const bar = document.createElement('div');
+    bar.className = 'pill-group';
+    bar.id = 'tr-status';
+    bar.innerHTML = ['all', 'open', 'closed'].map((s, i) =>
+      `<button class="pill${i === 0 ? ' active' : ''}" data-status="${s}">${s === 'all' ? 'All' : s.charAt(0).toUpperCase() + s.slice(1)}</button>`
+    ).join('');
+    panel.appendChild(bar);
+
+    const list = document.createElement('div');
+    list.style.display = 'flex';
+    list.style.flexDirection = 'column';
+    list.style.gap = '10px';
+    list.style.marginTop = '10px';
+    panel.appendChild(list);
+
+    function apply(status) {
+      const f = status === 'all' ? items : items.filter((r) => r.status === status);
+
+      // Win rate = closed-trade win rate (matches renderCryptoForex's convention) --
+      // open positions' unrealized P&L still feeds the avg P&L box below, just not this one.
+      const withPnl = f.filter((r) => r.pnlPct != null);
+      const avgPnl = withPnl.length ? withPnl.reduce((a, r) => a + Number(r.pnlPct), 0) / withPnl.length : null;
+      const closedRows = f.filter((r) => r.status === 'closed');
+      const wins = closedRows.filter((r) => Number(r.pnlPct) >= 0).length;
+      const winRate = closedRows.length ? Math.round((100 * wins) / closedRows.length) : null;
+      const winRateVal = panel.querySelector('#tr-winrate-val');
+      const winRateSub = panel.querySelector('#tr-winrate-sub');
+      if (winRateVal) { winRateVal.textContent = winRate == null ? '—' : winRate + '%'; winRateVal.className = 'pnl-total-val' + (winRate == null ? '' : winRate >= 50 ? ' win' : ' loss'); }
+      if (winRateSub) winRateSub.textContent = closedRows.length ? `${wins}/${closedRows.length} closed trades` : 'no closed trades yet';
+      const avgVal = panel.querySelector('#tr-avg-val');
+      const avgSub = panel.querySelector('#tr-avg-sub');
+      if (avgVal) { avgVal.textContent = avgPnl == null ? '—' : fmtPct(avgPnl); avgVal.className = 'pnl-total-val' + (avgPnl == null ? '' : avgPnl >= 0 ? ' win' : ' loss'); }
+      if (avgSub) avgSub.textContent = `${f.length} position${f.length === 1 ? '' : 's'} · ${closedRows.length} closed`;
+
+      list.innerHTML = f.length ? f.map(tripleRsiCardHtml).join('') : '<div class="state-msg">No positions match this filter.</div>';
+      list.querySelectorAll('.pf-ticker-toggle').forEach((el) => {
+        el.addEventListener('click', () => {
+          const reasoning = el.closest('.card').querySelector('.pf-reasoning');
+          if (reasoning) reasoning.hidden = !reasoning.hidden;
         });
-      }
-      panel.appendChild(card);
+      });
     }
+
+    bar.addEventListener('click', (e) => {
+      const b = e.target.closest('.pill'); if (!b) return;
+      bar.querySelectorAll('.pill').forEach((p) => p.classList.remove('active'));
+      b.classList.add('active');
+      apply(b.dataset.status);
+    });
+
+    apply('all');
   }
 
   function renderCryptoForex(items, panel) {
