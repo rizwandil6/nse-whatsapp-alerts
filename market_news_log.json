@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-29T13:32:36",
-  "title" : "Steel demand outruns capacity, prices rebound",
-  "impact" : "Steel demand outpacing capacity signals strong economic growth and infrastructure activity, likely supporting Nifty with positive bias. Capital goods and infrastructure sectors should see tailwinds, while rupee may weaken slightly due to increased commodity imports.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Aug-2026 12:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-29T19:50:54",
   "title" : "Banks show widest exchange price gap in decades",
   "impact" : "Widest bank exchange price gaps in decades signal potential liquidity concerns and regulatory scrutiny on banking sector operations. Nifty likely to face headwinds with financial stocks under pressure, potentially weakening rupee as foreign investors reassess India risk. Market sentiment may shift cautious as arbitrage opportunities highlight systemic inefficiencies.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential listing of Tata Sons would be a landmark event for Indian capital markets, increasing institutional liquidity and Nifty market capitalization. It would likely attract significant FII inflows, strengthening the rupee due to the expected multi-billion dollar scale of the IPO.",
   "source" : "Economic Times",
   "publishedAt" : "21-Sep-2026 01:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-21T06:53:07",
+  "title" : "US sounds Iran alarm, urges citizens to leave",
+  "impact" : "Geopolitical tensions in the Middle East are expected to drive a sharp risk-off sentiment in Indian equity markets. Nifty is likely to face downward pressure due to foreign institutional outflows and rising uncertainty, while the rupee may weaken against the dollar due to safe-haven demand.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Sep-2026 06:29 IST",
   "score" : 7
 } ]
