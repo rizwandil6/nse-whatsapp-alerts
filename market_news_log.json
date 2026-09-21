@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-30T14:34:23",
-  "title" : "TaMo rides 3x EV bookings into festive season",
-  "impact" : "Strong positive sentiment for Indian automotive and EV sectors during festive season. Nifty likely to see support from auto and EV-related stocks with strong booking momentum. Rupee may strengthen on positive domestic consumption indicators.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Aug-2026 14:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-30T15:04:39",
   "title" : "Rupee may face 6.5% annual depreciation path as forex mobilisation only delays pressure: Systematix",
   "impact" : "Rupee depreciation at 6.5% annual pace will pressure import-heavy sectors and increase input costs, offsetting export competitiveness gains. Nifty likely to face headwinds as foreign inflows may slow and corporate margins compress. Rupee weakness creates stagflation concerns despite temporary forex relief.",
@@ -3497,5 +3490,12 @@
   "impact" : "The narrative shifts focus to tangible AI revenue realization for major IT firms, likely driving sector-specific volatility. Nifty may face consolidation as large-cap IT stocks adjust valuations based on AI monetization timelines, with minimal immediate impact on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "21-Sep-2026 17:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-21T19:27:04",
+  "title" : "NSE’s options-heavy revenue mix in focus ahead of listing",
+  "impact" : "The NSE revenue concentration on derivatives creates regulatory and earnings uncertainty. Nifty may experience volatility as market participants price in potential tightening of index derivative norms. The rupee is likely to remain range-bound despite the equity market sentiment shift.",
+  "source" : "BusinessLine",
+  "publishedAt" : "21-Sep-2026 19:24 IST",
   "score" : 7
 } ]
