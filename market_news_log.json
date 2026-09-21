@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-30T15:04:39",
-  "title" : "Rupee may face 6.5% annual depreciation path as forex mobilisation only delays pressure: Systematix",
-  "impact" : "Rupee depreciation at 6.5% annual pace will pressure import-heavy sectors and increase input costs, offsetting export competitiveness gains. Nifty likely to face headwinds as foreign inflows may slow and corporate margins compress. Rupee weakness creates stagflation concerns despite temporary forex relief.",
-  "source" : "BusinessLine",
-  "publishedAt" : "30-Aug-2026 14:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-30T15:04:47",
   "title" : "India's FY27 growth seen at 7-7.2% as capex, domestic demand offset global headwinds: EY",
   "impact" : "Positive growth outlook of 7-7.2% for FY27 supports domestic demand narrative and capex-driven recovery, likely to lift Nifty. However, elevated wholesale inflation at 9.8% poses RBI policy risks which could pressure rupee and limit upside, creating near-term volatility.",
@@ -3497,5 +3490,12 @@
   "impact" : "The NSE revenue concentration on derivatives creates regulatory and earnings uncertainty. Nifty may experience volatility as market participants price in potential tightening of index derivative norms. The rupee is likely to remain range-bound despite the equity market sentiment shift.",
   "source" : "BusinessLine",
   "publishedAt" : "21-Sep-2026 19:24 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-21T20:43:19",
+  "title" : "Forex inflows rise to USD 143.6 billion",
+  "impact" : "The significant rise in forex inflows strengthens the rupee, reducing volatility risks and improving systemic liquidity. This creates a favorable environment for the Nifty to maintain its upward trajectory through enhanced investor confidence.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Sep-2026 20:02 IST",
   "score" : 7
 } ]
