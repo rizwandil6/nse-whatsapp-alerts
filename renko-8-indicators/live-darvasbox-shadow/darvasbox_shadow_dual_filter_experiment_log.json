@@ -9526,5 +9526,41 @@
   "entryTimestampMs": 1789981200000,
   "exitTimestampMs": 1789983000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 197.607,
+  "exitPrice": 201.57899999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 2.0100502512562715,
+  "entryTimestampMs": 1789975200000,
+  "exitTimestampMs": 1789984500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 137.48284999999998,
+  "exitPrice": 136.11145,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.9975062344139609,
+  "entryTimestampMs": 1789978200000,
+  "exitTimestampMs": 1789983000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 114.602775,
+  "exitPrice": 114.31554999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25062656641604575,
+  "entryTimestampMs": 1789982100000,
+  "exitTimestampMs": 1789983900000,
+  "shadow": true
  }
 ]
