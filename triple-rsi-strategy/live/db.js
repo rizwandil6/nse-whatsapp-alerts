@@ -22,6 +22,11 @@ const path = require('path');
 let Pool = null;
 try { ({ Pool } = require('pg')); } catch (_) { /* pg not installed yet */ }
 
+// Fixed system identity for syncPortfolioWatchlist (see below) -- not a real
+// browser_id, so it never shows up in anyone's own Portfolio tab (that UI is
+// keyed by a per-browser localStorage id, see index.html's getBrowserId).
+const PORTFOLIO_SYSTEM_BROWSER_ID = 'triple-rsi-auto';
+
 function resolveConnString() {
   if (process.env.DATABASE_URL) return process.env.DATABASE_URL.trim();
   const p = path.join(__dirname, '..', '..', '.secrets', 'pg_url.txt');
@@ -128,6 +133,45 @@ class DB {
     const r = await this._q(`SELECT * FROM triple_rsi.positions WHERE status='open' ORDER BY entry_date`);
     return r ? r.rows : [];
   }
+
+  /**
+   * Syncs portfolio.tickers (owned by the Java "web" app's schema.sql, see
+   * PortfolioService.java) so every currently open Triple RSI position rides
+   * the existing 08:00 IST TradingAgents daily-analysis job for free
+   * (market+news+fundamentals analysts -> decision+reasoning), without
+   * building a second news pipeline. Runs under the fixed
+   * PORTFOLIO_SYSTEM_BROWSER_ID -- adds newly-opened symbols, removes ones
+   * no longer open. portfolio.tickers' per-portfolio add cap (20) lives in
+   * PortfolioService.addTicker, a Java-endpoint-only guard -- this writes
+   * directly via SQL so it doesn't apply here.
+   */
+  async syncPortfolioWatchlist(openSymbols) {
+    if (!this.enabled) return { added: 0, removed: 0 };
+    const existing = await this._q(
+      `SELECT ticker FROM portfolio.tickers WHERE browser_id=$1`,
+      [PORTFOLIO_SYSTEM_BROWSER_ID]
+    );
+    if (!existing) return { added: 0, removed: 0 };
+    const existingSet = new Set(existing.rows.map((r) => r.ticker));
+    const openSet = new Set(openSymbols);
+
+    const toAdd = openSymbols.filter((s) => !existingSet.has(s));
+    const toRemove = [...existingSet].filter((s) => !openSet.has(s));
+
+    for (const symbol of toAdd) {
+      await this._q(
+        `INSERT INTO portfolio.tickers (browser_id, ticker) VALUES ($1,$2) ON CONFLICT (browser_id, ticker) DO NOTHING`,
+        [PORTFOLIO_SYSTEM_BROWSER_ID, symbol]
+      );
+    }
+    if (toRemove.length > 0) {
+      await this._q(
+        `DELETE FROM portfolio.tickers WHERE browser_id=$1 AND ticker = ANY($2::text[])`,
+        [PORTFOLIO_SYSTEM_BROWSER_ID, toRemove]
+      );
+    }
+    return { added: toAdd.length, removed: toRemove.length };
+  }
 }
 
-module.exports = { DB };
+module.exports = { DB, PORTFOLIO_SYSTEM_BROWSER_ID };

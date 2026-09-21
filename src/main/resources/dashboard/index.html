@@ -564,7 +564,9 @@
       <p>Halal-500 mean-reversion strategy: RSI(5)&lt;30 after 3 down days, RSI(5) was
       &lt;60 three days ago, close ≥15% above the 200-day MA. Exit on RSI(5)&gt;50 after
       a 7-day minimum hold, or a 15% stop-loss, whichever first. Currently open positions
-      only — closed trades are Telegram-alerted, not shown here.</p>
+      only — closed trades are Telegram-alerted, not shown here. Each symbol is also synced
+      into the Portfolio tab's daily TradingAgents run (08:00 IST, market+news+fundamentals) —
+      its latest decision shows below when available.</p>
     </div>
     <div class="pnl-total-group">
       <div class="pnl-total">
@@ -589,9 +591,14 @@
       const holdBadge = r.minHoldSatisfied
         ? `<span class="badge win">Min hold satisfied</span>`
         : `<span class="badge amber">${esc(r.barsHeld)}d of 7 held</span>`;
+      // Same TradingAgents decision/reasoning the Portfolio tab shows (renderPortfolio) --
+      // this symbol was synced into that tab's watchlist by the live service, see
+      // TripleRsiService's LEFT JOIN against portfolio.analysis.
+      const hasAnalysis = r.analysisDate != null;
+      const canExpand = hasAnalysis && !!r.reasoning;
       card.innerHTML = `
         <div class="card-top">
-          <div class="card-title">${esc(r.symbol)}</div>
+          <div class="card-title${canExpand ? ' pf-ticker-toggle' : ''}">${esc(r.symbol)}${canExpand ? ' <span class="pf-toggle-hint">(tap for full reasoning)</span>' : ''}</div>
           <div class="card-time">${esc(r.entryDate)}</div>
         </div>
         <div class="card-meta">
@@ -602,7 +609,15 @@
           ${r.lastPrice != null ? `<span>Last <b>₹${esc(r.lastPrice)}</b></span>` : ''}
           ${pnl}
         </div>
+        ${hasAnalysis
+          ? `<div class="pf-decision">${esc(r.decision)} <span class="card-time">as of ${esc(r.analysisDate)}</span></div>${canExpand ? `<div class="pf-reasoning" hidden>${mdLiteToHtml(r.reasoning)}</div>` : ''}`
+          : ''}
       `;
+      if (canExpand) {
+        card.querySelector('.pf-ticker-toggle').addEventListener('click', () => {
+          card.querySelector('.pf-reasoning').hidden = !card.querySelector('.pf-reasoning').hidden;
+        });
+      }
       panel.appendChild(card);
     }
   }

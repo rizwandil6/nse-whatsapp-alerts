@@ -14,6 +14,10 @@
  *     tomorrow's open (see README for why AMO, not same-day MOC).
  *   - Position closed (stop hit, or RSI(5)>50 after the 7-day min hold).
  *
+ * After the scan, syncs every open position into the dashboard's Portfolio
+ * tab watchlist (db.syncPortfolioWatchlist) so it rides the existing
+ * 08:00 IST TradingAgents job -- see that method's doc comment.
+ *
  * Full recompute every run, no incremental engine state (same philosophy as
  * darvas_engine.js elsewhere in this repo) -- deterministic from the daily
  * bar history, so there's no drift to reconcile.
@@ -157,6 +161,17 @@ async function runOnce() {
     `Scan complete. ${positionsWritten} position row(s) written, ${newEntries} new entry alert(s), ` +
     `${newExits} new exit alert(s), ${failures} symbol fetch failure(s).`
   );
+
+  // Sync the dashboard Portfolio tab's watchlist (see db.syncPortfolioWatchlist) so every
+  // open position rides the existing 08:00 IST TradingAgents job -- always run last, right
+  // after this run's own positions are final, and never allowed to fail the scan itself.
+  try {
+    const openPositions = await db.getOpenPositions();
+    const { added, removed } = await db.syncPortfolioWatchlist(openPositions.map((p) => p.symbol));
+    console.log(`Portfolio watchlist synced: +${added} -${removed} (${openPositions.length} open total).`);
+  } catch (e) {
+    console.warn(`Portfolio watchlist sync failed (non-fatal): ${e.message}`);
+  }
 }
 
 module.exports = { runOnce };
