@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-31T18:42:50",
-  "title" : "Doomsayers doomed: PM after GDP quickens to 7.8%",
-  "impact" : "Strong GDP growth of 7.8% signals robust economic momentum, likely to drive Nifty higher with positive sentiment across cyclical sectors. Rupee may strengthen on improved growth outlook and potential RBI policy confidence, reducing import costs for corporates.",
-  "source" : "Economic Times",
-  "publishedAt" : "31-Aug-2026 18:14 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-08-31T20:30:09",
   "title" : "Strong Q1 GDP, but global risks persist: CEA",
   "impact" : "Strong Q1 GDP of 7.8% supports positive market sentiment and Nifty upside, though global risks (interest rates, energy, food prices) warrant caution. Rupee likely to remain supported by robust domestic growth and strong export momentum.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential NSE IPO serves as a major liquidity event likely to boost overall market sentiment and investor participation. Nifty is expected to witness short-term volatility followed by an upward trend, while the rupee remains stable against potential foreign inflows.",
   "source" : "Economic Times",
   "publishedAt" : "22-Sep-2026 14:03 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-22T20:25:24",
+  "title" : "India has incentives for lithium, nickel processing",
+  "impact" : "The government push for domestic critical mineral processing is a positive long-term structural tailwind for industrial manufacturing. Nifty expects a steady uptrend in core industrial segments, while reduced import dependency supports long-term rupee stability.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Sep-2026 19:50 IST",
   "score" : 7
 } ]
