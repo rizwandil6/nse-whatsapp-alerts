@@ -9718,5 +9718,41 @@
   "timestampMs": 1790065500000,
   "breakoutTimestampMs": 1790065500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 109.763725,
+  "exitPrice": 109.69,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.06716699893338719,
+  "entryTimestampMs": 1790059200000,
+  "exitTimestampMs": 1790067300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 798.49875,
+  "exitPrice": 795.9,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.3254544856832895,
+  "entryTimestampMs": 1790056800000,
+  "exitTimestampMs": 1790067300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 96.45825,
+  "exitPrice": 96.87,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.42686861932493886,
+  "entryTimestampMs": 1790063100000,
+  "exitTimestampMs": 1790067300000,
+  "shadow": true
  }
 ]
