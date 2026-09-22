@@ -9700,5 +9700,14 @@
   "entryTimestampMs": 1790050200000,
   "exitTimestampMs": 1790064300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 470.24449999999985,
+  "timestampMs": 1790065200000,
+  "breakoutTimestampMs": 1790065200000,
+  "shadow": true
  }
 ]
