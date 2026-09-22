@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-31T13:27:49",
-  "title" : "Maruti sees a turbocharged car market ahead",
-  "impact" : "Positive sentiment for automotive sector signals robust domestic demand and economic growth momentum, supporting broader market optimism. Nifty likely to benefit from increased consumer discretionary spending and manufacturing activity. Rupee may strengthen marginally on improved economic outlook and corporate earnings expectations.",
-  "source" : "Economic Times",
-  "publishedAt" : "31-Aug-2026 12:33 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-31T13:43:00",
   "title" : "Sensex slumps: D-Street in bears' grip amid US attack",
   "impact" : "Indian equities facing significant headwinds from geopolitical tensions, with Sensex expected to remain under pressure and likely test lower support levels. Nifty50 may see continued selling with risk-off sentiment dominating. Rupee likely to weaken further as foreign investors reduce exposure to emerging markets.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical tensions in the Middle East are likely to trigger a bearish sentiment in the Indian equity markets. Expect increased volatility in Nifty with a downward bias and potential rupee depreciation against the USD due to rising oil prices.",
   "source" : "Economic Times",
   "publishedAt" : "22-Sep-2026 08:14 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-22T08:46:17",
+  "title" : "The rumbles of Russia war grow louder",
+  "impact" : "Escalating geopolitical tensions typically trigger risk-off sentiment in Indian equity markets. Nifty 50 may face downward pressure due to foreign institutional outflows, while the rupee is likely to weaken against the dollar due to rising global uncertainty.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Sep-2026 21:13 IST",
   "score" : 7
 } ]
