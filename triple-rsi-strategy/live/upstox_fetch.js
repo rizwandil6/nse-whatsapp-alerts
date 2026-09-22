@@ -40,4 +40,32 @@ async function fetchDailyCandles(instrumentKey, from, to) {
   throw lastErr;
 }
 
-module.exports = { fetchDailyCandles };
+/**
+ * Today's intraday candles (ascending), same unauthenticated endpoint pattern as
+ * fetchDailyCandles -- confirmed already working unauthenticated elsewhere in this
+ * repo (darvas-classic-strategy/live/intraday_watcher.js). Empty array pre-market /
+ * right at open before the first candle prints.
+ */
+async function fetchIntradayCandles(instrumentKey, interval) {
+  const url = `${UPSTOX_BASE}/historical-candle/intraday/${encodeURIComponent(instrumentKey)}/${interval}`;
+  let lastErr;
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': UA, Accept: 'application/json' },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+    if (res.ok) {
+      const body = await res.json();
+      const raw = body?.data?.candles || [];
+      return raw
+        .map((c) => ({ timestampIso: c[0], open: c[1], high: c[2], low: c[3], close: c[4], volume: c[5] }))
+        .sort((a, b) => (a.timestampIso < b.timestampIso ? -1 : 1));
+    }
+    lastErr = new Error(`HTTP ${res.status} for ${instrumentKey}`);
+    if (res.status !== 429 || attempt === MAX_RETRIES) throw lastErr;
+    await sleep(RETRY_BASE_MS * Math.pow(2, attempt));
+  }
+  throw lastErr;
+}
+
+module.exports = { fetchDailyCandles, fetchIntradayCandles };

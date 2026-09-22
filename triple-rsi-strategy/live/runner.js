@@ -1,18 +1,34 @@
 'use strict';
 
 /**
- * Triple RSI Strategy — daily scan (runOnce), scheduled by service.js.
+ * Triple RSI Strategy — daily scan (runOnce), scheduled by service.js at
+ * 15:15-15:25 IST (moved from post-close 16:00-16:10 on 2026-09-22, see
+ * service.js's doc comment).
  *
  * Refreshes daily candles for the 353-symbol halal-500 universe
- * (symbols.json), runs triple_rsi_engine.js for each, and upserts one row
- * per position (open or closed) into triple_rsi.positions.
+ * (symbols.json), then -- since NSE hasn't closed yet at this run time and
+ * Upstox won't publish today's real daily candle until well after 15:30 --
+ * approximates today's not-yet-final candle from live intraday 1-minute
+ * data (fetchIntradayCandles) and appends it in-memory ONLY for this run's
+ * signal computation (never persisted to triple_rsi.daily_cache, which
+ * stays real-published-candles-only). Runs triple_rsi_engine.js for each,
+ * and upserts one row per position (open or closed) into
+ * triple_rsi.positions.
  *
- * ALERT-ONLY (2026-09-20 decision): this service never places or modifies
- * an order. It Telegram-alerts on two events, each exactly once per
- * position (deduped via entry_alerted/exit_alerted flags):
- *   - New entry signal confirmed at today's close -> place an AMO to buy at
- *     tomorrow's open (see README for why AMO, not same-day MOC).
- *   - Position closed (stop hit, or RSI(5)>50 after the 7-day min hold).
+ * ALERT-ONLY (2026-09-20 decision, still holds): this service never places
+ * or modifies an order, regardless of how the alert timing/instructions
+ * change. It Telegram-alerts on two events, each exactly once per position
+ * (deduped via entry_alerted/exit_alerted flags):
+ *   - New entry signal, as of today's ~15:15 IST intraday price -> place a
+ *     LIMIT order to BUY near market close (~15:29:59 IST) TODAY (changed
+ *     2026-09-22 from "AMO for tomorrow's open" -- see README).
+ *   - Position closed (stop hit, or RSI(5)>50 after the 7-day min hold) ->
+ *     place a LIMIT order to SELL near market close (~15:29:59 IST) TODAY.
+ *
+ * Caveat inherent to this design: the recorded entry/exit price is the
+ * ~15:15 intraday snapshot, not the actual ~15:29:59 fill price -- usually
+ * close, occasionally not, in exchange for the ~15-minute lead time needed
+ * to actually place the order before close.
  *
  * After the scan, syncs every open position into the dashboard's Portfolio
  * tab watchlist (db.syncPortfolioWatchlist) so it rides the existing
@@ -20,18 +36,20 @@
  *
  * Full recompute every run, no incremental engine state (same philosophy as
  * darvas_engine.js elsewhere in this repo) -- deterministic from the daily
- * bar history, so there's no drift to reconcile.
+ * bar history (plus today's synthetic bar), so there's no drift to
+ * reconcile.
  *
  * Requires: DATABASE_URL (or .secrets/pg_url.txt) for state to persist and
  * for alert dedupe to work. TELEGRAM_BOT_TOKEN to actually send alerts (with
  * neither, the scan still runs and logs what it WOULD have alerted).
- * No Upstox token needed -- historical candles are fetched unauthenticated
- * (see upstox_fetch.js).
+ * No Upstox token needed -- both daily and intraday candles are fetched
+ * unauthenticated (see upstox_fetch.js).
  */
 
 const { DB } = require('./db');
 const { computeTradeLog, MIN_HOLD_BARS } = require('./triple_rsi_engine');
 const { loadLocalStore, saveLocalStore, refreshSymbol, isoDate } = require('./daily_cache');
+const { fetchIntradayCandles } = require('./upstox_fetch');
 const { sendTelegram } = require('./telegram');
 const symbolMap = require('./symbols.json');
 
@@ -57,8 +75,8 @@ async function mapLimit(items, limit, fn) {
 function formatEntryAlert(symbol, pos) {
   return [
     `🟢 TRIPLE RSI — NEW SIGNAL: ${symbol}`,
-    `Confirmed at today's close (${pos.entryDate}): ₹${pos.entryPrice.toFixed(2)}`,
-    `Action: place an AMO to BUY at tomorrow's open.`,
+    `As of ~15:15 IST intraday price (${pos.entryDate}): ₹${pos.entryPrice.toFixed(2)}`,
+    `Action: place a LIMIT order to BUY near this price at market close (~15:29:59 IST) TODAY.`,
     `Stop-loss: ₹${pos.stopPrice.toFixed(2)} (-15%)`,
     `Min hold: ${MIN_HOLD_BARS} trading days (exit only on RSI(5)>50 after that, or the stop, whichever first)`,
   ].join('\n');
@@ -67,8 +85,9 @@ function formatEntryAlert(symbol, pos) {
 function formatExitAlert(symbol, trade) {
   const emoji = trade.returnPct >= 0 ? '✅' : '🔴';
   return [
-    `${emoji} TRIPLE RSI — CLOSED: ${symbol}`,
-    `Entry ${trade.entryDate} @ ₹${trade.entryPrice.toFixed(2)} → Exit ${trade.exitDate} @ ₹${trade.exitPrice.toFixed(2)}`,
+    `${emoji} TRIPLE RSI — EXIT SIGNAL: ${symbol}`,
+    `Entry ${trade.entryDate} @ ₹${trade.entryPrice.toFixed(2)} → as of ~15:15 IST intraday price (${trade.exitDate}): ₹${trade.exitPrice.toFixed(2)}`,
+    `Action: place a LIMIT order to SELL near this price at market close (~15:29:59 IST) TODAY.`,
     `Reason: ${trade.exitReason === 'stop' ? '15% stop-loss' : 'RSI(5) > 50'}`,
     `Return: ${trade.returnPct >= 0 ? '+' : ''}${trade.returnPct.toFixed(2)}% (held ${trade.barsHeld} trading days)`,
   ].join('\n');
@@ -100,7 +119,33 @@ async function runOnce() {
     }
     if (dailyBars.length < 210) return; // not enough history for the 200-day MA yet
 
-    const { closedTrades, openPosition } = computeTradeLog(dailyBars);
+    // Today's real daily candle isn't published yet at this run time (15:15 IST,
+    // before the 15:30 close) -- approximate it from live intraday 1-minute data so
+    // the signal reflects today's actual price action, not yesterday's close. Never
+    // persisted to daily_cache (see daily_cache.js/db.saveDailyBars) -- purely local
+    // to this run's computeTradeLog call. Falls back to the cached bars alone (i.e.
+    // yesterday's close) if the intraday fetch fails or returns nothing (pre-market,
+    // or a transient error) -- non-fatal, same "best effort" convention as elsewhere.
+    let signalBars = dailyBars;
+    if (dailyBars[dailyBars.length - 1]?.date < todayStr) {
+      try {
+        const intraday = await fetchIntradayCandles(instrumentKey, '1minute');
+        if (intraday.length) {
+          signalBars = [...dailyBars, {
+            date: todayStr,
+            open: intraday[0].open,
+            high: Math.max(...intraday.map((c) => c.high)),
+            low: Math.min(...intraday.map((c) => c.low)),
+            close: intraday[intraday.length - 1].close,
+            volume: intraday.reduce((s, c) => s + c.volume, 0),
+          }];
+        }
+      } catch (e) {
+        console.warn(`  ${symbol}: intraday fetch failed, signal based on last close only — ${e.message}`);
+      }
+    }
+
+    const { closedTrades, openPosition } = computeTradeLog(signalBars);
     const validEntryDates = [];
 
     // Alert gate: ONLY today's events, regardless of backfill depth or DB
@@ -156,11 +201,12 @@ async function runOnce() {
       // Daily history for open positions only (see db.saveDailySnapshot): that day's
       // own day-over-day % move, plus whatever TradingAgents verdict exists as of this
       // run (usually that same morning's 08:00 IST analysis, since it runs before this
-      // 16:00 IST scan). Uses the latest bar's OWN date, not todayStr -- the data
-      // source can lag a day or more behind (see daily_cache), and this should record
-      // what day the move actually happened on, not when the scan ran.
-      const latestBar = dailyBars[dailyBars.length - 1];
-      const prevBar = dailyBars[dailyBars.length - 2];
+      // 15:15 IST scan). Uses signalBars (includes today's intraday-derived bar when
+      // available) so this reflects today's actual move, not just the last published
+      // close -- and the bar's OWN date, not todayStr, as a fallback for whenever the
+      // intraday fetch didn't come through and signalBars is just the cached history.
+      const latestBar = signalBars[signalBars.length - 1];
+      const prevBar = signalBars[signalBars.length - 2];
       const dayChangePct = prevBar?.close ? round2(((latestBar.close - prevBar.close) / prevBar.close) * 100) : null;
       const analysis = await db.getLatestAnalysis(symbol);
       await db.saveDailySnapshot({
