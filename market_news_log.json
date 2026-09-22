@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-31T12:11:54",
-  "title" : "$4 bn, CAS &amp; mess: Something big for markets today",
-  "impact" : "Significant positive catalyst expected; potential $4bn announcement likely infrastructure or divestment-related, supporting government's capex and monetization agenda. Nifty likely to open positive with infrastructure and PSU stocks leading gains. Rupee may strengthen on foreign inflow expectations.",
-  "source" : "Economic Times",
-  "publishedAt" : "31-Aug-2026 07:36 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-31T13:27:49",
   "title" : "Maruti sees a turbocharged car market ahead",
   "impact" : "Positive sentiment for automotive sector signals robust domestic demand and economic growth momentum, supporting broader market optimism. Nifty likely to benefit from increased consumer discretionary spending and manufacturing activity. Rupee may strengthen marginally on improved economic outlook and corporate earnings expectations.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global geopolitical tension stemming from Iran concerns will likely trigger a risk-off sentiment in Indian markets. Expect Nifty to open with a downward gap as investors seek safety, putting immediate pressure on the INR to weaken against the USD.",
   "source" : "Economic Times",
   "publishedAt" : "22-Sep-2026 06:53 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-22T08:46:14",
+  "title" : "Iran's actions risk 'global economic instability'",
+  "impact" : "Heightened geopolitical tensions in the Middle East are likely to trigger a bearish sentiment in the Indian equity markets. Expect increased volatility in Nifty with a downward bias and potential rupee depreciation against the USD due to rising oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Sep-2026 08:14 IST",
   "score" : 7
 } ]
