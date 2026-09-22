@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-31T17:10:54",
-  "title" : "Maruti sees a turbocharged Indian car market ahead",
-  "impact" : "Positive sentiment for Indian auto sector and ancillary industries suggests strong domestic consumption outlook. Nifty likely to see support from auto and capital goods sectors on improved growth visibility. Rupee may remain stable with positive economic growth narrative.",
-  "source" : "Economic Times",
-  "publishedAt" : "31-Aug-2026 12:33 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-31T17:26:16",
   "title" : "August rainfall ends 16% deficient; Indian monsoon 14% below normal in June-August",
   "impact" : "Deficient monsoon pressures agricultural-dependent sectors and rural demand, weighing on Nifty near-term outlook. Infrastructure and power stocks may see mixed performance as hydro generation faces headwinds. Rupee likely to strengthen on lower agricultural export prospects and reduced import demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "The sharp decline in crude oil prices is a major positive for the Indian economy, reducing import bills and inflation pressures. Nifty is expected to see a bullish trend led by lower input costs, while the rupee strengthening provides support for FII inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "22-Sep-2026 16:09 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-22T16:51:10",
+  "title" : "India stands out with strongest growth outlook globally: WEF survey",
+  "impact" : "The WEF growth outlook reinforces India as a preferred destination for global capital, likely sustaining Nifty momentum towards all-time highs. FII inflows are expected to bolster the Rupee against USD volatility.",
+  "source" : "BusinessLine",
+  "publishedAt" : "22-Sep-2026 16:45 IST",
   "score" : 7
 } ]
