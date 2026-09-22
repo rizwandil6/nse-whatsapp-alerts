@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-31T14:59:05",
-  "title" : "NIIF secures $2 bn commitment from global, local investors",
-  "impact" : "NIIF's $2bn capital raise signals strong global confidence in India's infrastructure growth, likely supporting Nifty's upward trajectory. The participation of sovereign wealth funds and major Indian banks (ICICI, HDFC) reinforces India's macro stability narrative and could strengthen the rupee against major currencies.",
-  "source" : "BusinessLine",
-  "publishedAt" : "31-Aug-2026 14:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-31T15:14:13",
   "title" : "India’s August rainfall 16% below average, lowest in three years",
   "impact" : "Bearish pressure on agriculture-dependent sectors and rural consumption themes; Nifty likely to face headwinds from monsoon-sensitive stocks, particularly power and infrastructure plays. Rupee may weaken on lower agricultural exports and reduced rural demand, increasing import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market faces volatility due to geopolitical trade risks and shifting oil import policies. Nifty is expected to remain cautious as traders monitor potential US tariff escalations and currency pressure on the Rupee.",
   "source" : "Economic Times",
   "publishedAt" : "22-Sep-2026 11:26 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-22T13:33:55",
+  "title" : "When will FIIs return to India? Bernstein says they may trade, but have little reason to invest",
+  "impact" : "FII apathy creates selling pressure on large caps, likely keeping Nifty in a consolidation phase. Rupee may face moderate downward pressure due to FII outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "22-Sep-2026 13:21 IST",
   "score" : 7
 } ]
