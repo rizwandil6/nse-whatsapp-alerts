@@ -9811,5 +9811,29 @@
   "timestampMs": 1790065800000,
   "breakoutTimestampMs": 1790065800000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 118.65599999999996,
+  "exitPrice": 119.51999999999995,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7281553398058171,
+  "entryTimestampMs": 1790055900000,
+  "exitTimestampMs": 1790070300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 166.053825,
+  "exitPrice": 166.32,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.16029441056236077,
+  "entryTimestampMs": 1790065800000,
+  "exitTimestampMs": 1790064300000,
+  "shadow": true
  }
 ]
