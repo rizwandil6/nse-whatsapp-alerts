@@ -1450,5 +1450,12 @@
   "date": "2026-09-17",
   "price": 3149.8,
   "rsRankAtEntry": 81.49606299212599
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ENGINERSIN",
+  "date": "2026-09-20",
+  "price": 285.25,
+  "rsRankAtEntry": 85.43307086614173
  }
 ]
