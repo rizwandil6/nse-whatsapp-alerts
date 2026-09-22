@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-31T17:26:16",
-  "title" : "August rainfall ends 16% deficient; Indian monsoon 14% below normal in June-August",
-  "impact" : "Deficient monsoon pressures agricultural-dependent sectors and rural demand, weighing on Nifty near-term outlook. Infrastructure and power stocks may see mixed performance as hydro generation faces headwinds. Rupee likely to strengthen on lower agricultural export prospects and reduced import demand.",
-  "source" : "BusinessLine",
-  "publishedAt" : "31-Aug-2026 17:11 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-31T17:56:33",
   "title" : "India’s PE/VC investments rise 52% in July to $4.1 billion",
   "impact" : "Strong PE/VC inflow of $4.1B signals robust investor confidence in Indian growth story, likely supporting Nifty upside with infrastructure focus. Positive sentiment for capital-intensive sectors and infrastructure plays, though impact dependent on execution timelines.",
@@ -3497,5 +3490,12 @@
   "impact" : "The WEF growth outlook reinforces India as a preferred destination for global capital, likely sustaining Nifty momentum towards all-time highs. FII inflows are expected to bolster the Rupee against USD volatility.",
   "source" : "BusinessLine",
   "publishedAt" : "22-Sep-2026 16:45 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-22T17:36:54",
+  "title" : "India’s new plan for fastest bullet train",
+  "impact" : "Accelerated infrastructure spending supports a bullish outlook for industrial and capital goods sectors. Nifty is expected to maintain upward momentum as long-term capex plans stabilize. Rupee remains range-bound as infrastructure inflow offsets broader macroeconomic pressures.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Sep-2026 17:01 IST",
   "score" : 7
 } ]
