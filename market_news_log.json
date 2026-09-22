@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-31T20:30:09",
-  "title" : "Strong Q1 GDP, but global risks persist: CEA",
-  "impact" : "Strong Q1 GDP of 7.8% supports positive market sentiment and Nifty upside, though global risks (interest rates, energy, food prices) warrant caution. Rupee likely to remain supported by robust domestic growth and strong export momentum.",
-  "source" : "Economic Times",
-  "publishedAt" : "31-Aug-2026 19:23 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-31T22:05:07",
   "title" : "India’s 7.8% growth beats estimates, but experts point to red flags",
   "impact" : "Strong growth signals short-term bullish momentum for Nifty, although inflation concerns may cap upside. Rupee likely to see stability against the dollar due to positive macroeconomic sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The government push for domestic critical mineral processing is a positive long-term structural tailwind for industrial manufacturing. Nifty expects a steady uptrend in core industrial segments, while reduced import dependency supports long-term rupee stability.",
   "source" : "Economic Times",
   "publishedAt" : "22-Sep-2026 19:50 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-22T20:25:32",
+  "title" : "India beats China, Europe in WEF's growth outlook",
+  "impact" : "The positive WEF outlook reinforces India as a top global investment destination, likely driving Nifty toward fresh record highs. Enhanced investor sentiment will likely support the Rupee against the dollar due to expected FII inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Sep-2026 16:24 IST",
   "score" : 7
 } ]
