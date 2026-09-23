@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T01:10:47",
-  "title" : "Maruti Suzuki plans Rs 77,500 cr capex over 5 yrs",
-  "impact" : "This massive capex commitment reinforces positive long-term sentiment for the Indian manufacturing and automotive sector. Expect Nifty to maintain a bullish bias with potential support for auto-linked indices, while the rupee remains stable amid strong domestic investment signaling.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Sep-2026 00:37 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T01:41:00",
   "title" : "JP Morgan traders back down bullishness on US stocks after Fed chair Warsh's Jackson Hole speech",
   "impact" : "Indian markets are likely to face near-term volatility and defensive rotation as US treasury yields spike. Nifty may face immediate resistance and consolidation, while the rupee is expected to remain under pressure against a strengthening dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong PMI data signals resilient economic momentum, likely boosting Nifty sentiment toward record highs. The rupee may stabilize or strengthen as improved industrial activity attracts foreign portfolio inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "23-Sep-2026 12:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-23T13:08:30",
+  "title" : "ADB raises India's GDP growth forecast to 7% on stronger-than-expected Q1 growth",
+  "impact" : "The upward revision to 7% GDP growth confirms robust macroeconomic resilience and will likely drive Nifty towards new record highs. Improved investor sentiment and strong capital inflows should provide support to the Rupee against the Dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "23-Sep-2026 13:00 IST",
   "score" : 7
 } ]
