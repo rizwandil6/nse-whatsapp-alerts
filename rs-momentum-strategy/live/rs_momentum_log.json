@@ -1457,5 +1457,26 @@
   "date": "2026-09-20",
   "price": 285.25,
   "rsRankAtEntry": 85.43307086614173
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CARBORUNIV",
+  "date": "2026-09-21",
+  "price": 1211.3,
+  "rsRankAtEntry": 81.88976377952756
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ETERNAL",
+  "date": "2026-09-21",
+  "price": 342,
+  "rsRankAtEntry": 81.10236220472441
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GABRIEL",
+  "date": "2026-09-21",
+  "price": 1471.4,
+  "rsRankAtEntry": 85.43307086614173
  }
 ]

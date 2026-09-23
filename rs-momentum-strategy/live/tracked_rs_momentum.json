@@ -310,5 +310,26 @@
   "rsRankAtEntry": 85.43307086614173,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "CARBORUNIV": {
+  "entryDate": "2026-09-21",
+  "entryPrice": 1211.3,
+  "rsRankAtEntry": 81.88976377952756,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "ETERNAL": {
+  "entryDate": "2026-09-21",
+  "entryPrice": 342,
+  "rsRankAtEntry": 81.10236220472441,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GABRIEL": {
+  "entryDate": "2026-09-21",
+  "entryPrice": 1471.4,
+  "rsRankAtEntry": 85.43307086614173,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
