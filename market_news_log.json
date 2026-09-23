@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T10:02:44",
-  "title" : "Crude oil prices rise as Trump threatens further strikes against Iran",
-  "impact" : "Indian markets are likely to face bearish pressure as rising crude oil prices weigh on inflation and fiscal deficit concerns. Nifty is expected to witness a corrective trend, while the rupee faces depreciation risk against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Sep-2026 09:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T10:47:56",
   "title" : "India’s growth beat signals investment boom",
   "impact" : "Stronger growth data reinforces India's premium valuation, likely sustaining Nifty momentum towards new highs. Increased capital expenditure outlook will likely stabilize the rupee through sustained foreign direct investment inflows.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "23-Sep-2026 18:30 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-23T23:20:56",
+  "title" : "Trump, Xi and the fight over who controls AI",
+  "impact" : "Heightened US-China tech trade tensions create global risk-off sentiment, likely causing Nifty volatility. Expect FII outflows and downward pressure on the rupee due to global uncertainty.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Sep-2026 22:51 IST",
+  "score" : 7
 } ]
