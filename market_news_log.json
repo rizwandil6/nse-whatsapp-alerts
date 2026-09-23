@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-31T22:05:07",
-  "title" : "India’s 7.8% growth beats estimates, but experts point to red flags",
-  "impact" : "Strong growth signals short-term bullish momentum for Nifty, although inflation concerns may cap upside. Rupee likely to see stability against the dollar due to positive macroeconomic sentiment.",
-  "source" : "BusinessLine",
-  "publishedAt" : "31-Aug-2026 21:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-08-31T22:39:56",
   "title" : "Trump vows to hit Iran hard",
   "impact" : "The escalation in the Middle East and concerns over the Strait of Hormuz are likely to trigger a bearish sentiment in Indian equities. Nifty faces strong downside pressure, while the Rupee is expected to depreciate due to higher oil import costs and risk-off sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The positive WEF outlook reinforces India as a top global investment destination, likely driving Nifty toward fresh record highs. Enhanced investor sentiment will likely support the Rupee against the dollar due to expected FII inflows.",
   "source" : "Economic Times",
   "publishedAt" : "22-Sep-2026 16:24 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-23T05:59:15",
+  "title" : "India may clear PLI applications with China investment",
+  "impact" : "This policy shift indicates a pragmatic approach to manufacturing self-sufficiency, likely providing a moderate tailwind to the Nifty by reducing supply chain bottlenecks. The rupee is expected to remain stable or slightly strengthened due to potential inflows of FDI.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Sep-2026 05:30 IST",
   "score" : 7
 } ]
