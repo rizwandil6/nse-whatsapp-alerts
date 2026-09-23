@@ -9889,5 +9889,14 @@
   "timestampMs": 1790140200000,
   "breakoutTimestampMs": 1790140200000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 513.9175,
+  "timestampMs": 1790142300000,
+  "breakoutTimestampMs": 1790142300000,
+  "shadow": true
  }
 ]
