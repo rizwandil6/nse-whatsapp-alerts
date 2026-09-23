@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T10:47:56",
-  "title" : "India’s growth beat signals investment boom",
-  "impact" : "Stronger growth data reinforces India's premium valuation, likely sustaining Nifty momentum towards new highs. Increased capital expenditure outlook will likely stabilize the rupee through sustained foreign direct investment inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Sep-2026 10:39 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-01T10:48:03",
   "title" : "'Iran war could keep inflation high'",
   "impact" : "Heightened geopolitical risk will likely dampen investor sentiment, leading to potential FII outflows and selling pressure. Expect Nifty to consolidate near key support levels with the Rupee facing depreciation against the USD due to rising crude prices.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened US-China tech trade tensions create global risk-off sentiment, likely causing Nifty volatility. Expect FII outflows and downward pressure on the rupee due to global uncertainty.",
   "source" : "Economic Times",
   "publishedAt" : "23-Sep-2026 22:51 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-24T02:22:54",
+  "title" : "US stocks: US market ends down as oil prices, Treasury yields rise",
+  "impact" : "The Indian market is expected to face a bearish opening due to rising US Treasury yields and geopolitical tensions in the Middle East. Nifty is likely to trade with a negative bias, while the Rupee faces downward pressure against the strengthening USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "24-Sep-2026 01:49 IST",
   "score" : 7
 } ]
