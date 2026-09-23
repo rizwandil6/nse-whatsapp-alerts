@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T02:26:13",
-  "title" : "US stocks close lower as oil prices jump, indexes notch monthly gains",
-  "impact" : "The Indian markets are likely to open with a bearish bias following US rate hike fears and global energy inflation concerns. Nifty is expected to witness selling pressure, and the rupee may weaken against the dollar due to rising crude oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Sep-2026 01:38 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T06:26:47",
   "title" : "IPO rush: India Inc to seek up to Rs 25,000 crore more in Sept",
   "impact" : "The influx of Rs 25,000 crore in IPOs will likely lead to temporary liquidity tightening in the secondary market as capital shifts toward new issues. Expect Nifty to experience increased volatility and consolidation as institutional funds rotate portfolios, while the rupee remains range-bound with minimal direct impact from domestic primary market activity.",
@@ -3497,5 +3490,12 @@
   "impact" : "Severe climate events pose risks to inflation and rural consumption patterns, potentially pressuring Nifty indices toward volatility. The rupee may weaken due to imported food inflation and potential central bank intervention to stabilize commodity prices.",
   "source" : "Economic Times",
   "publishedAt" : "23-Sep-2026 13:23 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-23T14:25:33",
+  "title" : "OECD lifts India FY27 growth forecast to 7.1%",
+  "impact" : "Upward revision to FY27 growth reinforces India's status as a top global growth engine. Expect Nifty to test higher resistance levels on renewed foreign institutional interest and a potentially stronger rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Sep-2026 13:55 IST",
   "score" : 7
 } ]
