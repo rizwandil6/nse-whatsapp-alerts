@@ -9835,5 +9835,23 @@
   "entryTimestampMs": 1790065800000,
   "exitTimestampMs": 1790064300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 41.36012500000003,
+  "timestampMs": 1790136900000,
+  "breakoutTimestampMs": 1790136900000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 366.232125,
+  "timestampMs": 1790136900000,
+  "breakoutTimestampMs": 1790136900000,
+  "shadow": true
  }
 ]
