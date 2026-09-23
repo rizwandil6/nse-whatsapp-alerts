@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T00:55:40",
-  "title" : "US 10-year Treasury yield tops 19-month high as oil prices fuel rate-hike bets",
-  "impact" : "The Indian equity market is expected to face significant selling pressure due to rising US yields and oil prices. Nifty 50 will likely see a bearish trend with the rupee depreciating against the dollar due to FII outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Sep-2026 00:27 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-01T01:10:47",
   "title" : "Maruti Suzuki plans Rs 77,500 cr capex over 5 yrs",
   "impact" : "This massive capex commitment reinforces positive long-term sentiment for the Indian manufacturing and automotive sector. Expect Nifty to maintain a bullish bias with potential support for auto-linked indices, while the rupee remains stable amid strong domestic investment signaling.",
@@ -3497,5 +3490,12 @@
   "impact" : "The shift in Big Tech AI spending suggests a structural slowdown in traditional IT outsourcing revenue. This will likely dampen Nifty IT index performance and exert downward pressure on the rupee due to potential moderation in software export earnings.",
   "source" : "Economic Times",
   "publishedAt" : "23-Sep-2026 07:41 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-23T12:38:10",
+  "title" : "India economic activity climbs in September, shows flash survey",
+  "impact" : "Strong PMI data signals resilient economic momentum, likely boosting Nifty sentiment toward record highs. The rupee may stabilize or strengthen as improved industrial activity attracts foreign portfolio inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "23-Sep-2026 12:30 IST",
   "score" : 7
 } ]
