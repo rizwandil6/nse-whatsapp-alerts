@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T07:27:04",
-  "title" : "Oil extends advance as US-Iran escalation revives Hormuz risks",
-  "impact" : "Rising oil prices increase import bill concerns, pressuring the INR against the USD. Expect Nifty to face volatility as energy costs threaten domestic inflation and margins.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Sep-2026 07:11 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T07:57:15",
   "title" : "India’s economic weapon can turn crisis into chances",
   "impact" : "India's strategic economic positioning is expected to attract sustained foreign institutional inflows, bolstering market sentiment. Nifty is likely to maintain a bullish trajectory with support at key levels, while the rupee remains stable against the dollar due to improved macro-economic stability.",
@@ -3497,5 +3490,12 @@
   "impact" : "Upgraded growth forecasts bolster investor sentiment, supporting Nifty toward record highs. The rupee is expected to remain stable or appreciate slightly against the dollar due to improved macro-economic outlook.",
   "source" : "BusinessLine",
   "publishedAt" : "23-Sep-2026 15:17 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-23T15:57:36",
+  "title" : "OMCs face Rs 530 crore daily losses as crude surges",
+  "impact" : "Rising crude oil prices will pressure Nifty due to inflationary concerns and fiscal deficit worries. Expect downward pressure on the rupee as oil imports become more expensive, leading to a cautious market sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Sep-2026 15:22 IST",
   "score" : 7
 } ]
