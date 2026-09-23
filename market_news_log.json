@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T06:26:47",
-  "title" : "IPO rush: India Inc to seek up to Rs 25,000 crore more in Sept",
-  "impact" : "The influx of Rs 25,000 crore in IPOs will likely lead to temporary liquidity tightening in the secondary market as capital shifts toward new issues. Expect Nifty to experience increased volatility and consolidation as institutional funds rotate portfolios, while the rupee remains range-bound with minimal direct impact from domestic primary market activity.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Sep-2026 05:54 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T07:27:04",
   "title" : "Oil extends advance as US-Iran escalation revives Hormuz risks",
   "impact" : "Rising oil prices increase import bill concerns, pressuring the INR against the USD. Expect Nifty to face volatility as energy costs threaten domestic inflation and margins.",
@@ -3497,5 +3490,12 @@
   "impact" : "Upward revision to FY27 growth reinforces India's status as a top global growth engine. Expect Nifty to test higher resistance levels on renewed foreign institutional interest and a potentially stronger rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "23-Sep-2026 13:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-23T15:26:28",
+  "title" : "OECD ups India's FY27 GDP growth forecast to 7.1%",
+  "impact" : "Upgraded growth forecasts bolster investor sentiment, supporting Nifty toward record highs. The rupee is expected to remain stable or appreciate slightly against the dollar due to improved macro-economic outlook.",
+  "source" : "BusinessLine",
+  "publishedAt" : "23-Sep-2026 15:17 IST",
   "score" : 7
 } ]
