@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-31T22:55:02",
-  "title" : "India's 7.8% Q1 growth blunts US-Iran war shock",
-  "impact" : "Strong Q1 GDP growth provides a structural cushion against geopolitical volatility. Nifty is expected to consolidate with an upward bias as macro fundamentals outperform global concerns, supporting the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "31-Aug-2026 16:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T00:55:40",
   "title" : "US 10-year Treasury yield tops 19-month high as oil prices fuel rate-hike bets",
   "impact" : "The Indian equity market is expected to face significant selling pressure due to rising US yields and oil prices. Nifty 50 will likely see a bearish trend with the rupee depreciating against the dollar due to FII outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian equity market faces continued downward pressure due to persistent FPI outflows. Nifty is expected to test the critical 23,300 support level, while the rupee remains vulnerable to further depreciation.",
   "source" : "BusinessLine",
   "publishedAt" : "23-Sep-2026 08:37 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-23T08:50:32",
+  "title" : "Big Tech’s AI switch may dent IT revenue",
+  "impact" : "The shift in Big Tech AI spending suggests a structural slowdown in traditional IT outsourcing revenue. This will likely dampen Nifty IT index performance and exert downward pressure on the rupee due to potential moderation in software export earnings.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Sep-2026 07:41 IST",
   "score" : 7
 } ]
