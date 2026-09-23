@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T09:02:14",
-  "title" : "Industry leaders hail 7.8% GDP growth in Q1, call for sustained investment push",
-  "impact" : "Strong Q1 GDP growth signals robust economic expansion, likely fueling a sustained bullish trend for Nifty 50. The rupee is expected to stabilize against the dollar as foreign capital inflows increase due to improved investor sentiment.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Sep-2026 08:53 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-01T10:02:44",
   "title" : "Crude oil prices rise as Trump threatens further strikes against Iran",
   "impact" : "Indian markets are likely to face bearish pressure as rising crude oil prices weigh on inflation and fiscal deficit concerns. Nifty is expected to witness a corrective trend, while the rupee faces depreciation risk against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Consensus growth upgrades will likely drive institutional inflows and sustain a bullish Nifty trend. The improved economic outlook should stabilize the rupee against the dollar due to stronger growth differentials.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "23-Sep-2026 16:06 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-23T18:45:51",
+  "title" : "S&P Global, Fitch, ADB, OECD raise India’s GDP forecast to around 7% for FY27",
+  "impact" : "Consensus upgrade to 7% GDP growth reinforces India as a top global investment destination. Nifty is likely to maintain a structural uptrend with potential for new highs, while the INR may strengthen against the USD due to improved macro stability.",
+  "source" : "BusinessLine",
+  "publishedAt" : "23-Sep-2026 18:30 IST",
   "score" : 8
 } ]
