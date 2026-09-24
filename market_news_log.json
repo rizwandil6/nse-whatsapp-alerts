@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T13:57:00",
-  "title" : "GST collections rise 15% to touch ₹2 lakh crore in August",
-  "impact" : "Strong GST collections reinforce macroeconomic stability, providing a bullish sentiment for the Nifty 50. The rupee is expected to remain stable or firm against the dollar due to sustained industrial demand.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Sep-2026 13:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T14:12:06",
   "title" : "Strong El Nino set to persist into 2027, positive IOD remains possible",
   "impact" : "Prolonged El Nino threatens domestic agricultural output and food inflation, likely curbing Nifty upside. The rupee may face downward pressure due to potential import-driven inflation and supply-side constraints.",
@@ -3497,5 +3490,12 @@
   "impact" : "HDFC Bank results are a sentiment bellwether for the broader Nifty index. Weak performance could weigh on financials and push the index towards key support levels with moderate pressure on the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "24-Sep-2026 12:41 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-24T13:15:40",
+  "title" : "NSE enters top-10 most valued firms' club; shares jump over 5%",
+  "impact" : "The NSE listing signals robust investor appetite and liquidity for financial exchanges, likely boosting overall market sentiment. Nifty is expected to sustain upward momentum as financial services and infrastructure stocks benefit from the successful IPO debut.",
+  "source" : "BusinessLine",
+  "publishedAt" : "24-Sep-2026 13:12 IST",
   "score" : 7
 } ]
