@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T15:27:50",
-  "title" : "8th CPC: Can its terms of reference be amended?",
-  "impact" : "The potential 8th CPC implementation signals increased fiscal stimulus and consumption demand. This is expected to push Nifty toward higher levels due to improved sentiment, while the rupee may face slight pressure from anticipated inflationary trends.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Sep-2026 14:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T20:53:49",
   "title" : "Modi, Xi shake hands, talk on sidelines of SCO Summit ahead of BRICS meet",
   "impact" : "The resumption of high-level dialogue between India and China acts as a positive sentiment booster, potentially lifting Nifty towards immediate resistance levels. Improved geopolitical stability is likely to stabilize the Rupee against the Dollar by reducing risk premiums.",
@@ -3497,5 +3490,12 @@
   "impact" : "The regulatory uncertainty is triggering a broad selloff in high-growth financial stocks and fintech, dampening sentiment. Nifty is expected to witness short-term volatility and downward pressure as investor confidence in regulatory stability wavers.",
   "source" : "Economic Times",
   "publishedAt" : "24-Sep-2026 12:21 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-24T15:47:48",
+  "title" : "Rupee declines to one-week low of 95.95 as oil rally fans global rate hike worries",
+  "impact" : "Rising oil prices and rupee depreciation create significant headwinds for the Indian markets. Expect Nifty to face selling pressure as foreign institutional outflows increase and inflationary concerns mount.",
+  "source" : "BusinessLine",
+  "publishedAt" : "24-Sep-2026 15:46 IST",
   "score" : 7
 } ]
