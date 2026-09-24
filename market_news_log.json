@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T12:56:01",
-  "title" : "HDFC Bank shares slip to fresh 52-week low: What’s driving the fall?",
-  "impact" : "HDFC Bank weakness exerts downward pressure on Nifty due to its significant weightage in index. Persistent selling may trigger broader sectoral churn, while potential FII outflows keep the rupee under pressure against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Sep-2026 12:38 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T13:57:00",
   "title" : "GST collections rise 15% to touch ₹2 lakh crore in August",
   "impact" : "Strong GST collections reinforce macroeconomic stability, providing a bullish sentiment for the Nifty 50. The rupee is expected to remain stable or firm against the dollar due to sustained industrial demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian equity market is facing significant downward pressure due to global macroeconomic headwinds. Nifty is expected to witness further consolidation or downside if US bond yields continue to surge. The Rupee is likely to face depreciation pressure against the dollar due to rising crude oil prices.",
   "source" : "BusinessLine",
   "publishedAt" : "24-Sep-2026 09:54 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-24T12:45:32",
+  "title" : "HDFC Bank shares in focus: Stock down over 26% YTD, Q2 results due October 17",
+  "impact" : "HDFC Bank results are a sentiment bellwether for the broader Nifty index. Weak performance could weigh on financials and push the index towards key support levels with moderate pressure on the rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "24-Sep-2026 12:41 IST",
   "score" : 7
 } ]
