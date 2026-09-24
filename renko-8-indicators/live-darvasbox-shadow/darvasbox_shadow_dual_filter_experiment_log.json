@@ -10252,5 +10252,14 @@
   "entryTimestampMs": 1790226000000,
   "exitTimestampMs": 1790235600000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 824.733,
+  "timestampMs": 1790236500000,
+  "breakoutTimestampMs": 1790236500000,
+  "shadow": true
  }
 ]
