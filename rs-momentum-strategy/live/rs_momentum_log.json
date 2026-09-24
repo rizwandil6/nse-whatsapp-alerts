@@ -1478,5 +1478,19 @@
   "date": "2026-09-21",
   "price": 1471.4,
   "rsRankAtEntry": 85.43307086614173
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AARTIPHARM",
+  "date": "2026-09-22",
+  "price": 940.1,
+  "rsRankAtEntry": 81.88976377952756
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GNFC",
+  "date": "2026-09-22",
+  "price": 623.05,
+  "rsRankAtEntry": 80.70866141732283
  }
 ]
