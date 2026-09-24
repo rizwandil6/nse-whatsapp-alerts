@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T14:12:06",
-  "title" : "Strong El Nino set to persist into 2027, positive IOD remains possible",
-  "impact" : "Prolonged El Nino threatens domestic agricultural output and food inflation, likely curbing Nifty upside. The rupee may face downward pressure due to potential import-driven inflation and supply-side constraints.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Sep-2026 13:58 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-01T15:27:46",
   "title" : "Indian cos chase ₹25,000 cr of D-St money in Sep",
   "impact" : "High primary market activity will absorb significant liquidity, potentially exerting short-term pressure on secondary market valuations. Nifty may face consolidation as capital shifts toward new offerings, while the rupee remains stable against dollar outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The NSE listing signals robust investor appetite and liquidity for financial exchanges, likely boosting overall market sentiment. Nifty is expected to sustain upward momentum as financial services and infrastructure stocks benefit from the successful IPO debut.",
   "source" : "BusinessLine",
   "publishedAt" : "24-Sep-2026 13:12 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-24T13:16:22",
+  "title" : "Sebi board meeting: PMS rules overhaul, FPI commodity trades among key decisions to watch out",
+  "impact" : "The reforms signal structural improvements to liquidity and capital depth which are positive for market sentiment. Nifty may see a steady upward bias due to increased institutional participation, with minimal direct impact on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "24-Sep-2026 12:12 IST",
   "score" : 7
 } ]
