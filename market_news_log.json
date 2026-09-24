@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-01T11:40:29",
-  "title" : "India’s GDP growth beat suggests economy on cusp of investment boom",
-  "impact" : "Strong GDP growth bolsters investor confidence, likely driving Nifty toward new highs. The rupee is expected to stabilize or strengthen as macroeconomic fundamentals improve and foreign capital inflows accelerate.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Sep-2026 11:31 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-01T12:40:47",
   "title" : "PM Modi turns 7.8% growth cue into swadeshi pitch",
   "impact" : "The government push for domestic manufacturing reinforces growth narrative, providing a positive tailwind for the Nifty 50. Expect institutional capital inflows into infrastructure and industrial sectors to support rupee stability.",
@@ -3497,5 +3490,12 @@
   "impact" : "The trade truce between the US and China reduces global geopolitical uncertainty, likely boosting sentiment in Indian equity markets. Nifty is expected to see a bullish opening with potential for sustained gains, while the rupee may appreciate against the dollar due to improved global risk appetite.",
   "source" : "Economic Times",
   "publishedAt" : "24-Sep-2026 06:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-24T07:54:28",
+  "title" : "NSE set for trading debut as India’s biggest stock exchange, modest gains seen",
+  "impact" : "The NSE listing is expected to boost overall market sentiment and liquidity, likely providing a moderate upward push to the Nifty. The rupee is expected to remain stable with positive sentiment from increased capital market participation.",
+  "source" : "BusinessLine",
+  "publishedAt" : "24-Sep-2026 07:51 IST",
   "score" : 7
 } ]
