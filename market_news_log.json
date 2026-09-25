@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T08:43:14",
-  "title" : "'Tanker for tanker': Trump's new retaliation policy",
-  "impact" : "Global trade protectionism and geopolitical tensions likely to trigger Nifty volatility and risk-off sentiment. Expected pressure on the Rupee due to higher energy import costs and potential supply chain disruptions.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 08:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T08:58:34",
   "title" : "Rupee set to open lower as oil prices surge, US Treasury yields rise",
   "impact" : "Rising oil prices and US yields create a bearish headwind for the Indian markets. Expect Nifty to face selling pressure due to FII outflows, with the rupee likely testing lower levels against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened tariff risks create headwinds for Indian exports to the US, leading to potential Nifty consolidation. Increased safe-haven demand for the dollar may put moderate pressure on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "25-Sep-2026 16:44 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-25T22:54:45",
+  "title" : "India’s net FDI rises to five-year high of $7.3 billion in July 2026",
+  "impact" : "The surge in FDI signals strong investor confidence in India's structural growth story, likely providing a bullish tailwind for the Nifty 50. Increased capital inflows will strengthen the Indian Rupee against the dollar due to improved forex reserves.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Sep-2026 22:48 IST",
   "score" : 7
 } ]
