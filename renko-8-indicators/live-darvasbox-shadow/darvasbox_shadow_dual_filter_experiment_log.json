@@ -10648,5 +10648,29 @@
   "entryTimestampMs": 1790313300000,
   "exitTimestampMs": 1790327400000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 40.831824999999995,
+  "exitPrice": 40.831824999999995,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1790326500000,
+  "exitTimestampMs": 1790326500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "LONG",
+  "entry": 207.05624999999995,
+  "exitPrice": 207.05624999999995,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1790327100000,
+  "exitTimestampMs": 1790327100000,
+  "shadow": true
  }
 ]
