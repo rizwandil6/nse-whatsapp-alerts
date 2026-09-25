@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T08:58:34",
-  "title" : "Rupee set to open lower as oil prices surge, US Treasury yields rise",
-  "impact" : "Rising oil prices and US yields create a bearish headwind for the Indian markets. Expect Nifty to face selling pressure due to FII outflows, with the rupee likely testing lower levels against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "02-Sep-2026 08:55 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T09:14:12",
   "title" : "Oil up nearly 1% as US and Iran trade fresh strikes",
   "impact" : "Rising crude prices will likely pressure Indian equity markets and Nifty due to higher import costs. The rupee is expected to face depreciation against the dollar, potentially leading to a bearish sentiment in the near term.",
@@ -3497,5 +3490,12 @@
   "impact" : "The surge in FDI signals strong investor confidence in India's structural growth story, likely providing a bullish tailwind for the Nifty 50. Increased capital inflows will strengthen the Indian Rupee against the dollar due to improved forex reserves.",
   "source" : "BusinessLine",
   "publishedAt" : "25-Sep-2026 22:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-25T23:09:52",
+  "title" : "India’s private capex estimated at ₹3.2 lakh crore in 2026-27: RBI",
+  "impact" : "Positive signal for medium-term structural growth supporting Nifty benchmarks. Increased domestic investment reduces reliance on volatile FII flows and stabilizes the rupee through reduced import-heavy capital outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Sep-2026 23:00 IST",
   "score" : 7
 } ]
