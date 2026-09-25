@@ -10573,5 +10573,29 @@
   "entryTimestampMs": 1790313300000,
   "exitTimestampMs": 1790325000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 105.8148,
+  "exitPrice": 105.8,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.013986701293210531,
+  "entryTimestampMs": 1790313300000,
+  "exitTimestampMs": 1790325300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 550.171125,
+  "exitPrice": 550.8,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.11430534454166305,
+  "entryTimestampMs": 1790312700000,
+  "exitTimestampMs": 1790325300000,
+  "shadow": true
  }
 ]
