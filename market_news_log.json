@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T08:28:08",
-  "title" : "Fresh selloff on cards for India bonds as oil, Treasury yields see persistent spike",
-  "impact" : "Rising bond yields and elevated oil prices will likely exert downward pressure on Indian equities as foreign outflows intensify. Nifty is expected to see a consolidation with a bearish bias, while the rupee faces depreciation risks against the strengthening dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "02-Sep-2026 08:25 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T08:43:14",
   "title" : "'Tanker for tanker': Trump's new retaliation policy",
   "impact" : "Global trade protectionism and geopolitical tensions likely to trigger Nifty volatility and risk-off sentiment. Expected pressure on the Rupee due to higher energy import costs and potential supply chain disruptions.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong economic sentiment supports a bullish outlook for Indian equities, likely driving Nifty toward fresh highs. Sustained growth prospects will stabilize the rupee against the dollar through increased FII inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "25-Sep-2026 14:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-25T17:34:43",
+  "title" : "India faces Trump tariff heat as China gets breather",
+  "impact" : "Heightened tariff risks create headwinds for Indian exports to the US, leading to potential Nifty consolidation. Increased safe-haven demand for the dollar may put moderate pressure on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "25-Sep-2026 16:44 IST",
   "score" : 7
 } ]
