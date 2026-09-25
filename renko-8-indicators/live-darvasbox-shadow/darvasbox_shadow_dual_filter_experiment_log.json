@@ -10627,5 +10627,14 @@
   "timestampMs": 1790326500000,
   "breakoutTimestampMs": 1790326500000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "LONG",
+  "entry": 207.05624999999995,
+  "timestampMs": 1790327100000,
+  "breakoutTimestampMs": 1790327100000,
+  "shadow": true
  }
 ]
