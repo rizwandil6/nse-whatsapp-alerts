@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T07:42:27",
-  "title" : "US launches fresh strikes on Iranian targets",
-  "impact" : "Heightened geopolitical risk will likely trigger a sharp sell-off in Indian equities due to risk aversion. Nifty is expected to open with a significant gap down while the rupee faces downward pressure as crude oil prices surge.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Sep-2026 22:13 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-02T07:42:29",
   "title" : "ICICI Bank closes in on HDFC Bank for Nifty’s top spot as share trends diverge",
   "impact" : "The narrowing weight gap between banking giants signals a shift in market leadership, potentially causing index volatility. Nifty may face consolidation as passive flows rebalance, while the rupee remains neutral to this specific equity redistribution.",
@@ -3497,5 +3490,12 @@
   "impact" : "The regulatory expansion signals a structural boost to market liquidity and professionalized retail participation. Expect Nifty to consolidate with a bullish bias as AUM flows into diverse assets, providing a mild support to the rupee via long-term institutional inflows.",
   "source" : "Economic Times",
   "publishedAt" : "25-Sep-2026 05:54 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-25T07:23:03",
+  "title" : "'US, Iran explore phased deal to reopen Hormuz'",
+  "impact" : "Lower crude oil prices will reduce India's import bill, providing support to the Indian Rupee and improving macro sentiment. Nifty is expected to trade with a positive bias as inflationary pressures ease and input costs decline.",
+  "source" : "Economic Times",
+  "publishedAt" : "24-Sep-2026 22:05 IST",
   "score" : 7
 } ]
