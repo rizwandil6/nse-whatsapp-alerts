@@ -10471,5 +10471,32 @@
   "timestampMs": 1790312700000,
   "breakoutTimestampMs": 1790312700000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 105.8148,
+  "timestampMs": 1790313300000,
+  "breakoutTimestampMs": 1790313300000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 257.9535,
+  "timestampMs": 1790313300000,
+  "breakoutTimestampMs": 1790313300000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 811.216875,
+  "timestampMs": 1790313300000,
+  "breakoutTimestampMs": 1790313300000,
+  "shadow": true
  }
 ]
