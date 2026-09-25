@@ -1492,5 +1492,12 @@
   "date": "2026-09-22",
   "price": 623.05,
   "rsRankAtEntry": 80.70866141732283
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SCHNEIDER",
+  "date": "2026-09-23",
+  "price": 1218.8,
+  "rsRankAtEntry": 80.11811023622047
  }
 ]
