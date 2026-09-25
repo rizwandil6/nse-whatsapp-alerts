@@ -10690,5 +10690,53 @@
   "timestampMs": 1790329500000,
   "breakoutTimestampMs": 1790328900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 38.55175000000004,
+  "exitPrice": 38.35200000000005,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.518134715025892,
+  "entryTimestampMs": 1790329500000,
+  "exitTimestampMs": 1790329800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 104.80174999999993,
+  "exitPrice": 115.28192499999983,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 9.999999999999915,
+  "entryTimestampMs": 1790310600000,
+  "exitTimestampMs": 1790314200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 797.8192500000001,
+  "exitPrice": 789.8807499999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.9950248756219159,
+  "entryTimestampMs": 1790325900000,
+  "exitTimestampMs": 1790330100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 555.6866249999999,
+  "exitPrice": 555.6866249999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1790329200000,
+  "exitTimestampMs": 1790329200000,
+  "shadow": true
  }
 ]
