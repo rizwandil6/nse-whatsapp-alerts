@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T07:57:41",
-  "title" : "Trump: Not seeking Iran talks, US controls Hormuz",
-  "impact" : "Rising geopolitical tensions in the Middle East will likely trigger volatility and a risk-off sentiment in Indian markets. Nifty faces downward pressure as crude oil prices climb, leading to potential rupee depreciation against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 07:19 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T08:12:54",
   "title" : "Nifty set to open lower as oil hits near-six-week high on US-Iran strikes",
   "impact" : "The Indian market is expected to face a bearish opening with Nifty testing lower support levels. Rising Brent crude prices are likely to pressure the rupee and increase import costs for domestic manufacturers.",
@@ -3497,5 +3490,12 @@
   "impact" : "The confluence of rising US yields and persistent FII outflows is expected to keep Nifty under selling pressure near key support levels. The Rupee remains vulnerable, likely facing further depreciation against the strengthening dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "25-Sep-2026 07:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-25T12:15:32",
+  "title" : "Indian 10-year bond hits 4-month low on US debt rout",
+  "impact" : "Rising 10-year yields will put downward pressure on Nifty due to FII outflows and costlier capital. The rupee is likely to face depreciation pressure against the US dollar amid widening interest rate differentials.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Sep-2026 12:00 IST",
   "score" : 7
 } ]
