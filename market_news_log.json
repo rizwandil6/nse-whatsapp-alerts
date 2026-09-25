@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T07:42:29",
-  "title" : "ICICI Bank closes in on HDFC Bank for Nifty’s top spot as share trends diverge",
-  "impact" : "The narrowing weight gap between banking giants signals a shift in market leadership, potentially causing index volatility. Nifty may face consolidation as passive flows rebalance, while the rupee remains neutral to this specific equity redistribution.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 06:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T07:57:41",
   "title" : "Trump: Not seeking Iran talks, US controls Hormuz",
   "impact" : "Rising geopolitical tensions in the Middle East will likely trigger volatility and a risk-off sentiment in Indian markets. Nifty faces downward pressure as crude oil prices climb, leading to potential rupee depreciation against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower crude oil prices will reduce India's import bill, providing support to the Indian Rupee and improving macro sentiment. Nifty is expected to trade with a positive bias as inflationary pressures ease and input costs decline.",
   "source" : "Economic Times",
   "publishedAt" : "24-Sep-2026 22:05 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-25T07:53:08",
+  "title" : "Sensex, Nifty face pressure from rising US yields, crude and FII selling",
+  "impact" : "The confluence of rising US yields and persistent FII outflows is expected to keep Nifty under selling pressure near key support levels. The Rupee remains vulnerable, likely facing further depreciation against the strengthening dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Sep-2026 07:48 IST",
   "score" : 7
 } ]
