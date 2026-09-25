@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T08:12:59",
-  "title" : "A new PM, a shattered nation and his leadership test",
-  "impact" : "Political uncertainty surrounding leadership transitions typically triggers market volatility and risk-off sentiment. Nifty may experience near-term profit booking as investors await policy continuity, while the rupee could face pressure due to potential FII outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 07:52 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T08:28:08",
   "title" : "Fresh selloff on cards for India bonds as oil, Treasury yields see persistent spike",
   "impact" : "Rising bond yields and elevated oil prices will likely exert downward pressure on Indian equities as foreign outflows intensify. Nifty is expected to see a consolidation with a bearish bias, while the rupee faces depreciation risks against the strengthening dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "25-Sep-2026 13:34 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-25T15:02:33",
+  "title" : "India has strongest growth outlook globally; 74% chief economists expect strong growth: WEF",
+  "impact" : "Strong economic sentiment supports a bullish outlook for Indian equities, likely driving Nifty toward fresh highs. Sustained growth prospects will stabilize the rupee against the dollar through increased FII inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Sep-2026 14:55 IST",
+  "score" : 7
 } ]
