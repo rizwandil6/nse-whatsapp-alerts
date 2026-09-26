@@ -352,5 +352,26 @@
   "rsRankAtEntry": 80.11811023622047,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "BELRISE": {
+  "entryDate": "2026-09-24",
+  "entryPrice": 247.92,
+  "rsRankAtEntry": 81.10236220472441,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GREAVESCOT": {
+  "entryDate": "2026-09-24",
+  "entryPrice": 234.78,
+  "rsRankAtEntry": 80.31496062992126,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LLOYDSENT": {
+  "entryDate": "2026-09-24",
+  "entryPrice": 79.67,
+  "rsRankAtEntry": 82.48031496062993,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
