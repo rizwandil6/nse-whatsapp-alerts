@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T13:17:39",
-  "title" : "Markets sink mid-session; auto stocks bleed as crude surges",
-  "impact" : "Rising crude oil prices are inducing risk-off sentiment across Indian equities, leading to a bearish trend for the Nifty 50. The rupee is expected to face downward pressure as energy import costs climb, potentially prompting foreign institutional outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "02-Sep-2026 13:16 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T13:32:56",
   "title" : "ICICI pulls in $17.88 billion in FCNR",
   "impact" : "The large scale FCNR inflow significantly bolsters forex reserves and stabilizes the rupee against volatility. Nifty is expected to see a positive sentiment boost as banking liquidity and systemic stability improve.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "26-Sep-2026 06:56 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-26T11:50:51",
+  "title" : "India-US trade deal to 'unleash another level' of ties",
+  "impact" : "Enhanced US-India trade ties are likely to boost investor sentiment and long-term capital inflows. Nifty is expected to sustain its upward momentum with the Rupee gaining stability against the Dollar due to improved trade balances.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Sep-2026 08:00 IST",
+  "score" : 7
 } ]
