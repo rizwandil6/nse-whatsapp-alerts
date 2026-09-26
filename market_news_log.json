@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T09:14:42",
-  "title" : "The road ahead looks brighter for autos",
-  "impact" : "Positive auto sector performance boosts Nifty sentiment by strengthening domestic demand narratives. The rupee may see stability as increased automotive exports improve the trade balance outlook.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 08:46 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T09:29:53",
   "title" : "Iran claims 7 killed in US missile strike",
   "impact" : "Heightened geopolitical risk in the Middle East will likely trigger a risk-off sentiment in Indian markets. Expect Nifty to face significant downward pressure at the opening with the Rupee weakening against the USD due to safe-haven demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "Enhanced strategic partnerships with West Asia will drive inflows into infrastructure and energy, providing a bullish tailwind for Nifty. Expect strengthening of the rupee due to potential FDI and energy security agreements.",
   "source" : "Economic Times",
   "publishedAt" : "26-Sep-2026 01:03 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-26T08:48:29",
+  "title" : "Iran awaits US response on Strait of Hormuz plan",
+  "impact" : "Heightened geopolitical tension in the Strait of Hormuz will trigger a risk-off sentiment in Indian equity markets. Expect Nifty to face downward pressure as crude oil price volatility increases, leading to rupee depreciation against the US dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Sep-2026 08:36 IST",
   "score" : 7
 } ]
