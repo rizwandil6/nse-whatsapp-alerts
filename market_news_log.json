@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T17:35:38",
-  "title" : "'India like an oasis in the desert': Goyal",
-  "impact" : "The strong GDP growth of 7.8 percent reaffirms India's decoupled growth narrative, likely driving positive investor sentiment and foreign inflows. Expect Nifty to maintain its upward momentum while the rupee gains stability against global volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 17:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T18:05:45",
   "title" : "Equities extend losses as West Asia tensions push crude higher",
   "impact" : "Rising crude oil prices due to West Asia geopolitical risks are fueling inflationary concerns and dampening investor sentiment. The Nifty 50 faces immediate downside pressure towards support levels, while the Indian Rupee is expected to face depreciation pressure against the USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "The focus on deep-tech infrastructure provides a structural growth narrative for the Nifty 50, likely driving index outperformance in the medium term. Long-term capital inflows into technology and manufacturing should support the rupee against potential volatility.",
   "source" : "Economic Times",
   "publishedAt" : "26-Sep-2026 17:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-26T18:24:17",
+  "title" : "India’s fab control seen as the real sovereignty test",
+  "impact" : "The push for semiconductor sovereignty signals long-term structural strength and capital expenditure support for the Nifty index. Local manufacturing incentives are likely to attract FDI, providing a moderate boost to the rupee through capital inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Sep-2026 12:27 IST",
   "score" : 7
 } ]
