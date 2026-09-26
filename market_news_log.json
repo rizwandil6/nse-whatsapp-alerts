@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T16:19:18",
-  "title" : "The HDFC share strategy as it drops to 52-week low",
-  "impact" : "HDFC Bank weakness exerts downward pressure on Nifty 50 due to its heavy weightage in the index. Market sentiment remains cautious as foreign institutional selling persists in banking heavyweights, keeping the rupee under pressure against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 11:24 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T16:49:36",
   "title" : "Japanese Credit Rating Agency upgrades India’s sovereign rating to A-, highest by any agency",
   "impact" : "The rating upgrade acts as a major confidence booster for foreign institutional investors, likely driving Nifty toward fresh record highs. The rupee is expected to strengthen against the dollar due to increased capital inflows and improved sovereign risk perception.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market faces a bearish outlook as technical indicators signal a super-bearish zone for Nifty. Expectations remain tilted toward downside targets of 22,800-22,600 unless the 23,300 hurdle is reclaimed, with global headwinds like rising US bond yields pressuring sentiment.",
   "source" : "Economic Times",
   "publishedAt" : "26-Sep-2026 14:50 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-26T16:23:13",
+  "title" : "Centre extending support to manufacturing to end dependency, says Finance Minister",
+  "impact" : "The government's push for self-reliance signals a structural shift towards domestic manufacturing, likely boosting investor sentiment. Nifty is expected to sustain its upward momentum with increased capital expenditure, while the rupee may stabilize due to reduced import reliance.",
+  "source" : "BusinessLine",
+  "publishedAt" : "26-Sep-2026 16:19 IST",
   "score" : 7
 } ]
