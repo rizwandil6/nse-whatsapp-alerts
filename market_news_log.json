@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T18:05:54",
-  "title" : "Adani Ports hits 50m tonne monthly cargo mark",
-  "impact" : "Strong volume growth at APSEZ signals robust manufacturing activity and resilience in the Indian economy. Expect a bullish bias for Nifty's infrastructure and logistics indices, while the rupee remains stable amid increased trade throughput.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 17:36 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T18:20:59",
   "title" : "India’s auto industry wants to own the road ahead",
   "impact" : "The push for auto-industry dominance indicates strong capital expenditure and growth in the manufacturing sector. Nifty is expected to lean bullish as major auto heavyweights drive industrial sentiment, with potential moderate stability for the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global trade de-escalation boosts risk appetite, likely pushing Nifty higher. Rupee may strengthen against the dollar due to improved global trade sentiment.",
   "source" : "Economic Times",
   "publishedAt" : "26-Sep-2026 14:11 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-26T19:09:40",
+  "title" : "Over 10% economic growth possible for India: Finance Minister",
+  "impact" : "The growth forecast signals a sustained long-term bull run for the Indian equity market. Nifty is expected to trend upward with increased institutional inflows and a stable Rupee supported by strengthening economic fundamentals.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "26-Sep-2026 18:50 IST",
   "score" : 7
 } ]
