@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T18:05:45",
-  "title" : "Equities extend losses as West Asia tensions push crude higher",
-  "impact" : "Rising crude oil prices due to West Asia geopolitical risks are fueling inflationary concerns and dampening investor sentiment. The Nifty 50 faces immediate downside pressure towards support levels, while the Indian Rupee is expected to face depreciation pressure against the USD.",
-  "source" : "BusinessLine",
-  "publishedAt" : "02-Sep-2026 17:54 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T18:05:54",
   "title" : "Adani Ports hits 50m tonne monthly cargo mark",
   "impact" : "Strong volume growth at APSEZ signals robust manufacturing activity and resilience in the Indian economy. Expect a bullish bias for Nifty's infrastructure and logistics indices, while the rupee remains stable amid increased trade throughput.",
@@ -3497,5 +3490,12 @@
   "impact" : "The push for semiconductor sovereignty signals long-term structural strength and capital expenditure support for the Nifty index. Local manufacturing incentives are likely to attract FDI, providing a moderate boost to the rupee through capital inflows.",
   "source" : "Economic Times",
   "publishedAt" : "26-Sep-2026 12:27 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-26T18:54:29",
+  "title" : "China, US agree to $30 bn tariff cut during Xi's visit",
+  "impact" : "Global trade de-escalation boosts risk appetite, likely pushing Nifty higher. Rupee may strengthen against the dollar due to improved global trade sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Sep-2026 14:11 IST",
   "score" : 7
 } ]
