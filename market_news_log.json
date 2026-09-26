@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T12:31:54",
-  "title" : "What’s behind the selloff in world bond markets?",
-  "impact" : "Rising global yields will likely trigger FII outflows from Indian equities, keeping Nifty under bearish pressure. The Rupee is expected to face depreciation risk against a stronger Dollar driven by higher US debt servicing costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "02-Sep-2026 12:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T13:17:39",
   "title" : "Markets sink mid-session; auto stocks bleed as crude surges",
   "impact" : "Rising crude oil prices are inducing risk-off sentiment across Indian equities, leading to a bearish trend for the Nifty 50. The rupee is expected to face downward pressure as energy import costs climb, potentially prompting foreign institutional outflows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "25-Sep-2026 10:03 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-26T11:50:48",
+  "title" : "Trump to bomb Iran once November midterms end",
+  "impact" : "Heightened geopolitical tensions in the Middle East would likely trigger a flight to safety, causing a sharp correction in Nifty and increased volatility. The Indian Rupee would face significant depreciation pressure due to a spike in global oil prices and risk-off sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Sep-2026 06:56 IST",
+  "score" : 8
 } ]
