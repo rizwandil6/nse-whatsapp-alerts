@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T20:07:19",
-  "title" : "Global Market: Data centre boom fuels demand for power, cooling equipment suppliers",
-  "impact" : "The data centre infrastructure boom provides a structural tailwind for Indian power and capital goods companies. Expect Nifty to find support from industrial and infrastructure segments while the rupee remains stable against export-led industrial demand.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 13:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T20:22:31",
   "title" : "Ambani uses ₹10 power to disrupt another market",
   "impact" : "Reliance remains a pivotal Nifty mover with potential index outperformance. The rupee stays stable as domestic industrial expansion offsets import-related capital outflows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "27-Sep-2026 16:03 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-27T19:41:07",
+  "title" : "H-1B faces major changes under Trump admin",
+  "impact" : "The US H-1B visa crackdown poses a significant risk to the Indian IT export sector, potentially weighing on the Nifty IT index. The resultant uncertainty may lead to rupee volatility and pressure on large-cap IT stocks as operating margins face headwinds.",
+  "source" : "Economic Times",
+  "publishedAt" : "27-Sep-2026 19:29 IST",
+  "score" : 8
 } ]
