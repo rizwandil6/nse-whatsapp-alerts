@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T18:21:11",
-  "title" : "Warsh may put Trump's record under scanner",
-  "impact" : "Expect volatility in Indian markets as potential US rate hikes strengthen the dollar and increase FII outflows. Nifty may face downward pressure while the rupee is likely to weaken further against the USD.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 17:44 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T19:21:45",
   "title" : "RBI's forex swap facility draws over $136 billion; more than $127 billion mobilised via FCNR (B) deposits",
   "impact" : "The large scale liquidity injection via forex swaps will provide significant support to the Indian Rupee, curbing volatility. This is expected to stabilize Nifty by reducing macro-economic risks, though the underlying global liquidity environment remains a critical factor.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a risk-off sentiment in Indian equity markets. Nifty is expected to face downward pressure due to rising crude oil prices and the rupee may weaken against the USD due to increased import bill concerns.",
   "source" : "Economic Times",
   "publishedAt" : "26-Sep-2026 20:41 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-27T12:39:03",
+  "title" : "India's space sector undergoes biggest revision",
+  "impact" : "The policy revision is expected to boost investor sentiment in high-tech manufacturing and defense, providing a positive tailwind for Nifty. Increased FDI potential may strengthen the rupee due to long-term capital inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "27-Sep-2026 11:38 IST",
   "score" : 7
 } ]
