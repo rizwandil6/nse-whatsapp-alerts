@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T19:21:45",
-  "title" : "RBI's forex swap facility draws over $136 billion; more than $127 billion mobilised via FCNR (B) deposits",
-  "impact" : "The large scale liquidity injection via forex swaps will provide significant support to the Indian Rupee, curbing volatility. This is expected to stabilize Nifty by reducing macro-economic risks, though the underlying global liquidity environment remains a critical factor.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "02-Sep-2026 19:06 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T19:36:51",
   "title" : "iPhone story: How Tim ‘cooked’ Apple's India recipe",
   "impact" : "Apple's deeper integration into India's supply chain boosts sentiment for manufacturing and large-cap industrial growth. Nifty is expected to see a bullish bias with increased FDI inflow potential while the rupee gains stability through strong export-oriented manufacturing support.",
@@ -3497,5 +3490,12 @@
   "impact" : "The policy revision is expected to boost investor sentiment in high-tech manufacturing and defense, providing a positive tailwind for Nifty. Increased FDI potential may strengthen the rupee due to long-term capital inflows.",
   "source" : "Economic Times",
   "publishedAt" : "27-Sep-2026 11:38 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-27T12:54:08",
+  "title" : "Geopolitical developments, crude oil to steer stock market in holiday-shortened week: Analysts",
+  "impact" : "Heightened geopolitical tensions are expected to induce volatility in the Indian markets. Nifty may face downward pressure due to foreign fund outflows, while the rupee is likely to weaken against the dollar due to rising crude oil prices.",
+  "source" : "BusinessLine",
+  "publishedAt" : "27-Sep-2026 12:48 IST",
   "score" : 7
 } ]
