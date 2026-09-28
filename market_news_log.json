@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T15:36:00",
-  "title" : "$127 billion dollar flood puts ICICI, HDFC in focus",
-  "impact" : "The capital inflow is expected to provide a significant boost to market liquidity and investor sentiment. Nifty is likely to test immediate resistance levels as banking giants lead the rally, while the Rupee is expected to strengthen against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 10:46 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T16:06:21",
   "title" : "India to finalise US trade deal after securing preferential tariff terms: Piyush Goyal",
   "impact" : "The trade deal signals improved investor sentiment and potential for increased FDI inflows, bolstering Nifty towards recent highs. Enhanced bilateral trade prospects may strengthen the Rupee against the US Dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The weakening rupee and rising crude oil prices create significant bearish headwinds for the Indian markets. Expect Nifty to face strong downward pressure due to foreign institutional selling and higher import costs.",
   "source" : "BusinessLine",
   "publishedAt" : "28-Sep-2026 16:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-28T16:27:19",
+  "title" : "India’s industrial output grows 8% in August",
+  "impact" : "Robust industrial growth reinforces macro stability, likely supporting a bullish trend for Nifty near-term. FII flows may increase, potentially strengthening the rupee against the USD.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 16:20 IST",
   "score" : 7
 } ]
