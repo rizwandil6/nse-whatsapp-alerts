@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T23:09:20",
-  "title" : "US-Iran war resumes. What can Tehran do next?",
-  "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to witness downward pressure with the rupee potentially weakening against the dollar due to rising crude oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 13:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T23:54:50",
   "title" : "Berkshire Hathaway CEO Greg Abel sees AI, power demand as new engines of growth",
   "impact" : "The focus on AI-driven energy demand signals a global shift that will likely accelerate capital inflows into Indian power and infrastructure sectors. Nifty is expected to maintain its upward trajectory with sustained interest in utilities, while the rupee may face pressure if foreign investors pivot heavily toward US AI-centric opportunities.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising oil prices due to geopolitical tensions threaten to increase India's import bill, likely leading to Nifty weakness. Expect persistent downward pressure on the rupee as crude costs weigh on the current account deficit.",
   "source" : "BusinessLine",
   "publishedAt" : "28-Sep-2026 07:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-28T09:21:19",
+  "title" : "India's key-tenor bonds may see relief after October-March supply cut",
+  "impact" : "Lower government borrowing reduces yields, boosting broader market sentiment and liquidity. Nifty is likely to see an upward trend, while the rupee may appreciate due to improved fiscal deficit perceptions.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 09:17 IST",
   "score" : 7
 } ]
