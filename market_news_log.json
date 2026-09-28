@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T23:54:50",
-  "title" : "Berkshire Hathaway CEO Greg Abel sees AI, power demand as new engines of growth",
-  "impact" : "The focus on AI-driven energy demand signals a global shift that will likely accelerate capital inflows into Indian power and infrastructure sectors. Nifty is expected to maintain its upward trajectory with sustained interest in utilities, while the rupee may face pressure if foreign investors pivot heavily toward US AI-centric opportunities.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 23:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T01:10:12",
   "title" : "Reducing India’s exposure to U.S. tariff risks",
   "impact" : "Heightened tariff risks create volatility for export-oriented firms and foreign capital flows. Nifty is expected to remain range-bound with a bearish bias in the short term, while the rupee faces depreciation pressure due to trade uncertainty.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower government borrowing reduces yields, boosting broader market sentiment and liquidity. Nifty is likely to see an upward trend, while the rupee may appreciate due to improved fiscal deficit perceptions.",
   "source" : "BusinessLine",
   "publishedAt" : "28-Sep-2026 09:17 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-28T09:51:43",
+  "title" : "Brent crude rises above $106 as Trump rejects Iran’s proposal",
+  "impact" : "Rising crude oil prices will pressure India's import bill and widen the trade deficit. Expect Nifty to face volatility and potential downside as inflationary concerns mount. The Rupee is likely to depreciate against the USD due to increased dollar demand for oil imports.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 09:49 IST",
   "score" : 7
 } ]
