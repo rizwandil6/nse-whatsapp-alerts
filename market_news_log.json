@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T10:46:41",
-  "title" : "Inside US military's biggest push to secure Hormuz",
-  "impact" : "Rising tensions in the Strait of Hormuz increase crude oil prices, pressuring the Indian trade deficit and inflation outlook. Nifty may face volatility and selling pressure, while the rupee is likely to weaken against the dollar due to higher oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 10:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T11:47:36",
   "title" : "It is near 100% certainty that El Niño will continue through February 2027, says WMO",
   "impact" : "Prolonged El Nino poses risks to rural consumption and inflation, likely keeping Nifty range-bound with volatility. Rupee may face pressure if food inflation forces sustained high interest rates.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rate hikes increase borrowing costs, likely leading to short-term market consolidation or downside pressure. Nifty may face resistance near historical highs as liquidity tightens, while the Rupee is expected to stabilize or strengthen due to higher interest rate differentials.",
   "source" : "Economic Times",
   "publishedAt" : "28-Sep-2026 13:43 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-28T13:55:14",
+  "title" : "El Nino may turn 'very strong' by late 2026: IRI",
+  "impact" : "El Nino poses a significant risk to domestic food inflation and rural consumption patterns. Expect potential Nifty volatility as agricultural output uncertainty may pressure the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "28-Sep-2026 13:34 IST",
   "score" : 7
 } ]
