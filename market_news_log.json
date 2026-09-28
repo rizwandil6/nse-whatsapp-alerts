@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T18:39:06",
-  "title" : "RBI’s ₹9.7 lakh cr liquidity glut needs a drain",
-  "impact" : "The RBI's move to drain excess liquidity will likely keep overnight rates stable while tightening broader money supply. Nifty may face short-term consolidation as liquidity support reduces, while the rupee is expected to show increased resilience against dollar volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 17:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T20:10:06",
   "title" : "India’s economy enters A-rated club after 35 years",
   "impact" : "The sovereign credit rating upgrade will likely trigger significant foreign institutional inflows, pushing Nifty towards new record highs. The Indian Rupee is expected to strengthen as sovereign risk perception improves.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "28-Sep-2026 18:01 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-28T20:31:09",
+  "title" : "India's factory pulse quickens as IIP hits 8% in Aug",
+  "impact" : "Robust IIP data signals strong industrial recovery boosting investor sentiment for Nifty. Expect a bullish bias in equity indices and potential support for the rupee as manufacturing attractiveness increases.",
+  "source" : "Economic Times",
+  "publishedAt" : "28-Sep-2026 16:05 IST",
+  "score" : 7
 } ]
