@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T10:01:10",
-  "title" : "Sensex, Nifty open higher on institutional support, global tailwinds; IT stocks drag",
-  "impact" : "Strong institutional inflows provide a bullish cushion against global volatility. Nifty is expected to sustain support levels despite IT sector weakness, with the Rupee likely to remain stable.",
-  "source" : "BusinessLine",
-  "publishedAt" : "03-Sep-2026 09:44 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T10:01:18",
   "title" : "'Move faster': Nvidia’s Jensen Huang to India on AI",
   "impact" : "Jensen Huang's visit signals massive AI infrastructure investment, boosting market sentiment for tech and industrial sectors. Nifty is expected to see a bullish bias as digital transformation accelerates, while increased FDI inflows may provide marginal support to the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "28-Sep-2026 13:05 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-28T13:24:13",
+  "title" : "Nifty 50 down 12% from September 2024 peak: Motilal Oswal",
+  "impact" : "The Nifty 50 is experiencing a technical correction phase as investors digest stretched valuations. Expect consolidation with potential support levels being tested while the Rupee faces pressure from FII outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 13:05 IST",
+  "score" : 7
 } ]
