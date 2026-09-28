@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T06:56:08",
-  "title" : "Refiners face mounting crude disruptions from Gulf",
-  "impact" : "Rising crude volatility increases inflationary pressures and trade deficit concerns for India. Nifty likely to face selling pressure as FIIs turn cautious on import-dependent sectors. The rupee is expected to remain under pressure against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 06:39 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T07:41:38",
   "title" : "India rings the Nasdaq bell on a 7.8% growth note",
   "impact" : "Robust 7.8% GDP growth signals strong economic health, likely driving Nifty toward record highs on positive FII sentiment. The rupee is expected to strengthen as foreign capital inflows increase due to India becoming a prime investment destination.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "28-Sep-2026 09:49 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-28T09:51:51",
+  "title" : "Indian central bank likely shielding rupee as US-Iran impasses lifts oil prices, traders say",
+  "impact" : "Rising oil prices and geopolitical tensions create a bearish sentiment for Indian equities. Nifty is expected to face downward pressure due to foreign institutional selling, while the RBI will remain active to prevent a sharp rupee depreciation.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 09:35 IST",
+  "score" : 7
 } ]
