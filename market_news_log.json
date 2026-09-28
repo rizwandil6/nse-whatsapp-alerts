@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T20:40:39",
-  "title" : "Supreme Court disposes of SEBI pleas against NSE’s co-location, dark-fibre cases",
-  "impact" : "The resolution of the long-standing NSE regulatory overhang removes a significant hurdle for market sentiment and investor confidence. Nifty is likely to see a bullish bias as the path clears for the NSE IPO, with negligible direct impact on the rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "03-Sep-2026 20:33 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T22:11:55",
   "title" : "India’s EV push could save $125 billion by 2050",
   "impact" : "The long-term shift toward EV dominance supports structural bullishness for green energy and infrastructure sectors. Nifty is expected to sustain its upward momentum with capital expenditure support, though the rupee may remain pressured due to high battery component import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising oil prices and a stronger dollar create headwinds for Indian equities by increasing import bills and inflation risks. Nifty is expected to face selling pressure as foreign institutional outflows increase and bond yields firm up.",
   "source" : "Economic Times",
   "publishedAt" : "29-Sep-2026 00:12 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-29T02:18:34",
+  "title" : "US stocks: US market falls as higher oil prices, Treasury yields weigh",
+  "impact" : "Indian markets are likely to open with a bearish bias following US weakness. Expect Nifty to consolidate near support levels while the Rupee remains under pressure due to rising crude prices and US Treasury yields.",
+  "source" : "Economic Times",
+  "publishedAt" : "29-Sep-2026 01:41 IST",
   "score" : 7
 } ]
