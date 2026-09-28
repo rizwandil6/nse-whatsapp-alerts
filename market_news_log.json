@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T20:10:06",
-  "title" : "India’s economy enters A-rated club after 35 years",
-  "impact" : "The sovereign credit rating upgrade will likely trigger significant foreign institutional inflows, pushing Nifty towards new record highs. The Indian Rupee is expected to strengthen as sovereign risk perception improves.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 14:58 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-03T20:25:20",
   "title" : "Prepare for stricter norms on ICE vehicles: Government to auto industry",
   "impact" : "The push for stricter ICE norms signals accelerated green energy adoption, likely pressuring traditional auto manufacturers. Nifty may face volatility in the auto segment while green energy stocks find structural support.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "28-Sep-2026 16:05 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-28T21:16:29",
+  "title" : "Markets sink to six-month low as oil shock wipes out ₹7.5 lakh crore in investor wealth",
+  "impact" : "The sharp decline reflects heightened risk aversion driven by rising oil prices and foreign capital outflows. Nifty is likely to test lower support levels near 22,500, while the rupee faces significant depreciation pressure due to import cost inflation.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 21:06 IST",
+  "score" : 8
 } ]
