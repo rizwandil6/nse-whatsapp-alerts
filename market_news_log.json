@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T07:41:38",
-  "title" : "India rings the Nasdaq bell on a 7.8% growth note",
-  "impact" : "Robust 7.8% GDP growth signals strong economic health, likely driving Nifty toward record highs on positive FII sentiment. The rupee is expected to strengthen as foreign capital inflows increase due to India becoming a prime investment destination.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 07:32 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-03T07:42:00",
   "title" : "High-tech cos may get BIS relief for India plants",
   "impact" : "This policy pivot signals a significant boost to India's manufacturing attractiveness and FDI inflows. Nifty is expected to remain positive on improved investor sentiment, while the rupee may find support from increased long-term capital expenditure.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising oil prices and geopolitical tensions create a bearish sentiment for Indian equities. Nifty is expected to face downward pressure due to foreign institutional selling, while the RBI will remain active to prevent a sharp rupee depreciation.",
   "source" : "BusinessLine",
   "publishedAt" : "28-Sep-2026 09:35 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-28T10:52:27",
+  "title" : "Iran completes rail laying on Chabahar-Zahedan link, to boost India’s access to Central Asia",
+  "impact" : "This strategic development strengthens India's long-term trade infrastructure and geopolitical positioning. It is likely to support positive sentiment in the Nifty infrastructure and logistics space while providing structural support to the rupee through enhanced trade efficiency.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 10:38 IST",
   "score" : 7
 } ]
