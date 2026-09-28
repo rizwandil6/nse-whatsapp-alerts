@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T08:30:23",
-  "title" : "India-Germany partnership gets a green push",
-  "impact" : "The strategic partnership is expected to boost investor sentiment and long-term capital inflows into the Indian renewable and infrastructure sectors. Nifty is likely to see a positive momentum as German FDI commitments provide stability, while the rupee may gain strength against the Euro.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 08:06 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T09:15:44",
   "title" : "India’s $127 bln NRI deposits arm RBI with more firepower, setting rupee up for rally",
   "impact" : "The record NRI deposit inflows provide substantial liquidity and support for the rupee, likely triggering a broader market rally. Nifty is expected to open with a positive bias, capitalizing on currency stability and improved investor sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The implementation of CBAM by Europe will increase compliance costs for Indian exporters, potentially pressuring the Nifty in the near term. The rupee may face volatility as trade balances adjust to these new non-tariff barriers.",
   "source" : "Economic Times",
   "publishedAt" : "28-Sep-2026 10:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-28T11:23:04",
+  "title" : "What happens to gold prices when US Fed hikes rates?",
+  "impact" : "Fed rate hikes strengthen the US Dollar, leading to FII outflows and selling pressure on Indian equities. Nifty faces short-term volatility with a bearish bias as the Rupee depreciates against the Dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "28-Sep-2026 06:30 IST",
   "score" : 7
 } ]
