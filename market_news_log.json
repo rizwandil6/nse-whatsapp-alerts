@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T09:15:44",
-  "title" : "India’s $127 bln NRI deposits arm RBI with more firepower, setting rupee up for rally",
-  "impact" : "The record NRI deposit inflows provide substantial liquidity and support for the rupee, likely triggering a broader market rally. Nifty is expected to open with a positive bias, capitalizing on currency stability and improved investor sentiment.",
-  "source" : "BusinessLine",
-  "publishedAt" : "03-Sep-2026 09:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T10:01:06",
   "title" : "Robust FCNR(B) inflows: Rupee opens 67 paise stronger at 94.30 per USD",
   "impact" : "The sharp appreciation in the rupee due to significant FCNR(B) inflows improves macro sentiment and reduces imported inflation risks. Nifty is likely to trade with a bullish bias as liquidity improves, while the stronger currency benefits net importers and reduces foreign debt servicing costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Fed rate hikes strengthen the US Dollar, leading to FII outflows and selling pressure on Indian equities. Nifty faces short-term volatility with a bearish bias as the Rupee depreciates against the Dollar.",
   "source" : "Economic Times",
   "publishedAt" : "28-Sep-2026 06:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-28T12:38:36",
+  "title" : "AI-driven market correction could push US into recession, global growth below 1%: Fitch",
+  "impact" : "Global risk-off sentiment likely to trigger volatility and FII outflows in Indian equities. Nifty may face a significant correction testing key support levels while the Rupee is expected to weaken against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 12:25 IST",
   "score" : 7
 } ]
