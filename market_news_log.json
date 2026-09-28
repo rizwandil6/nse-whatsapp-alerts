@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T12:33:19",
-  "title" : "Record FCNR (B): Banks mobilise $127 bn",
-  "impact" : "The record dollar inflows provide significant support to the Indian Rupee, reducing volatility and lowering systemic risk. The bolstered forex reserves are expected to provide a stable macroeconomic backdrop, favoring a bullish trend for Nifty despite long-term fiscal cost concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Sep-2026 20:26 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-03T13:34:53",
   "title" : "El Nino to be 'very strong', last until Feb: UN",
   "impact" : "El Nino poses a significant risk to India's monsoon-dependent economy, potentially fueling food inflation and curbing rural consumption. Nifty may face volatility due to supply-side supply constraints, while the rupee could come under pressure from import-driven inflation.",
@@ -3497,5 +3490,12 @@
   "impact" : "The large scale FDI inflow is expected to bolster bullish sentiment in the Indian equity markets and support Nifty 50 upward momentum. The substantial capital infusion will strengthen the rupee against the USD due to increased foreign exchange reserves.",
   "source" : "Economic Times",
   "publishedAt" : "28-Sep-2026 14:18 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-28T15:10:57",
+  "title" : "India may need over ₹4 lakh crore investment in energy storage by FY32: Report",
+  "impact" : "The energy transition theme provides a long-term structural tailwind for industrial and utility indices. Nifty is expected to sustain its momentum in capital goods, while the rupee remains stable as massive capex drives domestic infrastructure growth.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 15:07 IST",
   "score" : 7
 } ]
