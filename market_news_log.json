@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T14:35:18",
-  "title" : "Bank stocks rally after RBI reports $136.38 billion inflows through special forex swap window",
-  "impact" : "The significant forex inflow strengthens the INR and boosts market sentiment. Expect Nifty to test higher resistance levels as improved banking liquidity supports broader equity valuations.",
-  "source" : "BusinessLine",
-  "publishedAt" : "03-Sep-2026 14:26 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-03T15:35:55",
   "title" : "From ‘Make in India’ to ‘Design in India’",
   "impact" : "The shift toward design-led manufacturing is expected to boost long-term Nifty outlook by fostering high-value industrial growth. Expect positive capital inflows into manufacturing, with a stable to slightly appreciating rupee due to reduced import dependency.",
@@ -3497,5 +3490,12 @@
   "impact" : "This massive bilateral investment plan signals strong macroeconomic confidence and long-term capital inflows for India. Nifty is expected to sustain a bullish bias as foreign direct investment boosts sentiment, while the rupee will likely strengthen against the USD due to reduced volatility and improved reserves.",
   "source" : "BusinessLine",
   "publishedAt" : "28-Sep-2026 15:24 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-09-28T15:41:44",
+  "title" : "Why RBI is tightening its hold on India",
+  "impact" : "The expected repo rate hike will likely exert short-term downward pressure on Nifty due to higher cost of capital. However, the rupee should gain support as narrowing interest rate differentials curb capital outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "28-Sep-2026 14:45 IST",
   "score" : 8
 } ]
