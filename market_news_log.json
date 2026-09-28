@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T15:35:55",
-  "title" : "From ‘Make in India’ to ‘Design in India’",
-  "impact" : "The shift toward design-led manufacturing is expected to boost long-term Nifty outlook by fostering high-value industrial growth. Expect positive capital inflows into manufacturing, with a stable to slightly appreciating rupee due to reduced import dependency.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 14:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T15:36:00",
   "title" : "$127 billion dollar flood puts ICICI, HDFC in focus",
   "impact" : "The capital inflow is expected to provide a significant boost to market liquidity and investor sentiment. Nifty is likely to test immediate resistance levels as banking giants lead the rally, while the Rupee is expected to strengthen against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "28-Sep-2026 14:45 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-28T16:12:09",
+  "title" : "Rupee falls 28 paise to close at 96.03 against US dollar",
+  "impact" : "The weakening rupee and rising crude oil prices create significant bearish headwinds for the Indian markets. Expect Nifty to face strong downward pressure due to foreign institutional selling and higher import costs.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 16:04 IST",
+  "score" : 7
 } ]
