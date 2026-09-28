@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T16:37:08",
-  "title" : "India’s bullet train dream moves closer to reality",
-  "impact" : "The acceleration of the high-speed rail project improves long-term infrastructure sentiment and capital expenditure outlook. Nifty is expected to sustain upward momentum in the capital goods and construction space, while the rupee remains stable amid long-term infrastructure investment prospects.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 15:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-03T18:39:06",
   "title" : "RBI’s ₹9.7 lakh cr liquidity glut needs a drain",
   "impact" : "The RBI's move to drain excess liquidity will likely keep overnight rates stable while tightening broader money supply. Nifty may face short-term consolidation as liquidity support reduces, while the rupee is expected to show increased resilience against dollar volatility.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "28-Sep-2026 17:01 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-28T18:14:22",
+  "title" : "Bears lay siege to D-Street; Nifty snaps below 23,000 on crude shock and Iran standoff",
+  "impact" : "Heightened geopolitical risk and crude price volatility have triggered a sharp risk-off sentiment. Nifty 50 is expected to test lower support levels near 22,500, with the rupee facing significant depreciation pressure against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Sep-2026 18:01 IST",
+  "score" : 8
 } ]
