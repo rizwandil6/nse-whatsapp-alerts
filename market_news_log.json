@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-02T22:24:03",
-  "title" : "FCNR(B) bonanza: Banks mobilise record $127.226 billion in 85 days, nearly four times 2013 levels",
-  "impact" : "The record FCNR(B) inflows significantly bolster India's foreign exchange reserves and provide a cushion against global volatility. Nifty is expected to see a bullish bias as liquidity improves, while the rupee gains strength against the USD, reducing imported inflation pressures.",
-  "source" : "BusinessLine",
-  "publishedAt" : "02-Sep-2026 22:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-02T22:24:06",
   "title" : "10-yr benchmark G-Sec briefly tests 7% yield level",
   "impact" : "Rising G-Sec yields exert downward pressure on equity valuations and increase the cost of capital for Indian firms. Nifty is likely to face a consolidation phase with potential bearish bias, while the rupee may face moderate pressure due to narrowing interest rate differentials.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising US yields increase FII outflow risk from Indian equities, putting pressure on Nifty support levels. Expect short-term volatility and a weakening rupee due to dollar strength.",
   "source" : "Economic Times",
   "publishedAt" : "28-Sep-2026 05:51 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-28T06:45:38",
+  "title" : "Iran ready for ‘doomsday war’ with US: Araghchi",
+  "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to witness downward pressure with the rupee potentially weakening against the dollar due to rising crude oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "28-Sep-2026 06:22 IST",
   "score" : 7
 } ]
