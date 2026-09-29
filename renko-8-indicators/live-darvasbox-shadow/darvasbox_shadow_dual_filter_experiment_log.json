@@ -11347,5 +11347,17 @@
   "timestampMs": 1790666100000,
   "breakoutTimestampMs": 1790666100000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 9.353325,
+  "exitPrice": 9.34,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.14246270711217704,
+  "entryTimestampMs": 1790660400000,
+  "exitTimestampMs": 1790666700000,
+  "shadow": true
  }
 ]
