@@ -11521,5 +11521,29 @@
   "entryTimestampMs": 1790659500000,
   "exitTimestampMs": 1790674200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 123.6283,
+  "exitPrice": 125.69,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 1.6676602363698296,
+  "entryTimestampMs": 1790661600000,
+  "exitTimestampMs": 1790674800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 547.114375,
+  "exitPrice": 543.45,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.6697639775960831,
+  "entryTimestampMs": 1790670600000,
+  "exitTimestampMs": 1790674800000,
+  "shadow": true
  }
 ]
