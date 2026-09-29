@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T06:13:14",
-  "title" : "Centre sees no cost pain for RBI on dollar deluge",
-  "impact" : "The influx of $127 billion improves forex reserves and stabilizes the rupee against volatility. Nifty outlook is positive due to increased systemic liquidity and reduced risk of sharp currency depreciation.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Sep-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T06:46:21",
   "title" : "FPIs pump Rs 13,010 crore into Indian equities in second half of August",
   "impact" : "Sustained FPI buying bolsters market sentiment and provides a floor for Nifty near-term support levels. Strong inflows act as a buffer against potential selling pressure, supporting rupee stability against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "29-Sep-2026 06:21 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-29T06:34:53",
+  "title" : "Goldman Sachs identifies 42 Indian stocks riding AI build-out",
+  "impact" : "The shift toward AI-linked infrastructure provides a growth catalyst that could decouple high-capex firms from broader Nifty weakness. Market sentiment remains cautious on valuations, with potential for continued rupee volatility as foreign flows chase these niche alpha opportunities.",
+  "source" : "Economic Times",
+  "publishedAt" : "29-Sep-2026 06:00 IST",
+  "score" : 7
 } ]
