@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T14:39:27",
-  "title" : "US diesel prices hit a record high of $5.85",
-  "impact" : "Rising global fuel costs will likely pressure Nifty due to elevated inflation concerns and margin contraction. The rupee is expected to weaken against the dollar as the oil import bill increases, leading to potential FII outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Sep-2026 14:23 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T15:55:20",
   "title" : "El Nino to persist till Feb: What it means for India",
   "impact" : "El Nino persisting until February poses significant inflationary risks for the Indian economy due to potential crop failures. Expect volatility in Nifty as food inflation concerns weigh on sentiment and pressure the Rupee toward depreciation.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential restructuring of Tata Sons and a future IPO signal improved corporate governance and massive liquidity unlocking. Nifty likely to see a positive sentiment boost due to group value discovery, with neutral impact on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "29-Sep-2026 21:31 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-30T02:28:52",
+  "title" : "US stocks: US market ends lower as bond yields hold near multi-decade highs",
+  "impact" : "The Indian markets are likely to face downward pressure as surging US Treasury yields dampen global risk appetite. Expect a negative opening for Nifty with potential volatility, while the Indian Rupee may face depreciation pressure against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Sep-2026 01:42 IST",
   "score" : 7
 } ]
