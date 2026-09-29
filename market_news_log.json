@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T13:08:28",
-  "title" : "A succession question hangs over private banks",
-  "impact" : "Succession uncertainty in private banks creates volatility for heavyweight index contributors. Nifty is expected to face pressure at resistance levels as banking sentiment turns cautious. The rupee may witness marginal weakness due to potential FII outflow concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Sep-2026 12:23 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T13:38:45",
   "title" : "India may mandate battery storage for new RE",
   "impact" : "This policy pivot favors long-term energy stability, supporting industrial growth and Nifty Power indices. The rupee may face slight pressure due to increased import demand for battery cells and high-tech power equipment.",
@@ -3497,5 +3490,12 @@
   "impact" : "Robust service sector growth strengthens the bullish outlook for Indian equities. Nifty is expected to sustain its upward momentum with increased foreign institutional interest. The rupee should remain stable to slightly stronger due to improved economic sentiment.",
   "source" : "Economic Times",
   "publishedAt" : "29-Sep-2026 18:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-29T19:56:38",
+  "title" : "Rosatom in talks with Adani Group, RIL, NTPC for nuclear power push in India",
+  "impact" : "This development signals a significant policy shift toward private nuclear energy, likely boosting long-term investor sentiment. Nifty may see positive momentum in power and infrastructure, while the rupee remains stable as this reduces future energy import dependency.",
+  "source" : "BusinessLine",
+  "publishedAt" : "29-Sep-2026 19:40 IST",
   "score" : 7
 } ]
