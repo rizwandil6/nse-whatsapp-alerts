@@ -373,5 +373,19 @@
   "rsRankAtEntry": 82.48031496062993,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "RATEGAIN": {
+  "entryDate": "2026-09-27",
+  "entryPrice": 828.7,
+  "rsRankAtEntry": 81.9253438113949,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SAIL": {
+  "entryDate": "2026-09-27",
+  "entryPrice": 184.2,
+  "rsRankAtEntry": 80.55009823182712,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

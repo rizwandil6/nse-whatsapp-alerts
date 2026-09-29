@@ -1520,5 +1520,19 @@
   "date": "2026-09-24",
   "price": 79.67,
   "rsRankAtEntry": 82.48031496062993
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "RATEGAIN",
+  "date": "2026-09-27",
+  "price": 828.7,
+  "rsRankAtEntry": 81.9253438113949
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SAIL",
+  "date": "2026-09-27",
+  "price": 184.2,
+  "rsRankAtEntry": 80.55009823182712
  }
 ]
