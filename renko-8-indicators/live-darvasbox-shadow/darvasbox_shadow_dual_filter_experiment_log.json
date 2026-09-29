@@ -11590,5 +11590,74 @@
   "timestampMs": 1790675400000,
   "breakoutTimestampMs": 1790675400000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 446.431125,
+  "timestampMs": 1790675700000,
+  "breakoutTimestampMs": 1790675700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 446.431125,
+  "exitPrice": 444.193375,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5012531328320814,
+  "entryTimestampMs": 1790675700000,
+  "exitTimestampMs": 1790675700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 109.79825,
+  "exitPrice": 109.2465,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5025125628140689,
+  "entryTimestampMs": 1790675400000,
+  "exitTimestampMs": 1790675700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 774.681875,
+  "exitPrice": 768.88625,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.7481296758104703,
+  "entryTimestampMs": 1790661600000,
+  "exitTimestampMs": 1790675700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 821.0475,
+  "exitPrice": 816.9525,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.49875311720698584,
+  "entryTimestampMs": 1790664600000,
+  "exitTimestampMs": 1790675100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 9.353325,
+  "exitPrice": 9.539924999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.9950124688279145,
+  "entryTimestampMs": 1790672400000,
+  "exitTimestampMs": 1790675700000,
+  "shadow": true
  }
 ]
