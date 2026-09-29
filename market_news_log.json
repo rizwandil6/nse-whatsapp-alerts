@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-03T22:42:22",
-  "title" : "India targets $1 trn exports: Piyush Goyal",
-  "impact" : "The export push is likely to bolster manufacturing sentiment and support Nifty indices by driving industrial growth. Enhanced exports will improve trade balance, providing stability to the rupee against global volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Sep-2026 22:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T06:13:11",
   "title" : "SC clears NSE settlement, paving way for mega IPO",
   "impact" : "Positive sentiment for financial markets as regulatory uncertainty for the lead exchange clears. Nifty likely to see increased liquidity and investor optimism, with minimal direct impact on the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "29-Sep-2026 05:39 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-29T06:34:22",
+  "title" : "US, Iran back in talks after Trump rejects ceasefire",
+  "impact" : "Heightened geopolitical tensions in the Middle East are expected to drive risk aversion, potentially dragging Nifty lower. Expect volatility in oil-sensitive sectors and moderate depreciation pressure on the Indian Rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "29-Sep-2026 06:22 IST",
+  "score" : 7
 } ]
