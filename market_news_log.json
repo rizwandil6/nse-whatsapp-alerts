@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T10:03:35",
-  "title" : "Markets open higher; IT stocks lead gains as Nifty eyes 24,000",
-  "impact" : "The Indian market exhibits strong bullish momentum with Nifty 50 inching closer to the 24,000 psychological milestone. IT sector strength and positive sentiment are supporting the index, while the Rupee remains range-bound against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "04-Sep-2026 09:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T11:52:35",
   "title" : "Tata Motors gets Italy market regulator nod for Iveco takeover offer",
   "impact" : "This strategic international acquisition signals strong capital deployment for Tata Motors, likely boosting sentiment in the automotive space. Nifty may see positive momentum in the auto index, while the significant capital outflow for the deal could exert mild downward pressure on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Tightening liquidity and rising hedging costs will likely pressure Nifty indices and create volatility. The rupee may see brief support, but higher hedging costs will dampen foreign investor sentiment.",
   "source" : "BusinessLine",
   "publishedAt" : "29-Sep-2026 12:49 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-29T14:51:42",
+  "title" : "Long-term investor base could expand by over 100 million by 2035: EY",
+  "impact" : "Broadening retail participation provides long-term structural support for the Nifty, enhancing liquidity and reducing dependency on FII flows. The rupee is expected to remain stable as domestic capital accumulation mitigates external volatility.",
+  "source" : "BusinessLine",
+  "publishedAt" : "29-Sep-2026 14:34 IST",
   "score" : 7
 } ]
