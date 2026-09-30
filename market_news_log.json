@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T15:55:20",
-  "title" : "El Nino to persist till Feb: What it means for India",
-  "impact" : "El Nino persisting until February poses significant inflationary risks for the Indian economy due to potential crop failures. Expect volatility in Nifty as food inflation concerns weigh on sentiment and pressure the Rupee toward depreciation.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Sep-2026 15:41 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T16:40:40",
   "title" : "Indian IPO market chasing a ₹2 lakh crore dream",
   "impact" : "Massive IPO pipeline indicates strong investor appetite and liquidity, likely driving Nifty higher. Increased foreign capital inflows during new issues may provide support to the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "30-Sep-2026 01:42 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-30T06:59:45",
+  "title" : "Sensex drops over 20% in 2026 amid global market shifts and rupee depreciation",
+  "impact" : "Indian markets are in a deep technical bear cycle driven by FPI outflows and rupee depreciation. Nifty remains under severe pressure as growth concerns persist, while the weak rupee continues to act as a significant drag on foreign institutional interest.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Sep-2026 06:31 IST",
+  "score" : 9
 } ]
