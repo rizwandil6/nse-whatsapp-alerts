@@ -387,5 +387,19 @@
   "rsRankAtEntry": 80.55009823182712,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "AXISCADES": {
+  "entryDate": "2026-09-28",
+  "entryPrice": 2067.4,
+  "rsRankAtEntry": 86.47058823529412,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "NETWEB": {
+  "entryDate": "2026-09-28",
+  "entryPrice": 4613,
+  "rsRankAtEntry": 81.76470588235294,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
