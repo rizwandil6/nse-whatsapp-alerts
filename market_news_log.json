@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-05T07:01:01",
-  "title" : "New FTAs open big export gains across key sectors",
-  "impact" : "New FTAs signal long-term export growth and improved trade balance, potentially boosting Nifty indices. The rupee is expected to stabilize or gain strength due to reduced trade deficit pressure.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Sep-2026 00:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-05T09:14:47",
   "title" : "India’s BRICS Chairship to host $1 trillion Global Sovereign Capital summit",
   "impact" : "The initiative boosts long-term sentiment for infrastructure and capital expenditure themes. Nifty is expected to sustain upward momentum on massive inflow prospects. Rupee may strengthen against the dollar due to increased capital commitment in the BRICS framework.",
@@ -3497,5 +3490,12 @@
   "impact" : "The GDP growth upgrade reinforces India as a high-growth destination, likely driving Nifty toward new highs due to positive FII sentiment. This economic strength supports the rupee by attracting long-term foreign capital inflows.",
   "source" : "Economic Times",
   "publishedAt" : "30-Sep-2026 20:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-30T23:09:55",
+  "title" : "India’s second half of FY27 to be challenging amid global risks, rising interest rates: CEA",
+  "impact" : "Rising global risks and elevated oil prices create a cautious sentiment for Indian equities. Expect Nifty to face volatility and consolidation as foreign outflows may persist. The rupee is likely to remain under pressure against the dollar due to energy import costs.",
+  "source" : "BusinessLine",
+  "publishedAt" : "30-Sep-2026 23:02 IST",
   "score" : 7
 } ]
