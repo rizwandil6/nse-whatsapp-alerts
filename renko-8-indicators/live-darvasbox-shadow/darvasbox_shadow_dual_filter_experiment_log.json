@@ -11941,5 +11941,23 @@
   "timestampMs": 1790758200000,
   "breakoutTimestampMs": 1790758200000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "SHORT",
+  "entry": 171.57,
+  "timestampMs": 1790758500000,
+  "breakoutTimestampMs": 1790758500000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 39.38150000000001,
+  "timestampMs": 1790758500000,
+  "breakoutTimestampMs": 1790758500000,
+  "shadow": true
  }
 ]
