@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T19:12:21",
-  "title" : "US nonfarm payrolls surge in August",
-  "impact" : "Strong US jobs data increases the probability of a Fed rate hike, putting downward pressure on Indian markets. Nifty is likely to face volatility with a bearish bias as the rupee weakens against a strengthening dollar due to rising Treasury yields.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Sep-2026 18:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T21:44:01",
   "title" : "SEBI clears NSE IPO, paving way for market debut",
   "impact" : "The NSE IPO is a positive catalyst for market sentiment and exchange infrastructure. Nifty is expected to see a boost in liquidity and investor participation, with the rupee remaining stable as the IPO attracts significant foreign institutional capital inflows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "30-Sep-2026 15:14 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-09-30T17:48:01",
+  "title" : "Trump just fired starting gun on new war with China",
+  "impact" : "Heightened trade tensions likely induce volatility in Indian markets as global risk appetite contracts. Nifty is expected to face selling pressure due to FII outflows, while the Rupee may weaken against the Dollar due to safe-haven demand.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Sep-2026 17:18 IST",
+  "score" : 7
 } ]
