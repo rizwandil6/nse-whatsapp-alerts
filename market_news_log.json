@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T16:40:40",
-  "title" : "Indian IPO market chasing a ₹2 lakh crore dream",
-  "impact" : "Massive IPO pipeline indicates strong investor appetite and liquidity, likely driving Nifty higher. Increased foreign capital inflows during new issues may provide support to the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Sep-2026 09:21 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T16:40:45",
   "title" : "Reliance shares' 17% plunge puzzle despite a win",
   "impact" : "Reliance represents a significant weight in Nifty and its weakness could drag indices lower in the short term. The rupee remains stable but market sentiment may turn cautious due to volatility in index heavyweights.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "30-Sep-2026 06:31 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-09-30T07:29:53",
+  "title" : "20 stocks to hog the limelight in Wednesday’s trade, including Tata Steel, Time Technoplast, Shiva Cement/JSW Cement, KPI Energy, Exide Industries, Ganesh Benzoplast, and Power Mech Projects",
+  "impact" : "The market sentiment is buoyed by robust industrial activity and infrastructure growth. Nifty is expected to sustain its upward momentum with stability in the rupee amid strong sector-specific investment inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "30-Sep-2026 07:16 IST",
+  "score" : 7
 } ]
