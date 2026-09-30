@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T17:41:34",
-  "title" : "Forex reserves hit new record of $740.80 bn",
-  "impact" : "Robust forex reserves enhance sovereign credit profile and bolster investor confidence. Nifty is expected to sustain its upward momentum with the Rupee gaining stability against the Dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Sep-2026 17:09 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T19:12:21",
   "title" : "US nonfarm payrolls surge in August",
   "impact" : "Strong US jobs data increases the probability of a Fed rate hike, putting downward pressure on Indian markets. Nifty is likely to face volatility with a bearish bias as the rupee weakens against a strengthening dollar due to rising Treasury yields.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "30-Sep-2026 15:48 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-09-30T17:32:48",
+  "title" : "Cabinet opens ₹2.79 lkh cr purse for wheat &amp; wheels",
+  "impact" : "This massive capital infusion will significantly boost investor sentiment and long-term liquidity in industrial and rail infrastructure. Nifty is expected to trend upward as heavy investment fuels GDP growth, while the rupee remains stable due to anticipated infrastructure-led productivity.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Sep-2026 15:14 IST",
+  "score" : 8
 } ]
