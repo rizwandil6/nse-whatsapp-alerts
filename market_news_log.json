@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T16:40:45",
-  "title" : "Reliance shares' 17% plunge puzzle despite a win",
-  "impact" : "Reliance represents a significant weight in Nifty and its weakness could drag indices lower in the short term. The rupee remains stable but market sentiment may turn cautious due to volatility in index heavyweights.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Sep-2026 09:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T17:26:05",
   "title" : "NSE gets SEBI nod to proceed with IPO",
   "impact" : "The NSE IPO is expected to boost overall market sentiment and liquidity, likely keeping the Nifty in a bullish trend. Improved market confidence could provide minor support to the Indian Rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The market sentiment is buoyed by robust industrial activity and infrastructure growth. Nifty is expected to sustain its upward momentum with stability in the rupee amid strong sector-specific investment inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "30-Sep-2026 07:16 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-30T09:27:19",
+  "title" : "India bonds to edge up on steady US yields, oil prices",
+  "impact" : "Rising oil prices and elevated US yields pose headwinds for Indian equities, pressuring Nifty to potentially test lower support levels. The rupee is likely to remain under depreciation pressure due to FII outflows and costlier energy imports.",
+  "source" : "BusinessLine",
+  "publishedAt" : "30-Sep-2026 09:14 IST",
   "score" : 7
 } ]
