@@ -11923,5 +11923,14 @@
   "entryTimestampMs": 1790751600000,
   "exitTimestampMs": 1790757900000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 109.26080000000003,
+  "timestampMs": 1790757600000,
+  "breakoutTimestampMs": 1790757600000,
+  "shadow": true
  }
 ]
