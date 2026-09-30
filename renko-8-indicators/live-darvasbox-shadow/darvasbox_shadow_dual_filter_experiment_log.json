@@ -11803,5 +11803,29 @@
   "timestampMs": 1790751600000,
   "breakoutTimestampMs": 1790751600000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 157.807,
+  "exitPrice": 158,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.12230129208464267,
+  "entryTimestampMs": 1790745900000,
+  "exitTimestampMs": 1790752500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 130.05562499999996,
+  "exitPrice": 132.28,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 1.710325870180577,
+  "entryTimestampMs": 1790741100000,
+  "exitTimestampMs": 1790752500000,
+  "shadow": true
  }
 ]
