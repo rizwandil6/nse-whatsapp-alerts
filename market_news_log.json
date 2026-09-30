@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-04T21:59:22",
-  "title" : "RBI turns to 30-day VRRR to absorb liquidity",
-  "impact" : "Aggressive liquidity absorption points to a tightening bias, likely capping Nifty upside in the near term. The rupee may gain support as surplus liquidity is curtailed, keeping inter-bank rates closer to the policy repo rate.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Sep-2026 21:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-04T22:29:35",
   "title" : "NSE IPO coming as Sebi okays Rs 30K cr public offer",
   "impact" : "The NSE IPO is a landmark liquidity event expected to boost overall market sentiment and investor participation. Nifty is likely to see positive momentum as financial sector valuations adjust, while the rupee remains neutral to stable.",
@@ -3497,5 +3490,12 @@
   "impact" : "Enhanced FPI ease and bond market depth will drive long-term capital inflows into Indian equities and debt. Expect Nifty to consolidate with a bullish bias as liquidity improves, while the rupee may find support from increased foreign investment interest.",
   "source" : "BusinessLine",
   "publishedAt" : "30-Sep-2026 18:53 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-09-30T20:05:20",
+  "title" : "Russia sends clear nuclear warning to NATO members",
+  "impact" : "Heightened geopolitical tensions are likely to trigger a flight to safety, leading to a bearish opening for the Nifty 50. The Indian Rupee is expected to face downward pressure due to increased demand for safe-haven assets and potential foreign institutional outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Sep-2026 17:26 IST",
   "score" : 7
 } ]
