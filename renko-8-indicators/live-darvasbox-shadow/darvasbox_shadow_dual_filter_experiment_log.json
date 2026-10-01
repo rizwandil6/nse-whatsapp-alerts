@@ -12328,5 +12328,23 @@
   "timestampMs": 1790837400000,
   "breakoutTimestampMs": 1790837100000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 36.66960000000001,
+  "timestampMs": 1790838600000,
+  "breakoutTimestampMs": 1790838600000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 39.09355,
+  "timestampMs": 1790838600000,
+  "breakoutTimestampMs": 1790838600000,
+  "shadow": true
  }
 ]
