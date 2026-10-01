@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-05T12:01:44",
-  "title" : "Nifty’s 21-day calm before the storm? History warns of a sharp move ahead",
-  "impact" : "The Nifty 50 faces potential near-term volatility due to extreme consolidation patterns in August. Market returns are shifting toward earnings-led stock selection with heightened sensitivity to crude oil and currency fluctuations.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Sep-2026 11:23 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-05T12:32:04",
   "title" : "NSE IPO gets Sebi approval: 10 important points investors should know as D-Street debut inches closer",
   "impact" : "The NSE IPO is a major liquidity event that will boost market sentiment and attract significant domestic and global institutional capital. Nifty is expected to see a liquidity-driven rally, while the rupee may witness marginal strengthening due to heavy foreign inflows associated with the mega-listing.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong GST collections signal robust domestic demand and economic resilience, supporting a bullish outlook for Nifty. Increased import tax revenue adds stability to the fiscal position and supports the rupee against currency volatility.",
   "source" : "BusinessLine",
   "publishedAt" : "01-Oct-2026 12:27 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-01T13:20:06",
+  "title" : "India power shortfall hits three-year peak",
+  "impact" : "Power supply bottlenecks create near-term volatility and inflationary pressure for industrial output. Nifty may face consolidation as manufacturing costs rise, potentially weighing on the rupee due to increased energy import dependency.",
+  "source" : "Economic Times",
+  "publishedAt" : "01-Oct-2026 13:06 IST",
   "score" : 7
 } ]
