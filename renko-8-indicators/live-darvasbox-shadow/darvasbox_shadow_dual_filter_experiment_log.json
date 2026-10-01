@@ -12385,5 +12385,17 @@
   "timestampMs": 1790843400000,
   "breakoutTimestampMs": 1790843400000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 110.79232499999999,
+  "exitPrice": 109.91,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.7963773663924777,
+  "entryTimestampMs": 1790832000000,
+  "exitTimestampMs": 1790844000000,
+  "shadow": true
  }
 ]
