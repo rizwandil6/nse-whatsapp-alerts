@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-05T16:50:03",
-  "title" : "Witkoff, Kushnerarrive in Moscow for peace talks",
-  "impact" : "Potential peace talks could ease geopolitical risk premiums and boost investor sentiment in India. Nifty might see a relief rally, and the rupee could strengthen against the dollar due to lower volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Sep-2026 16:06 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-05T17:20:11",
   "title" : "Tata Motors launches tender offer for Iveco Group; deal values company at €3.82 billion",
   "impact" : "This major acquisition signals aggressive global expansion for Tata Motors, likely providing a sentiment boost to the Nifty Auto index. The large debt-funded deal may create short-term volatility in the INR due to potential forex outflows for the Euro-denominated payment.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sentiment remains fragile as institutional selling outweighs minor relief rallies. Nifty faces strong overhead resistance at recent swing highs, and the rupee stays under pressure due to FII outflows.",
   "source" : "Economic Times",
   "publishedAt" : "01-Oct-2026 13:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-01T17:53:36",
+  "title" : "Equities post eighth straight weekly loss as global headwinds intensify",
+  "impact" : "The extended bearish trend indicates sustained FII selling and risk-off sentiment. Nifty faces further consolidation risk near 22,200 support levels, while the rupee remains under pressure against a strengthening dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "01-Oct-2026 17:49 IST",
   "score" : 7
 } ]
