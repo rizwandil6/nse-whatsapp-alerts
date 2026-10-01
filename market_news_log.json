@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-06T14:28:09",
-  "title" : "West Asia conflict, crude oil prices, US inflation data to drive markets next week",
-  "impact" : "Heightened geopolitical risks and oil volatility are expected to exert downward pressure on Indian equities. Nifty faces significant support testing near the 24,500 level while the rupee remains vulnerable to further depreciation due to rising crude import costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "06-Sep-2026 14:20 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-06T14:43:25",
   "title" : "Iran claims strike on US ship in Hormuz",
   "impact" : "Heightened geopolitical tensions in the Strait of Hormuz threaten global crude supply, likely triggering a sharp sell-off in Indian equities. Nifty is expected to open with a significant gap down, while the rupee will face extreme pressure against the USD due to rising oil import costs.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "01-Oct-2026 20:04 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-01T21:11:14",
+  "title" : "Risk aversion spreads across assets as bond yields hit a two-year high",
+  "impact" : "Rising bond yields trigger foreign institutional capital outflows and pressure equity valuations. Nifty is expected to face immediate downside volatility as liquidity tightens, likely exerting depreciation pressure on the rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "01-Oct-2026 20:58 IST",
+  "score" : 7
 } ]
