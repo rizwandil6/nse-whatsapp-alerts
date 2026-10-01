@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-06T14:43:25",
-  "title" : "Iran claims strike on US ship in Hormuz",
-  "impact" : "Heightened geopolitical tensions in the Strait of Hormuz threaten global crude supply, likely triggering a sharp sell-off in Indian equities. Nifty is expected to open with a significant gap down, while the rupee will face extreme pressure against the USD due to rising oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "06-Sep-2026 14:27 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-06T19:29:34",
   "title" : "Strait of Hormuz is effectively blocked: Expert",
   "impact" : "A blockade of the Strait of Hormuz will trigger a sharp spike in global crude oil prices, leading to a bearish sentiment in Indian equity markets. Nifty is expected to face significant downward pressure, while the rupee will likely depreciate against the dollar due to rising import bills and inflationary concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising bond yields trigger foreign institutional capital outflows and pressure equity valuations. Nifty is expected to face immediate downside volatility as liquidity tightens, likely exerting depreciation pressure on the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "01-Oct-2026 20:58 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-01T21:11:25",
+  "title" : "Russia-NATO tensions rise over nuclear warning",
+  "impact" : "Heightened geopolitical risk will likely trigger a risk-off sentiment in Indian markets leading to a gap-down opening for Nifty. The Indian Rupee is expected to face downward pressure as safe-haven demand strengthens the US Dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "01-Oct-2026 20:59 IST",
   "score" : 7
 } ]
