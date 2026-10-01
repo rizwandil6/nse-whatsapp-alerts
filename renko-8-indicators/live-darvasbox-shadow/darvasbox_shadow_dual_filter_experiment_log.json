@@ -12421,5 +12421,17 @@
   "entryTimestampMs": 1790838600000,
   "exitTimestampMs": 1790845200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 106.7325,
+  "exitPrice": 105.25,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 1.38898648490385,
+  "entryTimestampMs": 1790831400000,
+  "exitTimestampMs": 1790845500000,
+  "shadow": true
  }
 ]
