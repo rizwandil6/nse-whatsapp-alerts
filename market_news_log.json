@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-05T22:36:51",
-  "title" : "Jio eyes global markets after 10 years",
-  "impact" : "Positive sentiment for Reliance Industries will likely provide a boost to the Nifty 50 index. The export of Indian tech services may improve long-term balance of payments, strengthening the rupee outlook.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Sep-2026 21:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-06T07:23:13",
   "title" : "US takes out 3 Iranian tankers after missile attacks",
   "impact" : "Heightened geopolitical risk in the Middle East will likely trigger a risk-off sentiment in the Indian equity markets. Nifty is expected to open with a gap-down and face volatility, while the Rupee may depreciate against the Dollar due to rising oil prices and FII outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive manufacturing data boosts sentiment for cyclical and infrastructure-linked stocks. Nifty is expected to sustain its upward momentum with a bullish bias. Rupee may strengthen slightly due to increased industrial output and potential for higher capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "01-Oct-2026 17:46 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-01T17:53:46",
+  "title" : "When can 8th CPC report be implemented?",
+  "impact" : "The implementation of the 8th CPC will likely boost domestic consumption and increase liquidity, pushing Nifty higher. The rupee may face slight depreciation pressure due to higher government expenditure and fiscal deficit concerns.",
+  "source" : "Economic Times",
+  "publishedAt" : "01-Oct-2026 17:26 IST",
   "score" : 7
 } ]
