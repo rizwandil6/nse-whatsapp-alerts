@@ -12397,5 +12397,29 @@
   "entryTimestampMs": 1790832000000,
   "exitTimestampMs": 1790844000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 806.3977500000001,
+  "exitPrice": 803.7,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.3345433441499609,
+  "entryTimestampMs": 1790836500000,
+  "exitTimestampMs": 1790845200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 36.66960000000001,
+  "exitPrice": 36.79,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.32833736937405744,
+  "entryTimestampMs": 1790838600000,
+  "exitTimestampMs": 1790845200000,
+  "shadow": true
  }
 ]
