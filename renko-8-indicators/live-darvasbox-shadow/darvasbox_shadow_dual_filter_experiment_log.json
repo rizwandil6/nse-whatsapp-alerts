@@ -12586,5 +12586,65 @@
   "timestampMs": 1790848200000,
   "breakoutTimestampMs": 1790848200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 350.99625000000003,
+  "exitPrice": 356.2350000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.4925373134328628,
+  "entryTimestampMs": 1790846100000,
+  "exitTimestampMs": 1790848500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 37.04,
+  "exitPrice": 37.225199999999994,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.4999999999999857,
+  "entryTimestampMs": 1790847900000,
+  "exitTimestampMs": 1790848200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 748.9365,
+  "exitPrice": 747.05475,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2512562814070366,
+  "entryTimestampMs": 1790836500000,
+  "exitTimestampMs": 1790847300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 129.42275,
+  "exitPrice": 129.74550000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24937655860350164,
+  "entryTimestampMs": 1790847300000,
+  "exitTimestampMs": 1790848500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 110.51464999999999,
+  "exitPrice": 110.51464999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1790848200000,
+  "exitTimestampMs": 1790848200000,
+  "shadow": true
  }
 ]
