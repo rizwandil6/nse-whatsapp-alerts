@@ -12469,5 +12469,29 @@
   "entryTimestampMs": 1790836200000,
   "exitTimestampMs": 1790845800000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 445.26250000000005,
+  "exitPrice": 441.3,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.8899244827489479,
+  "entryTimestampMs": 1790836500000,
+  "exitTimestampMs": 1790846100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 152.3384999999999,
+  "exitPrice": 153.67,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.8740403771863919,
+  "entryTimestampMs": 1790843400000,
+  "exitTimestampMs": 1790846100000,
+  "shadow": true
  }
 ]
