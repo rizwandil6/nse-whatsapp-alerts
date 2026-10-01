@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-05T11:16:03",
-  "title" : "US might hit Iranian nuclear site 'soon', says Trump",
-  "impact" : "Heightened geopolitical risk in the Middle East will likely trigger a risk-off sentiment in Indian markets. Nifty is expected to open with a sharp gap-down due to global panic, while the rupee may face significant depreciation pressure against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Sep-2026 06:06 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-05T12:01:44",
   "title" : "Nifty’s 21-day calm before the storm? History warns of a sharp move ahead",
   "impact" : "The Nifty 50 faces potential near-term volatility due to extreme consolidation patterns in August. Market returns are shifting toward earnings-led stock selection with heightened sensitivity to crude oil and currency fluctuations.",
@@ -3497,5 +3490,12 @@
   "impact" : "Enhanced FPI onboarding is expected to boost foreign capital inflows, providing a strong structural tailwind for Indian equities. Nifty likely to see sustained support from increased liquidity, while the rupee may appreciate due to higher capital account inflows.",
   "source" : "Economic Times",
   "publishedAt" : "01-Oct-2026 05:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-01T12:34:35",
+  "title" : "GST mop-up grows 14.7% to over ₹2.03 lakh cr in September",
+  "impact" : "Strong GST collections signal robust domestic demand and economic resilience, supporting a bullish outlook for Nifty. Increased import tax revenue adds stability to the fiscal position and supports the rupee against currency volatility.",
+  "source" : "BusinessLine",
+  "publishedAt" : "01-Oct-2026 12:27 IST",
   "score" : 7
 } ]
