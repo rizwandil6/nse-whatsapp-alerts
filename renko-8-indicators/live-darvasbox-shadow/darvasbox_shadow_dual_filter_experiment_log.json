@@ -12292,5 +12292,23 @@
   "timestampMs": 1790836200000,
   "breakoutTimestampMs": 1790836200000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 445.26250000000005,
+  "timestampMs": 1790836500000,
+  "breakoutTimestampMs": 1790836500000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 748.9365,
+  "timestampMs": 1790836500000,
+  "breakoutTimestampMs": 1790836500000,
+  "shadow": true
  }
 ]
