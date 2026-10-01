@@ -12367,5 +12367,23 @@
   "timestampMs": 1790842200000,
   "breakoutTimestampMs": 1790842200000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 152.3384999999999,
+  "timestampMs": 1790843400000,
+  "breakoutTimestampMs": 1790843400000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 194.3961250000002,
+  "timestampMs": 1790843400000,
+  "breakoutTimestampMs": 1790843400000,
+  "shadow": true
  }
 ]
