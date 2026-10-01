@@ -12433,5 +12433,41 @@
   "entryTimestampMs": 1790831400000,
   "exitTimestampMs": 1790845500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 194.3961250000002,
+  "exitPrice": 196.45,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -1.0565411218972474,
+  "entryTimestampMs": 1790843400000,
+  "exitTimestampMs": 1790845800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 128.81494999999993,
+  "exitPrice": 126.04,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 2.154214242989591,
+  "entryTimestampMs": 1790832300000,
+  "exitTimestampMs": 1790845800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 534.798,
+  "exitPrice": 531.6,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.5979827897636077,
+  "entryTimestampMs": 1790836200000,
+  "exitTimestampMs": 1790845800000,
+  "shadow": true
  }
 ]
