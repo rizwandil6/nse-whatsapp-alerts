@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-07T13:17:13",
-  "title" : "Trump H-1B plan could push cost past $200,000",
-  "impact" : "The proposed fee hike creates significant headwinds for the Indian IT sector, potentially compressing operating margins for major exporters. Expect Nifty IT index volatility and increased selling pressure on Rupee due to potential moderation in service exports revenue.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Sep-2026 12:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-07T14:17:39",
   "title" : "L&amp;T puts a big expansion bet on ice as demand fades",
   "impact" : "L&T shifting strategy signals a broader cooling in industrial private capex, potentially triggering Nifty consolidation. Increased risk aversion may put slight downward pressure on the rupee due to potential foreign institutional outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "This massive capital expenditure announcement signals strong growth sentiment for the Indian economy. It is likely to provide a bullish tailwind for the Nifty, while long-term infrastructure investment supports the rupee via increased FDI confidence.",
   "source" : "Economic Times",
   "publishedAt" : "02-Oct-2026 18:12 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-03T02:06:46",
+  "title" : "In Graphics: How the cost of Iran war piled up",
+  "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger risk-off sentiment in Indian markets. Nifty faces downward pressure due to potential FII outflows, while the Rupee is expected to weaken against the dollar amid rising crude oil import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 01:23 IST",
   "score" : 7
 } ]
