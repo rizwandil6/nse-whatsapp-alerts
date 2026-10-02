@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-07-30T17:33:08",
-  "symbol" : "RAILTEL",
-  "companyName" : "Railtel Corporation Of India Limited",
-  "subject" : "Railtel Corporation Of India Limited has submitted to the Exchange, the financial results for the period ended Jun 30, 2026. |SUBJECT: Outcome of Board Meeting",
-  "category" : "ALERT_ONLY",
-  "message" : "📄 *Railtel Corporation Of India Limited* — Railtel Corporation Of India Limited has submitted to the Exchange, the financial results for the period ended Jun 30, 2026. |SUBJECT: Outcome of Board Meeting\nBroadcast: 30-Jul-2026 17:30:04\n\n*Positives*\n✅ Board approved unaudited financial results for Q1 FY2026-27 on schedule\n✅ Limited Review Report issued by statutory auditors without any audit qualifications mentioned\n✅ Financial results prepared in accordance with Ind AS 34 and SEBI listing regulations\n✅ Board meeting completed efficiently within 100 minutes\n\n*Concerns*\n⚠️ Document contains only the cover letter and auditor review report preamble; actual financial statements and numerical results are not provided in the filing excerpt\n⚠️ Limited review engagement provides only moderate assurance rather than full audit opinion\n\n*Overall Assessment*\n*Rating:* Procedurally compliant with incomplete disclosure (5–6/10)\n\nSource: https://nsearchives.nseindia.com/corporate/RAILTEL_30072026173004_Intimation_Q1_27_Results.pdf"
-}, {
   "timestamp" : "2026-07-30T17:49:06",
   "symbol" : "ASTRAMICRO",
   "companyName" : "Astra Microwave Products Limited",
@@ -3498,4 +3491,11 @@
   "subject" : "Laser Power & Infra Limited has informed the Exchange about Bagging/Receiving of orders/contracts |SUBJECT: Bagging/Receiving of orders/contracts",
   "category" : "TRADE_SIGNAL",
   "message" : "Broadcast: 01-Oct-2026 23:12:12\nLaser Power & Infra Limited\nRating: 7/10 — Good opportunity\n\nOrder: Supply and installation of HTLS conductors for Power Grid Corporation of India Limited totaling 72.77 crores.\n\nVerdict: This order is significant as it marks the company's maiden entry into the HTLS conductor segment, diversifying its product portfolio. The contract is backed by a credible counterparty in Power Grid Corporation of India Limited, reducing execution and payment risk. While the project adds to the order book, investors should monitor the company's ability to scale this new product line efficiently. Add to watchlist to evaluate future margin performance on this technology shift.\n\nSource: https://nsearchives.nseindia.com/corporate/LASERPOWER_01102026231212_Intimation_01102026.pdf\n🟡 Watchlist\n\n--- FUNDAMENTAL ANALYSIS ---\n\nFUNDAMENTAL ANALYSIS\nCMP: ₹263.00\nMarket Cap: 3691.00 Cr — 🟠 Small Cap\nPE Ratio: 33.60 — ❌ Avoid\nROCE: 20.50% — ✅ Very Good\n\nDEBT ANALYSIS\nDebt vs MCap: ✅ Safe\nDebt vs Reserve: ❌ High\nDebt/Assets: 33.09% ❌\n\nLAST 3 QUARTERS\nRevenue: 454.00 → 674.00 → 522.00 Cr ⚠️ Declining\nNet Profit: 49.00 → 36.00 → 21.00 Cr ⚠️ Declining\n\nEPS: N/A\nBook Value ratio: N/A\nPromoter Holding: 75.30% ✅ Strong\n\nTECHNICAL\n200 EMA: N/A\nRSI: ✅ In Range (38.66)\nBreakout: ➡️ Not near breakout\n\nDEMAND ZONE\nNot detected\n\nCOMPOUNDED SALES GROWTH\n10Y: N/A% — N/A\n5Y:  N/A% — N/A\n3Y:  21.00% — Excellent\nTTM: -10.00% — Slow\n\n🔍 Screener.in Check — LASERPOWER\n✅ Market Cap: 3691 Cr (> ₹1,000 Cr)\n❌ PEG: 2.29 (< 1)\n✅ PE / Ind PE: 29.80 / 40.78 (PE < Ind PE)\n❌ ROE: 19.60% (> 20%)\n✅ ROCE: 27.10% (> 15%)\n❌ Debt/Equity: 0.79 (< 0.5)\n✅ Promoter: 75.30% (> 50%)\n✅ Sales Gr 3Y: 24% (> 15%)\n❌ Profit Gr 5Y: 13% (> 15%)\n❓ Pledged: N/A (< 1%)\n❌ OPM: 13% (> 15%)\n✅ Price/Sales: 1.59 (< 10)\n✅ EV/EBITDA: 11.15 (< 25)\nScore: 7/12 — Avoid"
+}, {
+  "timestamp" : "2026-10-02T10:55:19",
+  "symbol" : "TRIL",
+  "companyName" : "Transformers And Rectifiers (India) Limited",
+  "subject" : "Transformers And Rectifiers (India) Limited has informed the Exchange about Bagging/Receiving of orders/contracts |SUBJECT: Bagging/Receiving of orders/contracts",
+  "category" : "TRADE_SIGNAL",
+  "message" : "Broadcast: 02-Oct-2026 10:53:27\nTransformers And Rectifiers (India) Limited\nRating: 6/10 — Watchlist\n\nOrder Value: INR 100.00 Cr\nSource: https://nsearchives.nseindia.com/corporate/TRIL_02102026105327_IntimationofOrder02102026.pdf\n🟡 Watchlist\n\n⚠️ Fundamental data unavailable for Transformers And Rectifiers (India) Limited\n"
 } ]
