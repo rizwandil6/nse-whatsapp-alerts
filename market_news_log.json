@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-07T07:12:34",
-  "title" : "Crude oil prices rise as US-Iran strikes raise fears of prolonged Hormuz supply disruption",
-  "impact" : "Rising crude oil prices will likely weigh on the Nifty index due to inflationary concerns and potential margin compression for manufacturers. The Indian Rupee is expected to face downward pressure as the import bill increases, leading to a cautious market sentiment.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Sep-2026 07:07 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-07T07:42:46",
   "title" : "3 Tata group cos, 4 Railway stocks, 2 shipping sector, 3 Pharma majors, Adani Enterprises, NMDC, SJVN, Nava, Stanley Lifestyle will remain in focus on Monday, Sept 7",
   "impact" : "The market is likely to witness positive momentum led by infrastructure and tech investments. Nifty is expected to sustain support levels with potential for a gap-up opening. Rupee is expected to remain stable against the dollar despite sector-specific volatility.",
@@ -3497,5 +3490,12 @@
   "impact" : "Leadership transition at India's largest private lender will likely drive volatility in banking indices. Nifty may face short-term consolidation as investors digest the strategic continuity, with neutral impact on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "01-Oct-2026 18:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-02T09:44:19",
+  "title" : "MPC set to begin rate hike cycle with at least 25 bps repo hike: SBI Economists",
+  "impact" : "The move signals a shift to a tighter liquidity regime, likely leading to short-term volatility in Nifty. Expect a temporary strengthening of the INR as yields become more attractive to foreign capital.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Oct-2026 09:28 IST",
   "score" : 7
 } ]
