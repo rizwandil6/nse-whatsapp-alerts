@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-07T09:45:33",
-  "title" : "Crude oil futures rise as US, Iran attack each other’s ships",
-  "impact" : "Rising crude oil prices will pressure Indian markets due to high import dependence. Nifty is expected to face selling pressure on inflation concerns. The rupee is likely to weaken against the dollar due to higher trade deficit risks.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Sep-2026 09:41 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-07T10:00:44",
   "title" : "Markets open lower as strong US jobs data revives rate hike fears; IT stocks drag",
   "impact" : "Indian markets are set for a bearish opening tracking global sell-off sentiment. Nifty is expected to witness downward pressure on rate hike fears, while the rupee likely faces depreciation against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower US rate hike expectations provide a positive tailwind for Indian equities as FII outflow risks moderate. Nifty likely to see a bullish bias supported by cooling global yields and a potential stabilization of the Indian Rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "02-Oct-2026 20:07 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-02T22:19:47",
+  "title" : "Why US stocks are rising: Nasdaq hits record after weaker jobs data cools rate-hike bets; Nike shares drop on forecast",
+  "impact" : "Positive global cues and cooling US rate hike bets are likely to drive a gap-up opening for Nifty. Declining crude oil prices and easing bond yields should provide further strength to the Indian rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "02-Oct-2026 21:18 IST",
   "score" : 7
 } ]
