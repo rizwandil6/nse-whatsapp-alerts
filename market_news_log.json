@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-07T15:33:28",
-  "title" : "CII Business Confidence Index rises to 66.0 in Q2FY27, signals stronger industry optimism",
-  "impact" : "The rise in business confidence suggests a sustained rally for Nifty 50 as earnings visibility improves. The rupee is expected to remain stable against the dollar due to positive domestic macroeconomic sentiment.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Sep-2026 15:20 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-07T17:04:38",
   "title" : "Defence council clears ₹1.10 lakh crore deals",
   "impact" : "The large-scale defense approval signals robust government capex, likely boosting Nifty sentiment toward infrastructure and manufacturing themes. Expect a neutral impact on the rupee as this spending is primarily domestic budget allocation.",
@@ -3497,5 +3490,12 @@
   "impact" : "The significant drawdown in forex reserves signals RBI's aggressive stance to support the rupee, likely leading to near-term Nifty volatility. Continued currency depreciation pressure could dampen FII sentiment and liquidity flows.",
   "source" : "Economic Times",
   "publishedAt" : "03-Oct-2026 00:12 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-03T08:56:00",
+  "title" : "Saudi plans Houthis assault to break Red Sea grip",
+  "impact" : "Heightened geopolitical tensions in the Red Sea likely to dampen market sentiment and increase volatility. Nifty faces downward pressure due to potential supply chain disruptions, while the rupee may weaken against the dollar due to rising crude oil import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 08:23 IST",
   "score" : 7
 } ]
