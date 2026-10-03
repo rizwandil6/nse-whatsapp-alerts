@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T13:30:56",
-  "title" : "₹35,000 crore express: Modi puts Gujarat on track",
-  "impact" : "The large-scale infrastructure push is expected to boost Nifty's industrial and capital goods segments. Increased domestic capex supports long-term growth sentiment despite potential near-term rupee volatility from high import-led demand.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 12:54 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T14:01:13",
   "title" : "India’s AI spend to cross 21% of IT budgets by 2027",
   "impact" : "Accelerated AI adoption acts as a structural tailwind for Indian IT and infrastructure digitalization. Nifty expected to maintain a positive bias as enterprise efficiency increases, while increased tech imports may exert mild pressure on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "AI adoption signifies a shift toward productivity-led growth for India, likely attracting long-term foreign capital inflows. Nifty is expected to sustain a bullish trend on IT transformation, while the rupee remains stable amid increased tech services exports.",
   "source" : "Economic Times",
   "publishedAt" : "03-Oct-2026 10:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-03T21:31:53",
+  "title" : "US Market Outlook: Dollar, Yield stay strong",
+  "impact" : "Strong US yields and a firm dollar will likely trigger FII outflows from Indian equities, putting pressure on Nifty near-term. The rupee is expected to face depreciation risk against the dollar, tightening liquidity conditions.",
+  "source" : "BusinessLine",
+  "publishedAt" : "03-Oct-2026 21:20 IST",
   "score" : 7
 } ]
