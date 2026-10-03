@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-07T18:35:14",
-  "title" : "Iran vows response to US strikes",
-  "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger a risk-off sentiment in the Indian equity markets. Nifty is expected to witness downward pressure on opening with a depreciating rupee due to rising crude oil prices and safe-haven demand for the US Dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Sep-2026 18:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-07T20:06:29",
   "title" : "Low India VIX signals complacency, markets vulnerable to shocks",
   "impact" : "Low VIX amid a softening market suggests an immediate risk of a sharp downside correction. Nifty may face increased selling pressure if institutional investors hedge positions, with the rupee likely to face volatility due to sudden FII outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global volatility and a stronger dollar exert pressure on emerging markets. Nifty is likely to face headwinds with a bearish bias, while the rupee will experience depreciation pressure against the surging greenback.",
   "source" : "Economic Times",
   "publishedAt" : "03-Oct-2026 09:27 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-03T09:41:31",
+  "title" : "Wall Street Week Ahead: Spiking bond yields, midterms, earnings to test US stocks' typical fourth-quarter strength",
+  "impact" : "Rising US bond yields typically trigger FII outflows from Indian equities, putting downward pressure on Nifty. The rupee faces depreciation risks as US treasury attractiveness reduces demand for emerging market assets.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 09:22 IST",
   "score" : 7
 } ]
