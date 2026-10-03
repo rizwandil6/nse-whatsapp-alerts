@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-07T20:06:29",
-  "title" : "Low India VIX signals complacency, markets vulnerable to shocks",
-  "impact" : "Low VIX amid a softening market suggests an immediate risk of a sharp downside correction. Nifty may face increased selling pressure if institutional investors hedge positions, with the rupee likely to face volatility due to sudden FII outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Sep-2026 20:02 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-07T22:37:47",
   "title" : "FTSE-BSE inclusion could open global index route for NSE shares",
   "impact" : "This inclusion expands the investable universe for global passive funds, likely boosting long-term foreign institutional inflows. Nifty and Sensex are expected to see positive valuation rerating as BSE-listed stocks gain global visibility, supporting a stable to strengthening rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "03-Oct-2026 09:22 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-03T10:26:52",
+  "title" : "Bleak Winter! Why analysts are hinting at painful October even after 8 weeks of Nifty correction?",
+  "impact" : "The Indian market faces a bearish short-term outlook with Nifty struggling to recover from an eight-week correction. Rupee weakness and high US bond yields continue to drive foreign investor outflows, keeping volatility elevated.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 09:45 IST",
+  "score" : 8
 } ]
