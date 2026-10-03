@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T06:23:39",
-  "title" : "Fairfax plans IIFL Finance exit to fund IDBI Bank bid",
-  "impact" : "The potential privatization of IDBI Bank serves as a strong signal for disinvestment sentiment in India, likely boosting investor confidence in PSU stocks. Nifty is expected to lean bullish on banking sector consolidation, while the large capital inflow via this acquisition may provide minor support to the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 00:34 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T07:23:56",
   "title" : "Trump says oil could fall below $2 after Iran war",
   "impact" : "A collapse in oil prices would drastically improve India's current account deficit and lower inflationary pressures. Nifty is expected to trend bullish due to reduced input costs for manufacturers and increased consumer disposable income, while the Rupee would likely appreciate against the USD.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "03-Oct-2026 10:46 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-10-03T12:12:19",
+  "title" : "Quant Mutual Fund says investors should stay agile in portfolio allocation amid market shifts",
+  "impact" : "Global volatility and elevated commodity prices suggest a cautious, range-bound trend for Indian markets. Nifty faces downward pressure amid capital outflows, while the rupee remains vulnerable to further depreciation against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 11:55 IST",
+  "score" : 7
 } ]
