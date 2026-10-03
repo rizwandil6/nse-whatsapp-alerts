@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-07T17:04:38",
-  "title" : "Defence council clears ₹1.10 lakh crore deals",
-  "impact" : "The large-scale defense approval signals robust government capex, likely boosting Nifty sentiment toward infrastructure and manufacturing themes. Expect a neutral impact on the rupee as this spending is primarily domestic budget allocation.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Sep-2026 16:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-07T17:19:45",
   "title" : "PM Modi's gold cut call &amp; 15% tax change imports",
   "impact" : "Reduction in gold import duty is positive for the current account deficit and helps stabilize the rupee. Market sentiment may improve as lower import costs reduce inflationary pressure and support consumer discretionary spending.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "03-Oct-2026 08:23 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-03T08:56:07",
+  "title" : "AI earnings shield US stocks, but bond risks rise: Jefferies' Wood",
+  "impact" : "Rising US bond yields will likely keep Nifty under selling pressure as foreign institutional investors shift capital toward safer dollar-denominated assets. This trend is expected to exert continued depreciation pressure on the Indian rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 07:56 IST",
+  "score" : 8
 } ]
