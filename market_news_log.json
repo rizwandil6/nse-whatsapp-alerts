@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-07T18:04:57",
-  "title" : "'Investment, exports power India's 7.8% growth'",
-  "impact" : "Robust GDP growth signals strong economic health, likely driving Nifty toward fresh highs. The positive sentiment is expected to strengthen the Rupee against the Dollar due to increased foreign investor confidence.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Sep-2026 17:17 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-07T18:35:14",
   "title" : "Iran vows response to US strikes",
   "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger a risk-off sentiment in the Indian equity markets. Nifty is expected to witness downward pressure on opening with a depreciating rupee due to rising crude oil prices and safe-haven demand for the US Dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "03-Oct-2026 07:43 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-03T09:41:28",
+  "title" : "5 world market themes for the week ahead",
+  "impact" : "Global volatility and a stronger dollar exert pressure on emerging markets. Nifty is likely to face headwinds with a bearish bias, while the rupee will experience depreciation pressure against the surging greenback.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 09:27 IST",
+  "score" : 7
 } ]
