@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T07:24:02",
-  "title" : "CNG, hybrids, electrics rule motown",
-  "impact" : "Strong retail automotive sales data signals resilient domestic consumption despite rural monsoon concerns. Nifty likely to see positive sentiment in auto and auto-ancillary pockets with neutral impact on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 00:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T08:57:40",
   "title" : "Hormuz traffic slows as Iran threatens US retaliation",
   "impact" : "Heightened geopolitical tension in Hormuz threatens global oil supply, likely triggering Nifty volatility. Increased risk aversion will exert downward pressure on the rupee due to higher energy import costs and FII outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The positive GDP outlook reinforces investor confidence, likely sustaining the Nifty upward trajectory toward record highs. The rupee is expected to remain stable against the dollar due to strong growth-led capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "03-Oct-2026 13:26 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-03T14:13:04",
+  "title" : "Sanctions, tariffs turn into weapons: Mishra",
+  "impact" : "Heightened geopolitical risk adds volatility to Nifty and weighs on investor sentiment. Increased focus on energy security and import restrictions may exert downward pressure on the rupee due to potential trade deficits.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 13:30 IST",
   "score" : 7
 } ]
