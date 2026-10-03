@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T12:45:06",
-  "title" : "Old oil club retains grip on India's oil imports",
-  "impact" : "The high dependency on Russian oil amid rising Brent prices creates significant inflationary pressure and trade deficit risks. Expect Nifty to face volatility due to margin compression in refiners and potential rupee depreciation against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T13:30:56",
   "title" : "₹35,000 crore express: Modi puts Gujarat on track",
   "impact" : "The large-scale infrastructure push is expected to boost Nifty's industrial and capital goods segments. Increased domestic capex supports long-term growth sentiment despite potential near-term rupee volatility from high import-led demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "Government focus on long-term reforms provides a stable bullish undertone for Indian equities. Nifty likely to see support at major levels as investor confidence grows, with the rupee remaining stable due to strong macro fundamentals.",
   "source" : "BusinessLine",
   "publishedAt" : "03-Oct-2026 17:32 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-03T18:15:38",
+  "title" : "AI breaks India’s linear growth model: Nasscom",
+  "impact" : "AI adoption signifies a shift toward productivity-led growth for India, likely attracting long-term foreign capital inflows. Nifty is expected to sustain a bullish trend on IT transformation, while the rupee remains stable amid increased tech services exports.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 10:30 IST",
   "score" : 7
 } ]
