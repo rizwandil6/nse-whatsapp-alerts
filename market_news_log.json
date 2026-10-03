@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T10:13:13",
-  "title" : "Crude shock drags Nifty below 23,800; defence stocks in focus after ₹1.10 lakh crore AoN",
-  "impact" : "The Indian equity market is showing significant bearish sentiment due to rising crude oil prices and global macro headwinds. Nifty 50 is expected to test immediate support levels below 23,700, while the rupee remains under pressure against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "08-Sep-2026 09:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T11:28:36",
   "title" : "Defence stocks rally as Nifty Defence hits record high after ₹1.10 lakh crore procurement approval",
   "impact" : "The large procurement order provides a significant boost to investor sentiment for capital goods and manufacturing. Nifty is expected to sustain its bullish momentum with a positive bias, while the rupee remains relatively stable against the dollar despite the high import-dependent nature of some tech components.",
@@ -3497,5 +3490,12 @@
   "impact" : "Political instability creates uncertainty leading to potential Nifty volatility and a cautious stance from FIIs. The rupee may face downward pressure due to increased geopolitical and domestic risk premiums.",
   "source" : "Economic Times",
   "publishedAt" : "03-Oct-2026 15:41 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-03T16:30:03",
+  "title" : "'Fuel, finance shocks hit world economy'",
+  "impact" : "Indian markets face headwinds from sustained crude import costs and tighter global liquidity conditions. Nifty is likely to trade with a downward bias as foreign capital becomes costlier, pressuring the Rupee against the strengthening Dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 16:20 IST",
   "score" : 7
 } ]
