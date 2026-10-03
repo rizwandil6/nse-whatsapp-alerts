@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-07T14:17:39",
-  "title" : "L&amp;T puts a big expansion bet on ice as demand fades",
-  "impact" : "L&T shifting strategy signals a broader cooling in industrial private capex, potentially triggering Nifty consolidation. Increased risk aversion may put slight downward pressure on the rupee due to potential foreign institutional outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Sep-2026 00:10 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-07T15:33:28",
   "title" : "CII Business Confidence Index rises to 66.0 in Q2FY27, signals stronger industry optimism",
   "impact" : "The rise in business confidence suggests a sustained rally for Nifty 50 as earnings visibility improves. The rupee is expected to remain stable against the dollar due to positive domestic macroeconomic sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger risk-off sentiment in Indian markets. Nifty faces downward pressure due to potential FII outflows, while the Rupee is expected to weaken against the dollar amid rising crude oil import costs.",
   "source" : "Economic Times",
   "publishedAt" : "03-Oct-2026 01:23 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-03T07:53:40",
+  "title" : "India's forex reserves fall $18.3 bn as RBI steps in to defend rupee",
+  "impact" : "The significant drawdown in forex reserves signals RBI's aggressive stance to support the rupee, likely leading to near-term Nifty volatility. Continued currency depreciation pressure could dampen FII sentiment and liquidity flows.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Oct-2026 00:12 IST",
   "score" : 7
 } ]
