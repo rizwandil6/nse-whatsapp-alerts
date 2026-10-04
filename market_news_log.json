@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T20:06:28",
-  "title" : "As SEBI deadline nears, ₹38,000 crore IPOs assess listing plans",
-  "impact" : "Massive liquidity absorption from record IPO pipeline may lead to short-term market consolidation. Nifty is expected to witness increased volatility while the rupee remains stable against dollar inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "08-Sep-2026 19:48 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T20:22:03",
   "title" : "Crude shock sends Nifty to three-month low; Rupee slips",
   "impact" : "Rising crude prices trigger significant volatility and risk-off sentiment in Indian equities. Nifty faces downward pressure toward key support levels, while the rupee remains under depreciation stress against the USD.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "04-Oct-2026 22:26 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-05T01:11:43",
+  "title" : "India within reach of 8% growth: Ex-RBI guv",
+  "impact" : "Positive sentiment for Indian equities as long-term growth optimism returns. Nifty is expected to sustain upward momentum and retest record highs. Rupee likely to stabilize against the USD due to improved foreign investment outlook.",
+  "source" : "Economic Times",
+  "publishedAt" : "04-Oct-2026 17:32 IST",
+  "score" : 7
 } ]
