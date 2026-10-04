@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T16:02:42",
-  "title" : "What prompted India’s return to the ‘A’ rating after 35 years?",
-  "impact" : "The rating upgrade improves investor sentiment and lowers borrowing costs, likely fueling a Nifty breakout toward record highs. Increased foreign capital inflows are expected to provide support and appreciation pressure to the Indian Rupee.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "08-Sep-2026 15:52 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T16:17:47",
   "title" : "Sensex today | Stock Market Highlights: Sensex down 555 pts, Nifty ends at 23,635 as crude oil nears $100",
   "impact" : "The Indian equity market is facing significant downward pressure due to rising crude oil prices and geopolitical instability. Nifty is expected to remain volatile with a bearish bias, while the rupee faces depreciation risks against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global confidence in India's GDP growth trajectory will drive significant FII inflows into Indian equities. The Nifty is expected to sustain its upward momentum toward record highs, while the rupee is likely to stabilize as macroeconomic fundamentals strengthen.",
   "source" : "Economic Times",
   "publishedAt" : "04-Oct-2026 17:17 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-10-04T19:10:02",
+  "title" : "Jio IPO roadshows draw strong global investor interest ahead of mega listing",
+  "impact" : "The Jio IPO is expected to drive significant FII inflows, boosting broader market sentiment and liquidity. Nifty is likely to see a bullish trend towards new highs as index heavyweights participate in the momentum, potentially strengthening the rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "04-Oct-2026 19:02 IST",
   "score" : 8
 } ]
