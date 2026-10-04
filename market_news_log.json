@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T14:01:25",
-  "title" : "Houthis strike Saudi as Iran war risks widening",
-  "impact" : "Rising geopolitical tensions in the Middle East will likely trigger a risk-off sentiment in Indian markets. Expect Nifty to face downward pressure due to FII outflows and the rupee is expected to weaken against the dollar due to rising oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 13:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T15:47:09",
   "title" : "Motilal's 3 picks as ₹1.10L cr plan lifts defence stocks",
   "impact" : "The government's massive infrastructure and defence push will boost sentiment in the industrials and capital goods space. Nifty is expected to sustain upward momentum with support from heavyweights, while the rupee remains range-bound.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Jio IPO will drive massive foreign capital inflows and likely boost Nifty sentiment toward record highs. The rupee is expected to strengthen against the dollar due to increased demand for local currency to participate in the mega-offering.",
   "source" : "BusinessLine",
   "publishedAt" : "04-Oct-2026 11:47 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-10-04T14:53:31",
+  "title" : "RBI policy, TCS earnings, crude prices to steer markets this week",
+  "impact" : "Markets are likely to remain volatile as investors digest RBI policy outcomes and Q2 earnings. Nifty faces downward pressure due to FII selling, while elevated crude prices threaten rupee stability against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "04-Oct-2026 14:48 IST",
   "score" : 8
 } ]
