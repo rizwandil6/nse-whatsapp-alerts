@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T14:01:13",
-  "title" : "India’s AI spend to cross 21% of IT budgets by 2027",
-  "impact" : "Accelerated AI adoption acts as a structural tailwind for Indian IT and infrastructure digitalization. Nifty expected to maintain a positive bias as enterprise efficiency increases, while increased tech imports may exert mild pressure on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 13:54 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T14:01:25",
   "title" : "Houthis strike Saudi as Iran war risks widening",
   "impact" : "Rising geopolitical tensions in the Middle East will likely trigger a risk-off sentiment in Indian markets. Expect Nifty to face downward pressure due to FII outflows and the rupee is expected to weaken against the dollar due to rising oil prices.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "03-Oct-2026 21:20 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-04T11:51:47",
+  "title" : "Jio Platforms IPO likely by Oct end at enterprise valuation of $143-146 billion",
+  "impact" : "The Jio IPO will drive massive foreign capital inflows and likely boost Nifty sentiment toward record highs. The rupee is expected to strengthen against the dollar due to increased demand for local currency to participate in the mega-offering.",
+  "source" : "BusinessLine",
+  "publishedAt" : "04-Oct-2026 11:47 IST",
+  "score" : 8
 } ]
