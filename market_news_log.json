@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T21:55:35",
-  "title" : "Goldman Sachs’ big warning! Oil prices could soar to $120 if attacks on shipping continue in Hormuz Strait",
-  "impact" : "Indian markets face significant volatility as rising crude prices pressure inflation and current account deficits. Nifty is expected to face resistance and downward bias, while the rupee is likely to weaken against the dollar due to oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 13:25 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-08T23:41:10",
   "title" : "NSE set to price IPO at ₹1,700-₹1,785 a share: report",
   "impact" : "The NSE IPO is a significant liquidity event expected to boost market sentiment and provide high-value exit opportunities. Expect Nifty to trend bullish on increased capital inflows, with the rupee likely strengthening due to potential FII participation in the offering.",
@@ -3497,5 +3490,12 @@
   "impact" : "The record secondary market sell-off signals sustained bearish pressure on the Nifty index as FPIs rotate capital into primary markets. Expect continued volatility and potential rupee depreciation against the dollar due to large-scale net outflows.",
   "source" : "Economic Times",
   "publishedAt" : "05-Oct-2026 05:57 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-10-05T06:27:29",
+  "title" : "Largecaps bear brunt of selloff as 84% of Nifty 50 stocks slip below 200-DMA",
+  "impact" : "The Indian market faces significant pressure as large-cap deterioration signals a weak near-term trend. Nifty is expected to consolidate as it reaches oversold territory, while the rupee may face volatility from potential FII outflow.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Oct-2026 06:03 IST",
   "score" : 8
 } ]
