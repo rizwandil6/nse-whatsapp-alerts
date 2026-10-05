@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T21:55:30",
-  "title" : "NSE IPO could ring the bell on Sept 25",
-  "impact" : "The NSE IPO is a major liquidity event likely to attract significant domestic and global institutional capital. Nifty is expected to see a consolidation phase as funds rotate into the primary market, with minimal immediate impact on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 18:14 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-09-08T21:55:35",
   "title" : "Goldman Sachs’ big warning! Oil prices could soar to $120 if attacks on shipping continue in Hormuz Strait",
   "impact" : "Indian markets face significant volatility as rising crude prices pressure inflation and current account deficits. Nifty is expected to face resistance and downward bias, while the rupee is likely to weaken against the dollar due to oil import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential repo rate hike is expected to exert downward pressure on the Nifty as liquidity tightens and borrowing costs rise. The rupee may see support against the USD, but rising yields are likely to pressure broad equity market sentiment in the short term.",
   "source" : "Economic Times",
   "publishedAt" : "05-Oct-2026 05:30 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-10-05T06:27:24",
+  "title" : "September IPO rush draws $1 billion FPI money even as listed stocks see record outflows",
+  "impact" : "The record secondary market sell-off signals sustained bearish pressure on the Nifty index as FPIs rotate capital into primary markets. Expect continued volatility and potential rupee depreciation against the dollar due to large-scale net outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Oct-2026 05:57 IST",
   "score" : 8
 } ]
