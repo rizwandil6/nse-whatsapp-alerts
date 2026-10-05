@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T08:43:43",
-  "title" : "India's factory space demand is set for a big jump",
-  "impact" : "Rising industrial demand supports Nifty bullish outlook by bolstering core sector growth. Increased capital expenditure and infrastructure spending may exert mild downward pressure on the rupee due to import-linked industrial procurement.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Sep-2026 08:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-09T08:43:47",
   "title" : "Iran Guards say they attacked 10 ships in Gulf",
   "impact" : "Heightened geopolitical risk in the Gulf will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to open with a sharp gap-down due to supply chain fears and rising crude prices. The Indian Rupee may depreciate further against the dollar as investors seek safe-haven assets.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "05-Oct-2026 13:19 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-05T14:14:08",
+  "title" : "India’s steel consumption to grow 7-8% in coming years, says Tata Steel CEO",
+  "impact" : "Positive outlook for steel indicates sustained infrastructure and industrial spending. Nifty is expected to lean bullish with strength in core sectors, while steady demand supports a stable rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "05-Oct-2026 14:01 IST",
+  "score" : 7
 } ]
