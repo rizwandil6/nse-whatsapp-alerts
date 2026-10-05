@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T21:08:14",
-  "title" : "Banks may’ve left $127 bn exposed to a big risk",
-  "impact" : "The report suggests systemic financial risk in bank loan books, likely leading to increased volatility in Nifty. Expect a cautious opening with potential downward pressure on the rupee due to institutional risk-off sentiment.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 14:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-08T21:55:30",
   "title" : "NSE IPO could ring the bell on Sept 25",
   "impact" : "The NSE IPO is a major liquidity event likely to attract significant domestic and global institutional capital. Nifty is expected to see a consolidation phase as funds rotate into the primary market, with minimal immediate impact on the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "05-Oct-2026 00:39 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-05T06:12:17",
+  "title" : "RBI likely to hike repo rate by 25 bps to 5.50% in October policy: ET Poll",
+  "impact" : "The potential repo rate hike is expected to exert downward pressure on the Nifty as liquidity tightens and borrowing costs rise. The rupee may see support against the USD, but rising yields are likely to pressure broad equity market sentiment in the short term.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Oct-2026 05:30 IST",
+  "score" : 8
 } ]
