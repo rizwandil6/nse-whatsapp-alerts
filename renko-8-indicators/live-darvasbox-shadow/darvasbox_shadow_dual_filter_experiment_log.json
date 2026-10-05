@@ -12664,5 +12664,23 @@
   "timestampMs": 1791175800000,
   "breakoutTimestampMs": 1791174300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 129.01680000000005,
+  "timestampMs": 1791175800000,
+  "breakoutTimestampMs": 1791175500000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 194.53499999999997,
+  "timestampMs": 1791175800000,
+  "breakoutTimestampMs": 1791174660000,
+  "shadow": true
  }
 ]
