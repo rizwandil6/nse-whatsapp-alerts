@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T06:59:19",
-  "title" : "$100 ghost: Oil's worst-case scenario is taking shape",
-  "impact" : "Rising oil prices act as a major headwind for Indian markets, likely triggering FII outflows and volatility. Expect Nifty to face downward pressure as inflation concerns resurface and the rupee weakens against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Sep-2026 20:28 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-09T06:59:21",
   "title" : "NSE may cut IPO size to Rs 25,000 crore from Rs 30,000 crore",
   "impact" : "The NSE IPO will absorb significant liquidity from the market, potentially causing short-term volatility in Nifty 50. The rupee may see mild pressure due to potential FII portfolio rebalancing to participate in the mega-issue.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "05-Oct-2026 05:30 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-05T12:42:36",
+  "title" : "Anthropic's Claude goes local in India",
+  "impact" : "This move strengthens enterprise digital transformation adoption, providing a minor tailwind for IT sector sentiment. Nifty is expected to maintain its trajectory with improved long-term data compliance stability, and the rupee impact is negligible.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Oct-2026 12:01 IST",
+  "score" : 7
 } ]
