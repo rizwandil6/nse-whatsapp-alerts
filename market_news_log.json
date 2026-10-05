@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T00:41:39",
-  "title" : "National highway project awards fast-tracked",
-  "impact" : "Fast-tracking highway projects is positive for core infrastructure spending and GDP growth. Nifty is expected to lean bullish as capex momentum increases, with a neutral to slight strengthening impact on the rupee due to long-term capital formation.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Sep-2026 00:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-09T06:13:04",
   "title" : "US strikes multiple Iranian tankers amid fresh tit-for-tat attacks",
   "impact" : "Heightened geopolitical risk will likely dampen Nifty sentiment leading to a cautious opening. Elevated oil prices will put pressure on the Rupee, potentially increasing imported inflation concerns.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "05-Oct-2026 06:59 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-05T07:58:20",
+  "title" : "Indian markets eye gap-up opening; crude, bond yields and RBI policy remain key",
+  "impact" : "Global sentiment from cooling US labor data likely triggers a gap-up opening for Nifty. The positive environment may ease pressure on the rupee despite persistent crude oil volatility.",
+  "source" : "BusinessLine",
+  "publishedAt" : "05-Oct-2026 07:49 IST",
+  "score" : 7
 } ]
