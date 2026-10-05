@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T08:43:47",
-  "title" : "Iran Guards say they attacked 10 ships in Gulf",
-  "impact" : "Heightened geopolitical risk in the Gulf will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to open with a sharp gap-down due to supply chain fears and rising crude prices. The Indian Rupee may depreciate further against the dollar as investors seek safe-haven assets.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Sep-2026 08:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-09T08:43:51",
   "title" : "A Taiwan war could cost the world more than WWII",
   "impact" : "A Taiwan conflict would trigger a massive global risk-off move causing a sharp correction in Nifty. The Indian Rupee would likely face significant depreciation due to capital flight to the US Dollar and rising oil prices.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "05-Oct-2026 14:01 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-05T14:29:40",
+  "title" : "Mukesh Ambani’s Jio Platforms plans $3.8 billion IPO on October 21",
+  "impact" : "The IPO announcement will likely trigger a massive liquidity flush into Reliance Industries and bolster overall Nifty sentiment. Expected index momentum remains bullish as the offering absorbs significant capital, with potential strengthening of the Rupee due to high foreign institutional interest.",
+  "source" : "BusinessLine",
+  "publishedAt" : "05-Oct-2026 14:12 IST",
+  "score" : 9
 } ]
