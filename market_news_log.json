@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-08T23:41:10",
-  "title" : "NSE set to price IPO at ₹1,700-₹1,785 a share: report",
-  "impact" : "The NSE IPO is a significant liquidity event expected to boost market sentiment and provide high-value exit opportunities. Expect Nifty to trend bullish on increased capital inflows, with the rupee likely strengthening due to potential FII participation in the offering.",
-  "source" : "BusinessLine",
-  "publishedAt" : "08-Sep-2026 23:38 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-08T23:41:14",
   "title" : "AI, data centres and India's grid math",
   "impact" : "The infrastructure push for AI-driven data centers provides a long-term structural tailwind for industrial and power sectors. Nifty is expected to maintain a positive bias with potential upward momentum in power and capital goods, while the rupee remains stable amid foreign investment interest.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "05-Oct-2026 06:03 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-05T06:57:42",
+  "title" : "Blockbuster Accenture show holds out hope for battered Indian IT",
+  "impact" : "Accenture results provide a sentiment floor for Indian IT, potentially cushioning Nifty from broader volatility. The currency impact is likely neutral, as improved export earnings outlook offsets current capital outflow trends.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Oct-2026 06:24 IST",
+  "score" : 7
 } ]
