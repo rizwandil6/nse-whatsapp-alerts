@@ -12877,5 +12877,89 @@
   "timestampMs": 1791193200000,
   "breakoutTimestampMs": 1791190260000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 358.950375,
+  "exitPrice": 360.74962500000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.5012531328320883,
+  "entryTimestampMs": 1791190800000,
+  "exitTimestampMs": 1791193200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 252.3499999999999,
+  "exitPrice": 253.63749999999993,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.5102040816326622,
+  "entryTimestampMs": 1791192300000,
+  "exitTimestampMs": 1791194100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 105.47137499999995,
+  "exitPrice": 105.71362500000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.22968317232998572,
+  "entryTimestampMs": 1791193200000,
+  "exitTimestampMs": 1791193560000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 117.52297500000019,
+  "exitPrice": 117.2079000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.26809651474530205,
+  "entryTimestampMs": 1791192300000,
+  "exitTimestampMs": 1791192900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 809.619,
+  "exitPrice": 807.6,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.24937655860349192,
+  "entryTimestampMs": 1791190200000,
+  "exitTimestampMs": 1791193800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 9.413475,
+  "exitPrice": 9.43695,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24937655860348562,
+  "entryTimestampMs": 1791174300000,
+  "exitTimestampMs": 1791190500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 106.84074999999996,
+  "exitPrice": 106.84074999999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1791192600000,
+  "exitTimestampMs": 1791192600000,
+  "shadow": true
  }
 ]
