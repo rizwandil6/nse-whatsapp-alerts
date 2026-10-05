@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T06:13:04",
-  "title" : "US strikes multiple Iranian tankers amid fresh tit-for-tat attacks",
-  "impact" : "Heightened geopolitical risk will likely dampen Nifty sentiment leading to a cautious opening. Elevated oil prices will put pressure on the Rupee, potentially increasing imported inflation concerns.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 06:10 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-09T06:59:19",
   "title" : "$100 ghost: Oil's worst-case scenario is taking shape",
   "impact" : "Rising oil prices act as a major headwind for Indian markets, likely triggering FII outflows and volatility. Expect Nifty to face downward pressure as inflation concerns resurface and the rupee weakens against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "05-Oct-2026 07:49 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-05T10:26:36",
+  "title" : "Iran war's fire set to change money matters this week",
+  "impact" : "Heightened geopolitical tensions in Iran will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to witness downward pressure as FIIs pull out funds, and the rupee may weaken significantly due to rising crude oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Oct-2026 05:30 IST",
+  "score" : 8
 } ]
