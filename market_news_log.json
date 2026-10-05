@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T09:29:20",
-  "title" : "Iran war: US destroys 5 Iranian crude oil tankers",
-  "impact" : "Heightened geopolitical risk will likely trigger a sharp sell-off in Nifty due to surging crude oil prices. The Indian Rupee is expected to face significant depreciation pressure as import costs rise and FIIs move toward safe-haven assets.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Sep-2026 06:03 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-09T10:29:52",
   "title" : "India’s crude oil import basket prices breaches $100/bbl",
   "impact" : "Rising crude oil prices will pressure India's current account deficit and inflation, likely leading to a bearish trend for the Nifty index. The rupee is expected to face significant depreciation against the dollar due to increased import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "A repo rate hike would likely dampen Nifty sentiments due to higher borrowing costs and equity valuation compression. The Indian Rupee might strengthen marginally as higher interest rates attract foreign carry trade inflows.",
   "source" : "Economic Times",
   "publishedAt" : "05-Oct-2026 17:09 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-05T19:48:51",
+  "title" : "₹ headed to 100? Why psychological red line matters",
+  "impact" : "A weakening rupee toward the 100 mark exerts pressure on the Nifty through FII outflows and costlier imports. This triggers volatility, raising inflationary concerns and prompting a cautious stance on domestic equity valuations.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Oct-2026 13:51 IST",
   "score" : 7
 } ]
