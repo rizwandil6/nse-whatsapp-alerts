@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T11:00:40",
-  "title" : "Sensex, Nifty tumble in early trade amid escalating tensions in West Asia, higher oil prices",
-  "impact" : "The Indian equity market is facing significant downward pressure due to geopolitical instability and supply chain risks. Nifty is expected to test lower support levels as risk-off sentiment prevails and the rupee remains vulnerable to higher crude oil prices.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 10:46 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-09T14:05:20",
   "title" : "GFF: AI could soon turn bank accounts into agents",
   "impact" : "The integration of AI agents in banking is expected to accelerate digital transformation, driving long-term efficiency and market capitalization. Nifty should see positive momentum in the financial services index, while the Rupee remains neutral as the development is tech-agnostic.",
@@ -3497,5 +3490,12 @@
   "impact" : "Upgraded growth forecast bolsters investor confidence, likely pushing Nifty toward record highs. The rupee is expected to stabilize or gain marginally against the dollar on strong economic growth outlook.",
   "source" : "BusinessLine",
   "publishedAt" : "06-Oct-2026 12:15 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-06T12:31:24",
+  "title" : "Indian banks' Q2FY27 earnings seen rising 11%",
+  "impact" : "Strong banking performance will likely drive Nifty higher as financials hold significant weight in the index. Improved sentiment in heavyweights should stabilize the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Oct-2026 11:55 IST",
   "score" : 7
 } ]
