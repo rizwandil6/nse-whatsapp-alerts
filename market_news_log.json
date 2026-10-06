@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T14:51:10",
-  "title" : "India-US trade deal ‘more or less’ finalised",
-  "impact" : "The finalization of a US-India trade deal acts as a major sentiment booster for the Indian markets. Nifty is expected to witness upward momentum with foreign capital inflows, while the rupee may see modest appreciation against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Sep-2026 14:13 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-09T15:06:33",
   "title" : "India’s supply-chain wonder shifts growth gears",
   "impact" : "India's supply chain transformation reinforces long-term structural growth and capital expenditure cycles. Nifty is expected to maintain a bullish bias as logistics efficiency lowers operational costs, while the rupee remains stable amid increased industrial competitiveness.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "06-Oct-2026 12:16 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-06T13:47:46",
+  "title" : "Ambani’s Jio said to seek about $114 billion valuation in IPO",
+  "impact" : "The IPO of Jio is expected to drive significant foreign capital inflows and liquidity into the Indian equity market. Nifty may witness a sustained bullish momentum due to large-cap buoyancy, while the rupee is likely to strengthen on anticipated dollar inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "06-Oct-2026 13:41 IST",
+  "score" : 9
 } ]
