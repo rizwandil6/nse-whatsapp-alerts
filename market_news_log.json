@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T06:07:14",
-  "title" : "Nifty IT index plunges nearly 5% on US rate hike worries",
-  "impact" : "The Indian market faces downward pressure as rising crude oil and US yield concerns trigger a risk-off sentiment. Nifty is expected to witness short-term volatility and potential consolidation, while the rupee remains vulnerable to further depreciation.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Sep-2026 05:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T06:40:30",
   "title" : "NSE slashes IPO size to Rs 23,500 crore in revised Sebi filing",
   "impact" : "The reduction in NSE IPO size eases near-term liquidity concerns for the broader market. Nifty may see reduced volatility during the IPO week as capital outflow expectations are moderated, while the rupee remains largely unaffected by this domestic equity event.",
@@ -3497,5 +3490,12 @@
   "impact" : "The upward revision to 7.1% GDP growth signals strong macroeconomic stability, likely sustaining the bullish trend in Nifty. Increased export volumes and foreign capital inflows are expected to provide support to the Indian Rupee against the dollar.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "06-Oct-2026 20:43 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T00:25:34",
+  "title" : "Tata Motors eyes 100,000 cars a month",
+  "impact" : "This announcement signals strong manufacturing growth and domestic demand, likely boosting Nifty Auto index sentiment. The broader Nifty 50 could see positive momentum, while the Rupee is expected to remain stable with minor support from increased industrial activity.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Oct-2026 23:33 IST",
   "score" : 7
 } ]
