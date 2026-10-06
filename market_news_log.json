@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T10:29:56",
-  "title" : "Rupee falls 21 paise to 94.95 against US dollar in early trade",
-  "impact" : "The Indian equity market is likely to face downward pressure due to rising import costs and inflation risks. Nifty is expected to consolidate or trend lower as FII outflows intensify, with the rupee likely remaining volatile near record lows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 10:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-09T10:30:03",
   "title" : "Brent nears $100 a barrel as fresh West Asia strikes raise supply concerns",
   "impact" : "Rising oil prices act as a major headwind for Nifty, likely leading to a bearish trend. The rupee is expected to depreciate due to higher import costs, pressuring overall market sentiment.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "06-Oct-2026 06:37 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-10-06T12:31:04",
+  "title" : "India's services sector growth touches 3-month high in Sep on strong domestic demand: PMI",
+  "impact" : "The strong services PMI data reinforces domestic growth momentum, likely providing a floor for the Nifty 50 despite global volatility. Sustained services demand may support the rupee by strengthening foreign investor confidence in India's macroeconomic resilience.",
+  "source" : "BusinessLine",
+  "publishedAt" : "06-Oct-2026 12:24 IST",
+  "score" : 7
 } ]
