@@ -12988,5 +12988,23 @@
   "timestampMs": 1791183300000,
   "breakoutTimestampMs": 1791183300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 745.35875,
+  "timestampMs": 1791187800000,
+  "breakoutTimestampMs": 1791187800000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 128.86135,
+  "timestampMs": 1791187800000,
+  "breakoutTimestampMs": 1791187800000,
+  "shadow": true
  }
 ]
