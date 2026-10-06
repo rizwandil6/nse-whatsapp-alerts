@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T14:51:06",
-  "title" : "IT stocks crash as Coforge leads selloff; Infosys, Tech Mahindra, HCL Tech, TCS slide as H1-B visa fee hike adds to sector pressure",
-  "impact" : "The IT sector slump will likely drag down the Nifty 50, dampening overall market sentiment. Expect downward pressure on the index while the rupee may face marginal weakness due to reduced export-related dollar inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 13:31 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-09T14:51:10",
   "title" : "India-US trade deal ‘more or less’ finalised",
   "impact" : "The finalization of a US-India trade deal acts as a major sentiment booster for the Indian markets. Nifty is expected to witness upward momentum with foreign capital inflows, while the rupee may see modest appreciation against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The government push for global investment reinforces confidence in India's growth narrative, supporting long-term FII inflows. Expect Nifty to consolidate near record highs with a potential bullish bias as investor sentiment improves, providing stability to the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "06-Oct-2026 11:52 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-06T13:02:02",
+  "title" : "World Bank raises India FY27 growth aim to 7.1%",
+  "impact" : "The upward revision to India's growth trajectory signals strong macroeconomic fundamentals, likely fueling institutional investor confidence. Nifty is expected to sustain its upward momentum with potential for a breakout, while the rupee should remain stable to slightly stronger due to increased capital inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Oct-2026 12:16 IST",
   "score" : 7
 } ]
