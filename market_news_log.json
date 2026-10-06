@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T10:29:52",
-  "title" : "India’s crude oil import basket prices breaches $100/bbl",
-  "impact" : "Rising crude oil prices will pressure India's current account deficit and inflation, likely leading to a bearish trend for the Nifty index. The rupee is expected to face significant depreciation against the dollar due to increased import costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 10:20 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-09T10:29:56",
   "title" : "Rupee falls 21 paise to 94.95 against US dollar in early trade",
   "impact" : "The Indian equity market is likely to face downward pressure due to rising import costs and inflation risks. Nifty is expected to consolidate or trend lower as FII outflows intensify, with the rupee likely remaining volatile near record lows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "05-Oct-2026 13:51 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-06T07:55:20",
+  "title" : "Jio Platforms IPO: Rs 37,700 crore issue likely to open on Oct 21",
+  "impact" : "This mega-IPO will likely trigger significant liquidity absorption, potentially dampening Nifty near-term momentum due to capital lock-up. Rupee may see mild support from anticipated robust foreign institutional investor participation in the anchor book.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Oct-2026 06:37 IST",
+  "score" : 9
 } ]
