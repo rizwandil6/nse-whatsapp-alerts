@@ -1555,5 +1555,33 @@
   "date": "2026-09-29",
   "price": 737.65,
   "rsRankAtEntry": 81.60469667318982
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ZYDUSWELL",
+  "date": "2026-10-04",
+  "price": 483.8,
+  "pnlPct": -9.375292685211203
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CARTRADE",
+  "date": "2026-10-04",
+  "price": 2935.4,
+  "rsRankAtEntry": 80.82191780821918
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "FLUOROCHEM",
+  "date": "2026-10-04",
+  "price": 4429.8,
+  "rsRankAtEntry": 80.62622309197651
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GESHIP",
+  "date": "2026-10-04",
+  "price": 1559.3,
+  "rsRankAtEntry": 81.40900195694715
  }
 ]

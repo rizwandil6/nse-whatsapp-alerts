@@ -84,12 +84,6 @@
   "rsRankAtEntry": 81.41592920353983,
   "salesGrowth3Y": 21
  },
- "ZYDUSWELL": {
-  "entryDate": "2026-08-06",
-  "entryPrice": 533.85,
-  "rsRankAtEntry": 82.00589970501476,
-  "salesGrowth3Y": 21
- },
  "MCX": {
   "entryDate": "2026-08-09",
   "entryPrice": 2759.3,
@@ -406,6 +400,27 @@
   "entryDate": "2026-09-29",
   "entryPrice": 737.65,
   "rsRankAtEntry": 81.60469667318982,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "CARTRADE": {
+  "entryDate": "2026-10-04",
+  "entryPrice": 2935.4,
+  "rsRankAtEntry": 80.82191780821918,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "FLUOROCHEM": {
+  "entryDate": "2026-10-04",
+  "entryPrice": 4429.8,
+  "rsRankAtEntry": 80.62622309197651,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GESHIP": {
+  "entryDate": "2026-10-04",
+  "entryPrice": 1559.3,
+  "rsRankAtEntry": 81.40900195694715,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }
