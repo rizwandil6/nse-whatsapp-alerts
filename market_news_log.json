@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-09T23:13:04",
-  "title" : "Indian Railways gets Rs 20,000 crore boost",
-  "impact" : "This significant capital infusion will boost investor sentiment for infrastructure and capital goods sectors. Nifty is expected to trend bullishly as government spending acts as a catalyst for economic growth. The rupee may see marginal support due to improved infrastructure efficiency.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Sep-2026 21:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-09T23:13:25",
   "title" : "Crude turns cruel: Oil cos bleed Rs 23/ litre on diesel",
   "impact" : "Rising under-recoveries on diesel weigh on sentiment, potentially causing Nifty to face resistance at key levels. The rupee may face downward pressure due to higher import bills and fiscal deficit concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for long-term structural growth driven by digital infrastructure. Nifty is expected to sustain upward momentum as tech-led productivity gains attract FII inflows, strengthening the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "06-Oct-2026 18:39 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-06T18:51:29",
+  "title" : "Cars, two-wheelers record highest-ever September retail sales",
+  "impact" : "Robust retail sales data signals strong domestic consumption, supporting a bullish outlook for the Nifty 50. The positive sentiment is likely to strengthen the rupee as domestic growth sentiment improves investor confidence.",
+  "source" : "BusinessLine",
+  "publishedAt" : "06-Oct-2026 18:32 IST",
   "score" : 7
 } ]
