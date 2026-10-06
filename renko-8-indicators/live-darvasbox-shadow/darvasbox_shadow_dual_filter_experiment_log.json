@@ -13165,5 +13165,65 @@
   "entryTimestampMs": 1791278100000,
   "exitTimestampMs": 1791279900000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 36.678075,
+  "exitPrice": 35.94267499999997,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 2.0050125313283944,
+  "entryTimestampMs": 1791259200000,
+  "exitTimestampMs": 1791277500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 257.86075,
+  "exitPrice": 258.495875,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24630541871921816,
+  "entryTimestampMs": 1791279300000,
+  "exitTimestampMs": 1791280500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 105.26669999999997,
+  "exitPrice": 103.14009999999992,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 2.0202020202020714,
+  "entryTimestampMs": 1791264300000,
+  "exitTimestampMs": 1791280500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 119.640625,
+  "exitPrice": 117.5625,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.7369727047146404,
+  "entryTimestampMs": 1791263400000,
+  "exitTimestampMs": 1791279000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 525.31,
+  "exitPrice": 535.7899999999995,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.9950124688278472,
+  "entryTimestampMs": 1791266700000,
+  "exitTimestampMs": 1791278700000,
+  "shadow": true
  }
 ]
