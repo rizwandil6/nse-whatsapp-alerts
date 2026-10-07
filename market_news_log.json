@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T08:20:26",
-  "title" : "Rupee falls 21 paise to 94.95 against US dollar in early trade",
-  "impact" : "The sharp decline in the rupee combined with rising crude prices poses a significant risk to macroeconomic stability. Nifty is likely to face sustained selling pressure as FII outflows accelerate due to currency devaluation and import cost concerns.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 10:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T08:20:29",
   "title" : "Brent nears $100 a barrel as fresh West Asia strikes raise supply concerns",
   "impact" : "Rising crude oil prices will likely exert downward pressure on Nifty due to imported inflation and fiscal deficit concerns. The rupee is expected to weaken against the dollar, potentially triggering FII outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The market faces short-term volatility as the 25 bps repo rate hike and shift to a calibrated tightening stance increase borrowing costs. Nifty is expected to consolidate or face downward pressure, while the rupee may find support from higher interest rate differentials.",
   "source" : "Economic Times",
   "publishedAt" : "07-Oct-2026 11:39 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T13:28:16",
+  "title" : "PNB, Kotak Mahindra Bank, other bank stocks rise up to 2% after RBI’s rate hike, Nifty Bank above 55,500",
+  "impact" : "The market remains cautious as the RBI shifts to a calibrated tightening stance, favoring banking stocks while broader indices face profit-booking. Expect Nifty to remain volatile near 22,600 levels, with the rupee likely finding support from the rate hike.",
+  "source" : "Economic Times",
+  "publishedAt" : "07-Oct-2026 11:32 IST",
   "score" : 7
 } ]
