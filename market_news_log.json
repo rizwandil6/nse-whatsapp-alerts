@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T08:20:18",
-  "title" : "India's NSE likely to price IPO at ₹1,700-₹1,785 per share, source says",
-  "impact" : "The NSE IPO is a major liquidity event likely to attract significant institutional and retail capital. Nifty may experience short-term volatility due to liquidity diversion, with the rupee expected to remain stable despite capital inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 10:34 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-10T08:20:23",
   "title" : "India’s crude oil import basket prices breaches $100/bbl",
   "impact" : "Rising crude prices increase the current account deficit and inflation risks, likely putting downward pressure on Nifty. The rupee is expected to face depreciation pressure due to higher dollar demand for energy imports.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical tensions in Iran increase volatility and risk aversion in Indian equities. Nifty is expected to witness downward pressure on FII outflows and global uncertainty, while the rupee may face depreciation against the dollar due to rising oil prices.",
   "source" : "Economic Times",
   "publishedAt" : "07-Oct-2026 11:00 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T12:42:29",
+  "title" : "Rupee falls 22 paise to 96.57 against US dollar after RBI rate hike",
+  "impact" : "The weakening rupee and RBI rate hike will likely lead to a cautious opening for the Nifty, creating short-term volatility. Higher interest rates and rising import costs for crude oil are expected to exert downward pressure on overall market sentiment.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Oct-2026 12:33 IST",
   "score" : 7
 } ]
