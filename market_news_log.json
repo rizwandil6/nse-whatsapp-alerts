@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T10:30:22",
-  "title" : "Brent crude oil price stays above $100 as US-Iran tensions escalate",
-  "impact" : "Sustained high crude oil prices will pressure the Nifty due to fiscal deficit concerns and inflationary risks. The Indian Rupee is likely to weaken further against the USD, increasing import costs for the economy.",
-  "source" : "BusinessLine",
-  "publishedAt" : "10-Sep-2026 10:10 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T10:30:27",
   "title" : "India’s new industrial revolution: Jefferies flags space, semiconductors, solar among 6 high-growth sectors",
   "impact" : "The report reinforces a long-term structural bull run for Indian industrial and infrastructure stocks. Nifty is expected to sustain upward momentum with capital expenditure themes driving sentiment, while the rupee remains stable amid increased FDI inflows into these sectors.",
@@ -3497,5 +3490,12 @@
   "impact" : "The RBI rate hike signals a contractionary monetary policy phase, likely leading to sustained selling pressure. Nifty 50 is expected to consolidate below 22,600 with the Rupee facing depreciation pressure against the dollar due to capital outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "07-Oct-2026 18:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T19:52:04",
+  "title" : "Rupee tumbles 43 paise to close at 96.78 against US dollar following RBI policy decision",
+  "impact" : "The weakening rupee and hawkish RBI stance will likely pressure domestic equity markets, leading to FII outflows. Nifty is expected to face immediate volatility with a downward bias as borrowing costs rise.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Oct-2026 16:24 IST",
   "score" : 7
 } ]
