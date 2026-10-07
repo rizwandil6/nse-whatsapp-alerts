@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T08:18:33",
-  "title" : "As SEBI deadline nears, 29 companies assess ₹38,000 crore listing plans",
-  "impact" : "The large scale IPO pipeline will likely induce liquidity rotation, cooling short-term Nifty momentum. The rupee may face temporary pressure due to potential FII capital outflows to support primary market subscriptions.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 18:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T08:18:53",
   "title" : "Sensex today | Stock Market Highlights: Sensex crashes 813 pts, Nifty closes at 23,431 as crude crosses $100",
   "impact" : "The Indian equity market is witnessing a major correction led by inflationary fears and geopolitical instability. Nifty is expected to test deeper support levels, while the rupee faces significant depreciation pressure due to higher import costs for crude oil.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "07-Oct-2026 07:16 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-07T07:45:14",
+  "title" : "Who’s running Iran? Trump asks",
+  "impact" : "Heightened geopolitical instability in the Middle East poses a significant risk to Indian equity markets, likely driving Nifty toward a bearish trend due to risk-off sentiment. The Indian Rupee is expected to face depreciation pressure against the USD amid rising global oil prices and safe-haven flows.",
+  "source" : "Economic Times",
+  "publishedAt" : "07-Oct-2026 07:12 IST",
+  "score" : 8
 } ]
