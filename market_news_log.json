@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T10:15:17",
-  "title" : "Sensex trades flat, Nifty near 23,450 as oil prices top $100 a barrel. What’s ahead?",
-  "impact" : "The market outlook remains cautious as high crude prices weigh on growth sentiment. Nifty faces downward pressure with support levels tested at 23,260-23,000, while persistent oil spikes pose a risk to the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Sep-2026 09:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T10:30:22",
   "title" : "Brent crude oil price stays above $100 as US-Iran tensions escalate",
   "impact" : "Sustained high crude oil prices will pressure the Nifty due to fiscal deficit concerns and inflationary risks. The Indian Rupee is likely to weaken further against the USD, increasing import costs for the economy.",
@@ -3497,5 +3490,12 @@
   "impact" : "The shift in RBI policy signals a pivot toward growth support, likely providing a positive tailwind for the Nifty. Anticipate a stable to slightly appreciating Rupee as rate differentials normalize and foreign capital inflows stabilize.",
   "source" : "Economic Times",
   "publishedAt" : "07-Oct-2026 15:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T19:49:38",
+  "title" : "RBI rate hike pulls markets lower",
+  "impact" : "The RBI rate hike signals a contractionary monetary policy phase, likely leading to sustained selling pressure. Nifty 50 is expected to consolidate below 22,600 with the Rupee facing depreciation pressure against the dollar due to capital outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Oct-2026 18:29 IST",
   "score" : 7
 } ]
