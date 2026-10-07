@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T08:18:53",
-  "title" : "Sensex today | Stock Market Highlights: Sensex crashes 813 pts, Nifty closes at 23,431 as crude crosses $100",
-  "impact" : "The Indian equity market is witnessing a major correction led by inflationary fears and geopolitical instability. Nifty is expected to test deeper support levels, while the rupee faces significant depreciation pressure due to higher import costs for crude oil.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 16:19 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-10T08:18:55",
   "title" : "Rupee slump to 95.1/$ as oil climbs past $100, RBI taps swaps to drain excess cash",
   "impact" : "The breach of the 95/$ level and soaring oil prices create significant headwinds for the Indian equity markets. Nifty is expected to witness downward pressure due to FII outflows, while the rupee faces sustained depreciation risks.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "07-Oct-2026 07:12 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-07T09:56:43",
+  "title" : "Brent crude rises above $101 on US hurricane threat, Houthi attacks",
+  "impact" : "Rising crude oil prices will pressure the Nifty due to India's high import dependency and inflationary risks. The rupee is expected to weaken against the dollar, potentially leading to FII outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Oct-2026 09:51 IST",
+  "score" : 7
 } ]
