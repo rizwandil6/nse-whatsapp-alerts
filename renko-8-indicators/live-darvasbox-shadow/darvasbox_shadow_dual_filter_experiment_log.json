@@ -13642,5 +13642,77 @@
   "entryTimestampMs": 1791351600000,
   "exitTimestampMs": 1791366600000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 101.96385,
+  "exitPrice": 102.2233,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.25445292620865245,
+  "entryTimestampMs": 1791359160000,
+  "exitTimestampMs": 1791366900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 116.97195,
+  "exitPrice": 115.22609999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.4925373134328517,
+  "entryTimestampMs": 1791349200000,
+  "exitTimestampMs": 1791363300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 800.1945000000001,
+  "exitPrice": 800.1945000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1791358500000,
+  "exitTimestampMs": 1791358500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 159.33067499999999,
+  "exitPrice": 161.726625,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.503759398496258,
+  "entryTimestampMs": 1791358500000,
+  "exitTimestampMs": 1791366900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 106.533,
+  "exitPrice": 106.8,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.25062656641603626,
+  "entryTimestampMs": 1791358500000,
+  "exitTimestampMs": 1791365400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 531.9667499999999,
+  "exitPrice": 529.3002499999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5012531328320882,
+  "entryTimestampMs": 1791357900000,
+  "exitTimestampMs": 1791366900000,
+  "shadow": true
  }
 ]
