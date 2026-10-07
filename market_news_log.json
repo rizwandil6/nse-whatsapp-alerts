@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T08:17:38",
-  "title" : "Indian stocks likely to remain under pressure as crude oil, US yields rise",
-  "impact" : "Indian markets are poised for a bearish opening with Nifty likely to consolidate below major support levels. Rising crude oil and elevated US bond yields are expected to exert downward pressure on the INR, triggering foreign fund outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "10-Sep-2026 07:37 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T08:17:59",
   "title" : "Surging crude oil prices: Rupee breaches 95/dollar mark",
   "impact" : "The breach of the 95 rupee mark signals significant macroeconomic stress and likely FII outflows. Nifty is expected to face heavy selling pressure due to inflation concerns, while the weakening rupee will squeeze corporate margins and trigger a risk-off sentiment.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "07-Oct-2026 06:22 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-07T07:29:24",
+  "title" : "Stocks to watch on October 7: Over a dozen companies, rate-sensitive sectors in focus",
+  "impact" : "Market sentiment is cautious and volatile ahead of the RBI policy announcement. Nifty is expected to consolidate within a narrow range with potential downside pressure if rate cut expectations remain unmet, while the Rupee faces weakness due to global dollar strength.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Oct-2026 07:20 IST",
+  "score" : 7
 } ]
