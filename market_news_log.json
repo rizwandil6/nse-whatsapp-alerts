@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T08:20:29",
-  "title" : "Brent nears $100 a barrel as fresh West Asia strikes raise supply concerns",
-  "impact" : "Rising crude oil prices will likely exert downward pressure on Nifty due to imported inflation and fiscal deficit concerns. The rupee is expected to weaken against the dollar, potentially triggering FII outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 10:10 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-10T08:21:18",
   "title" : "Crude shock sends Nifty to three-month low; Rupee slips",
   "impact" : "Rising crude prices trigger inflationary fears and FII outflows, putting downward pressure on Nifty. The rupee is expected to remain weak against the dollar due to rising energy import bills and geopolitical uncertainty.",
@@ -3497,5 +3490,12 @@
   "impact" : "The market remains cautious as the RBI shifts to a calibrated tightening stance, favoring banking stocks while broader indices face profit-booking. Expect Nifty to remain volatile near 22,600 levels, with the rupee likely finding support from the rate hike.",
   "source" : "Economic Times",
   "publishedAt" : "07-Oct-2026 11:32 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T14:13:41",
+  "title" : "Nifty slips 179 points mid-session as RBI's hawkish shift keeps markets under pressure",
+  "impact" : "The market sentiment is turning cautious due to the RBI's hawkish monetary stance. Nifty is expected to remain under pressure near support levels of 22,530, while the rupee may face volatility against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Oct-2026 14:03 IST",
   "score" : 7
 } ]
