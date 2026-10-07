@@ -1,25 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T10:30:32",
-  "title" : "Iran attacks 10 ships near Hormuz after US strikes",
-  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a sharp sell-off in Indian indices as risk appetite wanes. Nifty is expected to open with a significant gap down while the rupee faces intense depreciation pressure due to soaring crude oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Sep-2026 06:26 IST",
-  "score" : 8
-}, {
-  "timestamp" : "2026-09-10T11:00:42",
-  "title" : "HDFC Bank shares hit fresh 52-week low for second straight day: What is driving the stock?",
-  "impact" : "HDFC Bank's weakness exerts significant downward pressure on Nifty 50 sentiment due to its high weightage. Broader markets may face volatility as FII selling continues to keep the index range-bound with a bearish bias.",
-  "source" : "BusinessLine",
-  "publishedAt" : "10-Sep-2026 10:53 IST",
-  "score" : 7
-}, {
-  "timestamp" : "2026-09-10T11:15:49",
-  "title" : "Kant's 3-step formula for India's BRICS move",
-  "impact" : "The potential thaw in India-China trade relations and strategic bilateral outcomes could boost market sentiment. Improved trade outlooks for infrastructure and tech supply chains may stabilize the Nifty, while easing geopolitical tensions could reduce pressure on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Sep-2026 10:48 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T13:19:37",
   "title" : "Mutual fund SIP inflows rise to record ₹32,297 crore in August",
   "impact" : "Record SIP inflows act as a crucial liquidity buffer against global volatility, bolstering structural support for the Nifty 50. The sustained domestic buying strengthens the rupee by reducing reliance on volatile FII capital.",
@@ -3497,5 +3476,26 @@
   "impact" : "The surprise rate hike and hawkish stance will likely trigger a correction in Nifty as borrowing costs rise. The Rupee may see short-term appreciation due to higher yields, but equity volatility will increase.",
   "source" : "BusinessLine",
   "publishedAt" : "07-Oct-2026 14:32 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T20:41:23",
+  "title" : "Rupee slides to a five-month low of 96.7/$, yields rise",
+  "impact" : "The combination of a weakening rupee and hawkish RBI stance creates a negative sentiment for equity markets. Expect Nifty to face significant selling pressure as foreign institutional outflows increase due to currency depreciation and high interest rates.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Oct-2026 20:26 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-10-07T20:41:43",
+  "title" : "Green economy may create 1.3 cr jobs by 2035",
+  "impact" : "This long-term structural shift drives positive sentiment for green energy infrastructure. Nifty is expected to sustain upward momentum in the energy and capital goods segments, with neutral impact on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "07-Oct-2026 19:58 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T20:57:04",
+  "title" : "RBI allows Account Aggregator interoperability, expanding customer choice",
+  "impact" : "This reform improves credit flow and financial inclusion, providing a moderate positive catalyst for the broader Indian market. Nifty is likely to maintain a bullish bias while the rupee remains neutral to slightly strengthened by improved banking efficiency.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Oct-2026 20:44 IST",
   "score" : 7
 } ]
