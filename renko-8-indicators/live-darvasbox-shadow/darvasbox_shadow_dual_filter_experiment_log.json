@@ -13234,5 +13234,23 @@
   "timestampMs": 1791277200000,
   "breakoutTimestampMs": 1791277200000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 363.31925000000007,
+  "timestampMs": 1791278400000,
+  "breakoutTimestampMs": 1791278400000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 39.074400000000004,
+  "timestampMs": 1791277200000,
+  "breakoutTimestampMs": 1791277200000,
+  "shadow": true
  }
 ]
