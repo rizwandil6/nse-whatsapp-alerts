@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T08:20:12",
-  "title" : "Sensex, Nifty tumble in early trade amid escalating tensions in West Asia, higher oil prices",
-  "impact" : "The Indian equity market is facing significant downward pressure due to geopolitical instability and rising crude oil prices. Nifty is expected to remain bearish with potential for further intraday volatility as FII selling continues and the rupee faces depreciation pressure against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 10:46 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T08:20:18",
   "title" : "India's NSE likely to price IPO at ₹1,700-₹1,785 per share, source says",
   "impact" : "The NSE IPO is a major liquidity event likely to attract significant institutional and retail capital. Nifty may experience short-term volatility due to liquidity diversion, with the rupee expected to remain stable despite capital inflows.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "07-Oct-2026 09:51 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-07T11:27:18",
+  "title" : "Iran war keeps global outlook uncertain: Malhotra",
+  "impact" : "Heightened geopolitical tensions in Iran increase volatility and risk aversion in Indian equities. Nifty is expected to witness downward pressure on FII outflows and global uncertainty, while the rupee may face depreciation against the dollar due to rising oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "07-Oct-2026 11:00 IST",
+  "score" : 7
 } ]
