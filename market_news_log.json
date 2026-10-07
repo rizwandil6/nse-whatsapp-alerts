@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T08:21:18",
-  "title" : "Crude shock sends Nifty to three-month low; Rupee slips",
-  "impact" : "Rising crude prices trigger inflationary fears and FII outflows, putting downward pressure on Nifty. The rupee is expected to remain weak against the dollar due to rising energy import bills and geopolitical uncertainty.",
-  "source" : "BusinessLine",
-  "publishedAt" : "08-Sep-2026 20:06 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-10T09:08:12",
   "title" : "BRICS Summit: Stage set at Bharat Mandapam",
   "impact" : "The BRICS summit is expected to boost investor sentiment and long-term capital inflow expectations. Nifty is likely to maintain a positive outlook with increased volatility, while the rupee may find stability through potential de-dollarization trade pacts.",
@@ -3497,5 +3490,12 @@
   "impact" : "The market sentiment is turning cautious due to the RBI's hawkish monetary stance. Nifty is expected to remain under pressure near support levels of 22,530, while the rupee may face volatility against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "07-Oct-2026 14:03 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T17:17:35",
+  "title" : "Lowest home loan rates after RBI repo rate hike",
+  "impact" : "The home loan rate environment despite RBI hikes suggests resilient credit demand. Nifty is expected to consolidate with a positive bias as financial stability improves, keeping the rupee stable against volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "07-Oct-2026 16:27 IST",
   "score" : 7
 } ]
