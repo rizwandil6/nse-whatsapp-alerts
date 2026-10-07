@@ -13381,5 +13381,14 @@
   "timestampMs": 1791352500000,
   "breakoutTimestampMs": 1791352500000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 73.072225,
+  "timestampMs": 1791352500000,
+  "breakoutTimestampMs": 1791352500000,
+  "shadow": true
  }
 ]
