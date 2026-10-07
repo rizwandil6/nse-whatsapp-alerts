@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T10:30:27",
-  "title" : "India’s new industrial revolution: Jefferies flags space, semiconductors, solar among 6 high-growth sectors",
-  "impact" : "The report reinforces a long-term structural bull run for Indian industrial and infrastructure stocks. Nifty is expected to sustain upward momentum with capital expenditure themes driving sentiment, while the rupee remains stable amid increased FDI inflows into these sectors.",
-  "source" : "BusinessLine",
-  "publishedAt" : "10-Sep-2026 10:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T10:30:32",
   "title" : "Iran attacks 10 ships near Hormuz after US strikes",
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a sharp sell-off in Indian indices as risk appetite wanes. Nifty is expected to open with a significant gap down while the rupee faces intense depreciation pressure due to soaring crude oil prices.",
@@ -3497,5 +3490,12 @@
   "impact" : "The weakening rupee and hawkish RBI stance will likely pressure domestic equity markets, leading to FII outflows. Nifty is expected to face immediate volatility with a downward bias as borrowing costs rise.",
   "source" : "BusinessLine",
   "publishedAt" : "07-Oct-2026 16:24 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T19:52:46",
+  "title" : "RBI MPC Meeting Oct 2026 Highlights: RBI MPC hikes repo rate by 25 bps to 5.5%, changes stance to 'calibrated tightening'",
+  "impact" : "The surprise rate hike and hawkish stance will likely trigger a correction in Nifty as borrowing costs rise. The Rupee may see short-term appreciation due to higher yields, but equity volatility will increase.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Oct-2026 14:32 IST",
   "score" : 7
 } ]
