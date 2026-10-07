@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T08:20:23",
-  "title" : "India’s crude oil import basket prices breaches $100/bbl",
-  "impact" : "Rising crude prices increase the current account deficit and inflation risks, likely putting downward pressure on Nifty. The rupee is expected to face depreciation pressure due to higher dollar demand for energy imports.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Sep-2026 10:20 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-10T08:20:26",
   "title" : "Rupee falls 21 paise to 94.95 against US dollar in early trade",
   "impact" : "The sharp decline in the rupee combined with rising crude prices poses a significant risk to macroeconomic stability. Nifty is likely to face sustained selling pressure as FII outflows accelerate due to currency devaluation and import cost concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "The weakening rupee and RBI rate hike will likely lead to a cautious opening for the Nifty, creating short-term volatility. Higher interest rates and rising import costs for crude oil are expected to exert downward pressure on overall market sentiment.",
   "source" : "BusinessLine",
   "publishedAt" : "07-Oct-2026 12:33 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-07T13:28:13",
+  "title" : "RBI allows Sebi-regulated depositories to include customer deposit details in statements: What changes for investors?",
+  "impact" : "The market faces short-term volatility as the 25 bps repo rate hike and shift to a calibrated tightening stance increase borrowing costs. Nifty is expected to consolidate or face downward pressure, while the rupee may find support from higher interest rate differentials.",
+  "source" : "Economic Times",
+  "publishedAt" : "07-Oct-2026 11:39 IST",
   "score" : 7
 } ]
