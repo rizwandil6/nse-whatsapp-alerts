@@ -1583,5 +1583,26 @@
   "date": "2026-10-04",
   "price": 1559.3,
   "rsRankAtEntry": 81.40900195694715
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "MIDHANI",
+  "date": "2026-10-05",
+  "price": 462.35,
+  "rsRankAtEntry": 80.62622309197651
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SAREGAMA",
+  "date": "2026-10-05",
+  "price": 503.7,
+  "rsRankAtEntry": 81.2133072407045
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "URBANCO",
+  "date": "2026-10-05",
+  "price": 173.54,
+  "rsRankAtEntry": 82.97455968688845
  }
 ]

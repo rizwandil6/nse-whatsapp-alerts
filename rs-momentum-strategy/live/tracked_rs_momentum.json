@@ -423,5 +423,26 @@
   "rsRankAtEntry": 81.40900195694715,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "MIDHANI": {
+  "entryDate": "2026-10-05",
+  "entryPrice": 462.35,
+  "rsRankAtEntry": 80.62622309197651,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SAREGAMA": {
+  "entryDate": "2026-10-05",
+  "entryPrice": 503.7,
+  "rsRankAtEntry": 81.2133072407045,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "URBANCO": {
+  "entryDate": "2026-10-05",
+  "entryPrice": 173.54,
+  "rsRankAtEntry": 82.97455968688845,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
