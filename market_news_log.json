@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T14:19:14",
-  "title" : "As NSE, Reliance Jio eye listings, what are India's biggest share offerings?",
-  "impact" : "The potential mega-listings of NSE and Reliance Jio are expected to drive significant foreign institutional liquidity into the Indian equity market. This capital influx supports a bullish outlook for the Nifty index and provides structural strength to the rupee against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Sep-2026 14:07 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-11T15:19:57",
   "title" : "Indian power plants run critically low on coal",
   "impact" : "Heightened coal supply chain stress may lead to power volatility, potentially dampening industrial output and Nifty sentiment. Increased logistics costs and supply bottlenecks could pressure margins for power-dependent companies and weigh slightly on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential Jio IPO is a major liquidity event likely to boost overall market sentiment and Nifty inflows. Rupee may strengthen slightly due to anticipated large-scale foreign capital inflows.",
   "source" : "Economic Times",
   "publishedAt" : "09-Oct-2026 00:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-09T02:06:16",
+  "title" : "US stocks: S&amp;P 500, Nasdaq end lower as crude prices jump, chip stocks weigh",
+  "impact" : "Rising crude prices and US inflation fears will likely pressure the Nifty to open lower with increased volatility. The rupee may face depreciation risks as global risk-off sentiment shifts capital away from emerging markets.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Oct-2026 01:38 IST",
   "score" : 7
 } ]
