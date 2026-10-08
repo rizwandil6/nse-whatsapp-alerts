@@ -36,12 +36,6 @@
   "rsRankAtEntry": 81.95266272189349,
   "salesGrowth3Y": 21
  },
- "EICHERMOT": {
-  "entryDate": "2026-07-27",
-  "entryPrice": 7836,
-  "rsRankAtEntry": 80.1775147928994,
-  "salesGrowth3Y": 17
- },
  "MEDANTA": {
   "entryDate": "2026-07-28",
   "entryPrice": 1432.9,
@@ -442,6 +436,20 @@
   "entryDate": "2026-10-05",
   "entryPrice": 173.54,
   "rsRankAtEntry": 82.97455968688845,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "JAMNAAUTO": {
+  "entryDate": "2026-10-06",
+  "entryPrice": 151.77,
+  "rsRankAtEntry": 82.1917808219178,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LXCHEM": {
+  "entryDate": "2026-10-06",
+  "entryPrice": 190.35,
+  "rsRankAtEntry": 80.62622309197651,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }

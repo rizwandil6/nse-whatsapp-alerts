@@ -1604,5 +1604,26 @@
   "date": "2026-10-05",
   "price": 173.54,
   "rsRankAtEntry": 82.97455968688845
+ },
+ {
+  "type": "EXIT",
+  "symbol": "EICHERMOT",
+  "date": "2026-10-06",
+  "price": 6960,
+  "pnlPct": -11.179173047473201
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "JAMNAAUTO",
+  "date": "2026-10-06",
+  "price": 151.77,
+  "rsRankAtEntry": 82.1917808219178
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "LXCHEM",
+  "date": "2026-10-06",
+  "price": 190.35,
+  "rsRankAtEntry": 80.62622309197651
  }
 ]
