@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T11:48:08",
-  "title" : "Why BRICS businesses are betting on India",
-  "impact" : "Increased foreign direct investment flows from BRICS nations are expected to bolster liquidity and sustain the Nifty50's upward momentum. Anticipate a strengthening of the rupee as capital inflows reduce reliance on Western currency markets.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 11:10 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T12:18:33",
   "title" : "What's on agenda under Modi-Xi Jinping meeting",
   "impact" : "Normalization of India-China diplomatic ties is expected to stabilize market sentiment and reduce geopolitical risk premiums. Nifty may see a relief rally, while the rupee is likely to remain steady with a slight strengthening bias due to improved trade outlook.",
@@ -3497,5 +3490,12 @@
   "impact" : "The positive GST reforms provide a fiscal boost that should support Nifty towards new highs. The RBI maintaining status quo on rates keeps the rupee stable, curbing inflationary volatility.",
   "source" : "Economic Times",
   "publishedAt" : "08-Oct-2026 18:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-08T19:40:40",
+  "title" : "WTO raises 2026 goods trade forecast to 3.9% on AI boom, supply chain resilience",
+  "impact" : "Positive global trade outlook reinforces India's manufacturing export ambitions, likely boosting Nifty sentiment toward record highs. Potential for INR stability as Asia-led trade growth offsets regional geopolitical volatility.",
+  "source" : "BusinessLine",
+  "publishedAt" : "08-Oct-2026 19:20 IST",
   "score" : 7
 } ]
