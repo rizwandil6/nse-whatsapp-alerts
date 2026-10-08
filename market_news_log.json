@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T19:54:14",
-  "title" : "'India's new-age economy to triple to $300 bn'",
-  "impact" : "The projected growth in the new-age economy signals a structural shift towards digital and infrastructure-led expansion. Nifty is expected to maintain a bullish bias with long-term growth optimism, while the rupee remains stable amid increased foreign investment interest.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Sep-2026 19:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-10T20:44:49",
   "title" : "US wholesale prices rise in latest sign",
   "impact" : "Heightened US wholesale inflation and rising crude oil prices will pressure Indian indices with likely Nifty volatility. The rupee faces significant depreciation risk due to the strengthening dollar and elevated import costs.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "07-Oct-2026 16:23 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-08T07:00:03",
+  "title" : "The $95 barrel behind RBI’s inflation rethink",
+  "impact" : "Sustained high crude prices pose a significant threat to inflation, likely forcing the RBI to maintain higher interest rates for longer. This expectation will likely pressure the Nifty toward a bearish correction and cause further depreciation of the Indian Rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "07-Oct-2026 17:50 IST",
+  "score" : 8
 } ]
