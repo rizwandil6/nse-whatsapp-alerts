@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T09:45:04",
-  "title" : "India's 10-year bond yield surpasses 7% on rising oil, Treasury yields",
-  "impact" : "Rising oil and US yields will pressure Nifty towards lower support levels due to FII outflows. The Indian Rupee is expected to weaken significantly against the dollar, tightening domestic liquidity conditions.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Sep-2026 09:35 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-11T10:00:10",
   "title" : "Brent crude remains above $108 a barrel on West Asia supply disruption concerns",
   "impact" : "High crude prices put downward pressure on Indian equities due to concerns over inflation and fiscal deficit. Nifty is expected to witness selling pressure, and the Rupee is likely to face depreciation against the USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sentiment towards the Adani group acts as a tailwind for broader market risk appetite, potentially pushing Nifty towards new highs. Increased inflows into infrastructure and energy giants are expected to provide short-term stability to the Indian Rupee against the USD.",
   "source" : "Economic Times",
   "publishedAt" : "08-Oct-2026 13:59 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-08T17:20:24",
+  "title" : "AI bubble risks worst S&P 500 crash since 2008, strategist says",
+  "impact" : "Global risk-off sentiment following a potential S&P 500 correction will trigger significant FII outflows from Indian equities. Nifty 50 is expected to see increased volatility and correction, likely putting downward pressure on the Indian Rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "08-Oct-2026 17:04 IST",
   "score" : 7
 } ]
