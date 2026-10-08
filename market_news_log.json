@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T07:34:59",
-  "title" : "India’s GDP data gets an IMF vote of confidence",
-  "impact" : "IMF endorsement signals sustained economic growth, likely boosting investor sentiment and foreign inflows. Nifty is expected to trend upward with support at key levels, while the rupee may appreciate against the dollar due to improved macroeconomic stability.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Sep-2026 21:22 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T08:20:26",
   "title" : "NSE IPO price band announced for Rs 22,561-crore offer! Check IPO dates, other important details",
   "impact" : "The NSE IPO is a landmark event that will drive massive liquidity mobilization and retail participation. Nifty is expected to remain volatile due to significant capital rotation, while the rupee may face temporary pressure from FII inflows and outflows.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "08-Oct-2026 12:48 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-08T13:31:00",
+  "title" : "El Nino turns fierce, could be strongest since 1950",
+  "impact" : "Severe El Nino threatens agricultural output and pushes up food inflation, potentially stalling RBI rate cuts. Expect Nifty volatility with a bearish bias as rural consumption demand weakens and rupee faces pressure due to import inflation.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Oct-2026 13:05 IST",
+  "score" : 8
 } ]
