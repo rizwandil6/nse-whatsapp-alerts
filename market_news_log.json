@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T10:00:10",
-  "title" : "Brent crude remains above $108 a barrel on West Asia supply disruption concerns",
-  "impact" : "High crude prices put downward pressure on Indian equities due to concerns over inflation and fiscal deficit. Nifty is expected to witness selling pressure, and the Rupee is likely to face depreciation against the USD.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Sep-2026 09:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T10:00:20",
   "title" : "Oil prices set to end week over $100",
   "impact" : "The surge in crude oil prices will trigger significant selling pressure on Indian indices due to inflation and fiscal deficit concerns. Nifty is expected to open with a sharp gap down, while the rupee will likely face intense depreciation pressure against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global risk-off sentiment following a potential S&P 500 correction will trigger significant FII outflows from Indian equities. Nifty 50 is expected to see increased volatility and correction, likely putting downward pressure on the Indian Rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "08-Oct-2026 17:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-08T17:35:54",
+  "title" : "Inside 11-quarter high earnings pomp, 46 companies may wipe out up to 81% of their Q2 profits",
+  "impact" : "The broader Nifty is showing strong headline growth, but indices will face volatility as investors punish individual earnings misses. Increased foreign selling and elevated energy prices continue to weigh on the rupee and overall market sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Oct-2026 14:37 IST",
   "score" : 7
 } ]
