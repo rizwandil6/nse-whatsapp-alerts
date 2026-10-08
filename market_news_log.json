@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T01:18:21",
-  "title" : "GST turbocharges truck demand, CV makers raise bets",
-  "impact" : "Positive sentiment for the industrial and logistics sectors will likely support a Nifty bullish bias. Increased freight activity is expected to strengthen domestic economic indicators and provide underlying support to the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 00:48 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T06:34:15",
   "title" : "India’s IPO fundraising set to cross Rs 1 lakh crore in 2026",
   "impact" : "Robust IPO pipeline and massive DII inflows sustain a bullish liquidity-driven sentiment for the Indian markets. Nifty is expected to maintain its upward momentum with continued support from domestic retail participation.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will likely trigger a risk-off sentiment in the Indian markets. Nifty is expected to open lower as crude oil prices spike, putting downward pressure on the rupee due to increased import costs.",
   "source" : "Economic Times",
   "publishedAt" : "08-Oct-2026 07:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-08T07:16:21",
+  "title" : "FPIs sell Rs 21,745 crore in second half of Sep, in oil &amp; gas, auto &amp; financials",
+  "impact" : "Sustained FPI selling pressure is likely to cap Nifty upside in the near term, keeping indices range-bound or volatile. Increased outflows may exert moderate downward pressure on the Indian Rupee due to higher dollar demand.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Oct-2026 06:05 IST",
   "score" : 7
 } ]
