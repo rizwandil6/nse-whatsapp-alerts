@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-10T20:44:49",
-  "title" : "US wholesale prices rise in latest sign",
-  "impact" : "Heightened US wholesale inflation and rising crude oil prices will pressure Indian indices with likely Nifty volatility. The rupee faces significant depreciation risk due to the strengthening dollar and elevated import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Sep-2026 19:38 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-10T20:44:57",
   "title" : "NSE unlisted shares vs Nifty: Where did investors make more money ahead of mega IPO?",
   "impact" : "The Nifty outlook remains cautious with a potential support test at 23,260 following recent volatility. Market sentiment hinges on stabilizing rupee trends and a return of foreign capital to support a recovery toward the 30,000 target.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sustained high crude prices pose a significant threat to inflation, likely forcing the RBI to maintain higher interest rates for longer. This expectation will likely pressure the Nifty toward a bearish correction and cause further depreciation of the Indian Rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "07-Oct-2026 17:50 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-10-08T07:00:05",
+  "title" : "Hormuz tanker attacks reach new wartime high",
+  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a sell-off in Indian equities due to surging crude oil prices. Nifty is expected to open with a sharp gap-down, while the rupee faces significant depreciation pressure against the USD due to import bill concerns.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Oct-2026 06:21 IST",
   "score" : 8
 } ]
