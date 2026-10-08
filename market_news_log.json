@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T06:49:25",
-  "title" : "NSE IPO to open on Sep 17; OFS reduced ahead of much-awaited issue",
-  "impact" : "The NSE IPO is a significant liquidity event that will boost market sentiment and increase participation in the financial sector. Nifty is expected to see a bullish trend due to high subscription interest and improved capital market infrastructure outlook.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Sep-2026 06:34 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-11T07:34:59",
   "title" : "India’s GDP data gets an IMF vote of confidence",
   "impact" : "IMF endorsement signals sustained economic growth, likely boosting investor sentiment and foreign inflows. Nifty is expected to trend upward with support at key levels, while the rupee may appreciate against the dollar due to improved macroeconomic stability.",
@@ -3497,5 +3490,12 @@
   "impact" : "The projected 20 percent profit growth for Nifty 50 firms is expected to provide a strong bullish tailwind for the index. Investor sentiment is likely to remain positive as domestic earnings resilience offsets global macroeconomic headwinds, supporting the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "08-Oct-2026 12:37 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-08T13:00:11",
+  "title" : "What is the impact of 25 basis points repo rate hike on borrowers? | Explained",
+  "impact" : "The repo rate hike acts as a liquidity dampener likely causing short-term Nifty consolidation and increased volatility. Higher yields may strengthen the rupee slightly while putting downward pressure on equity valuations.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "08-Oct-2026 12:48 IST",
   "score" : 7
 } ]
