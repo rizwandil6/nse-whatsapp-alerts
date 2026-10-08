@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T06:34:15",
-  "title" : "India’s IPO fundraising set to cross Rs 1 lakh crore in 2026",
-  "impact" : "Robust IPO pipeline and massive DII inflows sustain a bullish liquidity-driven sentiment for the Indian markets. Nifty is expected to maintain its upward momentum with continued support from domestic retail participation.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 05:50 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-11T06:49:25",
   "title" : "NSE IPO to open on Sep 17; OFS reduced ahead of much-awaited issue",
   "impact" : "The NSE IPO is a significant liquidity event that will boost market sentiment and increase participation in the financial sector. Nifty is expected to see a bullish trend due to high subscription interest and improved capital market infrastructure outlook.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sustained FPI selling pressure is likely to cap Nifty upside in the near term, keeping indices range-bound or volatile. Increased outflows may exert moderate downward pressure on the Indian Rupee due to higher dollar demand.",
   "source" : "Economic Times",
   "publishedAt" : "08-Oct-2026 06:05 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-08T12:44:52",
+  "title" : "Indian firms seen posting faster profit growth despite global headwinds",
+  "impact" : "The projected 20 percent profit growth for Nifty 50 firms is expected to provide a strong bullish tailwind for the index. Investor sentiment is likely to remain positive as domestic earnings resilience offsets global macroeconomic headwinds, supporting the rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "08-Oct-2026 12:37 IST",
   "score" : 7
 } ]
