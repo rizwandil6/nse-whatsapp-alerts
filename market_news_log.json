@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T12:48:47",
-  "title" : "New-age industries fuelling India's capex cycle",
-  "impact" : "The capex-led growth cycle supports a bullish outlook for Indian equities, with Nifty likely to see sustained momentum as bank credit fuels infrastructure. The focus on local data storage and green energy strengthens the rupee against global macro volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 12:30 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-11T12:48:51",
   "title" : "BSE shares fall 3% as rival NSE gets closer to mega IPO. More pain ahead?",
   "impact" : "The NSE IPO is expected to lead to significant liquidity reallocation from the broader market to capture the large issue size. Expect near-term volatility in financial services stocks and potential consolidation in the Nifty as institutional investors adjust portfolios.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian IT sector will face significant downward pressure, likely dragging down the Nifty index. The increased regulatory friction in the US may trigger currency volatility, putting marginal pressure on the rupee due to potential repatriation concerns.",
   "source" : "Economic Times",
   "publishedAt" : "08-Oct-2026 21:27 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-08T23:50:15",
+  "title" : "Indian firms seen posting faster profit growth despite global headwinds",
+  "impact" : "The market outlook remains mixed as strong domestic corporate earnings growth of 20 percent battles record foreign institutional outflows. Nifty 50 volatility is likely to persist while the rupee faces pressure from rising global oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Oct-2026 12:28 IST",
   "score" : 7
 } ]
