@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T22:24:24",
-  "title" : "NSE looks to diversify revenue beyond weekly options ahead of ₹22,569 crore IPO",
-  "impact" : "The NSE IPO announcement signals significant liquidity inflow and regulatory scrutiny over trading volumes. Nifty may face short-term volatility as index options trading patterns are re-evaluated. Rupee expected to remain stable with no direct impact from exchange revenue shifts.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Sep-2026 22:08 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T23:09:59",
   "title" : "India’s forex reserves jump by a record $44.903 billion",
   "impact" : "Record forex reserves strengthen the Rupee and boost investor sentiment regarding India's macroeconomic stability. Nifty is expected to sustain its upward momentum with reduced volatility as FII confidence improves.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "09-Oct-2026 17:02 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-10-09T18:29:09",
+  "title" : "India’s share of global greenfield investments more than double China’s in 2020-25",
+  "impact" : "The report reinforces India as a top destination for long-term foreign capital, providing a structural floor for the Nifty index. Sustained greenfield inflows will likely strengthen the rupee, offsetting concerns regarding domestic consumption headwinds.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "09-Oct-2026 18:15 IST",
+  "score" : 7
 } ]
