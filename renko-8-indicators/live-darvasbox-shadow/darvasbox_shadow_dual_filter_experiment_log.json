@@ -14065,5 +14065,23 @@
   "timestampMs": 1791518400000,
   "breakoutTimestampMs": 1791518400000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 112.09134999999992,
+  "timestampMs": 1791519600000,
+  "breakoutTimestampMs": 1791519600000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 36.741625,
+  "timestampMs": 1791519600000,
+  "breakoutTimestampMs": 1791519600000,
+  "shadow": true
  }
 ]
