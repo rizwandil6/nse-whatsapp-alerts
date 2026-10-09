@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T23:09:59",
-  "title" : "India’s forex reserves jump by a record $44.903 billion",
-  "impact" : "Record forex reserves strengthen the Rupee and boost investor sentiment regarding India's macroeconomic stability. Nifty is expected to sustain its upward momentum with reduced volatility as FII confidence improves.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "11-Sep-2026 23:05 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-12T01:41:06",
   "title" : "New problem loading for oil mkt as Hormuz is shut",
   "impact" : "The closure of the Strait of Hormuz will trigger a sharp spike in crude oil prices, leading to a bearish trend for Nifty. Expect heavy selling pressure across indices as the rupee likely weakens against the dollar due to a ballooning import bill.",
@@ -3497,5 +3490,12 @@
   "impact" : "The report reinforces India as a top destination for long-term foreign capital, providing a structural floor for the Nifty index. Sustained greenfield inflows will likely strengthen the rupee, offsetting concerns regarding domestic consumption headwinds.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "09-Oct-2026 18:15 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-09T19:45:39",
+  "title" : "US move against IT firms signals protectionist shift, raises concerns for India's exports: GTRI",
+  "impact" : "The protectionist shift increases volatility in Nifty 50 due to heavy IT weightage. The Indian rupee may face downward pressure as potential export revenue declines impact trade balances.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Oct-2026 19:28 IST",
   "score" : 7
 } ]
