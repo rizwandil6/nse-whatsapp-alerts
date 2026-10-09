@@ -1625,5 +1625,243 @@
   "date": "2026-10-06",
   "price": 190.35,
   "rsRankAtEntry": 80.62622309197651
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "AJANTPHARM",
+  "date": "2026-10-09",
+  "price": 3510.4,
+  "rsRankAtEntry": 81.65680473372781
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "BAJAJ-AUTO",
+  "date": "2026-10-09",
+  "price": 11424,
+  "rsRankAtEntry": 80.86785009861933
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "LALPATHLAB",
+  "date": "2026-10-09",
+  "price": 1906.4,
+  "rsRankAtEntry": 82.64299802761342
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "BBOX",
+  "date": "2026-10-09",
+  "price": 763.25,
+  "rsRankAtEntry": 80.27613412228797
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "HSCL",
+  "date": "2026-10-09",
+  "price": 652.8,
+  "rsRankAtEntry": 81.06508875739645
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "PPLPHARMA",
+  "date": "2026-10-09",
+  "price": 202.37,
+  "rsRankAtEntry": 80.6706114398422
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "POWERINDIA",
+  "date": "2026-10-09",
+  "price": 31230,
+  "rsRankAtEntry": 81.49606299212599
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SHYAMMETL",
+  "date": "2026-10-09",
+  "price": 1077,
+  "rsRankAtEntry": 80.70866141732283
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "PRUDENT",
+  "date": "2026-10-09",
+  "price": 3501.6,
+  "rsRankAtEntry": 82.8740157480315,
+  "salesGrowth3Y": 30
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "SHAILY",
+  "date": "2026-10-09",
+  "price": 3149.8,
+  "rsRankAtEntry": 81.49606299212599,
+  "salesGrowth3Y": 18
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "ENGINERSIN",
+  "date": "2026-10-09",
+  "price": 285.25,
+  "rsRankAtEntry": 85.43307086614173
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "CARBORUNIV",
+  "date": "2026-10-09",
+  "price": 1211.3,
+  "rsRankAtEntry": 81.88976377952756
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "ETERNAL",
+  "date": "2026-10-09",
+  "price": 342,
+  "rsRankAtEntry": 81.10236220472441,
+  "salesGrowth3Y": 97
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GABRIEL",
+  "date": "2026-10-09",
+  "price": 1471.4,
+  "rsRankAtEntry": 85.43307086614173
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "AARTIPHARM",
+  "date": "2026-10-09",
+  "price": 940.1,
+  "rsRankAtEntry": 81.88976377952756
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GNFC",
+  "date": "2026-10-09",
+  "price": 623.05,
+  "rsRankAtEntry": 80.70866141732283
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SCHNEIDER",
+  "date": "2026-10-09",
+  "price": 1218.8,
+  "rsRankAtEntry": 80.11811023622047
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "BELRISE",
+  "date": "2026-10-09",
+  "price": 247.92,
+  "rsRankAtEntry": 81.10236220472441
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GREAVESCOT",
+  "date": "2026-10-09",
+  "price": 234.78,
+  "rsRankAtEntry": 80.31496062992126
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "LLOYDSENT",
+  "date": "2026-10-09",
+  "price": 79.67,
+  "rsRankAtEntry": 82.48031496062993,
+  "salesGrowth3Y": 67
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "RATEGAIN",
+  "date": "2026-10-09",
+  "price": 828.7,
+  "rsRankAtEntry": 81.9253438113949,
+  "salesGrowth3Y": 48
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SAIL",
+  "date": "2026-10-09",
+  "price": 184.2,
+  "rsRankAtEntry": 80.55009823182712
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "AXISCADES",
+  "date": "2026-10-09",
+  "price": 2067.4,
+  "rsRankAtEntry": 86.47058823529412
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "NETWEB",
+  "date": "2026-10-09",
+  "price": 4613,
+  "rsRankAtEntry": 81.76470588235294
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "MAHSEAMLES",
+  "date": "2026-10-09",
+  "price": 737.65,
+  "rsRankAtEntry": 81.60469667318982
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "CARTRADE",
+  "date": "2026-10-09",
+  "price": 2935.4,
+  "rsRankAtEntry": 80.82191780821918,
+  "salesGrowth3Y": 29
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "FLUOROCHEM",
+  "date": "2026-10-09",
+  "price": 4429.8,
+  "rsRankAtEntry": 80.62622309197651
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GESHIP",
+  "date": "2026-10-09",
+  "price": 1559.3,
+  "rsRankAtEntry": 81.40900195694715
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "MIDHANI",
+  "date": "2026-10-09",
+  "price": 462.35,
+  "rsRankAtEntry": 80.62622309197651
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SAREGAMA",
+  "date": "2026-10-09",
+  "price": 503.7,
+  "rsRankAtEntry": 81.2133072407045
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "URBANCO",
+  "date": "2026-10-09",
+  "price": 173.54,
+  "rsRankAtEntry": 82.97455968688845,
+  "salesGrowth3Y": 35
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "JAMNAAUTO",
+  "date": "2026-10-09",
+  "price": 151.77,
+  "rsRankAtEntry": 82.1917808219178
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "LXCHEM",
+  "date": "2026-10-09",
+  "price": 190.35,
+  "rsRankAtEntry": 80.62622309197651
  }
 ]
