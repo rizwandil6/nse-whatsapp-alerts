@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T18:36:54",
-  "title" : "EU tables India FTA for Council signature, move closer to landmark deal",
-  "impact" : "The EU-India FTA progress acts as a significant long-term sentiment booster for Indian equities, signaling closer trade ties and potential for increased FDI. Nifty is expected to maintain a bullish bias while the Rupee may see stability due to improved export competitiveness.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Sep-2026 18:21 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T19:22:05",
   "title" : "India-BRICS trade up 100% to $417 bn",
   "impact" : "Increased trade volumes with BRICS nations boost economic growth prospects and strengthen India's geopolitical trade stance. Nifty is expected to maintain a positive upward bias as export-led growth visibility improves, providing support to the Rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Simplified GST framework improves operational efficiency and reduces compliance overhead for domestic manufacturers and service providers. Expect a positive Nifty bias as corporate margins benefit from lower logistics and administrative costs while the rupee remains stable.",
   "source" : "Economic Times",
   "publishedAt" : "09-Oct-2026 06:34 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-09T07:53:45",
+  "title" : "New problem in Gulf; 1.3m barrels oil put off market",
+  "impact" : "Oil supply disruption will trigger inflationary pressure and weigh on Nifty sentiments. The Rupee is expected to face depreciation risk due to higher import costs and widening current account deficit concerns.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Oct-2026 07:10 IST",
   "score" : 7
 } ]
