@@ -14524,5 +14524,41 @@
   "entryTimestampMs": 1791533400000,
   "exitTimestampMs": 1791538800000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 165.34082500000005,
+  "exitPrice": 165.03,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.18799047361717885,
+  "entryTimestampMs": 1791529800000,
+  "exitTimestampMs": 1791538860000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 36.741625,
+  "exitPrice": 37.474625,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.9950124688279411,
+  "entryTimestampMs": 1791519600000,
+  "exitTimestampMs": 1791538200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "SHORT",
+  "entry": 166.56300000000002,
+  "exitPrice": 166.56300000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1791528300000,
+  "exitTimestampMs": 1791528300000,
+  "shadow": true
  }
 ]
