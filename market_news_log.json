@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T21:54:04",
-  "title" : "Oil tanker rates hit record highs following attacks",
-  "impact" : "Rising crude oil transport costs will exert downward pressure on equity markets by increasing inflation risks and trade deficit concerns. Nifty is expected to face resistance near key levels while the rupee may weaken against the USD due to higher energy import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 21:19 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T22:24:24",
   "title" : "NSE looks to diversify revenue beyond weekly options ahead of ₹22,569 crore IPO",
   "impact" : "The NSE IPO announcement signals significant liquidity inflow and regulatory scrutiny over trading volumes. Nifty may face short-term volatility as index options trading patterns are re-evaluated. Rupee expected to remain stable with no direct impact from exchange revenue shifts.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "09-Oct-2026 18:06 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-09T18:13:50",
+  "title" : "Ambani’s Jio said to set IPO price band at ₹1,065-₹1,119",
+  "impact" : "The Jio IPO launch will trigger significant liquidity absorption from the secondary market, potentially pressuring Nifty in the short term. The massive inflow of retail and institutional capital is expected to cause slight volatility in the rupee due to foreign institutional allocation.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Oct-2026 17:02 IST",
+  "score" : 9
 } ]
