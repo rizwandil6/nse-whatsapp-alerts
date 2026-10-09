@@ -14488,5 +14488,29 @@
   "entryTimestampMs": 1791533400000,
   "exitTimestampMs": 1791538200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "LONG",
+  "entry": 190.73850000000002,
+  "exitPrice": 190.66,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.04115582328686634,
+  "entryTimestampMs": 1791527700000,
+  "exitTimestampMs": 1791538500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 248.870625,
+  "exitPrice": 247.9,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.39001187866184855,
+  "entryTimestampMs": 1791534300000,
+  "exitTimestampMs": 1791538500000,
+  "shadow": true
  }
 ]
