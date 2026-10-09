@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T08:13:40",
-  "title" : "Bank deposits grow 17.8% in August, fastest in decade as FCNR-B inflows mask local mobilisation woes",
-  "impact" : "Strong deposit growth improves banking sector liquidity and supports continued credit expansion. Nifty is likely to maintain a bullish bias as financial stability eases rate hike concerns, while significant FCNR-B inflows provide support to the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 20:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-12T08:28:45",
   "title" : "NSE IPO set to open for public on September 17; price band at 1,700-1,785",
   "impact" : "The NSE IPO acts as a significant liquidity event, drawing massive capital inflow into the financial services sector. Expect short-term Nifty volatility due to massive institutional rebalancing, while the rupee remains stable amid strong foreign investor participation.",
@@ -3497,5 +3490,12 @@
   "impact" : "The increase in CRR will absorb liquidity from the banking system, likely leading to a bearish trend for Nifty in the short term. The rupee may witness minor support due to tighter monetary conditions despite overall equity selling pressure.",
   "source" : "Economic Times",
   "publishedAt" : "09-Oct-2026 19:21 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-09T20:31:50",
+  "title" : "Trump’s move to curb techies may benefit India",
+  "impact" : "Potential H-1B restrictions create volatility for Indian IT exports and long-term currency pressure. Nifty may face short-term consolidation as markets price in talent retention benefits vs service export risks.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Oct-2026 13:57 IST",
   "score" : 7
 } ]
