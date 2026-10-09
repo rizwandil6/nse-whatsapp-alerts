@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T01:41:06",
-  "title" : "New problem loading for oil mkt as Hormuz is shut",
-  "impact" : "The closure of the Strait of Hormuz will trigger a sharp spike in crude oil prices, leading to a bearish trend for Nifty. Expect heavy selling pressure across indices as the rupee likely weakens against the dollar due to a ballooning import bill.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 20:10 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-12T08:13:40",
   "title" : "Bank deposits grow 17.8% in August, fastest in decade as FCNR-B inflows mask local mobilisation woes",
   "impact" : "Strong deposit growth improves banking sector liquidity and supports continued credit expansion. Nifty is likely to maintain a bullish bias as financial stability eases rate hike concerns, while significant FCNR-B inflows provide support to the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The protectionist shift increases volatility in Nifty 50 due to heavy IT weightage. The Indian rupee may face downward pressure as potential export revenue declines impact trade balances.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Oct-2026 19:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-09T19:46:09",
+  "title" : "RBI raises banks’ average CRR requirement",
+  "impact" : "The increase in CRR will absorb liquidity from the banking system, likely leading to a bearish trend for Nifty in the short term. The rupee may witness minor support due to tighter monetary conditions despite overall equity selling pressure.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Oct-2026 19:21 IST",
   "score" : 7
 } ]
