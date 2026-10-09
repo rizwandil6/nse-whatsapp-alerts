@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T09:29:03",
-  "title" : "Putin draws red line over European troops in Ukraine",
-  "impact" : "Heightened geopolitical tensions in Eastern Europe will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to witness volatility with a bearish bias, while the rupee may face depreciation pressure against the dollar due to safe-haven demand.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Sep-2026 09:05 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-12T09:29:16",
   "title" : "Global funds sour on India stocks as some cut allocation to zero",
   "impact" : "Indian markets face sustained selling pressure as foreign portfolio outflows continue to seek higher growth tech opportunities in North Asia. The Nifty is expected to remain range-bound with a bearish bias until earnings growth recovers, while the rupee faces persistent depreciation risks due to oil price sensitivity.",
@@ -3497,5 +3490,12 @@
   "impact" : "The push for domestic manufacturing under Make in India initiatives will likely boost long-term Nifty sentiment. Increased industrial activity and import substitution are expected to support the Rupee against volatility.",
   "source" : "Economic Times",
   "publishedAt" : "10-Oct-2026 00:47 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-10T01:07:27",
+  "title" : "Half of India’s MTF book is in smallcaps; Nithin Kamath flags liquidity risks",
+  "impact" : "The revelation of high MTF concentration in small-caps may trigger de-leveraging and localized selling pressure in the broader market. Nifty volatility is expected to increase as leveraged positions face margin calls, while the rupee remains largely unaffected by these internal equity liquidity dynamics.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Oct-2026 19:01 IST",
   "score" : 7
 } ]
