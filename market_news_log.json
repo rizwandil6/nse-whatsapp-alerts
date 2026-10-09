@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T17:20:58",
-  "title" : "EU-India FTA sent for Council nod",
-  "impact" : "The EU-India FTA approval is expected to provide a medium-term structural boost to Indian exports and manufacturing competitiveness. Nifty is likely to trade with a positive bias, while the rupee may find support against the Euro and USD due to anticipated trade inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 16:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T18:21:28",
   "title" : "US-Israel's war pushes Iran into ‘dangerous phase’",
   "impact" : "The escalation increases geopolitical risk premiums, likely leading to a bearish trend for Indian indices. Nifty may face sharp selling pressure on rising crude prices, while the rupee is expected to weaken against the dollar due to safe-haven demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "The rising hedging costs and potential foreign capital outflows exert downward pressure on the Nifty. The rupee remains vulnerable to volatility due to high crude prices and diminished FPI attractiveness.",
   "source" : "Economic Times",
   "publishedAt" : "09-Oct-2026 00:24 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-09T07:07:16",
+  "title" : "$22-bn visa fraud claim blow to Infy, TCS, Wipro",
+  "impact" : "The news triggers negative sentiment in the IT bellwethers, likely dragging Nifty lower in early trade. Heightened regulatory scrutiny may lead to short-term FII outflows, putting minor pressure on the Rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "08-Oct-2026 22:32 IST",
   "score" : 7
 } ]
