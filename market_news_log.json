@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T19:22:05",
-  "title" : "India-BRICS trade up 100% to $417 bn",
-  "impact" : "Increased trade volumes with BRICS nations boost economic growth prospects and strengthen India's geopolitical trade stance. Nifty is expected to maintain a positive upward bias as export-led growth visibility improves, providing support to the Rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 18:39 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T19:37:09",
   "title" : "RBI opts for sharp liquidity drain through $10.5 billion debt sale",
   "impact" : "The sharp liquidity withdrawal will likely tighten money market conditions and increase short-term interest rates. This is expected to exert downward pressure on the Nifty as liquidity-driven rallies fade and the Rupee may appreciate marginally due to the reduction in surplus liquidity.",
@@ -3497,5 +3490,12 @@
   "impact" : "Oil supply disruption will trigger inflationary pressure and weigh on Nifty sentiments. The Rupee is expected to face depreciation risk due to higher import costs and widening current account deficit concerns.",
   "source" : "Economic Times",
   "publishedAt" : "09-Oct-2026 07:10 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-09T13:06:43",
+  "title" : "Govt likely to finalise critical minerals stockpiling policy in a month",
+  "impact" : "This policy provides structural support to industrial production and long-term manufacturing self-reliance. Nifty may see positive sentiment in manufacturing and metal indices, while the rupee remains stable as the policy aims to reduce import dependencies.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Oct-2026 12:55 IST",
   "score" : 7
 } ]
