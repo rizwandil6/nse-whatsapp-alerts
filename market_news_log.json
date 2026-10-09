@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T18:21:28",
-  "title" : "US-Israel's war pushes Iran into ‘dangerous phase’",
-  "impact" : "The escalation increases geopolitical risk premiums, likely leading to a bearish trend for Indian indices. Nifty may face sharp selling pressure on rising crude prices, while the rupee is expected to weaken against the dollar due to safe-haven demand.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Sep-2026 17:56 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T18:36:54",
   "title" : "EU tables India FTA for Council signature, move closer to landmark deal",
   "impact" : "The EU-India FTA progress acts as a significant long-term sentiment booster for Indian equities, signaling closer trade ties and potential for increased FDI. Nifty is expected to maintain a bullish bias while the Rupee may see stability due to improved export competitiveness.",
@@ -3497,5 +3490,12 @@
   "impact" : "The news triggers negative sentiment in the IT bellwethers, likely dragging Nifty lower in early trade. Heightened regulatory scrutiny may lead to short-term FII outflows, putting minor pressure on the Rupee.",
   "source" : "Economic Times",
   "publishedAt" : "08-Oct-2026 22:32 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-09T07:07:37",
+  "title" : "GST 2.0 makes it less taxing under new overhaul",
+  "impact" : "Simplified GST framework improves operational efficiency and reduces compliance overhead for domestic manufacturers and service providers. Expect a positive Nifty bias as corporate margins benefit from lower logistics and administrative costs while the rupee remains stable.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Oct-2026 06:34 IST",
   "score" : 7
 } ]
