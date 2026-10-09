@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-11T19:37:09",
-  "title" : "RBI opts for sharp liquidity drain through $10.5 billion debt sale",
-  "impact" : "The sharp liquidity withdrawal will likely tighten money market conditions and increase short-term interest rates. This is expected to exert downward pressure on the Nifty as liquidity-driven rallies fade and the Rupee may appreciate marginally due to the reduction in surplus liquidity.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Sep-2026 19:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-11T20:37:49",
   "title" : "FII index futures shorts hit 5-month high, bearish positioning raises odds of sharp market move",
   "impact" : "Heightened short positioning by FIIs in index futures signals increased volatility and a high probability of a near-term correction for Nifty. Increased hedging activity may exert downward pressure on the rupee due to foreign capital outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "This policy provides structural support to industrial production and long-term manufacturing self-reliance. Nifty may see positive sentiment in manufacturing and metal indices, while the rupee remains stable as the policy aims to reduce import dependencies.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Oct-2026 12:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-09T15:40:20",
+  "title" : "World economic growth to slow to 2.6% in 2026, UN trade body says",
+  "impact" : "India's projected 7.3% growth reinforces its status as a global economic outlier, likely attracting sustained FII inflows. Nifty is expected to maintain a bullish bias toward record highs, while the INR may strengthen against the dollar due to superior growth differentials.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Oct-2026 15:23 IST",
   "score" : 7
 } ]
