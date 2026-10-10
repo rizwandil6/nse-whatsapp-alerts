@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T15:01:35",
-  "title" : "F&amp;O Talk: Nifty has slipped below its crucial support, says Sudeep Shah; picks 5 stocks for next week",
-  "impact" : "The Indian market faces significant downward pressure due to geopolitical tensions and rising global yields. Nifty is in a precarious technical state testing critical support at 23,000, with increased volatility likely to keep the Rupee under pressure.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Sep-2026 14:15 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-12T16:47:06",
   "title" : "Dalal Street Week Ahead: Weak technical setup to keep bulls under pressure",
   "impact" : "The Indian market faces a bearish outlook as Nifty sustains a five-week correction below critical support levels. Expect high volatility with resistance at 23,850 and downside risk toward 23,000.",
@@ -3497,5 +3490,12 @@
   "impact" : "The CAFE III norms will accelerate the adoption of electric and fuel-efficient vehicles in India. This shift will favor automotive manufacturers with strong EV pipelines while pressuring internal combustion engine margins, likely keeping the Nifty Auto index volatile but steady.",
   "source" : "Economic Times",
   "publishedAt" : "10-Oct-2026 17:11 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-10T19:30:27",
+  "title" : "AI data-centre boom puts India’s power grid under pressure, drives up upgrade costs",
+  "impact" : "The power grid strain creates a thematic tailwind for infrastructure and utility capex. Nifty may face volatility due to utility cost inflation but remain supported by industrial expansion themes. Rupee remains range-bound as imports for tech and energy infrastructure offset equity inflows.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "10-Oct-2026 19:11 IST",
   "score" : 7
 } ]
