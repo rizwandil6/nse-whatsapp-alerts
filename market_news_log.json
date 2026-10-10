@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T11:59:54",
-  "title" : "Houthi gains put Saudi’s oil lifelines at risk",
-  "impact" : "Heightened geopolitical risk in the Red Sea could trigger a sell-off in Indian indices due to rising crude prices and supply chain inflation. Nifty may face downward pressure while the rupee is expected to weaken against the dollar due to oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Sep-2026 11:17 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-12T15:01:35",
   "title" : "F&amp;O Talk: Nifty has slipped below its crucial support, says Sudeep Shah; picks 5 stocks for next week",
   "impact" : "The Indian market faces significant downward pressure due to geopolitical tensions and rising global yields. Nifty is in a precarious technical state testing critical support at 23,000, with increased volatility likely to keep the Rupee under pressure.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market sentiment remains bearish due to sustained global volatility and FII outflows. Nifty is expected to test immediate support levels as selling pressure persists. The rupee faces continued depreciation risk against the dollar amid safe-haven demand.",
   "source" : "BusinessLine",
   "publishedAt" : "10-Oct-2026 16:10 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-10T17:44:32",
+  "title" : "CAFE III: Will your next car be cheaper to run?",
+  "impact" : "The CAFE III norms will accelerate the adoption of electric and fuel-efficient vehicles in India. This shift will favor automotive manufacturers with strong EV pipelines while pressuring internal combustion engine margins, likely keeping the Nifty Auto index volatile but steady.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Oct-2026 17:11 IST",
   "score" : 7
 } ]
