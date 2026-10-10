@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T10:44:39",
-  "title" : "A 'rare' Gulf huddle soon over a Hormuz headache",
-  "impact" : "Heightened geopolitical tensions in the Strait of Hormuz increase volatility and risk aversion in Indian markets. Nifty is expected to face downward pressure as crude oil prices climb, leading to rupee depreciation against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Sep-2026 00:55 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-12T10:44:43",
   "title" : "Valuation question! Why did NSE cut its IPO size and price below unlisted market levels?",
   "impact" : "The NSE IPO acts as a liquidity magnet for the primary market, potentially drawing capital away from existing Nifty stocks. Nifty may face short-term volatility due to asset reallocation, while the rupee remains neutral as the IPO is an offer for sale.",
@@ -3497,5 +3490,12 @@
   "impact" : "The report suggests strong earnings momentum, likely driving the Nifty 50 toward a positive trend. Anticipated growth in mid-cap segments may attract retail capital flows, while the rupee remains stable against strengthening corporate profitability.",
   "source" : "BusinessLine",
   "publishedAt" : "10-Oct-2026 15:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-10T15:41:41",
+  "title" : "FIIs dump Indian stocks for eight straight weeks: Is a reversal on the cards or more pain ahead?",
+  "impact" : "The Indian market faces a persistent tug-of-war between FII outflows and strong DII support. Nifty exhibits a potential short-term technical recovery while the rupee remains under pressure from elevated crude oil and global bond yields.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Oct-2026 15:11 IST",
   "score" : 7
 } ]
