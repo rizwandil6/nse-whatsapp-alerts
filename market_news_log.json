@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T10:44:43",
-  "title" : "Valuation question! Why did NSE cut its IPO size and price below unlisted market levels?",
-  "impact" : "The NSE IPO acts as a liquidity magnet for the primary market, potentially drawing capital away from existing Nifty stocks. Nifty may face short-term volatility due to asset reallocation, while the rupee remains neutral as the IPO is an offer for sale.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Sep-2026 10:41 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-12T11:59:54",
   "title" : "Houthi gains put Saudi’s oil lifelines at risk",
   "impact" : "Heightened geopolitical risk in the Red Sea could trigger a sell-off in Indian indices due to rising crude prices and supply chain inflation. Nifty may face downward pressure while the rupee is expected to weaken against the dollar due to oil import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market faces a persistent tug-of-war between FII outflows and strong DII support. Nifty exhibits a potential short-term technical recovery while the rupee remains under pressure from elevated crude oil and global bond yields.",
   "source" : "Economic Times",
   "publishedAt" : "10-Oct-2026 15:11 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-10T16:26:56",
+  "title" : "NSE cash market ADTV dips to six month low on bearish market sentiments",
+  "impact" : "The Indian market sentiment remains bearish due to sustained global volatility and FII outflows. Nifty is expected to test immediate support levels as selling pressure persists. The rupee faces continued depreciation risk against the dollar amid safe-haven demand.",
+  "source" : "BusinessLine",
+  "publishedAt" : "10-Oct-2026 16:10 IST",
   "score" : 7
 } ]
