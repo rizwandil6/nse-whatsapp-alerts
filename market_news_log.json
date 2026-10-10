@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T10:44:34",
-  "title" : "Indian stock markets are losing their sheen as global funds exit. Here’s why",
-  "impact" : "Continued FPI outflows are likely to keep Nifty under sustained selling pressure in the near term. Persistent dollar strength against the rupee will further dampen sentiment and trigger liquidity stress for large-caps.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Sep-2026 10:39 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-12T10:44:39",
   "title" : "A 'rare' Gulf huddle soon over a Hormuz headache",
   "impact" : "Heightened geopolitical tensions in the Strait of Hormuz increase volatility and risk aversion in Indian markets. Nifty is expected to face downward pressure as crude oil prices climb, leading to rupee depreciation against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The move signals a structural shift towards tighter monetary conditions, likely creating near-term headwinds for the Nifty as cost of funds rises. Expect volatility in yields and a potentially strengthening rupee due to tighter liquidity dynamics.",
   "source" : "Economic Times",
   "publishedAt" : "10-Oct-2026 13:43 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-10T15:41:19",
+  "title" : "Small, mid-cap firms to outpace large caps in Q2FY27 earnings growth: Report",
+  "impact" : "The report suggests strong earnings momentum, likely driving the Nifty 50 toward a positive trend. Anticipated growth in mid-cap segments may attract retail capital flows, while the rupee remains stable against strengthening corporate profitability.",
+  "source" : "BusinessLine",
+  "publishedAt" : "10-Oct-2026 15:29 IST",
   "score" : 7
 } ]
