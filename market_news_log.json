@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T16:47:06",
-  "title" : "Dalal Street Week Ahead: Weak technical setup to keep bulls under pressure",
-  "impact" : "The Indian market faces a bearish outlook as Nifty sustains a five-week correction below critical support levels. Expect high volatility with resistance at 23,850 and downside risk toward 23,000.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Sep-2026 16:20 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-12T18:02:22",
   "title" : "A powerful signal from the Modi-Xi-Putin picture",
   "impact" : "Enhanced geopolitical stability signals potential for increased foreign investment inflows. Nifty is expected to maintain an upward bias as global diplomatic engagement improves sentiment, providing support to the Rupee against the Dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "10-Oct-2026 19:11 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-10T19:45:55",
+  "title" : "Wall Street’s rate shock spreads beneath AI-fueled market rally",
+  "impact" : "Rising US yields and high crude prices will trigger FII outflows and dampen Nifty sentiment. Expect increased volatility in the index with downward pressure on the rupee toward record lows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "10-Oct-2026 19:33 IST",
+  "score" : 8
 } ]
