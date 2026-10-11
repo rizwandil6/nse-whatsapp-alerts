@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-12T20:48:21",
-  "title" : "US Market Outlook: Equities fall, Yields surge",
-  "impact" : "Rising US yields and falling equities will likely trigger FII outflows from Indian markets. Nifty faces downward pressure toward key support levels as risk-off sentiment strengthens, putting downward pressure on the rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Sep-2026 20:43 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-13T00:34:22",
   "title" : "RBI shuts Tata Sons’ escape, ₹2.01 L cr listing looms",
   "impact" : "The mandatory listing of Tata Sons will likely trigger a major liquidity event and reallocation in Nifty 50. Expect significant volatility as institutional funds adjust portfolios for the potential mega-IPO, while the rupee remains stable against this event.",
@@ -3497,5 +3490,12 @@
   "impact" : "The influx of large IPOs will tighten secondary market liquidity and keep Nifty indices volatile in the short term. Expect continued selling pressure on established stocks as capital rotates into fresh primary market offerings.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Oct-2026 12:20 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-11T12:55:23",
+  "title" : "Houthis' attack on Saudi's Riyadh airport kills 12",
+  "impact" : "Geopolitical escalation in the Middle East will trigger a risk-off sentiment in Indian markets. Nifty is expected to open with a gap-down and face selling pressure as investors seek safe havens. The rupee is likely to weaken against the dollar due to rising crude oil prices and foreign portfolio outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Oct-2026 06:04 IST",
   "score" : 7
 } ]
