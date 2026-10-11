@@ -77,6 +77,28 @@
   "returnSinceEntry": -7.94053244208828
  },
  {
+  "symbol": "GAEL",
+  "entryDate": "2026-10-08",
+  "entryPrice": 163.43,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 163.43,
+  "returnSinceEntry": 0
+ },
+ {
+  "symbol": "CYIENT",
+  "entryDate": "2026-10-08",
+  "entryPrice": 1158.8,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 1158.8,
+  "returnSinceEntry": 0
+ },
+ {
   "symbol": "SUDARSCHEM",
   "entryDate": "2026-09-07",
   "entryPrice": 1240.7,

@@ -257,5 +257,26 @@
   "entryPrice": 173.54,
   "rsRankAtEntry": 82.97455968688845,
   "salesGrowth3Y": 35
+ },
+ "CYIENT": {
+  "entryDate": "2026-10-08",
+  "entryPrice": 1158.8,
+  "rsRankAtEntry": 81.99608610567515,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GABRIEL": {
+  "entryDate": "2026-10-08",
+  "entryPrice": 1362.2,
+  "rsRankAtEntry": 82.7788649706458,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GAEL": {
+  "entryDate": "2026-10-08",
+  "entryPrice": 163.43,
+  "rsRankAtEntry": 80.23483365949119,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

@@ -1870,5 +1870,26 @@
   "date": "2026-10-08",
   "price": 548.8,
   "pnlPct": -22.953811596237543
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CYIENT",
+  "date": "2026-10-08",
+  "price": 1158.8,
+  "rsRankAtEntry": 81.99608610567515
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GABRIEL",
+  "date": "2026-10-08",
+  "price": 1362.2,
+  "rsRankAtEntry": 82.7788649706458
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GAEL",
+  "date": "2026-10-08",
+  "price": 163.43,
+  "rsRankAtEntry": 80.23483365949119
  }
 ]
