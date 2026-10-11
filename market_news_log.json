@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-13T12:52:44",
-  "title" : "Why it’s getting harder for Tata Sons to resist an IPO",
-  "impact" : "The potential listing of the Tata group holding company could drive significant liquidity and institutional interest in the broader Indian equity market. Nifty may experience volatility driven by rebalancing and valuation discovery, while the rupee remains neutral to slightly positive due to expected large-scale foreign capital inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Sep-2026 12:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-13T14:07:57",
   "title" : "US Fed interest rate decision, inflation data, oil to drive markets in holiday-shortened week: Analysts",
   "impact" : "The Indian market faces a bearish outlook due to persistent FII outflows and geopolitical risks. Nifty is expected to remain volatile with support levels tested, while the rupee faces downward pressure from rising oil costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Institutional inflows are likely to accelerate as global asset managers realign portfolios to reflect India's true economic weight. Nifty is expected to see a bullish bias with potential for upward re-rating, while the rupee may find support from increased foreign direct and portfolio investments.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Oct-2026 20:44 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T00:44:48",
+  "title" : "Saudi Arabia's Dammam airport attacked",
+  "impact" : "Heightened geopolitical risk in the Gulf will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to open with a gap-down as volatility surges and the rupee faces depreciation pressure against the dollar due to rising oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Oct-2026 00:20 IST",
   "score" : 7
 } ]
