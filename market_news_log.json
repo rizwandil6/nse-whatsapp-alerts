@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T06:56:27",
-  "title" : "IPO rush continues: Rs 24,500 crore worth of issues to hit primary market this week",
-  "impact" : "The record-breaking liquidity absorption from the massive NSE IPO will likely exert short-term pressure on secondary market liquidity. Nifty may face volatility and consolidation as institutional funds rotate capital into primary issuances, with minimal immediate impact on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 06:13 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-09-14T07:41:36",
   "title" : "Oil prices jump more than $3 after new strikes on Saudi, Strait of Hormuz",
   "impact" : "Rising crude oil prices will trigger significant selling pressure on Indian indices as energy import costs surge and inflation concerns intensify. Expect a bearish Nifty opening with the Indian Rupee likely to weaken against the US Dollar due to widened trade deficit fears.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sticky inflation will likely prompt the RBI to maintain a hawkish stance, delaying rate cut expectations. This increases volatility in Nifty with potential downside pressure as yields harden and the rupee remains under pressure against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 16:14 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T16:36:42",
+  "title" : "Sensex today | Stock Market Highlights: Stock markets tumble on oil price spike, foreign fund outflows; Sensex drops 548 points",
+  "impact" : "The Indian market sentiment is bearish due to a confluence of rising crude oil prices and consistent foreign institutional selling. Nifty is expected to remain under pressure near support levels while the rupee faces depreciation risks.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 16:15 IST",
   "score" : 7
 } ]
