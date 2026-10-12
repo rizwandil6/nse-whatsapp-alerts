@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T10:55:23",
-  "title" : "Trump vs Carney: The new fight is over global $",
-  "impact" : "Global currency volatility and Trump policy shifts create uncertainty for emerging markets. Expect Nifty to experience high intraday volatility with a bearish bias as the rupee faces depreciation pressure against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 10:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T11:25:59",
   "title" : "Trump’s ‘little war’ with Iran just got bigger",
   "impact" : "Heightened geopolitical risk in the Middle East will likely trigger FII outflows and risk-off sentiment in Indian markets. Nifty is expected to face significant selling pressure and volatility, while the Rupee will likely weaken due to higher crude oil prices and safe-haven buying of the USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising inflation clouds rate cut expectations, likely keeping Nifty under selling pressure. The rupee is expected to remain weak due to cooling foreign inflows and higher domestic cost of living.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 17:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T19:12:13",
+  "title" : "Rice, maize and cereal acreage declines warrant monitoring: Report",
+  "impact" : "Heightened food inflation concerns could dampen investor sentiment and trigger market volatility. The Nifty may face selling pressure if monsoon data triggers RBI rate hike fears, exerting downward pressure on the rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 18:56 IST",
   "score" : 7
 } ]
