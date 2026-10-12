@@ -14998,5 +14998,41 @@
   "entryTimestampMs": 1791792600000,
   "exitTimestampMs": 1791798000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 72.568125,
+  "exitPrice": 72.38624999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25062656641604714,
+  "entryTimestampMs": 1791783000000,
+  "exitTimestampMs": 1791786900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 39.06734999999998,
+  "exitPrice": 39.25979999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.49261083743840794,
+  "entryTimestampMs": 1791779400000,
+  "exitTimestampMs": 1791797700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 193.78409999999997,
+  "exitPrice": 192.82,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.49751243781093174,
+  "entryTimestampMs": 1791793500000,
+  "exitTimestampMs": 1791797400000,
+  "shadow": true
  }
 ]
