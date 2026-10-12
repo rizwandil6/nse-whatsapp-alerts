@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-13T14:07:59",
-  "title" : "All eyes on Warsh as rate-hike fever spreads across G7 central banks",
-  "impact" : "Global rate-hike expectations will trigger FII outflows from Indian equities, likely leading to a bearish Nifty trend. The Rupee is expected to face significant depreciation pressure against the dollar due to widening interest rate differentials.",
-  "source" : "BusinessLine",
-  "publishedAt" : "13-Sep-2026 13:55 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-13T15:53:17",
   "title" : "Hormuz attacks fan fears of oil supply threats",
   "impact" : "Heightened geopolitical risk will likely trigger a sharp sell-off in Indian equities driven by a spike in Brent crude oil prices. Expect Nifty to face significant resistance and potential downside as the Rupee weakens due to rising import bills.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "11-Oct-2026 23:35 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-12T06:45:59",
+  "title" : "Trump declares Russia-Ukraine ‘energy ceasefire’",
+  "impact" : "An energy ceasefire reduces geopolitical risk premiums, likely leading to a bullish Nifty opening. Easing crude oil volatility should strengthen the rupee and improve India's trade balance.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Oct-2026 19:57 IST",
+  "score" : 7
 } ]
