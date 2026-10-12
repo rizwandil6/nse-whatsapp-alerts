@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T11:41:17",
-  "title" : "SEBI turns up heat on Wall Street giants",
-  "impact" : "The regulatory tightening on FPIs may trigger near-term volatility and liquidity outflows. Nifty is expected to witness consolidation as foreign institutional flows face scrutiny, potentially pressuring the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 06:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T11:41:20",
   "title" : "Tata Sons may shed lakhs of crores before IPO",
   "impact" : "The potential listing of Tata Sons acts as a major liquidity event likely to boost Nifty through massive institutional inflows. The rupee may see support due to expected large-scale foreign investment inflows during the IPO process.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 20:33 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-12T21:22:10",
+  "title" : "In a first, India’s renewable power generation surpasses 100 BUs in a quarter",
+  "impact" : "The milestone signals structural transition in India's energy mix, likely boosting investor confidence in the green energy transition. Nifty should see positive momentum in utility and industrial stocks, while the rupee remains stable as reduced fossil fuel import dependency improves trade balances.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 21:04 IST",
+  "score" : 7
 } ]
