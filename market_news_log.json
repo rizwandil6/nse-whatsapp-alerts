@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-13T19:09:14",
-  "title" : "Gold and silver prices: Analysts warn of volatility ahead",
-  "impact" : "Global volatility driven by Fed policy and geopolitical tensions will likely trigger a cautious Nifty outlook with potential consolidation. The Indian Rupee is expected to remain under pressure against the dollar, potentially leading to imported inflation concerns.",
-  "source" : "BusinessLine",
-  "publishedAt" : "13-Sep-2026 18:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T00:10:20",
   "title" : "Saudi pipeline hit puts 4% of global oil supply at risk",
   "impact" : "The Indian equity market is expected to face volatility due to supply-side inflation fears and crude oil price spikes. Nifty is likely to trade with a bearish bias as rising energy costs pressure margins, while the rupee may weaken against the dollar due to a higher import bill.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 13:06 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-12T13:13:07",
+  "title" : "India seeks to break China wall for $300 bn prize",
+  "impact" : "India's shift toward domestic manufacturing and supply chain independence will likely boost long-term Nifty outlook. Increased capital expenditure and foreign investment flows may strengthen the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Oct-2026 00:17 IST",
+  "score" : 8
 } ]
