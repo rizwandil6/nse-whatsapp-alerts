@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-13T15:53:17",
-  "title" : "Hormuz attacks fan fears of oil supply threats",
-  "impact" : "Heightened geopolitical risk will likely trigger a sharp sell-off in Indian equities driven by a spike in Brent crude oil prices. Expect Nifty to face significant resistance and potential downside as the Rupee weakens due to rising import bills.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Sep-2026 15:17 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-13T18:38:59",
   "title" : "New ecomm rules?: What changes for Amazon",
   "impact" : "New e-commerce regulations may trigger volatility in retail-linked stocks and large-cap consumer plays. Nifty likely to see pressure on profit-booking in high-growth retail firms, while the rupee remains stable against these domestic policy shifts.",
@@ -3497,5 +3490,12 @@
   "impact" : "An energy ceasefire reduces geopolitical risk premiums, likely leading to a bullish Nifty opening. Easing crude oil volatility should strengthen the rupee and improve India's trade balance.",
   "source" : "Economic Times",
   "publishedAt" : "11-Oct-2026 19:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T07:48:41",
+  "title" : "Rupee to rally on fresh RBI measures, bonds eye inflation prints",
+  "impact" : "Positive sentiment for Indian equities as a stronger rupee lowers import costs and stabilizes foreign capital inflows. Nifty is expected to maintain upward momentum, while currency appreciation eases external balance concerns.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 07:31 IST",
   "score" : 7
 } ]
