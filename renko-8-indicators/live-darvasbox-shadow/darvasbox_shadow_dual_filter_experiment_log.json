@@ -14728,5 +14728,23 @@
   "timestampMs": 1791780300000,
   "breakoutTimestampMs": 1791780300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 9.6922,
+  "timestampMs": 1791780900000,
+  "breakoutTimestampMs": 1791780900000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 189.82425,
+  "timestampMs": 1791780900000,
+  "breakoutTimestampMs": 1791780900000,
+  "shadow": true
  }
 ]
