@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T11:41:03",
-  "title" : "Emerging market stocks decline on West Asia tensions",
-  "impact" : "Heightened West Asia tensions and surging crude prices will likely trigger a sharp sell-off in Indian equity indices. Nifty is expected to open with a significant gap down, while the rupee will face downward pressure due to increased import costs and foreign capital outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "14-Sep-2026 11:35 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-14T11:41:17",
   "title" : "SEBI turns up heat on Wall Street giants",
   "impact" : "The regulatory tightening on FPIs may trigger near-term volatility and liquidity outflows. Nifty is expected to witness consolidation as foreign institutional flows face scrutiny, potentially pressuring the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 19:26 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-12T20:49:03",
+  "title" : "Wall Street bets big on India as IPO boom draws global financial giants",
+  "impact" : "Heightened global interest and liquidity inflows will likely push the Nifty 50 toward new record highs. Increased foreign institutional participation will provide support for the Indian Rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 20:33 IST",
+  "score" : 8
 } ]
