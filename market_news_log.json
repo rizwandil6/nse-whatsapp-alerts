@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T06:11:05",
-  "title" : "Tata Sons listing could unlock value in Tata group stocks after recent selloff",
-  "impact" : "The potential listing of Tata Sons acts as a significant liquidity and valuation catalyst for the Indian markets. Nifty is expected to find support from renewed interest in conglomerate holding companies, with minimal direct impact on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 06:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T06:56:12",
   "title" : "Trump wants Fed to deliver world's lowest rates",
   "impact" : "Global liquidity easing expectations may trigger foreign capital inflows into Indian equities. Nifty could trend bullish on risk-on sentiment, while the rupee might appreciate against a weakening dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Coal supply constraints create bearish sentiment for industrial production and manufacturing output. Expect Nifty to face short-term volatility as energy costs rise, with potential downward pressure on the rupee due to increased coal import costs.",
   "source" : "Economic Times",
   "publishedAt" : "12-Oct-2026 13:33 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T15:17:36",
+  "title" : "India remains fastest-growing major steel market as demand rises 7.9% in 2026",
+  "impact" : "Sustained steel demand indicates robust infrastructure-led economic growth, likely keeping Nifty in a bullish trend. Increased capital expenditure supports industrial stability and helps stabilize the rupee through improved production capacities.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 15:08 IST",
   "score" : 7
 } ]
