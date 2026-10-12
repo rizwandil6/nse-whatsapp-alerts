@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-13T18:54:08",
-  "title" : "India-EU FTA gives Tata, Bajaj and JSW a foot on both sides of the tariff wall",
-  "impact" : "The India-EU FTA is expected to provide a medium-term boost to export-oriented manufacturing, keeping the Nifty sentiment cautiously optimistic. Increased FDI inflows and export competitiveness should provide fundamental support to the rupee against the Euro and Dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "13-Sep-2026 18:40 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-13T19:09:14",
   "title" : "Gold and silver prices: Analysts warn of volatility ahead",
   "impact" : "Global volatility driven by Fed policy and geopolitical tensions will likely trigger a cautious Nifty outlook with potential consolidation. The Indian Rupee is expected to remain under pressure against the dollar, potentially leading to imported inflation concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong retail inflows suggest domestic institutional support provides a floor for Nifty despite foreign selling pressure. The Rupee remains stable as sustained domestic demand offsets FII equity outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 12:32 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T13:12:25",
+  "title" : "SIP inflows hit record ₹32,490 crore in September despite market fall",
+  "impact" : "Record SIP inflows act as a crucial liquidity buffer against FII selling pressure. Nifty likely to consolidate near support levels with a bullish bias for long-term domestic money flow. Rupee remains stable as domestic buying offsets foreign outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 13:06 IST",
   "score" : 7
 } ]
