@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T06:56:23",
-  "title" : "Houthis leave Gulf with uncomfortable choice",
-  "impact" : "Heightened geopolitical risk in the Middle East threatens to spike crude oil prices and drive inflation, negatively impacting the Indian equity market and likely weakening the Indian Rupee due to higher import bills. Expect Nifty to face volatility and potential downward pressure as trade logistics costs rise.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 06:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T06:56:27",
   "title" : "IPO rush continues: Rs 24,500 crore worth of issues to hit primary market this week",
   "impact" : "The record-breaking liquidity absorption from the massive NSE IPO will likely exert short-term pressure on secondary market liquidity. Nifty may face volatility and consolidation as institutional funds rotate capital into primary issuances, with minimal immediate impact on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Record SIP inflows act as a structural buffer for Nifty against FII selling. Markets are likely to show resilience in domestic-facing stocks while overall sentiment remains cautious due to debt outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 15:23 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T16:19:55",
+  "title" : "Retail inflation jumps to 5.54% in September",
+  "impact" : "Sticky inflation will likely prompt the RBI to maintain a hawkish stance, delaying rate cut expectations. This increases volatility in Nifty with potential downside pressure as yields harden and the rupee remains under pressure against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 16:14 IST",
   "score" : 7
 } ]
