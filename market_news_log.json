@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T11:25:59",
-  "title" : "Trump’s ‘little war’ with Iran just got bigger",
-  "impact" : "Heightened geopolitical risk in the Middle East will likely trigger FII outflows and risk-off sentiment in Indian markets. Nifty is expected to face significant selling pressure and volatility, while the Rupee will likely weaken due to higher crude oil prices and safe-haven buying of the USD.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 10:50 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-14T11:41:03",
   "title" : "Emerging market stocks decline on West Asia tensions",
   "impact" : "Heightened West Asia tensions and surging crude prices will likely trigger a sharp sell-off in Indian equity indices. Nifty is expected to open with a significant gap down, while the rupee will face downward pressure due to increased import costs and foreign capital outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened food inflation concerns could dampen investor sentiment and trigger market volatility. The Nifty may face selling pressure if monsoon data triggers RBI rate hike fears, exerting downward pressure on the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 18:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T19:43:06",
+  "title" : "SBI Research calls for scrapping LTCG tax on equities amid record FPI outflows",
+  "impact" : "Removal of LTCG would reverse recent FPI selling pressure and boost domestic liquidity. Expect a short-term Nifty rally driven by foreign inflows and a stronger rupee due to higher capital account surplus.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 19:26 IST",
   "score" : 7
 } ]
