@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T07:41:36",
-  "title" : "Oil prices jump more than $3 after new strikes on Saudi, Strait of Hormuz",
-  "impact" : "Rising crude oil prices will trigger significant selling pressure on Indian indices as energy import costs surge and inflation concerns intensify. Expect a bearish Nifty opening with the Indian Rupee likely to weaken against the US Dollar due to widened trade deficit fears.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "14-Sep-2026 07:29 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-14T08:54:44",
   "title" : "Oman postpones regional talks on Hormuz",
   "impact" : "Heightened geopolitical risk in the Middle East is likely to trigger a bearish sentiment in the Indian market. Nifty may face downward pressure due to potential crude oil volatility, further weakening the Indian Rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market sentiment is bearish due to a confluence of rising crude oil prices and consistent foreign institutional selling. Nifty is expected to remain under pressure near support levels while the rupee faces depreciation risks.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 16:15 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T17:07:01",
+  "title" : "Rupee jumps 96 paise to close at 95.75 against US dollar",
+  "impact" : "The sharp appreciation of the rupee is likely to boost equity market sentiment by easing inflation concerns. Expect a bullish Nifty opening as lower import costs benefit firms reliant on global commodities. Foreign institutional inflow may increase, supporting large-cap stability.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 16:56 IST",
   "score" : 7
 } ]
