@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-13T18:38:59",
-  "title" : "New ecomm rules?: What changes for Amazon",
-  "impact" : "New e-commerce regulations may trigger volatility in retail-linked stocks and large-cap consumer plays. Nifty likely to see pressure on profit-booking in high-growth retail firms, while the rupee remains stable against these domestic policy shifts.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Sep-2026 18:21 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-13T18:54:08",
   "title" : "India-EU FTA gives Tata, Bajaj and JSW a foot on both sides of the tariff wall",
   "impact" : "The India-EU FTA is expected to provide a medium-term boost to export-oriented manufacturing, keeping the Nifty sentiment cautiously optimistic. Increased FDI inflows and export competitiveness should provide fundamental support to the rupee against the Euro and Dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for Indian equities as a stronger rupee lowers import costs and stabilizes foreign capital inflows. Nifty is expected to maintain upward momentum, while currency appreciation eases external balance concerns.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 07:31 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T12:40:26",
+  "title" : "India equity mutual fund inflows hit 5-month high in September despite Nifty slump",
+  "impact" : "Strong retail inflows suggest domestic institutional support provides a floor for Nifty despite foreign selling pressure. The Rupee remains stable as sustained domestic demand offsets FII equity outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 12:32 IST",
   "score" : 7
 } ]
