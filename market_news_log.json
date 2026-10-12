@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-13T14:07:57",
-  "title" : "US Fed interest rate decision, inflation data, oil to drive markets in holiday-shortened week: Analysts",
-  "impact" : "The Indian market faces a bearish outlook due to persistent FII outflows and geopolitical risks. Nifty is expected to remain volatile with support levels tested, while the rupee faces downward pressure from rising oil costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "13-Sep-2026 13:56 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-13T14:07:59",
   "title" : "All eyes on Warsh as rate-hike fever spreads across G7 central banks",
   "impact" : "Global rate-hike expectations will trigger FII outflows from Indian equities, likely leading to a bearish Nifty trend. The Rupee is expected to face significant depreciation pressure against the dollar due to widening interest rate differentials.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "12-Oct-2026 00:20 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-12T06:15:49",
+  "title" : "Pressure on rupee may continue after temporary gains on RBI actions, say economists",
+  "impact" : "The Indian equity market faces significant downside risk due to aggressive FPI outflows and a depreciating rupee. Nifty is expected to remain under pressure as the liquidity tightening by RBI and rising US yields dampen investor sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Oct-2026 23:35 IST",
+  "score" : 8
 } ]
