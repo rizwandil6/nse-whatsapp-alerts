@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T06:56:12",
-  "title" : "Trump wants Fed to deliver world's lowest rates",
-  "impact" : "Global liquidity easing expectations may trigger foreign capital inflows into Indian equities. Nifty could trend bullish on risk-on sentiment, while the rupee might appreciate against a weakening dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Sep-2026 20:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T06:56:23",
   "title" : "Houthis leave Gulf with uncomfortable choice",
   "impact" : "Heightened geopolitical risk in the Middle East threatens to spike crude oil prices and drive inflation, negatively impacting the Indian equity market and likely weakening the Indian Rupee due to higher import bills. Expect Nifty to face volatility and potential downward pressure as trade logistics costs rise.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sustained steel demand indicates robust infrastructure-led economic growth, likely keeping Nifty in a bullish trend. Increased capital expenditure supports industrial stability and helps stabilize the rupee through improved production capacities.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 15:08 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-12T15:32:54",
+  "title" : "Equity mutual fund inflows rise 31% to ₹38,306 crore in September; SIPs hit record high",
+  "impact" : "Record SIP inflows act as a structural buffer for Nifty against FII selling. Markets are likely to show resilience in domestic-facing stocks while overall sentiment remains cautious due to debt outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 15:23 IST",
   "score" : 7
 } ]
