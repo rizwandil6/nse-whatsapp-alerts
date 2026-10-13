@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T08:19:41",
-  "title" : "Oil tankers earn $1 million a day as war leaves ship shortage",
-  "impact" : "Escalating conflict risks triggering a sharp Nifty sell-off due to rising crude import costs and safe-haven outflows. The rupee is expected to face significant depreciation pressure against the dollar, potentially impacting inflationary expectations.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Sep-2026 08:06 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-15T08:34:49",
   "title" : "Saudi pipeline shut for weeks, restricting oil flow",
   "impact" : "The oil supply disruption is expected to exert downward pressure on Indian equity markets due to inflationary risks. Nifty may face volatility and weakness, while the Indian Rupee is likely to depreciate against the USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "IMF growth projections bolster investor confidence in India as a global outlier. Nifty is expected to maintain upward momentum with institutional inflows. The rupee is likely to remain stable or appreciate against the dollar due to stronger growth outlook.",
   "source" : "Economic Times",
   "publishedAt" : "13-Oct-2026 15:16 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-14T02:50:07",
+  "title" : "Two ships hit by projectiles in Strait of Hormuz",
+  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will likely trigger a risk-off sentiment in the Indian markets. Nifty is expected to open with a gap-down, while the Rupee faces depreciation pressure due to rising crude oil import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Oct-2026 01:49 IST",
   "score" : 7
 } ]
