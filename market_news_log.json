@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T11:56:28",
-  "title" : "Two wars. One diesel crunch. No printer",
-  "impact" : "Heightened geopolitical tensions causing a rise in global crude prices will dampen sentiment in Indian markets. Nifty is expected to face resistance and volatility while the rupee remains under pressure against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 11:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T12:26:35",
   "title" : "2 world giants in talks to crack glass ceiling in India",
   "impact" : "The entry of global giants into India signifies strong FDI inflow and increased competition. This should bolster Nifty bullish sentiment and strengthen the Rupee against the dollar due to capital inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The sharp appreciation in the rupee following RBI intervention is likely to boost investor sentiment and ease inflationary concerns. Nifty is expected to open with a positive bias, while the stronger currency provides tailwinds for import-heavy sectors and reduces hedging costs for corporates.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Oct-2026 22:08 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-13T06:11:19",
+  "title" : "Investors shrug off bear party, put big money into equity mutual funds",
+  "impact" : "Retail investor confidence remains strong despite FII selling and index corrections. Nifty may face volatility from geopolitical factors but support persists due to record domestic equity inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Oct-2026 05:31 IST",
   "score" : 7
 } ]
