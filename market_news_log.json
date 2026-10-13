@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T15:57:58",
-  "title" : "WPI inflation rises to 9.92% in Aug on costlier food, fuel, manufactured items",
-  "impact" : "Sticky WPI inflation signals sustained pressure on input costs, likely dampening Nifty sentiment. Expect increased volatility in the index and potential rupee depreciation due to hawkish rate expectations.",
-  "source" : "BusinessLine",
-  "publishedAt" : "14-Sep-2026 15:38 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T17:13:17",
   "title" : "Nifty may reach 26,200 by December 2026 as earnings cuts, market risks ease: BofA Securities",
   "impact" : "The BofA report reinforces a positive long-term outlook for the Indian equity market by easing volatility concerns. Nifty is projected to trend towards 26,200 by December 2026, while the rupee is expected to remain stable against the dollar due to improved investor sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The increased reliance on coal to meet rising power demand suggests sustained industrial activity and energy security focus. Nifty may find support from infrastructure and utility-led buying, while the rupee remains sensitive to higher coal import costs.",
   "source" : "Economic Times",
   "publishedAt" : "13-Oct-2026 14:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-13T15:24:03",
+  "title" : "India may need to raise coal power capacity as demand surges, official says",
+  "impact" : "Energy security focus supports industrial momentum but increases inflationary risks. Nifty likely to see stability in power/capex themes while facing headwinds from potential fiscal pressure. Rupee may remain range-bound as coal imports could exert pressure on trade deficit.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Oct-2026 15:15 IST",
   "score" : 7
 } ]
