@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T11:56:25",
-  "title" : "$120 oil nightmare looms as Middle East risks deepen",
-  "impact" : "Oil price spikes act as a major headwind for Indian equities, likely triggering Nifty selling pressure. The rupee is expected to face significant depreciation against the USD, tightening liquidity and imported inflation risks.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 07:45 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-14T11:56:28",
   "title" : "Two wars. One diesel crunch. No printer",
   "impact" : "Heightened geopolitical tensions causing a rise in global crude prices will dampen sentiment in Indian markets. Nifty is expected to face resistance and volatility while the rupee remains under pressure against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical tensions in the Strait of Hormuz increase crude oil and LNG prices, exerting downward pressure on Indian equities. Nifty faces volatility with a bearish bias as import costs rise, placing significant depreciation pressure on the Indian Rupee.",
   "source" : "Economic Times",
   "publishedAt" : "12-Oct-2026 16:12 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-13T06:11:12",
+  "title" : "Rupee perks up 96 paise on RBI’s weekend measures",
+  "impact" : "The sharp appreciation in the rupee following RBI intervention is likely to boost investor sentiment and ease inflationary concerns. Nifty is expected to open with a positive bias, while the stronger currency provides tailwinds for import-heavy sectors and reduces hedging costs for corporates.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Oct-2026 22:08 IST",
   "score" : 7
 } ]
