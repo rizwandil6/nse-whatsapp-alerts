@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T12:26:42",
-  "title" : "HDFC Bank shares hit 52-week lows over consecutive sessions while analysts scream Buy. Has the stock hit its bottom?",
-  "impact" : "HDFC Bank being a heavyweight, its sustained decline creates significant drag on the Nifty Bank index and headline Nifty. Persistent selling and institutional uncertainty may weaken sentiment, though limited rupee impact is expected as this is largely an idiosyncratic bank-specific governance issue.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 10:56 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-14T12:41:46",
   "title" : "Gold slips as oil rally fans rate hike bets ahead of Fed meeting",
   "impact" : "Rising oil prices and rate hike expectations may lead to a cautious opening for the Nifty, increasing volatility. The rupee is expected to face downward pressure due to strengthened US dollar expectations.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market faces significant downward pressure due to geopolitical risks and rising crude oil costs. Nifty is expected to remain volatile with a bearish bias until oil stabilizes, while the rupee faces continued depreciation pressure.",
   "source" : "Economic Times",
   "publishedAt" : "13-Oct-2026 06:05 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-13T06:26:31",
+  "title" : "Rupee rebounds nearly 1% after RBI moves to curb speculative trades",
+  "impact" : "The RBI intervention provides short-term relief, curbing extreme volatility and stabilizing sentiment. Nifty is likely to trade with a positive bias, while the rupee finds temporary support against further sharp depreciation.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Oct-2026 20:37 IST",
   "score" : 7
 } ]
