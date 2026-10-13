@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T19:44:09",
-  "title" : "Oil surges on report Saudi pipeline will take weeks to reopen",
-  "impact" : "Oil price surge threatens to widen India's trade deficit and accelerate retail inflation. Nifty is expected to open with significant downside pressure while the rupee may weaken against the USD due to increased import costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "14-Sep-2026 19:30 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-15T00:31:22",
   "title" : "First-time borrowers deepen credit reach",
   "impact" : "Broadening credit access supports domestic consumption-led growth, maintaining a bullish bias for the Nifty index. Increased retail liquidity and institutional credit flow are expected to support the rupee through sustained domestic economic activity.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "13-Oct-2026 14:22 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-13T16:40:14",
+  "title" : "Jio IPO GMP already sees 'Ambani premium'",
+  "impact" : "The Jio IPO launch will likely trigger massive liquidity absorption, potentially dampening short-term secondary market sentiment. Nifty may face consolidation during the subscription phase while the rupee remains stable amid strong foreign capital inflows for the marquee issue.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Oct-2026 09:38 IST",
+  "score" : 9
 } ]
