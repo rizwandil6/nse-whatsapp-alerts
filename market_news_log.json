@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T13:57:16",
-  "title" : "A key data shows India's price pain is refusing to ease",
-  "impact" : "Persistent inflation risks dampen sentiment, likely pressuring Nifty towards lower support levels. Bond yields may rise, putting downward pressure on the Indian Rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 12:11 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T14:57:44",
   "title" : "India to Vietnam: Firms rethink China exit",
   "impact" : "The shift in global supply chains favors Indian manufacturing, boosting long-term sentiment. Nifty is expected to sustain upward momentum on increased FDI inflows, while the rupee may stabilize against the dollar due to stronger capital account balances.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "13-Oct-2026 07:31 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-13T13:52:34",
+  "title" : "IT earnings lift Nifty past 22,500; broader market stays split",
+  "impact" : "The Nifty rally past 22,500 indicates strong momentum driven by IT sector earnings sentiment. Expect continued bullish bias for large-cap indices, with the rupee likely to remain stable despite equity inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Oct-2026 13:44 IST",
+  "score" : 7
 } ]
