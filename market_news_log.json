@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T14:57:44",
-  "title" : "India to Vietnam: Firms rethink China exit",
-  "impact" : "The shift in global supply chains favors Indian manufacturing, boosting long-term sentiment. Nifty is expected to sustain upward momentum on increased FDI inflows, while the rupee may stabilize against the dollar due to stronger capital account balances.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 14:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T15:27:54",
   "title" : "Himalayas is melting, risking 20% of GDP: Study",
   "impact" : "Long-term structural risk to agricultural and industrial output creates macro headwinds. Expect Nifty to face volatility in infrastructure and utility segments while the Rupee may weaken due to potential inflationary supply shocks.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Nifty rally past 22,500 indicates strong momentum driven by IT sector earnings sentiment. Expect continued bullish bias for large-cap indices, with the rupee likely to remain stable despite equity inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Oct-2026 13:44 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-13T13:52:55",
+  "title" : "Trump's oil jawboning loses punch",
+  "impact" : "Sustained high crude prices will pressure Indian markets, leading to a bearish Nifty outlook as inflationary risks mount. The INR is expected to weaken further due to increased import costs and foreign capital outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Oct-2026 13:22 IST",
   "score" : 7
 } ]
