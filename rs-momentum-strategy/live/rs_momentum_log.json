@@ -1891,5 +1891,26 @@
   "date": "2026-10-08",
   "price": 163.43,
   "rsRankAtEntry": 80.23483365949119
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AARTIPHARM",
+  "date": "2026-10-11",
+  "price": 878.35,
+  "rsRankAtEntry": 80.3921568627451
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "JAMNAAUTO",
+  "date": "2026-10-11",
+  "price": 146.19,
+  "rsRankAtEntry": 80.58823529411765
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "LXCHEM",
+  "date": "2026-10-11",
+  "price": 186.87,
+  "rsRankAtEntry": 81.37254901960785
  }
 ]

@@ -278,5 +278,26 @@
   "rsRankAtEntry": 80.23483365949119,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "AARTIPHARM": {
+  "entryDate": "2026-10-11",
+  "entryPrice": 878.35,
+  "rsRankAtEntry": 80.3921568627451,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "JAMNAAUTO": {
+  "entryDate": "2026-10-11",
+  "entryPrice": 146.19,
+  "rsRankAtEntry": 80.58823529411765,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LXCHEM": {
+  "entryDate": "2026-10-11",
+  "entryPrice": 186.87,
+  "rsRankAtEntry": 81.37254901960785,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
