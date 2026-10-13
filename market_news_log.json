@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T06:32:01",
-  "title" : "Analysts remain bullish on L&amp;T, see up to 16% upside on order book strength",
-  "impact" : "L&T's performance reflects broader infrastructure resilience which supports a positive Nifty outlook. Positive sentiment on domestic capex acts as a counter-weight to FII outflows and currency volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "15-Sep-2026 05:48 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T06:32:06",
   "title" : "SBI Research, IDFC First expect rate hike in October as crude prices climb: Higher oil prices &amp; inflation raise likelihood of policy tightening",
   "impact" : "The market is likely to see volatility and a cautious consolidation phase as liquidity tightens and borrowing costs rise. Nifty may face downward pressure while the rupee could find temporary support from higher interest rate differentials.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "13-Oct-2026 17:59 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-13T18:42:05",
+  "title" : "Hormuz crude crisis much more than price &amp; quantity",
+  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a sharp spike in global crude prices, leading to a bearish trend for Indian markets. Nifty is expected to face significant selling pressure as oil import bills rise, while the rupee will likely depreciate against the dollar due to worsening trade balances.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Oct-2026 12:17 IST",
+  "score" : 8
 } ]
