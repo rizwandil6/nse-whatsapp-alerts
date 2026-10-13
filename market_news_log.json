@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T12:56:52",
-  "title" : "WPI inflation hits 9.92% in August on rising prices of food, fuel, manufactured items",
-  "impact" : "High WPI inflation suggests sustained input cost pressure, likely forcing the RBI to maintain a hawkish stance. Nifty is expected to witness volatility with a bearish bias as rising costs threaten corporate margins and currency stability.",
-  "source" : "BusinessLine",
-  "publishedAt" : "14-Sep-2026 12:39 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-14T13:11:56",
   "title" : "WPI inflation rises to 9.92% in August on rising prices of food, fuel, manufactured items",
   "impact" : "High inflation reduces prospects of RBI rate cuts, exerting downward pressure on Nifty. The rupee is expected to face depreciation risk due to sustained cost-push inflationary pressure.",
@@ -3497,5 +3490,12 @@
   "impact" : "The IMF upgrade reinforces India's decoupling from the global slowdown, likely driving Nifty toward record highs on strong FII inflows. The rupee is expected to show stability or modest appreciation against the dollar due to improved growth outlook.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Oct-2026 06:15 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-13T13:22:20",
+  "title" : "How does the U.S.-Russia diesel deal impact India | Explained",
+  "impact" : "An energy ceasefire and stabilization of global oil flows are positive for Indian macro stability. Nifty may trend bullish as cooling energy costs ease inflationary pressures and support the rupee against the dollar.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "13-Oct-2026 13:09 IST",
   "score" : 7
 } ]
