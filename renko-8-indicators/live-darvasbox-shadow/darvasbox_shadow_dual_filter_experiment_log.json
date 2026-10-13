@@ -15337,5 +15337,32 @@
   "timestampMs": 1791882900000,
   "breakoutTimestampMs": 1791882000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 450.5339999999998,
+  "timestampMs": 1791882900000,
+  "breakoutTimestampMs": 1791882900000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 123.63510000000001,
+  "timestampMs": 1791882900000,
+  "breakoutTimestampMs": 1791882900000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 108.14805,
+  "timestampMs": 1791882900000,
+  "breakoutTimestampMs": 1791882900000,
+  "shadow": true
  }
 ]
