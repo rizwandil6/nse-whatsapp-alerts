@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T15:27:54",
-  "title" : "Himalayas is melting, risking 20% of GDP: Study",
-  "impact" : "Long-term structural risk to agricultural and industrial output creates macro headwinds. Expect Nifty to face volatility in infrastructure and utility segments while the Rupee may weaken due to potential inflationary supply shocks.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 14:41 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T15:57:58",
   "title" : "WPI inflation rises to 9.92% in Aug on costlier food, fuel, manufactured items",
   "impact" : "Sticky WPI inflation signals sustained pressure on input costs, likely dampening Nifty sentiment. Expect increased volatility in the index and potential rupee depreciation due to hawkish rate expectations.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sustained high crude prices will pressure Indian markets, leading to a bearish Nifty outlook as inflationary risks mount. The INR is expected to weaken further due to increased import costs and foreign capital outflows.",
   "source" : "Economic Times",
   "publishedAt" : "13-Oct-2026 13:22 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-13T14:53:38",
+  "title" : "India’s power hunger is fuelling a bigger coal bet",
+  "impact" : "The increased reliance on coal to meet rising power demand suggests sustained industrial activity and energy security focus. Nifty may find support from infrastructure and utility-led buying, while the rupee remains sensitive to higher coal import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Oct-2026 14:04 IST",
   "score" : 7
 } ]
