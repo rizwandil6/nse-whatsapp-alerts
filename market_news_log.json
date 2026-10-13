@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T12:26:35",
-  "title" : "2 world giants in talks to crack glass ceiling in India",
-  "impact" : "The entry of global giants into India signifies strong FDI inflow and increased competition. This should bolster Nifty bullish sentiment and strengthen the Rupee against the dollar due to capital inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Sep-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T12:26:42",
   "title" : "HDFC Bank shares hit 52-week lows over consecutive sessions while analysts scream Buy. Has the stock hit its bottom?",
   "impact" : "HDFC Bank being a heavyweight, its sustained decline creates significant drag on the Nifty Bank index and headline Nifty. Persistent selling and institutional uncertainty may weaken sentiment, though limited rupee impact is expected as this is largely an idiosyncratic bank-specific governance issue.",
@@ -3497,5 +3490,12 @@
   "impact" : "Retail investor confidence remains strong despite FII selling and index corrections. Nifty may face volatility from geopolitical factors but support persists due to record domestic equity inflows.",
   "source" : "Economic Times",
   "publishedAt" : "13-Oct-2026 05:31 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-13T06:26:26",
+  "title" : "Sensex, Nifty fall 0.7% as oil surge erases early gains",
+  "impact" : "The Indian market faces significant downward pressure due to geopolitical risks and rising crude oil costs. Nifty is expected to remain volatile with a bearish bias until oil stabilizes, while the rupee faces continued depreciation pressure.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Oct-2026 06:05 IST",
   "score" : 7
 } ]
