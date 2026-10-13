@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-14T13:11:56",
-  "title" : "WPI inflation rises to 9.92% in August on rising prices of food, fuel, manufactured items",
-  "impact" : "High inflation reduces prospects of RBI rate cuts, exerting downward pressure on Nifty. The rupee is expected to face depreciation risk due to sustained cost-push inflationary pressure.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "14-Sep-2026 13:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-14T13:57:16",
   "title" : "A key data shows India's price pain is refusing to ease",
   "impact" : "Persistent inflation risks dampen sentiment, likely pressuring Nifty towards lower support levels. Bond yields may rise, putting downward pressure on the Indian Rupee against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "13-Oct-2026 13:09 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-13T13:22:30",
+  "title" : "IMF raises India’s 2026 growth aim to 7%",
+  "impact" : "The upward revision to 7% growth positions India as a global outlier, likely driving significant institutional inflows and market sentiment. Expect Nifty to test higher resistance levels as the rupee stabilizes against broader commodity pressures.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Oct-2026 07:31 IST",
+  "score" : 8
 } ]
