@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T00:31:22",
-  "title" : "First-time borrowers deepen credit reach",
-  "impact" : "Broadening credit access supports domestic consumption-led growth, maintaining a bullish bias for the Nifty index. Increased retail liquidity and institutional credit flow are expected to support the rupee through sustained domestic economic activity.",
-  "source" : "Economic Times",
-  "publishedAt" : "15-Sep-2026 00:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T06:31:58",
   "title" : "What Saudi Arabia’s East-West pipeline closure means for global energy markets",
   "impact" : "Disruption in energy corridors may trigger a risk-off sentiment in the Indian market, putting downward pressure on Nifty. The rupee is expected to weaken due to higher oil import costs and capital outflows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "13-Oct-2026 09:38 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-10-13T16:55:21",
+  "title" : "HCLTech sparks IT-led surge; Nifty posts sharpest single-day gain since June",
+  "impact" : "The sharp recovery indicates a strong bullish reversal sentiment across Indian equities. Nifty 50 is likely to test immediate resistance levels near 22,800. The Rupee is expected to stabilize against the USD as positive sentiment attracts institutional inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Oct-2026 16:46 IST",
+  "score" : 8
 } ]
