@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T09:50:27",
-  "title" : "IT stocks power Nifty's gap-up as crude, Fed weigh on outlook",
-  "impact" : "Rising crude oil prices and geopolitical tensions create a cautious outlook for Nifty. Expect volatility as higher import costs pressure the rupee and weigh on net-oil-importing sectors.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Sep-2026 09:35 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T10:05:32",
   "title" : "Rupee falls 30 paise to 95.84 against US dollar in early trade",
   "impact" : "The sharp depreciation of the rupee combined with elevated crude oil prices will weigh on investor sentiment. Nifty is expected to open lower with sustained pressure on indices due to FII selling and inflation risks.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "14-Oct-2026 12:03 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-14T13:19:09",
+  "title" : "September WPI Inflation rises to 11.39% as food, fuel and manufactured goods prices increase",
+  "impact" : "High inflation reduces RBI's scope for rate cuts, likely triggering a bearish trend for Indian equities. Nifty may face resistance near key levels while the rupee could depreciate against the dollar due to rising import costs.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "14-Oct-2026 13:14 IST",
+  "score" : 7
 } ]
