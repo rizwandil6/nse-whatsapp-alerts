@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T08:49:56",
-  "title" : "Rupee, bonds under pressure as oil stays above $100 and Fed hike looms",
-  "impact" : "Macro headwinds from elevated oil prices and looming Fed rate hikes are likely to trigger a bearish sentiment. Nifty 50 is expected to face significant selling pressure and volatility, while the rupee remains vulnerable to further depreciation towards the 95-95.80 range.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Sep-2026 08:39 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-15T09:05:04",
   "title" : "AI restraint debate boosts outlook for Indian tech stocks",
   "impact" : "Positive sentiment for IT exports as AI disruption fears ease. Expect Nifty IT index to outperform the broader Nifty 50 with a stable outlook for the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "14-Oct-2026 05:53 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-14T12:33:20",
+  "title" : "WPI inflation rises to 11.39% in Sep on rise in prices of food, fuel, manufactured items",
+  "impact" : "High inflation triggered by supply chain disruptions creates significant downside pressure on the Nifty index. The rupee is expected to weaken further against the dollar due to rising import costs of fuel and commodities.",
+  "source" : "BusinessLine",
+  "publishedAt" : "14-Oct-2026 12:26 IST",
+  "score" : 8
 } ]
