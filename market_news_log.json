@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T10:05:37",
-  "title" : "Crude oil futures rise after Saudi pipeline shutdown",
-  "impact" : "Rising crude prices will likely pressure the Nifty index due to increased import costs and inflationary concerns. The Indian Rupee is expected to weaken further against the USD, creating headwinds for equity benchmarks.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Sep-2026 09:58 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T10:20:41",
   "title" : "Indian bonds sink as RBI plans ₹1 lakh crore sales to drain liquidity",
   "impact" : "Tightening liquidity and rate hike expectations will likely trigger a broad market correction. Nifty may face immediate pressure towards support levels as borrowing costs rise and the rupee potentially depreciates against a strengthening dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "14-Oct-2026 13:12 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-14T14:04:39",
+  "title" : "Blackstone readies $100 bn cheque for India",
+  "impact" : "Blackstone commitment signals strong long-term FII confidence, likely supporting Nifty in the medium term despite near-term volatility. Potential for sustained capital inflows may provide structural support to the rupee against global headwinds.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Oct-2026 01:14 IST",
+  "score" : 8
 } ]
