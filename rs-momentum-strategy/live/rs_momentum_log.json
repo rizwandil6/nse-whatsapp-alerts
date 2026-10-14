@@ -1912,5 +1912,12 @@
   "date": "2026-10-11",
   "price": 186.87,
   "rsRankAtEntry": 81.37254901960785
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SHAREINDIA",
+  "date": "2026-10-12",
+  "price": 195.23,
+  "rsRankAtEntry": 83.72549019607844
  }
 ]
