@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T10:05:32",
-  "title" : "Rupee falls 30 paise to 95.84 against US dollar in early trade",
-  "impact" : "The sharp depreciation of the rupee combined with elevated crude oil prices will weigh on investor sentiment. Nifty is expected to open lower with sustained pressure on indices due to FII selling and inflation risks.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Sep-2026 10:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T10:05:37",
   "title" : "Crude oil futures rise after Saudi pipeline shutdown",
   "impact" : "Rising crude prices will likely pressure the Nifty index due to increased import costs and inflationary concerns. The Indian Rupee is expected to weaken further against the USD, creating headwinds for equity benchmarks.",
@@ -3497,5 +3490,12 @@
   "impact" : "High inflation reduces RBI's scope for rate cuts, likely triggering a bearish trend for Indian equities. Nifty may face resistance near key levels while the rupee could depreciate against the dollar due to rising import costs.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "14-Oct-2026 13:14 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-14T14:04:37",
+  "title" : "India’s nuclear dream needs Rs 15 lakh cr by 2047",
+  "impact" : "The multi-decade capital expenditure plan signals long-term growth for industrial and power infrastructure. Nifty is expected to maintain a positive bias as policy clarity boosts sentiment in capital-intensive sectors.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Oct-2026 13:12 IST",
   "score" : 7
 } ]
