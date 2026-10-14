@@ -15736,5 +15736,14 @@
   "entryTimestampMs": 1791959400000,
   "exitTimestampMs": 1791964560000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "LONG",
+  "entry": 40.528950000000016,
+  "timestampMs": 1791965400000,
+  "breakoutTimestampMs": 1791965400000,
+  "shadow": true
  }
 ]
