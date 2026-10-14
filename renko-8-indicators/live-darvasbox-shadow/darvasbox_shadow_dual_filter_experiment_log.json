@@ -15907,5 +15907,77 @@
   "timestampMs": 1791971100000,
   "breakoutTimestampMs": 1791971100000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 109.05195,
+  "exitPrice": 108.78,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24937655860349486,
+  "entryTimestampMs": 1791970140000,
+  "exitTimestampMs": 1791971100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 125.24000000000001,
+  "exitPrice": 125.86000000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.4950495049504986,
+  "entryTimestampMs": 1791968400000,
+  "exitTimestampMs": 1791969600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 11.124400000000001,
+  "exitPrice": 10.823,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -2.7093596059113385,
+  "entryTimestampMs": 1791955200000,
+  "exitTimestampMs": 1791970800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 174.19050000000004,
+  "exitPrice": 174.19050000000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1791970200000,
+  "exitTimestampMs": 1791970200000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 106.6506,
+  "exitPrice": 106.6506,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1791971100000,
+  "exitTimestampMs": 1791971100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 517.20375,
+  "exitPrice": 522.38875,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.0025062656641497,
+  "entryTimestampMs": 1791963600000,
+  "exitTimestampMs": 1791966000000,
+  "shadow": true
  }
 ]
