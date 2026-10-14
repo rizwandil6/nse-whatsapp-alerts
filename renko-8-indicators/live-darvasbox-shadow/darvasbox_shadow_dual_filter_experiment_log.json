@@ -15559,5 +15559,23 @@
   "timestampMs": 1791881400000,
   "breakoutTimestampMs": 1791881400000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 115.81552499999992,
+  "timestampMs": 1791953700000,
+  "breakoutTimestampMs": 1791953700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 107.71179999999998,
+  "timestampMs": 1791954900000,
+  "breakoutTimestampMs": 1791954900000,
+  "shadow": true
  }
 ]
