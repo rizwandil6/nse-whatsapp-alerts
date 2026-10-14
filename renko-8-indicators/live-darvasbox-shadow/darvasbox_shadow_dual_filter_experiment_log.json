@@ -15655,5 +15655,17 @@
   "entryTimestampMs": 1791955200000,
   "exitTimestampMs": 1791960300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 72.98,
+  "exitPrice": 73.4,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.5755001370238444,
+  "entryTimestampMs": 1791956700000,
+  "exitTimestampMs": 1791960600000,
+  "shadow": true
  }
 ]
