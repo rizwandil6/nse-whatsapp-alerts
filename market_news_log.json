@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T08:34:49",
-  "title" : "Saudi pipeline shut for weeks, restricting oil flow",
-  "impact" : "The oil supply disruption is expected to exert downward pressure on Indian equity markets due to inflationary risks. Nifty may face volatility and weakness, while the Indian Rupee is likely to depreciate against the USD.",
-  "source" : "Economic Times",
-  "publishedAt" : "15-Sep-2026 08:09 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T08:49:56",
   "title" : "Rupee, bonds under pressure as oil stays above $100 and Fed hike looms",
   "impact" : "Macro headwinds from elevated oil prices and looming Fed rate hikes are likely to trigger a bearish sentiment. Nifty 50 is expected to face significant selling pressure and volatility, while the rupee remains vulnerable to further depreciation towards the 95-95.80 range.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will likely trigger a risk-off sentiment in the Indian markets. Nifty is expected to open with a gap-down, while the Rupee faces depreciation pressure due to rising crude oil import costs.",
   "source" : "Economic Times",
   "publishedAt" : "14-Oct-2026 01:49 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-14T06:20:27",
+  "title" : "RBI’s rupee defence curbs speculation, raises hedging costs",
+  "impact" : "The RBI intervention signals a proactive stance to stabilize the rupee, which may provide short-term relief to equity markets. However, higher hedging costs and reduced liquidity for importers could dampen sentiment, keeping Nifty range-bound with volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Oct-2026 05:53 IST",
   "score" : 7
 } ]
