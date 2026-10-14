@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T16:24:19",
-  "title" : "The price warning signs are piling up for Indians",
-  "impact" : "Heightened valuations and overextended technical indicators suggest a looming market correction. Nifty 50 is expected to face consolidation or a bearish pullback as retail participation cools, while the rupee may face pressure from FII outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "15-Sep-2026 11:40 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T16:24:22",
   "title" : "The HDFC share strategy as bank hunts for new CEO",
   "impact" : "HDFC Bank leadership transition introduces short-term uncertainty for the Nifty 50 due to its significant index weight. The overall market may witness increased volatility in the financial space, with minimal direct impact on the Indian Rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The government's clearance for the IDBI bank divestment triggers positive sentiment for the privatization theme. Nifty is expected to gain momentum in the banking and PSU space, while the rupee remains stable amid increased capital inflow prospects.",
   "source" : "Economic Times",
   "publishedAt" : "14-Oct-2026 16:17 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-14T21:27:24",
+  "title" : "US dollar hits 18-month high as hotter inflation revives Fed rate hike concerns",
+  "impact" : "The Indian equity market faces selling pressure as a strengthening dollar triggers FII outflows. Expect Nifty to consolidate near support levels while the rupee faces significant depreciation against the USD.",
+  "source" : "BusinessLine",
+  "publishedAt" : "14-Oct-2026 21:21 IST",
   "score" : 7
 } ]
