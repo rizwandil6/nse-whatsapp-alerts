@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T16:09:00",
-  "title" : "Rupee drops with stocks, bonds as oil, inflation and Fed worries mount",
-  "impact" : "The confluence of rising oil prices, persistent inflation, and hawkish Fed signals is triggering a risk-off sentiment in Indian equities. Nifty is expected to face significant downward pressure, while the rupee remains under intense depreciation stress.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Sep-2026 16:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T16:09:04",
   "title" : "The ‘Prisoner’s Dilemma’ behind a costly trade war",
   "impact" : "Global trade war fears will likely trigger Nifty volatility and defensive rotation. Expect rupee depreciation due to risk-off sentiment and flight to the US dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The large-scale disinvestment signals strong reform momentum, boosting investor confidence in the Nifty. Anticipate a positive trend in financial services and a strengthening Rupee due to significant anticipated FDI inflows.",
   "source" : "Economic Times",
   "publishedAt" : "14-Oct-2026 18:24 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-14T19:40:01",
+  "title" : "SEBI sees greater AIF flexibility, shifting more responsibility to industry",
+  "impact" : "The expansion of the accredited investor pool increases liquidity depth for private markets, favoring long-term Nifty stability. Expect neutral short-term impact on the Rupee as capital shifts toward Alternative Investment Funds.",
+  "source" : "BusinessLine",
+  "publishedAt" : "14-Oct-2026 19:23 IST",
   "score" : 7
 } ]
