@@ -15886,5 +15886,17 @@
   "entryTimestampMs": 1791958500000,
   "exitTimestampMs": 1791968100000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "SHORT",
+  "entry": 340.63824999999997,
+  "exitPrice": 342.55,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.5612258752503692,
+  "entryTimestampMs": 1791963900000,
+  "exitTimestampMs": 1791971100000,
+  "shadow": true
  }
 ]
