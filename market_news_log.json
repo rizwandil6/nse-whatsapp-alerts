@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T16:24:22",
-  "title" : "The HDFC share strategy as bank hunts for new CEO",
-  "impact" : "HDFC Bank leadership transition introduces short-term uncertainty for the Nifty 50 due to its significant index weight. The overall market may witness increased volatility in the financial space, with minimal direct impact on the Indian Rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "15-Sep-2026 11:52 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T16:54:27",
   "title" : "Strong institutional appetite for NSE IPO, anchor book exceeds expectations: Chauhan",
   "impact" : "The NSE IPO anchor book success signals robust institutional confidence and liquidity inflow into primary markets. This supports a bullish sentiment for Nifty in the near term with minimal impact on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian equity market faces selling pressure as a strengthening dollar triggers FII outflows. Expect Nifty to consolidate near support levels while the rupee faces significant depreciation against the USD.",
   "source" : "BusinessLine",
   "publishedAt" : "14-Oct-2026 21:21 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-14T22:58:36",
+  "title" : "'Small' pains: An old ghost may haunt FMCG",
+  "impact" : "The resurgence of food inflation poses a risk to domestic consumption-led growth. Expect Nifty to face headwinds in consumer-facing segments while the Rupee remains under pressure due to persistent retail inflation.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Oct-2026 10:05 IST",
   "score" : 7
 } ]
