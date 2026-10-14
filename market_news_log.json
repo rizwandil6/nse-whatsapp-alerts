@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T14:53:05",
-  "title" : "A landmark IPO may hollow out India shadow market",
-  "impact" : "The IPO may trigger liquidity migration from shadow banking and retail portfolios into primary markets. Nifty is expected to face short-term volatility due to liquidity suction, with the rupee experiencing pressure from capital outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "15-Sep-2026 08:15 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T14:53:11",
   "title" : "Solar’s $1.3 bn bet shifts India’s defence game",
   "impact" : "The multi-billion dollar shift towards solar-powered defense manufacturing strengthens domestic industrial growth and long-term capital expenditure cycles. Nifty is expected to see a consolidation with a bullish bias as defense and renewable themes gain momentum, keeping the rupee stable due to reduced fossil fuel import dependency.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Middle East will likely drive a bearish trend in the Indian equity market. Nifty may face sharp downward volatility due to surging crude prices, while the rupee is expected to depreciate against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "14-Oct-2026 15:38 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-14T18:08:03",
+  "title" : "US inflation likely rose on costlier gas, chips",
+  "impact" : "US inflation concerns are likely to trigger profit booking in Indian markets, putting pressure on Nifty 50 toward key support levels. Expect FII outflows and potential rupee depreciation against the strengthening dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Oct-2026 17:37 IST",
   "score" : 7
 } ]
