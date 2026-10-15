@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T06:46:56",
-  "title" : "Indian stock market value drops below $5 trillion as oil prices surge &amp; US bond yields climb",
-  "impact" : "The Indian market faces a bearish outlook as macro headwinds drive capital outflows. Nifty is expected to test deeper support levels, and the rupee will likely face depreciation pressure due to rising oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 06:20 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-16T06:47:00",
   "title" : "Government bond yields edge higher on OMO sales, Fed rate bets",
   "impact" : "Rising bond yields and inflation concerns are likely to trigger a bearish sentiment in the Indian equity markets. Nifty is expected to face downward pressure as foreign institutional outflows increase, and the rupee may weaken against the dollar due to the interest rate differential.",
@@ -3497,5 +3490,12 @@
   "impact" : "Persistent regional risks likely to dampen FII sentiment, leading to Nifty consolidation or downward pressure in the short term. The Indian Rupee may face further depreciation due to broader Asian currency weakness and capital outflows.",
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 13:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T14:26:42",
+  "title" : "India, US trade pact to be operationalised once India gets competitive advantage: Goyal",
+  "impact" : "The FTA with the EU will likely boost market sentiment by enhancing export competitiveness and FDI inflows. Nifty is expected to see a bullish trend in the medium term, while the rupee may find support from increased trade volume and capital inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Oct-2026 14:20 IST",
   "score" : 7
 } ]
