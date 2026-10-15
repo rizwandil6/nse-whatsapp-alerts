@@ -16210,5 +16210,89 @@
   "timestampMs": 1792055700000,
   "breakoutTimestampMs": 1792055700000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 197.4235500000001,
+  "exitPrice": 199.92892500000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.2690355329948877,
+  "entryTimestampMs": 1792042500000,
+  "exitTimestampMs": 1792057500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 255.06825000000003,
+  "exitPrice": 253.14562500000005,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7537688442210985,
+  "entryTimestampMs": 1792041000000,
+  "exitTimestampMs": 1792043100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 107.13845000000002,
+  "exitPrice": 105.77882500000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2690355329949048,
+  "entryTimestampMs": 1792054260000,
+  "exitTimestampMs": 1792057500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 123.97770000000001,
+  "exitPrice": 123.66462500000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2525252525252507,
+  "entryTimestampMs": 1792057800000,
+  "exitTimestampMs": 1792058100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 114.61187499999997,
+  "exitPrice": 112.85312499999995,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.534526854219967,
+  "entryTimestampMs": 1792042800000,
+  "exitTimestampMs": 1792056600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 180.09000000000003,
+  "exitPrice": 200.97000000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 11.594202898550721,
+  "entryTimestampMs": 1792052400000,
+  "exitTimestampMs": 1792057800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 504.385875,
+  "exitPrice": 506.94999999999993,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.5083657427956192,
+  "entryTimestampMs": 1792055700000,
+  "exitTimestampMs": 1792057200000,
+  "shadow": true
  }
 ]
