@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T14:42:41",
-  "title" : "2 banks emerge as magnets for India’s diaspora cash",
-  "impact" : "Increased inflows from the diaspora will bolster liquidity and strengthen the Indian Rupee. This improves banking sector sentiment and supports a positive outlook for the Nifty.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 07:46 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T14:42:53",
   "title" : "India's $40 bn oil bet faces Trump's 100% tariff risk",
   "impact" : "The potential for high US tariffs creates significant headwinds for Indian exporters and energy importers, leading to heightened volatility in the Nifty. Expect a bearish sentiment in the near term with the rupee likely facing depreciation pressure against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 16:25 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-15T20:16:05",
+  "title" : "India's August BoP surplus swings to $45.4 billion",
+  "impact" : "Strong Balance of Payments surplus provides significant cushion to the rupee against global volatility. Expect Nifty to maintain a bullish bias due to improved macro stability and foreign investor confidence.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 19:08 IST",
+  "score" : 7
 } ]
