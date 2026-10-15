@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T12:41:18",
-  "title" : "Sensex rises 400 points, Nifty nears 23,250 as investors await Fed meeting outcome. What to expect?",
-  "impact" : "The Indian market faces persistent volatility due to FII selling pressure and high US yields. The Nifty is currently testing a critical support band between 23,000 and 23,260 with potential for further downside if macro conditions do not improve.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 11:44 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T12:56:24",
   "title" : "NSE to launch IPO amid investor caution over derivatives-fuelled growth",
   "impact" : "The NSE IPO will likely absorb significant liquidity from the secondary market, potentially pressuring Nifty in the short term. The rupee may see volatility due to expected foreign institutional inflows associated with the massive valuation.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 14:31 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-15T16:43:08",
+  "title" : "Sensex today | Stock Market Highlights: Sensex jumps over 1,500 points, Nifty nears 23,000; rupee extends gains",
+  "impact" : "The Indian equity market is showing strong bullish momentum as indices rally despite regional weakness. Nifty is poised to test the 23,000 level supported by cooling macro indicators and the strengthening rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Oct-2026 16:22 IST",
+  "score" : 8
 } ]
