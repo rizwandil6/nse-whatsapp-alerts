@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T07:32:23",
-  "title" : "Positive bias seen for Indian stocks at open, but analysts advise caution",
-  "impact" : "The market is expected to open with a positive bias but remains vulnerable to intraday profit-booking. Nifty is likely to face volatility near the 23,200 level, while rising crude prices and geopolitical tensions may exert downward pressure on the rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "16-Sep-2026 07:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T08:22:22",
   "title" : "Saudi Arabia’s oil export maze gets tighter",
   "impact" : "Tightening oil supply creates inflationary pressure on Indian markets, likely leading to Nifty volatility. Higher crude prices will likely weaken the rupee against the dollar and impact trade deficit projections.",
@@ -3497,5 +3490,12 @@
   "impact" : "Prem Watsa's continued long-term capital inflow provides a strong vote of confidence for Indian equities, supporting Nifty bullish momentum. The increased foreign direct investment strengthens the rupee against the dollar, enhancing macro stability.",
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 14:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T15:27:03",
+  "title" : "SEBI chief sees mutual fund investor base growing to 26 crore in a decade",
+  "impact" : "Increased retail participation will provide structural liquidity and support for the Nifty 50. Expect long-term bullish sentiment for the broader Indian market with stable to strengthening rupee due to sustained domestic inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Oct-2026 15:14 IST",
   "score" : 7
 } ]
