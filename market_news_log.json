@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T16:43:49",
-  "title" : "Dalal Street faces a double whammy of Fed rate hike",
-  "impact" : "Hawkish Fed stance triggers FII outflows from Indian equities leading to a bearish trend. Nifty is expected to face immediate selling pressure at higher levels while the rupee is likely to weaken against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 11:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T18:30:44",
   "title" : "Why India's oil bill could get heavier",
   "impact" : "Rising oil prices increase current account deficit concerns and inflationary pressure on the Indian economy. Nifty may face consolidation or downward pressure due to FII selling, while the Rupee is likely to depreciate against the USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong auto performance boosts domestic consumption sentiment and industrial activity indices. Nifty is expected to lean bullish on retail and cyclical demand growth, while the rupee remains stable amid industrial expansion.",
   "source" : "Economic Times",
   "publishedAt" : "16-Oct-2026 00:21 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-16T02:19:41",
+  "title" : "Beware! Blind investing in smallcaps won’t make you money as 148 of 250 stocks tumble in 2026",
+  "impact" : "The Indian market faces a transition from broad rally to stock-specific volatility, with the Nifty likely to consolidate as investors rotate from expensive smallcaps to safer largecaps. Persistent FII selling and rising bond yields exert downward pressure on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 09:43 IST",
   "score" : 7
 } ]
