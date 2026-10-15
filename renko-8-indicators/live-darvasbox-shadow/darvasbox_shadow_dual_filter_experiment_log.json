@@ -16150,5 +16150,23 @@
   "timestampMs": 1792054260000,
   "breakoutTimestampMs": 1792054260000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 446.431125,
+  "timestampMs": 1792056900000,
+  "breakoutTimestampMs": 1792056900000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "SHORT",
+  "entry": 72.2997,
+  "timestampMs": 1792056900000,
+  "breakoutTimestampMs": 1792056900000,
+  "shadow": true
  }
 ]
