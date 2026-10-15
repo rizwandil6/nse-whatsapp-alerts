@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T18:30:44",
-  "title" : "Why India's oil bill could get heavier",
-  "impact" : "Rising oil prices increase current account deficit concerns and inflationary pressure on the Indian economy. Nifty may face consolidation or downward pressure due to FII selling, while the Rupee is likely to depreciate against the USD.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 17:39 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T21:32:52",
   "title" : "PM Surya Ghar holds 132 GW market potential: ISMA",
   "impact" : "The PM Surya Ghar scheme acts as a structural tailwind for the domestic renewable energy ecosystem. Nifty may see positive sentiment in power and infra indices with long-term stability for the rupee due to reduced fossil fuel import dependency.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market faces a transition from broad rally to stock-specific volatility, with the Nifty likely to consolidate as investors rotate from expensive smallcaps to safer largecaps. Persistent FII selling and rising bond yields exert downward pressure on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 09:43 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-16T04:50:13",
+  "title" : "India revises fuel export duties, raises petrol tax and cuts diesel levy",
+  "impact" : "The revision in export duties signals fiscal recalibration to manage domestic supply, likely keeping Nifty range-bound with slight volatility. The rupee may witness minor appreciation pressure as export levies help narrow the trade deficit.",
+  "source" : "BusinessLine",
+  "publishedAt" : "16-Oct-2026 04:42 IST",
   "score" : 7
 } ]
