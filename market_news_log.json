@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T15:28:16",
-  "title" : "China's foreign minister urges reopening of Hormuz",
-  "impact" : "Heightened geopolitical risk in the Strait of Hormuz creates volatility for Indian markets. Nifty may face downward pressure due to supply chain concerns, while the rupee is likely to weaken against the dollar due to rising oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 14:40 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T15:58:28",
   "title" : "Solar's ₹13,000 crore deal changes entire sales mix",
   "impact" : "The solar sector deal indicates strong capital expenditure momentum in renewable energy, which is positive for the Nifty energy index. Expect Nifty to sustain current levels with moderate bullishness, while the rupee remains stable against the USD due to long-term energy import substitution.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential Jio IPO is a major positive catalyst for market sentiment and index liquidity. Expect Nifty to see renewed buying interest in the heavyweights, with the rupee likely to stabilize on expected large-scale foreign capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Oct-2026 20:21 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T22:48:28",
+  "title" : "Houthis strike Saudi Aramco headquarters, damaging top floors in Dhahran",
+  "impact" : "Heightened geopolitical risk in the Middle East will likely trigger a risk-off sentiment in Indian markets. Nifty is expected to open with a gap-down as crude oil prices spike, putting downward pressure on the INR.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Oct-2026 22:29 IST",
   "score" : 7
 } ]
