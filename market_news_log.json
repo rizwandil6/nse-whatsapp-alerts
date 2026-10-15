@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T18:10:24",
-  "title" : "Crude shock, bond jitters send Sensex, Nifty into a rout",
-  "impact" : "The confluence of rising crude prices and rising bond yields has triggered a risk-off sentiment in Indian equities. Nifty faces immediate downside pressure towards support levels near 22,800, while the rupee is expected to depreciate due to oil-linked dollar demand.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Sep-2026 17:53 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-15T18:40:42",
   "title" : "All eyes on Tata Sons' September 17 meeting",
   "impact" : "The Tata Sons board meeting signals potential strategic shifts or IPO preparations, likely boosting investor sentiment in the Tata group. Nifty 50 is expected to test higher resistance levels, while the INR remains stable amidst domestic corporate activity.",
@@ -3497,5 +3490,12 @@
   "impact" : "This deal boosts investor confidence in the Indian banking consolidation space and signals strong foreign appetite for large-scale financial assets. Nifty may see positive sentiment in the banking index, while the rupee remains largely neutral to strengthening on potential long-term foreign capital inflows.",
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 00:35 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T06:29:57",
+  "title" : "Fairfax offers plan to resolve IDBI-CSB ownership overlapping",
+  "impact" : "This major acquisition signals strong foreign investor confidence in India's banking privatization roadmap. Nifty is expected to remain firm with a positive bias, while the large capital inflow supports rupee stability.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 00:29 IST",
   "score" : 7
 } ]
