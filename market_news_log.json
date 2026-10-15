@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T18:56:00",
-  "title" : "NSE anchor book exceeds expectations, says Ashishkumar Chauhan",
-  "impact" : "The NSE IPO is a major liquidity event likely to boost overall market sentiment and investor participation. Nifty is expected to maintain its upward trajectory supported by strong domestic inflows, with neutral impact on the rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Sep-2026 18:47 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T18:56:06",
   "title" : "India’s 26% goods exports surge lowers August 2026 trade deficit",
   "impact" : "The narrowing trade deficit acts as a significant tailwind for the Nifty 50, reducing macro-economic pressure and improving current account stability. This positive sentiment supports a stronger Rupee and strengthens investor confidence in export-oriented Indian manufacturers.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical tension in the Middle East is likely to trigger a bearish opening for the Nifty 50. Crude oil supply concerns will exert downward pressure on the rupee due to increased import costs.",
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 06:19 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T07:16:44",
+  "title" : "5 things that make Jio more than just a telco giant",
+  "impact" : "Reliance ecosystem expansion boosts Nifty sentiment by strengthening digital infrastructure. The rupee remains stable as large scale domestic tech investments signal long term economic growth.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Oct-2026 21:50 IST",
   "score" : 7
 } ]
