@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T15:58:28",
-  "title" : "Solar's ₹13,000 crore deal changes entire sales mix",
-  "impact" : "The solar sector deal indicates strong capital expenditure momentum in renewable energy, which is positive for the Nifty energy index. Expect Nifty to sustain current levels with moderate bullishness, while the rupee remains stable against the USD due to long-term energy import substitution.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 12:08 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T16:43:49",
   "title" : "Dalal Street faces a double whammy of Fed rate hike",
   "impact" : "Hawkish Fed stance triggers FII outflows from Indian equities leading to a bearish trend. Nifty is expected to face immediate selling pressure at higher levels while the rupee is likely to weaken against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Middle East will likely trigger a risk-off sentiment in Indian markets. Nifty is expected to open with a gap-down as crude oil prices spike, putting downward pressure on the INR.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Oct-2026 22:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-16T01:04:24",
+  "title" : "Auto sales gain festive momentum in Sept",
+  "impact" : "Strong auto performance boosts domestic consumption sentiment and industrial activity indices. Nifty is expected to lean bullish on retail and cyclical demand growth, while the rupee remains stable amid industrial expansion.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Oct-2026 00:21 IST",
   "score" : 7
 } ]
