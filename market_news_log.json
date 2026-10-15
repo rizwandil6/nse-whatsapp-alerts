@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T19:57:12",
-  "title" : "Bond yields hit 4-month high as RBI OMO sales, global headwinds weigh",
-  "impact" : "The confluence of rising bond yields and crude oil price spikes signals a bearish trend for Indian equities. Nifty is expected to face significant selling pressure at major support levels while the rupee remains vulnerable to further depreciation.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Sep-2026 19:39 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-15T23:29:39",
   "title" : "RBI backs UPI MDR for wider acceptance",
   "impact" : "This policy shift improves the revenue outlook for fintech and payment infrastructure players, potentially boosting sentiment in the banking and financial services sector. Expect Nifty to maintain a positive bias while the rupee remains stable as digital payment efficiency supports economic formalization.",
@@ -3497,5 +3490,12 @@
   "impact" : "The positive auto sector performance is expected to buoy investor sentiment and sustain Nifty momentum. Strong domestic demand and infrastructure linkages support a stable to slightly appreciating rupee outlook.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Oct-2026 12:35 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T12:39:16",
+  "title" : "Higher EMIs ahead: SBI increases lending rates",
+  "impact" : "SBI rate hikes suggest a broader trend of rising cost of capital across the Indian banking sector. Expect Nifty to face short-term consolidation as credit growth costs weigh on corporate margins, with potential for slight rupee appreciation due to higher yield attractiveness.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 12:15 IST",
   "score" : 7
 } ]
