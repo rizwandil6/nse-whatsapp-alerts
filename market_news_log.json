@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T12:41:11",
-  "title" : "How the great gas crisis of 2030 will play out",
-  "impact" : "The gas crisis will likely lead to inflationary pressure and margin compression across energy-dependent industries. Nifty may face volatility with a downward bias as input costs rise, potentially pressuring the rupee due to higher import bills for energy.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 11:55 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-16T12:41:18",
   "title" : "Sensex rises 400 points, Nifty nears 23,250 as investors await Fed meeting outcome. What to expect?",
   "impact" : "The Indian market faces persistent volatility due to FII selling pressure and high US yields. The Nifty is currently testing a critical support band between 23,000 and 23,260 with potential for further downside if macro conditions do not improve.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential Jio IPO is a massive liquidity event that could drive significant institutional inflows into the Indian equity markets. Nifty is expected to trend bullish due to the unlocking of shareholder value, with the rupee likely to strengthen on anticipated foreign capital infusion.",
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 10:06 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T16:28:02",
+  "title" : "India's trade gap widens to $30.21 bn in Sep",
+  "impact" : "Widening trade deficit and rising oil costs are likely to exert downward pressure on Nifty due to inflationary concerns. The Rupee is expected to remain under volatility as the widening gap necessitates further RBI intervention.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 14:31 IST",
   "score" : 7
 } ]
