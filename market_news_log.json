@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T06:47:00",
-  "title" : "Government bond yields edge higher on OMO sales, Fed rate bets",
-  "impact" : "Rising bond yields and inflation concerns are likely to trigger a bearish sentiment in the Indian equity markets. Nifty is expected to face downward pressure as foreign institutional outflows increase, and the rupee may weaken against the dollar due to the interest rate differential.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 04:57 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T07:32:23",
   "title" : "Positive bias seen for Indian stocks at open, but analysts advise caution",
   "impact" : "The market is expected to open with a positive bias but remains vulnerable to intraday profit-booking. Nifty is likely to face volatility near the 23,200 level, while rising crude prices and geopolitical tensions may exert downward pressure on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The FTA with the EU will likely boost market sentiment by enhancing export competitiveness and FDI inflows. Nifty is expected to see a bullish trend in the medium term, while the rupee may find support from increased trade volume and capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Oct-2026 14:20 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T14:41:55",
+  "title" : "Canada's Warren Buffett bets his billions on India",
+  "impact" : "Prem Watsa's continued long-term capital inflow provides a strong vote of confidence for Indian equities, supporting Nifty bullish momentum. The increased foreign direct investment strengthens the rupee against the dollar, enhancing macro stability.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 14:04 IST",
   "score" : 7
 } ]
