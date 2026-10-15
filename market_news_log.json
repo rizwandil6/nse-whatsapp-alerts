@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T19:26:44",
-  "title" : "Sensex's 1,400 pts shock reversal wipes out ₹9 lakh cr",
-  "impact" : "The sharp reversal indicates high intraday volatility and profit booking, suggesting a cautious sentiment for Nifty in the near term. The rupee may face temporary depreciation pressure due to risk-off sentiment and potential FII outflows following the capital erosion.",
-  "source" : "Economic Times",
-  "publishedAt" : "15-Sep-2026 15:14 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T19:57:12",
   "title" : "Bond yields hit 4-month high as RBI OMO sales, global headwinds weigh",
   "impact" : "The confluence of rising bond yields and crude oil price spikes signals a bearish trend for Indian equities. Nifty is expected to face significant selling pressure at major support levels while the rupee remains vulnerable to further depreciation.",
@@ -3497,5 +3490,12 @@
   "impact" : "Persistent wholesale inflation pressures will likely dampen Nifty sentiment by limiting RBI's scope for early rate cuts. The rupee may face downward pressure due to higher import bills for oil and energy commodities.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Oct-2026 12:36 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T12:39:12",
+  "title" : "Auto industry posts stellar performance in H1 FY27 led by GST 2.0, resilient rural-urban demand",
+  "impact" : "The positive auto sector performance is expected to buoy investor sentiment and sustain Nifty momentum. Strong domestic demand and infrastructure linkages support a stable to slightly appreciating rupee outlook.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Oct-2026 12:35 IST",
   "score" : 7
 } ]
