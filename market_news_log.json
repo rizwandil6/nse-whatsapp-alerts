@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T09:39:43",
-  "title" : "Rupee expected to stay under pressure with likely Fed rate hike adding to strain from high oil prices",
-  "impact" : "The Indian equity market faces significant downside risk as a weakening rupee triggers FII outflows. Expect Nifty to consolidate near key support levels as inflationary pressures mount from expensive oil imports.",
-  "source" : "BusinessLine",
-  "publishedAt" : "16-Sep-2026 09:21 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T11:40:39",
   "title" : "Paytm stock hits 52-week high after NPCI introduces UPI MDR",
   "impact" : "The positive development for digital payments is expected to boost sentiment in the fintech and banking space. Nifty is likely to see a bullish bias with increased participation in financial stocks. The rupee remains stable with neutral impact from this specific policy shift.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong foreign inflows into banking indicate positive sentiment for Nifty 50, likely driving it toward record highs. Increased liquidity is expected to strengthen the Indian Rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 15:12 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-10-15T15:27:12",
+  "title" : "Trump may soon decide India's fate over 100% tariff",
+  "impact" : "The threat of 100% tariffs creates significant volatility, pressuring Nifty toward lower support levels due to export concerns. The Rupee is expected to weaken further against the Dollar as trade balance anxieties rise.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 11:21 IST",
   "score" : 8
 } ]
