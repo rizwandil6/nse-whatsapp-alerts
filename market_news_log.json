@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T06:46:53",
-  "title" : "$38 billion: The cost of the Iran-US war",
-  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a sharp spike in crude oil prices, leading to sustained Nifty volatility. The Indian Rupee is expected to face significant downward pressure as imported inflation risks increase and FIIs shift toward safe-haven assets.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 06:16 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-16T06:46:56",
   "title" : "Indian stock market value drops below $5 trillion as oil prices surge &amp; US bond yields climb",
   "impact" : "The Indian market faces a bearish outlook as macro headwinds drive capital outflows. Nifty is expected to test deeper support levels, and the rupee will likely face depreciation pressure due to rising oil import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Enhanced ease of doing business and liquidity measures are expected to boost investor sentiment, supporting a bullish Nifty trend. Improved market depth may provide marginal stability to the rupee through sustained foreign capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Oct-2026 13:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T14:11:22",
+  "title" : "The 'biggest' risk to Asia’s economies isn’t over",
+  "impact" : "Persistent regional risks likely to dampen FII sentiment, leading to Nifty consolidation or downward pressure in the short term. The Indian Rupee may face further depreciation due to broader Asian currency weakness and capital outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 13:13 IST",
   "score" : 7
 } ]
