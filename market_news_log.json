@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-15T18:40:42",
-  "title" : "All eyes on Tata Sons' September 17 meeting",
-  "impact" : "The Tata Sons board meeting signals potential strategic shifts or IPO preparations, likely boosting investor sentiment in the Tata group. Nifty 50 is expected to test higher resistance levels, while the INR remains stable amidst domestic corporate activity.",
-  "source" : "Economic Times",
-  "publishedAt" : "15-Sep-2026 17:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-15T18:56:00",
   "title" : "NSE anchor book exceeds expectations, says Ashishkumar Chauhan",
   "impact" : "The NSE IPO is a major liquidity event likely to boost overall market sentiment and investor participation. Nifty is expected to maintain its upward trajectory supported by strong domestic inflows, with neutral impact on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "This major acquisition signals strong foreign investor confidence in India's banking privatization roadmap. Nifty is expected to remain firm with a positive bias, while the large capital inflow supports rupee stability.",
   "source" : "Economic Times",
   "publishedAt" : "15-Oct-2026 00:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-15T07:01:09",
+  "title" : "Houthis hit Saudi oil giant as Iran war escalates",
+  "impact" : "Heightened geopolitical tension in the Middle East is likely to trigger a bearish opening for the Nifty 50. Crude oil supply concerns will exert downward pressure on the rupee due to increased import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 06:19 IST",
   "score" : 7
 } ]
