@@ -1919,5 +1919,19 @@
   "date": "2026-10-12",
   "price": 195.23,
   "rsRankAtEntry": 83.72549019607844
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ANANDRATHI",
+  "date": "2026-10-13",
+  "price": 2117.2,
+  "rsRankAtEntry": 80.03913894324853
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SUNTV",
+  "date": "2026-10-13",
+  "price": 653.1,
+  "rsRankAtEntry": 80.62622309197651
  }
 ]
