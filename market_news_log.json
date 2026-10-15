@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T08:22:22",
-  "title" : "Saudi Arabia’s oil export maze gets tighter",
-  "impact" : "Tightening oil supply creates inflationary pressure on Indian markets, likely leading to Nifty volatility. Higher crude prices will likely weaken the rupee against the dollar and impact trade deficit projections.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 07:20 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-16T09:39:43",
   "title" : "Rupee expected to stay under pressure with likely Fed rate hike adding to strain from high oil prices",
   "impact" : "The Indian equity market faces significant downside risk as a weakening rupee triggers FII outflows. Expect Nifty to consolidate near key support levels as inflationary pressures mount from expensive oil imports.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "15-Oct-2026 15:14 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-15T15:27:08",
+  "title" : "The ₹1.32 lakh crore foreign bet on India's banks",
+  "impact" : "Strong foreign inflows into banking indicate positive sentiment for Nifty 50, likely driving it toward record highs. Increased liquidity is expected to strengthen the Indian Rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Oct-2026 15:12 IST",
+  "score" : 8
 } ]
