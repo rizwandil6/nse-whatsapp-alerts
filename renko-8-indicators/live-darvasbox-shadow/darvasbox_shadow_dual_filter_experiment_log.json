@@ -16408,5 +16408,29 @@
   "timestampMs": 1792143000000,
   "breakoutTimestampMs": 1792143000000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2518.4820000000013,
+  "exitPrice": 2493.7910000000006,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.9803921568627728,
+  "entryTimestampMs": 1792141800000,
+  "exitTimestampMs": 1792143000000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 168.821,
+  "exitPrice": 168.4,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.2493765586034867,
+  "entryTimestampMs": 1792134000000,
+  "exitTimestampMs": 1792142700000,
+  "shadow": true
  }
 ]
