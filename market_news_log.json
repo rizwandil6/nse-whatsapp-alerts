@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-16T21:48:08",
-  "title" : "World shares rise as markets await Fed rate decision",
-  "impact" : "Global optimism ahead of the Fed decision likely provides a positive opening for Indian indices. Nifty is expected to sustain momentum near record highs with FII inflows supporting a stable rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "16-Sep-2026 21:33 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T00:19:43",
   "title" : "Taxman's JAARing move opens big new debate",
   "impact" : "Heightened tax uncertainty creates a negative sentiment for FPI-heavy mid-caps and large-caps. Nifty may face short-term volatility and selling pressure as foreign investors re-evaluate tax liabilities, potentially weakening the rupee due to potential capital outflows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "16-Oct-2026 05:30 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-16T06:05:30",
+  "title" : "Where Jio stands among telecom peers: A look at the key numbers",
+  "impact" : "The record-breaking IPO will likely draw significant liquidity from the secondary market, potentially creating short-term volatility for Nifty. Expect increased FII inflows, which could offer some support to the Rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Oct-2026 05:57 IST",
+  "score" : 8
 } ]
