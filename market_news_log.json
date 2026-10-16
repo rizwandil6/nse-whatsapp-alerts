@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T00:19:43",
-  "title" : "Taxman's JAARing move opens big new debate",
-  "impact" : "Heightened tax uncertainty creates a negative sentiment for FPI-heavy mid-caps and large-caps. Nifty may face short-term volatility and selling pressure as foreign investors re-evaluate tax liabilities, potentially weakening the rupee due to potential capital outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Sep-2026 00:09 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T00:49:49",
   "title" : "What India’s growth really means",
   "impact" : "Energy security focus reinforces long-term structural growth for the Indian equity market. Nifty is expected to maintain a positive bias supported by infrastructure investment, with the rupee showing stability due to reduced external energy dependency.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "16-Oct-2026 05:57 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-16T06:05:32",
+  "title" : "Jio’s mega IPO draws strong interest from global funds",
+  "impact" : "The record-breaking IPO will likely trigger significant FII inflows, bolstering Nifty sentiment while absorbing liquidity from the secondary market. The massive capital raise is expected to provide short-term stability to the Indian Rupee due to increased foreign currency inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Oct-2026 05:47 IST",
+  "score" : 9
 } ]
