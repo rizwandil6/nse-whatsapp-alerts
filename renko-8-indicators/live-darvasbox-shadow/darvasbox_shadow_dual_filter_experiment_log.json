@@ -16432,5 +16432,77 @@
   "entryTimestampMs": 1792134000000,
   "exitTimestampMs": 1792142700000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 200.26237499999996,
+  "exitPrice": 200.26237499999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1792130400000,
+  "exitTimestampMs": 1792144500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 742.2490000000001,
+  "exitPrice": 742.2490000000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1792142400000,
+  "exitTimestampMs": 1792142400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 125.86974999999998,
+  "exitPrice": 125.86974999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1792142100000,
+  "exitTimestampMs": 1792142100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 113.632875,
+  "exitPrice": 112.510575,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.9876543209876505,
+  "entryTimestampMs": 1792140660000,
+  "exitTimestampMs": 1792144500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 202.96625000000003,
+  "exitPrice": 200.41000000000008,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.25944584382869,
+  "entryTimestampMs": 1792143000000,
+  "exitTimestampMs": 1792143900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TRITURBINE",
+  "direction": "SHORT",
+  "entry": 498.75,
+  "exitPrice": 495,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7518796992481203,
+  "entryTimestampMs": 1792127100000,
+  "exitTimestampMs": 1792141200000,
+  "shadow": true
  }
 ]
