@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T05:51:00",
-  "title" : "EQT plans to invest $50 bn in India by 2030",
-  "impact" : "Large scale foreign direct investment inflows will boost liquidity and long-term capital formation. Expect a bullish Nifty trend as investor confidence strengthens, likely leading to rupee appreciation against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Sep-2026 05:30 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-17T05:51:03",
   "title" : "Aramco closes supply tap for Indian refiners",
   "impact" : "The reduction in crude oil supply from Aramco creates immediate upward pressure on global oil prices and India's import bill. Nifty faces volatility as higher energy costs threaten margins across sectors, likely putting downward pressure on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger risk-off sentiment in Indian equity markets. Nifty may face sharp downward pressure due to FII outflows, while the Rupee is expected to weaken against the dollar due to rising oil prices.",
   "source" : "Economic Times",
   "publishedAt" : "16-Oct-2026 15:31 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-16T17:15:23",
+  "title" : "IT lifts Nifty to second weekly gain as global AI rotation fuels tech rally",
+  "impact" : "The Indian equity market maintains a positive momentum led by strong global IT performance. Nifty is expected to sustain its upward trajectory with possible consolidation at record levels. The rupee remains stable as capital inflows continue to support market liquidity.",
+  "source" : "BusinessLine",
+  "publishedAt" : "16-Oct-2026 17:04 IST",
   "score" : 7
 } ]
