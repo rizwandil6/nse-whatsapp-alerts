@@ -1933,5 +1933,12 @@
   "date": "2026-10-13",
   "price": 653.1,
   "rsRankAtEntry": 80.62622309197651
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GRANULES",
+  "date": "2026-10-14",
+  "price": 811.95,
+  "rsRankAtEntry": 80.03913894324853
  }
 ]
