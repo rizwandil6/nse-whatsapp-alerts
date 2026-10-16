@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T05:51:03",
-  "title" : "Aramco closes supply tap for Indian refiners",
-  "impact" : "The reduction in crude oil supply from Aramco creates immediate upward pressure on global oil prices and India's import bill. Nifty faces volatility as higher energy costs threaten margins across sectors, likely putting downward pressure on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Sep-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T05:51:08",
   "title" : "Fed raises rates despite Trump pressure, signals another hike likely in 2026",
   "impact" : "The US rate hike exerts downward pressure on Indian equities as foreign institutional outflows increase. Nifty is expected to face volatility with a bearish bias, while the Rupee will likely weaken further against the Dollar due to widened interest rate differentials.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "16-Oct-2026 17:04 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-17T05:19:54",
+  "title" : "Brent crude hits $110 a barrel for first time since May as supply concerns mount",
+  "impact" : "Rising crude prices will likely pressure Indian indices, with Nifty expected to face downward volatility. The rupee will likely weaken due to higher import bills and increased demand for foreign exchange.",
+  "source" : "BusinessLine",
+  "publishedAt" : "17-Oct-2026 05:11 IST",
+  "score" : 8
 } ]
