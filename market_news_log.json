@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T07:37:41",
-  "title" : "The dealmaker meets his match in a central banker",
-  "impact" : "The friction between fiscal stimulus and monetary caution suggests a consolidation phase for Nifty. Expectations for interest rate cuts may be pushed back, keeping the rupee under pressure against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 21:42 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T07:37:52",
   "title" : "Can NSE IPO deliver long-term growth for high-risk investors?",
   "impact" : "The NSE IPO is a mega-liquidity event likely to trigger institutional reallocation and increased market depth. Nifty is expected to remain range-bound with high volatility, while the rupee may face short-term pressure due to foreign investor capital outflows during the OFS.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market is showing signs of a tactical pullback driven by short covering and cooling bond yields. Nifty expects a potential rally toward 23,650 if it breaches the 23,450 resistance zone, with limited immediate impact expected on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "17-Oct-2026 12:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-17T14:47:01",
+  "title" : "India’s Russian crude binge to continue after Trump waives new sanctions law",
+  "impact" : "Lower crude import costs maintain stable domestic inflation and fiscal health. Nifty is expected to remain resilient on energy cost stability while the Rupee finds support against USD volatility.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "17-Oct-2026 14:29 IST",
   "score" : 7
 } ]
