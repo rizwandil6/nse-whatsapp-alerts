@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T07:37:52",
-  "title" : "Can NSE IPO deliver long-term growth for high-risk investors?",
-  "impact" : "The NSE IPO is a mega-liquidity event likely to trigger institutional reallocation and increased market depth. Nifty is expected to remain range-bound with high volatility, while the rupee may face short-term pressure due to foreign investor capital outflows during the OFS.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Sep-2026 06:43 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-17T07:52:57",
   "title" : "Domestic market to open on flat to negative note as US Fed talks hawkish",
   "impact" : "Indian markets are expected to open lower tracking global cues, with Nifty likely testing support levels near 17900-18000. FII outflows may intensify, putting downward pressure on the rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower crude import costs maintain stable domestic inflation and fiscal health. Nifty is expected to remain resilient on energy cost stability while the Rupee finds support against USD volatility.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "17-Oct-2026 14:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-17T16:02:34",
+  "title" : "India's Russian crude binge to continue after Trump waives new sanctions law",
+  "impact" : "Continued access to discounted Russian crude lowers the import bill and supports Nifty stability. The rupee is expected to remain range-bound as reduced dollar outflow for energy mitigates broader trade deficit pressures.",
+  "source" : "BusinessLine",
+  "publishedAt" : "17-Oct-2026 15:43 IST",
   "score" : 7
 } ]
