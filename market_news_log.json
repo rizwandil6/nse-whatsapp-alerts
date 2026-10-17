@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T08:25:36",
-  "title" : "India faces a shortage of CEOs at home",
-  "impact" : "The leadership crisis in major private banks creates institutional uncertainty, potentially leading to a short-term correction in the Nifty Bank index. While the broader market remains resilient, heightened risk premiums for top lenders may exert mild pressure on the rupee due to potential foreign investor outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Sep-2026 07:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T08:56:11",
   "title" : "'Xi suffers stroke during BRICS summit'",
   "impact" : "Global market sentiment will turn significantly risk-off due to geopolitical uncertainty regarding Chinese leadership. Nifty 50 is expected to gap down sharply, and the Indian Rupee will likely face depreciation pressure against the USD as investors flee to safe-haven assets.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "17-Oct-2026 15:47 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-17T17:18:18",
+  "title" : "AI race may depend more on access to power, infrastructure than chip supply: Morgan Stanley",
+  "impact" : "The power infrastructure constraint in the US enhances India's appeal as a potential data center hub, providing a long-term tailwind for domestic infrastructure and energy stocks. Nifty may see selective gains in power-heavy sectors, while the Rupee is likely to remain stable as increased FDI inflows for data centers could offset broader market volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Oct-2026 16:32 IST",
+  "score" : 7
 } ]
