@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T08:56:11",
-  "title" : "'Xi suffers stroke during BRICS summit'",
-  "impact" : "Global market sentiment will turn significantly risk-off due to geopolitical uncertainty regarding Chinese leadership. Nifty 50 is expected to gap down sharply, and the Indian Rupee will likely face depreciation pressure against the USD as investors flee to safe-haven assets.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Sep-2026 08:17 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-09-17T08:56:14",
   "title" : "Fed bites the bullet, raises rates by 25 bps",
   "impact" : "Expect initial volatility and FII outflows from the Indian market due to interest rate differentials. Nifty is likely to face downward pressure as global liquidity tightens, exerting depreciation pressure on the Indian Rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The power infrastructure constraint in the US enhances India's appeal as a potential data center hub, providing a long-term tailwind for domestic infrastructure and energy stocks. Nifty may see selective gains in power-heavy sectors, while the Rupee is likely to remain stable as increased FDI inflows for data centers could offset broader market volatility.",
   "source" : "Economic Times",
   "publishedAt" : "17-Oct-2026 16:32 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-17T20:34:12",
+  "title" : "Q2 Results Highlights: HDFC Bank, ICICI Bank, Axis Bank, IDBI Bank, Central Bank of India post profit growth; YES Bank flags AT-1 bond ruling impact",
+  "impact" : "Strong bank earnings provide a solid support base for Nifty to sustain current levels. The positive momentum in financials may offset potential volatility from banking regulatory news and keep the rupee stable against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "17-Oct-2026 20:02 IST",
   "score" : 7
 } ]
