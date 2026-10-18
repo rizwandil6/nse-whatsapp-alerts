@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T10:57:23",
-  "title" : "India stands firm on Russian oil amid US tariff threat",
-  "impact" : "Rising geopolitical friction with the US creates short-term volatility and downward pressure on Nifty. Rupee is likely to face depreciation against the dollar due to concerns over trade tariffs and capital outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "17-Sep-2026 10:55 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T10:57:28",
   "title" : "MEA ‘monitoring developments’ of Russia sanctions bill in U.S. Congress",
   "impact" : "The potential for US sanctions creates significant macro uncertainty, likely triggering a bearish sentiment in the short term. Nifty is expected to face downward pressure due to FII outflows, while the Rupee may weaken against the Dollar due to rising energy cost concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Middle East typically triggers volatility and a flight to safety in Indian equities. Nifty may face downward pressure due to FII outflows, while the rupee remains vulnerable to higher oil prices and dollar strength.",
   "source" : "Economic Times",
   "publishedAt" : "18-Oct-2026 06:49 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-18T12:13:50",
+  "title" : "Private capex cycle in India seen gaining traction as corporate, SME lending surges: Jefferies",
+  "impact" : "The surge in credit growth signals strong economic expansion and capital formation, likely driving Nifty towards higher levels. Improved credit flow typically strengthens the rupee by attracting foreign investment in industrial and financial assets.",
+  "source" : "BusinessLine",
+  "publishedAt" : "18-Oct-2026 12:08 IST",
   "score" : 7
 } ]
