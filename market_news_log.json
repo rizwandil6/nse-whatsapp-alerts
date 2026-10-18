@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T13:45:02",
-  "title" : "India’s chip story moves from files to factories: Modi",
-  "impact" : "The semiconductor push signals long-term structural growth for Indian manufacturing, supporting Nifty bullish sentiment. Expected capital inflows and infrastructure scaling will likely stabilize the rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Sep-2026 12:14 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T15:00:30",
   "title" : "India is building the auto world’s Plan B to China",
   "impact" : "Global supply chain diversification into India boosts long-term foreign direct investment and macro stability. Nifty is expected to maintain a structural uptrend with potential rupee appreciation due to strong capital inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "HDFC Bank results reflect margin pressure in the banking sector, likely keeping Nifty consolidation bias intact. The focus on NIM compression may lead to cautious sentiment regarding financial stocks until interest rate clarity improves.",
   "source" : "Economic Times",
   "publishedAt" : "18-Oct-2026 10:12 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-18T17:15:31",
+  "title" : "Crude oil likely to gain further next week as supply fears overshadow relief measures: Analysts",
+  "impact" : "Rising crude oil prices will pressure Indian indices as they increase import costs and fiscal deficit concerns. Nifty is expected to face resistance near key levels, while the rupee likely faces depreciation against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "18-Oct-2026 16:59 IST",
   "score" : 7
 } ]
