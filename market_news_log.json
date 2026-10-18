@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T10:42:07",
-  "title" : "National Stock Exchange's $2.3-billion IPO opens for subscription",
-  "impact" : "The NSE IPO is expected to boost overall market sentiment by attracting significant foreign liquidity. Nifty 50 may witness a positive trend due to increased investor participation and a potential strengthening of the rupee as global inflows materialize.",
-  "source" : "BusinessLine",
-  "publishedAt" : "17-Sep-2026 10:36 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-17T10:42:11",
   "title" : "Govt bonds dip as US Fed move seen as final straw pushing RBI toward hikes",
   "impact" : "Rising bond yields signal tighter liquidity, exerting downward pressure on Indian equities. Expect Nifty to consolidate with a negative bias as the cost of borrowing increases and the rupee faces depreciation pressure against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "18-Oct-2026 10:58 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-18T11:43:38",
+  "title" : "FPIs pull out ₹52,100 crore from equities in Oct so far amid global headwinds",
+  "impact" : "Sustained FPI outflows are exerting heavy selling pressure on Nifty, threatening to push it further below critical support levels. Expect continued volatility and further depreciation of the Rupee against the Dollar due to foreign capital flight.",
+  "source" : "BusinessLine",
+  "publishedAt" : "18-Oct-2026 11:27 IST",
+  "score" : 8
 } ]
