@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T15:00:30",
-  "title" : "India is building the auto world’s Plan B to China",
-  "impact" : "Global supply chain diversification into India boosts long-term foreign direct investment and macro stability. Nifty is expected to maintain a structural uptrend with potential rupee appreciation due to strong capital inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Sep-2026 14:21 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-17T15:00:32",
   "title" : "ISM 2.0 to build wider semiconductor ecosystem",
   "impact" : "The expansion of the semiconductor ecosystem acts as a significant long-term growth catalyst for domestic manufacturing and industrial output. Nifty is expected to trend bullish on increased capital expenditure sentiment, while the rupee remains stable as reduced reliance on imported chips may improve the trade deficit long-term.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising crude oil prices will pressure Indian indices as they increase import costs and fiscal deficit concerns. Nifty is expected to face resistance near key levels, while the rupee likely faces depreciation against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "18-Oct-2026 16:59 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-18T18:46:03",
+  "title" : "Gold and silver head for volatile week amid crude oil spike, West Asia worries",
+  "impact" : "Rising crude oil prices and geopolitical tensions create a cautious environment for Indian equities. Nifty may face selling pressure due to FII outflows, while the rupee is likely to weaken against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "18-Oct-2026 18:43 IST",
   "score" : 7
 } ]
