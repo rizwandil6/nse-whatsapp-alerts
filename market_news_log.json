@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T08:56:14",
-  "title" : "Fed bites the bullet, raises rates by 25 bps",
-  "impact" : "Expect initial volatility and FII outflows from the Indian market due to interest rate differentials. Nifty is likely to face downward pressure as global liquidity tightens, exerting depreciation pressure on the Indian Rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Sep-2026 23:31 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T09:26:19",
   "title" : "NSE IPO Day 1 Live Updates: Much-awaited NSE IPO opens today at ₹1,700–₹1,785 price band",
   "impact" : "The NSE IPO is a landmark liquidity event expected to drive significant retail and institutional participation. Expect positive Nifty momentum due to high subscription demand, with neutral impact on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong bank earnings provide a solid support base for Nifty to sustain current levels. The positive momentum in financials may offset potential volatility from banking regulatory news and keep the rupee stable against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "17-Oct-2026 20:02 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-18T07:37:50",
+  "title" : "Saudi Arabia’s Houthi trap: Who sets war’s price?",
+  "impact" : "Geopolitical tensions in the Red Sea threaten to spike global energy costs and disrupt supply chains, potentially turning Nifty sentiment bearish. The rupee is expected to face pressure due to rising crude oil import bills and safe-haven demand for the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Oct-2026 20:36 IST",
   "score" : 7
 } ]
