@@ -2019,5 +2019,26 @@
   "date": "2026-10-17",
   "price": 811.95,
   "rsRankAtEntry": 80.03913894324853
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "BOSCHLTD",
+  "date": "2026-10-15",
+  "price": 45560,
+  "rsRankAtEntry": 80.2734375
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SUNTV",
+  "date": "2026-10-15",
+  "price": 638,
+  "rsRankAtEntry": 80.078125
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "TECHM",
+  "date": "2026-10-15",
+  "price": 1790,
+  "rsRankAtEntry": 80.46875
  }
 ]

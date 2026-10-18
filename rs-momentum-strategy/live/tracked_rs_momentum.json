@@ -269,5 +269,26 @@
   "entryPrice": 598.3,
   "rsRankAtEntry": 80.859375,
   "salesGrowth3Y": 15
+ },
+ "BOSCHLTD": {
+  "entryDate": "2026-10-15",
+  "entryPrice": 45560,
+  "rsRankAtEntry": 80.2734375,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SUNTV": {
+  "entryDate": "2026-10-15",
+  "entryPrice": 638,
+  "rsRankAtEntry": 80.078125,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "TECHM": {
+  "entryDate": "2026-10-15",
+  "entryPrice": 1790,
+  "rsRankAtEntry": 80.46875,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

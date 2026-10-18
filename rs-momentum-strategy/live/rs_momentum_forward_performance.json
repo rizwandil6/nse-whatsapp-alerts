@@ -22,6 +22,28 @@
   "returnSinceEntry": 0
  },
  {
+  "symbol": "BOSCHLTD",
+  "entryDate": "2026-10-15",
+  "entryPrice": 45560,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 45560,
+  "returnSinceEntry": 0
+ },
+ {
+  "symbol": "TECHM",
+  "entryDate": "2026-10-15",
+  "entryPrice": 1790,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 1790,
+  "returnSinceEntry": 0
+ },
+ {
   "symbol": "PRUDENT",
   "entryDate": "2026-10-09",
   "entryPrice": 3501.6,
