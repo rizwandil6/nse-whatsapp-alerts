@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T10:42:11",
-  "title" : "Govt bonds dip as US Fed move seen as final straw pushing RBI toward hikes",
-  "impact" : "Rising bond yields signal tighter liquidity, exerting downward pressure on Indian equities. Expect Nifty to consolidate with a negative bias as the cost of borrowing increases and the rupee faces depreciation pressure against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "17-Sep-2026 10:23 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T10:57:23",
   "title" : "India stands firm on Russian oil amid US tariff threat",
   "impact" : "Rising geopolitical friction with the US creates short-term volatility and downward pressure on Nifty. Rupee is likely to face depreciation against the dollar due to concerns over trade tariffs and capital outflows.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "18-Oct-2026 11:27 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-18T11:58:42",
+  "title" : "Trump's Iran endgame comes with a fuel-price vow",
+  "impact" : "Heightened geopolitical risk in the Middle East typically triggers volatility and a flight to safety in Indian equities. Nifty may face downward pressure due to FII outflows, while the rupee remains vulnerable to higher oil prices and dollar strength.",
+  "source" : "Economic Times",
+  "publishedAt" : "18-Oct-2026 06:49 IST",
+  "score" : 7
 } ]
