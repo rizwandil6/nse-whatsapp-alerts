@@ -16504,5 +16504,14 @@
   "entryTimestampMs": 1792127100000,
   "exitTimestampMs": 1792141200000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 9.825375,
+  "timestampMs": 1792383300000,
+  "breakoutTimestampMs": 1792383300000,
+  "shadow": true
  }
 ]
