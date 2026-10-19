@@ -16666,5 +16666,95 @@
   "timestampMs": 1792402800000,
   "breakoutTimestampMs": 1792402800000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 198.2945,
+  "timestampMs": 1792403700000,
+  "breakoutTimestampMs": 1792403700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 103.16249999999998,
+  "timestampMs": 1792403700000,
+  "breakoutTimestampMs": 1792403400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 34.4993,
+  "exitPrice": 34.4124,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.251889168765743,
+  "entryTimestampMs": 1792402800000,
+  "exitTimestampMs": 1792403700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 198.2945,
+  "exitPrice": 199.77799999999996,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7481296758104555,
+  "entryTimestampMs": 1792403700000,
+  "exitTimestampMs": 1792403700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "SHORT",
+  "entry": 103.16249999999998,
+  "exitPrice": 102.89999999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2544529262086542,
+  "entryTimestampMs": 1792403700000,
+  "exitTimestampMs": 1792403700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 733.2093750000001,
+  "exitPrice": 733.2093750000001,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1792399800000,
+  "exitTimestampMs": 1792399800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "SHORT",
+  "entry": 9.825375,
+  "exitPrice": 9.702249999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.253132832080218,
+  "entryTimestampMs": 1792383300000,
+  "exitTimestampMs": 1792403700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "SHORT",
+  "entry": 194.896625,
+  "exitPrice": 194.3904,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25974025974026005,
+  "entryTimestampMs": 1792401900000,
+  "exitTimestampMs": 1792403400000,
+  "shadow": true
  }
 ]
