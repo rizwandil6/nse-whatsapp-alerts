@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T08:20:08",
-  "title" : "Trump may not see another rate cut as Prez",
-  "impact" : "The US Fed's hawkish stance will likely trigger FII outflows from Indian equities, putting Nifty under selling pressure. A stronger dollar driven by high US yields will exert downward pressure on the Indian Rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Sep-2026 07:39 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-18T09:35:40",
   "title" : "1 Indian-American vote, bigger tariff pain for India",
   "impact" : "The prospect of protectionist US tariff policies creates significant downside risk for Indian exports. Nifty may face increased volatility and selling pressure, while the rupee could depreciate due to capital flight risks and stronger dollar sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian equity market is witnessing a sharp corrective trend led by heavy selling in banking and IT heavyweights. Nifty is expected to test immediate support levels below 22,500, with the rupee likely to remain under pressure due to foreign institutional outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "19-Oct-2026 13:09 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-19T15:21:14",
+  "title" : "₹7.8 lakh crore cash cows fuel India Inc's big spend",
+  "impact" : "Corporate cash surplus signals increased capital expenditure, likely providing a floor for Nifty indices. Strong investment cycles will likely support the rupee by attracting foreign inflows into infrastructure and industrial assets.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Oct-2026 05:30 IST",
   "score" : 7
 } ]
