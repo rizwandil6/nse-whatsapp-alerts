@@ -16621,5 +16621,41 @@
   "timestampMs": 1792402200000,
   "breakoutTimestampMs": 1792402200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 40.60169999999998,
+  "exitPrice": 40.49864999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25380710659899275,
+  "entryTimestampMs": 1792402200000,
+  "exitTimestampMs": 1792402500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2522.619,
+  "exitPrice": 2509.8785000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5050505050505004,
+  "entryTimestampMs": 1792388700000,
+  "exitTimestampMs": 1792399800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 197.01,
+  "exitPrice": 194.52249999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2626262626262685,
+  "entryTimestampMs": 1792389600000,
+  "exitTimestampMs": 1792402200000,
+  "shadow": true
  }
 ]
