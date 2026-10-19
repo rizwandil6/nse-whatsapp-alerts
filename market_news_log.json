@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T11:06:50",
-  "title" : "India heads for driest monsoon since 2009 as El Niño curbs rainfall",
-  "impact" : "Driest monsoon poses upside risk to food inflation and curbs rural demand, likely keeping the Nifty cautious. The rupee may face downward pressure due to potential import-driven inflation and broader economic headwinds.",
-  "source" : "BusinessLine",
-  "publishedAt" : "18-Sep-2026 10:52 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-18T11:22:00",
   "title" : "Tata Group stocks fall 8% as Tata Trusts calls Chandrasekaran’s extension illegal",
   "impact" : "The internal leadership conflict within the Tata Group creates significant volatility, potentially dragging down the Nifty due to the heavy weightage of Tata stocks. The uncertainty surrounding the holding company IPO and board stability may dampen broader investor sentiment and put downward pressure on the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "19-Oct-2026 16:44 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-19T18:24:22",
+  "title" : "$64 bn outflow erased 9 yrs of buying",
+  "impact" : "The record FII selling creates significant headwinds for large-cap indices like Nifty 50, necessitating strong domestic buying to prevent further corrections. Expect persistent volatility and pressure on the rupee as high US Treasury yields and crude prices limit foreign appetite.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Oct-2026 09:45 IST",
+  "score" : 8
 } ]
