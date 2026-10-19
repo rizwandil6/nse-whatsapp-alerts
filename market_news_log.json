@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T11:22:00",
-  "title" : "Tata Group stocks fall 8% as Tata Trusts calls Chandrasekaran’s extension illegal",
-  "impact" : "The internal leadership conflict within the Tata Group creates significant volatility, potentially dragging down the Nifty due to the heavy weightage of Tata stocks. The uncertainty surrounding the holding company IPO and board stability may dampen broader investor sentiment and put downward pressure on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Sep-2026 09:23 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-18T13:07:48",
   "title" : "Tata's 2nd-largest shareholder votes for D-Street entry",
   "impact" : "This signals a significant value unlocking event for the Tata group, likely boosting investor sentiment and providing a tailwind for Nifty. Positive capital flow expectations may provide slight support to the Rupee against the Dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "19-Oct-2026 09:45 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-19T19:25:13",
+  "title" : "The cost of getting goods to India just surged 130%",
+  "impact" : "Surging logistics costs threaten corporate margins and increase inflationary pressure in India. Expect Nifty to face short-term volatility and a bearish bias due to supply-side constraints. The rupee may face depreciation pressure as import costs of essential goods rise.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Oct-2026 15:28 IST",
+  "score" : 7
 } ]
