@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T19:35:19",
-  "title" : "Iran war drives clean energy development",
-  "impact" : "Heightened geopolitical risk in Iran typically triggers risk-off sentiment in the Nifty, leading to potential near-term volatility. The rupee faces depreciation pressure due to rising crude oil import costs and safe-haven flows into the USD.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Sep-2026 19:08 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T19:36:03",
   "title" : "Tata's stocks soar 14% on Chandra and IPO moves",
   "impact" : "The positive sentiment surrounding Tata Group's strategic restructuring and IPO plans provides a strong tailwind for the broader market. Nifty is expected to sustain its upward momentum with increased buying interest in conglomerate heavyweights, supporting the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The reduction in IT sector weights by major mutual funds reflects a structural de-rating that could weigh on Nifty stability. Expect continued volatility in large-cap indices as institutional capital rotates away from tech towards cyclical sectors.",
   "source" : "Economic Times",
   "publishedAt" : "19-Oct-2026 06:10 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-19T06:33:12",
+  "title" : "Multimodal, cost-efficient transport",
+  "impact" : "Positive sentiment for infrastructure and logistics sectors likely to bolster Nifty momentum. Expected efficiency gains in supply chain may reduce domestic inflationary pressures and stabilize the rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "18-Oct-2026 23:28 IST",
   "score" : 7
 } ]
