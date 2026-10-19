@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T10:36:30",
-  "title" : "Moody's raises India fiscal 2027 GDP growth forecast to 7% on West Asia resilience",
-  "impact" : "Positive outlook on long-term GDP growth boosts investor sentiment for Indian equities. Nifty expected to trend upwards on strong fundamentals, though rupee may face minor pressure from elevated energy import costs.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "18-Sep-2026 10:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-18T11:06:50",
   "title" : "India heads for driest monsoon since 2009 as El Niño curbs rainfall",
   "impact" : "Driest monsoon poses upside risk to food inflation and curbs rural demand, likely keeping the Nifty cautious. The rupee may face downward pressure due to potential import-driven inflation and broader economic headwinds.",
@@ -3497,5 +3490,12 @@
   "impact" : "The sharp 900-point decline signals a broad risk-off sentiment across Indian equities. Nifty faces strong downward pressure as technical support levels are breached, and the rupee is likely to face depreciation due to potential foreign institutional capital outflows.",
   "source" : "Economic Times",
   "publishedAt" : "19-Oct-2026 10:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-19T16:52:32",
+  "title" : "Sensex today | Stock Market Highlights: Sensex, Nifty close over 1% lower; private bank, IT stocks push markets lower",
+  "impact" : "The Indian equity market remains under selling pressure with a bearish trend following a sharp decline in key index heavyweights. Nifty is likely to test lower support levels as market sentiment weakens. The rupee may face renewed pressure due to sustained foreign institutional selling.",
+  "source" : "BusinessLine",
+  "publishedAt" : "19-Oct-2026 16:44 IST",
   "score" : 7
 } ]
