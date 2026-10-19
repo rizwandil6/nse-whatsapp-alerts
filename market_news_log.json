@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T10:21:13",
-  "title" : "Rupee isn’t done bleeding despite $250 bn defence",
-  "impact" : "Continued rupee depreciation exerts downward pressure on the Indian equity market by increasing FII outflows. Nifty faces resistance as import-heavy sectors struggle, while the rising cost of hedging hampers investor sentiment.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Sep-2026 06:55 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-18T10:36:26",
   "title" : "Moody's raises India’s fiscal 2027 GDP growth forecast to 7% on West Asia resilience",
   "impact" : "The upward revision to 7% GDP growth provides a strong medium-term foundation for Nifty to sustain its bullish trajectory. The rupee is likely to remain stable or strengthen slightly as foreign institutional flows favor the resilient Indian growth story.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "19-Oct-2026 15:57 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-10-19T16:37:14",
+  "title" : "Sensex tumbles 876 points; Nifty drops below 22,900 dragged by private banks",
+  "impact" : "The Indian equity market is currently facing a sharp correction led by heavy selling in banking majors. Nifty is expected to witness further consolidation below the 22,900 mark, while the rupee may face moderate pressure due to potential FII outflows.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "19-Oct-2026 16:30 IST",
+  "score" : 7
 } ]
