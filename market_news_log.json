@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T13:07:48",
-  "title" : "Tata's 2nd-largest shareholder votes for D-Street entry",
-  "impact" : "This signals a significant value unlocking event for the Tata group, likely boosting investor sentiment and providing a tailwind for Nifty. Positive capital flow expectations may provide slight support to the Rupee against the Dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Sep-2026 10:40 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-18T13:38:31",
   "title" : "Moody’s rises India’s GDP forecast to 7%",
   "impact" : "The upgrade to 7% GDP growth sentiment provides a bullish tailwind for the Nifty index to test record highs. Domestic capital flows are expected to strengthen, though the Rupee may face pressure if inflation risks from the West Asia crisis materialize.",
@@ -3497,5 +3490,12 @@
   "impact" : "Surging logistics costs threaten corporate margins and increase inflationary pressure in India. Expect Nifty to face short-term volatility and a bearish bias due to supply-side constraints. The rupee may face depreciation pressure as import costs of essential goods rise.",
   "source" : "Economic Times",
   "publishedAt" : "19-Oct-2026 15:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-19T23:40:39",
+  "title" : "HDFC Bank vs ICICI Bank: One has the growth, the other has the valuation edge. Which stock to buy?",
+  "impact" : "The divergence between banking giants signals a shift toward growth-focused stock picking over value plays. Nifty likely faces consolidation as HDFC Bank weightage drags while ICICI Bank provides stability.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Oct-2026 12:26 IST",
   "score" : 7
 } ]
