@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-17T19:35:03",
-  "title" : "As U.S. readies 100% tariffs, Russia provided more than half of India’s oil imports in July",
-  "impact" : "The US tariff threat creates significant geopolitical risk for India, likely pressuring Nifty due to potential import cost spikes. Increased volatility may weaken the Rupee against the Dollar as energy import bills potentially inflate.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "17-Sep-2026 19:25 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-17T19:35:19",
   "title" : "Iran war drives clean energy development",
   "impact" : "Heightened geopolitical risk in Iran typically triggers risk-off sentiment in the Nifty, leading to potential near-term volatility. The rupee faces depreciation pressure due to rising crude oil import costs and safe-haven flows into the USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a risk-off sentiment in Indian markets. Nifty is expected to open with a downward gap due to soaring crude oil prices, while the Rupee will face significant depreciation pressure against the USD.",
   "source" : "Economic Times",
   "publishedAt" : "19-Oct-2026 06:11 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-19T06:18:09",
+  "title" : "Mutual fund holdings of IT stocks sink to record low in September",
+  "impact" : "The reduction in IT sector weights by major mutual funds reflects a structural de-rating that could weigh on Nifty stability. Expect continued volatility in large-cap indices as institutional capital rotates away from tech towards cyclical sectors.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Oct-2026 06:10 IST",
   "score" : 7
 } ]
