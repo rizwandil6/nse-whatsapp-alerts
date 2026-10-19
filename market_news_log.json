@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T07:55:54",
-  "title" : "Tropics' bad boy puts India’s monsoon on edge",
-  "impact" : "Weak monsoon expectations create inflation pressure, potentially capping Nifty gains. Rupee likely to face depreciation pressure due to higher food import costs and fiscal strain.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Sep-2026 07:14 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-18T08:20:08",
   "title" : "Trump may not see another rate cut as Prez",
   "impact" : "The US Fed's hawkish stance will likely trigger FII outflows from Indian equities, putting Nifty under selling pressure. A stronger dollar driven by high US yields will exert downward pressure on the Indian Rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The sharp divide between PSU and private banks is likely to cause index volatility as financials carry heavy weightage in the Nifty. Markets may consolidate near support levels of 55,200 for the bank index while individual earnings remain the primary driver for price action.",
   "source" : "Economic Times",
   "publishedAt" : "19-Oct-2026 11:54 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-19T13:20:11",
+  "title" : "Private banks, IT drag Sensex 756 points lower at noon; metals buck the slide",
+  "impact" : "The Indian equity market is witnessing a sharp corrective trend led by heavy selling in banking and IT heavyweights. Nifty is expected to test immediate support levels below 22,500, with the rupee likely to remain under pressure due to foreign institutional outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "19-Oct-2026 13:09 IST",
   "score" : 7
 } ]
