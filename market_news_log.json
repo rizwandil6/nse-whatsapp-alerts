@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T13:38:31",
-  "title" : "Moody’s rises India’s GDP forecast to 7%",
-  "impact" : "The upgrade to 7% GDP growth sentiment provides a bullish tailwind for the Nifty index to test record highs. Domestic capital flows are expected to strengthen, though the Rupee may face pressure if inflation risks from the West Asia crisis materialize.",
-  "source" : "BusinessLine",
-  "publishedAt" : "18-Sep-2026 13:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-18T14:08:42",
   "title" : "India’s ‘sugar high’ warrants caution on RBI hikes: JP Morgan Chase",
   "impact" : "Sustained rate hike risks trigger a cautious shift in investor sentiment toward rate-sensitive equities. Nifty faces overhead resistance as capital costs rise, while the rupee may find support from attractive yields but face pressure from potential equity outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The divergence between banking giants signals a shift toward growth-focused stock picking over value plays. Nifty likely faces consolidation as HDFC Bank weightage drags while ICICI Bank provides stability.",
   "source" : "Economic Times",
   "publishedAt" : "19-Oct-2026 12:26 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-20T01:11:15",
+  "title" : "Carmakers fuel up for India’s multi-engine future",
+  "impact" : "The shift toward multi-energy automotive manufacturing reinforces India's industrial growth narrative. Nifty is expected to maintain a positive trend supported by capex-heavy sectors, with minimal impact on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "20-Oct-2026 00:16 IST",
   "score" : 7
 } ]
