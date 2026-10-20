@@ -2040,5 +2040,26 @@
   "date": "2026-10-15",
   "price": 1790,
   "rsRankAtEntry": 80.46875
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "date": "2026-10-18",
+  "price": 441.1,
+  "pnlPct": -10.309068727124846
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "APLAPOLLO",
+  "date": "2026-10-18",
+  "price": 2144.6,
+  "rsRankAtEntry": 80.078125
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "JAMNAAUTO",
+  "date": "2026-10-18",
+  "price": 139.02,
+  "rsRankAtEntry": 80.859375
  }
 ]

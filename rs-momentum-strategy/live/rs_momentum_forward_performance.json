@@ -1,5 +1,27 @@
 [
  {
+  "symbol": "JAMNAAUTO",
+  "entryDate": "2026-10-18",
+  "entryPrice": 139.02,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 139.02,
+  "returnSinceEntry": 0
+ },
+ {
+  "symbol": "APLAPOLLO",
+  "entryDate": "2026-10-18",
+  "entryPrice": 2144.6,
+  "status": "open",
+  "exitDate": null,
+  "exitPrice": null,
+  "returnWhileOpen": null,
+  "currentPrice": 2144.6,
+  "returnSinceEntry": 0
+ },
+ {
   "symbol": "ANANDRATHI",
   "entryDate": "2026-10-17",
   "entryPrice": 2117.2,
@@ -7,8 +29,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 2159.7,
-  "returnSinceEntry": 2.0073682221802382
+  "currentPrice": 2163.9,
+  "returnSinceEntry": 2.2057434347251217
  },
  {
   "symbol": "INDGN",
@@ -18,8 +40,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 598.3,
-  "returnSinceEntry": 0
+  "currentPrice": 588.3,
+  "returnSinceEntry": -1.6714023065351833
  },
  {
   "symbol": "BOSCHLTD",
@@ -29,8 +51,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 45560,
-  "returnSinceEntry": 0
+  "currentPrice": 45195,
+  "returnSinceEntry": -0.8011413520632134
  },
  {
   "symbol": "TECHM",
@@ -40,8 +62,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1790,
-  "returnSinceEntry": 0
+  "currentPrice": 1779.1,
+  "returnSinceEntry": -0.6089385474860386
  },
  {
   "symbol": "PRUDENT",
@@ -51,8 +73,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 3052,
-  "returnSinceEntry": -12.839844642449163
+  "currentPrice": 3056.4,
+  "returnSinceEntry": -12.714187799862914
  },
  {
   "symbol": "SHAILY",
@@ -62,8 +84,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 3109.7,
-  "returnSinceEntry": -1.2730967045526813
+  "currentPrice": 3105.2,
+  "returnSinceEntry": -1.415962918280537
  },
  {
   "symbol": "ETERNAL",
@@ -73,8 +95,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 325.3,
-  "returnSinceEntry": -4.883040935672511
+  "currentPrice": 320.2,
+  "returnSinceEntry": -6.374269005847956
  },
  {
   "symbol": "LLOYDSENT",
@@ -84,8 +106,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 70.42,
-  "returnSinceEntry": -11.610392870591188
+  "currentPrice": 68.72,
+  "returnSinceEntry": -13.744194803564708
  },
  {
   "symbol": "RATEGAIN",
@@ -95,8 +117,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 827.2,
-  "returnSinceEntry": -0.18100639555930975
+  "currentPrice": 799.55,
+  "returnSinceEntry": -3.517557620369264
  },
  {
   "symbol": "CARTRADE",
@@ -106,8 +128,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 3011.4,
-  "returnSinceEntry": 2.589084962867071
+  "currentPrice": 3032.9,
+  "returnSinceEntry": 3.3215234720992024
  },
  {
   "symbol": "URBANCO",
@@ -117,8 +139,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 158.12,
-  "returnSinceEntry": -8.885559525181508
+  "currentPrice": 142.48,
+  "returnSinceEntry": -17.89789097614383
  },
  {
   "symbol": "SUDARSCHEM",
@@ -128,8 +150,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1138.3,
-  "returnSinceEntry": -8.253405335697597
+  "currentPrice": 1121.7,
+  "returnSinceEntry": -9.59135971628919
  },
  {
   "symbol": "BRIGADE",
@@ -139,8 +161,8 @@
   "exitDate": "2026-10-08",
   "exitPrice": 548.8,
   "returnWhileOpen": -22.953811596237543,
-  "currentPrice": 575.15,
-  "returnSinceEntry": -19.254527586691
+  "currentPrice": 571.15,
+  "returnSinceEntry": -19.816088726660112
  },
  {
   "symbol": "LOTUSDEV",
@@ -150,8 +172,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 246.25,
-  "returnSinceEntry": 27.42561448900388
+  "currentPrice": 239.83,
+  "returnSinceEntry": 24.10349288486417
  },
  {
   "symbol": "MANYAVAR",
@@ -161,8 +183,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 519.85,
-  "returnSinceEntry": -12.51262201279031
+  "currentPrice": 509.85,
+  "returnSinceEntry": -14.195557051497815
  },
  {
   "symbol": "SPARC",
@@ -172,8 +194,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 188.64,
-  "returnSinceEntry": -9.181069760724096
+  "currentPrice": 185.07,
+  "returnSinceEntry": -10.89981223821675
  },
  {
   "symbol": "ENTERO",
@@ -183,8 +205,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1585,
-  "returnSinceEntry": 3.60831481239378
+  "currentPrice": 1503.9,
+  "returnSinceEntry": -1.6930317688586654
  },
  {
   "symbol": "OPTIEMUS",
@@ -194,8 +216,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 788.65,
-  "returnSinceEntry": 34.65084514256444
+  "currentPrice": 748.7,
+  "returnSinceEntry": 27.8299470718798
  },
  {
   "symbol": "SKIPPER",
@@ -205,8 +227,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 526.45,
-  "returnSinceEntry": -8.443478260869558
+  "currentPrice": 520.85,
+  "returnSinceEntry": -9.417391304347822
  },
  {
   "symbol": "THYROCARE",
@@ -216,8 +238,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 485.25,
-  "returnSinceEntry": -16.909246575342465
+  "currentPrice": 471,
+  "returnSinceEntry": -19.34931506849315
  },
  {
   "symbol": "ANTHEM",
@@ -227,8 +249,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 822.15,
-  "returnSinceEntry": -10.931152158604624
+  "currentPrice": 808.5,
+  "returnSinceEntry": -12.409945290070956
  },
  {
   "symbol": "JYOTICNC",
@@ -238,8 +260,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 997.2,
-  "returnSinceEntry": -1.5305618643230967
+  "currentPrice": 975.8,
+  "returnSinceEntry": -3.643724696356284
  },
  {
   "symbol": "YATHARTH",
@@ -249,8 +271,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 992.1,
-  "returnSinceEntry": 2.7763389619807386
+  "currentPrice": 971,
+  "returnSinceEntry": 0.5904900031078468
  },
  {
   "symbol": "ACE",
@@ -260,8 +282,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1136.3,
-  "returnSinceEntry": -4.093517893315328
+  "currentPrice": 1108.1,
+  "returnSinceEntry": -6.4736664415935214
  },
  {
   "symbol": "GOKULAGRO",
@@ -271,8 +293,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 213.11,
-  "returnSinceEntry": -12.307629001728252
+  "currentPrice": 208.86,
+  "returnSinceEntry": -14.056456258744134
  },
  {
   "symbol": "NYKAA",
@@ -282,8 +304,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 345,
-  "returnSinceEntry": 5.391782495799595
+  "currentPrice": 336.65,
+  "returnSinceEntry": 2.8409958759737144
  },
  {
   "symbol": "VIYASH",
@@ -293,8 +315,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 226,
-  "returnSinceEntry": -16.72807663964627
+  "currentPrice": 221.11,
+  "returnSinceEntry": -18.529845246868078
  },
  {
   "symbol": "NUVAMA",
@@ -315,8 +337,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 24680,
-  "returnSinceEntry": 19.898950641274777
+  "currentPrice": 25045,
+  "returnSinceEntry": 21.67217256121259
  },
  {
   "symbol": "TBOTEK",
@@ -326,8 +348,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1627.5,
-  "returnSinceEntry": -4.264705882352941
+  "currentPrice": 1613.6,
+  "returnSinceEntry": -5.082352941176476
  },
  {
   "symbol": "AEGISVOPAK",
@@ -359,8 +381,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 3162,
-  "returnSinceEntry": 14.594281158264769
+  "currentPrice": 3184.5,
+  "returnSinceEntry": 15.409705360055078
  },
  {
   "symbol": "COFORGE",
@@ -370,8 +392,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1951.9,
-  "returnSinceEntry": 10.401583710407245
+  "currentPrice": 1925,
+  "returnSinceEntry": 8.880090497737557
  },
  {
   "symbol": "KEI",
@@ -381,8 +403,8 @@
   "exitDate": "2026-09-06",
   "exitPrice": 4704,
   "returnWhileOpen": -14.472727272727273,
-  "currentPrice": 4482.3,
-  "returnSinceEntry": -18.50363636363636
+  "currentPrice": 4442,
+  "returnSinceEntry": -19.236363636363638
  },
  {
   "symbol": "IPCALAB",
@@ -392,8 +414,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1832.6,
-  "returnSinceEntry": 3.8300283286118932
+  "currentPrice": 1814.5,
+  "returnSinceEntry": 2.8045325779036827
  },
  {
   "symbol": "CUMMINSIND",
@@ -403,8 +425,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 4608,
-  "returnSinceEntry": -15.075562108367121
+  "currentPrice": 4612,
+  "returnSinceEntry": -15.001842978252858
  },
  {
   "symbol": "THELEELA",
@@ -414,8 +436,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 616.3,
-  "returnSinceEntry": 18.97683397683397
+  "currentPrice": 622.75,
+  "returnSinceEntry": 20.222007722007724
  },
  {
   "symbol": "ZYDUSWELL",
@@ -425,8 +447,8 @@
   "exitDate": "2026-10-04",
   "exitPrice": 483.8,
   "returnWhileOpen": -9.375292685211203,
-  "currentPrice": 512.75,
-  "returnSinceEntry": -3.952421092067064
+  "currentPrice": 515.4,
+  "returnSinceEntry": -3.4560269738690725
  },
  {
   "symbol": "SIEMENS",
@@ -436,8 +458,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 3624,
-  "returnSinceEntry": -9.648466716529544
+  "currentPrice": 3623,
+  "returnSinceEntry": -9.673398155073547
  },
  {
   "symbol": "ZENTEC",
@@ -447,8 +469,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1655.6,
-  "returnSinceEntry": -9.02296955709419
+  "currentPrice": 1627.4,
+  "returnSinceEntry": -10.572590394548845
  },
  {
   "symbol": "FSL",
@@ -458,8 +480,8 @@
   "exitDate": "2026-08-06",
   "exitPrice": 279.85,
   "returnWhileOpen": -15.376474145751425,
-  "currentPrice": 281.8,
-  "returnSinceEntry": -14.78681584517689
+  "currentPrice": 275.8,
+  "returnSinceEntry": -16.601149077713934
  },
  {
   "symbol": "REDINGTON",
@@ -469,8 +491,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 383.5,
-  "returnSinceEntry": 23.331725357774566
+  "currentPrice": 371.05,
+  "returnSinceEntry": 19.327866216433517
  },
  {
   "symbol": "CGPOWER",
@@ -480,8 +502,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 846,
-  "returnSinceEntry": -2.015288394718552
+  "currentPrice": 855,
+  "returnSinceEntry": -0.9728978457261962
  },
  {
   "symbol": "MEDANTA",
@@ -491,8 +513,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1240,
-  "returnSinceEntry": -13.462209505199251
+  "currentPrice": 1238.1,
+  "returnSinceEntry": -13.594807732570324
  },
  {
   "symbol": "EICHERMOT",
@@ -502,8 +524,8 @@
   "exitDate": "2026-10-06",
   "exitPrice": 6960,
   "returnWhileOpen": -11.179173047473201,
-  "currentPrice": 7284.5,
-  "returnSinceEntry": -7.038029606942317
+  "currentPrice": 7349,
+  "returnSinceEntry": -6.214905564063298
  },
  {
   "symbol": "LODHA",
@@ -513,19 +535,19 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1058.7,
-  "returnSinceEntry": -11.679319262534412
+  "currentPrice": 1030,
+  "returnSinceEntry": -14.07357971135397
  },
  {
   "symbol": "HINDCOPPER",
   "entryDate": "2026-07-22",
   "entryPrice": 491.8,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 458.45,
-  "returnSinceEntry": -6.7812118747458365
+  "status": "closed",
+  "exitDate": "2026-10-18",
+  "exitPrice": 441.1,
+  "returnWhileOpen": -10.309068727124846,
+  "currentPrice": 441.1,
+  "returnSinceEntry": -10.309068727124846
  },
  {
   "symbol": "POLYCAB",
@@ -535,8 +557,8 @@
   "exitDate": "2026-09-03",
   "exitPrice": 8300,
   "returnWhileOpen": -8.695891315109181,
-  "currentPrice": 8219,
-  "returnSinceEntry": -9.586931411913536
+  "currentPrice": 8025,
+  "returnSinceEntry": -11.72102744623508
  },
  {
   "symbol": "IKS",
@@ -546,8 +568,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1731.4,
-  "returnSinceEntry": -8.734384059880862
+  "currentPrice": 1685.8,
+  "returnSinceEntry": -11.138052817458224
  },
  {
   "symbol": "KALYANKJIL",
@@ -557,8 +579,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 558,
-  "returnSinceEntry": -2.8551532033426144
+  "currentPrice": 551.3,
+  "returnSinceEntry": -4.021587743732594
  },
  {
   "symbol": "BIOCON",
@@ -568,8 +590,8 @@
   "exitDate": "2026-08-16",
   "exitPrice": 412,
   "returnWhileOpen": -5.763952424519668,
-  "currentPrice": 349.2,
-  "returnSinceEntry": -20.128087831655993
+  "currentPrice": 340,
+  "returnSinceEntry": -22.232387923147297
  },
  {
   "symbol": "EMCURE",
@@ -579,8 +601,8 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1820.6,
-  "returnSinceEntry": 2.0973530731269547
+  "currentPrice": 1766.6,
+  "returnSinceEntry": -0.9309107222970018
  },
  {
   "symbol": "TRITURBINE",
@@ -590,8 +612,8 @@
   "exitDate": "2026-08-18",
   "exitPrice": 569.65,
   "returnWhileOpen": -10.887759092686746,
-  "currentPrice": 495.9,
-  "returnSinceEntry": -22.424716464606963
+  "currentPrice": 484.7,
+  "returnSinceEntry": -24.176769651935864
  },
  {
   "symbol": "ZYDUSLIFE",
@@ -601,7 +623,7 @@
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 1123,
-  "returnSinceEntry": -2.930244619241083
+  "currentPrice": 1113.9,
+  "returnSinceEntry": -3.716829458034402
  }
 ]
