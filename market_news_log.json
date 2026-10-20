@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T15:39:35",
-  "title" : "Advance tax collection rises over 16%",
-  "impact" : "Strong advance tax growth signals robust corporate earnings and economic resilience. This likely bolsters investor confidence in Nifty 50, supporting a bullish trend and stabilizing the rupee through increased foreign capital inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "18-Sep-2026 15:21 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-18T15:39:37",
   "title" : "Phones or fabs: India building its semicon muscle",
   "impact" : "The push for semiconductor manufacturing is a long-term structural positive for Indian industrials and electronics. Nifty expected to maintain a positive bias as capital expenditure increases, with the rupee likely stabilizing as domestic manufacturing reduces import dependency.",
@@ -3497,5 +3490,12 @@
   "impact" : "The visit signals strengthening of US-India strategic ties, likely boosting investor sentiment and providing stability for Nifty. Increased energy and trade dialogues may support the Rupee against the dollar in the near term.",
   "source" : "BusinessLine",
   "publishedAt" : "20-Oct-2026 14:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-20T16:05:15",
+  "title" : "Rubio returns to India as trade deal nears",
+  "impact" : "The potential trade deal is expected to boost investor sentiment and long-term capital inflows into the Indian markets. Nifty is likely to trade with a bullish bias as trade barriers ease, while the Rupee may see modest appreciation due to expected improvements in trade balance.",
+  "source" : "Economic Times",
+  "publishedAt" : "20-Oct-2026 14:56 IST",
   "score" : 7
 } ]
