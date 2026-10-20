@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-18T14:24:01",
-  "title" : "India's net direct tax collections rise 13%",
-  "impact" : "Strong direct tax collection signals robust domestic economic activity and higher government fiscal headroom. Expect a bullish bias for Nifty with potential for increased infrastructure spending and sustained rupee stability due to improved sovereign revenue.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Sep-2026 13:38 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-18T15:39:35",
   "title" : "Advance tax collection rises over 16%",
   "impact" : "Strong advance tax growth signals robust corporate earnings and economic resilience. This likely bolsters investor confidence in Nifty 50, supporting a bullish trend and stabilizing the rupee through increased foreign capital inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Trump victory scenarios generally favor US-centric exports and domestic defense spending, potentially increasing volatility in Indian IT and Pharma. Nifty may face initial uncertainty due to protectionist trade rhetoric, while the Rupee is likely to weaken against a stronger Dollar index.",
   "source" : "Economic Times",
   "publishedAt" : "20-Oct-2026 07:22 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-20T15:03:45",
+  "title" : "Rubio kicks off India visit with trade deal, Russian oil on agenda",
+  "impact" : "The visit signals strengthening of US-India strategic ties, likely boosting investor sentiment and providing stability for Nifty. Increased energy and trade dialogues may support the Rupee against the dollar in the near term.",
+  "source" : "BusinessLine",
+  "publishedAt" : "20-Oct-2026 14:48 IST",
   "score" : 7
 } ]
