@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-19T21:43:00",
-  "title" : "Nifty 50 Prediction for the week: Upside remains capped",
-  "impact" : "The Nifty 50 faces significant resistance with a bearish outlook indicating further downside potential. Indian equity markets remain cautious while the rupee likely faces depreciation pressure due to FII outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "19-Sep-2026 21:33 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-19T23:28:36",
   "title" : "Trump to form 'AI Force', name AI czar",
   "impact" : "The US push for aggressive AI dominance likely triggers volatility in Indian IT services and infrastructure stocks. Nifty may face mixed sentiment as US-China tech tensions escalate, putting pressure on the Rupee due to potential capital outflows into US AI-centric assets.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "21-Oct-2026 17:02 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-21T17:29:39",
+  "title" : "India’s infra output jumps 7.9% in Sept",
+  "impact" : "The strong core sector growth suggests robust underlying economic momentum, likely sustaining the Nifty's positive outlook. Increased industrial activity and capital expenditure expectations may provide support to the Rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Oct-2026 17:08 IST",
+  "score" : 7
 } ]
