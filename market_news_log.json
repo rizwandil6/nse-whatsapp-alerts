@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-19T10:23:57",
-  "title" : "Two-year yield hits highest since 2024 as investors weigh outlook for rate hikes",
-  "impact" : "Rising US Treasury yields and hawkish Fed signals will likely trigger FII outflows from Indian equities, putting pressure on the Nifty to trade with a bearish bias. The strengthening US dollar against the rupee will further increase imported inflation risks and heighten volatility in interest-rate-sensitive stocks.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Sep-2026 09:51 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-19T10:39:10",
   "title" : "Tata Sons IPO: How 7 Tata Group stocks performed this week amid IPO buzz",
   "impact" : "The Tata Sons IPO narrative drives significant positive sentiment for group stocks but introduces volatility linked to internal governance disputes. Nifty is expected to experience sectoral churn, while the rupee remains largely insulated from these conglomerate-specific developments.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "21-Oct-2026 08:39 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-10-21T08:55:56",
+  "title" : "Half of India’s coal-fired power plants face critically low fuel stocks",
+  "impact" : "Rising power costs may pressure industrial margins and exacerbate inflationary concerns. Nifty faces volatility as energy-intensive sectors weigh on the index, while the rupee remains under pressure due to higher import dependencies.",
+  "source" : "BusinessLine",
+  "publishedAt" : "21-Oct-2026 08:28 IST",
+  "score" : 7
 } ]
