@@ -16906,5 +16906,29 @@
   "entryTimestampMs": 1792573800000,
   "exitTimestampMs": 1792575600000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 440.83475000000004,
+  "exitPrice": 429.7585000000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 2.5125628140703165,
+  "entryTimestampMs": 1792561500000,
+  "exitTimestampMs": 1792567800000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 39.7404,
+  "exitPrice": 39.14279999999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.503759398496276,
+  "entryTimestampMs": 1792556100000,
+  "exitTimestampMs": 1792575000000,
+  "shadow": true
  }
 ]
