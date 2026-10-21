@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-19T15:56:08",
-  "title" : "100% US tariff law raises India export concerns",
-  "impact" : "The US tariff threat creates broad uncertainty for export-oriented Indian firms, likely leading to Nifty volatility. Expect downward pressure on the rupee as trade balance fears weigh on sentiment.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Sep-2026 15:16 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-19T15:56:10",
   "title" : "Tata’s Chandrasekaran sees India’s growth go big",
   "impact" : "Strong positive sentiment expected for Indian equities as long-term macro growth narratives gain credibility. Nifty likely to see buying support across infrastructure and manufacturing led by institutional confidence. Rupee to remain stable or slightly appreciate due to sustained FDI interest.",
@@ -3497,5 +3490,12 @@
   "impact" : "Broad-based selling pressure suggests significant profit booking and liquidity tightening. Nifty is expected to face immediate resistance and downside volatility, while the rupee may remain under pressure due to FII outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "21-Oct-2026 13:27 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-21T15:19:47",
+  "title" : "Marco Rubio meets Adani, Tata chiefs",
+  "impact" : "This high-level diplomatic visit strengthens US-India strategic cooperation, boosting investor sentiment. Expect a bullish bias for Nifty with potential stability for the rupee due to long-term energy and manufacturing FDI inflow expectations.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Oct-2026 14:51 IST",
   "score" : 7
 } ]
