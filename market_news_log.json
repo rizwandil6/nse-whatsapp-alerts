@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-19T07:02:30",
-  "title" : "Tata sets ball rolling for listing after RBI diktat",
-  "impact" : "The Tata IPO is expected to infuse significant liquidity into the Indian equity market and improve retail investor sentiment. Nifty is likely to witness bullish momentum driven by heavy institutional interest, with neutral impact on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Sep-2026 06:48 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-19T10:23:47",
   "title" : "Oil is high, but Xi may have spared Trump more",
   "impact" : "Elevated crude oil prices create headwinds for Indian equity indices by increasing import bills and inflationary pressure. Nifty may face volatility and pressure near key resistance levels as the rupee weakens against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "21-Oct-2026 06:31 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-21T07:37:00",
+  "title" : "'Hormuz shut until US accepts our conditions'",
+  "impact" : "Global crude oil supply risk threatens to spike prices, leading to a bearish trend for Indian equities. Nifty is expected to witness downward pressure due to inflationary fears and FII outflows. The Indian Rupee is likely to depreciate against the USD due to heightened oil import bill concerns.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Oct-2026 06:52 IST",
+  "score" : 8
 } ]
