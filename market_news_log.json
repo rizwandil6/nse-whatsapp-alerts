@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-19T10:39:10",
-  "title" : "Tata Sons IPO: How 7 Tata Group stocks performed this week amid IPO buzz",
-  "impact" : "The Tata Sons IPO narrative drives significant positive sentiment for group stocks but introduces volatility linked to internal governance disputes. Nifty is expected to experience sectoral churn, while the rupee remains largely insulated from these conglomerate-specific developments.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Sep-2026 10:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-19T12:55:06",
   "title" : "Crude Oil Above $100: Can Saudi Arabia’s export disruption trigger a new global energy shock?",
   "impact" : "The Indian market is likely to face a bearish trend due to high crude prices increasing the import bill. Nifty is expected to witness downward pressure as inflationary concerns rise, putting significant depreciation risk on the Indian Rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising power costs may pressure industrial margins and exacerbate inflationary concerns. Nifty faces volatility as energy-intensive sectors weigh on the index, while the rupee remains under pressure due to higher import dependencies.",
   "source" : "BusinessLine",
   "publishedAt" : "21-Oct-2026 08:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-21T08:56:05",
+  "title" : "India-US trade deal ‘pretty close’, Trump says",
+  "impact" : "The potential trade deal suggests improved diplomatic and economic ties, likely boosting investor sentiment. Nifty is expected to trend upward on positive global trade cues, while the INR could strengthen against the USD due to potential increased capital inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Oct-2026 08:02 IST",
   "score" : 7
 } ]
