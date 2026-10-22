@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-21T02:22:11",
-  "title" : "SP Group backs Tata Sons listing",
-  "impact" : "The potential listing of Tata Sons would be a landmark event for Indian capital markets, increasing institutional liquidity and Nifty market capitalization. It would likely attract significant FII inflows, strengthening the rupee due to the expected multi-billion dollar scale of the IPO.",
-  "source" : "Economic Times",
-  "publishedAt" : "21-Sep-2026 01:13 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-21T06:53:07",
   "title" : "US sounds Iran alarm, urges citizens to leave",
   "impact" : "Geopolitical tensions in the Middle East are expected to drive a sharp risk-off sentiment in Indian equity markets. Nifty is likely to face downward pressure due to foreign institutional outflows and rising uncertainty, while the rupee may weaken against the dollar due to safe-haven demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "The deal signals long-term trade growth and increased FDI, boosting broader market sentiment. Nifty is expected to see a bullish bias as trade barriers ease, while the rupee may find support from stronger investment inflows.",
   "source" : "Economic Times",
   "publishedAt" : "22-Oct-2026 17:35 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-22T21:08:24",
+  "title" : "India’s big-money investors face a new wild card",
+  "impact" : "The uncertainty surrounding regulatory scrutiny on large foreign inflows suggests a consolidation phase for Nifty. Expect heightened volatility in mid-cap indices with potential depreciation pressure on the rupee due to institutional rebalancing.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Oct-2026 11:39 IST",
   "score" : 7
 } ]
