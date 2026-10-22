@@ -17074,5 +17074,23 @@
   "timestampMs": 1792573800000,
   "breakoutTimestampMs": 1792573800000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 166.8561,
+  "timestampMs": 1792576500000,
+  "breakoutTimestampMs": 1792575000000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "SHORT",
+  "entry": 105.475175,
+  "timestampMs": 1792574700000,
+  "breakoutTimestampMs": 1792574700000,
+  "shadow": true
  }
 ]
