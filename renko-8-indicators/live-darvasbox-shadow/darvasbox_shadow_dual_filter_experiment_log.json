@@ -17227,5 +17227,23 @@
   "timestampMs": 1792576500000,
   "breakoutTimestampMs": 1792576500000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 122.24485,
+  "timestampMs": 1792576500000,
+  "breakoutTimestampMs": 1792576500000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "LONG",
+  "entry": 702.1402499999999,
+  "timestampMs": 1792576500000,
+  "breakoutTimestampMs": 1792576500000,
+  "shadow": true
  }
 ]
