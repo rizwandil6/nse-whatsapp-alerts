@@ -17119,5 +17119,14 @@
   "timestampMs": 1792575000000,
   "breakoutTimestampMs": 1792575000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 430.15212500000007,
+  "timestampMs": 1792571400000,
+  "breakoutTimestampMs": 1792571400000,
+  "shadow": true
  }
 ]
