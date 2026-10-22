@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-20T23:21:13",
-  "title" : "IPO pipeline stays strong with 72 firms seeking to raise ₹1.70 lakh crore",
-  "impact" : "Robust IPO pipeline indicates high investor liquidity and confidence in Indian equity markets. Nifty may face volatility due to capital diversion, while the rupee remains stable amid strong foreign capital inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "20-Sep-2026 22:19 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-21T02:22:11",
   "title" : "SP Group backs Tata Sons listing",
   "impact" : "The potential listing of Tata Sons would be a landmark event for Indian capital markets, increasing institutional liquidity and Nifty market capitalization. It would likely attract significant FII inflows, strengthening the rupee due to the expected multi-billion dollar scale of the IPO.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising copper demand signals robust industrial activity and capital expenditure momentum, supporting Nifty bullish trends. Increased domestic consumption strengthens the economic outlook and provides a stable tailwind for the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "22-Oct-2026 15:19 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-22T18:20:13",
+  "title" : "India-EU deal may kick in by early 2027",
+  "impact" : "The deal signals long-term trade growth and increased FDI, boosting broader market sentiment. Nifty is expected to see a bullish bias as trade barriers ease, while the rupee may find support from stronger investment inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Oct-2026 17:35 IST",
   "score" : 7
 } ]
