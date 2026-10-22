@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-20T18:23:56",
-  "title" : "What will drive stock markets this week? Analysts flag oil moves, West Asia worries and more",
-  "impact" : "Global volatility due to geopolitical tensions and crude oil price surges will likely keep Indian indices range-bound with a bearish bias. Nifty may face resistance near current levels while the rupee could face depreciation pressure.",
-  "source" : "BusinessLine",
-  "publishedAt" : "20-Sep-2026 18:16 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-20T23:21:13",
   "title" : "IPO pipeline stays strong with 72 firms seeking to raise ₹1.70 lakh crore",
   "impact" : "Robust IPO pipeline indicates high investor liquidity and confidence in Indian equity markets. Nifty may face volatility due to capital diversion, while the rupee remains stable amid strong foreign capital inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising crude shipping costs exert inflationary pressure, potentially pushing Nifty lower due to margin concerns. The rupee is likely to face depreciation pressure as import costs for crude oil escalate.",
   "source" : "Economic Times",
   "publishedAt" : "22-Oct-2026 14:50 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-22T15:46:56",
+  "title" : "India's copper demand rises 12% FY26",
+  "impact" : "Rising copper demand signals robust industrial activity and capital expenditure momentum, supporting Nifty bullish trends. Increased domestic consumption strengthens the economic outlook and provides a stable tailwind for the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Oct-2026 15:19 IST",
   "score" : 7
 } ]
