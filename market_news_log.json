@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-20T10:35:27",
-  "title" : "Trump’s China war takes a dinner-table turn",
-  "impact" : "Escalating US-China trade tensions likely trigger global risk-off sentiment causing volatility in Indian indices. Nifty may face downward pressure due to FII outflows, while the rupee faces depreciation risks against a strengthening dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Sep-2026 09:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-20T12:06:28",
   "title" : "FPIs turn cautious; withdraw ₹20,974 core from equities in September amid global uncertainty",
   "impact" : "FPI outflows indicate near-term volatility and a corrective phase for Nifty 50. Persistent selling pressure is likely to exert downward pressure on the Indian Rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The broader Indian market is facing a significant risk-off phase as stretched valuations trigger sustained mid-cap and small-cap unwinding. Nifty is expected to remain under pressure in the near term, with potential volatility impacting the rupee as foreign selling coincides with domestic retail caution.",
   "source" : "Economic Times",
   "publishedAt" : "22-Oct-2026 06:03 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-22T07:12:06",
+  "title" : "Why RBI is draining excess liquidity but also injecting funds",
+  "impact" : "The RBI's active liquidity management signals a transition to tighter monetary conditions, which may cause short-term Nifty volatility as borrowing costs rise. The rupee is likely to stabilize as the RBI drains excess cash to align money markets with its policy rate.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Oct-2026 06:36 IST",
   "score" : 7
 } ]
