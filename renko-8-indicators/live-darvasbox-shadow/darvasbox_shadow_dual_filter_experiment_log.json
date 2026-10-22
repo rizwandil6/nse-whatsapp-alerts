@@ -17137,5 +17137,77 @@
   "timestampMs": 1792575600000,
   "breakoutTimestampMs": 1792575600000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "LONG",
+  "entry": 430.15212500000007,
+  "exitPrice": 429.08475000000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.24813895781638337,
+  "entryTimestampMs": 1792571400000,
+  "exitTimestampMs": 1792575600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 72.49064999999999,
+  "exitPrice": 72.13,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.4975124378109351,
+  "entryTimestampMs": 1792576500000,
+  "exitTimestampMs": 1792569900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 38.826825,
+  "exitPrice": 39.377250000000004,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.4176410252447997,
+  "entryTimestampMs": 1792573500000,
+  "exitTimestampMs": 1792575600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2409.46125,
+  "exitPrice": 2433.3610000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.9919126111698413,
+  "entryTimestampMs": 1792574400000,
+  "exitTimestampMs": 1792575600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 187.40362500000003,
+  "exitPrice": 188.31487500000006,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.4862499324652998,
+  "entryTimestampMs": 1792573800000,
+  "exitTimestampMs": 1792575600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GAIL",
+  "direction": "LONG",
+  "entry": 166.8561,
+  "exitPrice": 166.8561,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1792576500000,
+  "exitTimestampMs": 1792573200000,
+  "shadow": true
  }
 ]
