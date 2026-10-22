@@ -17038,5 +17038,23 @@
   "timestampMs": 1792562100000,
   "breakoutTimestampMs": 1792562100000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 38.826825,
+  "timestampMs": 1792573500000,
+  "breakoutTimestampMs": 1792573500000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2409.46125,
+  "timestampMs": 1792574400000,
+  "breakoutTimestampMs": 1792574400000,
+  "shadow": true
  }
 ]
