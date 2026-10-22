@@ -298,5 +298,19 @@
   "rsRankAtEntry": 80.859375,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "AARTIPHARM": {
+  "entryDate": "2026-10-20",
+  "entryPrice": 843.25,
+  "rsRankAtEntry": 80.62622309197651,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "PRICOLLTD": {
+  "entryDate": "2026-10-20",
+  "entryPrice": 659.6,
+  "rsRankAtEntry": 80.23483365949119,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

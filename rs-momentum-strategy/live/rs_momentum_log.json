@@ -2061,5 +2061,19 @@
   "date": "2026-10-18",
   "price": 139.02,
   "rsRankAtEntry": 80.859375
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AARTIPHARM",
+  "date": "2026-10-20",
+  "price": 843.25,
+  "rsRankAtEntry": 80.62622309197651
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PRICOLLTD",
+  "date": "2026-10-20",
+  "price": 659.6,
+  "rsRankAtEntry": 80.23483365949119
  }
 ]
