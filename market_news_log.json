@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-20T10:35:24",
-  "title" : "Tehran has seven demands for Donald Trump",
-  "impact" : "Geopolitical tensions in the Middle East increase uncertainty, likely leading to a bearish trend for Indian markets. Nifty may face downward pressure due to FII outflows, while the Rupee is expected to weaken against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Sep-2026 06:39 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-20T10:35:27",
   "title" : "Trump’s China war takes a dinner-table turn",
   "impact" : "Escalating US-China trade tensions likely trigger global risk-off sentiment causing volatility in Indian indices. Nifty may face downward pressure due to FII outflows, while the rupee faces depreciation risks against a strengthening dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "22-Oct-2026 06:00 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-22T06:41:46",
+  "title" : "Market sell-off deepens as midcaps enter correction zone",
+  "impact" : "The broader Indian market is facing a significant risk-off phase as stretched valuations trigger sustained mid-cap and small-cap unwinding. Nifty is expected to remain under pressure in the near term, with potential volatility impacting the rupee as foreign selling coincides with domestic retail caution.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Oct-2026 06:03 IST",
+  "score" : 7
 } ]
