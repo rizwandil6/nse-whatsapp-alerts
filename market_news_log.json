@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-20T16:53:16",
-  "title" : "India’s growth engine has plenty left in the tank",
-  "impact" : "The positive outlook on India's growth reinforces foreign institutional investor confidence. Nifty is expected to sustain its upward momentum with potential for fresh highs, while the rupee remains stable amid strong macroeconomic fundamentals.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Sep-2026 16:19 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-20T17:38:40",
   "title" : "Rs 23,000 crore outflows! Is the September FII rout indicating a worse end to 2026?",
   "impact" : "Renewed FII selling in secondary markets signals short-term volatility and downward pressure on the Nifty index. Elevated crude prices and US bond yields continue to weigh on the rupee, limiting upside potential despite domestic institutional support.",
@@ -3497,5 +3490,12 @@
   "impact" : "The widening interest rate differential pressure is likely to trigger FII outflows from Indian equities, keeping Nifty under bearish pressure. The Rupee is expected to face continued depreciation risks against the strengthening US Dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "22-Oct-2026 14:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-22T15:00:54",
+  "title" : "India's repo gap with G7 in focus amid inflation",
+  "impact" : "The expectation of rate hikes and a narrowing interest rate gap signals a hawkish shift, likely capping Nifty upside. The rupee may find some support from higher yields, but the broader equity market faces pressure from increased borrowing costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Oct-2026 14:19 IST",
   "score" : 7
 } ]
