@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-22T05:47:41",
-  "title" : "Noel Tata wants Tata Sons to split to avoid listing",
-  "impact" : "This proposal introduces significant structural uncertainty for the Tata Group conglomerate holding company. It may lead to short-term volatility in Nifty index heavyweights and trigger a reassessment of corporate governance premiums for Indian holding companies.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Sep-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-22T05:47:45",
   "title" : "NSE IPO subscribed 5.71 times on final day",
   "impact" : "The successful NSE IPO significantly boosts primary market sentiment and investor confidence in Indian financial institutions. Nifty is expected to remain firm with high liquidity inflow expectations, providing moderate support to the Rupee due to sustained FII interest.",
@@ -3497,5 +3490,12 @@
   "impact" : "The roadmap signals long-term structural growth for the domestic electronics manufacturing ecosystem. Nifty may see positive sentiment in tech-linked industrial stocks with minimal immediate impact on rupee volatility.",
   "source" : "Economic Times",
   "publishedAt" : "23-Oct-2026 17:54 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-23T19:08:09",
+  "title" : "US gas prices hit $4.29 nationwide amid Iran war",
+  "impact" : "Rising global crude prices will exert pressure on India's import bill and inflation, likely leading to a bearish trend for Nifty. Expect volatility in the rupee due to increased demand for foreign exchange to meet rising oil import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Oct-2026 18:48 IST",
   "score" : 7
 } ]
