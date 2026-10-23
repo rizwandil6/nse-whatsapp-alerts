@@ -17548,5 +17548,32 @@
   "entryTimestampMs": 1792728300000,
   "exitTimestampMs": 1792738200000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 690.76875,
+  "timestampMs": 1792742700000,
+  "breakoutTimestampMs": 1792742700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRITURBINE",
+  "direction": "LONG",
+  "entry": 442.90349999999995,
+  "timestampMs": 1792742700000,
+  "breakoutTimestampMs": 1792742700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2333.8507499999996,
+  "timestampMs": 1792742700000,
+  "breakoutTimestampMs": 1792742700000,
+  "shadow": true
  }
 ]
