@@ -17719,5 +17719,41 @@
   "timestampMs": 1792747200000,
   "breakoutTimestampMs": 1792747200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 409.25625,
+  "exitPrice": 408.206875,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.25641025641025583,
+  "entryTimestampMs": 1792746300000,
+  "exitTimestampMs": 1792746300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "SUZLON",
+  "direction": "SHORT",
+  "entry": 37.130050000000004,
+  "exitPrice": 36.939150000000005,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.5141388174807175,
+  "entryTimestampMs": 1792745400000,
+  "exitTimestampMs": 1792746600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "LONG",
+  "entry": 2333.8507499999996,
+  "exitPrice": 2339.7,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.2506265664160492,
+  "entryTimestampMs": 1792742700000,
+  "exitTimestampMs": 1792747800000,
+  "shadow": true
  }
 ]
