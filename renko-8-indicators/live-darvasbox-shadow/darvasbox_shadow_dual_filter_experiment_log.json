@@ -17506,5 +17506,23 @@
   "timestampMs": 1792731000000,
   "breakoutTimestampMs": 1792731000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "CONCOR",
+  "direction": "SHORT",
+  "entry": 411.355,
+  "timestampMs": 1792736700000,
+  "breakoutTimestampMs": 1792736700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 227.46425,
+  "timestampMs": 1792736700000,
+  "breakoutTimestampMs": 1792736700000,
+  "shadow": true
  }
 ]
