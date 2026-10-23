@@ -17599,5 +17599,23 @@
   "entryTimestampMs": 1792736700000,
   "exitTimestampMs": 1792743000000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 314.72175,
+  "timestampMs": 1792743000000,
+  "breakoutTimestampMs": 1792742700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 116.752125,
+  "timestampMs": 1792743000000,
+  "breakoutTimestampMs": 1792742700000,
+  "shadow": true
  }
 ]
