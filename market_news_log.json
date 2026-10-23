@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-22T05:47:45",
-  "title" : "NSE IPO subscribed 5.71 times on final day",
-  "impact" : "The successful NSE IPO significantly boosts primary market sentiment and investor confidence in Indian financial institutions. Nifty is expected to remain firm with high liquidity inflow expectations, providing moderate support to the Rupee due to sustained FII interest.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Sep-2026 05:15 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-22T07:49:19",
   "title" : "India gets $12B for chipmaking as global cos pour in",
   "impact" : "The influx of long-term FDI into semiconductor manufacturing boosts investor confidence and long-term economic growth prospects. Nifty is expected to see a bullish bias as industrial capacity expands, with a strengthening effect on the rupee due to anticipated capital inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising global crude prices will exert pressure on India's import bill and inflation, likely leading to a bearish trend for Nifty. Expect volatility in the rupee due to increased demand for foreign exchange to meet rising oil import costs.",
   "source" : "Economic Times",
   "publishedAt" : "23-Oct-2026 18:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-23T20:09:36",
+  "title" : "Data suggests broad-based increase in food prices: RBI Bulletin",
+  "impact" : "Persistent food inflation pressures may delay RBI rate cut expectations, keeping Nifty under consolidation pressure. The Indian Rupee remains vulnerable due to higher domestic inflation compared to major trading partners.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "23-Oct-2026 20:01 IST",
   "score" : 7
 } ]
