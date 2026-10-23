@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-21T22:14:01",
-  "title" : "Decoding GDP growth: The good, the bad &amp; the data",
-  "impact" : "Positive GDP growth data reinforces investor confidence in India's structural growth story. Nifty likely to consolidate with a bullish bias as macro stability supports foreign inflows. Rupee expected to remain steady against USD due to robust domestic economic outlook.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Sep-2026 23:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-22T05:47:37",
   "title" : "Jamie Dimon on India, Tata, AI, rupee and the dollar",
   "impact" : "Jamie Dimon's bullish outlook reinforces foreign investor confidence in India's long-term growth story. Nifty is expected to remain resilient with a positive bias, while the rupee may find stability against the dollar due to sustained capital inflows.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "23-Oct-2026 17:27 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-23T18:21:01",
+  "title" : "Oil prices extend rally to near six-month high amid Houthi attacks on Saudi Arabia",
+  "impact" : "Rising crude oil prices will trigger significant selling pressure on Indian indices due to inflation concerns and a widening trade deficit. Expect Nifty to consolidate with a bearish bias as the rupee weakens against the dollar amid higher import costs.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "23-Oct-2026 18:13 IST",
+  "score" : 8
 } ]
