@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-22T05:47:37",
-  "title" : "Jamie Dimon on India, Tata, AI, rupee and the dollar",
-  "impact" : "Jamie Dimon's bullish outlook reinforces foreign investor confidence in India's long-term growth story. Nifty is expected to remain resilient with a positive bias, while the rupee may find stability against the dollar due to sustained capital inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Sep-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-22T05:47:41",
   "title" : "Noel Tata wants Tata Sons to split to avoid listing",
   "impact" : "This proposal introduces significant structural uncertainty for the Tata Group conglomerate holding company. It may lead to short-term volatility in Nifty index heavyweights and trigger a reassessment of corporate governance premiums for Indian holding companies.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "23-Oct-2026 18:13 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-23T18:36:15",
+  "title" : "Vaishnaw outlines India's new chip road map",
+  "impact" : "The roadmap signals long-term structural growth for the domestic electronics manufacturing ecosystem. Nifty may see positive sentiment in tech-linked industrial stocks with minimal immediate impact on rupee volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Oct-2026 17:54 IST",
+  "score" : 7
 } ]
