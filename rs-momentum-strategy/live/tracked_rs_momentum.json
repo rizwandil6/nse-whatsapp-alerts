@@ -228,12 +228,6 @@
   "rsRankAtEntry": 81.10236220472441,
   "salesGrowth3Y": 97
  },
- "LLOYDSENT": {
-  "entryDate": "2026-09-24",
-  "entryPrice": 79.67,
-  "rsRankAtEntry": 82.48031496062993,
-  "salesGrowth3Y": 67
- },
  "RATEGAIN": {
   "entryDate": "2026-09-27",
   "entryPrice": 828.7,
@@ -310,6 +304,34 @@
   "entryDate": "2026-10-20",
   "entryPrice": 659.6,
   "rsRankAtEntry": 80.23483365949119,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "AJANTPHARM": {
+  "entryDate": "2026-10-21",
+  "entryPrice": 3270.6,
+  "rsRankAtEntry": 80.43052837573386,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "INDHOTEL": {
+  "entryDate": "2026-10-21",
+  "entryPrice": 782.3,
+  "rsRankAtEntry": 80.23483365949119,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "KRN": {
+  "entryDate": "2026-10-21",
+  "entryPrice": 1072,
+  "rsRankAtEntry": 80.62622309197651,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "PPLPHARMA": {
+  "entryDate": "2026-10-21",
+  "entryPrice": 194.99,
+  "rsRankAtEntry": 81.60469667318982,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }

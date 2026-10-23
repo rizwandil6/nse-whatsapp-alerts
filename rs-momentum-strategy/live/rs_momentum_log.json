@@ -2075,5 +2075,40 @@
   "date": "2026-10-20",
   "price": 659.6,
   "rsRankAtEntry": 80.23483365949119
+ },
+ {
+  "type": "EXIT",
+  "symbol": "LLOYDSENT",
+  "date": "2026-10-21",
+  "price": 63.74,
+  "pnlPct": -19.99497928956947
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AJANTPHARM",
+  "date": "2026-10-21",
+  "price": 3270.6,
+  "rsRankAtEntry": 80.43052837573386
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "INDHOTEL",
+  "date": "2026-10-21",
+  "price": 782.3,
+  "rsRankAtEntry": 80.23483365949119
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "KRN",
+  "date": "2026-10-21",
+  "price": 1072,
+  "rsRankAtEntry": 80.62622309197651
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PPLPHARMA",
+  "date": "2026-10-21",
+  "price": 194.99,
+  "rsRankAtEntry": 81.60469667318982
  }
 ]
