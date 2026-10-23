@@ -17398,5 +17398,32 @@
   "timestampMs": 1792563300000,
   "breakoutTimestampMs": 1792662300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 31.7384,
+  "timestampMs": 1792562400000,
+  "breakoutTimestampMs": 1792562400000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HINDCOPPER",
+  "direction": "SHORT",
+  "entry": 412.3859999999998,
+  "timestampMs": 1792574700000,
+  "breakoutTimestampMs": 1792568400000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "LONG",
+  "entry": 197.69099999999995,
+  "timestampMs": 1792562160000,
+  "breakoutTimestampMs": 1792562160000,
+  "shadow": true
  }
 ]
