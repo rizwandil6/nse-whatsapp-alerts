@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-21T14:39:55",
-  "title" : "'World interest in India at all-time high'",
-  "impact" : "The sentiment reinforces India's structural growth narrative, supporting a bullish long-term outlook for Nifty. Increased global investment inflow likely strengthens the Rupee against major currencies.",
-  "source" : "Economic Times",
-  "publishedAt" : "21-Sep-2026 14:19 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-21T15:25:05",
   "title" : "Other Hormuz: Impasse in another sea sparks panic",
   "impact" : "Heightened geopolitical tensions in the Strait of Hormuz increase volatility in the Indian market, likely pressuring Nifty lower on risk-off sentiment. The Rupee is expected to face depreciation pressure due to rising crude oil import costs and capital outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global trade instability and maritime tensions create uncertainty for Indian exports and supply chains. Nifty may face selling pressure as investors move to safe havens, and the Rupee is expected to face depreciation risk due to elevated crude oil and shipping costs.",
   "source" : "Economic Times",
   "publishedAt" : "22-Oct-2026 21:33 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-23T10:37:07",
+  "title" : "Indian bonds flattish as oil spike offset by falling Treasury yields",
+  "impact" : "Oil price volatility at $114 per barrel threatens to widen the trade deficit and pressure the Indian Rupee. Expect Nifty to face headwinds with a bearish bias as rising input costs dampen investor sentiment.",
+  "source" : "BusinessLine",
+  "publishedAt" : "23-Oct-2026 10:23 IST",
   "score" : 7
 } ]
