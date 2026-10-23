@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-22T08:46:14",
-  "title" : "Iran's actions risk 'global economic instability'",
-  "impact" : "Heightened geopolitical tensions in the Middle East are likely to trigger a bearish sentiment in the Indian equity markets. Expect increased volatility in Nifty with a downward bias and potential rupee depreciation against the USD due to rising oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Sep-2026 08:14 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-22T08:46:17",
   "title" : "The rumbles of Russia war grow louder",
   "impact" : "Escalating geopolitical tensions typically trigger risk-off sentiment in Indian equity markets. Nifty 50 may face downward pressure due to foreign institutional outflows, while the rupee is likely to weaken against the dollar due to rising global uncertainty.",
@@ -3497,5 +3490,12 @@
   "impact" : "Infosys results exert downward pressure on the IT index, likely pulling Nifty towards its immediate support levels. The weakened revenue guidance may trigger mild FII outflows, putting slight pressure on the Indian Rupee.",
   "source" : "Economic Times",
   "publishedAt" : "23-Oct-2026 16:21 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-23T21:13:52",
+  "title" : "Net FDI at $3.3 billion in September 2026, positive for third consecutive month",
+  "impact" : "Consistent positive FDI inflows strengthen the capital account, providing support for the Nifty 50 toward its near-term resistance levels. The improved dollar supply stabilizes the Indian Rupee, reducing volatility in foreign investor sentiment.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "23-Oct-2026 21:10 IST",
   "score" : 7
 } ]
