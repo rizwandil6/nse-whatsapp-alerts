@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-22T12:33:28",
-  "title" : "South Korean pension fund seeks India government bond investment licence",
-  "impact" : "Expect a bullish sentiment for Indian sovereign debt and banking stocks as foreign liquidity improves. Nifty may test higher levels on reduced yield pressure, while the rupee is likely to appreciate due to increased capital inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "22-Sep-2026 12:20 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-22T12:48:41",
   "title" : "Textile stocks rally up to 10%: Raymond, Gokaldas Exports &amp; others rebound after Trump tariff-triggered selloff",
   "impact" : "The Indian market faces volatility due to geopolitical trade risks and shifting oil import policies. Nifty is expected to remain cautious as traders monitor potential US tariff escalations and currency pressure on the Rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The surging crude prices and precious metal sell-off indicate rising inflationary pressure, likely causing Nifty volatility. Persistent inflation fears and hawkish Fed rate expectations will likely keep the Rupee under pressure against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "23-Oct-2026 23:33 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-24T00:15:40",
+  "title" : "'We could take all of the oil in Iran': Trump",
+  "impact" : "Heightened geopolitical risk in the Middle East will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to open with a downward gap due to volatility, while the INR may face depreciation pressure against the USD due to rising oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Oct-2026 20:56 IST",
   "score" : 7
 } ]
