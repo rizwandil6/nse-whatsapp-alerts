@@ -17629,5 +17629,29 @@
   "entryTimestampMs": 1792729500000,
   "exitTimestampMs": 1792743300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 187.82925,
+  "exitPrice": 186.7,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.6012109402555849,
+  "entryTimestampMs": 1792731000000,
+  "exitTimestampMs": 1792743300000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "SHORT",
+  "entry": 30.523500000000002,
+  "exitPrice": 29.93,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 1.9444034923911162,
+  "entryTimestampMs": 1792728000000,
+  "exitTimestampMs": 1792743300000,
+  "shadow": true
  }
 ]
