@@ -2110,5 +2110,12 @@
   "date": "2026-10-21",
   "price": 194.99,
   "rsRankAtEntry": 81.60469667318982
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "IGIL",
+  "date": "2026-10-22",
+  "price": 381.15,
+  "rsRankAtEntry": 82.1917808219178
  }
 ]
