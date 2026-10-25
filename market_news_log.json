@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-22T19:39:50",
-  "title" : "A hint &amp; status check NSE IPO investors waiting for",
-  "impact" : "The potential NSE IPO serves as a major liquidity event likely to boost overall market sentiment and investor participation. Nifty is expected to witness short-term volatility followed by an upward trend, while the rupee remains stable against potential foreign inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Sep-2026 14:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-22T20:25:24",
   "title" : "India has incentives for lithium, nickel processing",
   "impact" : "The government push for domestic critical mineral processing is a positive long-term structural tailwind for industrial manufacturing. Nifty expects a steady uptrend in core industrial segments, while reduced import dependency supports long-term rupee stability.",
@@ -3497,5 +3490,12 @@
   "impact" : "The surge in private capex reinforces a structural bull trend for the Indian economy and manufacturing sector. Nifty is expected to maintain a positive bias while the rupee may remain stable on expected long-term FDI inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "25-Oct-2026 15:05 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-25T16:13:04",
+  "title" : "Beyond Jio listing: 5 IPOs to raise Rs 2,581 cr next week",
+  "impact" : "The record-breaking Jio listing and heavy primary market activity will likely drain short-term liquidity, leading to potential Nifty volatility. Expect high institutional focus on upcoming IPOs to temporarily shift attention away from large-cap index stocks.",
+  "source" : "Economic Times",
+  "publishedAt" : "25-Oct-2026 09:30 IST",
   "score" : 7
 } ]
