@@ -18400,5 +18400,29 @@
   "timestampMs": 1793007300000,
   "breakoutTimestampMs": 1793007300000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "SHORT",
+  "entry": 222.61,
+  "exitPrice": 223.8,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.534567180270427,
+  "entryTimestampMs": 1792993200000,
+  "exitTimestampMs": 1793007600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 99.18345,
+  "exitPrice": 98.73,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.45718312883852047,
+  "entryTimestampMs": 1793003700000,
+  "exitTimestampMs": 1793007600000,
+  "shadow": true
  }
 ]
