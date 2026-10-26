@@ -18133,5 +18133,56 @@
   "entryTimestampMs": 1792988400000,
   "exitTimestampMs": 1792995300000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 95.19685000000003,
+  "timestampMs": 1792989300000,
+  "breakoutTimestampMs": 1792988400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 95.19685000000003,
+  "exitPrice": 94.52,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.7110004165054095,
+  "entryTimestampMs": 1792989300000,
+  "exitTimestampMs": 1792995600000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 116.44685,
+  "timestampMs": 1792989300000,
+  "breakoutTimestampMs": 1792988700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "LONG",
+  "entry": 116.44685,
+  "exitPrice": 115.63,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.7014788291825861,
+  "entryTimestampMs": 1792989300000,
+  "exitTimestampMs": 1792992300000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 100.17034999999998,
+  "timestampMs": 1792989000000,
+  "breakoutTimestampMs": 1792988400000,
+  "shadow": true
  }
 ]
