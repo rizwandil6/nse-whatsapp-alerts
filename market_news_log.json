@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-24T02:22:54",
-  "title" : "US stocks: US market ends down as oil prices, Treasury yields rise",
-  "impact" : "The Indian market is expected to face a bearish opening due to rising US Treasury yields and geopolitical tensions in the Middle East. Nifty is likely to trade with a negative bias, while the Rupee faces downward pressure against the strengthening USD.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Sep-2026 01:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-24T05:53:17",
   "title" : "NSE debut may not set street on fire, sparks to come later",
   "impact" : "The NSE listing acts as a major liquidity event likely to boost sentiment for financial exchanges and brokerage stocks. Nifty is expected to see increased volatility due to the massive weight of the new listing, with neutral impact on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The trade deal is expected to boost investor sentiment and stabilize Nifty 50 toward its recent highs. Improved trade terms likely provide tailwinds for the Rupee against the Dollar by narrowing the trade deficit and increasing capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "26-Oct-2026 19:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-26T20:18:41",
+  "title" : "Almost half of domestic coal-based power plants have critical stocks",
+  "impact" : "Heightened power supply risks may lead to volatility in Nifty index as industrial production costs climb. The rupee could face moderate depreciation pressure due to potential import-driven inflation and supply chain bottlenecks.",
+  "source" : "BusinessLine",
+  "publishedAt" : "26-Oct-2026 20:09 IST",
   "score" : 7
 } ]
