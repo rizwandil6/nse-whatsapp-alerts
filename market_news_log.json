@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-23T08:50:32",
-  "title" : "Big Tech’s AI switch may dent IT revenue",
-  "impact" : "The shift in Big Tech AI spending suggests a structural slowdown in traditional IT outsourcing revenue. This will likely dampen Nifty IT index performance and exert downward pressure on the rupee due to potential moderation in software export earnings.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Sep-2026 07:41 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-23T12:38:10",
   "title" : "India economic activity climbs in September, shows flash survey",
   "impact" : "Strong PMI data signals resilient economic momentum, likely boosting Nifty sentiment toward record highs. The rupee may stabilize or strengthen as improved industrial activity attracts foreign portfolio inflows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "26-Oct-2026 05:53 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-26T06:34:49",
+  "title" : "India valuations hit 6-year low, but stocks still expensive than EM peers",
+  "impact" : "Indian markets remain under significant downward pressure due to foreign selling and elevated valuations. Nifty is expected to continue consolidating as earnings estimates face downward revisions, with a weak rupee further discouraging overseas inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Oct-2026 06:07 IST",
+  "score" : 8
 } ]
