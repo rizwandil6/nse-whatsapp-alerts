@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-23T14:25:33",
-  "title" : "OECD lifts India FY27 growth forecast to 7.1%",
-  "impact" : "Upward revision to FY27 growth reinforces India's status as a top global growth engine. Expect Nifty to test higher resistance levels on renewed foreign institutional interest and a potentially stronger rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Sep-2026 13:55 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-23T15:26:28",
   "title" : "OECD ups India's FY27 GDP growth forecast to 7.1%",
   "impact" : "Upgraded growth forecasts bolster investor sentiment, supporting Nifty toward record highs. The rupee is expected to remain stable or appreciate slightly against the dollar due to improved macro-economic outlook.",
@@ -3497,5 +3490,12 @@
   "impact" : "The shift in capital flows from China to India is expected to boost Nifty sentiment and drive liquidity inflows into large-cap indices. The INR may see short-term appreciation pressure due to increased FII interest in Indian equities.",
   "source" : "Economic Times",
   "publishedAt" : "26-Oct-2026 14:22 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-26T15:10:31",
+  "title" : "Indian stock markets flash a rare bargain signal",
+  "impact" : "The rare bargain signal suggests a tactical buying opportunity for domestic institutional investors. Nifty is expected to find strong support at lower levels, while the INR may stabilize against the USD due to renewed equity inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Oct-2026 09:19 IST",
   "score" : 7
 } ]
