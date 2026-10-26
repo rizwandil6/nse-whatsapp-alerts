@@ -18286,5 +18286,29 @@
   "entryTimestampMs": 1792989000000,
   "exitTimestampMs": 1793002800000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "JSWINFRA",
+  "direction": "LONG",
+  "entry": 317.74187500000016,
+  "exitPrice": 316.25,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.4695242010516124,
+  "entryTimestampMs": 1793000400000,
+  "exitTimestampMs": 1793003400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "WAAREEENER",
+  "direction": "SHORT",
+  "entry": 2323.1775,
+  "exitPrice": 2322.7,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.02055374589328468,
+  "entryTimestampMs": 1792994400000,
+  "exitTimestampMs": 1793003400000,
+  "shadow": true
  }
 ]
