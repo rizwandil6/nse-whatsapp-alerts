@@ -18448,5 +18448,98 @@
   "entryTimestampMs": 1793004000000,
   "exitTimestampMs": 1793007900000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 184.04565000000002,
+  "timestampMs": 1793008500000,
+  "breakoutTimestampMs": 1793008500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 29.88,
+  "exitPrice": 29.88,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1793004900000,
+  "exitTimestampMs": 1793007900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HINDCOPPER",
+  "direction": "LONG",
+  "entry": 404.85887499999984,
+  "exitPrice": 407.8284999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7334963325183255,
+  "entryTimestampMs": 1793000700000,
+  "exitTimestampMs": 1793007600000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "MHRIL",
+  "direction": "SHORT",
+  "entry": 184.04565000000002,
+  "exitPrice": 183.587825,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24875621890548016,
+  "entryTimestampMs": 1793008500000,
+  "exitTimestampMs": 1793008500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ADSL",
+  "direction": "LONG",
+  "entry": 95.90027500000004,
+  "exitPrice": 97.07265000000005,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.2224938875305793,
+  "entryTimestampMs": 1792997100000,
+  "exitTimestampMs": 1793008500000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 694.5963750000002,
+  "exitPrice": 694.5963750000002,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1793004900000,
+  "exitTimestampMs": 1793004900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 654.312,
+  "exitPrice": 647.736,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 1.005025125628144,
+  "entryTimestampMs": 1792991100000,
+  "exitTimestampMs": 1792997100000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 9.029399999999997,
+  "exitPrice": 9.029399999999997,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1793007300000,
+  "exitTimestampMs": 1793007300000,
+  "shadow": true
  }
 ]
