@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-23T15:26:28",
-  "title" : "OECD ups India's FY27 GDP growth forecast to 7.1%",
-  "impact" : "Upgraded growth forecasts bolster investor sentiment, supporting Nifty toward record highs. The rupee is expected to remain stable or appreciate slightly against the dollar due to improved macro-economic outlook.",
-  "source" : "BusinessLine",
-  "publishedAt" : "23-Sep-2026 15:17 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-23T15:57:36",
   "title" : "OMCs face Rs 530 crore daily losses as crude surges",
   "impact" : "Rising crude oil prices will pressure Nifty due to inflationary concerns and fiscal deficit worries. Expect downward pressure on the rupee as oil imports become more expensive, leading to a cautious market sentiment.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "26-Oct-2026 09:19 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-26T15:40:49",
+  "title" : "Modi’s ‘dear friend’ is back, with $30 bn at stake",
+  "impact" : "The return of Donald Trump signals a shift toward protectionist trade policies that may pressure emerging markets. Nifty is expected to experience heightened volatility as investors weigh geopolitical shifts and potential US tariff impacts on the rupee which may face renewed depreciation pressure.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Oct-2026 15:00 IST",
+  "score" : 8
 } ]
