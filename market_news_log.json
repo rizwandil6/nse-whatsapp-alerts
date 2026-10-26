@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-23T12:38:10",
-  "title" : "India economic activity climbs in September, shows flash survey",
-  "impact" : "Strong PMI data signals resilient economic momentum, likely boosting Nifty sentiment toward record highs. The rupee may stabilize or strengthen as improved industrial activity attracts foreign portfolio inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "23-Sep-2026 12:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-23T13:08:30",
   "title" : "ADB raises India's GDP growth forecast to 7% on stronger-than-expected Q1 growth",
   "impact" : "The upward revision to 7% GDP growth confirms robust macroeconomic resilience and will likely drive Nifty towards new record highs. Improved investor sentiment and strong capital inflows should provide support to the Rupee against the Dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "26-Oct-2026 06:07 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-26T12:38:48",
+  "title" : "HDFC Bank slips further as Bagchi takes charge amid leadership uncertainty",
+  "impact" : "HDFC Bank weakness exerts downward pressure on the Nifty index and banking sector sentiment. Overall market outlook remains cautious with potential rupee volatility due to foreign institutional outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "26-Oct-2026 12:32 IST",
+  "score" : 7
 } ]
