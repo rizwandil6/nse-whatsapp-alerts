@@ -18361,5 +18361,23 @@
   "entryTimestampMs": 1792992900000,
   "exitTimestampMs": 1793004900000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 694.5963750000002,
+  "timestampMs": 1793004900000,
+  "breakoutTimestampMs": 1793004900000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 29.88,
+  "timestampMs": 1793004900000,
+  "breakoutTimestampMs": 1793004900000,
+  "shadow": true
  }
 ]
