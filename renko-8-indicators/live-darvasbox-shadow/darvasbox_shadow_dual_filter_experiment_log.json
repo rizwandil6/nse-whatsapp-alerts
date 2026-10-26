@@ -18310,5 +18310,23 @@
   "entryTimestampMs": 1792994400000,
   "exitTimestampMs": 1793003400000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "NHPC",
+  "direction": "LONG",
+  "entry": 70.6554,
+  "timestampMs": 1793003700000,
+  "breakoutTimestampMs": 1793003700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TEXRAIL",
+  "direction": "LONG",
+  "entry": 99.18345,
+  "timestampMs": 1793003700000,
+  "breakoutTimestampMs": 1793003700000,
+  "shadow": true
  }
 ]
