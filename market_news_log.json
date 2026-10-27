@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-24T13:15:40",
-  "title" : "NSE enters top-10 most valued firms' club; shares jump over 5%",
-  "impact" : "The NSE listing signals robust investor appetite and liquidity for financial exchanges, likely boosting overall market sentiment. Nifty is expected to sustain upward momentum as financial services and infrastructure stocks benefit from the successful IPO debut.",
-  "source" : "BusinessLine",
-  "publishedAt" : "24-Sep-2026 13:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-24T13:16:22",
   "title" : "Sebi board meeting: PMS rules overhaul, FPI commodity trades among key decisions to watch out",
   "impact" : "The reforms signal structural improvements to liquidity and capital depth which are positive for market sentiment. Nifty may see a steady upward bias due to increased institutional participation, with minimal direct impact on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The focus on credit intensity signals a long-term liquidity boost for corporate India, likely sustaining the Nifty upward trajectory. The rupee is expected to remain stable to slightly stronger due to enhanced economic growth prospects.",
   "source" : "BusinessLine",
   "publishedAt" : "27-Oct-2026 16:19 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-27T17:15:26",
+  "title" : "Houthis launch attack on Saudi Ras Tanura oil refinery",
+  "impact" : "Heightened geopolitical tension in the Middle East is likely to trigger a bearish opening for the Nifty, driven by a risk-off sentiment. Crude oil price spikes will exert downward pressure on the Indian Rupee, increasing inflationary concerns and fiscal deficit anxieties.",
+  "source" : "Economic Times",
+  "publishedAt" : "27-Oct-2026 16:46 IST",
   "score" : 7
 } ]
