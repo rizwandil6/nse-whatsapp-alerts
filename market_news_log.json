@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-24T10:00:07",
-  "title" : "Sensex, Nifty slide over 0.8% as rising crude, US bond yields rattle markets; financials lead losses",
-  "impact" : "The Indian equity market is facing significant downward pressure due to global macroeconomic headwinds. Nifty is expected to witness further consolidation or downside if US bond yields continue to surge. The Rupee is likely to face depreciation pressure against the dollar due to rising crude oil prices.",
-  "source" : "BusinessLine",
-  "publishedAt" : "24-Sep-2026 09:54 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-24T12:45:32",
   "title" : "HDFC Bank shares in focus: Stock down over 26% YTD, Q2 results due October 17",
   "impact" : "HDFC Bank results are a sentiment bellwether for the broader Nifty index. Weak performance could weigh on financials and push the index towards key support levels with moderate pressure on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising geopolitical tensions in West Asia threaten to elevate oil prices and widen the fiscal deficit. Nifty is expected to witness volatility with a bearish bias as foreign institutional investors turn risk-averse. The Rupee is likely to face depreciation pressure against the USD.",
   "source" : "Economic Times",
   "publishedAt" : "27-Oct-2026 13:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-27T14:27:13",
+  "title" : "Tata maverick spills the tea on new growth formula",
+  "impact" : "The strategic pivot from Tata Motors signals a broader shift in industrial capital allocation, likely driving positive momentum in the Nifty. The move strengthens investor confidence in heavyweight manufacturing, potentially supporting the rupee through increased long-term FDI and operational efficiency.",
+  "source" : "Economic Times",
+  "publishedAt" : "27-Oct-2026 14:00 IST",
   "score" : 7
 } ]
