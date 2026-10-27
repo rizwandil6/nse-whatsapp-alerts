@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-24T07:54:28",
-  "title" : "NSE set for trading debut as India’s biggest stock exchange, modest gains seen",
-  "impact" : "The NSE listing is expected to boost overall market sentiment and liquidity, likely providing a moderate upward push to the Nifty. The rupee is expected to remain stable with positive sentiment from increased capital market participation.",
-  "source" : "BusinessLine",
-  "publishedAt" : "24-Sep-2026 07:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-24T10:00:07",
   "title" : "Sensex, Nifty slide over 0.8% as rising crude, US bond yields rattle markets; financials lead losses",
   "impact" : "The Indian equity market is facing significant downward pressure due to global macroeconomic headwinds. Nifty is expected to witness further consolidation or downside if US bond yields continue to surge. The Rupee is likely to face depreciation pressure against the dollar due to rising crude oil prices.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "27-Oct-2026 09:36 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-27T14:12:01",
+  "title" : "W Asia crisis so far may cost govt ₹1.35L cr: ICRA",
+  "impact" : "Rising geopolitical tensions in West Asia threaten to elevate oil prices and widen the fiscal deficit. Nifty is expected to witness volatility with a bearish bias as foreign institutional investors turn risk-averse. The Rupee is likely to face depreciation pressure against the USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "27-Oct-2026 13:28 IST",
+  "score" : 7
 } ]
