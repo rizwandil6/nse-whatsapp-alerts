@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-24T12:45:32",
-  "title" : "HDFC Bank shares in focus: Stock down over 26% YTD, Q2 results due October 17",
-  "impact" : "HDFC Bank results are a sentiment bellwether for the broader Nifty index. Weak performance could weigh on financials and push the index towards key support levels with moderate pressure on the rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "24-Sep-2026 12:41 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-24T13:15:40",
   "title" : "NSE enters top-10 most valued firms' club; shares jump over 5%",
   "impact" : "The NSE listing signals robust investor appetite and liquidity for financial exchanges, likely boosting overall market sentiment. Nifty is expected to sustain upward momentum as financial services and infrastructure stocks benefit from the successful IPO debut.",
@@ -3497,5 +3490,12 @@
   "impact" : "The strategic pivot from Tata Motors signals a broader shift in industrial capital allocation, likely driving positive momentum in the Nifty. The move strengthens investor confidence in heavyweight manufacturing, potentially supporting the rupee through increased long-term FDI and operational efficiency.",
   "source" : "Economic Times",
   "publishedAt" : "27-Oct-2026 14:00 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-27T16:29:01",
+  "title" : "5 developmental imperatives, including increasing credit intensity, would underpin India’s journey towards Viksit Bharat: Shaktikanta Das",
+  "impact" : "The focus on credit intensity signals a long-term liquidity boost for corporate India, likely sustaining the Nifty upward trajectory. The rupee is expected to remain stable to slightly stronger due to enhanced economic growth prospects.",
+  "source" : "BusinessLine",
+  "publishedAt" : "27-Oct-2026 16:19 IST",
   "score" : 7
 } ]
