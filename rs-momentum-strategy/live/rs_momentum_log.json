@@ -2117,5 +2117,26 @@
   "date": "2026-10-22",
   "price": 381.15,
   "rsRankAtEntry": 82.1917808219178
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CUMMINSIND",
+  "date": "2026-10-25",
+  "price": 4385.5,
+  "pnlPct": -19.17618872097309
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CARBORUNIV",
+  "date": "2026-10-25",
+  "price": 1129.2,
+  "rsRankAtEntry": 84.34442270058709
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GRAPHITE",
+  "date": "2026-10-25",
+  "price": 736.05,
+  "rsRankAtEntry": 81.2133072407045
  }
 ]

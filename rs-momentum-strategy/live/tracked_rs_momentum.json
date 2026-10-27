@@ -60,12 +60,6 @@
   "rsRankAtEntry": 81.71091445427729,
   "salesGrowth3Y": 16
  },
- "CUMMINSIND": {
-  "entryDate": "2026-08-06",
-  "entryPrice": 5426,
-  "rsRankAtEntry": 80.23598820058997,
-  "salesGrowth3Y": 16
- },
  "THELEELA": {
   "entryDate": "2026-08-06",
   "entryPrice": 518,
@@ -339,6 +333,20 @@
   "entryDate": "2026-10-22",
   "entryPrice": 381.15,
   "rsRankAtEntry": 82.1917808219178,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "CARBORUNIV": {
+  "entryDate": "2026-10-25",
+  "entryPrice": 1129.2,
+  "rsRankAtEntry": 84.34442270058709,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GRAPHITE": {
+  "entryDate": "2026-10-25",
+  "entryPrice": 736.05,
+  "rsRankAtEntry": 81.2133072407045,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }
