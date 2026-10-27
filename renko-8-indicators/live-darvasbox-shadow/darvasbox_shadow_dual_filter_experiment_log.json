@@ -18727,5 +18727,17 @@
   "timestampMs": 1793089500000,
   "breakoutTimestampMs": 1793089500000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 185.793325,
+  "exitPrice": 187.24,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": 0.7786474567910332,
+  "entryTimestampMs": 1793079300000,
+  "exitTimestampMs": 1793089800000,
+  "shadow": true
  }
 ]
