@@ -18847,5 +18847,119 @@
   "entryTimestampMs": 1793086800000,
   "exitTimestampMs": 1793090700000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 9.200400000000005,
+  "timestampMs": 1793094900000,
+  "breakoutTimestampMs": 1793094900000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 711.9956249999999,
+  "timestampMs": 1793094900000,
+  "breakoutTimestampMs": 1793093400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "OLAELEC",
+  "direction": "LONG",
+  "entry": 32.061449999999994,
+  "exitPrice": 35.70824999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 11.374407582938344,
+  "entryTimestampMs": 1793074200000,
+  "exitTimestampMs": 1793094900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RAILTEL",
+  "direction": "LONG",
+  "entry": 231.79625000000001,
+  "exitPrice": 230.1125,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.7263922518159821,
+  "entryTimestampMs": 1793081100000,
+  "exitTimestampMs": 1793093700000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "LONG",
+  "entry": 711.9956249999999,
+  "exitPrice": 710.2462499999999,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -0.24570024570024382,
+  "entryTimestampMs": 1793094900000,
+  "exitTimestampMs": 1793094900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "NCC",
+  "direction": "SHORT",
+  "entry": 116.657625,
+  "exitPrice": 115.78049999999998,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.7518796992481381,
+  "entryTimestampMs": 1793090700000,
+  "exitTimestampMs": 1793094900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 657.05,
+  "exitPrice": 653.76475,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.4999999999999856,
+  "entryTimestampMs": 1793086800000,
+  "exitTimestampMs": 1793093400000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 9.200400000000005,
+  "exitPrice": 9.200400000000005,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0,
+  "entryTimestampMs": 1793094900000,
+  "exitTimestampMs": 1793094900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ORIENTELEC",
+  "direction": "LONG",
+  "entry": 188.10995,
+  "exitPrice": 185.793325,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": -1.2315270935960525,
+  "entryTimestampMs": 1793093700000,
+  "exitTimestampMs": 1793094900000,
+  "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IRCON",
+  "direction": "SHORT",
+  "entry": 98.96250000000003,
+  "exitPrice": 98.71875000000003,
+  "action": "EOD_SQUARE_OFF",
+  "pnlPct": 0.24630541871921746,
+  "entryTimestampMs": 1793086500000,
+  "exitTimestampMs": 1793094900000,
+  "shadow": true
  }
 ]
