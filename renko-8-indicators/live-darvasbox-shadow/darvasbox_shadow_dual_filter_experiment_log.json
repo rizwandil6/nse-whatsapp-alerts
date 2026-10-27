@@ -18790,5 +18790,17 @@
   "entryTimestampMs": 1793087400000,
   "exitTimestampMs": 1793092200000,
   "shadow": true
+ },
+ {
+  "type": "EXIT",
+  "symbol": "ARE&M",
+  "direction": "SHORT",
+  "entry": 701.499375,
+  "exitPrice": 704.95,
+  "action": "EMA_9_20_CROSS",
+  "pnlPct": -0.49189281173629823,
+  "entryTimestampMs": 1793089500000,
+  "exitTimestampMs": 1793093400000,
+  "shadow": true
  }
 ]
