@@ -18691,5 +18691,23 @@
   "entryTimestampMs": 1793081400000,
   "exitTimestampMs": 1793086920000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "RVNL",
+  "direction": "SHORT",
+  "entry": 181.68464999999998,
+  "timestampMs": 1793086800000,
+  "breakoutTimestampMs": 1793086800000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TITAGARH",
+  "direction": "SHORT",
+  "entry": 657.05,
+  "timestampMs": 1793086800000,
+  "breakoutTimestampMs": 1793086800000,
+  "shadow": true
  }
 ]
