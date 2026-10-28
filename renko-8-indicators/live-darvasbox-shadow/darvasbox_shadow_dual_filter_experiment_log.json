@@ -19036,5 +19036,23 @@
   "timestampMs": 1793165700000,
   "breakoutTimestampMs": 1793165700000,
   "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "HATHWAY",
+  "direction": "LONG",
+  "entry": 9.1857,
+  "timestampMs": 1793165700000,
+  "breakoutTimestampMs": 1793165700000,
+  "shadow": true
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "IRCON",
+  "direction": "LONG",
+  "entry": 99.39895000000004,
+  "timestampMs": 1793165700000,
+  "breakoutTimestampMs": 1793165700000,
+  "shadow": true
  }
 ]
