@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-25T15:02:33",
-  "title" : "India has strongest growth outlook globally; 74% chief economists expect strong growth: WEF",
-  "impact" : "Strong economic sentiment supports a bullish outlook for Indian equities, likely driving Nifty toward fresh highs. Sustained growth prospects will stabilize the rupee against the dollar through increased FII inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "25-Sep-2026 14:55 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-25T17:34:43",
   "title" : "India faces Trump tariff heat as China gets breather",
   "impact" : "Heightened tariff risks create headwinds for Indian exports to the US, leading to potential Nifty consolidation. Increased safe-haven demand for the dollar may put moderate pressure on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The potential IPO of Jio will likely drive significant liquidity and investor interest into the Indian equity markets. Nifty is expected to trend bullish due to the massive scale of the offering, while the rupee may appreciate slightly on expected foreign institutional capital inflows.",
   "source" : "Economic Times",
   "publishedAt" : "28-Oct-2026 15:01 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-10-28T15:57:02",
+  "title" : "Jio does what none of India's 5 biggest IPOs could",
+  "impact" : "The potential spin-off of Reliance Jio is likely to drive significant liquidity and investor interest in the Indian equity markets. Nifty is expected to see a bullish trend with large-cap support, while the rupee may appreciate due to anticipated high-value foreign capital inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "28-Oct-2026 12:48 IST",
   "score" : 8
 } ]
