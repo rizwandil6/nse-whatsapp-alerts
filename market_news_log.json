@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-24T18:50:30",
-  "title" : "Sensex crashes 1,248 points as 5 villains run riot",
-  "impact" : "The Sensex crash signals a sharp correction driven by broad-based selling pressure across large-cap indices. Nifty is expected to test immediate support levels below 24,000, while the rupee faces depreciation risks due to foreign institutional outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "24-Sep-2026 09:39 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-25T01:22:07",
   "title" : "US Federal Reserve’s Anna Paulson sees scope for more interest rate hikes amid inflation risks",
   "impact" : "Hawkish Fed rhetoric strengthens the US Dollar, likely exerting downward pressure on Indian indices due to FII outflows. Expect volatility in Nifty with a bearish bias and continued depreciation of the Indian Rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "28-Oct-2026 07:15 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-28T09:48:51",
+  "title" : "Crude oil futures gain after Houthi attack on Saudi refinery",
+  "impact" : "Rising crude prices trigger inflationary concerns, likely weighing on Nifty sentiment. Increased import bills are expected to exert downward pressure on the Indian Rupee, raising fiscal deficit worries.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Oct-2026 09:43 IST",
+  "score" : 7
 } ]
