@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-26T11:50:42",
-  "title" : "The corporate pause in India’s top cities is ending",
-  "impact" : "The revival of corporate office leasing in top Indian cities signals a robust recovery in commercial real estate and service-linked demand. Nifty is expected to sustain a bullish momentum as corporate expansion fuels broader economic sentiment, with the rupee showing stability against dollar inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "25-Sep-2026 10:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-26T11:50:48",
   "title" : "Trump to bomb Iran once November midterms end",
   "impact" : "Heightened geopolitical tensions in the Middle East would likely trigger a flight to safety, causing a sharp correction in Nifty and increased volatility. The Indian Rupee would face significant depreciation pressure due to a spike in global oil prices and risk-off sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The positive growth outlook reinforces investor confidence, likely driving the Nifty 50 toward its previous highs. Sustained economic expansion should provide stability to the rupee against global volatility.",
   "source" : "BusinessLine",
   "publishedAt" : "29-Oct-2026 15:39 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-29T16:07:42",
+  "title" : "U.S. Fed holds rates steady; pressure on emerging markets expected with stronger dollar outlook",
+  "impact" : "Indian markets are likely to face liquidity pressure as FIIs shift capital toward higher U.S. yields. Nifty may face downward consolidation while the rupee remains vulnerable to further depreciation against the dollar.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "29-Oct-2026 15:51 IST",
   "score" : 7
 } ]
