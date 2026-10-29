@@ -2138,5 +2138,19 @@
   "date": "2026-10-25",
   "price": 736.05,
   "rsRankAtEntry": 81.2133072407045
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CAPLIPOINT",
+  "date": "2026-10-27",
+  "price": 2362.8,
+  "rsRankAtEntry": 80.23483365949119
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "FLUOROCHEM",
+  "date": "2026-10-27",
+  "price": 4267.1,
+  "rsRankAtEntry": 81.2133072407045
  }
 ]

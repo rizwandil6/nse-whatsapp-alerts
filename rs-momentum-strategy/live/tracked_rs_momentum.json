@@ -349,5 +349,19 @@
   "rsRankAtEntry": 81.2133072407045,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "CAPLIPOINT": {
+  "entryDate": "2026-10-27",
+  "entryPrice": 2362.8,
+  "rsRankAtEntry": 80.23483365949119,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "FLUOROCHEM": {
+  "entryDate": "2026-10-27",
+  "entryPrice": 4267.1,
+  "rsRankAtEntry": 81.2133072407045,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
