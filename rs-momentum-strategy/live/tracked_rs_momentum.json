@@ -252,116 +252,22 @@
   "rsRankAtEntry": 80.859375,
   "salesGrowth3Y": 15
  },
- "BOSCHLTD": {
-  "entryDate": "2026-10-15",
-  "entryPrice": 45560,
-  "rsRankAtEntry": 80.2734375,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "SUNTV": {
-  "entryDate": "2026-10-15",
-  "entryPrice": 638,
-  "rsRankAtEntry": 80.078125,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "TECHM": {
-  "entryDate": "2026-10-15",
-  "entryPrice": 1790,
-  "rsRankAtEntry": 80.46875,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "APLAPOLLO": {
-  "entryDate": "2026-10-18",
-  "entryPrice": 2144.6,
-  "rsRankAtEntry": 80.078125,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "JAMNAAUTO": {
-  "entryDate": "2026-10-18",
-  "entryPrice": 139.02,
-  "rsRankAtEntry": 80.859375,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "AARTIPHARM": {
-  "entryDate": "2026-10-20",
-  "entryPrice": 843.25,
-  "rsRankAtEntry": 80.62622309197651,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
  "PRICOLLTD": {
   "entryDate": "2026-10-20",
   "entryPrice": 659.6,
   "rsRankAtEntry": 80.23483365949119,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "AJANTPHARM": {
-  "entryDate": "2026-10-21",
-  "entryPrice": 3270.6,
-  "rsRankAtEntry": 80.43052837573386,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 27
  },
  "INDHOTEL": {
   "entryDate": "2026-10-21",
   "entryPrice": 782.3,
   "rsRankAtEntry": 80.23483365949119,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "KRN": {
-  "entryDate": "2026-10-21",
-  "entryPrice": 1072,
-  "rsRankAtEntry": 80.62622309197651,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "PPLPHARMA": {
-  "entryDate": "2026-10-21",
-  "entryPrice": 194.99,
-  "rsRankAtEntry": 81.60469667318982,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 19
  },
  "IGIL": {
   "entryDate": "2026-10-22",
   "entryPrice": 381.15,
   "rsRankAtEntry": 82.1917808219178,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "CARBORUNIV": {
-  "entryDate": "2026-10-25",
-  "entryPrice": 1129.2,
-  "rsRankAtEntry": 84.34442270058709,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GRAPHITE": {
-  "entryDate": "2026-10-25",
-  "entryPrice": 736.05,
-  "rsRankAtEntry": 81.2133072407045,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "CAPLIPOINT": {
-  "entryDate": "2026-10-27",
-  "entryPrice": 2362.8,
-  "rsRankAtEntry": 80.23483365949119,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "FLUOROCHEM": {
-  "entryDate": "2026-10-27",
-  "entryPrice": 4267.1,
-  "rsRankAtEntry": 81.2133072407045,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 48
  }
 }
