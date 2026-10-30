@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-27T12:54:08",
-  "title" : "Geopolitical developments, crude oil to steer stock market in holiday-shortened week: Analysts",
-  "impact" : "Heightened geopolitical tensions are expected to induce volatility in the Indian markets. Nifty may face downward pressure due to foreign fund outflows, while the rupee is likely to weaken against the dollar due to rising crude oil prices.",
-  "source" : "BusinessLine",
-  "publishedAt" : "27-Sep-2026 12:48 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-27T16:55:09",
   "title" : "What is driving India's semiconductor play?",
   "impact" : "The semiconductor push acts as a long-term structural tailwind for the Nifty, attracting sustained FDI and boosting manufacturing sentiment. Anticipate steady Nifty growth with a stable rupee as reliance on high-cost electronics imports gradually decreases.",
@@ -3497,5 +3490,12 @@
   "impact" : "The escalation creates significant volatility, driving safe-haven buying and inflationary pressures. Expect Nifty to consolidate with a bearish bias as FIIs trim risk and the Rupee weakens against the US Dollar.",
   "source" : "Economic Times",
   "publishedAt" : "30-Oct-2026 01:10 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-30T15:44:16",
+  "title" : "What RBI bond rate hike means for your investment",
+  "impact" : "An RBI rate hike typically pressures equity valuations by increasing the cost of capital. Expect a bearish trend for Nifty with potential consolidation, while the rupee may see temporary strengthening against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Oct-2026 15:17 IST",
   "score" : 7
 } ]
