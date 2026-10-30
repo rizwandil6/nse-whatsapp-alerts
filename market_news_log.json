@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T09:21:19",
-  "title" : "India's key-tenor bonds may see relief after October-March supply cut",
-  "impact" : "Lower government borrowing reduces yields, boosting broader market sentiment and liquidity. Nifty is likely to see an upward trend, while the rupee may appreciate due to improved fiscal deficit perceptions.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 09:17 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T09:51:43",
   "title" : "Brent crude rises above $106 as Trump rejects Iran’s proposal",
   "impact" : "Rising crude oil prices will pressure India's import bill and widen the trade deficit. Expect Nifty to face volatility and potential downside as inflationary concerns mount. The Rupee is likely to depreciate against the USD due to increased dollar demand for oil imports.",
@@ -3497,5 +3490,12 @@
   "impact" : "Reliance results provide a positive sentiment boost to the heavyweight index. Nifty is expected to sustain its upward momentum with stability in the rupee amid stable energy prices.",
   "source" : "Economic Times",
   "publishedAt" : "30-Oct-2026 21:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-30T21:34:22",
+  "title" : "US stocks slide: Amazon, Intel, Nvidia fall",
+  "impact" : "Indian markets are likely to open with a significant gap-down tracking the global sell-off in AI and tech stocks. The Nifty is expected to face heavy selling pressure, while the rupee may weaken due to risk-off sentiment and rising US treasury yields.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Oct-2026 20:49 IST",
   "score" : 7
 } ]
