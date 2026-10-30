@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-27T16:55:09",
-  "title" : "What is driving India's semiconductor play?",
-  "impact" : "The semiconductor push acts as a long-term structural tailwind for the Nifty, attracting sustained FDI and boosting manufacturing sentiment. Anticipate steady Nifty growth with a stable rupee as reliance on high-cost electronics imports gradually decreases.",
-  "source" : "Economic Times",
-  "publishedAt" : "27-Sep-2026 16:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-27T19:41:07",
   "title" : "H-1B faces major changes under Trump admin",
   "impact" : "The US H-1B visa crackdown poses a significant risk to the Indian IT export sector, potentially weighing on the Nifty IT index. The resultant uncertainty may lead to rupee volatility and pressure on large-cap IT stocks as operating margins face headwinds.",
@@ -3497,5 +3490,12 @@
   "impact" : "An RBI rate hike typically pressures equity valuations by increasing the cost of capital. Expect a bearish trend for Nifty with potential consolidation, while the rupee may see temporary strengthening against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "30-Oct-2026 15:17 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-30T18:31:37",
+  "title" : "Bank credit growth outpaces deposits at 17.94%",
+  "impact" : "Credit growth outpacing deposits signals robust economic activity and festive demand, sustaining bullish sentiment for financials. Nifty is expected to trend upward, while strong credit expansion and liquidity may keep the rupee stable or slightly pressured due to increased import-linked credit demand.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Oct-2026 18:02 IST",
   "score" : 7
 } ]
