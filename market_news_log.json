@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T09:51:46",
-  "title" : "Markets open lower as crude surge, FII selling and geopolitical jitters weigh on sentiment",
-  "impact" : "The Indian markets face strong downward pressure due to geopolitical instability and capital outflows. Nifty is expected to test lower support levels, while the rupee faces depreciation risks against the dollar amid rising crude prices.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 09:49 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-28T09:51:51",
   "title" : "Indian central bank likely shielding rupee as US-Iran impasses lifts oil prices, traders say",
   "impact" : "Rising oil prices and geopolitical tensions create a bearish sentiment for Indian equities. Nifty is expected to face downward pressure due to foreign institutional selling, while the RBI will remain active to prevent a sharp rupee depreciation.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "30-Oct-2026 21:34 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-10-30T23:19:59",
+  "title" : "RIL profit soars 41% to ₹25,548 cr, revenue up 29%",
+  "impact" : "Strong earnings from RIL will provide a significant boost to Nifty50 and index sentiment. The massive profitability is expected to attract foreign institutional inflows, strengthening the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Oct-2026 19:46 IST",
+  "score" : 8
 } ]
