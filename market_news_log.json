@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T09:51:43",
-  "title" : "Brent crude rises above $106 as Trump rejects Iran’s proposal",
-  "impact" : "Rising crude oil prices will pressure India's import bill and widen the trade deficit. Expect Nifty to face volatility and potential downside as inflationary concerns mount. The Rupee is likely to depreciate against the USD due to increased dollar demand for oil imports.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 09:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T09:51:46",
   "title" : "Markets open lower as crude surge, FII selling and geopolitical jitters weigh on sentiment",
   "impact" : "The Indian markets face strong downward pressure due to geopolitical instability and capital outflows. Nifty is expected to test lower support levels, while the rupee faces depreciation risks against the dollar amid rising crude prices.",
@@ -3497,5 +3490,12 @@
   "impact" : "Indian markets are likely to open with a significant gap-down tracking the global sell-off in AI and tech stocks. The Nifty is expected to face heavy selling pressure, while the rupee may weaken due to risk-off sentiment and rising US treasury yields.",
   "source" : "Economic Times",
   "publishedAt" : "30-Oct-2026 20:49 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-10-30T22:34:35",
+  "title" : "Intel stock crashes 29%, worst day since 1974",
+  "impact" : "Indian markets are likely to open with a sharp bearish gap following global tech sell-offs. Nifty will face immediate resistance at lower levels due to weak sentiment in IT bellwethers, while the rupee may face pressure from foreign fund outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "30-Oct-2026 21:34 IST",
   "score" : 7
 } ]
