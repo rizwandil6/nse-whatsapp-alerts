@@ -2267,5 +2267,20 @@
   "date": "2026-10-30",
   "price": 4267.1,
   "rsRankAtEntry": 81.2133072407045
+ },
+ {
+  "type": "EXIT",
+  "symbol": "CARTRADE",
+  "date": "2026-10-29",
+  "price": 2189.8,
+  "pnlPct": -25.400286162022205
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "BSE",
+  "date": "2026-10-29",
+  "price": 3510.4,
+  "rsRankAtEntry": 80.03913894324853,
+  "salesGrowth3Y": 77
  }
 ]

@@ -228,12 +228,6 @@
   "rsRankAtEntry": 81.9253438113949,
   "salesGrowth3Y": 48
  },
- "CARTRADE": {
-  "entryDate": "2026-10-04",
-  "entryPrice": 2935.4,
-  "rsRankAtEntry": 80.82191780821918,
-  "salesGrowth3Y": 29
- },
  "URBANCO": {
   "entryDate": "2026-10-05",
   "entryPrice": 173.54,
@@ -269,5 +263,11 @@
   "entryPrice": 381.15,
   "rsRankAtEntry": 82.1917808219178,
   "salesGrowth3Y": 48
+ },
+ "BSE": {
+  "entryDate": "2026-10-29",
+  "entryPrice": 3510.4,
+  "rsRankAtEntry": 80.03913894324853,
+  "salesGrowth3Y": 77
  }
 }
