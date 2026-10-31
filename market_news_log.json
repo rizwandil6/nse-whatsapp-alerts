@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T09:51:51",
-  "title" : "Indian central bank likely shielding rupee as US-Iran impasses lifts oil prices, traders say",
-  "impact" : "Rising oil prices and geopolitical tensions create a bearish sentiment for Indian equities. Nifty is expected to face downward pressure due to foreign institutional selling, while the RBI will remain active to prevent a sharp rupee depreciation.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 09:35 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T10:52:27",
   "title" : "Iran completes rail laying on Chabahar-Zahedan link, to boost India’s access to Central Asia",
   "impact" : "This strategic development strengthens India's long-term trade infrastructure and geopolitical positioning. It is likely to support positive sentiment in the Nifty infrastructure and logistics space while providing structural support to the rupee through enhanced trade efficiency.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "30-Oct-2026 19:46 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-10-31T07:21:27",
+  "title" : "War prompts US to squeeze more from refineries",
+  "impact" : "Global supply crunches and high refining margins create persistent inflation risks for India, keeping Nifty under pressure due to cost-push concerns. The Rupee remains vulnerable as a net importer of crude, potentially facing depreciation against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "31-Oct-2026 07:03 IST",
+  "score" : 7
 } ]
