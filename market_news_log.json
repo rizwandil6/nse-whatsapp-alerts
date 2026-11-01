@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T13:55:14",
-  "title" : "El Nino may turn 'very strong' by late 2026: IRI",
-  "impact" : "El Nino poses a significant risk to domestic food inflation and rural consumption patterns. Expect potential Nifty volatility as agricultural output uncertainty may pressure the rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Sep-2026 13:34 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T14:25:31",
   "title" : "UAE to invest another $25B in India, eyes energy bets",
   "impact" : "The large scale FDI inflow is expected to bolster bullish sentiment in the Indian equity markets and support Nifty 50 upward momentum. The substantial capital infusion will strengthen the rupee against the USD due to increased foreign exchange reserves.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "01-Nov-2026 12:01 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-01T12:43:44",
+  "title" : "FPIs pull out ₹34,843 cr from equities in Oct, turn net buyers last week",
+  "impact" : "Sustained FPI outflows keep the Nifty under pressure with a bearish near-term bias. High net selling exerts significant depreciation pressure on the Indian Rupee against the USD.",
+  "source" : "BusinessLine",
+  "publishedAt" : "01-Nov-2026 12:30 IST",
+  "score" : 8
 } ]
