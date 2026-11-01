@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T15:26:08",
-  "title" : "UAE plans another USD 25 billion investment in India, trade target set at USD 200 billion",
-  "impact" : "This massive bilateral investment plan signals strong macroeconomic confidence and long-term capital inflows for India. Nifty is expected to sustain a bullish bias as foreign direct investment boosts sentiment, while the rupee will likely strengthen against the USD due to reduced volatility and improved reserves.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 15:24 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-28T15:41:44",
   "title" : "Why RBI is tightening its hold on India",
   "impact" : "The expected repo rate hike will likely exert short-term downward pressure on Nifty due to higher cost of capital. However, the rupee should gain support as narrowing interest rate differentials curb capital outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The metaphorical alarm regarding water resources and infrastructure suggests impending regulatory scrutiny or supply constraints. Nifty likely faces short-term volatility as utility and construction projects face execution delays. Rupee may remain under pressure if industrial output slows due to resource allocation shifts.",
   "source" : "Economic Times",
   "publishedAt" : "01-Nov-2026 15:54 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-01T16:15:29",
+  "title" : "GST gets a festive boost, collections jump 22.9%",
+  "impact" : "GST collection growth signals robust domestic consumption and economic resilience. Nifty is expected to sustain its upward momentum with positive sentiment likely to strengthen the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "01-Nov-2026 12:22 IST",
   "score" : 7
 } ]
