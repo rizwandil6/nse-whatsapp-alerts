@@ -2282,5 +2282,19 @@
   "price": 3510.4,
   "rsRankAtEntry": 80.03913894324853,
   "salesGrowth3Y": 77
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "KPRMILL",
+  "date": "2026-10-29",
+  "price": 1114.6,
+  "rsRankAtEntry": 80.43052837573386
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "LTTS",
+  "date": "2026-10-29",
+  "price": 4280.2,
+  "rsRankAtEntry": 82.38747553816047
  }
 ]
