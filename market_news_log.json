@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T17:12:53",
-  "title" : "Gold price falls ₹2,600, silver plunges ₹5,000 amid crude oil surge",
-  "impact" : "Rising crude oil prices will pressure Indian indices due to higher import costs and fiscal deficit concerns. Nifty is expected to face a bearish trend as inflation fears mount and the rupee weakens against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 17:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T18:14:22",
   "title" : "Bears lay siege to D-Street; Nifty snaps below 23,000 on crude shock and Iran standoff",
   "impact" : "Heightened geopolitical risk and crude price volatility have triggered a sharp risk-off sentiment. Nifty 50 is expected to test lower support levels near 22,500, with the rupee facing significant depreciation pressure against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened volatility expected in the broader market as leveraged unwinding exerts downward pressure on mid and small-cap indices. Nifty is likely to face consolidation with a bearish bias as risk appetite wanes, while the rupee remains range-bound with potential weakness from FII outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "01-Nov-2026 21:40 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T00:33:55",
+  "title" : "Gulf investors eye India’s AI and space tech",
+  "impact" : "Increased foreign capital inflows from Gulf sovereign funds will likely boost liquidity and investor sentiment. Nifty is expected to sustain its upward momentum with the rupee strengthening against the dollar on higher FDI expectations.",
+  "source" : "Economic Times",
+  "publishedAt" : "02-Nov-2026 00:05 IST",
   "score" : 7
 } ]
