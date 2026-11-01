@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T16:57:31",
-  "title" : "Sensex today | Stock Market Highlights: Sensex tanks 1,124 points, Nifty ends below 22,800",
-  "impact" : "The Indian market faces strong downward pressure due to foreign institutional outflows and regional instability. Nifty is expected to struggle with support levels below 22,800, while the rupee remains vulnerable against the dollar amid rising crude oil costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 16:40 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-28T17:12:53",
   "title" : "Gold price falls ₹2,600, silver plunges ₹5,000 amid crude oil surge",
   "impact" : "Rising crude oil prices will pressure Indian indices due to higher import costs and fiscal deficit concerns. Nifty is expected to face a bearish trend as inflation fears mount and the rupee weakens against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical tensions in the Middle East are likely to trigger a risk-off sentiment in Indian markets. Expect Nifty to see profit-booking and gap-down openings, with the Rupee facing depreciation pressure due to rising crude oil prices and safe-haven flows into the USD.",
   "source" : "Economic Times",
   "publishedAt" : "01-Nov-2026 21:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-01T21:47:59",
+  "title" : "Small-cap sell off intensifies as MTF funded positions unwind",
+  "impact" : "Heightened volatility expected in the broader market as leveraged unwinding exerts downward pressure on mid and small-cap indices. Nifty is likely to face consolidation with a bearish bias as risk appetite wanes, while the rupee remains range-bound with potential weakness from FII outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "01-Nov-2026 21:40 IST",
   "score" : 7
 } ]
