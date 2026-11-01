@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T13:55:06",
-  "title" : "RBI expected to raise repo rate by 50 bps in FY27",
-  "impact" : "Rate hikes increase borrowing costs, likely leading to short-term market consolidation or downside pressure. Nifty may face resistance near historical highs as liquidity tightens, while the Rupee is expected to stabilize or strengthen due to higher interest rate differentials.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Sep-2026 13:43 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T13:55:14",
   "title" : "El Nino may turn 'very strong' by late 2026: IRI",
   "impact" : "El Nino poses a significant risk to domestic food inflation and rural consumption patterns. Expect potential Nifty volatility as agricultural output uncertainty may pressure the rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Stabilizing bond yields and an appreciating rupee improve overall market sentiment for foreign capital inflows. Nifty likely to sustain its upward trajectory as borrowing costs ease for domestic corporates. The Indian rupee is expected to show strength against the dollar, potentially boosting domestic consumption.",
   "source" : "BusinessLine",
   "publishedAt" : "01-Nov-2026 11:16 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-01T12:28:36",
+  "title" : "Iran-Qatar propose reopening Hormuz in 2 days if..",
+  "impact" : "Easing of tensions in the Strait of Hormuz will likely lower global crude oil prices, providing relief to India's import bill. This is expected to support Nifty in trending upwards and lead to a potential strengthening of the Indian Rupee against the USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "01-Nov-2026 12:01 IST",
   "score" : 7
 } ]
