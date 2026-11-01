@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T13:24:13",
-  "title" : "Nifty 50 down 12% from September 2024 peak: Motilal Oswal",
-  "impact" : "The Nifty 50 is experiencing a technical correction phase as investors digest stretched valuations. Expect consolidation with potential support levels being tested while the Rupee faces pressure from FII outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 13:05 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T13:55:06",
   "title" : "RBI expected to raise repo rate by 50 bps in FY27",
   "impact" : "Rate hikes increase borrowing costs, likely leading to short-term market consolidation or downside pressure. Nifty may face resistance near historical highs as liquidity tightens, while the Rupee is expected to stabilize or strengthen due to higher interest rate differentials.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened H-1B restrictions pose a significant headwind for the Indian IT services sector, leading to potential Nifty volatility. Increased supply of skilled labor in India could dampen wage inflation, while the rupee may face minor pressure due to potential software export revenue concerns.",
   "source" : "Economic Times",
   "publishedAt" : "01-Nov-2026 07:52 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-01T11:28:23",
+  "title" : "India’s 10-year G-Sec yield could settle in the 6.75-7.00% range by March-end 2027: SBI Ecowrap",
+  "impact" : "Stabilizing bond yields and an appreciating rupee improve overall market sentiment for foreign capital inflows. Nifty likely to sustain its upward trajectory as borrowing costs ease for domestic corporates. The Indian rupee is expected to show strength against the dollar, potentially boosting domestic consumption.",
+  "source" : "BusinessLine",
+  "publishedAt" : "01-Nov-2026 11:16 IST",
   "score" : 7
 } ]
