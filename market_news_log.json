@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T16:57:28",
-  "title" : "India’s IPO pipeline surges to ₹3.86 lakh crore as companies tap public markets",
-  "impact" : "The record IPO pipeline signals robust investor appetite and deepening capital markets. Expect Nifty to consolidate with a positive bias as liquidity shifts toward primary offerings, likely exerting mild downward pressure on the rupee due to potential FII repatriation.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 16:54 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T16:57:31",
   "title" : "Sensex today | Stock Market Highlights: Sensex tanks 1,124 points, Nifty ends below 22,800",
   "impact" : "The Indian market faces strong downward pressure due to foreign institutional outflows and regional instability. Nifty is expected to struggle with support levels below 22,800, while the rupee remains vulnerable against the dollar amid rising crude oil costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Market remains in a consolidation phase with cautious optimism as FPI selling eases. Nifty is expected to sustain above the 23,000 mark provided global tailwinds like crude oil prices stabilize, while the rupee remains under pressure due to persistent capital outflows.",
   "source" : "Economic Times",
   "publishedAt" : "01-Nov-2026 11:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-01T21:32:52",
+  "title" : "'Prepared to defend ourselves if US attacks:' Iran",
+  "impact" : "Heightened geopolitical tensions in the Middle East are likely to trigger a risk-off sentiment in Indian markets. Expect Nifty to see profit-booking and gap-down openings, with the Rupee facing depreciation pressure due to rising crude oil prices and safe-haven flows into the USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "01-Nov-2026 21:04 IST",
   "score" : 7
 } ]
