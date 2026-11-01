@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T16:12:09",
-  "title" : "Rupee falls 28 paise to close at 96.03 against US dollar",
-  "impact" : "The weakening rupee and rising crude oil prices create significant bearish headwinds for the Indian markets. Expect Nifty to face strong downward pressure due to foreign institutional selling and higher import costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 16:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T16:27:19",
   "title" : "India’s industrial output grows 8% in August",
   "impact" : "Robust industrial growth reinforces macro stability, likely supporting a bullish trend for Nifty near-term. FII flows may increase, potentially strengthening the rupee against the USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "The record private equity inflow signals strong foreign investor confidence in Indian long-term growth prospects. Nifty is likely to see a bullish bias on higher liquidity, with the rupee receiving support from increased capital account inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "01-Nov-2026 16:32 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-01T18:31:06",
+  "title" : "Can Nifty, Sensex extend gains after rallying up to 2% last week? 4 factors to watch on Monday",
+  "impact" : "Market sentiment remains cautiously bullish for largecaps as FIIs return, but broader indices face correction pressure. Nifty likely to test 23,200 while rupee volatility persists due to elevated crude oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "01-Nov-2026 12:07 IST",
   "score" : 7
 } ]
