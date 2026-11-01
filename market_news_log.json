@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T14:25:31",
-  "title" : "UAE to invest another $25B in India, eyes energy bets",
-  "impact" : "The large scale FDI inflow is expected to bolster bullish sentiment in the Indian equity markets and support Nifty 50 upward momentum. The substantial capital infusion will strengthen the rupee against the USD due to increased foreign exchange reserves.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Sep-2026 14:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T15:10:57",
   "title" : "India may need over ₹4 lakh crore investment in energy storage by FY32: Report",
   "impact" : "The energy transition theme provides a long-term structural tailwind for industrial and utility indices. Nifty is expected to sustain its momentum in capital goods, while the rupee remains stable as massive capex drives domestic infrastructure growth.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "01-Nov-2026 12:30 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-01T12:58:52",
+  "title" : "GST mop-up grows 23% to over ₹2.31 lakh cr. in October",
+  "impact" : "Strong GST collections indicate resilient domestic consumption and economic growth. Expect a bullish bias for Nifty with potential support for the rupee due to improved macroeconomic fundamentals.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "01-Nov-2026 12:47 IST",
+  "score" : 7
 } ]
