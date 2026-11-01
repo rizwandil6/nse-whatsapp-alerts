@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T18:14:22",
-  "title" : "Bears lay siege to D-Street; Nifty snaps below 23,000 on crude shock and Iran standoff",
-  "impact" : "Heightened geopolitical risk and crude price volatility have triggered a sharp risk-off sentiment. Nifty 50 is expected to test lower support levels near 22,500, with the rupee facing significant depreciation pressure against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 18:01 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-28T20:31:09",
   "title" : "India's factory pulse quickens as IIP hits 8% in Aug",
   "impact" : "Robust IIP data signals strong industrial recovery boosting investor sentiment for Nifty. Expect a bullish bias in equity indices and potential support for the rupee as manufacturing attractiveness increases.",
@@ -3497,5 +3490,12 @@
   "impact" : "Increased foreign capital inflows from Gulf sovereign funds will likely boost liquidity and investor sentiment. Nifty is expected to sustain its upward momentum with the rupee strengthening against the dollar on higher FDI expectations.",
   "source" : "Economic Times",
   "publishedAt" : "02-Nov-2026 00:05 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T01:19:38",
+  "title" : "WWIII: Could Americans face a military draft?",
+  "impact" : "Global geopolitical uncertainty would likely trigger risk-off sentiment in Indian equity markets. Nifty faces downward pressure due to FII outflows, while the rupee may depreciate against the dollar as investors seek safe-haven assets.",
+  "source" : "Economic Times",
+  "publishedAt" : "02-Nov-2026 01:00 IST",
   "score" : 7
 } ]
