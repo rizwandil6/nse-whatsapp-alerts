@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T15:41:44",
-  "title" : "Why RBI is tightening its hold on India",
-  "impact" : "The expected repo rate hike will likely exert short-term downward pressure on Nifty due to higher cost of capital. However, the rupee should gain support as narrowing interest rate differentials curb capital outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Sep-2026 14:45 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-28T16:12:09",
   "title" : "Rupee falls 28 paise to close at 96.03 against US dollar",
   "impact" : "The weakening rupee and rising crude oil prices create significant bearish headwinds for the Indian markets. Expect Nifty to face strong downward pressure due to foreign institutional selling and higher import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "GST collection growth signals robust domestic consumption and economic resilience. Nifty is expected to sustain its upward momentum with positive sentiment likely to strengthen the rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "01-Nov-2026 12:22 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-01T16:45:33",
+  "title" : "IDBI-Fairfax mega deal takes PE-VC investments to $8 billion in October",
+  "impact" : "The record private equity inflow signals strong foreign investor confidence in Indian long-term growth prospects. Nifty is likely to see a bullish bias on higher liquidity, with the rupee receiving support from increased capital account inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "01-Nov-2026 16:32 IST",
   "score" : 7
 } ]
