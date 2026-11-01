@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T13:09:08",
-  "title" : "Markets sink to April lows at noon; crude surge, FII selling batter sentiment across sectors",
-  "impact" : "Continued FII selling pressure combined with rising crude prices is dragging indices toward April lows. Expect Nifty to face strong resistance and potential downside volatility with the Rupee likely to face depreciation pressure.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 13:05 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-28T13:24:13",
   "title" : "Nifty 50 down 12% from September 2024 peak: Motilal Oswal",
   "impact" : "The Nifty 50 is experiencing a technical correction phase as investors digest stretched valuations. Expect consolidation with potential support levels being tested while the Rupee faces pressure from FII outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical tensions in the Middle East are expected to drive risk aversion, leading to a bearish trend for Indian markets. Nifty is likely to see downward pressure, while the rupee may face depreciation against the dollar due to rising oil prices.",
   "source" : "Economic Times",
   "publishedAt" : "01-Nov-2026 06:51 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-01T08:26:44",
+  "title" : "H-1B crackdown poses severe risks to US economy",
+  "impact" : "Heightened H-1B restrictions pose a significant headwind for the Indian IT services sector, leading to potential Nifty volatility. Increased supply of skilled labor in India could dampen wage inflation, while the rupee may face minor pressure due to potential software export revenue concerns.",
+  "source" : "Economic Times",
+  "publishedAt" : "01-Nov-2026 07:52 IST",
   "score" : 7
 } ]
