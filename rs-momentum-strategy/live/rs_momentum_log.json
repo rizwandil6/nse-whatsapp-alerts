@@ -2296,5 +2296,19 @@
   "date": "2026-10-29",
   "price": 4280.2,
   "rsRankAtEntry": 82.38747553816047
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "KPRMILL",
+  "date": "2026-11-02",
+  "price": 1114.6,
+  "rsRankAtEntry": 80.43052837573386
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "LTTS",
+  "date": "2026-11-02",
+  "price": 4280.2,
+  "rsRankAtEntry": 82.38747553816047
  }
 ]

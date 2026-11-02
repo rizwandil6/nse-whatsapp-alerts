@@ -44,28 +44,6 @@
   "returnSinceEntry": 0
  },
  {
-  "symbol": "KPRMILL",
-  "entryDate": "2026-10-29",
-  "entryPrice": 1114.6,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1114.6,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "LTTS",
-  "entryDate": "2026-10-29",
-  "entryPrice": 4280.2,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 4280.2,
-  "returnSinceEntry": 0
- },
- {
   "symbol": "ANANDRATHI",
   "entryDate": "2026-10-17",
   "entryPrice": 2117.2,

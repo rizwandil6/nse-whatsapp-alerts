@@ -269,19 +269,5 @@
   "entryPrice": 3510.4,
   "rsRankAtEntry": 80.03913894324853,
   "salesGrowth3Y": 77
- },
- "KPRMILL": {
-  "entryDate": "2026-10-29",
-  "entryPrice": 1114.6,
-  "rsRankAtEntry": 80.43052837573386,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "LTTS": {
-  "entryDate": "2026-10-29",
-  "entryPrice": 4280.2,
-  "rsRankAtEntry": 82.38747553816047,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
  }
 }
