@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-30T19:03:29",
-  "title" : "SEBI, RBI work on bond indices, faster FPI onboarding",
-  "impact" : "Enhanced FPI ease and bond market depth will drive long-term capital inflows into Indian equities and debt. Expect Nifty to consolidate with a bullish bias as liquidity improves, while the rupee may find support from increased foreign investment interest.",
-  "source" : "BusinessLine",
-  "publishedAt" : "30-Sep-2026 18:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-30T20:05:20",
   "title" : "Russia sends clear nuclear warning to NATO members",
   "impact" : "Heightened geopolitical tensions are likely to trigger a flight to safety, leading to a bearish opening for the Nifty 50. The Indian Rupee is expected to face downward pressure due to increased demand for safe-haven assets and potential foreign institutional outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Long-term policy alignment boosts investor sentiment towards green energy infrastructure. Nifty is expected to sustain an upward bias, while the rupee benefits from reduced long-term import bill pressure.",
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 21:43 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T22:46:07",
+  "title" : "Sectors bracing for a pivot as US elections loom",
+  "impact" : "Indian markets face increased volatility due to global risk-off sentiment and potential tariff shifts. Nifty may face consolidation with downside bias as FII flows turn cautious, while the rupee remains under pressure against a strengthening dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "02-Nov-2026 22:11 IST",
   "score" : 7
 } ]
