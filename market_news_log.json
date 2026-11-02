@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-29T18:39:29",
-  "title" : "EY sees 100 million new long-term investors by 2035",
-  "impact" : "Increased retail participation will drive structural liquidity into the Indian equity market. Nifty is expected to sustain a long-term bullish trend due to persistent SIP inflows and domestic institutional support, with the rupee likely benefiting from increased financial savings and investment stability.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Sep-2026 18:36 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-29T19:11:02",
   "title" : "India’s new services barometer flashes strength",
   "impact" : "Robust service sector growth strengthens the bullish outlook for Indian equities. Nifty is expected to sustain its upward momentum with increased foreign institutional interest. The rupee should remain stable to slightly stronger due to improved economic sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising energy supply risks and low diesel stockpiles will likely trigger inflationary pressure, dampening overall Indian market sentiment. Expect Nifty to face resistance due to high input costs, putting downward pressure on the rupee as energy import bills swell.",
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 13:00 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T13:20:21",
+  "title" : "Defence Ministry signs ₹53,866-crore contracts for eight Indian Navy warships",
+  "impact" : "This massive order bolsters investor sentiment towards capital goods and manufacturing. Nifty index is likely to see a bullish bias in industrial and PSU segments while the rupee remains stable amid long-term infrastructure investment.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 13:07 IST",
   "score" : 7
 } ]
