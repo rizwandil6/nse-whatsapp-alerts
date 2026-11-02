@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T21:16:29",
-  "title" : "Markets sink to six-month low as oil shock wipes out ₹7.5 lakh crore in investor wealth",
-  "impact" : "The sharp decline reflects heightened risk aversion driven by rising oil prices and foreign capital outflows. Nifty is likely to test lower support levels near 22,500, while the rupee faces significant depreciation pressure due to import cost inflation.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Sep-2026 21:06 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-29T00:48:10",
   "title" : "Gold tumbles 4% to seven-week low as oil, dollar and yields climb",
   "impact" : "Rising oil prices and a stronger dollar create headwinds for Indian equities by increasing import bills and inflation risks. Nifty is expected to face selling pressure as foreign institutional outflows increase and bond yields firm up.",
@@ -3497,5 +3490,12 @@
   "impact" : "Indian markets are likely to lean bullish in November due to seasonal trends and return of FPI flows. Nifty is expected to sustain upward momentum, though elevated crude oil prices will keep the rupee under pressure and cap significant gains.",
   "source" : "Economic Times",
   "publishedAt" : "02-Nov-2026 06:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T06:35:14",
+  "title" : "FPI buying returns to Dalal Street as global investors rethink AI bets",
+  "impact" : "FPI buying provides short-term support to Indian indices, helping decouple from regional sell-offs. Nifty is expected to stabilize near large-cap pivots, while the rupee may find relief as capital flows reverse from the US.",
+  "source" : "Economic Times",
+  "publishedAt" : "02-Nov-2026 05:53 IST",
   "score" : 7
 } ]
