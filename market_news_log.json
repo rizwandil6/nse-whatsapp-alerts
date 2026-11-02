@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-29T06:34:22",
-  "title" : "US, Iran back in talks after Trump rejects ceasefire",
-  "impact" : "Heightened geopolitical tensions in the Middle East are expected to drive risk aversion, potentially dragging Nifty lower. Expect volatility in oil-sensitive sectors and moderate depreciation pressure on the Indian Rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Sep-2026 06:22 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-29T06:34:29",
   "title" : "Have money, will invest. Why IPO party never stops",
   "impact" : "Secondary markets face continued pressure from FII outflows and liquidity redirection toward the primary market. Expect Nifty to remain range-bound or bearish until secondary market valuations align with primary market performance.",
@@ -3497,5 +3490,12 @@
   "impact" : "The market will experience volatility today due to a heavy earnings docket featuring market heavyweights and key infrastructure players. Nifty is expected to consolidate with a positive bias if major results beat estimates. The rupee is likely to remain range-bound against the dollar amid cautious global cues.",
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 09:06 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T09:43:39",
+  "title" : "Markets open higher as AI selloff boosts anti-tech trade; Reliance, Tata Steel lead gains",
+  "impact" : "The Indian market is showing positive momentum as lower crude oil prices and bond yields improve sentiment. Nifty is expected to sustain its upward trajectory, while the rupee may find support from cooling global energy costs.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 09:37 IST",
   "score" : 7
 } ]
