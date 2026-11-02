@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-29T00:48:10",
-  "title" : "Gold tumbles 4% to seven-week low as oil, dollar and yields climb",
-  "impact" : "Rising oil prices and a stronger dollar create headwinds for Indian equities by increasing import bills and inflation risks. Nifty is expected to face selling pressure as foreign institutional outflows increase and bond yields firm up.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Sep-2026 00:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-29T02:18:34",
   "title" : "US stocks: US market falls as higher oil prices, Treasury yields weigh",
   "impact" : "Indian markets are likely to open with a bearish bias following US weakness. Expect Nifty to consolidate near support levels while the Rupee remains under pressure due to rising crude prices and US Treasury yields.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "02-Nov-2026 05:53 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-02T07:35:47",
+  "title" : "Nifty likely to open 200 points higher as Reliance results, auto sales lift sentiment",
+  "impact" : "The Nifty is expected to start the session with a strong gap-up supported by positive earnings and momentum. Improving global sentiment and domestic sales data are likely to provide stability and potentially strengthen the rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 07:28 IST",
+  "score" : 8
 } ]
