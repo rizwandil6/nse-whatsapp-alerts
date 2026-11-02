@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-28T20:31:09",
-  "title" : "India's factory pulse quickens as IIP hits 8% in Aug",
-  "impact" : "Robust IIP data signals strong industrial recovery boosting investor sentiment for Nifty. Expect a bullish bias in equity indices and potential support for the rupee as manufacturing attractiveness increases.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Sep-2026 16:05 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-28T21:16:29",
   "title" : "Markets sink to six-month low as oil shock wipes out ₹7.5 lakh crore in investor wealth",
   "impact" : "The sharp decline reflects heightened risk aversion driven by rising oil prices and foreign capital outflows. Nifty is likely to test lower support levels near 22,500, while the rupee faces significant depreciation pressure due to import cost inflation.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global geopolitical uncertainty would likely trigger risk-off sentiment in Indian equity markets. Nifty faces downward pressure due to FII outflows, while the rupee may depreciate against the dollar as investors seek safe-haven assets.",
   "source" : "Economic Times",
   "publishedAt" : "02-Nov-2026 01:00 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T06:35:11",
+  "title" : "November could favour bulls, but macro headwinds cloud outlook",
+  "impact" : "Indian markets are likely to lean bullish in November due to seasonal trends and return of FPI flows. Nifty is expected to sustain upward momentum, though elevated crude oil prices will keep the rupee under pressure and cap significant gains.",
+  "source" : "Economic Times",
+  "publishedAt" : "02-Nov-2026 06:28 IST",
   "score" : 7
 } ]
