@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-29T02:18:34",
-  "title" : "US stocks: US market falls as higher oil prices, Treasury yields weigh",
-  "impact" : "Indian markets are likely to open with a bearish bias following US weakness. Expect Nifty to consolidate near support levels while the Rupee remains under pressure due to rising crude prices and US Treasury yields.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Sep-2026 01:41 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-29T03:18:46",
   "title" : "UAE signals another $25 billion investment in India; eyes ports, energy and space sectors: Goyal",
   "impact" : "The sustained UAE investment inflow will likely provide a bullish tailwind to the Indian markets. Nifty is expected to sustain its upward momentum with increased foreign institutional interest, while the rupee may see modest strengthening due to improved capital account inflows.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 07:28 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-02T08:12:51",
+  "title" : "India likely to meet FY27 fiscal deficit target of 4.3% despite energy price risks",
+  "impact" : "Fiscal consolidation reinforces investor confidence, supporting Nifty at higher levels. Reduced borrowing pressure strengthens the Rupee against the Dollar while cooling long-term bond yields.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 07:57 IST",
+  "score" : 7
 } ]
