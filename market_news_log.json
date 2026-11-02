@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-29T06:34:29",
-  "title" : "Have money, will invest. Why IPO party never stops",
-  "impact" : "Secondary markets face continued pressure from FII outflows and liquidity redirection toward the primary market. Expect Nifty to remain range-bound or bearish until secondary market valuations align with primary market performance.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Sep-2026 06:21 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-29T06:34:53",
   "title" : "Goldman Sachs identifies 42 Indian stocks riding AI build-out",
   "impact" : "The shift toward AI-linked infrastructure provides a growth catalyst that could decouple high-capex firms from broader Nifty weakness. Market sentiment remains cautious on valuations, with potential for continued rupee volatility as foreign flows chase these niche alpha opportunities.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market is showing positive momentum as lower crude oil prices and bond yields improve sentiment. Nifty is expected to sustain its upward trajectory, while the rupee may find support from cooling global energy costs.",
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 09:37 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T09:43:42",
+  "title" : "Goldman hikes oil-price forecasts on ‘substantial’ supply risks",
+  "impact" : "Rising oil prices act as a significant headwind for the Indian markets by fueling inflationary pressures and widening the current account deficit. Nifty is likely to face selling pressure due to FII outflows, while the Rupee is expected to weaken against the dollar due to higher import bills.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 09:35 IST",
   "score" : 7
 } ]
