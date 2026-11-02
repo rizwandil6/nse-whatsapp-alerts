@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-29T13:05:43",
-  "title" : "Indian stocks are breaking long-held supports as selloff deepens",
-  "impact" : "The Indian market is facing a severe technical breakdown with indices breaching critical support levels. Expect Nifty to test lower psychological barriers as FII outflows persist, while the rupee remains under pressure against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Sep-2026 13:01 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-09-29T13:05:47",
   "title" : "RBI’s forex blitz drains nearly $20 billion from surplus liquidity, bankers say",
   "impact" : "Tightening liquidity and rising hedging costs will likely pressure Nifty indices and create volatility. The rupee may see brief support, but higher hedging costs will dampen foreign investor sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The market is witnessing a strong bullish breakout supported by falling crude prices and heavyweights. Nifty is poised to sustain momentum above 23,300, while the rupee is expected to stabilize due to reduced oil import bill pressures.",
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 11:40 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-11-02T12:34:53",
+  "title" : "SEBI proposes scrapping LTCG tax on foreign investors, seeks relief for mutual fund investors",
+  "impact" : "This proposal serves as a major sentiment booster, likely triggering institutional inflows and stabilizing Nifty near key support levels. The rupee is expected to strengthen as foreign capital returns to the Indian equity markets.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 12:27 IST",
   "score" : 8
 } ]
