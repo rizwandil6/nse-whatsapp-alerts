@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-29T19:11:02",
-  "title" : "India’s new services barometer flashes strength",
-  "impact" : "Robust service sector growth strengthens the bullish outlook for Indian equities. Nifty is expected to sustain its upward momentum with increased foreign institutional interest. The rupee should remain stable to slightly stronger due to improved economic sentiment.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Sep-2026 18:13 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-29T19:56:38",
   "title" : "Rosatom in talks with Adani Group, RIL, NTPC for nuclear power push in India",
   "impact" : "This development signals a significant policy shift toward private nuclear energy, likely boosting long-term investor sentiment. Nifty may see positive momentum in power and infrastructure, while the rupee remains stable as this reduces future energy import dependency.",
@@ -3497,5 +3490,12 @@
   "impact" : "This massive order bolsters investor sentiment towards capital goods and manufacturing. Nifty index is likely to see a bullish bias in industrial and PSU segments while the rupee remains stable amid long-term infrastructure investment.",
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 13:07 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T13:35:28",
+  "title" : "Nifty holds near September highs at midday; Reliance surges 7.4%, IT stocks drag",
+  "impact" : "Broad-based buying keeps Nifty near September highs despite IT sector pressure. Energy sector strength provides a strong cushion against global volatility, maintaining a positive market sentiment for the Nifty index.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 13:21 IST",
   "score" : 7
 } ]
