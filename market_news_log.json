@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-29T13:05:47",
-  "title" : "RBI’s forex blitz drains nearly $20 billion from surplus liquidity, bankers say",
-  "impact" : "Tightening liquidity and rising hedging costs will likely pressure Nifty indices and create volatility. The rupee may see brief support, but higher hedging costs will dampen foreign investor sentiment.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Sep-2026 12:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-29T14:51:42",
   "title" : "Long-term investor base could expand by over 100 million by 2035: EY",
   "impact" : "Broadening retail participation provides long-term structural support for the Nifty, enhancing liquidity and reducing dependency on FII flows. The rupee is expected to remain stable as domestic capital accumulation mitigates external volatility.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 12:27 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-02T12:34:56",
+  "title" : "HDFC Bank slips; another Senior Executive departs",
+  "impact" : "HDFC Bank weakness exerts downward pressure on the Nifty index given its heavy weightage. Continued executive attrition raises governance concerns, likely keeping the index range-bound with a bearish tilt and potentially weakening the rupee due to institutional selling.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 12:17 IST",
+  "score" : 7
 } ]
