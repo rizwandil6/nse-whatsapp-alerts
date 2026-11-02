@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-30T02:28:52",
-  "title" : "US stocks: US market ends lower as bond yields hold near multi-decade highs",
-  "impact" : "The Indian markets are likely to face downward pressure as surging US Treasury yields dampen global risk appetite. Expect a negative opening for Nifty with potential volatility, while the Indian Rupee may face depreciation pressure against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Sep-2026 01:42 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-30T06:59:45",
   "title" : "Sensex drops over 20% in 2026 amid global market shifts and rupee depreciation",
   "impact" : "Indian markets are in a deep technical bear cycle driven by FPI outflows and rupee depreciation. Nifty remains under severe pressure as growth concerns persist, while the weak rupee continues to act as a significant drag on foreign institutional interest.",
@@ -3497,5 +3490,12 @@
   "impact" : "Broad-based rally across large and mid-caps indicating strong investor confidence. Nifty is expected to sustain its upward momentum toward record highs as liquidity inflows stabilize the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "02-Nov-2026 09:43 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-11-02T17:12:07",
+  "title" : "Sensex today | Stock Market Highlights: Sensex surges 1,233 pts, Nifty ends above 23,400; Reliance, Tata Steel top gainers",
+  "impact" : "The market shows strong bullish momentum with benchmarks hitting fresh highs indicating robust investor confidence. Nifty is expected to sustain its upward trajectory above 23,400 with a stable to appreciating rupee outlook due to increased foreign institutional inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 16:23 IST",
   "score" : 8
 } ]
