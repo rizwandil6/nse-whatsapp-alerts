@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-30T06:59:45",
-  "title" : "Sensex drops over 20% in 2026 amid global market shifts and rupee depreciation",
-  "impact" : "Indian markets are in a deep technical bear cycle driven by FPI outflows and rupee depreciation. Nifty remains under severe pressure as growth concerns persist, while the weak rupee continues to act as a significant drag on foreign institutional interest.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Sep-2026 06:31 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-09-30T07:29:53",
   "title" : "20 stocks to hog the limelight in Wednesday’s trade, including Tata Steel, Time Technoplast, Shiva Cement/JSW Cement, KPI Energy, Exide Industries, Ganesh Benzoplast, and Power Mech Projects",
   "impact" : "The market sentiment is buoyed by robust industrial activity and infrastructure growth. Nifty is expected to sustain its upward momentum with stability in the rupee amid strong sector-specific investment inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The market shows strong bullish momentum with benchmarks hitting fresh highs indicating robust investor confidence. Nifty is expected to sustain its upward trajectory above 23,400 with a stable to appreciating rupee outlook due to increased foreign institutional inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 16:23 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-11-02T17:43:35",
+  "title" : "Reliance fuels Nifty’s best single-day jump in months; Sensex reclaims 75,600",
+  "impact" : "The index rally signals strong institutional confidence and a return of risk-on sentiment in Indian markets. Nifty is expected to maintain bullish momentum toward new highs, providing support to the Rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "02-Nov-2026 17:30 IST",
   "score" : 8
 } ]
