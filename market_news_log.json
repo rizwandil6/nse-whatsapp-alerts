@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-29T03:18:46",
-  "title" : "UAE signals another $25 billion investment in India; eyes ports, energy and space sectors: Goyal",
-  "impact" : "The sustained UAE investment inflow will likely provide a bullish tailwind to the Indian markets. Nifty is expected to sustain its upward momentum with increased foreign institutional interest, while the rupee may see modest strengthening due to improved capital account inflows.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "29-Sep-2026 03:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-29T06:19:07",
   "title" : "Ten-year bond yield hits 7.19%, highest in two years",
   "impact" : "The Indian market faces significant downward pressure as rising bond yields and oil prices dampen investor sentiment. Nifty is expected to see a consolidation or downside correction, while the rupee remains under pressure against a strengthening dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Fiscal consolidation reinforces investor confidence, supporting Nifty at higher levels. Reduced borrowing pressure strengthens the Rupee against the Dollar while cooling long-term bond yields.",
   "source" : "BusinessLine",
   "publishedAt" : "02-Nov-2026 07:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-02T08:43:07",
+  "title" : "'India likely to meet FY27 fiscal deficit target'",
+  "impact" : "Fiscal consolidation bolsters investor confidence and attracts FII inflows. Nifty is expected to maintain an upward trajectory as stable macro-data reduces sovereign risk premium, likely supporting the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "02-Nov-2026 08:09 IST",
   "score" : 7
 } ]
