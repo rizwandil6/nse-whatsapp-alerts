@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T13:35:34",
-  "title" : "Selling deepens into midday; auto and metals lead declines as FII outflows cross ₹26,000 crore",
-  "impact" : "Sustained FII selling is exerting heavy downward pressure on Indian indices, forcing a breach of key support levels. Expect Nifty to remain volatile with a bearish bias as the rupee faces depreciation pressure due to aggressive capital outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Oct-2026 13:17 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-01T15:51:45",
   "title" : "GST collections in September again crossed ₹2 lakh crore",
   "impact" : "Robust GST collections signal strong domestic consumption and macroeconomic stability, likely providing a floor for Nifty near support levels. The rupee is expected to remain stable against the dollar due to improved tax revenue visibility and economic growth indicators.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment prevails as falling crude costs alleviate inflation concerns and strong earnings provide a firm floor. Nifty is expected to sustain its upward trajectory above 23,800, providing support to the Indian rupee against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "03-Nov-2026 16:46 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-03T18:19:48",
+  "title" : "India's renewable energy expansion could save another $100 billion by 2030: EU Ambassador",
+  "impact" : "Positive sentiment for domestic manufacturing and energy independence. Nifty likely to see long-term support in green energy indices, with potential for rupee stabilization due to lower energy import dependence.",
+  "source" : "BusinessLine",
+  "publishedAt" : "03-Nov-2026 17:49 IST",
   "score" : 7
 } ]
