@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T17:53:36",
-  "title" : "Equities post eighth straight weekly loss as global headwinds intensify",
-  "impact" : "The extended bearish trend indicates sustained FII selling and risk-off sentiment. Nifty faces further consolidation risk near 22,200 support levels, while the rupee remains under pressure against a strengthening dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Oct-2026 17:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T17:53:38",
   "title" : "India manufacturing PMI rises to 7-month high of 55.1 in September",
   "impact" : "Positive manufacturing data boosts sentiment for cyclical and infrastructure-linked stocks. Nifty is expected to sustain its upward momentum with a bullish bias. Rupee may strengthen slightly due to increased industrial output and potential for higher capital inflows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "04-Nov-2026 00:04 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-04T01:39:05",
+  "title" : "Tata-Iveco aim for global CV business: Chandra",
+  "impact" : "This major acquisition signals a strong expansionist phase for Indian conglomerates, likely boosting investor confidence in manufacturing capabilities. Nifty is expected to see a bullish bias in the automobile and industrial segments, while the rupee may face temporary volatility due to capital outflow for the acquisition.",
+  "source" : "Economic Times",
+  "publishedAt" : "04-Nov-2026 01:00 IST",
+  "score" : 8
 } ]
