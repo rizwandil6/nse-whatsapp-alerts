@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T13:20:06",
-  "title" : "India power shortfall hits three-year peak",
-  "impact" : "Power supply bottlenecks create near-term volatility and inflationary pressure for industrial output. Nifty may face consolidation as manufacturing costs rise, potentially weighing on the rupee due to increased energy import dependency.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Oct-2026 13:06 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T13:35:34",
   "title" : "Selling deepens into midday; auto and metals lead declines as FII outflows cross ₹26,000 crore",
   "impact" : "Sustained FII selling is exerting heavy downward pressure on Indian indices, forcing a breach of key support levels. Expect Nifty to remain volatile with a bearish bias as the rupee faces depreciation pressure due to aggressive capital outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The 8th CPC developments drive fiscal policy expectations, favoring consumer spending and infrastructure investment. Nifty is expected to sustain a bullish trend as government-led capital expenditure remains a key growth driver, while the rupee remains stable despite potential fiscal deficit pressures.",
   "source" : "Economic Times",
   "publishedAt" : "03-Nov-2026 16:14 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-03T17:00:49",
+  "title" : "Nifty crosses 23,800 for first time since August on falling crude prices, earnings boost",
+  "impact" : "Positive sentiment prevails as falling crude costs alleviate inflation concerns and strong earnings provide a firm floor. Nifty is expected to sustain its upward trajectory above 23,800, providing support to the Indian rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "03-Nov-2026 16:46 IST",
   "score" : 7
 } ]
