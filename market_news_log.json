@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T05:56:57",
-  "title" : "Sebi, RBI join hands to make onboarding easier for FPIs",
-  "impact" : "Enhanced FPI onboarding is expected to boost foreign capital inflows, providing a strong structural tailwind for Indian equities. Nifty likely to see sustained support from increased liquidity, while the rupee may appreciate due to higher capital account inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Oct-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T12:34:35",
   "title" : "GST mop-up grows 14.7% to over ₹2.03 lakh cr in September",
   "impact" : "Strong GST collections signal robust domestic demand and economic resilience, supporting a bullish outlook for Nifty. Increased import tax revenue adds stability to the fiscal position and supports the rupee against currency volatility.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "03-Nov-2026 09:57 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-03T16:10:12",
+  "title" : "Sensex today | Stock Market Highlights: Sensex jumps 1,225 pts at close, Nifty crosses 23,800; indices rise for 4th straight session",
+  "impact" : "The Indian equity market is experiencing a strong recovery with a confirmed bullish trend over four sessions. Nifty is expected to consolidate above 23,800 with potential for further upside, while easing oil prices provide support to the Rupee against the USD.",
+  "source" : "BusinessLine",
+  "publishedAt" : "03-Nov-2026 16:07 IST",
+  "score" : 8
 } ]
