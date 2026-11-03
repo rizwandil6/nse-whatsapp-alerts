@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T17:53:46",
-  "title" : "When can 8th CPC report be implemented?",
-  "impact" : "The implementation of the 8th CPC will likely boost domestic consumption and increase liquidity, pushing Nifty higher. The rupee may face slight depreciation pressure due to higher government expenditure and fiscal deficit concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Oct-2026 17:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T17:53:56",
   "title" : "Sharp divide in rural, urban consumption nos",
   "impact" : "The consumption slowdown in urban India creates significant headwinds for Nifty earnings sentiment. Expect potential volatility in consumer-facing stocks as discretionary demand contracts, keeping the rupee under pressure due to dampened domestic growth optimism.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising US Treasury yields will likely trigger FII outflows from Indian equities, keeping the market under pressure. Nifty is expected to face resistance and volatility, while the Rupee is likely to depreciate against the USD due to interest rate differentials.",
   "source" : "Economic Times",
   "publishedAt" : "04-Nov-2026 00:40 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-04T04:15:48",
+  "title" : "When will we know midterm election results?",
+  "impact" : "US election results will drive global risk sentiment, influencing Nifty volatility and FII flows. A strengthening USD against the INR may pressure domestic equity valuations in the short term.",
+  "source" : "Economic Times",
+  "publishedAt" : "04-Nov-2026 03:54 IST",
   "score" : 7
 } ]
