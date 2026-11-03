@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T15:51:45",
-  "title" : "GST collections in September again crossed ₹2 lakh crore",
-  "impact" : "Robust GST collections signal strong domestic consumption and macroeconomic stability, likely providing a floor for Nifty near support levels. The rupee is expected to remain stable against the dollar due to improved tax revenue visibility and economic growth indicators.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Oct-2026 15:50 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T16:07:20",
   "title" : "Rupee drops to two-month low of 96.31/$ as global bond rout deepens, oil jumps",
   "impact" : "The sharp rise in US yields and oil prices will trigger significant FII outflows from Indian equities. Expect Nifty to face strong selling pressure with a bearish trend as the rupee depreciation intensifies inflationary risks.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for domestic manufacturing and energy independence. Nifty likely to see long-term support in green energy indices, with potential for rupee stabilization due to lower energy import dependence.",
   "source" : "BusinessLine",
   "publishedAt" : "03-Nov-2026 17:49 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-03T20:50:53",
+  "title" : "NSE's debut report card packs a punch",
+  "impact" : "The strong performance of the country's largest exchange signals robust investor participation and market depth. This is expected to sustain positive sentiment for Nifty and reinforce stability in domestic financial markets.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Nov-2026 18:09 IST",
   "score" : 7
 } ]
