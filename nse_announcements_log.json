@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-08-24T18:55:22",
-  "symbol" : "TEXRAIL",
-  "companyName" : "Texmaco Rail & Engineering Limited",
-  "subject" : "Texmaco Rail & Engineering Limited has informed the Exchange that Record date for the purpose of Dividend  is 11-Sep-2026. |SUBJECT: Record Date",
-  "category" : "DIVIDEND_ALERT",
-  "message" : "💰 *DIVIDEND ALERT* — Texmaco Rail & Engineering Limited\nRecord Date: 11-Sep-2026\nBroadcast: 24-Aug-2026 18:52:10\nSource: https://nsearchives.nseindia.com/corporate/TEXRAIL_24082026185210_Recorddate.pdf"
-}, {
   "timestamp" : "2026-08-24T19:07:43",
   "symbol" : "ADSL",
   "companyName" : "Allied Digital Services Limited",
@@ -3498,4 +3491,11 @@
   "subject" : "Allied Digital Services Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026. |SUBJECT: Outcome of Board Meeting",
   "category" : "ALERT_ONLY",
   "message" : "📄 *Allied Digital Services Limited* — Allied Digital Services Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026. |SUBJECT: Outcome of Board Meeting\nBroadcast: 03-Nov-2026 17:55:52\n\n*Positives*\n✅ The board successfully met and approved the financial results for the period ended September 30, 2026\n✅ Both standalone and consolidated financial results were prepared and finalized\n✅ The company obtained a limited review report from the statutory auditors\n✅ The company complied with regulation 30 and regulation 33 of the SEBI listing regulations\n\n*Overall Assessment*\n*Rating:* Neutral regulatory compliance filing (5/10)\n\nSource: https://nsearchives.nseindia.com/corporate/ADSL_03112026175552_FinalOutcome.pdf"
+}, {
+  "timestamp" : "2026-11-03T18:39:53",
+  "symbol" : "SERVOTECH",
+  "companyName" : "Servotech Renewable Power System Limited",
+  "subject" : "Servotech Renewable Power System Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026. |SUBJECT: Outcome of Board Meeting",
+  "category" : "ALERT_ONLY",
+  "message" : "📄 *Servotech Renewable Power System Limited* — Servotech Renewable Power System Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026. |SUBJECT: Outcome of Board Meeting\nBroadcast: 03-Nov-2026 18:35:37\n\n*Concerns*\n⚠️ The provided document text does not contain any financial data, performance metrics, or specific board outcome details\n⚠️ Insufficient information provided to assess financial health or operational performance\n\n*Overall Assessment*\n*Rating:* Insufficient information provided (1/10)\n\nSource: https://nsearchives.nseindia.com/corporate/SERVOTECH_03112026183537_Financial_results.pdf"
 } ]
