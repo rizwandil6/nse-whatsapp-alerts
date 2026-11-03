@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T12:34:35",
-  "title" : "GST mop-up grows 14.7% to over ₹2.03 lakh cr in September",
-  "impact" : "Strong GST collections signal robust domestic demand and economic resilience, supporting a bullish outlook for Nifty. Increased import tax revenue adds stability to the fiscal position and supports the rupee against currency volatility.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Oct-2026 12:27 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T13:20:06",
   "title" : "India power shortfall hits three-year peak",
   "impact" : "Power supply bottlenecks create near-term volatility and inflationary pressure for industrial output. Nifty may face consolidation as manufacturing costs rise, potentially weighing on the rupee due to increased energy import dependency.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "03-Nov-2026 16:07 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-03T16:26:12",
+  "title" : "8th CPC completes 1 year: 5 key milestones so far",
+  "impact" : "The 8th CPC developments drive fiscal policy expectations, favoring consumer spending and infrastructure investment. Nifty is expected to sustain a bullish trend as government-led capital expenditure remains a key growth driver, while the rupee remains stable despite potential fiscal deficit pressures.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Nov-2026 16:14 IST",
+  "score" : 7
 } ]
