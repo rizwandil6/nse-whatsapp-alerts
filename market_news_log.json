@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-30T21:37:17",
-  "title" : "India’s growth gets a 7% Crisil upgrade",
-  "impact" : "The GDP growth upgrade reinforces India as a high-growth destination, likely driving Nifty toward new highs due to positive FII sentiment. This economic strength supports the rupee by attracting long-term foreign capital inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Sep-2026 20:55 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-09-30T23:09:55",
   "title" : "India’s second half of FY27 to be challenging amid global risks, rising interest rates: CEA",
   "impact" : "Rising global risks and elevated oil prices create a cautious sentiment for Indian equities. Expect Nifty to face volatility and consolidation as foreign outflows may persist. The rupee is likely to remain under pressure against the dollar due to energy import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "The positive momentum from large defense contracts and pharmaceutical approvals is likely to support a bullish trend. Nifty is expected to sustain its upward trajectory, while the rupee may see marginal stabilization due to export-oriented pharma gains.",
   "source" : "BusinessLine",
   "publishedAt" : "03-Nov-2026 06:59 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-03T07:27:26",
+  "title" : "Indian markets likely to open higher; Gift Nifty signals 150-point gap-up",
+  "impact" : "Indian markets are set for a strong opening with a Nifty gap-up of 150 points. Easing crude prices and geopolitical de-escalation are likely to strengthen the rupee and improve investor risk appetite.",
+  "source" : "BusinessLine",
+  "publishedAt" : "03-Nov-2026 07:19 IST",
   "score" : 7
 } ]
