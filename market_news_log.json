@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-09-30T23:09:55",
-  "title" : "India’s second half of FY27 to be challenging amid global risks, rising interest rates: CEA",
-  "impact" : "Rising global risks and elevated oil prices create a cautious sentiment for Indian equities. Expect Nifty to face volatility and consolidation as foreign outflows may persist. The rupee is likely to remain under pressure against the dollar due to energy import costs.",
-  "source" : "BusinessLine",
-  "publishedAt" : "30-Sep-2026 23:02 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T00:10:29",
   "title" : "AI’s enterprise moment could belong to IT services",
   "impact" : "The shift towards enterprise AI adoption is expected to trigger a structural rally in the IT sector, bolstering overall market sentiment. Expect the Nifty IT index to outperform the broader Nifty, with potential positive tailwinds for the rupee due to sustained service export growth.",
@@ -3497,5 +3490,12 @@
   "impact" : "Indian markets are set for a strong opening with a Nifty gap-up of 150 points. Easing crude prices and geopolitical de-escalation are likely to strengthen the rupee and improve investor risk appetite.",
   "source" : "BusinessLine",
   "publishedAt" : "03-Nov-2026 07:19 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-03T13:50:36",
+  "title" : "Key list as midterms become referendum on Trump",
+  "impact" : "US midterm results tied to Trump create volatility in FII flows and global risk sentiment. Expect Nifty to consolidate with high intraday swings while the rupee may face pressure from a potential strengthening of the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "03-Nov-2026 13:09 IST",
   "score" : 7
 } ]
