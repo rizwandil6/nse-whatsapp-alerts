@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T17:08:12",
-  "title" : "₹6 lakh cr gone: A recovery still leaves bulls bleeding",
-  "impact" : "Sentiment remains fragile as institutional selling outweighs minor relief rallies. Nifty faces strong overhead resistance at recent swing highs, and the rupee stays under pressure due to FII outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Oct-2026 13:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T17:53:36",
   "title" : "Equities post eighth straight weekly loss as global headwinds intensify",
   "impact" : "The extended bearish trend indicates sustained FII selling and risk-off sentiment. Nifty faces further consolidation risk near 22,200 support levels, while the rupee remains under pressure against a strengthening dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The roadmap for energy self-reliance supports long-term macro stability and industrial growth. Nifty is expected to maintain a positive bias as capital expenditure accelerates. INR may strengthen long-term due to reduced import dependency on solar modules.",
   "source" : "BusinessLine",
   "publishedAt" : "03-Nov-2026 21:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-04T00:38:39",
+  "title" : "India's clean energy plan goes deeper",
+  "impact" : "India's push for deeper clean energy integration provides a structural tailwind for the domestic equity market. Nifty is expected to sustain upward momentum with capital expenditure support, while the rupee remains stable amid increased green infrastructure investment.",
+  "source" : "Economic Times",
+  "publishedAt" : "04-Nov-2026 00:04 IST",
   "score" : 7
 } ]
