@@ -2310,5 +2310,40 @@
   "date": "2026-11-02",
   "price": 4280.2,
   "rsRankAtEntry": 82.38747553816047
+ },
+ {
+  "type": "EXIT",
+  "symbol": "LODHA",
+  "date": "2026-11-01",
+  "price": 1002.8,
+  "pnlPct": -16.342704596646374
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CARBORUNIV",
+  "date": "2026-11-01",
+  "price": 1079.9,
+  "rsRankAtEntry": 81.60469667318982
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GRAPHITE",
+  "date": "2026-11-01",
+  "price": 755.55,
+  "rsRankAtEntry": 81.99608610567515
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "JINDALSAW",
+  "date": "2026-11-01",
+  "price": 243.41,
+  "rsRankAtEntry": 80.43052837573386
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "TANLA",
+  "date": "2026-11-01",
+  "price": 645.45,
+  "rsRankAtEntry": 81.80039138943248
  }
 ]
