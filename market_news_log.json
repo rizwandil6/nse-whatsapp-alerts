@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-02T00:58:17",
-  "title" : "HDFC Bank appoints Anup Bagchi as MD &amp; CEO",
-  "impact" : "Leadership transition at India's largest private lender will likely drive volatility in banking indices. Nifty may face short-term consolidation as investors digest the strategic continuity, with neutral impact on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Oct-2026 18:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-02T09:44:19",
   "title" : "MPC set to begin rate hike cycle with at least 25 bps repo hike: SBI Economists",
   "impact" : "The move signals a shift to a tighter liquidity regime, likely leading to short-term volatility in Nifty. Expect a temporary strengthening of the INR as yields become more attractive to foreign capital.",
@@ -3497,5 +3490,12 @@
   "impact" : "This major capital expenditure plan by a Nifty heavyweight strengthens long-term industrial sentiment and boosts Nifty outlook. The large-scale investment is expected to provide fundamental support to the rupee by signaling robust domestic industrial growth.",
   "source" : "BusinessLine",
   "publishedAt" : "04-Nov-2026 18:12 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-04T18:38:34",
+  "title" : "Tariffs &amp; oil: India's eyes on US as Trump takes a blow",
+  "impact" : "Global trade uncertainty and potential oil price volatility may increase Nifty volatility with a downward bias. The INR could face depreciation pressure due to a strengthening USD amid protectionist tariff expectations.",
+  "source" : "Economic Times",
+  "publishedAt" : "04-Nov-2026 12:13 IST",
   "score" : 7
 } ]
