@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T19:55:17",
-  "title" : "RBI set for 50–75 bps rate hike as Rupee, Oil and Global risks mount, says Bandhan Life",
-  "impact" : "Aggressive RBI rate hikes will likely lead to short-term Nifty volatility and pressure on equity valuations. The rupee is expected to face continued depreciation pressure against the dollar as global risk-off sentiment prevails.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Oct-2026 19:41 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T20:10:32",
   "title" : "US Treasury yields hit highest since 2002 as global bond sell-off deepens",
   "impact" : "Rising US yields strengthen the dollar, likely triggering FII outflows and putting pressure on Nifty 50 support levels. The rupee is expected to face significant depreciation risk against the USD, tightening domestic liquidity.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "04-Nov-2026 04:27 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-04T06:31:16",
+  "title" : "Trump approval plunges to 38% as polls begin to close",
+  "impact" : "Global market uncertainty likely to trigger a bearish opening for Indian indices as investors flee to safe havens. Nifty may face sharp resistance at current levels due to heightened volatility and potential capital outflows. The Rupee is expected to face downward pressure against the Dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "04-Nov-2026 06:01 IST",
+  "score" : 7
 } ]
