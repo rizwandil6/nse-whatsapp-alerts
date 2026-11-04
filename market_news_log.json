@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-02T09:59:23",
-  "title" : "Trump says Iran was weeks from nuclear weapon",
-  "impact" : "Geopolitical tension in the Middle East is expected to trigger risk-off sentiment in the Indian market. Nifty may witness volatility with a bearish bias as investors seek safety, while the Rupee is likely to weaken against the Dollar due to rising oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Oct-2026 09:22 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-02T17:31:24",
   "title" : "Banks may get two boosts: RBI move, diaspora cash",
   "impact" : "Positive sentiment for financial markets due to improved liquidity and credit flow. Nifty is expected to sustain upward momentum, while increased diaspora inflows support rupee stability against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The policy signals a positive shift in the industrial value chain, bolstering long-term manufacturing growth. Nifty is expected to lean bullish on increased capital expenditure, with a neutral to slightly strengthening impact on the rupee due to long-term import substitution.",
   "source" : "BusinessLine",
   "publishedAt" : "04-Nov-2026 18:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-04T21:11:38",
+  "title" : "Dow surges 1,100 points as US stocks rally!",
+  "impact" : "The positive US sentiment and potential for a stable global policy environment likely to support a positive opening for Nifty. The Indian Rupee may strengthen slightly as the US dollar faces pressure from falling yields and shifting political dynamics.",
+  "source" : "Economic Times",
+  "publishedAt" : "04-Nov-2026 20:36 IST",
   "score" : 7
 } ]
