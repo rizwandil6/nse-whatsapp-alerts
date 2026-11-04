@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T21:11:25",
-  "title" : "Russia-NATO tensions rise over nuclear warning",
-  "impact" : "Heightened geopolitical risk will likely trigger a risk-off sentiment in Indian markets leading to a gap-down opening for Nifty. The Indian Rupee is expected to face downward pressure as safe-haven demand strengthens the US Dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Oct-2026 20:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T21:11:29",
   "title" : "2,149 pts gone: Nifty’s longest losing streak in 25 yrs",
   "impact" : "The extended losing streak signals deep bearish sentiment and exhaustion in Nifty. Expect volatility to remain high with further downside pressure, potentially putting downward pressure on the INR.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for the infrastructure and green energy sectors will likely provide a boost to Nifty. The scheme reduces energy volatility risks and supports long-term industrial stability, which is neutral to slightly positive for the rupee.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "04-Nov-2026 17:24 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-04T17:37:45",
+  "title" : "US: What happens next as Dems take over",
+  "impact" : "Heightened US political volatility may trigger temporary FII outflows and risk-off sentiment in India. Expect Nifty to face short-term consolidation with potential rupee depreciation against the dollar due to global uncertainty.",
+  "source" : "Economic Times",
+  "publishedAt" : "04-Nov-2026 16:41 IST",
   "score" : 7
 } ]
