@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T20:10:32",
-  "title" : "US Treasury yields hit highest since 2002 as global bond sell-off deepens",
-  "impact" : "Rising US yields strengthen the dollar, likely triggering FII outflows and putting pressure on Nifty 50 support levels. The rupee is expected to face significant depreciation risk against the USD, tightening domestic liquidity.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Oct-2026 20:04 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-01T21:11:14",
   "title" : "Risk aversion spreads across assets as bond yields hit a two-year high",
   "impact" : "Rising bond yields trigger foreign institutional capital outflows and pressure equity valuations. Nifty is expected to face immediate downside volatility as liquidity tightens, likely exerting depreciation pressure on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global market uncertainty likely to trigger a bearish opening for Indian indices as investors flee to safe havens. Nifty may face sharp resistance at current levels due to heightened volatility and potential capital outflows. The Rupee is expected to face downward pressure against the Dollar.",
   "source" : "Economic Times",
   "publishedAt" : "04-Nov-2026 06:01 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-04T15:10:20",
+  "title" : "Cabinet clears ₹14,500 crore energy storage plan",
+  "impact" : "The energy storage plan acts as a long-term catalyst for infrastructure and power sectors, likely boosting investor sentiment in Nifty. The rupee remains largely stable as this initiative focuses on domestic capital expenditure rather than import-heavy dependency.",
+  "source" : "Economic Times",
+  "publishedAt" : "04-Nov-2026 14:47 IST",
   "score" : 7
 } ]
