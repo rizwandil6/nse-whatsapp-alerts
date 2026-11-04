@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-02T09:44:19",
-  "title" : "MPC set to begin rate hike cycle with at least 25 bps repo hike: SBI Economists",
-  "impact" : "The move signals a shift to a tighter liquidity regime, likely leading to short-term volatility in Nifty. Expect a temporary strengthening of the INR as yields become more attractive to foreign capital.",
-  "source" : "BusinessLine",
-  "publishedAt" : "02-Oct-2026 09:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-02T09:59:23",
   "title" : "Trump says Iran was weeks from nuclear weapon",
   "impact" : "Geopolitical tension in the Middle East is expected to trigger risk-off sentiment in the Indian market. Nifty may witness volatility with a bearish bias as investors seek safety, while the Rupee is likely to weaken against the Dollar due to rising oil prices.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global trade uncertainty and potential oil price volatility may increase Nifty volatility with a downward bias. The INR could face depreciation pressure due to a strengthening USD amid protectionist tariff expectations.",
   "source" : "Economic Times",
   "publishedAt" : "04-Nov-2026 12:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-04T18:55:05",
+  "title" : "Cabinet approves scheme to promote processing of critical minerals",
+  "impact" : "The policy signals a positive shift in the industrial value chain, bolstering long-term manufacturing growth. Nifty is expected to lean bullish on increased capital expenditure, with a neutral to slightly strengthening impact on the rupee due to long-term import substitution.",
+  "source" : "BusinessLine",
+  "publishedAt" : "04-Nov-2026 18:48 IST",
   "score" : 7
 } ]
