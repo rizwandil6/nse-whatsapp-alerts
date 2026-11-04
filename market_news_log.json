@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-01T21:11:14",
-  "title" : "Risk aversion spreads across assets as bond yields hit a two-year high",
-  "impact" : "Rising bond yields trigger foreign institutional capital outflows and pressure equity valuations. Nifty is expected to face immediate downside volatility as liquidity tightens, likely exerting depreciation pressure on the rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "01-Oct-2026 20:58 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-01T21:11:25",
   "title" : "Russia-NATO tensions rise over nuclear warning",
   "impact" : "Heightened geopolitical risk will likely trigger a risk-off sentiment in Indian markets leading to a gap-down opening for Nifty. The Indian Rupee is expected to face downward pressure as safe-haven demand strengthens the US Dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The energy storage plan acts as a long-term catalyst for infrastructure and power sectors, likely boosting investor sentiment in Nifty. The rupee remains largely stable as this initiative focuses on domestic capital expenditure rather than import-heavy dependency.",
   "source" : "Economic Times",
   "publishedAt" : "04-Nov-2026 14:47 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-04T17:37:31",
+  "title" : "Union Cabinet approves ₹14,500 crore VGF scheme to develop large scale energy storage in India",
+  "impact" : "Positive sentiment for the infrastructure and green energy sectors will likely provide a boost to Nifty. The scheme reduces energy volatility risks and supports long-term industrial stability, which is neutral to slightly positive for the rupee.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "04-Nov-2026 17:24 IST",
   "score" : 7
 } ]
