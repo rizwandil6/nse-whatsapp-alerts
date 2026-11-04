@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-02T17:31:24",
-  "title" : "Banks may get two boosts: RBI move, diaspora cash",
-  "impact" : "Positive sentiment for financial markets due to improved liquidity and credit flow. Nifty is expected to sustain upward momentum, while increased diaspora inflows support rupee stability against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Oct-2026 12:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-02T20:48:26",
   "title" : "Bets on US Federal Reserve rate hike in October fall as job market cools",
   "impact" : "Lower US rate hike expectations provide a positive tailwind for Indian equities as FII outflow risks moderate. Nifty likely to see a bullish bias supported by cooling global yields and a potential stabilization of the Indian Rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The positive US sentiment and potential for a stable global policy environment likely to support a positive opening for Nifty. The Indian Rupee may strengthen slightly as the US dollar faces pressure from falling yields and shifting political dynamics.",
   "source" : "Economic Times",
   "publishedAt" : "04-Nov-2026 20:36 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-05T01:25:29",
+  "title" : "Battery part makers may get up to 50% subsidy",
+  "impact" : "This policy push reinforces the manufacturing-led growth narrative for India, likely providing a moderate tailwind to the Nifty index. The increased localization of supply chains should have a neutral to slightly positive impact on the rupee by reducing long-term import dependency.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Nov-2026 00:38 IST",
   "score" : 7
 } ]
