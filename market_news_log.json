@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-02T20:48:26",
-  "title" : "Bets on US Federal Reserve rate hike in October fall as job market cools",
-  "impact" : "Lower US rate hike expectations provide a positive tailwind for Indian equities as FII outflow risks moderate. Nifty likely to see a bullish bias supported by cooling global yields and a potential stabilization of the Indian Rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "02-Oct-2026 20:07 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-02T22:19:47",
   "title" : "Why US stocks are rising: Nasdaq hits record after weaker jobs data cools rate-hike bets; Nike shares drop on forecast",
   "impact" : "Positive global cues and cooling US rate hike bets are likely to drive a gap-up opening for Nifty. Declining crude oil prices and easing bond yields should provide further strength to the Indian rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "This policy push reinforces the manufacturing-led growth narrative for India, likely providing a moderate tailwind to the Nifty index. The increased localization of supply chains should have a neutral to slightly positive impact on the rupee by reducing long-term import dependency.",
   "source" : "Economic Times",
   "publishedAt" : "05-Nov-2026 00:38 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-05T02:10:56",
+  "title" : "Crude cools, but war risks keeps mkts guessing",
+  "impact" : "Lower oil prices provide immediate relief to Indian equity markets and support the Nifty by reducing inflationary pressures. The rupee is likely to strengthen as reduced import costs improve the current account deficit outlook.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Nov-2026 01:26 IST",
   "score" : 7
 } ]
