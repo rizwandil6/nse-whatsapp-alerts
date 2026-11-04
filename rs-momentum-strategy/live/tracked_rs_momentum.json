@@ -263,33 +263,5 @@
   "entryPrice": 3510.4,
   "rsRankAtEntry": 80.03913894324853,
   "salesGrowth3Y": 77
- },
- "CARBORUNIV": {
-  "entryDate": "2026-11-01",
-  "entryPrice": 1079.9,
-  "rsRankAtEntry": 81.60469667318982,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GRAPHITE": {
-  "entryDate": "2026-11-01",
-  "entryPrice": 755.55,
-  "rsRankAtEntry": 81.99608610567515,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "JINDALSAW": {
-  "entryDate": "2026-11-01",
-  "entryPrice": 243.41,
-  "rsRankAtEntry": 80.43052837573386,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "TANLA": {
-  "entryDate": "2026-11-01",
-  "entryPrice": 645.45,
-  "rsRankAtEntry": 81.80039138943248,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
  }
 }

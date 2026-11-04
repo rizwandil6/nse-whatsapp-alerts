@@ -2345,5 +2345,33 @@
   "date": "2026-11-01",
   "price": 645.45,
   "rsRankAtEntry": 81.80039138943248
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "CARBORUNIV",
+  "date": "2026-11-04",
+  "price": 1079.9,
+  "rsRankAtEntry": 81.60469667318982
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GRAPHITE",
+  "date": "2026-11-04",
+  "price": 755.55,
+  "rsRankAtEntry": 81.99608610567515
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "JINDALSAW",
+  "date": "2026-11-04",
+  "price": 243.41,
+  "rsRankAtEntry": 80.43052837573386
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "TANLA",
+  "date": "2026-11-04",
+  "price": 645.45,
+  "rsRankAtEntry": 81.80039138943248
  }
 ]
