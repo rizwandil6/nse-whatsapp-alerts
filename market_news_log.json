@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T14:13:04",
-  "title" : "Sanctions, tariffs turn into weapons: Mishra",
-  "impact" : "Heightened geopolitical risk adds volatility to Nifty and weighs on investor sentiment. Increased focus on energy security and import restrictions may exert downward pressure on the rupee due to potential trade deficits.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Oct-2026 13:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-03T14:13:07",
   "title" : "F&amp;O Talk: 22,600 is a key Nifty support; Sudeep Shah discusses PB Fintech, Infosys, TCS strategy ahead of Q2",
   "impact" : "The Indian market faces a high-risk environment after an unprecedented eight-week losing streak. Nifty is expected to remain under pressure with a critical support test at 22,100, while persistent FII outflows and a strong dollar continue to drag sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "Reduction in import bills strengthens India's current account deficit and macro stability. Nifty is likely to see positive sentiment in energy-linked sectors, supporting long-term rupee appreciation.",
   "source" : "Economic Times",
   "publishedAt" : "05-Nov-2026 17:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-05T20:01:03",
+  "title" : "NPCI says MDR charge has been imposed to save the UPI ecosystem from turning ouroboric",
+  "impact" : "The move to reintroduce MDR could pressure fintech margins and dampen consumer spending sentiment. Nifty may face short-term volatility as payment costs increase, while the rupee remains neutral to this policy shift.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "05-Nov-2026 19:47 IST",
   "score" : 7
 } ]
