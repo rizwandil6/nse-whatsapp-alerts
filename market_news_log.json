@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T15:44:46",
-  "title" : "Dalal Street Week Ahead: Oversold Nifty may rebound as volatility stays high",
-  "impact" : "The Nifty faces a critical test at its 200-week moving average with volatility expected to stay high due to the upcoming RBI policy. A rebound is possible due to oversold conditions, but the overall technical structure remains fragile.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Oct-2026 15:08 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-03T16:14:51",
   "title" : "Congress calls all elections illegal",
   "impact" : "Political instability creates uncertainty leading to potential Nifty volatility and a cautious stance from FIIs. The rupee may face downward pressure due to increased geopolitical and domestic risk premiums.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong earnings support Nifty sentiment by reinforcing growth resilience in heavyweights. The telecom sector strength acts as a floor for indices, likely leading to a neutral to bullish bias for the index.",
   "source" : "Economic Times",
   "publishedAt" : "05-Nov-2026 16:34 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-05T20:47:20",
+  "title" : "Rupee closes at a 2-month high on possibility of de-escalation West Asia war, softening crude, weak dollar",
+  "impact" : "Positive sentiment for Nifty as cooling crude oil and a stronger rupee improve macroeconomic stability. Expect bullish momentum to continue with FII inflows buoying large-cap indices.",
+  "source" : "BusinessLine",
+  "publishedAt" : "05-Nov-2026 20:40 IST",
   "score" : 7
 } ]
