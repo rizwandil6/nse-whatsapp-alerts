@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T07:53:40",
-  "title" : "India's forex reserves fall $18.3 bn as RBI steps in to defend rupee",
-  "impact" : "The significant drawdown in forex reserves signals RBI's aggressive stance to support the rupee, likely leading to near-term Nifty volatility. Continued currency depreciation pressure could dampen FII sentiment and liquidity flows.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Oct-2026 00:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-03T08:56:00",
   "title" : "Saudi plans Houthis assault to break Red Sea grip",
   "impact" : "Heightened geopolitical tensions in the Red Sea likely to dampen market sentiment and increase volatility. Nifty faces downward pressure due to potential supply chain disruptions, while the rupee may weaken against the dollar due to rising crude oil import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "A Trump defeat introduces uncertainty regarding US trade protectionism and potential shifts in global supply chain policies. Expect Nifty to face volatility due to FII outflows while the rupee may weaken slightly against the dollar as global risk appetite recalibrates.",
   "source" : "Economic Times",
   "publishedAt" : "04-Nov-2026 23:42 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-05T07:27:34",
+  "title" : "Bullish momentum to sustain for Indian stocks on global rally",
+  "impact" : "Indian markets are set to maintain bullish momentum supported by a global rally and positive FPI sentiment. Nifty is expected to test higher resistance levels while the rupee remains stable against the USD.",
+  "source" : "BusinessLine",
+  "publishedAt" : "05-Nov-2026 07:10 IST",
   "score" : 7
 } ]
