@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T18:15:38",
-  "title" : "AI breaks India’s linear growth model: Nasscom",
-  "impact" : "AI adoption signifies a shift toward productivity-led growth for India, likely attracting long-term foreign capital inflows. Nifty is expected to sustain a bullish trend on IT transformation, while the rupee remains stable amid increased tech services exports.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Oct-2026 10:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-03T21:31:53",
   "title" : "US Market Outlook: Dollar, Yield stay strong",
   "impact" : "Strong US yields and a firm dollar will likely trigger FII outflows from Indian equities, putting pressure on Nifty near-term. The rupee is expected to face depreciation risk against the dollar, tightening liquidity conditions.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "05-Nov-2026 20:39 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-06T04:34:21",
+  "title" : "Worst US stock rout since 2020 leaves virtually nowhere to hide as Nasdaq plunges 6.4%, Dow sheds 1,833 points",
+  "impact" : "Indian markets are expected to witness a sharp gap-down opening tracking the global sell-off. Nifty will likely test lower support levels as FII selling intensifies, while the rupee may face downward pressure due to safe-haven demand for the US dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "06-Nov-2026 04:23 IST",
+  "score" : 8
 } ]
