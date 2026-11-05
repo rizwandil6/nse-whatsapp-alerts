@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T16:14:51",
-  "title" : "Congress calls all elections illegal",
-  "impact" : "Political instability creates uncertainty leading to potential Nifty volatility and a cautious stance from FIIs. The rupee may face downward pressure due to increased geopolitical and domestic risk premiums.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Oct-2026 15:41 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-03T16:30:03",
   "title" : "'Fuel, finance shocks hit world economy'",
   "impact" : "Indian markets face headwinds from sustained crude import costs and tighter global liquidity conditions. Nifty is likely to trade with a downward bias as foreign capital becomes costlier, pressuring the Rupee against the strengthening Dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for Nifty as cooling crude oil and a stronger rupee improve macroeconomic stability. Expect bullish momentum to continue with FII inflows buoying large-cap indices.",
   "source" : "BusinessLine",
   "publishedAt" : "05-Nov-2026 20:40 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-05T20:47:24",
+  "title" : "Increasing self-reliance in clean energy manufacturing key theme at Bharat RE Summit: MNRE Secretary",
+  "impact" : "The push for clean energy self-reliance is positive for long-term Nifty outlook and manufacturing-linked infrastructure stocks. The rupee may see stability as domestic manufacturing reduces reliance on costly energy imports.",
+  "source" : "BusinessLine",
+  "publishedAt" : "05-Nov-2026 20:10 IST",
   "score" : 7
 } ]
