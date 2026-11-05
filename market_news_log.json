@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T14:13:07",
-  "title" : "F&amp;O Talk: 22,600 is a key Nifty support; Sudeep Shah discusses PB Fintech, Infosys, TCS strategy ahead of Q2",
-  "impact" : "The Indian market faces a high-risk environment after an unprecedented eight-week losing streak. Nifty is expected to remain under pressure with a critical support test at 22,100, while persistent FII outflows and a strong dollar continue to drag sentiment.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Oct-2026 13:25 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-03T15:44:46",
   "title" : "Dalal Street Week Ahead: Oversold Nifty may rebound as volatility stays high",
   "impact" : "The Nifty faces a critical test at its 200-week moving average with volatility expected to stay high due to the upcoming RBI policy. A rebound is possible due to oversold conditions, but the overall technical structure remains fragile.",
@@ -3497,5 +3490,12 @@
   "impact" : "The move to reintroduce MDR could pressure fintech margins and dampen consumer spending sentiment. Nifty may face short-term volatility as payment costs increase, while the rupee remains neutral to this policy shift.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "05-Nov-2026 19:47 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-05T20:16:11",
+  "title" : "Bharti Airtel Q2 Results: Net profit jumps 31% YoY to Rs 8,887 crore; revenue up 17%; ARPU rises to Rs 271",
+  "impact" : "Strong earnings support Nifty sentiment by reinforcing growth resilience in heavyweights. The telecom sector strength acts as a floor for indices, likely leading to a neutral to bullish bias for the index.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Nov-2026 16:34 IST",
   "score" : 7
 } ]
