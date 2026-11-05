@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T00:35:32",
-  "title" : "Fed officials give hints on rate decision as markets cut October rate hike odds",
-  "impact" : "The reduction in US rate hike expectations provides a positive sentiment boost for Indian equities. Nifty is likely to trade with a bullish bias as bond yields stabilize, and the Rupee is expected to show resilience against the USD.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Oct-2026 00:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-03T01:05:42",
   "title" : "Ambani’s Reliance readies a ₹1 lkh cr Southern bet",
   "impact" : "This massive capital expenditure announcement signals strong growth sentiment for the Indian economy. It is likely to provide a bullish tailwind for the Nifty, while long-term infrastructure investment supports the rupee via increased FDI confidence.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower crude prices are positive for India's macro outlook, easing inflationary pressures and trade deficit concerns. Nifty is expected to see a bullish bias as reduced energy costs support corporate margins and strengthen the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "05-Nov-2026 01:23 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-05T06:11:26",
+  "title" : "India may get an advantage trade deal over Trump",
+  "impact" : "Potential trade concessions could boost investor sentiment and long-term export outlook. Nifty may see a relief rally, while the rupee is expected to remain stable or strengthen against the dollar due to improved trade balances.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Nov-2026 05:30 IST",
   "score" : 7
 } ]
