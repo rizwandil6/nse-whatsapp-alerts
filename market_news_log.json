@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T08:56:07",
-  "title" : "AI earnings shield US stocks, but bond risks rise: Jefferies' Wood",
-  "impact" : "Rising US bond yields will likely keep Nifty under selling pressure as foreign institutional investors shift capital toward safer dollar-denominated assets. This trend is expected to exert continued depreciation pressure on the Indian rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "03-Oct-2026 07:56 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-03T08:56:15",
   "title" : "More than half of mid-to-large cap companies fail to deliver returns in 2026",
   "impact" : "Indian markets are facing significant downward pressure due to massive FPI outflows and geopolitical instability. Nifty is likely to face sustained resistance near valuation lows while the rupee remains vulnerable to volatility from rising crude prices.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market is experiencing a strong bullish trend driven by macro tailwinds. Nifty is expected to sustain its recovery rally above 24,350, with lower oil prices likely providing support to the Rupee by reducing import bill pressure.",
   "source" : "Economic Times",
   "publishedAt" : "05-Nov-2026 12:13 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-11-05T14:26:08",
+  "title" : "Nifty crosses 24,500, Sensex gains 2,070 points as crude extends slide; Bajaj finance leads rally",
+  "impact" : "The Indian equity market shows strong bullish momentum as cooling crude prices boost investor sentiment and lower import costs. Nifty is expected to sustain its breakout above 24,500 with potential for further gains. The rupee is likely to stabilize or appreciate against the dollar due to the decline in oil import bills.",
+  "source" : "BusinessLine",
+  "publishedAt" : "05-Nov-2026 14:21 IST",
   "score" : 8
 } ]
