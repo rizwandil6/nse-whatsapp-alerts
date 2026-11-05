@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T21:31:53",
-  "title" : "US Market Outlook: Dollar, Yield stay strong",
-  "impact" : "Strong US yields and a firm dollar will likely trigger FII outflows from Indian equities, putting pressure on Nifty near-term. The rupee is expected to face depreciation risk against the dollar, tightening liquidity conditions.",
-  "source" : "BusinessLine",
-  "publishedAt" : "03-Oct-2026 21:20 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-04T11:51:47",
   "title" : "Jio Platforms IPO likely by Oct end at enterprise valuation of $143-146 billion",
   "impact" : "The Jio IPO will drive massive foreign capital inflows and likely boost Nifty sentiment toward record highs. The rupee is expected to strengthen against the dollar due to increased demand for local currency to participate in the mega-offering.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "06-Nov-2026 04:23 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-06T04:49:24",
+  "title" : "Wall Street fear gauge soars as retail traders bolt amid market rout",
+  "impact" : "Global volatility and tech-led sell-offs will likely trigger a gap-down opening for the Nifty 50. Expect significant FII outflows and a weakening Rupee as risk-off sentiment dominates local equity indices.",
+  "source" : "BusinessLine",
+  "publishedAt" : "06-Nov-2026 04:34 IST",
+  "score" : 7
 } ]
