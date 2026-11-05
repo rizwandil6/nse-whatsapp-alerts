@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-03T17:45:19",
-  "title" : "India’s economic resilience built through a decade of reforms: Nirmala Sitharaman",
-  "impact" : "Government focus on long-term reforms provides a stable bullish undertone for Indian equities. Nifty likely to see support at major levels as investor confidence grows, with the rupee remaining stable due to strong macro fundamentals.",
-  "source" : "BusinessLine",
-  "publishedAt" : "03-Oct-2026 17:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-03T18:15:38",
   "title" : "AI breaks India’s linear growth model: Nasscom",
   "impact" : "AI adoption signifies a shift toward productivity-led growth for India, likely attracting long-term foreign capital inflows. Nifty is expected to sustain a bullish trend on IT transformation, while the rupee remains stable amid increased tech services exports.",
@@ -3497,5 +3490,12 @@
   "impact" : "The heavy concentration of bellwether earnings today will drive significant volatility in Nifty 50. Expect institutional rotation based on results, with the rupee likely remaining range-bound near current support levels.",
   "source" : "BusinessLine",
   "publishedAt" : "05-Nov-2026 21:38 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-06T01:33:55",
+  "title" : "Emerging markets lose $33.8 billion in October as investors flee Asian stocks",
+  "impact" : "FII outflows from Asian peers will likely trigger a risk-off sentiment in India, leading to downward pressure on Nifty. The rupee may face volatility due to broader emerging market selling, despite potential US yield relief.",
+  "source" : "Economic Times",
+  "publishedAt" : "05-Nov-2026 20:39 IST",
   "score" : 7
 } ]
