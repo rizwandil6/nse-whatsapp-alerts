@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-04T19:10:02",
-  "title" : "Jio IPO roadshows draw strong global investor interest ahead of mega listing",
-  "impact" : "The Jio IPO is expected to drive significant FII inflows, boosting broader market sentiment and liquidity. Nifty is likely to see a bullish trend towards new highs as index heavyweights participate in the momentum, potentially strengthening the rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "04-Oct-2026 19:02 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-04T19:10:09",
   "title" : "Jaishankar: India-EU FTA a \"real game changer\"",
   "impact" : "The proposed FTA is a structural positive for Indian manufacturing and export-oriented sectors, likely fueling Nifty momentum. Increased FDI inflows and trade integration are expected to provide long-term stability to the Indian Rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "06-Nov-2026 06:51 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-11-06T07:50:14",
+  "title" : "Iran sends nuclear proposal to the US",
+  "impact" : "Geopolitical tensions in the Middle East drive a risk-off sentiment in Indian markets. Nifty is expected to witness sharp volatility with a downward bias due to foreign institutional outflows and the Rupee is likely to weaken against the Dollar amid rising oil import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Nov-2026 07:21 IST",
+  "score" : 8
 } ]
