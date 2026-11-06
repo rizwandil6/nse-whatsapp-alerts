@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T10:26:36",
-  "title" : "Iran war's fire set to change money matters this week",
-  "impact" : "Heightened geopolitical tensions in Iran will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to witness downward pressure as FIIs pull out funds, and the rupee may weaken significantly due to rising crude oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Oct-2026 05:30 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-05T12:42:36",
   "title" : "Anthropic's Claude goes local in India",
   "impact" : "This move strengthens enterprise digital transformation adoption, providing a minor tailwind for IT sector sentiment. Nifty is expected to maintain its trajectory with improved long-term data compliance stability, and the rupee impact is negligible.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising US recession fears will likely trigger FII outflows and volatility in the Indian markets. Nifty faces downward pressure toward key support levels as risk-off sentiment dominates global indices. The rupee may experience depreciation pressure against the dollar due to safe-haven demand.",
   "source" : "Economic Times",
   "publishedAt" : "06-Nov-2026 21:21 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-07T00:37:48",
+  "title" : "Federal Reserve rate hike bets strengthen as US jobs growth beats estimates",
+  "impact" : "Indian markets are likely to face downward pressure due to FII outflows as US bond yields rise. Nifty may face immediate resistance near key psychological levels as the rupee weakens against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Nov-2026 23:39 IST",
   "score" : 7
 } ]
