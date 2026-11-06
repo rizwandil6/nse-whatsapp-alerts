@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-04T14:53:31",
-  "title" : "RBI policy, TCS earnings, crude prices to steer markets this week",
-  "impact" : "Markets are likely to remain volatile as investors digest RBI policy outcomes and Q2 earnings. Nifty faces downward pressure due to FII selling, while elevated crude prices threaten rupee stability against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "04-Oct-2026 14:48 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-04T17:54:38",
   "title" : "India’s growth has the world rewriting its forecast",
   "impact" : "Global confidence in India's GDP growth trajectory will drive significant FII inflows into Indian equities. The Nifty is expected to sustain its upward momentum toward record highs, while the rupee is likely to stabilize as macroeconomic fundamentals strengthen.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "06-Nov-2026 05:47 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-06T06:19:35",
+  "title" : "Demat account additions hit 9-month high in October as IPO boom draws investors",
+  "impact" : "The record surge in retail participation via IPOs provides a liquidity cushion for the Nifty, though valuation concerns in broader markets may persist. The Rupee is expected to remain stable as high primary market inflows attract foreign capital interest.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Nov-2026 05:45 IST",
+  "score" : 7
 } ]
