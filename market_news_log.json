@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T12:42:36",
-  "title" : "Anthropic's Claude goes local in India",
-  "impact" : "This move strengthens enterprise digital transformation adoption, providing a minor tailwind for IT sector sentiment. Nifty is expected to maintain its trajectory with improved long-term data compliance stability, and the rupee impact is negligible.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Oct-2026 12:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-05T13:13:25",
   "title" : "India mulls GST reset once again",
   "impact" : "The GST overhaul is expected to boost investor sentiment by improving working capital availability and easing compliance costs for Indian corporates. Nifty is likely to trade with a positive bias, while the potential for increased capex and improved export competitiveness provides structural support for the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "06-Nov-2026 23:39 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-07T00:38:00",
+  "title" : "FIIs step up India buying, pour Rs 13,750 crore on Friday; total buying hits Rs 53,154 crore in 14 days",
+  "impact" : "FII inflows are driving a strong bullish momentum for large-cap indices despite DII selling and global headwinds. Nifty is expected to sustain consolidation at higher levels while the rupee may find support from increased foreign capital liquidity.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Nov-2026 20:45 IST",
+  "score" : 8
 } ]
