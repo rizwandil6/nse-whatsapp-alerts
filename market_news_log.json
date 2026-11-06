@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-04T19:25:16",
-  "title" : "India’s resilience not accidental but outcome of broad and mutually reinforcing reforms, says Das",
-  "impact" : "RBI Governor comments reinforce structural growth narrative, supporting long-term Nifty bullish sentiment. Expected improved FDI inflows and stable macros should bolster the Rupee against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "04-Oct-2026 19:20 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-04T20:40:27",
   "title" : "Houthis claim missile, drone strikes on Aramco",
   "impact" : "Heightened geopolitical risk in the Middle East is likely to trigger a bearish sentiment in Nifty due to supply chain concerns. The rupee may face depreciation pressure as global crude oil prices spike, weighing on FII sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market exhibits significant resilience against global volatility, maintaining a strong upward bias. Nifty is expected to sustain momentum above 24,700 supported by capital inflows and a stabilizing rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "06-Nov-2026 13:33 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-06T13:59:25",
+  "title" : "India inflation nears RBI's upper target: Poll",
+  "impact" : "Sticky inflation nearing the RBI upper threshold reduces chances of near-term rate cuts, pressuring market sentiment. Expect Nifty to face resistance at higher levels with the Rupee likely to face depreciation pressure against the USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Nov-2026 13:21 IST",
   "score" : 7
 } ]
