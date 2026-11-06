@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T07:58:20",
-  "title" : "Indian markets eye gap-up opening; crude, bond yields and RBI policy remain key",
-  "impact" : "Global sentiment from cooling US labor data likely triggers a gap-up opening for Nifty. The positive environment may ease pressure on the rupee despite persistent crude oil volatility.",
-  "source" : "BusinessLine",
-  "publishedAt" : "05-Oct-2026 07:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-05T10:26:36",
   "title" : "Iran war's fire set to change money matters this week",
   "impact" : "Heightened geopolitical tensions in Iran will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to witness downward pressure as FIIs pull out funds, and the rupee may weaken significantly due to rising crude oil prices.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "06-Nov-2026 21:18 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-06T22:22:28",
+  "title" : "US job cuts could hit 1.6 million: Recession next?",
+  "impact" : "Rising US recession fears will likely trigger FII outflows and volatility in the Indian markets. Nifty faces downward pressure toward key support levels as risk-off sentiment dominates global indices. The rupee may experience depreciation pressure against the dollar due to safe-haven demand.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Nov-2026 21:21 IST",
+  "score" : 7
 } ]
