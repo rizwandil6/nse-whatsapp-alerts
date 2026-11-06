@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-04T20:40:27",
-  "title" : "Houthis claim missile, drone strikes on Aramco",
-  "impact" : "Heightened geopolitical risk in the Middle East is likely to trigger a bearish sentiment in Nifty due to supply chain concerns. The rupee may face depreciation pressure as global crude oil prices spike, weighing on FII sentiment.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Oct-2026 19:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-04T23:11:21",
   "title" : "Private capex revives, capital formation hits high",
   "impact" : "The revival of private capex signals a strong macro-economic turnaround, driving sustained bullish momentum for Nifty. Expect increased foreign capital inflows supporting a stable to slightly appreciating rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "06-Nov-2026 13:21 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-06T15:45:20",
+  "title" : "Anti-AI trade makes Indian stocks Asia’s lone bright spot",
+  "impact" : "Strong foreign institutional inflows are driving a broader market rally across Nifty and Sensex. Expect the Nifty to test higher resistance levels as positive sentiment persists, providing support to the rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "06-Nov-2026 15:37 IST",
+  "score" : 8
 } ]
