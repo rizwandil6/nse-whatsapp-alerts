@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T06:27:29",
-  "title" : "Largecaps bear brunt of selloff as 84% of Nifty 50 stocks slip below 200-DMA",
-  "impact" : "The Indian market faces significant pressure as large-cap deterioration signals a weak near-term trend. Nifty is expected to consolidate as it reaches oversold territory, while the rupee may face volatility from potential FII outflow.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Oct-2026 06:03 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-05T06:57:42",
   "title" : "Blockbuster Accenture show holds out hope for battered Indian IT",
   "impact" : "Accenture results provide a sentiment floor for Indian IT, potentially cushioning Nifty from broader volatility. The currency impact is likely neutral, as improved export earnings outlook offsets current capital outflow trends.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "06-Nov-2026 19:05 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-06T19:18:42",
+  "title" : "₹20 tn Diwali boost as Nifty hits multi-year high",
+  "impact" : "The multi-year high in Nifty indicates strong investor optimism and robust liquidity inflows during the festive season. Nifty is expected to maintain upward momentum while the rupee may show slight appreciation supported by increased foreign sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Nov-2026 14:15 IST",
+  "score" : 8
 } ]
