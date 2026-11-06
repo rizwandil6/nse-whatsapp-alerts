@@ -2373,5 +2373,12 @@
   "date": "2026-11-04",
   "price": 645.45,
   "rsRankAtEntry": 81.80039138943248
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PHOENIXLTD",
+  "date": "2026-11-04",
+  "price": 2126,
+  "rsRankAtEntry": 81.80039138943248
  }
 ]

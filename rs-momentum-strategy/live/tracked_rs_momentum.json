@@ -263,5 +263,12 @@
   "entryPrice": 3510.4,
   "rsRankAtEntry": 80.03913894324853,
   "salesGrowth3Y": 77
+ },
+ "PHOENIXLTD": {
+  "entryDate": "2026-11-04",
+  "entryPrice": 2126,
+  "rsRankAtEntry": 81.80039138943248,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
