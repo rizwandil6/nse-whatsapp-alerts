@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T07:12:48",
-  "title" : "Private investment picking up in India as capital formation grows at fastest pace in over three years",
-  "impact" : "Robust capital formation and record FDI inflows signal strong macro confidence, likely pushing Nifty toward new highs. Increased capital inflows should strengthen the Indian Rupee against the dollar in the near term.",
-  "source" : "BusinessLine",
-  "publishedAt" : "05-Oct-2026 06:59 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-05T07:58:20",
   "title" : "Indian markets eye gap-up opening; crude, bond yields and RBI policy remain key",
   "impact" : "Global sentiment from cooling US labor data likely triggers a gap-up opening for Nifty. The positive environment may ease pressure on the rupee despite persistent crude oil volatility.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "06-Nov-2026 20:28 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-06T21:36:30",
+  "title" : "Nifty reclaims 25,000, Sensex crosses 81,000 as India shrugs off global tech rout",
+  "impact" : "Strong recovery signals a breakout sentiment as investors shrug off global volatility. Nifty is expected to consolidate above the 25,000 support level, while the rupee remains stable amid robust FII inflow optimism.",
+  "source" : "BusinessLine",
+  "publishedAt" : "06-Nov-2026 21:18 IST",
+  "score" : 8
 } ]
