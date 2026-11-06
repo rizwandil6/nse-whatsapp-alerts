@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T06:57:42",
-  "title" : "Blockbuster Accenture show holds out hope for battered Indian IT",
-  "impact" : "Accenture results provide a sentiment floor for Indian IT, potentially cushioning Nifty from broader volatility. The currency impact is likely neutral, as improved export earnings outlook offsets current capital outflow trends.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Oct-2026 06:24 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-05T07:12:48",
   "title" : "Private investment picking up in India as capital formation grows at fastest pace in over three years",
   "impact" : "Robust capital formation and record FDI inflows signal strong macro confidence, likely pushing Nifty toward new highs. Increased capital inflows should strengthen the Indian Rupee against the dollar in the near term.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "06-Nov-2026 14:15 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-06T20:34:43",
+  "title" : "India to become world’s second largest RE growth market by 2031: IEA",
+  "impact" : "The report reinforces India as a primary destination for long-term global capital flows into green energy. Nifty is expected to sustain upward momentum in the energy infrastructure space, supporting rupee stability through reduced reliance on fossil fuel imports.",
+  "source" : "BusinessLine",
+  "publishedAt" : "06-Nov-2026 20:28 IST",
+  "score" : 7
 } ]
