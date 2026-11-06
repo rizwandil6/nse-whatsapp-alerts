@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T01:11:43",
-  "title" : "India within reach of 8% growth: Ex-RBI guv",
-  "impact" : "Positive sentiment for Indian equities as long-term growth optimism returns. Nifty is expected to sustain upward momentum and retest record highs. Rupee likely to stabilize against the USD due to improved foreign investment outlook.",
-  "source" : "Economic Times",
-  "publishedAt" : "04-Oct-2026 17:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-05T01:11:46",
   "title" : "Next-gen GST to boost growth, ease compliance",
   "impact" : "The implementation of next-gen GST is expected to fuel broad-based market optimism by reducing compliance friction and boosting consumption. Expect Nifty to maintain a bullish bias as improved tax transparency and easing working capital cycles support corporate earnings.",
@@ -3497,5 +3490,12 @@
   "impact" : "The large capital infusion provides significant liquidity, likely pushing Nifty to test immediate resistance levels. Improved sentiment and increased capital flows are expected to support the rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "06-Nov-2026 11:21 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-11-06T17:17:02",
+  "title" : "Sensex roars with 1,718-point Diwali blockbuster",
+  "impact" : "The record-breaking Diwali surge signals a strong positive sentiment shift and renewed buyer confidence in Indian equities. Nifty is expected to sustain momentum near its recent highs with the rupee finding support due to increased foreign investor interest.",
+  "source" : "Economic Times",
+  "publishedAt" : "06-Nov-2026 10:48 IST",
   "score" : 8
 } ]
