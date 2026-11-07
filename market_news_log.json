@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T14:14:08",
-  "title" : "India’s steel consumption to grow 7-8% in coming years, says Tata Steel CEO",
-  "impact" : "Positive outlook for steel indicates sustained infrastructure and industrial spending. Nifty is expected to lean bullish with strength in core sectors, while steady demand supports a stable rupee against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "05-Oct-2026 14:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-05T14:29:40",
   "title" : "Mukesh Ambani’s Jio Platforms plans $3.8 billion IPO on October 21",
   "impact" : "The IPO announcement will likely trigger a massive liquidity flush into Reliance Industries and bolster overall Nifty sentiment. Expected index momentum remains bullish as the offering absorbs significant capital, with potential strengthening of the Rupee due to high foreign institutional interest.",
@@ -3497,5 +3490,12 @@
   "impact" : "This policy-backed capacity expansion is bullish for the industrial and energy indices. Nifty is expected to sustain its upward momentum with increased capital expenditure inflows. The rupee remains stable as long-term renewable investments reduce dependency on energy imports.",
   "source" : "BusinessLine",
   "publishedAt" : "07-Nov-2026 09:53 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-07T10:17:16",
+  "title" : "Dollar jumps after strong US payrolls report",
+  "impact" : "The Indian market faces downward pressure as a stronger dollar and rising US Treasury yields lead to FII outflows. The INR is expected to weaken, and the Nifty will likely trade with a bearish bias amid global risk-off sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "07-Nov-2026 09:41 IST",
   "score" : 7
 } ]
