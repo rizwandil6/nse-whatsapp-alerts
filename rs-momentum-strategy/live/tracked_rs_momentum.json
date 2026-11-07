@@ -192,12 +192,6 @@
   "rsRankAtEntry": 84.61538461538461,
   "salesGrowth3Y": 66
  },
- "MANYAVAR": {
-  "entryDate": "2026-09-03",
-  "entryPrice": 594.2,
-  "rsRankAtEntry": 81.4595660749507,
-  "salesGrowth3Y": 34
- },
  "PRUDENT": {
   "entryDate": "2026-09-17",
   "entryPrice": 3501.6,
@@ -268,6 +262,27 @@
   "entryDate": "2026-11-04",
   "entryPrice": 2126,
   "rsRankAtEntry": 81.80039138943248,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "APLLTD": {
+  "entryDate": "2026-11-05",
+  "entryPrice": 965.15,
+  "rsRankAtEntry": 82.421875,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "DLF": {
+  "entryDate": "2026-11-05",
+  "entryPrice": 752.9,
+  "rsRankAtEntry": 80.6640625,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "MINDACORP": {
+  "entryDate": "2026-11-05",
+  "entryPrice": 712.65,
+  "rsRankAtEntry": 82.2265625,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }
