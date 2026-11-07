@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T13:58:55",
-  "title" : "$100/barrel crude on screen, $145 in market",
-  "impact" : "Rising crude prices signal inflationary pressure and widened current account deficit, putting pressure on Nifty 50. The Rupee is likely to weaken further against the USD due to increased import bill costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Oct-2026 13:19 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-05T14:14:08",
   "title" : "India’s steel consumption to grow 7-8% in coming years, says Tata Steel CEO",
   "impact" : "Positive outlook for steel indicates sustained infrastructure and industrial spending. Nifty is expected to lean bullish with strength in core sectors, while steady demand supports a stable rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Geopolitical escalation in the Middle East will likely trigger risk-off sentiment in Indian markets. Expect Nifty to face downward pressure with increased volatility, while the rupee may weaken against the dollar due to rising crude oil prices.",
   "source" : "Economic Times",
   "publishedAt" : "07-Nov-2026 07:49 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-07T10:01:36",
+  "title" : "India’s renewable energy capacity to reach 530 GW by 2030, solar to drive growth",
+  "impact" : "This policy-backed capacity expansion is bullish for the industrial and energy indices. Nifty is expected to sustain its upward momentum with increased capital expenditure inflows. The rupee remains stable as long-term renewable investments reduce dependency on energy imports.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Nov-2026 09:53 IST",
   "score" : 7
 } ]
