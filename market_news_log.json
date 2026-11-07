@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T13:13:25",
-  "title" : "India mulls GST reset once again",
-  "impact" : "The GST overhaul is expected to boost investor sentiment by improving working capital availability and easing compliance costs for Indian corporates. Nifty is likely to trade with a positive bias, while the potential for increased capex and improved export competitiveness provides structural support for the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Oct-2026 06:00 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-05T13:58:55",
   "title" : "$100/barrel crude on screen, $145 in market",
   "impact" : "Rising crude prices signal inflationary pressure and widened current account deficit, putting pressure on Nifty 50. The Rupee is likely to weaken further against the USD due to increased import bill costs.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "06-Nov-2026 20:45 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-07T08:42:58",
+  "title" : "Iran distributes iodine pills amid US strike fears",
+  "impact" : "Geopolitical escalation in the Middle East will likely trigger risk-off sentiment in Indian markets. Expect Nifty to face downward pressure with increased volatility, while the rupee may weaken against the dollar due to rising crude oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "07-Nov-2026 07:49 IST",
+  "score" : 7
 } ]
