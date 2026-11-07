@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-05T18:02:14",
-  "title" : "Can FD rates increase if RBI raises repo rate?",
-  "impact" : "A repo rate hike would likely dampen Nifty sentiments due to higher borrowing costs and equity valuation compression. The Indian Rupee might strengthen marginally as higher interest rates attract foreign carry trade inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "05-Oct-2026 17:09 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-05T19:48:51",
   "title" : "₹ headed to 100? Why psychological red line matters",
   "impact" : "A weakening rupee toward the 100 mark exerts pressure on the Nifty through FII outflows and costlier imports. This triggers volatility, raising inflationary concerns and prompting a cautious stance on domestic equity valuations.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "07-Nov-2026 09:57 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-07T11:02:39",
+  "title" : "Global gas supplies to tighten this winter due to Strait of Hormuz LNG shock, warns IEA",
+  "impact" : "Global energy supply concerns will likely trigger inflationary pressures and pressure Nifty toward support levels. The rupee may face depreciation due to rising crude and gas import bills.",
+  "source" : "BusinessLine",
+  "publishedAt" : "07-Nov-2026 10:51 IST",
+  "score" : 7
 } ]
