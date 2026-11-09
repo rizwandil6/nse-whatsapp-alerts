@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T13:28:16",
-  "title" : "PNB, Kotak Mahindra Bank, other bank stocks rise up to 2% after RBI’s rate hike, Nifty Bank above 55,500",
-  "impact" : "The market remains cautious as the RBI shifts to a calibrated tightening stance, favoring banking stocks while broader indices face profit-booking. Expect Nifty to remain volatile near 22,600 levels, with the rupee likely finding support from the rate hike.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Oct-2026 11:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-07T14:13:41",
   "title" : "Nifty slips 179 points mid-session as RBI's hawkish shift keeps markets under pressure",
   "impact" : "The market sentiment is turning cautious due to the RBI's hawkish monetary stance. Nifty is expected to remain under pressure near support levels of 22,530, while the rupee may face volatility against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The resurgence of IT stocks provides a structural tailwind for Nifty 50, supporting a bullish index trend. Strong IT performance acts as a defensive hedge, potentially stabilizing the rupee against volatility in global tech markets.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Nov-2026 21:22 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-09T21:55:44",
+  "title" : "US stocks: Dow Jones rallies 500 points, Nasdaq over 2% as chip stocks rebound; Nvidia probe weighs",
+  "impact" : "Positive global cues from the US tech rebound will likely boost sentiment, leading to a gap-up opening for Nifty. The rupee may face slight pressure if the US inflation data points toward persistent interest rate hikes.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Nov-2026 20:35 IST",
   "score" : 7
 } ]
