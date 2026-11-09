@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T07:29:24",
-  "title" : "Stocks to watch on October 7: Over a dozen companies, rate-sensitive sectors in focus",
-  "impact" : "Market sentiment is cautious and volatile ahead of the RBI policy announcement. Nifty is expected to consolidate within a narrow range with potential downside pressure if rate cut expectations remain unmet, while the Rupee faces weakness due to global dollar strength.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Oct-2026 07:20 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-07T07:45:10",
   "title" : "Vance sets nuclear red line for Iran to end war",
   "impact" : "Geopolitical tension involving Iran creates volatility in Indian markets by pressuring oil prices. Nifty may face downside pressure amid foreign investor risk-off sentiment. The Rupee is likely to weaken due to higher import costs and dollar demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "Foreign institutional inflows are expected to bolster Nifty 50 toward all-time highs as sentiment shifts toward cyclical and domestic growth. The rupee is likely to remain stable or appreciate slightly against the dollar due to sustained capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Nov-2026 13:06 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-09T14:46:21",
+  "title" : "India presses power reset amid wars &amp; AI shadow",
+  "impact" : "Global geopolitical uncertainty and AI-driven energy demand lead to market volatility. Nifty may face consolidation near resistance as investors prioritize energy security and infrastructure stability, while the rupee remains pressured by oil price fluctuations.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Nov-2026 14:11 IST",
   "score" : 7
 } ]
