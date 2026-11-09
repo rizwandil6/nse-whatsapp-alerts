@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T07:45:14",
-  "title" : "Who’s running Iran? Trump asks",
-  "impact" : "Heightened geopolitical instability in the Middle East poses a significant risk to Indian equity markets, likely driving Nifty toward a bearish trend due to risk-off sentiment. The Indian Rupee is expected to face depreciation pressure against the USD amid rising global oil prices and safe-haven flows.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Oct-2026 07:12 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-07T09:56:43",
   "title" : "Brent crude rises above $101 on US hurricane threat, Houthi attacks",
   "impact" : "Rising crude oil prices will pressure the Nifty due to India's high import dependency and inflationary risks. The rupee is expected to weaken against the dollar, potentially leading to FII outflows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "09-Nov-2026 12:18 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-09T16:47:51",
+  "title" : "FPI investments in FAR G-Secs rise nearly ₹8,000 cr as rupee gains, bond yields ease",
+  "impact" : "FPI inflows into government bonds signal improving macro stability and investor confidence. This supports a bullish outlook for the Nifty as currency appreciation reduces import cost pressures and lowers domestic borrowing costs.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Nov-2026 16:41 IST",
+  "score" : 7
 } ]
