@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T00:25:42",
-  "title" : "US EIA lifts Brent forecast to $98 as Iran war tightens global supplies",
-  "impact" : "Sustained high oil prices will likely trigger a bearish trend for Indian equities due to inflationary pressures and fiscal deficit concerns. Expect Nifty to face significant resistance while the Indian Rupee remains under downward pressure against the US dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "06-Oct-2026 23:52 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-07T06:28:29",
   "title" : "Nifty 50 companies likely to log strong double-digit growth in Q2",
   "impact" : "Broad Indian equity market sentiment remains bullish due to strong double-digit corporate earnings growth. Nifty 50 is expected to trend upward, though volatility from currency depreciation and input inflation will persist.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising bond yields increase cost of capital, pressuring equity valuations and triggering foreign institutional outflows. Nifty is expected to face resistance near key moving averages while the rupee remains under depreciation pressure against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "09-Nov-2026 06:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-09T11:54:09",
+  "title" : "Money managers push for tax cuts to stem foreign portfolio outflow",
+  "impact" : "Potential reduction in capital gains tax would act as a major catalyst for foreign inflows, reversing recent FII selling trends. This would likely drive the Nifty to test new highs and provide significant support to the Indian Rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Nov-2026 11:38 IST",
   "score" : 7
 } ]
