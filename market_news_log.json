@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T09:56:43",
-  "title" : "Brent crude rises above $101 on US hurricane threat, Houthi attacks",
-  "impact" : "Rising crude oil prices will pressure the Nifty due to India's high import dependency and inflationary risks. The rupee is expected to weaken against the dollar, potentially leading to FII outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Oct-2026 09:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-07T09:56:54",
   "title" : "Nifty falls on RBI rate decision day; Titan, SBI Life lead declines",
   "impact" : "The market is pricing in a hawkish policy shift, putting downward pressure on Nifty due to rising borrowing costs. Expect increased volatility in the rupee as higher interest rates typically support the currency against dollar strength.",
@@ -3497,5 +3490,12 @@
   "impact" : "FPI inflows into government bonds signal improving macro stability and investor confidence. This supports a bullish outlook for the Nifty as currency appreciation reduces import cost pressures and lowers domestic borrowing costs.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Nov-2026 16:41 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-09T17:03:01",
+  "title" : "A strong El Nino could drag the crisis into 2027 and intensify heatwaves, extremes of rainfall",
+  "impact" : "Heightened climate risk threatens agriculture yields and inflationary pressures, keeping Nifty volatile near support levels. The Rupee faces depreciation pressure due to potential import-led inflation for essential commodities.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Nov-2026 16:55 IST",
   "score" : 7
 } ]
