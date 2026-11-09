@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-06T18:51:29",
-  "title" : "Cars, two-wheelers record highest-ever September retail sales",
-  "impact" : "Robust retail sales data signals strong domestic consumption, supporting a bullish outlook for the Nifty 50. The positive sentiment is likely to strengthen the rupee as domestic growth sentiment improves investor confidence.",
-  "source" : "BusinessLine",
-  "publishedAt" : "06-Oct-2026 18:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-06T20:53:01",
   "title" : "World Bank ups India's GDP growth projection to 7.1% for FY27",
   "impact" : "The upward revision to 7.1% GDP growth signals strong macroeconomic stability, likely sustaining the bullish trend in Nifty. Increased export volumes and foreign capital inflows are expected to provide support to the Indian Rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Jensen Huangs focus on AI infrastructure reinforces global demand, likely providing a bullish tailwind for Indian IT and hardware providers. Nifty is expected to lean positive on tech-led sentiment, while the rupee remains stable against the USD.",
   "source" : "Economic Times",
   "publishedAt" : "09-Nov-2026 08:26 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-09T09:19:21",
+  "title" : "India bonds could rally some more as fundamentals favour bulls",
+  "impact" : "Lower oil prices and softening Treasury yields improve macro stability for India. Nifty is expected to consolidate gains with a bullish bias, while the rupee likely strengthens against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Nov-2026 09:06 IST",
   "score" : 7
 } ]
