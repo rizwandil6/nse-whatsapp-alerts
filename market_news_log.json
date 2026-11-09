@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T19:49:38",
-  "title" : "RBI rate hike pulls markets lower",
-  "impact" : "The RBI rate hike signals a contractionary monetary policy phase, likely leading to sustained selling pressure. Nifty 50 is expected to consolidate below 22,600 with the Rupee facing depreciation pressure against the dollar due to capital outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Oct-2026 18:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-07T19:52:04",
   "title" : "Rupee tumbles 43 paise to close at 96.78 against US dollar following RBI policy decision",
   "impact" : "The weakening rupee and hawkish RBI stance will likely pressure domestic equity markets, leading to FII outflows. Nifty is expected to face immediate volatility with a downward bias as borrowing costs rise.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened volatility in Indian IT and tech-heavy indices as sentiment shifts regarding global AI hardware supply chains. Nifty may face short-term consolidation, putting minor downward pressure on the rupee due to potential foreign institutional outflows.",
   "source" : "Economic Times",
   "publishedAt" : "10-Nov-2026 00:44 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-10T01:27:39",
+  "title" : "Citi downgrades US stocks to 'neutral' as AI sell-off, regulatory risks mount",
+  "impact" : "Indian markets will likely face near-term volatility due to global risk-off sentiment and contagion from US tech corrections. Nifty may witness profit booking in IT heavyweights, while the rupee could face pressure from FII outflows seeking safety.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Nov-2026 00:42 IST",
   "score" : 7
 } ]
