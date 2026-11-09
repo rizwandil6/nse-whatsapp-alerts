@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T14:13:41",
-  "title" : "Nifty slips 179 points mid-session as RBI's hawkish shift keeps markets under pressure",
-  "impact" : "The market sentiment is turning cautious due to the RBI's hawkish monetary stance. Nifty is expected to remain under pressure near support levels of 22,530, while the rupee may face volatility against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Oct-2026 14:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-07T17:17:35",
   "title" : "Lowest home loan rates after RBI repo rate hike",
   "impact" : "The home loan rate environment despite RBI hikes suggests resilient credit demand. Nifty is expected to consolidate with a positive bias as financial stability improves, keeping the rupee stable against volatility.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive global cues from the US tech rebound will likely boost sentiment, leading to a gap-up opening for Nifty. The rupee may face slight pressure if the US inflation data points toward persistent interest rate hikes.",
   "source" : "Economic Times",
   "publishedAt" : "09-Nov-2026 20:35 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-09T23:56:19",
+  "title" : "US market remains tied to tech stocks despite sharp AI sell-off",
+  "impact" : "Global tech volatility and US sector concentration risks will likely pressure Indian IT and high-beta stocks. Nifty is expected to witness consolidation or downward bias while the Rupee faces potential volatility from global capital flow shifts.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Nov-2026 16:46 IST",
   "score" : 7
 } ]
