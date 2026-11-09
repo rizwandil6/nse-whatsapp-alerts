@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T06:28:29",
-  "title" : "Nifty 50 companies likely to log strong double-digit growth in Q2",
-  "impact" : "Broad Indian equity market sentiment remains bullish due to strong double-digit corporate earnings growth. Nifty 50 is expected to trend upward, though volatility from currency depreciation and input inflation will persist.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Oct-2026 06:22 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-07T07:29:24",
   "title" : "Stocks to watch on October 7: Over a dozen companies, rate-sensitive sectors in focus",
   "impact" : "Market sentiment is cautious and volatile ahead of the RBI policy announcement. Nifty is expected to consolidate within a narrow range with potential downside pressure if rate cut expectations remain unmet, while the Rupee faces weakness due to global dollar strength.",
@@ -3497,5 +3490,12 @@
   "impact" : "Potential reduction in capital gains tax would act as a major catalyst for foreign inflows, reversing recent FII selling trends. This would likely drive the Nifty to test new highs and provide significant support to the Indian Rupee against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Nov-2026 11:38 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-09T13:14:44",
+  "title" : "HSBC, Citi turn bullish as domestic markets draw record inflows",
+  "impact" : "Foreign institutional inflows are expected to bolster Nifty 50 toward all-time highs as sentiment shifts toward cyclical and domestic growth. The rupee is likely to remain stable or appreciate slightly against the dollar due to sustained capital inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Nov-2026 13:06 IST",
   "score" : 7
 } ]
