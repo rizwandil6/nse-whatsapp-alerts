@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T09:56:54",
-  "title" : "Nifty falls on RBI rate decision day; Titan, SBI Life lead declines",
-  "impact" : "The market is pricing in a hawkish policy shift, putting downward pressure on Nifty due to rising borrowing costs. Expect increased volatility in the rupee as higher interest rates typically support the currency against dollar strength.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Oct-2026 09:51 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-07T11:27:18",
   "title" : "Iran war keeps global outlook uncertain: Malhotra",
   "impact" : "Heightened geopolitical tensions in Iran increase volatility and risk aversion in Indian equities. Nifty is expected to witness downward pressure on FII outflows and global uncertainty, while the rupee may face depreciation against the dollar due to rising oil prices.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened climate risk threatens agriculture yields and inflationary pressures, keeping Nifty volatile near support levels. The Rupee faces depreciation pressure due to potential import-led inflation for essential commodities.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Nov-2026 16:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-09T17:03:42",
+  "title" : "India's investment outlook strengthens",
+  "impact" : "The positive capex outlook and corporate revenue growth provide a bullish tailwind for the Nifty, suggesting sustained index strength. Easing energy price concerns should stabilize the rupee by narrowing the current account deficit.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Nov-2026 16:44 IST",
   "score" : 7
 } ]
