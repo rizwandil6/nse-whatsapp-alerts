@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-06T20:53:01",
-  "title" : "World Bank ups India's GDP growth projection to 7.1% for FY27",
-  "impact" : "The upward revision to 7.1% GDP growth signals strong macroeconomic stability, likely sustaining the bullish trend in Nifty. Increased export volumes and foreign capital inflows are expected to provide support to the Indian Rupee against the dollar.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "06-Oct-2026 20:43 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-07T00:25:34",
   "title" : "Tata Motors eyes 100,000 cars a month",
   "impact" : "This announcement signals strong manufacturing growth and domestic demand, likely boosting Nifty Auto index sentiment. The broader Nifty 50 could see positive momentum, while the Rupee is expected to remain stable with minor support from increased industrial activity.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower oil prices and softening Treasury yields improve macro stability for India. Nifty is expected to consolidate gains with a bullish bias, while the rupee likely strengthens against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "09-Nov-2026 09:06 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-09T10:49:58",
+  "title" : "Under attack, banks seek bigger cover to risky blows",
+  "impact" : "Heightened credit risk concerns for banks may trigger moderate profit-booking in financial indices. Nifty is expected to face resistance near key levels with pressure on the rupee due to potential FII caution.",
+  "source" : "Economic Times",
+  "publishedAt" : "09-Nov-2026 07:10 IST",
   "score" : 7
 } ]
