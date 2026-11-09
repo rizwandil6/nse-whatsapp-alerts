@@ -2408,5 +2408,34 @@
   "date": "2026-11-05",
   "price": 712.65,
   "rsRankAtEntry": 82.2265625
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "PHOENIXLTD",
+  "date": "2026-11-09",
+  "price": 2126,
+  "rsRankAtEntry": 81.80039138943248,
+  "salesGrowth3Y": 19
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "APLLTD",
+  "date": "2026-11-09",
+  "price": 965.15,
+  "rsRankAtEntry": 82.421875
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "DLF",
+  "date": "2026-11-09",
+  "price": 752.9,
+  "rsRankAtEntry": 80.6640625
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "MINDACORP",
+  "date": "2026-11-09",
+  "price": 712.65,
+  "rsRankAtEntry": 82.2265625
  }
 ]
