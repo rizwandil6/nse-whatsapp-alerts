@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T13:28:13",
-  "title" : "RBI allows Sebi-regulated depositories to include customer deposit details in statements: What changes for investors?",
-  "impact" : "The market faces short-term volatility as the 25 bps repo rate hike and shift to a calibrated tightening stance increase borrowing costs. Nifty is expected to consolidate or face downward pressure, while the rupee may find support from higher interest rate differentials.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Oct-2026 11:39 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-07T13:28:16",
   "title" : "PNB, Kotak Mahindra Bank, other bank stocks rise up to 2% after RBI’s rate hike, Nifty Bank above 55,500",
   "impact" : "The market remains cautious as the RBI shifts to a calibrated tightening stance, favoring banking stocks while broader indices face profit-booking. Expect Nifty to remain volatile near 22,600 levels, with the rupee likely finding support from the rate hike.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "09-Nov-2026 18:35 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-09T21:25:21",
+  "title" : "Indian IT stocks strengthen buoyed by weakness in the global AI trade and attractive valuations",
+  "impact" : "The resurgence of IT stocks provides a structural tailwind for Nifty 50, supporting a bullish index trend. Strong IT performance acts as a defensive hedge, potentially stabilizing the rupee against volatility in global tech markets.",
+  "source" : "BusinessLine",
+  "publishedAt" : "09-Nov-2026 21:22 IST",
+  "score" : 7
 } ]
