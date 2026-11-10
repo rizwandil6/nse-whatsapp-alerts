@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T07:00:05",
-  "title" : "Hormuz tanker attacks reach new wartime high",
-  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a sell-off in Indian equities due to surging crude oil prices. Nifty is expected to open with a sharp gap-down, while the rupee faces significant depreciation pressure against the USD due to import bill concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 06:21 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-08T07:00:09",
   "title" : "Reserves drop as FCNR inflows dry, RBI dollar sales continue",
   "impact" : "The accelerating rupee depreciation and declining forex reserves indicate significant FPI outflows and liquidity strain. Nifty is likely to face sustained selling pressure as valuation concerns intensify with a weakening currency.",
@@ -3497,5 +3490,12 @@
   "impact" : "The export target milestone reinforces India's manufacturing competitiveness and macroeconomic growth narrative. Nifty is expected to maintain a bullish bias toward record highs as investor sentiment improves, while the rupee may find support from stronger export earnings.",
   "source" : "BusinessLine",
   "publishedAt" : "10-Nov-2026 21:54 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-10T23:24:25",
+  "title" : "Rupee set for another winning run?",
+  "impact" : "The Indian market is likely to see a bullish trend driven by strengthening rupee and FPI inflows. Nifty is expected to sustain upward momentum as lower crude prices improve India's macroeconomic stability.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Nov-2026 20:34 IST",
   "score" : 7
 } ]
