@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T07:15:49",
-  "title" : "Iran says 'illegal routes' in Hormuz to be blocked",
-  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will likely trigger a risk-off sentiment in the Indian markets. Nifty is expected to open lower as crude oil prices spike, putting downward pressure on the rupee due to increased import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 07:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T07:16:21",
   "title" : "FPIs sell Rs 21,745 crore in second half of Sep, in oil &amp; gas, auto &amp; financials",
   "impact" : "Sustained FPI selling pressure is likely to cap Nifty upside in the near term, keeping indices range-bound or volatile. Increased outflows may exert moderate downward pressure on the Indian Rupee due to higher dollar demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "The possibility of a 50bps Fed hike triggers foreign institutional selling and liquidity tightening in emerging markets. Expect Nifty to face short-term downside pressure and the Indian Rupee to remain volatile against the strengthening USD.",
   "source" : "Economic Times",
   "publishedAt" : "10-Nov-2026 23:42 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-11T03:42:23",
+  "title" : "US stocks: US market falls as hot inflation, hawkish Fed fuel rate-hike fears",
+  "impact" : "Expect a negative opening for Nifty as rising US Treasury yields and hawkish Fed commentary trigger FII outflows. The rupee is likely to face depreciation pressure against the US dollar due to a strengthening DXY.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Nov-2026 02:45 IST",
   "score" : 7
 } ]
