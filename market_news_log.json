@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T06:14:27",
-  "title" : "'India’s aspirational middle class gives it an edge'",
-  "impact" : "Strong middle class consumption trends support long-term Nifty bullishness. Increased domestic demand strengthens the rupee against volatility and improves overall investor sentiment.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T06:14:37",
   "title" : "RBI's first hike under Governor Sanjay Malhotra",
   "impact" : "The surprise rate hike signals a shift toward inflation control, likely cooling the Nifty index in the short term. The rupee may strengthen due to higher interest rate differentials, putting pressure on exporters.",
@@ -3497,5 +3490,12 @@
   "impact" : "The large scale capex announcement boosts sentiment for infrastructure and industrial sectors. Nifty is likely to trade with a positive bias due to heavy weight exposure in linked firms, though the Rupee may face slight volatility due to high capital import requirements.",
   "source" : "Economic Times",
   "publishedAt" : "10-Nov-2026 16:42 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-10T18:02:17",
+  "title" : "Industry seeks LTCG, STT cuts in Budget 2027; MSME relief also on wish list",
+  "impact" : "Pre-budget expectations for tax rationalization are likely to boost investor sentiment and retail participation. Nifty may experience increased volatility with a positive bias toward a pre-budget rally, while the rupee is expected to remain range-bound.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "10-Nov-2026 17:52 IST",
   "score" : 7
 } ]
