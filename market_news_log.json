@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T06:14:42",
-  "title" : "FCNR inflows to keep cap on bank deposit rates",
-  "impact" : "The banking sector liquidity surplus provides a near-term cushion for the Nifty by delaying deposit rate hikes. However, anticipated liquidity withdrawal by year-end suggests tightening financial conditions that may limit sustained equity market upside and support the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Oct-2026 16:23 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T07:00:03",
   "title" : "The $95 barrel behind RBI’s inflation rethink",
   "impact" : "Sustained high crude prices pose a significant threat to inflation, likely forcing the RBI to maintain higher interest rates for longer. This expectation will likely pressure the Nifty toward a bearish correction and cause further depreciation of the Indian Rupee against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "10-Nov-2026 17:25 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-10T21:24:29",
+  "title" : "Traders raise odds of 50 bps Fed rate hike as CPI rise exceeds expectations",
+  "impact" : "The Indian market faces downward pressure as hawkish Fed signals trigger FII outflows and dampen sentiment. Nifty is expected to witness volatility with a bearish bias, while the rupee likely faces depreciation against a strengthening US dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Nov-2026 20:45 IST",
+  "score" : 7
 } ]
