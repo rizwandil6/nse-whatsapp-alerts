@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T19:52:46",
-  "title" : "RBI MPC Meeting Oct 2026 Highlights: RBI MPC hikes repo rate by 25 bps to 5.5%, changes stance to 'calibrated tightening'",
-  "impact" : "The surprise rate hike and hawkish stance will likely trigger a correction in Nifty as borrowing costs rise. The Rupee may see short-term appreciation due to higher yields, but equity volatility will increase.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Oct-2026 14:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-07T20:41:23",
   "title" : "Rupee slides to a five-month low of 96.7/$, yields rise",
   "impact" : "The combination of a weakening rupee and hawkish RBI stance creates a negative sentiment for equity markets. Expect Nifty to face significant selling pressure as foreign institutional outflows increase due to currency depreciation and high interest rates.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global sentiment recovery and falling crude oil prices will likely trigger a positive opening for Nifty, with cooling inflation fears boosting domestic investor sentiment. The rupee is expected to strengthen as lower oil prices reduce import bill pressures.",
   "source" : "Economic Times",
   "publishedAt" : "10-Nov-2026 02:44 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-10T06:58:27",
+  "title" : "Fossil fuel emissions fall due to Iran war, RE",
+  "impact" : "Heightened geopolitical risk from the Iran conflict and soaring oil prices create volatility in the Indian market. Nifty may face consolidation due to import-cost inflation and rupee depreciation against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Nov-2026 06:51 IST",
   "score" : 7
 } ]
