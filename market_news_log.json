@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T07:00:03",
-  "title" : "The $95 barrel behind RBI’s inflation rethink",
-  "impact" : "Sustained high crude prices pose a significant threat to inflation, likely forcing the RBI to maintain higher interest rates for longer. This expectation will likely pressure the Nifty toward a bearish correction and cause further depreciation of the Indian Rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Oct-2026 17:50 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-08T07:00:05",
   "title" : "Hormuz tanker attacks reach new wartime high",
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a sell-off in Indian equities due to surging crude oil prices. Nifty is expected to open with a sharp gap-down, while the rupee faces significant depreciation pressure against the USD due to import bill concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market faces downward pressure as hawkish Fed signals trigger FII outflows and dampen sentiment. Nifty is expected to witness volatility with a bearish bias, while the rupee likely faces depreciation against a strengthening US dollar.",
   "source" : "Economic Times",
   "publishedAt" : "10-Nov-2026 20:45 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-10T22:22:54",
+  "title" : "India on track to achieve $1 trillion export target this fiscal, says Piyush Goyal",
+  "impact" : "The export target milestone reinforces India's manufacturing competitiveness and macroeconomic growth narrative. Nifty is expected to maintain a bullish bias toward record highs as investor sentiment improves, while the rupee may find support from stronger export earnings.",
+  "source" : "BusinessLine",
+  "publishedAt" : "10-Nov-2026 21:54 IST",
   "score" : 7
 } ]
