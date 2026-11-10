@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T22:27:57",
-  "title" : "October 7: The aftershocks that shook the world",
-  "impact" : "Heightened geopolitical risk in the Middle East triggers global risk-off sentiment, likely leading to a gap-down opening for Nifty 50. Persistent FII outflows and upward pressure on crude oil prices are expected to weaken the Indian Rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "06-Oct-2026 19:22 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T00:28:43",
   "title" : "RBI rate hike: Your home loan EMI just went up",
   "impact" : "The market is likely to face immediate downward pressure due to increased borrowing costs. Nifty may face resistance near crucial levels as banking and rate-sensitive stocks face selling, while the rupee may gain temporary support from higher interest differentials.",
@@ -3497,5 +3490,12 @@
   "impact" : "The easing of crude oil prices improves India's current account deficit and strengthens the rupee against the USD. This creates a positive tailwind for the Nifty, favoring large-cap institutional inflows and sustaining broader market bullish sentiment.",
   "source" : "BusinessLine",
   "publishedAt" : "10-Nov-2026 15:09 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-10T15:39:26",
+  "title" : "FIIs may return to Indian equities as global headwinds ease and domestic fundamentals remain strong: Report",
+  "impact" : "The return of FII flows is expected to provide a strong tailwind for Indian equities. Nifty is likely to test higher resistance levels as liquidity improves, while the rupee should find stability against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "10-Nov-2026 15:27 IST",
   "score" : 7
 } ]
