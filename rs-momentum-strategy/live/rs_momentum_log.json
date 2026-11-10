@@ -2437,5 +2437,40 @@
   "date": "2026-11-09",
   "price": 712.65,
   "rsRankAtEntry": 82.2265625
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AARTIDRUGS",
+  "date": "2026-11-08",
+  "price": 499.75,
+  "rsRankAtEntry": 84.5703125
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ASAHIINDIA",
+  "date": "2026-11-08",
+  "price": 1055.8,
+  "rsRankAtEntry": 82.421875
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "DATAPATTNS",
+  "date": "2026-11-08",
+  "price": 4025,
+  "rsRankAtEntry": 81.640625
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GABRIEL",
+  "date": "2026-11-08",
+  "price": 1420.2,
+  "rsRankAtEntry": 80.859375
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "LGEINDIA",
+  "date": "2026-11-08",
+  "price": 1793.8,
+  "rsRankAtEntry": 80.078125
  }
 ]

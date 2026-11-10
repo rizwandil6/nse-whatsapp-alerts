@@ -263,5 +263,40 @@
   "entryPrice": 2126,
   "rsRankAtEntry": 81.80039138943248,
   "salesGrowth3Y": 19
+ },
+ "AARTIDRUGS": {
+  "entryDate": "2026-11-08",
+  "entryPrice": 499.75,
+  "rsRankAtEntry": 84.5703125,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "ASAHIINDIA": {
+  "entryDate": "2026-11-08",
+  "entryPrice": 1055.8,
+  "rsRankAtEntry": 82.421875,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "DATAPATTNS": {
+  "entryDate": "2026-11-08",
+  "entryPrice": 4025,
+  "rsRankAtEntry": 81.640625,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GABRIEL": {
+  "entryDate": "2026-11-08",
+  "entryPrice": 1420.2,
+  "rsRankAtEntry": 80.859375,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LGEINDIA": {
+  "entryDate": "2026-11-08",
+  "entryPrice": 1793.8,
+  "rsRankAtEntry": 80.078125,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
