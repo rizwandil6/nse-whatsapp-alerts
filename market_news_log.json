@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T07:00:09",
-  "title" : "Reserves drop as FCNR inflows dry, RBI dollar sales continue",
-  "impact" : "The accelerating rupee depreciation and declining forex reserves indicate significant FPI outflows and liquidity strain. Nifty is likely to face sustained selling pressure as valuation concerns intensify with a weakening currency.",
-  "source" : "Economic Times",
-  "publishedAt" : "07-Oct-2026 18:04 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-08T07:15:49",
   "title" : "Iran says 'illegal routes' in Hormuz to be blocked",
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will likely trigger a risk-off sentiment in the Indian markets. Nifty is expected to open lower as crude oil prices spike, putting downward pressure on the rupee due to increased import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market is likely to see a bullish trend driven by strengthening rupee and FPI inflows. Nifty is expected to sustain upward momentum as lower crude prices improve India's macroeconomic stability.",
   "source" : "Economic Times",
   "publishedAt" : "10-Nov-2026 20:34 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-11T00:09:38",
+  "title" : "Fed’s Christopher Waller opens door to 50-basis-point December rate hike after hot CPI",
+  "impact" : "The possibility of a 50bps Fed hike triggers foreign institutional selling and liquidity tightening in emerging markets. Expect Nifty to face short-term downside pressure and the Indian Rupee to remain volatile against the strengthening USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Nov-2026 23:42 IST",
   "score" : 7
 } ]
