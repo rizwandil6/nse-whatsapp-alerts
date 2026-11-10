@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T06:14:37",
-  "title" : "RBI's first hike under Governor Sanjay Malhotra",
-  "impact" : "The surprise rate hike signals a shift toward inflation control, likely cooling the Nifty index in the short term. The rupee may strengthen due to higher interest rate differentials, putting pressure on exporters.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 05:30 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-08T06:14:42",
   "title" : "FCNR inflows to keep cap on bank deposit rates",
   "impact" : "The banking sector liquidity surplus provides a near-term cushion for the Nifty by delaying deposit rate hikes. However, anticipated liquidity withdrawal by year-end suggests tightening financial conditions that may limit sustained equity market upside and support the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "10-Nov-2026 17:52 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-10T18:02:23",
+  "title" : "US-mediated Russia-Ukraine peace talks begin",
+  "impact" : "Positive global sentiment expected to trigger a relief rally in Nifty, leading to potential gap-up openings. INR is likely to appreciate against the USD due to reduced geopolitical risk premiums and cooling crude oil prices.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Nov-2026 17:25 IST",
+  "score" : 8
 } ]
