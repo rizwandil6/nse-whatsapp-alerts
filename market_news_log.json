@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-07T20:41:23",
-  "title" : "Rupee slides to a five-month low of 96.7/$, yields rise",
-  "impact" : "The combination of a weakening rupee and hawkish RBI stance creates a negative sentiment for equity markets. Expect Nifty to face significant selling pressure as foreign institutional outflows increase due to currency depreciation and high interest rates.",
-  "source" : "BusinessLine",
-  "publishedAt" : "07-Oct-2026 20:26 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-07T20:41:43",
   "title" : "Green economy may create 1.3 cr jobs by 2035",
   "impact" : "This long-term structural shift drives positive sentiment for green energy infrastructure. Nifty is expected to sustain upward momentum in the energy and capital goods segments, with neutral impact on the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "10-Nov-2026 06:51 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-10T06:58:42",
+  "title" : "Global brokerages turn bullish on Indian equities as market rebounds",
+  "impact" : "Global brokerage upgrades signal a strong bullish trend for Indian equities, with Nifty projected to reach 28,000 by 2027. Lower oil prices and foreign inflows are expected to provide stability and support for the Indian Rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "10-Nov-2026 06:15 IST",
+  "score" : 8
 } ]
