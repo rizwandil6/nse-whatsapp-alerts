@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T18:37:31",
-  "title" : "US sees India as both ally and manufacturing target",
-  "impact" : "The US push for India as a manufacturing hub acts as a long-term structural tailwind for domestic equity markets. Nifty is expected to sustain its uptrend with a positive bias, while the rupee may show resilience due to increased capital inflows into the industrial sector.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 17:16 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T18:53:18",
   "title" : "Nifty hits 52-week low as crude, FII selling weigh",
   "impact" : "The market is in a sharp corrective phase driven by sustained FII outflows and rising crude oil volatility. Nifty is likely to test lower support levels as sentiment remains fragile with further downward pressure expected on the Rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global climate summits often lead to increased capital allocation toward green energy transition mandates. Nifty may witness volatility in industrial and power sectors with potential long-term rupee stability from increased green bond inflows.",
   "source" : "Economic Times",
   "publishedAt" : "11-Nov-2026 12:08 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-11T13:17:49",
+  "title" : "Moody's raises India's FY27 growth estimate to 7% on broad-based momentum",
+  "impact" : "The upgrade to 7 percent growth reinforces a bullish macro outlook for Indian equities, supporting Nifty toward record highs. Foreign inflows may stabilize the rupee despite persistent inflationary concerns.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Nov-2026 13:16 IST",
   "score" : 7
 } ]
