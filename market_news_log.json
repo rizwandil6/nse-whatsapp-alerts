@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T02:06:16",
-  "title" : "US stocks: S&amp;P 500, Nasdaq end lower as crude prices jump, chip stocks weigh",
-  "impact" : "Rising crude prices and US inflation fears will likely pressure the Nifty to open lower with increased volatility. The rupee may face depreciation risks as global risk-off sentiment shifts capital away from emerging markets.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Oct-2026 01:38 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-09T02:06:19",
   "title" : "Tech stocks drag Nasdaq lower on report of OpenAI revenue fall, high yields",
   "impact" : "Indian markets are likely to open with a bearish gap tracking negative cues from Nasdaq and rising US yields. Nifty may face selling pressure in technology and rate-sensitive sectors, while the rupee could face depreciation against the dollar due to higher US Treasury yields.",
@@ -3497,5 +3490,12 @@
   "impact" : "The multi-crore infrastructure approval signals a strong push for domestic capital expenditure, likely boosting investor sentiment. Nifty is expected to trend higher on infrastructure-led growth momentum, with neutral impact on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "11-Nov-2026 15:09 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-11T19:04:34",
+  "title" : "Rupee closes at seven-month high of 93.69 as FPI inflows, lower crude prices boost sentiment",
+  "impact" : "The strengthening rupee and robust FPI inflows are likely to boost Nifty sentiment and provide liquidity support. Falling crude prices act as a major tailwind for the domestic economy, likely offsetting the pressure from rising US bond yields.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Nov-2026 18:56 IST",
   "score" : 7
 } ]
