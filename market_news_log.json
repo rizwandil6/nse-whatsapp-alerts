@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T23:50:10",
-  "title" : "Exports to hit $1 trillion this fiscal: Goyal",
-  "impact" : "Positive sentiment for trade-linked equities and infrastructure. Nifty expected to trend upward on improved export outlook. INR likely to gain strength due to narrowing trade deficit expectations.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 23:40 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T23:50:13",
   "title" : "Infosys, Wipro ADRs fall nearly 3% after TCS earnings, US crackdown on H-1B-linked green card programme",
   "impact" : "The Indian IT sector will face significant downward pressure, likely dragging down the Nifty index. The increased regulatory friction in the US may trigger currency volatility, putting marginal pressure on the rupee due to potential repatriation concerns.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "11-Nov-2026 14:00 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-11T14:34:40",
+  "title" : "Iran says tanker struck mine",
+  "impact" : "Heightened geopolitical tension in the Strait of Hormuz will trigger a sharp spike in global crude oil prices. This creates severe headwinds for the Indian market, likely pushing Nifty lower and putting significant downward pressure on the rupee due to higher import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Nov-2026 13:50 IST",
+  "score" : 8
 } ]
