@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T13:00:11",
-  "title" : "What is the impact of 25 basis points repo rate hike on borrowers? | Explained",
-  "impact" : "The repo rate hike acts as a liquidity dampener likely causing short-term Nifty consolidation and increased volatility. Higher yields may strengthen the rupee slightly while putting downward pressure on equity valuations.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "08-Oct-2026 12:48 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T13:31:00",
   "title" : "El Nino turns fierce, could be strongest since 1950",
   "impact" : "Severe El Nino threatens agricultural output and pushes up food inflation, potentially stalling RBI rate cuts. Expect Nifty volatility with a bearish bias as rural consumption demand weakens and rupee faces pressure due to import inflation.",
@@ -3497,5 +3490,12 @@
   "impact" : "Indian markets are likely to face negative pressure as higher US inflation expectations strengthen the dollar and trigger FII outflows. Nifty is expected to witness a corrective opening while the rupee may weaken due to surging Treasury yields.",
   "source" : "Economic Times",
   "publishedAt" : "10-Nov-2026 19:15 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-11T07:43:23",
+  "title" : "Huang affair: Push for tough US line on China",
+  "impact" : "Global tech supply chain instability and potential China-US trade war escalation pose downside risks for Indian indices. Nifty is expected to face high volatility with a bearish bias, while the rupee may face pressure as investors seek USD safety.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Nov-2026 07:20 IST",
   "score" : 7
 } ]
