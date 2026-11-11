@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T14:16:19",
-  "title" : "Adani has finally got strong winds filling its sails",
-  "impact" : "Sentiment towards the Adani group acts as a tailwind for broader market risk appetite, potentially pushing Nifty towards new highs. Increased inflows into infrastructure and energy giants are expected to provide short-term stability to the Indian Rupee against the USD.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 13:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T17:20:24",
   "title" : "AI bubble risks worst S&P 500 crash since 2008, strategist says",
   "impact" : "Global risk-off sentiment following a potential S&P 500 correction will trigger significant FII outflows from Indian equities. Nifty 50 is expected to see increased volatility and correction, likely putting downward pressure on the Indian Rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "11-Nov-2026 08:24 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-11T10:16:37",
+  "title" : "Markets surge after Diwali; Nifty crosses 25,350 as FII inflows hit ₹53,170 crore this month",
+  "impact" : "The market sentiment is strongly bullish following robust FII inflows and cooling crude oil prices. Nifty is expected to sustain its momentum above 25,350 while the rupee may witness marginal strengthening due to increased foreign capital infusion.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Nov-2026 10:10 IST",
+  "score" : 8
 } ]
