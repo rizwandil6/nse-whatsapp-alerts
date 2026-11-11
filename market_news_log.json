@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T07:16:21",
-  "title" : "FPIs sell Rs 21,745 crore in second half of Sep, in oil &amp; gas, auto &amp; financials",
-  "impact" : "Sustained FPI selling pressure is likely to cap Nifty upside in the near term, keeping indices range-bound or volatile. Increased outflows may exert moderate downward pressure on the Indian Rupee due to higher dollar demand.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 06:05 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T12:44:52",
   "title" : "Indian firms seen posting faster profit growth despite global headwinds",
   "impact" : "The projected 20 percent profit growth for Nifty 50 firms is expected to provide a strong bullish tailwind for the index. Investor sentiment is likely to remain positive as domestic earnings resilience offsets global macroeconomic headwinds, supporting the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Expect a negative opening for Nifty as rising US Treasury yields and hawkish Fed commentary trigger FII outflows. The rupee is likely to face depreciation pressure against the US dollar due to a strengthening DXY.",
   "source" : "Economic Times",
   "publishedAt" : "11-Nov-2026 02:45 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-11T06:27:43",
+  "title" : "Anthropic targets $90 billion IPO at $1.4 trillion valuation",
+  "impact" : "Global tech optimism will drive positive sentiment in Indian IT and infrastructure stocks. Nifty is expected to open with a bullish bias tracking global AI investment trends. The rupee may face slight pressure due to increased FII allocation into global tech IPOs.",
+  "source" : "Economic Times",
+  "publishedAt" : "11-Nov-2026 05:57 IST",
   "score" : 7
 } ]
