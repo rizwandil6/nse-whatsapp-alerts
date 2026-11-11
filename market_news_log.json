@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T06:07:01",
-  "title" : "GQG Partners trims stake in ITC to Rs 9,395 crore amidst broader market sell-off in 2026",
-  "impact" : "The large-scale stake trimming by a major institutional investor like GQG suggests a cautious approach amid broader market volatility. Nifty may face near-term selling pressure as liquidity tightens, with the Rupee likely to remain under pressure due to potential FII outflow concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Oct-2026 05:40 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-09T06:22:05",
   "title" : "RBI’s sell-buy swaps slow rupee’s fall but push up forward premiums, making hedging costlier for foreign investors",
   "impact" : "The rising hedging costs and potential foreign capital outflows exert downward pressure on the Nifty. The rupee remains vulnerable to volatility due to high crude prices and diminished FPI attractiveness.",
@@ -3497,5 +3490,12 @@
   "impact" : "The large capital raise may cause temporary liquidity tightening in the broader market. Nifty could face slight pressure due to institutional reallocation toward this QIP. The rupee is expected to remain stable as this is an equity-based fundraising.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Nov-2026 20:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-11T21:12:54",
+  "title" : "STT collection jumps 50% during April-November",
+  "impact" : "The record surge in STT collection signals high trading volumes and robust retail participation, likely sustaining bullish momentum for brokerage firms and exchange-linked entities. Nifty is expected to maintain upward bias on strong liquidity, though the rupee may face marginal pressure due to potential FII outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Nov-2026 21:09 IST",
   "score" : 7
 } ]
