@@ -11,61 +11,6 @@
   "returnSinceEntry": 0.9877704609595485
  },
  {
-  "symbol": "GABRIEL",
-  "entryDate": "2026-11-08",
-  "entryPrice": 1420.2,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1420.2,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "AARTIDRUGS",
-  "entryDate": "2026-11-08",
-  "entryPrice": 499.75,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 499.75,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "ASAHIINDIA",
-  "entryDate": "2026-11-08",
-  "entryPrice": 1055.8,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1055.8,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "DATAPATTNS",
-  "entryDate": "2026-11-08",
-  "entryPrice": 4025,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 4025,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "LGEINDIA",
-  "entryDate": "2026-11-08",
-  "entryPrice": 1793.8,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1793.8,
-  "returnSinceEntry": 0
- },
- {
   "symbol": "PRICOLLTD",
   "entryDate": "2026-10-30",
   "entryPrice": 659.6,
