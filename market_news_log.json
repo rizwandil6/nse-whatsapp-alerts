@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T07:07:37",
-  "title" : "GST 2.0 makes it less taxing under new overhaul",
-  "impact" : "Simplified GST framework improves operational efficiency and reduces compliance overhead for domestic manufacturers and service providers. Expect a positive Nifty bias as corporate margins benefit from lower logistics and administrative costs while the rupee remains stable.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Oct-2026 06:34 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-09T07:53:45",
   "title" : "New problem in Gulf; 1.3m barrels oil put off market",
   "impact" : "Oil supply disruption will trigger inflationary pressure and weigh on Nifty sentiments. The Rupee is expected to face depreciation risk due to higher import costs and widening current account deficit concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "The significant fiscal slippage may pressure the Nifty due to inflation concerns and potential for higher government borrowing. The rupee could face downward pressure as the fiscal deficit widens and inflationary expectations rise.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Nov-2026 21:23 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-12T03:43:55",
+  "title" : "US stocks: S&amp;P, Nasdaq end over 1% higher as AI-fueled optimism weighs",
+  "impact" : "The positive sentiment from the US tech rally will likely provide a bullish opening for Indian equity markets. Nifty is expected to mirror the rebound in global tech, though rupee volatility remains a risk due to strengthening rate hike expectations.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Nov-2026 02:45 IST",
   "score" : 7
 } ]
