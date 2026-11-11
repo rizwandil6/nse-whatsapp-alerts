@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T23:50:13",
-  "title" : "Infosys, Wipro ADRs fall nearly 3% after TCS earnings, US crackdown on H-1B-linked green card programme",
-  "impact" : "The Indian IT sector will face significant downward pressure, likely dragging down the Nifty index. The increased regulatory friction in the US may trigger currency volatility, putting marginal pressure on the rupee due to potential repatriation concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 21:27 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T23:50:15",
   "title" : "Indian firms seen posting faster profit growth despite global headwinds",
   "impact" : "The market outlook remains mixed as strong domestic corporate earnings growth of 20 percent battles record foreign institutional outflows. Nifty 50 volatility is likely to persist while the rupee faces pressure from rising global oil prices.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "11-Nov-2026 13:50 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-11T16:06:29",
+  "title" : "India emerges as standout emerging market after US midterm elections: Shriram Research",
+  "impact" : "Indian markets are positioned for a bullish trend as cooling oil prices reduce CAD concerns and capital rotates from US tech into Indian equities. Nifty 50 is expected to test higher resistance levels, while the rupee should stabilize against the USD.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Nov-2026 15:52 IST",
+  "score" : 7
 } ]
