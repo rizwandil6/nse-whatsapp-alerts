@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-08T17:20:24",
-  "title" : "AI bubble risks worst S&P 500 crash since 2008, strategist says",
-  "impact" : "Global risk-off sentiment following a potential S&P 500 correction will trigger significant FII outflows from Indian equities. Nifty 50 is expected to see increased volatility and correction, likely putting downward pressure on the Indian Rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "08-Oct-2026 17:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-08T17:35:54",
   "title" : "Inside 11-quarter high earnings pomp, 46 companies may wipe out up to 81% of their Q2 profits",
   "impact" : "The broader Nifty is showing strong headline growth, but indices will face volatility as investors punish individual earnings misses. Increased foreign selling and elevated energy prices continue to weigh on the rupee and overall market sentiment.",
@@ -3497,5 +3490,12 @@
   "impact" : "The market sentiment is strongly bullish following robust FII inflows and cooling crude oil prices. Nifty is expected to sustain its momentum above 25,350 while the rupee may witness marginal strengthening due to increased foreign capital infusion.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Nov-2026 10:10 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-11-11T10:46:49",
+  "title" : "Bond yields spike most since tariff meltdown on rate-hike bets",
+  "impact" : "Rising global bond yields will likely trigger FII outflows from Indian equities, causing a bearish trend. Expect Nifty to face strong overhead resistance and the Rupee to remain under pressure against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Nov-2026 10:38 IST",
   "score" : 8
 } ]
