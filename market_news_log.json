@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T06:22:05",
-  "title" : "RBI’s sell-buy swaps slow rupee’s fall but push up forward premiums, making hedging costlier for foreign investors",
-  "impact" : "The rising hedging costs and potential foreign capital outflows exert downward pressure on the Nifty. The rupee remains vulnerable to volatility due to high crude prices and diminished FPI attractiveness.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Oct-2026 00:24 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-09T07:07:16",
   "title" : "$22-bn visa fraud claim blow to Infy, TCS, Wipro",
   "impact" : "The news triggers negative sentiment in the IT bellwethers, likely dragging Nifty lower in early trade. Heightened regulatory scrutiny may lead to short-term FII outflows, putting minor pressure on the Rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The record surge in STT collection signals high trading volumes and robust retail participation, likely sustaining bullish momentum for brokerage firms and exchange-linked entities. Nifty is expected to maintain upward bias on strong liquidity, though the rupee may face marginal pressure due to potential FII outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Nov-2026 21:09 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-11T21:28:00",
+  "title" : "Crude oil prices may fall to $75 by December as West Asia tensions ease",
+  "impact" : "Lower crude prices will bolster Nifty by reducing India's current account deficit and cooling inflation. The rupee is expected to stabilize or appreciate against the dollar, enhancing foreign institutional investor inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Nov-2026 21:24 IST",
   "score" : 7
 } ]
