@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T07:07:16",
-  "title" : "$22-bn visa fraud claim blow to Infy, TCS, Wipro",
-  "impact" : "The news triggers negative sentiment in the IT bellwethers, likely dragging Nifty lower in early trade. Heightened regulatory scrutiny may lead to short-term FII outflows, putting minor pressure on the Rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "08-Oct-2026 22:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-09T07:07:37",
   "title" : "GST 2.0 makes it less taxing under new overhaul",
   "impact" : "Simplified GST framework improves operational efficiency and reduces compliance overhead for domestic manufacturers and service providers. Expect a positive Nifty bias as corporate margins benefit from lower logistics and administrative costs while the rupee remains stable.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower crude prices will bolster Nifty by reducing India's current account deficit and cooling inflation. The rupee is expected to stabilize or appreciate against the dollar, enhancing foreign institutional investor inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "11-Nov-2026 21:24 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-11T21:28:07",
+  "title" : "India raises fertilizer subsidy by 64%, vastly overshooting budget estimates amid global price surge",
+  "impact" : "The significant fiscal slippage may pressure the Nifty due to inflation concerns and potential for higher government borrowing. The rupee could face downward pressure as the fiscal deficit widens and inflationary expectations rise.",
+  "source" : "BusinessLine",
+  "publishedAt" : "11-Nov-2026 21:23 IST",
   "score" : 7
 } ]
