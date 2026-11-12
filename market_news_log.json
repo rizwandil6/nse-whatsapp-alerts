@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-10T01:07:27",
-  "title" : "Half of India’s MTF book is in smallcaps; Nithin Kamath flags liquidity risks",
-  "impact" : "The revelation of high MTF concentration in small-caps may trigger de-leveraging and localized selling pressure in the broader market. Nifty volatility is expected to increase as leveraged positions face margin calls, while the rupee remains largely unaffected by these internal equity liquidity dynamics.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Oct-2026 19:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-10T12:39:35",
   "title" : "Exclusive | Akash, Isha Ambani take Rs 30,000 crore Jio IPO pitch global; marquee investors seek bigger stake",
   "impact" : "The Jio IPO will likely drive significant liquidity absorption from the secondary market, creating short-term volatility for the Nifty index. Heavy institutional interest may lead to moderate pressure on the Rupee due to potential FII portfolio rebalancing.",
@@ -3497,5 +3490,12 @@
   "impact" : "The positive manufacturing data reinforces India's long-term growth narrative, likely boosting Nifty sentiment toward record highs. Foreign institutional inflows may increase, providing modest support to the rupee against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Nov-2026 19:38 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-12T19:51:41",
+  "title" : "Andhra Pradesh gets a ₹50,000-crore clean break",
+  "impact" : "The major fiscal stimulus for Andhra Pradesh will boost sentiment for domestic infrastructure and industrial stocks. Nifty is expected to remain bullish with a bias towards capital goods, while the rupee should remain stable amid localized economic expansion.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Nov-2026 17:25 IST",
   "score" : 7
 } ]
