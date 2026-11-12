@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T18:13:50",
-  "title" : "Ambani’s Jio said to set IPO price band at ₹1,065-₹1,119",
-  "impact" : "The Jio IPO launch will trigger significant liquidity absorption from the secondary market, potentially pressuring Nifty in the short term. The massive inflow of retail and institutional capital is expected to cause slight volatility in the rupee due to foreign institutional allocation.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Oct-2026 17:02 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-10-09T18:29:09",
   "title" : "India’s share of global greenfield investments more than double China’s in 2020-25",
   "impact" : "The report reinforces India as a top destination for long-term foreign capital, providing a structural floor for the Nifty index. Sustained greenfield inflows will likely strengthen the rupee, offsetting concerns regarding domestic consumption headwinds.",
@@ -3497,5 +3490,12 @@
   "impact" : "The $2 billion passive inflow provides strong technical support for the Nifty, helping to stabilize indices against FII selling. The rupee is expected to remain range-bound as the inflow offsets outflow pressures.",
   "source" : "Economic Times",
   "publishedAt" : "12-Nov-2026 08:40 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-12T13:52:15",
+  "title" : "Renewables save India $100 billion in fuel imports",
+  "impact" : "Positive macro sentiment as reduced import bills strengthen the current account and balance of payments. Nifty is expected to maintain upward momentum with the Rupee gaining stability against the USD due to decreased oil-linked demand.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Nov-2026 13:19 IST",
   "score" : 7
 } ]
