@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-10T01:07:15",
-  "title" : "India-made, making the grade",
-  "impact" : "The push for domestic manufacturing under Make in India initiatives will likely boost long-term Nifty sentiment. Increased industrial activity and import substitution are expected to support the Rupee against volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Oct-2026 00:47 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-10T01:07:27",
   "title" : "Half of India’s MTF book is in smallcaps; Nithin Kamath flags liquidity risks",
   "impact" : "The revelation of high MTF concentration in small-caps may trigger de-leveraging and localized selling pressure in the broader market. Nifty volatility is expected to increase as leveraged positions face margin calls, while the rupee remains largely unaffected by these internal equity liquidity dynamics.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "12-Nov-2026 18:53 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-12T19:51:04",
+  "title" : "PLI schemes attract ₹2.40 lakh crore investment, generate ₹22.66 lakh crore production",
+  "impact" : "The positive manufacturing data reinforces India's long-term growth narrative, likely boosting Nifty sentiment toward record highs. Foreign institutional inflows may increase, providing modest support to the rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Nov-2026 19:38 IST",
+  "score" : 7
 } ]
