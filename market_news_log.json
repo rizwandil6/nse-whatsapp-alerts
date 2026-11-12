@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T15:55:30",
-  "title" : "India’s logistics sector eyes $600 billion by 2031-32; cost pegged at 8% of GDP: DPIIT official",
-  "impact" : "The reduction in logistics costs enhances overall manufacturing competitiveness and improves corporate margins. Nifty is expected to maintain a positive trend with long-term structural tailwinds. Rupee stability may improve due to increased export competitiveness.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Oct-2026 15:43 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-09T17:12:05",
   "title" : "Bulls strike! Sensex soars 800 pts after ₹10 tn rout",
   "impact" : "The sharp 800-point recovery indicates a strong bullish reversal sentiment following an oversold condition. Nifty is expected to sustain momentum toward the 24500 mark, with the rupee likely stabilizing against the dollar due to returning FII confidence.",
@@ -3497,5 +3490,12 @@
   "impact" : "Indian markets are likely to face negative sentiment due to Nvidia being a global bellwether for the AI and semiconductor rally. Nifty is expected to witness short-term volatility as global risk appetite contracts, while the rupee may face pressure from foreign institutional investor outflows.",
   "source" : "Economic Times",
   "publishedAt" : "12-Nov-2026 08:51 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-12T10:30:31",
+  "title" : "FII drive Nifty rally; all eyes on inflation print",
+  "impact" : "Continued FII inflows are providing strong upward momentum to the Nifty. Investors remain cautious ahead of CPI inflation data which will dictate the RBI monetary policy trajectory and rupee stability.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Nov-2026 10:17 IST",
   "score" : 7
 } ]
