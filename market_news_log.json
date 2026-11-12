@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-10T15:41:41",
-  "title" : "FIIs dump Indian stocks for eight straight weeks: Is a reversal on the cards or more pain ahead?",
-  "impact" : "The Indian market faces a persistent tug-of-war between FII outflows and strong DII support. Nifty exhibits a potential short-term technical recovery while the rupee remains under pressure from elevated crude oil and global bond yields.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Oct-2026 15:11 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-10T16:26:56",
   "title" : "NSE cash market ADTV dips to six month low on bearish market sentiments",
   "impact" : "The Indian market sentiment remains bearish due to sustained global volatility and FII outflows. Nifty is expected to test immediate support levels as selling pressure persists. The rupee faces continued depreciation risk against the dollar amid safe-haven demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "The positive ranking reinforces long-term foreign institutional inflow expectations, likely supporting Nifty in a bullish trend. The rupee is expected to stabilize or strengthen against the dollar due to improved economic sentiment.",
   "source" : "BusinessLine",
   "publishedAt" : "12-Nov-2026 20:17 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-12T20:26:25",
+  "title" : "India's inflation breaches RBI's red line in October",
+  "impact" : "The breach of the RBI comfort zone triggers fears of delayed rate cuts, leading to a bearish trend for Indian equities. Nifty faces downward pressure toward key support levels, while the rupee remains vulnerable to further depreciation against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Nov-2026 16:03 IST",
   "score" : 7
 } ]
