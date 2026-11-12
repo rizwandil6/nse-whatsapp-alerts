@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T19:45:39",
-  "title" : "US move against IT firms signals protectionist shift, raises concerns for India's exports: GTRI",
-  "impact" : "The protectionist shift increases volatility in Nifty 50 due to heavy IT weightage. The Indian rupee may face downward pressure as potential export revenue declines impact trade balances.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Oct-2026 19:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-09T19:46:09",
   "title" : "RBI raises banks’ average CRR requirement",
   "impact" : "The increase in CRR will absorb liquidity from the banking system, likely leading to a bearish trend for Nifty in the short term. The rupee may witness minor support due to tighter monetary conditions despite overall equity selling pressure.",
@@ -3497,5 +3490,12 @@
   "impact" : "Expect a positive sentiment shift as increased government salary expenditure stimulates consumption. Nifty is likely to trade with a bullish bias due to higher liquidity and discretionary spending potential. The rupee may face slight pressure due to potential inflationary concerns arising from fiscal deficit expansion.",
   "source" : "Economic Times",
   "publishedAt" : "12-Nov-2026 14:41 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-12T15:09:14",
+  "title" : "India’s Russian fossil fuel imports hit record",
+  "impact" : "The increased reliance on discounted Russian crude improves India's trade deficit and margins for downstream oil companies. Nifty is expected to remain stable with a positive bias, while the rupee benefits from reduced pressure on dollar outflows for energy imports.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Nov-2026 14:55 IST",
   "score" : 7
 } ]
