@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T15:40:20",
-  "title" : "World economic growth to slow to 2.6% in 2026, UN trade body says",
-  "impact" : "India's projected 7.3% growth reinforces its status as a global economic outlier, likely attracting sustained FII inflows. Nifty is expected to maintain a bullish bias toward record highs, while the INR may strengthen against the dollar due to superior growth differentials.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Oct-2026 15:23 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-09T15:55:30",
   "title" : "India’s logistics sector eyes $600 billion by 2031-32; cost pegged at 8% of GDP: DPIIT official",
   "impact" : "The reduction in logistics costs enhances overall manufacturing competitiveness and improves corporate margins. Nifty is expected to maintain a positive trend with long-term structural tailwinds. Rupee stability may improve due to increased export competitiveness.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive global sentiment regarding a potential end to the Ukraine conflict may boost Nifty toward higher resistance levels. The Indian Rupee is expected to stabilize or strengthen as geopolitical risk premiums reduce and capital inflows potentially increase.",
   "source" : "Economic Times",
   "publishedAt" : "12-Nov-2026 06:59 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-12T09:30:17",
+  "title" : "Nvidia crashes 10% on Huang-less co future",
+  "impact" : "Indian markets are likely to face negative sentiment due to Nvidia being a global bellwether for the AI and semiconductor rally. Nifty is expected to witness short-term volatility as global risk appetite contracts, while the rupee may face pressure from foreign institutional investor outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Nov-2026 08:51 IST",
   "score" : 7
 } ]
