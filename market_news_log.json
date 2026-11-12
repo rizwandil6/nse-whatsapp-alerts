@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-10T16:26:56",
-  "title" : "NSE cash market ADTV dips to six month low on bearish market sentiments",
-  "impact" : "The Indian market sentiment remains bearish due to sustained global volatility and FII outflows. Nifty is expected to test immediate support levels as selling pressure persists. The rupee faces continued depreciation risk against the dollar amid safe-haven demand.",
-  "source" : "BusinessLine",
-  "publishedAt" : "10-Oct-2026 16:10 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-10T17:44:32",
   "title" : "CAFE III: Will your next car be cheaper to run?",
   "impact" : "The CAFE III norms will accelerate the adoption of electric and fuel-efficient vehicles in India. This shift will favor automotive manufacturers with strong EV pipelines while pressuring internal combustion engine margins, likely keeping the Nifty Auto index volatile but steady.",
@@ -3497,5 +3490,12 @@
   "impact" : "The breach of the RBI comfort zone triggers fears of delayed rate cuts, leading to a bearish trend for Indian equities. Nifty faces downward pressure toward key support levels, while the rupee remains vulnerable to further depreciation against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "12-Nov-2026 16:03 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-12T20:27:16",
+  "title" : "AI industry faces uncertainty as Nvidia CEO quits",
+  "impact" : "The Indian technology and AI-linked sector is likely to face high volatility as sentiment sours following leadership uncertainty at the leading global GPU provider. Nifty IT index could see short-term selling pressure, though broader markets may remain stable. The rupee might face marginal weakness due to foreign portfolio outflows from high-growth tech stocks.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Nov-2026 20:03 IST",
   "score" : 7
 } ]
