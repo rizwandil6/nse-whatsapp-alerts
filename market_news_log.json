@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T20:31:50",
-  "title" : "Trump’s move to curb techies may benefit India",
-  "impact" : "Potential H-1B restrictions create volatility for Indian IT exports and long-term currency pressure. Nifty may face short-term consolidation as markets price in talent retention benefits vs service export risks.",
-  "source" : "Economic Times",
-  "publishedAt" : "09-Oct-2026 13:57 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-09T20:48:49",
   "title" : "RBI OMO sale fears spur bond sell-off; 10-year G-Sec hits three year high",
   "impact" : "Rising bond yields exert downward pressure on equity valuations and liquidity. Nifty is expected to witness consolidation with a bearish bias, while the rupee faces potential volatility due to FII outflows.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "12-Nov-2026 15:18 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-12T16:54:55",
+  "title" : "India’s retail inflation rises to 6.09% in October, breaches RBI’s upper tolerance limit",
+  "impact" : "Sticky inflation will dampen market sentiment as rate cut hopes for December fade. Expect Nifty to consolidate with a downward bias while the Rupee remains under pressure against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "12-Nov-2026 16:45 IST",
+  "score" : 7
 } ]
