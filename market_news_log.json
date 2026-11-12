@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-10T19:30:27",
-  "title" : "AI data-centre boom puts India’s power grid under pressure, drives up upgrade costs",
-  "impact" : "The power grid strain creates a thematic tailwind for infrastructure and utility capex. Nifty may face volatility due to utility cost inflation but remain supported by industrial expansion themes. Rupee remains range-bound as imports for tech and energy infrastructure offset equity inflows.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "10-Oct-2026 19:11 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-10T19:45:55",
   "title" : "Wall Street’s rate shock spreads beneath AI-fueled market rally",
   "impact" : "Rising US yields and high crude prices will trigger FII outflows and dampen Nifty sentiment. Expect increased volatility in the index with downward pressure on the rupee toward record lows.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "12-Nov-2026 19:26 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-13T02:36:57",
+  "title" : "Jensen Huang’s Nvidia exit raises fears over the future of AI financing",
+  "impact" : "The leadership crisis at the world's most valuable company will likely trigger a risk-off sentiment in Indian IT and tech-heavy indices. Nifty is expected to open with a gap down due to global contagion risks, with the rupee likely facing pressure as foreign institutional investors pull liquidity from emerging market tech exposures.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 02:13 IST",
+  "score" : 7
 } ]
