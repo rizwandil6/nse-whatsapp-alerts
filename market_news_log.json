@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T18:13:38",
-  "title" : "TCS lifts Dalal Street out of its eight-week rut",
-  "impact" : "The strong performance by TCS has revitalized market sentiment, ending an eight-week consolidation phase. Nifty is expected to sustain momentum toward higher resistance levels, while the rupee is likely to stabilize on renewed foreign institutional interest.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Oct-2026 18:06 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-09T18:13:50",
   "title" : "Ambani’s Jio said to set IPO price band at ₹1,065-₹1,119",
   "impact" : "The Jio IPO launch will trigger significant liquidity absorption from the secondary market, potentially pressuring Nifty in the short term. The massive inflow of retail and institutional capital is expected to cause slight volatility in the rupee due to foreign institutional allocation.",
@@ -3497,5 +3490,12 @@
   "impact" : "Geopolitical escalation risks triggering a risk-off sentiment in Indian markets. Nifty is expected to witness volatility with a bearish bias, while the rupee faces downward pressure due to rising crude oil prices and safe-haven flows into the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "12-Nov-2026 11:54 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-12T12:32:24",
+  "title" : "$2 bn inflow looms as MSCI adds, cuts Indian stocks",
+  "impact" : "The $2 billion passive inflow provides strong technical support for the Nifty, helping to stabilize indices against FII selling. The rupee is expected to remain range-bound as the inflow offsets outflow pressures.",
+  "source" : "Economic Times",
+  "publishedAt" : "12-Nov-2026 08:40 IST",
   "score" : 7
 } ]
