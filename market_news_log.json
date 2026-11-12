@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-09T20:48:49",
-  "title" : "RBI OMO sale fears spur bond sell-off; 10-year G-Sec hits three year high",
-  "impact" : "Rising bond yields exert downward pressure on equity valuations and liquidity. Nifty is expected to witness consolidation with a bearish bias, while the rupee faces potential volatility due to FII outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "09-Oct-2026 20:43 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-10T01:07:15",
   "title" : "India-made, making the grade",
   "impact" : "The push for domestic manufacturing under Make in India initiatives will likely boost long-term Nifty sentiment. Increased industrial activity and import substitution are expected to support the Rupee against volatility.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "12-Nov-2026 16:45 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-12T19:05:07",
+  "title" : "Retail inflation crosses RBI’s upper limit for first time in two years, comes in at 6.1% in October 2026",
+  "impact" : "Heightened inflation expectations will likely trigger a bearish sentiment across Indian equities. Nifty faces significant resistance and potential correction as rate cut hopes diminish, while the rupee is expected to weaken against the dollar due to macro instability.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "12-Nov-2026 18:53 IST",
+  "score" : 8
 } ]
