@@ -150,12 +150,6 @@
   "rsRankAtEntry": 80.43478260869566,
   "salesGrowth3Y": 41
  },
- "THYROCARE": {
-  "entryDate": "2026-08-23",
-  "entryPrice": 584,
-  "rsRankAtEntry": 84.78260869565217,
-  "salesGrowth3Y": 16
- },
  "ANTHEM": {
   "entryDate": "2026-08-25",
   "entryPrice": 923.05,
@@ -210,12 +204,6 @@
   "rsRankAtEntry": 81.10236220472441,
   "salesGrowth3Y": 97
  },
- "RATEGAIN": {
-  "entryDate": "2026-09-27",
-  "entryPrice": 828.7,
-  "rsRankAtEntry": 81.9253438113949,
-  "salesGrowth3Y": 48
- },
  "URBANCO": {
   "entryDate": "2026-10-05",
   "entryPrice": 173.54,
@@ -263,5 +251,54 @@
   "entryPrice": 2126,
   "rsRankAtEntry": 81.80039138943248,
   "salesGrowth3Y": 19
+ },
+ "ATLANTAELE": {
+  "entryDate": "2026-11-10",
+  "entryPrice": 1507.3,
+  "rsRankAtEntry": 83.04093567251462,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GMMPFAUDLR": {
+  "entryDate": "2026-11-10",
+  "entryPrice": 1195.5,
+  "rsRankAtEntry": 81.67641325536063,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GREAVESCOT": {
+  "entryDate": "2026-11-10",
+  "entryPrice": 220.62,
+  "rsRankAtEntry": 80.89668615984405,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "PETRONET": {
+  "entryDate": "2026-11-10",
+  "entryPrice": 329.8,
+  "rsRankAtEntry": 80.50682261208577,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SHAREINDIA": {
+  "entryDate": "2026-11-10",
+  "entryPrice": 187.72,
+  "rsRankAtEntry": 80.11695906432749,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "SUNTV": {
+  "entryDate": "2026-11-10",
+  "entryPrice": 653.9,
+  "rsRankAtEntry": 84.40545808966861,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "TANLA": {
+  "entryDate": "2026-11-10",
+  "entryPrice": 694.5,
+  "rsRankAtEntry": 84.01559454191033,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

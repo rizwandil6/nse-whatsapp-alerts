@@ -2507,5 +2507,68 @@
   "date": "2026-11-11",
   "price": 1793.8,
   "rsRankAtEntry": 80.078125
+ },
+ {
+  "type": "EXIT",
+  "symbol": "RATEGAIN",
+  "date": "2026-11-10",
+  "price": 686.95,
+  "pnlPct": -17.10510438035477
+ },
+ {
+  "type": "EXIT",
+  "symbol": "THYROCARE",
+  "date": "2026-11-10",
+  "price": 488.95,
+  "pnlPct": -16.275684931506852
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ATLANTAELE",
+  "date": "2026-11-10",
+  "price": 1507.3,
+  "rsRankAtEntry": 83.04093567251462
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GMMPFAUDLR",
+  "date": "2026-11-10",
+  "price": 1195.5,
+  "rsRankAtEntry": 81.67641325536063
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GREAVESCOT",
+  "date": "2026-11-10",
+  "price": 220.62,
+  "rsRankAtEntry": 80.89668615984405
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PETRONET",
+  "date": "2026-11-10",
+  "price": 329.8,
+  "rsRankAtEntry": 80.50682261208577
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SHAREINDIA",
+  "date": "2026-11-10",
+  "price": 187.72,
+  "rsRankAtEntry": 80.11695906432749
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "SUNTV",
+  "date": "2026-11-10",
+  "price": 653.9,
+  "rsRankAtEntry": 84.40545808966861
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "TANLA",
+  "date": "2026-11-10",
+  "price": 694.5,
+  "rsRankAtEntry": 84.01559454191033
  }
 ]
