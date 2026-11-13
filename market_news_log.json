@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T16:19:55",
-  "title" : "Retail inflation jumps to 5.54% in September",
-  "impact" : "Sticky inflation will likely prompt the RBI to maintain a hawkish stance, delaying rate cut expectations. This increases volatility in Nifty with potential downside pressure as yields harden and the rupee remains under pressure against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Oct-2026 16:14 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-12T16:36:42",
   "title" : "Sensex today | Stock Market Highlights: Stock markets tumble on oil price spike, foreign fund outflows; Sensex drops 548 points",
   "impact" : "The Indian market sentiment is bearish due to a confluence of rising crude oil prices and consistent foreign institutional selling. Nifty is expected to remain under pressure near support levels while the rupee faces depreciation risks.",
@@ -3497,5 +3490,12 @@
   "impact" : "The expansion of BrahMos exports boosts investor confidence in the Indian defense manufacturing sector. Nifty is likely to see a positive trend in industrial and defense segments with neutral impact on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 16:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T19:43:26",
+  "title" : "US wholesale inflation at 6.5%, highest since 2022",
+  "impact" : "High US wholesale inflation risks prolonged higher interest rates, likely leading to a bearish trend for Indian equities. Nifty may face sharp corrections due to FII outflows and potential rupee depreciation against the strengthening dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 19:25 IST",
   "score" : 7
 } ]
