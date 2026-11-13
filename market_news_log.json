@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T07:48:41",
-  "title" : "Rupee to rally on fresh RBI measures, bonds eye inflation prints",
-  "impact" : "Positive sentiment for Indian equities as a stronger rupee lowers import costs and stabilizes foreign capital inflows. Nifty is expected to maintain upward momentum, while currency appreciation eases external balance concerns.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Oct-2026 07:31 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-12T12:40:26",
   "title" : "India equity mutual fund inflows hit 5-month high in September despite Nifty slump",
   "impact" : "Strong retail inflows suggest domestic institutional support provides a floor for Nifty despite foreign selling pressure. The Rupee remains stable as sustained domestic demand offsets FII equity outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment continues to drive index valuations higher, supported by robust foreign institutional inflows. Nifty is expected to sustain its upward momentum with the rupee maintaining stability against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 10:02 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T14:58:27",
+  "title" : "Sensex, Nifty's explosive rally pushes market to pre-Middle East war levels. How long will they take to scale fresh peaks?",
+  "impact" : "The Indian market is showing strong recovery momentum toward previous highs, though short-term consolidation is expected. Nifty is consolidating near 25,350 with a bias toward 26,000+, while stable oil prices provide support for a range-bound rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 11:03 IST",
   "score" : 7
 } ]
