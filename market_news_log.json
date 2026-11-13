@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-11T15:11:28",
-  "title" : "Houthis widen threat to Saudi airspace",
-  "impact" : "Heightened geopolitical tensions in the Middle East are expected to drive a bearish trend in Indian indices due to fears of rising crude oil prices. Expect Nifty to face significant resistance near support levels with increased volatility and depreciation pressure on the Indian Rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Oct-2026 15:03 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-11T18:57:35",
   "title" : "AI trade may cool, bringing India back into focus: Amundi Global CIO Vincent Mortier",
   "impact" : "Positive sentiment shift as global capital rotates from stretched AI tech into emerging market growth narratives. Expect Nifty to consolidate with an upward bias and the Rupee to see support from potential FII inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The IMF upgrade signals structural strength, supporting a bullish outlook for the Nifty 50. Improved economic confidence likely strengthens the Rupee against the dollar due to sustained foreign capital inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Nov-2026 09:09 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T09:26:24",
+  "title" : "Nvidia must find a way forward without Huang",
+  "impact" : "The Nvidia leadership crisis triggers a global tech sell-off, likely dragging Nifty lower due to FII risk aversion. Expect elevated volatility in IT stocks and potential downward pressure on the rupee due to dollar strength.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 08:31 IST",
   "score" : 7
 } ]
