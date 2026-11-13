@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-11T09:54:31",
-  "title" : "India unveils steel policy aiming for 604 million tonne capacity by 2047",
-  "impact" : "The policy signals long-term industrial expansion supporting heavy infrastructure stocks and Nifty Metal index growth. Rupee stability is expected as the focus on domestic raw material security reduces import dependence and current account pressure.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Oct-2026 09:45 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-11T12:40:10",
   "title" : "IPO rush continues: Jio Platforms, Zetwerk among dozen cos set to tap primary market in Oct",
   "impact" : "The influx of large IPOs will tighten secondary market liquidity and keep Nifty indices volatile in the short term. Expect continued selling pressure on established stocks as capital rotates into fresh primary market offerings.",
@@ -3497,5 +3490,12 @@
   "impact" : "Elevated bond yields create a challenging environment for Indian equities by increasing borrowing costs and tightening liquidity. Expect volatility in the Nifty with sustained pressure on the rupee due to the interest rate differential against the US dollar.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 05:47 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T08:39:52",
+  "title" : "India needs to create high-quality jobs, increase productivity growth: IMF",
+  "impact" : "The IMF upgrade signals robust medium-term structural growth, likely attracting further FII inflows. Nifty 50 is expected to maintain an upward trajectory as investor confidence strengthens, providing support to the Rupee against the dollar.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "13-Nov-2026 08:33 IST",
   "score" : 7
 } ]
