@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-11T18:57:35",
-  "title" : "AI trade may cool, bringing India back into focus: Amundi Global CIO Vincent Mortier",
-  "impact" : "Positive sentiment shift as global capital rotates from stretched AI tech into emerging market growth narratives. Expect Nifty to consolidate with an upward bias and the Rupee to see support from potential FII inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Oct-2026 18:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-11T20:58:28",
   "title" : "India has been overlooked in the AI Rush: Vincent Mortier",
   "impact" : "Institutional inflows are likely to accelerate as global asset managers realign portfolios to reflect India's true economic weight. Nifty is expected to see a bullish bias with potential for upward re-rating, while the rupee may find support from increased foreign direct and portfolio investments.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Nvidia leadership crisis triggers a global tech sell-off, likely dragging Nifty lower due to FII risk aversion. Expect elevated volatility in IT stocks and potential downward pressure on the rupee due to dollar strength.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 08:31 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T09:57:53",
+  "title" : "G-Sec yields harden on retail inflation breaching the 6% mark",
+  "impact" : "The breach of the 6% inflation target triggers expectations of monetary tightening, likely leading to a bearish consolidation in the Nifty. Rising bond yields will pressure the INR as the interest rate differential narrows and foreign institutional selling increases.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Nov-2026 09:39 IST",
   "score" : 7
 } ]
