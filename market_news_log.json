@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T12:40:26",
-  "title" : "India equity mutual fund inflows hit 5-month high in September despite Nifty slump",
-  "impact" : "Strong retail inflows suggest domestic institutional support provides a floor for Nifty despite foreign selling pressure. The Rupee remains stable as sustained domestic demand offsets FII equity outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Oct-2026 12:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-12T13:12:25",
   "title" : "SIP inflows hit record ₹32,490 crore in September despite market fall",
   "impact" : "Record SIP inflows act as a crucial liquidity buffer against FII selling pressure. Nifty likely to consolidate near support levels with a bullish bias for long-term domestic money flow. Rupee remains stable as domestic buying offsets foreign outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market is showing strong recovery momentum toward previous highs, though short-term consolidation is expected. Nifty is consolidating near 25,350 with a bias toward 26,000+, while stable oil prices provide support for a range-bound rupee.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 11:03 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T15:28:36",
+  "title" : "India's October merchandise trade deficit rose to one-year high of $39.88 billion",
+  "impact" : "Widening trade deficit will likely pressure the Indian Rupee, potentially leading to FII outflows. Expect Nifty to face volatility and consolidation as higher import bills raise concerns about current account stability.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Nov-2026 15:19 IST",
   "score" : 7
 } ]
