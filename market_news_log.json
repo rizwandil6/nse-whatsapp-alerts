@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T13:59:37",
-  "title" : "Coal crunch puts India’s factories in the dark",
-  "impact" : "Coal supply constraints create bearish sentiment for industrial production and manufacturing output. Expect Nifty to face short-term volatility as energy costs rise, with potential downward pressure on the rupee due to increased coal import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "12-Oct-2026 13:33 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-12T15:17:36",
   "title" : "India remains fastest-growing major steel market as demand rises 7.9% in 2026",
   "impact" : "Sustained steel demand indicates robust infrastructure-led economic growth, likely keeping Nifty in a bullish trend. Increased capital expenditure supports industrial stability and helps stabilize the rupee through improved production capacities.",
@@ -3497,5 +3490,12 @@
   "impact" : "Markets are bracing for a hawkish turn in monetary policy following the sharp spike in inflation. Nifty is likely to consolidate or face further selling pressure near support levels, while the rupee may remain under pressure against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Nov-2026 16:22 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T17:02:02",
+  "title" : "India's $5.4 tn stock market coming back to life",
+  "impact" : "Renewed investor confidence and sustained capital inflows are likely to propel the Nifty toward new highs. The positive sentiment will likely support the Indian Rupee by narrowing volatility and attracting foreign portfolio investments.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 08:13 IST",
   "score" : 7
 } ]
