@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T06:15:49",
-  "title" : "Pressure on rupee may continue after temporary gains on RBI actions, say economists",
-  "impact" : "The Indian equity market faces significant downside risk due to aggressive FPI outflows and a depreciating rupee. Nifty is expected to remain under pressure as the liquidity tightening by RBI and rising US yields dampen investor sentiment.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Oct-2026 23:35 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-12T06:45:59",
   "title" : "Trump declares Russia-Ukraine ‘energy ceasefire’",
   "impact" : "An energy ceasefire reduces geopolitical risk premiums, likely leading to a bullish Nifty opening. Easing crude oil volatility should strengthen the rupee and improve India's trade balance.",
@@ -3497,5 +3490,12 @@
   "impact" : "The high volume of earnings announcements from major blue-chips and infrastructure leaders will likely drive sector-specific volatility. Nifty is expected to witness stock-specific action while the rupee remains pressured by broader macroeconomic cues despite corporate performance.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Nov-2026 10:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T12:48:08",
+  "title" : "Techopocalypse! Friday the 13th serves up chaos",
+  "impact" : "Global tech outages create volatility in Indian IT services and digital infrastructure stocks. Nifty is expected to open lower due to sentiment-driven selling while the rupee remains under pressure from broader global market instability.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 12:30 IST",
   "score" : 7
 } ]
