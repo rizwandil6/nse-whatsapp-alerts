@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-11T12:55:23",
-  "title" : "Houthis' attack on Saudi's Riyadh airport kills 12",
-  "impact" : "Geopolitical escalation in the Middle East will trigger a risk-off sentiment in Indian markets. Nifty is expected to open with a gap-down and face selling pressure as investors seek safe havens. The rupee is likely to weaken against the dollar due to rising crude oil prices and foreign portfolio outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Oct-2026 06:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-11T13:40:35",
   "title" : "FPIs pull out ₹44,166 cr from equities so far in Oct; 2026 outflows cross ₹3 lakh cr",
   "impact" : "Sustained FPI outflows are exerting significant downward pressure on Nifty 50, raising volatility. The rupee is likely to face depreciation stress against the dollar as capital flight persists.",
@@ -3497,5 +3490,12 @@
   "impact" : "Geopolitical escalation risks trigger risk-off sentiment in Indian equity markets. Nifty is likely to face downward pressure due to FII outflows, while the Rupee is expected to weaken against the dollar on rising safe-haven demand.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 08:15 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T09:10:57",
+  "title" : "India bond selloff may continue as Treasury rout, fresh debt sale hurt",
+  "impact" : "Rising yields and inflationary pressure are expected to keep the Nifty under selling pressure as FIIs trim exposure. The rupee will likely remain volatile and pressured against the dollar due to elevated oil prices and the global Treasury rout.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Nov-2026 08:57 IST",
   "score" : 7
 } ]
