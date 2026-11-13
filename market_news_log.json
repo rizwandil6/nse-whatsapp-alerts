@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-11T13:40:35",
-  "title" : "FPIs pull out ₹44,166 cr from equities so far in Oct; 2026 outflows cross ₹3 lakh cr",
-  "impact" : "Sustained FPI outflows are exerting significant downward pressure on Nifty 50, raising volatility. The rupee is likely to face depreciation stress against the dollar as capital flight persists.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Oct-2026 13:21 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-11T14:56:03",
   "title" : "Q2 earnings, inflation data, oil prices to guide stock markets this week: Analysts",
   "impact" : "Indian markets are likely to experience volatility due to earnings pressure and persistent inflation concerns. Nifty is expected to consolidate within a tight range, while a firm dollar may pressure the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising yields and inflationary pressure are expected to keep the Nifty under selling pressure as FIIs trim exposure. The rupee will likely remain volatile and pressured against the dollar due to elevated oil prices and the global Treasury rout.",
   "source" : "BusinessLine",
   "publishedAt" : "13-Nov-2026 08:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T09:26:01",
+  "title" : "Uneven monsoons and El Niño pose upside risks to food inflation in FY27: Nuvama",
+  "impact" : "Sticky food inflation creates headwinds for equity markets and reduces the probability of near-term RBI rate cuts. Expect Nifty to consolidate with downward bias, while the rupee may remain under pressure against the dollar due to domestic inflationary concerns.",
+  "source" : "BusinessLine",
+  "publishedAt" : "13-Nov-2026 09:18 IST",
   "score" : 7
 } ]
