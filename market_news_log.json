@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-11T12:40:10",
-  "title" : "IPO rush continues: Jio Platforms, Zetwerk among dozen cos set to tap primary market in Oct",
-  "impact" : "The influx of large IPOs will tighten secondary market liquidity and keep Nifty indices volatile in the short term. Expect continued selling pressure on established stocks as capital rotates into fresh primary market offerings.",
-  "source" : "BusinessLine",
-  "publishedAt" : "11-Oct-2026 12:20 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-11T12:55:23",
   "title" : "Houthis' attack on Saudi's Riyadh airport kills 12",
   "impact" : "Geopolitical escalation in the Middle East will trigger a risk-off sentiment in Indian markets. Nifty is expected to open with a gap-down and face selling pressure as investors seek safe havens. The rupee is likely to weaken against the dollar due to rising crude oil prices and foreign portfolio outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The IMF upgrade signals robust medium-term structural growth, likely attracting further FII inflows. Nifty 50 is expected to maintain an upward trajectory as investor confidence strengthens, providing support to the Rupee against the dollar.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "13-Nov-2026 08:33 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T08:40:01",
+  "title" : "Trump warns Iran \"they will not exist\"",
+  "impact" : "Geopolitical escalation risks trigger risk-off sentiment in Indian equity markets. Nifty is likely to face downward pressure due to FII outflows, while the Rupee is expected to weaken against the dollar on rising safe-haven demand.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 08:15 IST",
   "score" : 7
 } ]
