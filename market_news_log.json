@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-10T19:45:55",
-  "title" : "Wall Street’s rate shock spreads beneath AI-fueled market rally",
-  "impact" : "Rising US yields and high crude prices will trigger FII outflows and dampen Nifty sentiment. Expect increased volatility in the index with downward pressure on the rupee toward record lows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "10-Oct-2026 19:33 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-10T22:47:34",
   "title" : "Diesel prices surge: All eyes on Trump-Putin deal",
   "impact" : "Rising diesel prices pose upside risks to Indian inflation and current account deficit. Nifty may face volatility as rising fuel costs compress corporate margins and weaken the rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The leadership crisis at the world's most valuable company will likely trigger a risk-off sentiment in Indian IT and tech-heavy indices. Nifty is expected to open with a gap down due to global contagion risks, with the rupee likely facing pressure as foreign institutional investors pull liquidity from emerging market tech exposures.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 02:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T06:07:19",
+  "title" : "MSCI adds LIC, Coforge, Adani Green, Meesho to index",
+  "impact" : "The MSCI index rejig is expected to drive strong passive inflows into major caps, supporting Nifty performance. Increased India weight in MSCI EM Index should bolster foreign investor sentiment and stabilize the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 05:40 IST",
   "score" : 7
 } ]
