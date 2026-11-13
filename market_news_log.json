@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T15:32:54",
-  "title" : "Equity mutual fund inflows rise 31% to ₹38,306 crore in September; SIPs hit record high",
-  "impact" : "Record SIP inflows act as a structural buffer for Nifty against FII selling. Markets are likely to show resilience in domestic-facing stocks while overall sentiment remains cautious due to debt outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Oct-2026 15:23 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-12T16:19:55",
   "title" : "Retail inflation jumps to 5.54% in September",
   "impact" : "Sticky inflation will likely prompt the RBI to maintain a hawkish stance, delaying rate cut expectations. This increases volatility in Nifty with potential downside pressure as yields harden and the rupee remains under pressure against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Widening trade deficit increases macroeconomic pressure on the rupee and suggests potential for imported inflation. Expect Nifty to face short-term volatility as higher import costs compress corporate margins.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 14:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T17:17:24",
+  "title" : "BrahMos export talks advance with more nations",
+  "impact" : "The expansion of BrahMos exports boosts investor confidence in the Indian defense manufacturing sector. Nifty is likely to see a positive trend in industrial and defense segments with neutral impact on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 16:56 IST",
   "score" : 7
 } ]
