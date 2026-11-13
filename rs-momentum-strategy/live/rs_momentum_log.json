@@ -2570,5 +2570,40 @@
   "date": "2026-11-10",
   "price": 694.5,
   "rsRankAtEntry": 84.01559454191033
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AARTIPHARM",
+  "date": "2026-11-11",
+  "price": 1010.5,
+  "rsRankAtEntry": 87.76699029126213
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "DATAPATTNS",
+  "date": "2026-11-11",
+  "price": 4231,
+  "rsRankAtEntry": 80.19417475728156
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GABRIEL",
+  "date": "2026-11-11",
+  "price": 1641.2,
+  "rsRankAtEntry": 90.09708737864077
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GRANULES",
+  "date": "2026-11-11",
+  "price": 840.5,
+  "rsRankAtEntry": 82.71844660194175
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "JAMNAAUTO",
+  "date": "2026-11-11",
+  "price": 147.08,
+  "rsRankAtEntry": 81.74757281553397
  }
 ]

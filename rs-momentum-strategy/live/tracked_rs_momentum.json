@@ -300,5 +300,40 @@
   "rsRankAtEntry": 84.01559454191033,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "AARTIPHARM": {
+  "entryDate": "2026-11-11",
+  "entryPrice": 1010.5,
+  "rsRankAtEntry": 87.76699029126213,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "DATAPATTNS": {
+  "entryDate": "2026-11-11",
+  "entryPrice": 4231,
+  "rsRankAtEntry": 80.19417475728156,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GABRIEL": {
+  "entryDate": "2026-11-11",
+  "entryPrice": 1641.2,
+  "rsRankAtEntry": 90.09708737864077,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GRANULES": {
+  "entryDate": "2026-11-11",
+  "entryPrice": 840.5,
+  "rsRankAtEntry": 82.71844660194175,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "JAMNAAUTO": {
+  "entryDate": "2026-11-11",
+  "entryPrice": 147.08,
+  "rsRankAtEntry": 81.74757281553397,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
