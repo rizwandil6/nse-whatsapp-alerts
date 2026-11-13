@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-10T23:33:49",
-  "title" : "Diesel prices surge: All eyes on Trump-Putin deal",
-  "impact" : "Diesel price surges increase logistics costs and inflationary pressure, potentially limiting RBI's rate cut scope. Nifty may face volatility as rising energy input costs weigh on corporate margins, pressuring the Rupee against the Dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Oct-2026 22:27 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-11T09:54:31",
   "title" : "India unveils steel policy aiming for 604 million tonne capacity by 2047",
   "impact" : "The policy signals long-term industrial expansion supporting heavy infrastructure stocks and Nifty Metal index growth. Rupee stability is expected as the focus on domestic raw material security reduces import dependence and current account pressure.",
@@ -3497,5 +3490,12 @@
   "impact" : "The market remains range-bound as FPI buying offsets DII profit-booking, maintaining Nifty's support levels. Increased FPI inflows are likely to provide stability to the rupee despite institutional selling pressure.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 05:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T06:38:00",
+  "title" : "Global bond yields surge to multi-year highs as inflation, borrowing concerns mount",
+  "impact" : "Elevated bond yields create a challenging environment for Indian equities by increasing borrowing costs and tightening liquidity. Expect volatility in the Nifty with sustained pressure on the rupee due to the interest rate differential against the US dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 05:47 IST",
   "score" : 7
 } ]
