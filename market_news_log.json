@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-10T22:47:34",
-  "title" : "Diesel prices surge: All eyes on Trump-Putin deal",
-  "impact" : "Rising diesel prices pose upside risks to Indian inflation and current account deficit. Nifty may face volatility as rising fuel costs compress corporate margins and weaken the rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "10-Oct-2026 22:27 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-10T23:33:49",
   "title" : "Diesel prices surge: All eyes on Trump-Putin deal",
   "impact" : "Diesel price surges increase logistics costs and inflationary pressure, potentially limiting RBI's rate cut scope. Nifty may face volatility as rising energy input costs weigh on corporate margins, pressuring the Rupee against the Dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The MSCI index rejig is expected to drive strong passive inflows into major caps, supporting Nifty performance. Increased India weight in MSCI EM Index should bolster foreign investor sentiment and stabilize the rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 05:40 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T06:37:39",
+  "title" : "DIIs book profits in longest selling streak in 4 years",
+  "impact" : "The market remains range-bound as FPI buying offsets DII profit-booking, maintaining Nifty's support levels. Increased FPI inflows are likely to provide stability to the rupee despite institutional selling pressure.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 05:57 IST",
   "score" : 7
 } ]
