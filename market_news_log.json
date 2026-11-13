@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T06:45:59",
-  "title" : "Trump declares Russia-Ukraine ‘energy ceasefire’",
-  "impact" : "An energy ceasefire reduces geopolitical risk premiums, likely leading to a bullish Nifty opening. Easing crude oil volatility should strengthen the rupee and improve India's trade balance.",
-  "source" : "Economic Times",
-  "publishedAt" : "11-Oct-2026 19:57 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-12T07:48:41",
   "title" : "Rupee to rally on fresh RBI measures, bonds eye inflation prints",
   "impact" : "Positive sentiment for Indian equities as a stronger rupee lowers import costs and stabilizes foreign capital inflows. Nifty is expected to maintain upward momentum, while currency appreciation eases external balance concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global tech outages create volatility in Indian IT services and digital infrastructure stocks. Nifty is expected to open lower due to sentiment-driven selling while the rupee remains under pressure from broader global market instability.",
   "source" : "Economic Times",
   "publishedAt" : "13-Nov-2026 12:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-13T14:25:53",
+  "title" : "Phoenix rises! India best performing stock market",
+  "impact" : "Positive sentiment continues to drive index valuations higher, supported by robust foreign institutional inflows. Nifty is expected to sustain its upward momentum with the rupee maintaining stability against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "13-Nov-2026 10:02 IST",
   "score" : 7
 } ]
