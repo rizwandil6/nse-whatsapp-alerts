@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T20:49:03",
-  "title" : "Wall Street bets big on India as IPO boom draws global financial giants",
-  "impact" : "Heightened global interest and liquidity inflows will likely push the Nifty 50 toward new record highs. Increased foreign institutional participation will provide support for the Indian Rupee against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Oct-2026 20:33 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-12T21:22:10",
   "title" : "In a first, India’s renewable power generation surpasses 100 BUs in a quarter",
   "impact" : "The milestone signals structural transition in India's energy mix, likely boosting investor confidence in the green energy transition. Nifty should see positive momentum in utility and industrial stocks, while the rupee remains stable as reduced fossil fuel import dependency improves trade balances.",
@@ -3497,5 +3490,12 @@
   "impact" : "The satcom sector policy shift creates long-term value in digital infrastructure. Nifty is expected to remain stable with a bullish tilt for tech-heavy portfolios, while the rupee remains neutral to the development.",
   "source" : "Economic Times",
   "publishedAt" : "14-Nov-2026 15:44 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-14T22:00:16",
+  "title" : "Index Outlook: Staying firmly bullish",
+  "impact" : "The overall Indian market sentiment remains firmly bullish with strong underlying support. Nifty is expected to continue its upward trajectory, while the rupee impact remains neutral as domestic growth momentum outweighs external currency pressures.",
+  "source" : "BusinessLine",
+  "publishedAt" : "14-Nov-2026 21:54 IST",
   "score" : 7
 } ]
