@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T17:23:50",
-  "title" : "Retail inflation rises to 5.54% in September on costlier food items",
-  "impact" : "Sticky inflation reduces RBI rate cut expectations, leading to a bearish trend for Indian equities. Nifty likely to see consolidation near support levels with potential rupee depreciation against the dollar.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "12-Oct-2026 17:11 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-12T18:40:50",
   "title" : "Retail inflation jumps to 21 months high of 5.54% in September",
   "impact" : "Rising inflation clouds rate cut expectations, likely keeping Nifty under selling pressure. The rupee is expected to remain weak due to cooling foreign inflows and higher domestic cost of living.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical risk adds volatility to Nifty but structural capex trends remain supportive. Expect short-term downward pressure on indices and potential weakness in the Rupee due to higher energy import costs.",
   "source" : "Economic Times",
   "publishedAt" : "14-Nov-2026 14:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-14T16:06:22",
+  "title" : "India-US trade deal nears the finish line",
+  "impact" : "An India-US trade deal will likely boost investor sentiment and Nifty 50, driving foreign institutional inflows. Expectations for Nifty are bullish with a stronger rupee likely as trade barriers reduce.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Nov-2026 15:29 IST",
   "score" : 7
 } ]
