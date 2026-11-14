@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T17:07:01",
-  "title" : "Rupee jumps 96 paise to close at 95.75 against US dollar",
-  "impact" : "The sharp appreciation of the rupee is likely to boost equity market sentiment by easing inflation concerns. Expect a bullish Nifty opening as lower import costs benefit firms reliant on global commodities. Foreign institutional inflow may increase, supporting large-cap stability.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Oct-2026 16:56 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-12T17:23:50",
   "title" : "Retail inflation rises to 5.54% in September on costlier food items",
   "impact" : "Sticky inflation reduces RBI rate cut expectations, leading to a bearish trend for Indian equities. Nifty likely to see consolidation near support levels with potential rupee depreciation against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market is likely to face a bearish opening due to global tech contagion and US rate hike anxiety. Nifty is expected to witness downward pressure on IT and sentiment-heavy stocks while the rupee may face volatility against a strengthening dollar.",
   "source" : "Economic Times",
   "publishedAt" : "14-Nov-2026 02:42 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-14T15:19:46",
+  "title" : "Jefferies' Chris Wood sees fresh US-Iran tensions as biggest risk to India, sees this sector as the best hedge",
+  "impact" : "Heightened geopolitical risk adds volatility to Nifty but structural capex trends remain supportive. Expect short-term downward pressure on indices and potential weakness in the Rupee due to higher energy import costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Nov-2026 14:56 IST",
   "score" : 7
 } ]
