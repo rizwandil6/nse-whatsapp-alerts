@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-12T18:40:50",
-  "title" : "Retail inflation jumps to 21 months high of 5.54% in September",
-  "impact" : "Rising inflation clouds rate cut expectations, likely keeping Nifty under selling pressure. The rupee is expected to remain weak due to cooling foreign inflows and higher domestic cost of living.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Oct-2026 17:55 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-12T19:12:13",
   "title" : "Rice, maize and cereal acreage declines warrant monitoring: Report",
   "impact" : "Heightened food inflation concerns could dampen investor sentiment and trigger market volatility. The Nifty may face selling pressure if monsoon data triggers RBI rate hike fears, exerting downward pressure on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "An India-US trade deal will likely boost investor sentiment and Nifty 50, driving foreign institutional inflows. Expectations for Nifty are bullish with a stronger rupee likely as trade barriers reduce.",
   "source" : "Economic Times",
   "publishedAt" : "14-Nov-2026 15:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-14T17:07:58",
+  "title" : "Why a Trump-Xi-Putin meeting has the world on edge",
+  "impact" : "Global geopolitical uncertainty typically triggers FII outflows and risk aversion in Indian equities. Nifty may witness short-term volatility and downward pressure as investors shift to safe-haven assets. The Rupee is likely to face depreciation pressure against the dollar due to global flight to safety.",
+  "source" : "Economic Times",
+  "publishedAt" : "14-Nov-2026 16:42 IST",
   "score" : 7
 } ]
