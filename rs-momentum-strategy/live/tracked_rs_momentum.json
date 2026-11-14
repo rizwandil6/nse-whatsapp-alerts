@@ -5,12 +5,6 @@
   "rsRankAtEntry": 81.65680473372781,
   "salesGrowth3Y": 16
  },
- "IKS": {
-  "entryDate": "2026-07-16",
-  "entryPrice": 1897.1,
-  "rsRankAtEntry": 82.7893175074184,
-  "salesGrowth3Y": 46
- },
  "KALYANKJIL": {
   "entryDate": "2026-07-16",
   "entryPrice": 574.4,
@@ -333,6 +327,20 @@
   "entryDate": "2026-11-11",
   "entryPrice": 147.08,
   "rsRankAtEntry": 81.74757281553397,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "APARINDS": {
+  "entryDate": "2026-11-12",
+  "entryPrice": 14667,
+  "rsRankAtEntry": 82.33009708737865,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "JINDALSAW": {
+  "entryDate": "2026-11-12",
+  "entryPrice": 261.45,
+  "rsRankAtEntry": 80.7766990291262,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }

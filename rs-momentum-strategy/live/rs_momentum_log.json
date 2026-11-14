@@ -2605,5 +2605,26 @@
   "date": "2026-11-11",
   "price": 147.08,
   "rsRankAtEntry": 81.74757281553397
+ },
+ {
+  "type": "EXIT",
+  "symbol": "IKS",
+  "date": "2026-11-12",
+  "price": 1634.1,
+  "pnlPct": -13.863264983395709
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "APARINDS",
+  "date": "2026-11-12",
+  "price": 14667,
+  "rsRankAtEntry": 82.33009708737865
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "JINDALSAW",
+  "date": "2026-11-12",
+  "price": 261.45,
+  "rsRankAtEntry": 80.7766990291262
  }
 ]
