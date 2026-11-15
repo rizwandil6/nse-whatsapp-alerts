@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-13T06:11:12",
-  "title" : "Rupee perks up 96 paise on RBI’s weekend measures",
-  "impact" : "The sharp appreciation in the rupee following RBI intervention is likely to boost investor sentiment and ease inflationary concerns. Nifty is expected to open with a positive bias, while the stronger currency provides tailwinds for import-heavy sectors and reduces hedging costs for corporates.",
-  "source" : "BusinessLine",
-  "publishedAt" : "12-Oct-2026 22:08 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-13T06:11:19",
   "title" : "Investors shrug off bear party, put big money into equity mutual funds",
   "impact" : "Retail investor confidence remains strong despite FII selling and index corrections. Nifty may face volatility from geopolitical factors but support persists due to record domestic equity inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment likely for Indian equities as geopolitical de-escalation reduces global risk premium. Nifty is expected to see a relief rally, with the Rupee gaining strength due to potential stability in energy prices.",
   "source" : "Economic Times",
   "publishedAt" : "15-Nov-2026 09:07 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-15T11:05:44",
+  "title" : "Global Economy to grow 2.8% in 2027, buoyed by lower oil prices and AI investments: Goldman Sachs",
+  "impact" : "Global economic stability and lower oil prices act as a strong tailwind for Indian equities. Nifty is expected to trend higher on improved margins, while the INR may see moderate appreciation due to a lower import bill.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Nov-2026 10:48 IST",
   "score" : 7
 } ]
