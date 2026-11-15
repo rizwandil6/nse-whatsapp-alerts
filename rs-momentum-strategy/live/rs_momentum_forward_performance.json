@@ -1,117 +1,7 @@
 [
  {
-  "symbol": "JINDALSAW",
-  "entryDate": "2026-11-12",
-  "entryPrice": 261.45,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 261.45,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "APARINDS",
-  "entryDate": "2026-11-12",
-  "entryPrice": 14667,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 14667,
-  "returnSinceEntry": 0
- },
- {
-  "symbol": "AARTIPHARM",
-  "entryDate": "2026-11-11",
-  "entryPrice": 1010.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 997.95,
-  "returnSinceEntry": -1.2419594260267148
- },
- {
-  "symbol": "JAMNAAUTO",
-  "entryDate": "2026-11-11",
-  "entryPrice": 147.08,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 148.93,
-  "returnSinceEntry": 1.2578188740821281
- },
- {
-  "symbol": "GRANULES",
-  "entryDate": "2026-11-11",
-  "entryPrice": 840.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 813.2,
-  "returnSinceEntry": -3.2480666270077276
- },
- {
-  "symbol": "GMMPFAUDLR",
-  "entryDate": "2026-11-10",
-  "entryPrice": 1195.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1239.3,
-  "returnSinceEntry": 3.6637390213299836
- },
- {
-  "symbol": "SHAREINDIA",
-  "entryDate": "2026-11-10",
-  "entryPrice": 187.72,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 182.63,
-  "returnSinceEntry": -2.711485190709569
- },
- {
-  "symbol": "GREAVESCOT",
-  "entryDate": "2026-11-10",
-  "entryPrice": 220.62,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 225.97,
-  "returnSinceEntry": 2.4249841356178017
- },
- {
-  "symbol": "SUNTV",
-  "entryDate": "2026-11-10",
-  "entryPrice": 653.9,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 646.7,
-  "returnSinceEntry": -1.1010857929346891
- },
- {
-  "symbol": "TANLA",
-  "entryDate": "2026-11-10",
-  "entryPrice": 694.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 732.9,
-  "returnSinceEntry": 5.529157667386605
- },
- {
   "symbol": "ATLANTAELE",
-  "entryDate": "2026-11-10",
+  "entryDate": "2026-11-15",
   "entryPrice": 1507.3,
   "status": "open",
   "exitDate": null,
@@ -121,15 +11,15 @@
   "returnSinceEntry": 0.9487162475950346
  },
  {
-  "symbol": "PETRONET",
-  "entryDate": "2026-11-10",
-  "entryPrice": 329.8,
+  "symbol": "APARINDS",
+  "entryDate": "2026-11-15",
+  "entryPrice": 14667,
   "status": "open",
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 324.05,
-  "returnSinceEntry": -1.7434808975136447
+  "currentPrice": 14667,
+  "returnSinceEntry": 0
  },
  {
   "symbol": "PHOENIXLTD",

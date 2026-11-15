@@ -2626,5 +2626,105 @@
   "date": "2026-11-12",
   "price": 261.45,
   "rsRankAtEntry": 80.7766990291262
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "ATLANTAELE",
+  "date": "2026-11-15",
+  "price": 1507.3,
+  "rsRankAtEntry": 83.04093567251462,
+  "salesGrowth3Y": 28
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GMMPFAUDLR",
+  "date": "2026-11-15",
+  "price": 1195.5,
+  "rsRankAtEntry": 81.67641325536063
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GREAVESCOT",
+  "date": "2026-11-15",
+  "price": 220.62,
+  "rsRankAtEntry": 80.89668615984405
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "PETRONET",
+  "date": "2026-11-15",
+  "price": 329.8,
+  "rsRankAtEntry": 80.50682261208577
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SHAREINDIA",
+  "date": "2026-11-15",
+  "price": 187.72,
+  "rsRankAtEntry": 80.11695906432749
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "SUNTV",
+  "date": "2026-11-15",
+  "price": 653.9,
+  "rsRankAtEntry": 84.40545808966861
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "TANLA",
+  "date": "2026-11-15",
+  "price": 694.5,
+  "rsRankAtEntry": 84.01559454191033
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "AARTIPHARM",
+  "date": "2026-11-15",
+  "price": 1010.5,
+  "rsRankAtEntry": 87.76699029126213
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "DATAPATTNS",
+  "date": "2026-11-15",
+  "price": 4231,
+  "rsRankAtEntry": 80.19417475728156
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GABRIEL",
+  "date": "2026-11-15",
+  "price": 1641.2,
+  "rsRankAtEntry": 90.09708737864077
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GRANULES",
+  "date": "2026-11-15",
+  "price": 840.5,
+  "rsRankAtEntry": 82.71844660194175
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "JAMNAAUTO",
+  "date": "2026-11-15",
+  "price": 147.08,
+  "rsRankAtEntry": 81.74757281553397
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "APARINDS",
+  "date": "2026-11-15",
+  "price": 14667,
+  "rsRankAtEntry": 82.33009708737865,
+  "salesGrowth3Y": 17
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "JINDALSAW",
+  "date": "2026-11-15",
+  "price": 261.45,
+  "rsRankAtEntry": 80.7766990291262
  }
 ]

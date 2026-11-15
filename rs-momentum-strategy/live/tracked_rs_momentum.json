@@ -250,98 +250,12 @@
   "entryDate": "2026-11-10",
   "entryPrice": 1507.3,
   "rsRankAtEntry": 83.04093567251462,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GMMPFAUDLR": {
-  "entryDate": "2026-11-10",
-  "entryPrice": 1195.5,
-  "rsRankAtEntry": 81.67641325536063,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GREAVESCOT": {
-  "entryDate": "2026-11-10",
-  "entryPrice": 220.62,
-  "rsRankAtEntry": 80.89668615984405,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "PETRONET": {
-  "entryDate": "2026-11-10",
-  "entryPrice": 329.8,
-  "rsRankAtEntry": 80.50682261208577,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "SHAREINDIA": {
-  "entryDate": "2026-11-10",
-  "entryPrice": 187.72,
-  "rsRankAtEntry": 80.11695906432749,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "SUNTV": {
-  "entryDate": "2026-11-10",
-  "entryPrice": 653.9,
-  "rsRankAtEntry": 84.40545808966861,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "TANLA": {
-  "entryDate": "2026-11-10",
-  "entryPrice": 694.5,
-  "rsRankAtEntry": 84.01559454191033,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "AARTIPHARM": {
-  "entryDate": "2026-11-11",
-  "entryPrice": 1010.5,
-  "rsRankAtEntry": 87.76699029126213,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "DATAPATTNS": {
-  "entryDate": "2026-11-11",
-  "entryPrice": 4231,
-  "rsRankAtEntry": 80.19417475728156,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GABRIEL": {
-  "entryDate": "2026-11-11",
-  "entryPrice": 1641.2,
-  "rsRankAtEntry": 90.09708737864077,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GRANULES": {
-  "entryDate": "2026-11-11",
-  "entryPrice": 840.5,
-  "rsRankAtEntry": 82.71844660194175,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "JAMNAAUTO": {
-  "entryDate": "2026-11-11",
-  "entryPrice": 147.08,
-  "rsRankAtEntry": 81.74757281553397,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 28
  },
  "APARINDS": {
   "entryDate": "2026-11-12",
   "entryPrice": 14667,
   "rsRankAtEntry": 82.33009708737865,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "JINDALSAW": {
-  "entryDate": "2026-11-12",
-  "entryPrice": 261.45,
-  "rsRankAtEntry": 80.7766990291262,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 17
  }
 }
