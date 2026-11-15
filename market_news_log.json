@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-13T06:26:26",
-  "title" : "Sensex, Nifty fall 0.7% as oil surge erases early gains",
-  "impact" : "The Indian market faces significant downward pressure due to geopolitical risks and rising crude oil costs. Nifty is expected to remain volatile with a bearish bias until oil stabilizes, while the rupee faces continued depreciation pressure.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Oct-2026 06:05 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-13T06:26:31",
   "title" : "Rupee rebounds nearly 1% after RBI moves to curb speculative trades",
   "impact" : "The RBI intervention provides short-term relief, curbing extreme volatility and stabilizing sentiment. Nifty is likely to trade with a positive bias, while the rupee finds temporary support against further sharp depreciation.",
@@ -3497,5 +3490,12 @@
   "impact" : "Massive FPI inflows signal strong institutional confidence, likely pushing Nifty toward immediate resistance levels. The rupee is expected to stabilize or gain strength against the USD due to heightened dollar inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Nov-2026 12:42 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-11-15T12:52:34",
+  "title" : "AI retreat fuels India stock comeback in great rotation trade",
+  "impact" : "The Indian equity market is poised for a bullish trend as global capital rotates from tech-heavy trades into fundamental-driven value markets. Nifty is expected to sustain upward momentum as earnings growth accelerates and lower oil prices reduce macro pressure on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Nov-2026 09:37 IST",
   "score" : 8
 } ]
