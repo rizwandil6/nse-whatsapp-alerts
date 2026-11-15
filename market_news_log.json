@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-13T13:52:55",
-  "title" : "Trump's oil jawboning loses punch",
-  "impact" : "Sustained high crude prices will pressure Indian markets, leading to a bearish Nifty outlook as inflationary risks mount. The INR is expected to weaken further due to increased import costs and foreign capital outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Oct-2026 13:22 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-13T14:53:38",
   "title" : "India’s power hunger is fuelling a bigger coal bet",
   "impact" : "The increased reliance on coal to meet rising power demand suggests sustained industrial activity and energy security focus. Nifty may find support from infrastructure and utility-led buying, while the rupee remains sensitive to higher coal import costs.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "15-Nov-2026 18:37 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-15T23:28:21",
+  "title" : "Putin issues nuclear ultimatum to UK, France",
+  "impact" : "Heightened geopolitical risk will trigger a risk-off sentiment in Indian equity markets, likely leading to a gap-down opening for Nifty. The Rupee is expected to weaken further against the USD due to safe-haven demand and capital outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "15-Nov-2026 23:08 IST",
+  "score" : 8
 } ]
