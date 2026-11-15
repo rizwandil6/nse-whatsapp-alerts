@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-13T13:52:34",
-  "title" : "IT earnings lift Nifty past 22,500; broader market stays split",
-  "impact" : "The Nifty rally past 22,500 indicates strong momentum driven by IT sector earnings sentiment. Expect continued bullish bias for large-cap indices, with the rupee likely to remain stable despite equity inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "13-Oct-2026 13:44 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-13T13:52:55",
   "title" : "Trump's oil jawboning loses punch",
   "impact" : "Sustained high crude prices will pressure Indian markets, leading to a bearish Nifty outlook as inflationary risks mount. The INR is expected to weaken further due to increased import costs and foreign capital outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Strong export data suggests improving macroeconomic health and industrial momentum. Expect a bullish bias for Nifty with potential support for the rupee due to narrowing trade deficit concerns.",
   "source" : "BusinessLine",
   "publishedAt" : "15-Nov-2026 17:36 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-15T18:56:30",
+  "title" : "Standard Chartered turns overweight on India; Neutral on global equities and fixed income",
+  "impact" : "Standard Chartered's overweight stance on India signals sustained FII inflow confidence. Expect Nifty to consolidate with an upward bias as foreign institutional capital remains committed. Rupee is likely to stabilize as equity inflows offset global volatility.",
+  "source" : "BusinessLine",
+  "publishedAt" : "15-Nov-2026 18:37 IST",
   "score" : 7
 } ]
