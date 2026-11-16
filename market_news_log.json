@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-14T02:19:54",
-  "title" : "IMF's bullish call: India's sprint in a stumbling world",
-  "impact" : "IMF growth projections bolster investor confidence in India as a global outlier. Nifty is expected to maintain upward momentum with institutional inflows. The rupee is likely to remain stable or appreciate against the dollar due to stronger growth outlook.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Oct-2026 15:16 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-14T02:50:07",
   "title" : "Two ships hit by projectiles in Strait of Hormuz",
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will likely trigger a risk-off sentiment in the Indian markets. Nifty is expected to open with a gap-down, while the Rupee faces depreciation pressure due to rising crude oil import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Expect Nifty to face consolidation or downward pressure as borrowing costs rise for corporate India. The INR may strengthen slightly due to higher yields, but equity inflows could moderate as cost of capital increases.",
   "source" : "Economic Times",
   "publishedAt" : "16-Nov-2026 10:14 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-16T11:35:10",
+  "title" : "Are your SIPs helping foreign investors exit India?",
+  "impact" : "Sustained FII selling pressure combined with domestic liquidity absorption will likely keep Nifty under volatility. Continued outflows exert downward pressure on the rupee as domestic inflows offset but do not fully neutralize foreign liquidations.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Nov-2026 06:30 IST",
   "score" : 7
 } ]
