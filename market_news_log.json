@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-14T14:04:37",
-  "title" : "India’s nuclear dream needs Rs 15 lakh cr by 2047",
-  "impact" : "The multi-decade capital expenditure plan signals long-term growth for industrial and power infrastructure. Nifty is expected to maintain a positive bias as policy clarity boosts sentiment in capital-intensive sectors.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Oct-2026 13:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-14T14:04:39",
   "title" : "Blackstone readies $100 bn cheque for India",
   "impact" : "Blackstone commitment signals strong long-term FII confidence, likely supporting Nifty in the medium term despite near-term volatility. Potential for sustained capital inflows may provide structural support to the rupee against global headwinds.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened wholesale inflation signals persistent input cost pressures, likely leading to a bearish trend for Indian equities. Expect Nifty to face downward pressure as market sentiment shifts toward prolonged high interest rates and the rupee may weaken against the dollar due to rising import costs.",
   "source" : "BusinessLine",
   "publishedAt" : "16-Nov-2026 12:22 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-16T12:36:26",
+  "title" : "Wholesale prices rise 12.29% year-on-year in October",
+  "impact" : "Elevated WPI inflation poses a risk to the RBI's interest rate easing timeline, likely putting pressure on Nifty in the near term. The rupee may face slight depreciation pressure due to inflation-linked macro concerns.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "16-Nov-2026 12:27 IST",
   "score" : 7
 } ]
