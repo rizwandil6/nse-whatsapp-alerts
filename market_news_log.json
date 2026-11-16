@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-14T15:35:40",
-  "title" : "Big day for Jio's ₹30,000 cr IPO may finally be here",
-  "impact" : "The Jio IPO launch will likely boost liquidity and investor sentiment toward large-cap conglomerates. Expect Nifty to trend upward due to significant index heavyweight participation and improved market breadth.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Oct-2026 10:54 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-14T16:05:52",
   "title" : "IMF chief urges US, other wealthy nations to rein in debt to ease global economic pressure",
   "impact" : "Global fiscal tightening and geopolitical energy risks increase volatility for Indian equities. Nifty may face consolidation under liquidity pressure, while the rupee is expected to remain weak against a strengthening US dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The breach of the 6% retail inflation threshold and surge in wholesale inflation create strong headwinds for the Indian equity market. Expect Nifty to face significant downward pressure as market participants price in a likely RBI repo rate hike in December, pressuring the Rupee due to rising interest rate expectations and persistent cost-push inflation.",
   "source" : "Economic Times",
   "publishedAt" : "16-Nov-2026 12:26 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-11-16T13:52:49",
+  "title" : "India Inc posts broad-based earnings beat in Q2FY27; Nifty PAT hits 17-quarter high",
+  "impact" : "Strong earnings growth drives a bullish outlook for Indian equities, supporting Nifty toward new highs. Positive corporate sentiment and earnings yield improvements are likely to attract FII inflows, strengthening the rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "16-Nov-2026 13:45 IST",
   "score" : 8
 } ]
