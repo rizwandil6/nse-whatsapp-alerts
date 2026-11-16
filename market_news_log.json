@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-13T16:55:21",
-  "title" : "HCLTech sparks IT-led surge; Nifty posts sharpest single-day gain since June",
-  "impact" : "The sharp recovery indicates a strong bullish reversal sentiment across Indian equities. Nifty 50 is likely to test immediate resistance levels near 22,800. The Rupee is expected to stabilize against the USD as positive sentiment attracts institutional inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "13-Oct-2026 16:46 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-13T18:11:38",
   "title" : "India’s steel demand to grow 8% in 2027, fastest among major markets",
   "impact" : "Robust domestic steel demand outlook reinforces India's industrial growth narrative despite global headwinds. Nifty likely to see sustained support in capital goods and infrastructure segments. Rupee remains stable as domestic manufacturing strength offsets broader export-import volatility.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "16-Nov-2026 06:04 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-11-16T09:03:11",
+  "title" : "India’s solar module capacity surges nearly 15-fold to 116 GW; PLI scheme contributes 24 GW",
+  "impact" : "This structural growth in domestic manufacturing strengthens the industrial capex cycle and supports long-term Nifty earnings growth. The reduced import dependency provides a positive tailwind for the rupee through a narrowing trade deficit in energy components.",
+  "source" : "BusinessLine",
+  "publishedAt" : "16-Nov-2026 08:47 IST",
+  "score" : 7
 } ]
