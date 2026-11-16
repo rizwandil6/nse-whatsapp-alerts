@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-15T01:44:25",
-  "title" : "Ambani's Jio IPO gets its date set with D-St investors",
-  "impact" : "The Jio IPO announcement acts as a massive liquidity driver, likely pushing the Nifty toward fresh highs due to heightened retail and institutional interest. Expectations of massive capital inflow may provide mild support to the rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Oct-2026 18:50 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-10-15T01:44:28",
   "title" : "Hormuz under fire? Two ships hit in attack, one sinks",
   "impact" : "Heightened geopolitical risk in the Strait of Hormuz will likely trigger a risk-off sentiment in Indian indices. Nifty is expected to face immediate downward pressure due to supply chain fears, while the rupee may weaken against the dollar as crude oil prices spike.",
@@ -3497,5 +3490,12 @@
   "impact" : "The US protectionist stance creates volatility for Nifty, particularly in the IT index. The rupee may face downward pressure due to potential capital outflows and reduced service export revenue visibility.",
   "source" : "Economic Times",
   "publishedAt" : "16-Nov-2026 20:46 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-17T00:32:06",
+  "title" : "Nvidia earnings spotlight shifts to leadership, AI financing after Huang exit",
+  "impact" : "Global tech volatility driven by Nvidia's leadership crisis will trigger defensive selling in Indian IT bellwethers. Expect Nifty to face downward pressure with increased FII outflows, putting temporary depreciation stress on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Nov-2026 22:13 IST",
   "score" : 7
 } ]
