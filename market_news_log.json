@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-14T06:20:27",
-  "title" : "RBI’s rupee defence curbs speculation, raises hedging costs",
-  "impact" : "The RBI intervention signals a proactive stance to stabilize the rupee, which may provide short-term relief to equity markets. However, higher hedging costs and reduced liquidity for importers could dampen sentiment, keeping Nifty range-bound with volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Oct-2026 05:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-14T12:33:20",
   "title" : "WPI inflation rises to 11.39% in Sep on rise in prices of food, fuel, manufactured items",
   "impact" : "High inflation triggered by supply chain disruptions creates significant downside pressure on the Nifty index. The rupee is expected to weaken further against the dollar due to rising import costs of fuel and commodities.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment from foreign inflows and strong quarterly earnings will likely push Nifty toward recent resistance levels. The rupee may gain slight stability as foreign capital interest strengthens.",
   "source" : "Economic Times",
   "publishedAt" : "16-Nov-2026 09:39 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-16T11:50:59",
+  "title" : "G-Sec yields harden again as inflation worries eclipse global tailwinds",
+  "impact" : "Rising G-Sec yields and inflation concerns will likely exert downward pressure on Nifty 50 due to FII outflows. The INR is expected to remain weak against the USD, adding to volatility in bond and equity markets.",
+  "source" : "BusinessLine",
+  "publishedAt" : "16-Nov-2026 11:36 IST",
   "score" : 7
 } ]
