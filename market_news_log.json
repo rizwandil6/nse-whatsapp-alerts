@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-14T02:50:07",
-  "title" : "Two ships hit by projectiles in Strait of Hormuz",
-  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will likely trigger a risk-off sentiment in the Indian markets. Nifty is expected to open with a gap-down, while the Rupee faces depreciation pressure due to rising crude oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "14-Oct-2026 01:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-14T06:20:27",
   "title" : "RBI’s rupee defence curbs speculation, raises hedging costs",
   "impact" : "The RBI intervention signals a proactive stance to stabilize the rupee, which may provide short-term relief to equity markets. However, higher hedging costs and reduced liquidity for importers could dampen sentiment, keeping Nifty range-bound with volatility.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sustained FII selling pressure combined with domestic liquidity absorption will likely keep Nifty under volatility. Continued outflows exert downward pressure on the rupee as domestic inflows offset but do not fully neutralize foreign liquidations.",
   "source" : "Economic Times",
   "publishedAt" : "16-Nov-2026 06:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-16T11:35:14",
+  "title" : "Sensex soars aided by foreign hand &amp; desi Q2 show",
+  "impact" : "Positive sentiment from foreign inflows and strong quarterly earnings will likely push Nifty toward recent resistance levels. The rupee may gain slight stability as foreign capital interest strengthens.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Nov-2026 09:39 IST",
   "score" : 7
 } ]
