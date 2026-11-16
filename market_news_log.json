@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-14T01:34:27",
-  "title" : "Hyundai revs up its India goals with a $15.5 bn bet",
-  "impact" : "The massive capital infusion signals strong FDI confidence, likely boosting broader market sentiment. Nifty is expected to trend upward on industrial optimism, with positive implications for rupee stability due to capital inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "13-Oct-2026 19:47 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-14T02:19:54",
   "title" : "IMF's bullish call: India's sprint in a stumbling world",
   "impact" : "IMF growth projections bolster investor confidence in India as a global outlier. Nifty is expected to maintain upward momentum with institutional inflows. The rupee is likely to remain stable or appreciate against the dollar due to stronger growth outlook.",
@@ -3497,5 +3490,12 @@
   "impact" : "The shift in global aerospace supply chains toward India enhances the manufacturing outlook, potentially supporting Nifty mid-cap indices. Increased capital inflows into high-end engineering sectors may provide mild support to the rupee against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "16-Nov-2026 09:59 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-16T11:04:27",
+  "title" : "India faces a painful return to higher repo rates",
+  "impact" : "Expect Nifty to face consolidation or downward pressure as borrowing costs rise for corporate India. The INR may strengthen slightly due to higher yields, but equity inflows could moderate as cost of capital increases.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Nov-2026 10:14 IST",
   "score" : 7
 } ]
