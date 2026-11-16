@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-14T12:33:20",
-  "title" : "WPI inflation rises to 11.39% in Sep on rise in prices of food, fuel, manufactured items",
-  "impact" : "High inflation triggered by supply chain disruptions creates significant downside pressure on the Nifty index. The rupee is expected to weaken further against the dollar due to rising import costs of fuel and commodities.",
-  "source" : "BusinessLine",
-  "publishedAt" : "14-Oct-2026 12:26 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-14T13:03:50",
   "title" : "India's price pain meets double-digit villain",
   "impact" : "The sharp uptick in wholesale and retail inflation likely signals a prolonged hawkish stance by the RBI, potentially leading to Nifty downside and consolidation. Sustained high inflation and interest rate concerns will likely exert downward pressure on the Indian Rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising G-Sec yields and inflation concerns will likely exert downward pressure on Nifty 50 due to FII outflows. The INR is expected to remain weak against the USD, adding to volatility in bond and equity markets.",
   "source" : "BusinessLine",
   "publishedAt" : "16-Nov-2026 11:36 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-16T12:21:08",
+  "title" : "Still at war: Iran's 3-way message to the US",
+  "impact" : "Geopolitical tension in the Middle East will likely trigger risk-off sentiment in Indian markets. Nifty is expected to open with a gap down and face selling pressure, while the rupee may weaken against the dollar due to rising oil prices and flight to safety.",
+  "source" : "Economic Times",
+  "publishedAt" : "16-Nov-2026 06:15 IST",
   "score" : 7
 } ]
