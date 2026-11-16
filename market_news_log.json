@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-13T20:27:55",
-  "title" : "Sitharaman’s LTCG, STT remarks lift market sentiment; rupee gains for third straight session",
-  "impact" : "Positive sentiment from FM's tax clarification will likely drive Nifty higher as volatility subsides. Rupee gains provide macro stability, boosting investor confidence and foreign fund inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "13-Oct-2026 20:21 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-14T01:34:27",
   "title" : "Hyundai revs up its India goals with a $15.5 bn bet",
   "impact" : "The massive capital infusion signals strong FDI confidence, likely boosting broader market sentiment. Nifty is expected to trend upward on industrial optimism, with positive implications for rupee stability due to capital inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The proposed summit signals a potential easing of geopolitical tensions, likely improving global risk sentiment. Expect a bullish bias for Nifty as investor confidence returns, with the Rupee likely stabilizing against the USD due to reduced safe-haven demand.",
   "source" : "Economic Times",
   "publishedAt" : "16-Nov-2026 09:04 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-16T10:03:47",
+  "title" : "Airbus, Boeing supply-chain shift boosts India’s aerospace stocks",
+  "impact" : "The shift in global aerospace supply chains toward India enhances the manufacturing outlook, potentially supporting Nifty mid-cap indices. Increased capital inflows into high-end engineering sectors may provide mild support to the rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "16-Nov-2026 09:59 IST",
   "score" : 7
 } ]
