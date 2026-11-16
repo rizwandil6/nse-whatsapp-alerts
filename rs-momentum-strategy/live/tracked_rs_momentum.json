@@ -257,5 +257,12 @@
   "entryPrice": 14667,
   "rsRankAtEntry": 82.33009708737865,
   "salesGrowth3Y": 17
+ },
+ "JINDALSAW": {
+  "entryDate": "2026-11-12",
+  "entryPrice": 261.45,
+  "rsRankAtEntry": 80.7766990291262,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

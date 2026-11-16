@@ -2726,5 +2726,12 @@
   "date": "2026-11-15",
   "price": 261.45,
   "rsRankAtEntry": 80.7766990291262
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "JINDALSAW",
+  "date": "2026-11-12",
+  "price": 261.45,
+  "rsRankAtEntry": 80.7766990291262
  }
 ]
