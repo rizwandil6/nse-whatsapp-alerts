@@ -2733,5 +2733,54 @@
   "date": "2026-11-12",
   "price": 261.45,
   "rsRankAtEntry": 80.7766990291262
+ },
+ {
+  "type": "EXIT",
+  "symbol": "PRICOLLTD",
+  "date": "2026-11-15",
+  "price": 615,
+  "pnlPct": -6.761673741661617
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "CYIENT",
+  "date": "2026-11-15",
+  "price": 1103.2,
+  "rsRankAtEntry": 80.42635658914729
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GESHIP",
+  "date": "2026-11-15",
+  "price": 1532.9,
+  "rsRankAtEntry": 80.81395348837209
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "KPRMILL",
+  "date": "2026-11-15",
+  "price": 1211,
+  "rsRankAtEntry": 81.0077519379845
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "NEULANDLAB",
+  "date": "2026-11-15",
+  "price": 21640,
+  "rsRankAtEntry": 82.17054263565892
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "TECHM",
+  "date": "2026-11-15",
+  "price": 1776.4,
+  "rsRankAtEntry": 80.03875968992247
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "VIJAYA",
+  "date": "2026-11-15",
+  "price": 1487.5,
+  "rsRankAtEntry": 81.97674418604652
  }
 ]

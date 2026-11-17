@@ -216,12 +216,6 @@
   "rsRankAtEntry": 80.859375,
   "salesGrowth3Y": 15
  },
- "PRICOLLTD": {
-  "entryDate": "2026-10-20",
-  "entryPrice": 659.6,
-  "rsRankAtEntry": 80.23483365949119,
-  "salesGrowth3Y": 27
- },
  "INDHOTEL": {
   "entryDate": "2026-10-21",
   "entryPrice": 782.3,
@@ -262,6 +256,48 @@
   "entryDate": "2026-11-12",
   "entryPrice": 261.45,
   "rsRankAtEntry": 80.7766990291262,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "CYIENT": {
+  "entryDate": "2026-11-15",
+  "entryPrice": 1103.2,
+  "rsRankAtEntry": 80.42635658914729,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GESHIP": {
+  "entryDate": "2026-11-15",
+  "entryPrice": 1532.9,
+  "rsRankAtEntry": 80.81395348837209,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "KPRMILL": {
+  "entryDate": "2026-11-15",
+  "entryPrice": 1211,
+  "rsRankAtEntry": 81.0077519379845,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "NEULANDLAB": {
+  "entryDate": "2026-11-15",
+  "entryPrice": 21640,
+  "rsRankAtEntry": 82.17054263565892,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "TECHM": {
+  "entryDate": "2026-11-15",
+  "entryPrice": 1776.4,
+  "rsRankAtEntry": 80.03875968992247,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "VIJAYA": {
+  "entryDate": "2026-11-15",
+  "entryPrice": 1487.5,
+  "rsRankAtEntry": 81.97674418604652,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }
