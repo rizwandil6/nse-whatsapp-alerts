@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-15T15:27:03",
-  "title" : "SEBI chief sees mutual fund investor base growing to 26 crore in a decade",
-  "impact" : "Increased retail participation will provide structural liquidity and support for the Nifty 50. Expect long-term bullish sentiment for the broader Indian market with stable to strengthening rupee due to sustained domestic inflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Oct-2026 15:14 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-15T15:27:08",
   "title" : "The ₹1.32 lakh crore foreign bet on India's banks",
   "impact" : "Strong foreign inflows into banking indicate positive sentiment for Nifty 50, likely driving it toward record highs. Increased liquidity is expected to strengthen the Indian Rupee against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "17-Nov-2026 09:36 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-17T11:20:51",
+  "title" : "RBI may hike repo rate by 25-50 bps in December as inflation breaches 6%: Experts",
+  "impact" : "The Indian equity market is likely to face volatility as the shift toward a hawkish RBI stance dampens liquidity and sentiment. Nifty may face resistance near record highs, while the rupee is expected to find support from narrowing interest rate differentials.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Nov-2026 09:59 IST",
+  "score" : 7
 } ]
