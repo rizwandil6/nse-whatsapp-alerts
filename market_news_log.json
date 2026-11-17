@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-15T12:39:12",
-  "title" : "Auto industry posts stellar performance in H1 FY27 led by GST 2.0, resilient rural-urban demand",
-  "impact" : "The positive auto sector performance is expected to buoy investor sentiment and sustain Nifty momentum. Strong domestic demand and infrastructure linkages support a stable to slightly appreciating rupee outlook.",
-  "source" : "BusinessLine",
-  "publishedAt" : "15-Oct-2026 12:35 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-15T12:39:16",
   "title" : "Higher EMIs ahead: SBI increases lending rates",
   "impact" : "SBI rate hikes suggest a broader trend of rising cost of capital across the Indian banking sector. Expect Nifty to face short-term consolidation as credit growth costs weigh on corporate margins, with potential for slight rupee appreciation due to higher yield attractiveness.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian markets may face short-term volatility and downward pressure due to hawkish signals regarding US monetary policy. Nifty is expected to witness a consolidation phase as global liquidity tightens, likely causing moderate depreciation in the Indian Rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "17-Nov-2026 08:40 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-17T09:34:39",
+  "title" : "Wholesale inflation may average around 11% in FY27: UBI",
+  "impact" : "Persistently high wholesale inflation expectations may force the RBI to delay rate cuts, putting pressure on Nifty near-term. The rupee is likely to face depreciation headwinds due to elevated energy import costs and trade deficit concerns.",
+  "source" : "BusinessLine",
+  "publishedAt" : "17-Nov-2026 09:25 IST",
   "score" : 7
 } ]
