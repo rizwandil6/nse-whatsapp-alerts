@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-16T01:04:24",
-  "title" : "Auto sales gain festive momentum in Sept",
-  "impact" : "Strong auto performance boosts domestic consumption sentiment and industrial activity indices. Nifty is expected to lean bullish on retail and cyclical demand growth, while the rupee remains stable amid industrial expansion.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Oct-2026 00:21 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-16T02:19:41",
   "title" : "Beware! Blind investing in smallcaps won’t make you money as 148 of 250 stocks tumble in 2026",
   "impact" : "The Indian market faces a transition from broad rally to stock-specific volatility, with the Nifty likely to consolidate as investors rotate from expensive smallcaps to safer largecaps. Persistent FII selling and rising bond yields exert downward pressure on the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Geopolitical escalation in the Middle East will trigger a risk-off sentiment in Indian markets. Expect significant Nifty volatility with a downward bias and depreciation pressure on the Indian Rupee due to rising crude oil prices.",
   "source" : "Economic Times",
   "publishedAt" : "17-Nov-2026 12:07 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-17T19:26:52",
+  "title" : "Nvidia shares crash 24% amid Huang scandal. Why UBS sees 54% upside",
+  "impact" : "Global tech volatility driven by the Nvidia leadership crisis may cause opening weakness in Indian IT indices. Nifty is expected to witness short-term consolidation as investor sentiment towards AI-linked growth stories turns cautious, while the rupee remains pressured by global risk-off sentiments.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Nov-2026 15:35 IST",
   "score" : 7
 } ]
