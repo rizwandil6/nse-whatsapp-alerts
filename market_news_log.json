@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-15T15:27:08",
-  "title" : "The ₹1.32 lakh crore foreign bet on India's banks",
-  "impact" : "Strong foreign inflows into banking indicate positive sentiment for Nifty 50, likely driving it toward record highs. Increased liquidity is expected to strengthen the Indian Rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "15-Oct-2026 15:12 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-15T15:27:12",
   "title" : "Trump may soon decide India's fate over 100% tariff",
   "impact" : "The threat of 100% tariffs creates significant volatility, pressuring Nifty toward lower support levels due to export concerns. The Rupee is expected to weaken further against the Dollar as trade balance anxieties rise.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "17-Nov-2026 09:59 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-17T13:06:37",
+  "title" : "Tata stocks rally 9% as RBI pushes for D-St debut",
+  "impact" : "The potential IPO of Tata Capital is a major liquidity event likely to boost investor sentiment and drive capital inflows. Nifty is expected to see a bullish breakout on increased volumes, with the Rupee likely strengthening due to potential FII interest.",
+  "source" : "Economic Times",
+  "publishedAt" : "17-Nov-2026 10:02 IST",
+  "score" : 8
 } ]
