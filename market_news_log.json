@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-18T11:43:38",
-  "title" : "FPIs pull out ₹52,100 crore from equities in Oct so far amid global headwinds",
-  "impact" : "Sustained FPI outflows are exerting heavy selling pressure on Nifty, threatening to push it further below critical support levels. Expect continued volatility and further depreciation of the Rupee against the Dollar due to foreign capital flight.",
-  "source" : "BusinessLine",
-  "publishedAt" : "18-Oct-2026 11:27 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-18T11:58:42",
   "title" : "Trump's Iran endgame comes with a fuel-price vow",
   "impact" : "Heightened geopolitical risk in the Middle East typically triggers volatility and a flight to safety in Indian equities. Nifty may face downward pressure due to FII outflows, while the rupee remains vulnerable to higher oil prices and dollar strength.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising import costs increase fiscal pressure and inflation concerns, likely dragging Nifty lower. The rupee faces significant depreciation pressure against the dollar due to higher demand for foreign currency to fund energy imports.",
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "18-Nov-2026 20:56 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-18T21:53:57",
+  "title" : "Softer oil, global AI reset to boost India’s growth and FDI in FY28: CEA Nageswaran",
+  "impact" : "Lower oil prices reduce India's import bill and CAD, supporting Nifty performance. The rupee is expected to strengthen as easing global inflation pressures reduce volatility in foreign capital flows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "18-Nov-2026 21:45 IST",
   "score" : 7
 } ]
