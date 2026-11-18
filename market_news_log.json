@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-18T12:44:00",
-  "title" : "Market cap of 9 top firms surges ₹3.65 lakh crore; TCS leads gains",
-  "impact" : "Broad-based market rally fueled by large-cap gains suggests sustained positive momentum. Nifty is expected to test higher resistance levels as institutional confidence returns, likely strengthening the rupee against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "18-Oct-2026 12:29 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-18T15:45:10",
   "title" : "Jio Platforms IPO gets subscribe recommendations as brokerages cite strong earnings growth",
   "impact" : "The potential Jio IPO is a massive liquidity event that will boost investor sentiment and drive bullish momentum in Nifty. Strong earnings prospects from the RIL ecosystem may lead to foreign capital inflows strengthening the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Hawkish Fed minutes increase the likelihood of continued FII outflows from Indian markets. Nifty faces downward pressure toward key support levels as the US dollar strengthens, weighing heavily on the Indian Rupee.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 00:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T02:26:45",
+  "title" : "Federal Reserve Governor Christopher Waller presses for half-point December rate hike as inflation persists",
+  "impact" : "Hawkish US Fed signals will likely trigger volatility and foreign portfolio outflows from Indian equities. Nifty faces downward pressure toward key support levels, while the Rupee is expected to weaken against the strengthening Dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 01:39 IST",
   "score" : 7
 } ]
