@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-17T13:31:31",
-  "title" : "F&amp;O Talk: Nifty’s break above 23,450 could push index to 23,650; Sudeep Shah picks Tech Mahindra, TCS strategy",
-  "impact" : "The Indian market is showing signs of a tactical pullback driven by short covering and cooling bond yields. Nifty expects a potential rally toward 23,650 if it breaches the 23,450 resistance zone, with limited immediate impact expected on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "17-Oct-2026 12:57 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-17T14:47:01",
   "title" : "India’s Russian crude binge to continue after Trump waives new sanctions law",
   "impact" : "Lower crude import costs maintain stable domestic inflation and fiscal health. Nifty is expected to remain resilient on energy cost stability while the Rupee finds support against USD volatility.",
@@ -3497,5 +3490,12 @@
   "impact" : "The reduction in STT on cash equities will likely boost long-term retail inflows and improve market liquidity. Expect Nifty to see support from increased cash segment buying, while the rupee remains largely unaffected by these domestic tax policy changes.",
   "source" : "BusinessLine",
   "publishedAt" : "18-Nov-2026 13:27 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-18T16:34:44",
+  "title" : "India on track to hit $1 trillion exports this year: Commerce Secretary",
+  "impact" : "The export target signals robust industrial growth, likely boosting Nifty sentiment toward record highs. Increased foreign exchange inflows should provide structural support to the rupee against the dollar.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "18-Nov-2026 16:27 IST",
   "score" : 7
 } ]
