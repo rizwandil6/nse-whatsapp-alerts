@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-17T20:34:12",
-  "title" : "Q2 Results Highlights: HDFC Bank, ICICI Bank, Axis Bank, IDBI Bank, Central Bank of India post profit growth; YES Bank flags AT-1 bond ruling impact",
-  "impact" : "Strong bank earnings provide a solid support base for Nifty to sustain current levels. The positive momentum in financials may offset potential volatility from banking regulatory news and keep the rupee stable against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "17-Oct-2026 20:02 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-18T07:37:50",
   "title" : "Saudi Arabia’s Houthi trap: Who sets war’s price?",
   "impact" : "Geopolitical tensions in the Red Sea threaten to spike global energy costs and disrupt supply chains, potentially turning Nifty sentiment bearish. The rupee is expected to face pressure due to rising crude oil import bills and safe-haven demand for the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Robust export data signals resilient economic growth and boosts investor confidence in the Nifty 50. Improved trade balance expectations are likely to provide stability or slight appreciation to the Indian Rupee against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "18-Nov-2026 17:49 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-18T18:20:38",
+  "title" : "Markets rebound sharply after Diwali, but inflation clouds rate outlook",
+  "impact" : "The strong GDP growth signals a robust domestic economy, likely fueling Nifty momentum despite lingering inflation-led rate hike fears. The rupee may stabilize as positive growth data attracts foreign capital inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "18-Nov-2026 18:04 IST",
   "score" : 7
 } ]
