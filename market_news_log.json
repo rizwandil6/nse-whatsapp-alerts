@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-16T17:15:23",
-  "title" : "IT lifts Nifty to second weekly gain as global AI rotation fuels tech rally",
-  "impact" : "The Indian equity market maintains a positive momentum led by strong global IT performance. Nifty is expected to sustain its upward trajectory with possible consolidation at record levels. The rupee remains stable as capital inflows continue to support market liquidity.",
-  "source" : "BusinessLine",
-  "publishedAt" : "16-Oct-2026 17:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-17T05:19:54",
   "title" : "Brent crude hits $110 a barrel for first time since May as supply concerns mount",
   "impact" : "Rising crude prices will likely pressure Indian indices, with Nifty expected to face downward volatility. The rupee will likely weaken due to higher import bills and increased demand for foreign exchange.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger a risk-off sentiment in the Indian equity markets. Expect Nifty to face significant gap-down pressure, while the rupee is likely to weaken against the dollar due to rising oil price volatility.",
   "source" : "Economic Times",
   "publishedAt" : "18-Nov-2026 07:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-18T10:30:33",
+  "title" : "Nvidia delivers numbers beyond what Street hoped",
+  "impact" : "Positive spillover from Nvidia fuels optimism in Indian IT services and AI-related infrastructure sectors. Nifty is likely to see a bullish opening with tech stocks providing support, while the Rupee remains stable against the USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "18-Nov-2026 05:45 IST",
   "score" : 7
 } ]
