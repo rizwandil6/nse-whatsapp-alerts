@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-17T05:19:54",
-  "title" : "Brent crude hits $110 a barrel for first time since May as supply concerns mount",
-  "impact" : "Rising crude prices will likely pressure Indian indices, with Nifty expected to face downward volatility. The rupee will likely weaken due to higher import bills and increased demand for foreign exchange.",
-  "source" : "BusinessLine",
-  "publishedAt" : "17-Oct-2026 05:11 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-17T09:27:07",
   "title" : "Q2 Results Today Live: HDFC Bank, ICICI Bank, Axis Bank, IDBI Bank, YES Bank, Central Bank Of India, Punjab & Sind Bank Share to announce Q2 results",
   "impact" : "Massive earnings day for the banking sector will drive Nifty volatility and sector-specific rotation. The rupee is expected to remain stable despite high financial sector trading volumes.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive spillover from Nvidia fuels optimism in Indian IT services and AI-related infrastructure sectors. Nifty is likely to see a bullish opening with tech stocks providing support, while the Rupee remains stable against the USD.",
   "source" : "Economic Times",
   "publishedAt" : "18-Nov-2026 05:45 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-18T11:30:54",
+  "title" : "Bullet train to connect Delhi with Northeast",
+  "impact" : "The multi-billion dollar infrastructure project signals sustained government capital expenditure, supporting long-term Nifty growth. Increased FDI inflow expectations may strengthen the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "18-Nov-2026 11:08 IST",
   "score" : 7
 } ]
