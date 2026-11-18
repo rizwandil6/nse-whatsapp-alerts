@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-16T15:59:24",
-  "title" : "Is this the biggest crisis of MBS’s reign?",
-  "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger risk-off sentiment in Indian equity markets. Nifty may face sharp downward pressure due to FII outflows, while the Rupee is expected to weaken against the dollar due to rising oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "16-Oct-2026 15:31 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-16T17:15:23",
   "title" : "IT lifts Nifty to second weekly gain as global AI rotation fuels tech rally",
   "impact" : "The Indian equity market maintains a positive momentum led by strong global IT performance. Nifty is expected to sustain its upward trajectory with possible consolidation at record levels. The rupee remains stable as capital inflows continue to support market liquidity.",
@@ -3497,5 +3490,12 @@
   "impact" : "The escalating competition in the satellite internet space signals aggressive capital expenditure by major conglomerates. Nifty is expected to remain range-bound with high volatility in telecom-adjacent sectors while the rupee maintains stability against currency fluctuations.",
   "source" : "Economic Times",
   "publishedAt" : "18-Nov-2026 07:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-18T08:29:42",
+  "title" : "US strikes Iran's Qeshm Island missile site",
+  "impact" : "Heightened geopolitical tensions in the Middle East will likely trigger a risk-off sentiment in the Indian equity markets. Expect Nifty to face significant gap-down pressure, while the rupee is likely to weaken against the dollar due to rising oil price volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "18-Nov-2026 07:55 IST",
   "score" : 7
 } ]
