@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-18T11:58:42",
-  "title" : "Trump's Iran endgame comes with a fuel-price vow",
-  "impact" : "Heightened geopolitical risk in the Middle East typically triggers volatility and a flight to safety in Indian equities. Nifty may face downward pressure due to FII outflows, while the rupee remains vulnerable to higher oil prices and dollar strength.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Oct-2026 06:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-18T12:13:50",
   "title" : "Private capex cycle in India seen gaining traction as corporate, SME lending surges: Jefferies",
   "impact" : "The surge in credit growth signals strong economic expansion and capital formation, likely driving Nifty towards higher levels. Improved credit flow typically strengthens the rupee by attracting foreign investment in industrial and financial assets.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower oil prices reduce India's import bill and CAD, supporting Nifty performance. The rupee is expected to strengthen as easing global inflation pressures reduce volatility in foreign capital flows.",
   "source" : "BusinessLine",
   "publishedAt" : "18-Nov-2026 21:45 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-18T23:25:33",
+  "title" : "India's billion-dollar gold burden could nearly halve",
+  "impact" : "Reduced gold imports strengthen the current account deficit, providing a bullish tailwind for the rupee. This improvement in macro stability supports Nifty sentiment and potentially lowers inflationary pressures.",
+  "source" : "Economic Times",
+  "publishedAt" : "18-Nov-2026 18:17 IST",
   "score" : 7
 } ]
