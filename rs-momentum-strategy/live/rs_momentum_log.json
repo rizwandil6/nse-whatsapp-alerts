@@ -2782,5 +2782,26 @@
   "date": "2026-11-15",
   "price": 1487.5,
   "rsRankAtEntry": 81.97674418604652
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "ARVIND",
+  "date": "2026-11-16",
+  "price": 511.4,
+  "rsRankAtEntry": 80.03875968992247
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GRANULES",
+  "date": "2026-11-16",
+  "price": 815.5,
+  "rsRankAtEntry": 80.42635658914729
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PETRONET",
+  "date": "2026-11-16",
+  "price": 328.1,
+  "rsRankAtEntry": 80.23255813953489
  }
 ]

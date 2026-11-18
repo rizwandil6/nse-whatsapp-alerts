@@ -300,5 +300,26 @@
   "rsRankAtEntry": 81.97674418604652,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "ARVIND": {
+  "entryDate": "2026-11-16",
+  "entryPrice": 511.4,
+  "rsRankAtEntry": 80.03875968992247,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GRANULES": {
+  "entryDate": "2026-11-16",
+  "entryPrice": 815.5,
+  "rsRankAtEntry": 80.42635658914729,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "PETRONET": {
+  "entryDate": "2026-11-16",
+  "entryPrice": 328.1,
+  "rsRankAtEntry": 80.23255813953489,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
