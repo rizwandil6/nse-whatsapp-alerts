@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-18T11:28:30",
-  "title" : "India’s fuel exports to West jump 43%",
-  "impact" : "Increased fuel exports will improve current account balances and provide support for the Nifty index. Expect positive sentiment for energy-linked indices and a stabilizing effect on the rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Oct-2026 10:58 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-18T11:43:38",
   "title" : "FPIs pull out ₹52,100 crore from equities in Oct so far amid global headwinds",
   "impact" : "Sustained FPI outflows are exerting heavy selling pressure on Nifty, threatening to push it further below critical support levels. Expect continued volatility and further depreciation of the Rupee against the Dollar due to foreign capital flight.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global tech disruptions trigger risk-off sentiment in Indian indices, likely leading to a gap-down opening for Nifty. Increased volatility is expected as investors pivot toward defensive assets and the rupee faces depreciation pressure against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "18-Nov-2026 13:42 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-18T21:07:44",
+  "title" : "India’s Oct. crude import bill soars 87.5% to $19.5-bn amid West Asia tensions, volumes up 11%",
+  "impact" : "Rising import costs increase fiscal pressure and inflation concerns, likely dragging Nifty lower. The rupee faces significant depreciation pressure against the dollar due to higher demand for foreign currency to fund energy imports.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "18-Nov-2026 20:56 IST",
   "score" : 7
 } ]
