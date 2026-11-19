@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-18T17:15:31",
-  "title" : "Crude oil likely to gain further next week as supply fears overshadow relief measures: Analysts",
-  "impact" : "Rising crude oil prices will pressure Indian indices as they increase import costs and fiscal deficit concerns. Nifty is expected to face resistance near key levels, while the rupee likely faces depreciation against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "18-Oct-2026 16:59 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-18T18:46:03",
   "title" : "Gold and silver head for volatile week amid crude oil spike, West Asia worries",
   "impact" : "Rising crude oil prices and geopolitical tensions create a cautious environment for Indian equities. Nifty may face selling pressure due to FII outflows, while the rupee is likely to weaken against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "https://www.thehindu.com/business/Economy/?service=rss",
   "publishedAt" : "18-Nov-2026 23:54 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-19T08:12:52",
+  "title" : "India wants a seat at silicon table. But price is high",
+  "impact" : "India's push into semiconductor manufacturing is a long-term structural tailwind for industrial and tech capex. Nifty may see volatility in tech-heavy indices, while the rupee could face pressure from massive initial capital import requirements.",
+  "source" : "Economic Times",
+  "publishedAt" : "18-Nov-2026 17:51 IST",
+  "score" : 7
 } ]
