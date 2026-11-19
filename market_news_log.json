@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T07:18:36",
-  "title" : "Jio Platforms IPO, Paras Healthcare issue to drive primary market activity this week",
-  "impact" : "The massive Jio Platforms IPO will trigger significant liquidity absorption, potentially creating short-term volatility in the Nifty. Expect institutional churn as capital rotates toward primary market blockbusters, keeping the index range-bound while the rupee stays under pressure due to capital outflow for subscription.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Oct-2026 06:20 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-10-19T08:45:05",
   "title" : "Q2 Results Today Live: Bajaj Finance, UltraTech Cement, Hindustan Zinc, Union Bank of India, LTTS, Piramal Finance, IREDA to announce Q2 results, HDFC Bank, Axis Bank, ICICI Bank, Yes Bank shares in focus after Q2 results",
   "impact" : "Heavy Q2 earnings volume will drive sector-specific volatility and stock-level price discovery. Nifty is expected to consolidate with a strong bias toward banking and infrastructure performance. The rupee remains stable but could face pressure if major financials disappoint.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global geopolitical uncertainty risks triggering risk-off sentiment in Indian markets. Nifty may face volatility and downward pressure due to foreign institutional outflows, while the rupee could weaken against the dollar amid global safe-haven demand.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 09:02 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T10:44:53",
+  "title" : "Goldman Sachs sees global equities rallying in 2027, forecasts up to 24% returns",
+  "impact" : "Global liquidity inflow expectation supports a bullish outlook for Indian equities. Nifty 50 likely to retest record highs on FII interest, while rupee may stabilize against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "19-Nov-2026 10:37 IST",
   "score" : 7
 } ]
