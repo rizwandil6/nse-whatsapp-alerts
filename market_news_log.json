@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T19:25:13",
-  "title" : "The cost of getting goods to India just surged 130%",
-  "impact" : "Surging logistics costs threaten corporate margins and increase inflationary pressure in India. Expect Nifty to face short-term volatility and a bearish bias due to supply-side constraints. The rupee may face depreciation pressure as import costs of essential goods rise.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Oct-2026 15:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-19T23:40:39",
   "title" : "HDFC Bank vs ICICI Bank: One has the growth, the other has the valuation edge. Which stock to buy?",
   "impact" : "The divergence between banking giants signals a shift toward growth-focused stock picking over value plays. Nifty likely faces consolidation as HDFC Bank weightage drags while ICICI Bank provides stability.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sensex hitting the 83,000 psychological milestone signals strong investor confidence and sustained momentum. Nifty is expected to sustain its upward trajectory with possible profit booking, while the INR may stabilize against the USD due to increased FII inflows.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 14:51 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T19:21:55",
+  "title" : "India is number one in road connectivity: Gadkari",
+  "impact" : "Enhanced road infrastructure reduces logistics costs, boosting long-term economic growth and FDI appeal. Nifty expected to maintain a positive bias while the Rupee remains stable against dollar outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "19-Nov-2026 18:29 IST",
   "score" : 7
 } ]
