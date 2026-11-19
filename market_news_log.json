@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T16:37:14",
-  "title" : "Sensex tumbles 876 points; Nifty drops below 22,900 dragged by private banks",
-  "impact" : "The Indian equity market is currently facing a sharp correction led by heavy selling in banking majors. Nifty is expected to witness further consolidation below the 22,900 mark, while the rupee may face moderate pressure due to potential FII outflows.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "19-Oct-2026 16:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-19T16:37:19",
   "title" : "₹5 lakh crore wiped out as Sensex sinks 900 points",
   "impact" : "The sharp 900-point decline signals a broad risk-off sentiment across Indian equities. Nifty faces strong downward pressure as technical support levels are breached, and the rupee is likely to face depreciation due to potential foreign institutional capital outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Increased FII inflows are providing immediate liquidity support to the Indian equity markets. Nifty is expected to remain in a consolidation zone with a slight bullish bias, while the rupee faces upward pressure from sustained capital inflows.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 14:58 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T16:04:11",
+  "title" : "India not out of the woods on crude risks: Puri",
+  "impact" : "Heightened crude oil volatility poses systemic risk to India's fiscal deficit and trade balance. Expect Nifty to face selling pressure due to FII outflows, with the rupee likely weakening toward 84.50 levels.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 15:13 IST",
   "score" : 7
 } ]
