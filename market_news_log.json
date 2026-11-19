@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-18T15:45:10",
-  "title" : "Jio Platforms IPO gets subscribe recommendations as brokerages cite strong earnings growth",
-  "impact" : "The potential Jio IPO is a massive liquidity event that will boost investor sentiment and drive bullish momentum in Nifty. Strong earnings prospects from the RIL ecosystem may lead to foreign capital inflows strengthening the rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "18-Oct-2026 15:38 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-18T16:30:19",
   "title" : "ICICI Bank profit spurts 20% on NII; core profitability a tad lower on FCNR(B)",
   "impact" : "HDFC Bank results reflect margin pressure in the banking sector, likely keeping Nifty consolidation bias intact. The focus on NIM compression may lead to cautious sentiment regarding financial stocks until interest rate clarity improves.",
@@ -3497,5 +3490,12 @@
   "impact" : "Hawkish US Fed signals will likely trigger volatility and foreign portfolio outflows from Indian equities. Nifty faces downward pressure toward key support levels, while the Rupee is expected to weaken against the strengthening Dollar.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 01:39 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T07:27:38",
+  "title" : "Trump meets Xi, Putin in China: What's on table?",
+  "impact" : "High-level geopolitical meetings create optimism for global trade stability, likely supporting a bullish Nifty trend. Potential easing of trade tensions may strengthen the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 06:52 IST",
   "score" : 7
 } ]
