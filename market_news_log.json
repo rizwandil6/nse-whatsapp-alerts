@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-18T23:02:07",
-  "title" : "Europe refused China, India oil sanctions",
-  "impact" : "The 60-day sanctions waiver provides a short-term relief rally for Indian markets by removing immediate supply chain uncertainty. Nifty is likely to trade with a positive bias, while the rupee may find support as energy import costs remain stabilized.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Oct-2026 22:16 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-19T06:03:01",
   "title" : "Nifty gains 3% as analysts predict recovery; key resistance levels ahead",
   "impact" : "The Indian market exhibits a cautious bullish bias as Nifty reclaims key moving averages, though significant resistance levels loom overhead. Continued recovery depends on clearing the 23,400-23,600 zone, with steady sentiment supportive of the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global inflationary pressure and tighter monetary policy expectations will likely dampen foreign institutional inflows into Indian equities. Nifty faces downward pressure toward key support levels as the rupee weakens against the dollar due to a higher interest rate environment.",
   "source" : "BusinessLine",
   "publishedAt" : "19-Nov-2026 08:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T09:13:38",
+  "title" : "Fed's rate pause may give way to a bigger hike",
+  "impact" : "The possibility of a surprise rate hike by the Fed will likely trigger foreign portfolio outflows from Indian equities. Nifty faces strong downside pressure towards support levels as global liquidity tightens, likely causing the Rupee to depreciate against the USD.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 08:45 IST",
   "score" : 7
 } ]
