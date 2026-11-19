@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T06:33:12",
-  "title" : "Multimodal, cost-efficient transport",
-  "impact" : "Positive sentiment for infrastructure and logistics sectors likely to bolster Nifty momentum. Expected efficiency gains in supply chain may reduce domestic inflationary pressures and stabilize the rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "18-Oct-2026 23:28 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-19T07:18:36",
   "title" : "Jio Platforms IPO, Paras Healthcare issue to drive primary market activity this week",
   "impact" : "The massive Jio Platforms IPO will trigger significant liquidity absorption, potentially creating short-term volatility in the Nifty. Expect institutional churn as capital rotates toward primary market blockbusters, keeping the index range-bound while the rupee stays under pressure due to capital outflow for subscription.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened geopolitical uncertainty regarding trade and defense alliances may trigger cautious foreign institutional investor outflows. Nifty is expected to witness volatility with a bearish bias as global risk appetite diminishes. The Indian Rupee may face depreciation pressure against the US Dollar due to safe-haven demand.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 09:19 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T09:59:34",
+  "title" : "Trump, Xi &amp; Putin: A photo-op with bigger stakes",
+  "impact" : "Global geopolitical uncertainty risks triggering risk-off sentiment in Indian markets. Nifty may face volatility and downward pressure due to foreign institutional outflows, while the rupee could weaken against the dollar amid global safe-haven demand.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 09:02 IST",
   "score" : 7
 } ]
