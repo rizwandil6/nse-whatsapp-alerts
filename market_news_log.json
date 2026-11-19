@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-20T07:58:46",
-  "title" : "A new Chinese export curb could hit India hard",
-  "impact" : "The export curbs threaten to disrupt supply chains and inflate raw material costs for domestic manufacturers. Nifty may face downward pressure due to sector-specific margin compression and currency volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Oct-2026 18:34 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-20T07:58:49",
   "title" : "How midterm results could shape Trump's final years",
   "impact" : "Trump victory scenarios generally favor US-centric exports and domestic defense spending, potentially increasing volatility in Indian IT and Pharma. Nifty may face initial uncertainty due to protectionist trade rhetoric, while the Rupee is likely to weaken against a stronger Dollar index.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for India-US strategic alignment supports long-term structural inflows. Nifty may witness bullish momentum on manufacturing and export optimism with stable rupee outlook.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 21:52 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T23:35:34",
+  "title" : "What Trump, Xi, Putin's historic meeting achieved",
+  "impact" : "A high-level meeting involving global powers creates geopolitical uncertainty, likely leading to volatility in the Nifty. Expect a flight to safety in the rupee and a cautious approach from foreign institutional investors.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 22:38 IST",
   "score" : 7
 } ]
