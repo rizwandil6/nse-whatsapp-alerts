@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-20T07:58:49",
-  "title" : "How midterm results could shape Trump's final years",
-  "impact" : "Trump victory scenarios generally favor US-centric exports and domestic defense spending, potentially increasing volatility in Indian IT and Pharma. Nifty may face initial uncertainty due to protectionist trade rhetoric, while the Rupee is likely to weaken against a stronger Dollar index.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Oct-2026 07:22 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-20T15:03:45",
   "title" : "Rubio kicks off India visit with trade deal, Russian oil on agenda",
   "impact" : "The visit signals strengthening of US-India strategic ties, likely boosting investor sentiment and providing stability for Nifty. Increased energy and trade dialogues may support the Rupee against the dollar in the near term.",
@@ -3497,5 +3490,12 @@
   "impact" : "A high-level meeting involving global powers creates geopolitical uncertainty, likely leading to volatility in the Nifty. Expect a flight to safety in the rupee and a cautious approach from foreign institutional investors.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 22:38 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-20T05:21:20",
+  "title" : "US stocks tumble 2% as Anthropic IPO fails to revive AI trade optimism",
+  "impact" : "Indian markets will likely open lower tracking global risk-off sentiment and tech weakness. Nifty is expected to test immediate support levels as FII selling intensifies. Rupee may face depreciation pressure against the US dollar due to safe-haven buying.",
+  "source" : "BusinessLine",
+  "publishedAt" : "20-Nov-2026 05:17 IST",
   "score" : 7
 } ]
