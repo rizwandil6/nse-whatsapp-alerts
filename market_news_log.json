@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T18:24:22",
-  "title" : "$64 bn outflow erased 9 yrs of buying",
-  "impact" : "The record FII selling creates significant headwinds for large-cap indices like Nifty 50, necessitating strong domestic buying to prevent further corrections. Expect persistent volatility and pressure on the rupee as high US Treasury yields and crude prices limit foreign appetite.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Oct-2026 09:45 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-19T19:25:13",
   "title" : "The cost of getting goods to India just surged 130%",
   "impact" : "Surging logistics costs threaten corporate margins and increase inflationary pressure in India. Expect Nifty to face short-term volatility and a bearish bias due to supply-side constraints. The rupee may face depreciation pressure as import costs of essential goods rise.",
@@ -3497,5 +3490,12 @@
   "impact" : "Long-term structural bullishness for Indian markets driven by massive energy capex. Nifty likely to see sustained support from industrial and infrastructure heavyweights. Rupee may face pressure due to higher import bills for energy needs.",
   "source" : "BusinessLine",
   "publishedAt" : "19-Nov-2026 17:10 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T18:35:35",
+  "title" : "Sensex crosses 83,000 for first time since Iran war",
+  "impact" : "Sensex hitting the 83,000 psychological milestone signals strong investor confidence and sustained momentum. Nifty is expected to sustain its upward trajectory with possible profit booking, while the INR may stabilize against the USD due to increased FII inflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 14:51 IST",
   "score" : 7
 } ]
