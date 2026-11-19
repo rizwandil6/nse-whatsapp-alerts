@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T06:18:05",
-  "title" : "Oil tanker on fire in Hormuz",
-  "impact" : "Heightened geopolitical risk in the Strait of Hormuz will trigger a risk-off sentiment in Indian markets. Nifty is expected to open with a downward gap due to soaring crude oil prices, while the Rupee will face significant depreciation pressure against the USD.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Oct-2026 06:11 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-19T06:18:09",
   "title" : "Mutual fund holdings of IT stocks sink to record low in September",
   "impact" : "The reduction in IT sector weights by major mutual funds reflects a structural de-rating that could weigh on Nifty stability. Expect continued volatility in large-cap indices as institutional capital rotates away from tech towards cyclical sectors.",
@@ -3497,5 +3490,12 @@
   "impact" : "Increased AUM penetration will provide sustained long-term domestic liquidity flow into Indian equities. Nifty expected to see structural support as retail participation grows and rupee likely stabilizes due to consistent domestic institutional inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "18-Nov-2026 21:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T09:58:58",
+  "title" : "Nifty opens below 25,200; IT bleeds as Fed jitters, Anthropic IPO reshape market mood",
+  "impact" : "The Indian market faces downward pressure due to global risk-off sentiment and Fed hawkishness. Nifty is expected to remain volatile below the 25,200 level while the strengthening dollar exerts depreciation pressure on the rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "19-Nov-2026 09:48 IST",
   "score" : 7
 } ]
