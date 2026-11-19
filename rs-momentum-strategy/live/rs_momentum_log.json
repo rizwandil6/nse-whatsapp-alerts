@@ -2803,5 +2803,33 @@
   "date": "2026-11-16",
   "price": 328.1,
   "rsRankAtEntry": 80.23255813953489
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "AXISCADES",
+  "date": "2026-11-17",
+  "price": 1915.8,
+  "rsRankAtEntry": 82.04633204633205
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "BELRISE",
+  "date": "2026-11-17",
+  "price": 234.48,
+  "rsRankAtEntry": 80.5019305019305
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "DLF",
+  "date": "2026-11-17",
+  "price": 764.3,
+  "rsRankAtEntry": 80.3088803088803
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "GMMPFAUDLR",
+  "date": "2026-11-17",
+  "price": 1190.6,
+  "rsRankAtEntry": 80.6949806949807
  }
 ]

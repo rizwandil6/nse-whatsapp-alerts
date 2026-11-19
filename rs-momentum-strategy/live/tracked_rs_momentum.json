@@ -321,5 +321,33 @@
   "rsRankAtEntry": 80.23255813953489,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "AXISCADES": {
+  "entryDate": "2026-11-17",
+  "entryPrice": 1915.8,
+  "rsRankAtEntry": 82.04633204633205,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "BELRISE": {
+  "entryDate": "2026-11-17",
+  "entryPrice": 234.48,
+  "rsRankAtEntry": 80.5019305019305,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "DLF": {
+  "entryDate": "2026-11-17",
+  "entryPrice": 764.3,
+  "rsRankAtEntry": 80.3088803088803,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "GMMPFAUDLR": {
+  "entryDate": "2026-11-17",
+  "entryPrice": 1190.6,
+  "rsRankAtEntry": 80.6949806949807,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }
