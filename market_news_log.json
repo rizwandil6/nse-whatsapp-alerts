@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-18T18:46:03",
-  "title" : "Gold and silver head for volatile week amid crude oil spike, West Asia worries",
-  "impact" : "Rising crude oil prices and geopolitical tensions create a cautious environment for Indian equities. Nifty may face selling pressure due to FII outflows, while the rupee is likely to weaken against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "18-Oct-2026 18:43 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-18T23:02:07",
   "title" : "Europe refused China, India oil sanctions",
   "impact" : "The 60-day sanctions waiver provides a short-term relief rally for Indian markets by removing immediate supply chain uncertainty. Nifty is likely to trade with a positive bias, while the rupee may find support as energy import costs remain stabilized.",
@@ -3497,5 +3490,12 @@
   "impact" : "India's push into semiconductor manufacturing is a long-term structural tailwind for industrial and tech capex. Nifty may see volatility in tech-heavy indices, while the rupee could face pressure from massive initial capital import requirements.",
   "source" : "Economic Times",
   "publishedAt" : "18-Nov-2026 17:51 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T09:13:21",
+  "title" : "IMF chief calls for tighter monetary policy as global inflation rises to 4.7%",
+  "impact" : "Global inflationary pressure and tighter monetary policy expectations will likely dampen foreign institutional inflows into Indian equities. Nifty faces downward pressure toward key support levels as the rupee weakens against the dollar due to a higher interest rate environment.",
+  "source" : "BusinessLine",
+  "publishedAt" : "19-Nov-2026 08:57 IST",
   "score" : 7
 } ]
