@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-18T16:30:19",
-  "title" : "ICICI Bank profit spurts 20% on NII; core profitability a tad lower on FCNR(B)",
-  "impact" : "HDFC Bank results reflect margin pressure in the banking sector, likely keeping Nifty consolidation bias intact. The focus on NIM compression may lead to cautious sentiment regarding financial stocks until interest rate clarity improves.",
-  "source" : "Economic Times",
-  "publishedAt" : "18-Oct-2026 10:12 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-18T17:15:31",
   "title" : "Crude oil likely to gain further next week as supply fears overshadow relief measures: Analysts",
   "impact" : "Rising crude oil prices will pressure Indian indices as they increase import costs and fiscal deficit concerns. Nifty is expected to face resistance near key levels, while the rupee likely faces depreciation against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 06:52 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-19T08:12:49",
+  "title" : "How AI could reshape global growth and productivity",
+  "impact" : "AI integration will likely drive long-term structural efficiency, favoring large-cap IT and infrastructure automation. Nifty may face short-term volatility as capital shifts toward high-tech productivity plays, while the Rupee should stabilize on improved export services growth.",
+  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
+  "publishedAt" : "18-Nov-2026 23:54 IST",
+  "score" : 8
 } ]
