@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T06:18:09",
-  "title" : "Mutual fund holdings of IT stocks sink to record low in September",
-  "impact" : "The reduction in IT sector weights by major mutual funds reflects a structural de-rating that could weigh on Nifty stability. Expect continued volatility in large-cap indices as institutional capital rotates away from tech towards cyclical sectors.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Oct-2026 06:10 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-19T06:33:12",
   "title" : "Multimodal, cost-efficient transport",
   "impact" : "Positive sentiment for infrastructure and logistics sectors likely to bolster Nifty momentum. Expected efficiency gains in supply chain may reduce domestic inflationary pressures and stabilize the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market faces downward pressure due to global risk-off sentiment and Fed hawkishness. Nifty is expected to remain volatile below the 25,200 level while the strengthening dollar exerts depreciation pressure on the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "19-Nov-2026 09:48 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T09:59:15",
+  "title" : "Europe exposed as Trump-Xi-Putin meet",
+  "impact" : "Heightened geopolitical uncertainty regarding trade and defense alliances may trigger cautious foreign institutional investor outflows. Nifty is expected to witness volatility with a bearish bias as global risk appetite diminishes. The Indian Rupee may face depreciation pressure against the US Dollar due to safe-haven demand.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 09:19 IST",
   "score" : 7
 } ]
