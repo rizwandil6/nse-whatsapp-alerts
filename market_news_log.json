@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T11:19:23",
-  "title" : "Worried about hike? Check your firm's financials",
-  "impact" : "Rising interest rates typically lead to market consolidation as borrowing costs weigh on corporate margins. Nifty is expected to face resistance at higher levels with the rupee likely under pressure against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Oct-2026 06:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-19T13:05:08",
   "title" : "PSU bank stocks soar up to 8%, but HDFC, Axis and other private lenders fall up to 5% after Q2 results. Why the sharp divide?",
   "impact" : "The sharp divide between PSU and private banks is likely to cause index volatility as financials carry heavy weightage in the Nifty. Markets may consolidate near support levels of 55,200 for the bank index while individual earnings remain the primary driver for price action.",
@@ -3497,5 +3490,12 @@
   "impact" : "PMs India first pitch signals long-term policy continuity and robust domestic capex push. Nifty likely to see sustained buying interest in industrial and infrastructure themes with the Rupee remaining stable on foreign investment optimism.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 11:44 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T13:01:57",
+  "title" : "Tata Sons may shift listing onus to board, chair",
+  "impact" : "The potential listing of Tata Sons represents a massive liquidity event for the Indian markets. Expect mid-term volatility in Tata group stocks as they adjust to governance changes and potential index rebalancing.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 06:00 IST",
   "score" : 7
 } ]
