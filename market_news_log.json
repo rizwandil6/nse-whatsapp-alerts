@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T16:37:19",
-  "title" : "₹5 lakh crore wiped out as Sensex sinks 900 points",
-  "impact" : "The sharp 900-point decline signals a broad risk-off sentiment across Indian equities. Nifty faces strong downward pressure as technical support levels are breached, and the rupee is likely to face depreciation due to potential foreign institutional capital outflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Oct-2026 10:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-19T16:52:32",
   "title" : "Sensex today | Stock Market Highlights: Sensex, Nifty close over 1% lower; private bank, IT stocks push markets lower",
   "impact" : "The Indian equity market remains under selling pressure with a bearish trend following a sharp decline in key index heavyweights. Nifty is likely to test lower support levels as market sentiment weakens. The rupee may face renewed pressure due to sustained foreign institutional selling.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened crude oil volatility poses systemic risk to India's fiscal deficit and trade balance. Expect Nifty to face selling pressure due to FII outflows, with the rupee likely weakening toward 84.50 levels.",
   "source" : "Economic Times",
   "publishedAt" : "19-Nov-2026 15:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T17:04:36",
+  "title" : "Nifty claws back 286 points; Bank Nifty scales fresh all-time high on Auto, Banking surge",
+  "impact" : "The Indian equity market demonstrates strong bullish momentum with a sharp V-shaped recovery. Nifty is expected to sustain its upward trajectory towards new highs while the rupee remains stable amid positive institutional sentiment.",
+  "source" : "BusinessLine",
+  "publishedAt" : "19-Nov-2026 17:00 IST",
   "score" : 7
 } ]
