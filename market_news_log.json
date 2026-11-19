@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-19T11:19:12",
-  "title" : "Marco Rubio gives big update on India-US deal",
-  "impact" : "Strengthening US-India strategic ties reinforces investor sentiment and FII inflows. Nifty is expected to sustain upward momentum with support near key levels while the rupee could see stability against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "19-Oct-2026 10:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-19T11:19:23",
   "title" : "Worried about hike? Check your firm's financials",
   "impact" : "Rising interest rates typically lead to market consolidation as borrowing costs weigh on corporate margins. Nifty is expected to face resistance at higher levels with the rupee likely under pressure against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for capital intensive sectors, likely providing a floor to Nifty during sessions of policy rollout. Potential stabilization of the Rupee as long-term domestic financing reduces reliance on external commercial borrowings.",
   "source" : "BusinessLine",
   "publishedAt" : "19-Nov-2026 10:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-19T12:16:06",
+  "title" : "PM Modi's 'India first' pitch to India Inc",
+  "impact" : "PMs India first pitch signals long-term policy continuity and robust domestic capex push. Nifty likely to see sustained buying interest in industrial and infrastructure themes with the Rupee remaining stable on foreign investment optimism.",
+  "source" : "Economic Times",
+  "publishedAt" : "19-Nov-2026 11:44 IST",
   "score" : 7
 } ]
