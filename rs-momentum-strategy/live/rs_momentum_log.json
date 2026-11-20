@@ -2831,5 +2831,26 @@
   "date": "2026-11-17",
   "price": 1190.6,
   "rsRankAtEntry": 80.6949806949807
+ },
+ {
+  "type": "EXIT",
+  "symbol": "VIYASH",
+  "date": "2026-11-18",
+  "price": 235.84,
+  "pnlPct": -13.102431834929984
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "MINDACORP",
+  "date": "2026-11-18",
+  "price": 753.2,
+  "rsRankAtEntry": 82.65895953757226
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "MOTHERSON",
+  "date": "2026-11-18",
+  "price": 165.44,
+  "rsRankAtEntry": 81.5028901734104
  }
 ]

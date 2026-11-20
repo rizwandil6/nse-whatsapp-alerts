@@ -120,12 +120,6 @@
   "rsRankAtEntry": 81.06508875739645,
   "salesGrowth3Y": 25
  },
- "VIYASH": {
-  "entryDate": "2026-08-18",
-  "entryPrice": 271.4,
-  "rsRankAtEntry": 80.27613412228797,
-  "salesGrowth3Y": 34
- },
  "ENTERO": {
   "entryDate": "2026-08-23",
   "entryPrice": 1529.8,
@@ -347,6 +341,20 @@
   "entryDate": "2026-11-17",
   "entryPrice": 1190.6,
   "rsRankAtEntry": 80.6949806949807,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "MINDACORP": {
+  "entryDate": "2026-11-18",
+  "entryPrice": 753.2,
+  "rsRankAtEntry": 82.65895953757226,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "MOTHERSON": {
+  "entryDate": "2026-11-18",
+  "entryPrice": 165.44,
+  "rsRankAtEntry": 81.5028901734104,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
  }
