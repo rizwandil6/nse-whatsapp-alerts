@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-20T16:05:15",
-  "title" : "Rubio returns to India as trade deal nears",
-  "impact" : "The potential trade deal is expected to boost investor sentiment and long-term capital inflows into the Indian markets. Nifty is likely to trade with a bullish bias as trade barriers ease, while the Rupee may see modest appreciation due to expected improvements in trade balance.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Oct-2026 14:56 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-20T16:20:32",
   "title" : "Giant 'heat storms' are scorching the Earth",
   "impact" : "Extreme heat-driven operational disruptions and inflation risks weigh on broad market sentiment. Nifty faces volatility as heat-sensitive consumption and agriculture sectors face margin pressure. The rupee may face downward pressure due to rising food import bills and energy demand.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "20-Nov-2026 05:48 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-11-20T06:21:39",
+  "title" : "India turns net overweight among Asia-Pacific fund managers after 10 months",
+  "impact" : "Institutional sentiment shift to net overweight supports Nifty consolidation and potential upside. Increased FII interest provides a floor for the rupee despite broader regional rotation trends.",
+  "source" : "Economic Times",
+  "publishedAt" : "20-Nov-2026 05:57 IST",
+  "score" : 7
 } ]
