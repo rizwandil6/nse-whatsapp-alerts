@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-21T17:12:57",
-  "title" : "Rupee closes at six-week high of 94.43 driven by Jio IPO, RBI intervention",
-  "impact" : "The strengthening rupee boosts market sentiment, particularly for sectors reliant on dollar-denominated imports. Nifty is expected to sustain upward momentum as foreign capital inflows intensify, providing macro-economic stability.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "21-Oct-2026 17:02 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-21T17:29:39",
   "title" : "India’s infra output jumps 7.9% in Sept",
   "impact" : "The strong core sector growth suggests robust underlying economic momentum, likely sustaining the Nifty's positive outlook. Increased industrial activity and capital expenditure expectations may provide support to the Rupee against the dollar.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "20-Nov-2026 13:08 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-20T15:26:58",
+  "title" : "India’s capital goods market could reach $1.2 trillion by 2047, CII-BCG report says",
+  "impact" : "The report signals a multi-decadal structural bull run for Indian manufacturing and infrastructure. Nifty is expected to maintain a positive bias with increased foreign capital inflows, while the rupee may face pressure from high import requirements for capital equipment.",
+  "source" : "BusinessLine",
+  "publishedAt" : "20-Nov-2026 15:16 IST",
+  "score" : 8
 } ]
