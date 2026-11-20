@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-22T15:00:16",
-  "title" : "India's interest rate gap with G7 in focus as RBI weighs inflation risks: Report",
-  "impact" : "The widening interest rate differential pressure is likely to trigger FII outflows from Indian equities, keeping Nifty under bearish pressure. The Rupee is expected to face continued depreciation risks against the strengthening US Dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "22-Oct-2026 14:56 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-22T15:00:54",
   "title" : "India's repo gap with G7 in focus amid inflation",
   "impact" : "The expectation of rate hikes and a narrowing interest rate gap signals a hawkish shift, likely capping Nifty upside. The rupee may find some support from higher yields, but the broader equity market faces pressure from increased borrowing costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global volatility spillover is tightening Indian liquidity and forcing a rethink on high-valuation growth stocks. Expect Nifty to consolidate with a downward bias while the rupee faces pressure from rising dollar demand.",
   "source" : "Economic Times",
   "publishedAt" : "20-Nov-2026 14:00 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-20T19:32:46",
+  "title" : "Infra sector growth hits new-series high of 10.9% in Oct, driven by higher iron-ore, electricity production",
+  "impact" : "The strong core sector growth acts as a macroeconomic tailwind for the Nifty 50, supporting a bullish trend for the index. The increased industrial output is likely to stabilize the Rupee against the dollar due to improved domestic economic outlook.",
+  "source" : "BusinessLine",
+  "publishedAt" : "20-Nov-2026 19:20 IST",
   "score" : 7
 } ]
