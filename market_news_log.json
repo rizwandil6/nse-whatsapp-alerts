@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-21T17:29:39",
-  "title" : "India’s infra output jumps 7.9% in Sept",
-  "impact" : "The strong core sector growth suggests robust underlying economic momentum, likely sustaining the Nifty's positive outlook. Increased industrial activity and capital expenditure expectations may provide support to the Rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "21-Oct-2026 17:08 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-21T18:17:03",
   "title" : "Ambani's got Wall Street's wonder kid on speed dial",
   "impact" : "The strategic alignment suggests deeper institutional integration for Reliance, likely boosting Nifty sentiment. Expected index trend is positive with potential for short-term currency appreciation due to increased foreign capital inflow.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "20-Nov-2026 15:16 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-20T15:42:04",
+  "title" : "India Inc. posts strongest earnings quarter since late 2023, full-year growth seen at 14%",
+  "impact" : "Strong earnings support a bullish outlook for Indian equities, boosting investor confidence. Nifty is expected to maintain upward momentum, while improved corporate profitability helps stabilize the rupee against volatility.",
+  "source" : "BusinessLine",
+  "publishedAt" : "20-Nov-2026 15:37 IST",
+  "score" : 7
 } ]
