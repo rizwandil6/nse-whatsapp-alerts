@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-20T16:20:32",
-  "title" : "Giant 'heat storms' are scorching the Earth",
-  "impact" : "Extreme heat-driven operational disruptions and inflation risks weigh on broad market sentiment. Nifty faces volatility as heat-sensitive consumption and agriculture sectors face margin pressure. The rupee may face downward pressure due to rising food import bills and energy demand.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Oct-2026 15:56 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-20T17:07:19",
   "title" : "Rubio says U.S. to discuss refining Venezuelan crude with Reliance, adds India made ‘substantial progress’ in diversifying energy supplies",
   "impact" : "The positive diplomatic developments regarding trade and energy supply chains are likely to bolster investor sentiment. Nifty may witness a relief rally towards overhead resistance levels, while the rupee could see modest appreciation on the back of stabilized energy import costs and improved U.S.-India trade relations.",
@@ -3497,5 +3490,12 @@
   "impact" : "Institutional sentiment shift to net overweight supports Nifty consolidation and potential upside. Increased FII interest provides a floor for the rupee despite broader regional rotation trends.",
   "source" : "Economic Times",
   "publishedAt" : "20-Nov-2026 05:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-20T09:07:50",
+  "title" : "Bonds vs equities: India’s stock market rally faces valuation test",
+  "impact" : "Rising bond yields relative to earnings yields will likely trigger equity outflows and price consolidation. Nifty 50 faces downward pressure as valuation gaps make fixed income more attractive. The rupee may witness marginal stability due to foreign debt inflows despite equity selling.",
+  "source" : "BusinessLine",
+  "publishedAt" : "20-Nov-2026 09:00 IST",
   "score" : 7
 } ]
