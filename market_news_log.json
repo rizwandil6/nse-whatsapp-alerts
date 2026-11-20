@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-20T19:28:28",
-  "title" : "Kim Jong Un dead? Who would control North Korea?",
-  "impact" : "Heightened geopolitical uncertainty is expected to trigger a risk-off sentiment in Indian equity markets. Nifty may face sharp intraday volatility with a bearish bias as investors retreat toward safe-haven assets, likely pressuring the rupee to depreciate against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "20-Oct-2026 18:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-21T06:21:36",
   "title" : "Can Jio Platforms IPO deliver long-term growth for high-risk investors?",
   "impact" : "The largest IPO in Indian history is expected to drive massive liquidity absorption, potentially leading to short-term volatility in the Nifty. Expect institutional churn as investors rotate capital from existing telecom and large-cap holdings into this mega-listing, with minimal immediate impact on the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "20-Nov-2026 09:44 IST",
   "score" : 9
+}, {
+  "timestamp" : "2026-11-20T11:09:07",
+  "title" : "Rupee tops 93 vs USD for first time since April",
+  "impact" : "A breach of the 93 level against the USD signals significant rupee depreciation, likely triggering FII outflows and aggressive Nifty selling. Import-heavy sectors will face margin compression, increasing overall market volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "20-Nov-2026 10:38 IST",
+  "score" : 8
 } ]
