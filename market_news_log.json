@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-22T07:12:06",
-  "title" : "Why RBI is draining excess liquidity but also injecting funds",
-  "impact" : "The RBI's active liquidity management signals a transition to tighter monetary conditions, which may cause short-term Nifty volatility as borrowing costs rise. The rupee is likely to stabilize as the RBI drains excess cash to align money markets with its policy rate.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Oct-2026 06:36 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-22T07:57:34",
   "title" : "Govt bond selloff to continue as RBI policy minutes hint at more rate hikes",
   "impact" : "Rising yields create bearish pressure on Indian equities as borrowing costs increase. Nifty likely to face selling pressure near resistance levels. Rupee may see volatility against the dollar as interest rate differentials shift.",
@@ -3497,5 +3490,12 @@
   "impact" : "The easing of FPI onboarding is expected to drive higher foreign capital inflows, providing a bullish tailwind for the Nifty index. Increased institutional buying interest should exert upward pressure on the Indian Rupee against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "20-Nov-2026 17:20 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-20T17:58:26",
+  "title" : "Battered bulls back as Sensex recovers 1,500 pts",
+  "impact" : "The sharp 1500-point recovery indicates a strong reversal of sentiment with buying interest returning to oversold zones. Nifty is expected to test immediate resistance levels near 24500-24700 as volatility subsides. The rupee may gain stability against the dollar as FII outflows moderate following the market bounce.",
+  "source" : "Economic Times",
+  "publishedAt" : "20-Nov-2026 12:38 IST",
   "score" : 7
 } ]
