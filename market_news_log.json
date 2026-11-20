@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-21T07:37:00",
-  "title" : "'Hormuz shut until US accepts our conditions'",
-  "impact" : "Global crude oil supply risk threatens to spike prices, leading to a bearish trend for Indian equities. Nifty is expected to witness downward pressure due to inflationary fears and FII outflows. The Indian Rupee is likely to depreciate against the USD due to heightened oil import bill concerns.",
-  "source" : "Economic Times",
-  "publishedAt" : "21-Oct-2026 06:52 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-21T07:52:29",
   "title" : "Memo from New Delhi: Make America India again?",
   "impact" : "The potential shift in US trade policy and geopolitical alignment suggests increased volatility for Indian equities. Nifty may face consolidation as investors reassess export-dependent sectors amid stronger dollar expectations.",
@@ -3497,5 +3490,12 @@
   "impact" : "The government push to reduce supply chain dependency on China is bullish for domestic manufacturing and industrial growth. Nifty is expected to see positive momentum in manufacturing stocks, while the rupee remains stable against the USD as export capabilities improve.",
   "source" : "Economic Times",
   "publishedAt" : "20-Nov-2026 07:00 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-20T12:09:46",
+  "title" : "India's oil bill hits $19.5 billion amid crude shock",
+  "impact" : "Rising crude oil prices increase inflationary pressure and widen the current account deficit, putting downward pressure on the Nifty index. The rupee is expected to weaken further against the dollar, potentially causing foreign institutional investor outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "20-Nov-2026 07:24 IST",
   "score" : 7
 } ]
