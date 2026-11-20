@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-22T15:00:54",
-  "title" : "India's repo gap with G7 in focus amid inflation",
-  "impact" : "The expectation of rate hikes and a narrowing interest rate gap signals a hawkish shift, likely capping Nifty upside. The rupee may find some support from higher yields, but the broader equity market faces pressure from increased borrowing costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Oct-2026 14:19 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-22T15:31:14",
   "title" : "Hormuz risk pushes crude shipping costs sevenfold",
   "impact" : "Rising crude shipping costs exert inflationary pressure, potentially pushing Nifty lower due to margin concerns. The rupee is likely to face depreciation pressure as import costs for crude oil escalate.",
@@ -3497,5 +3490,12 @@
   "impact" : "The strong core sector growth acts as a macroeconomic tailwind for the Nifty 50, supporting a bullish trend for the index. The increased industrial output is likely to stabilize the Rupee against the dollar due to improved domestic economic outlook.",
   "source" : "BusinessLine",
   "publishedAt" : "20-Nov-2026 19:20 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-20T20:03:37",
+  "title" : "Core sector fires up in Oct, growth jumps to 10.9%",
+  "impact" : "The double-digit core sector growth signals robust industrial momentum, likely pushing the Nifty toward new highs. The positive economic data should strengthen the rupee due to increased industrial investment appeal.",
+  "source" : "Economic Times",
+  "publishedAt" : "20-Nov-2026 17:12 IST",
   "score" : 7
 } ]
