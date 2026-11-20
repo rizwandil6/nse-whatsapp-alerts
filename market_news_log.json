@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-22T15:46:56",
-  "title" : "India's copper demand rises 12% FY26",
-  "impact" : "Rising copper demand signals robust industrial activity and capital expenditure momentum, supporting Nifty bullish trends. Increased domestic consumption strengthens the economic outlook and provides a stable tailwind for the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "22-Oct-2026 15:19 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-22T18:20:13",
   "title" : "India-EU deal may kick in by early 2027",
   "impact" : "The deal signals long-term trade growth and increased FDI, boosting broader market sentiment. Nifty is expected to see a bullish bias as trade barriers ease, while the rupee may find support from stronger investment inflows.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "20-Nov-2026 21:00 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-20T21:21:51",
+  "title" : "SEBI proposes scrapping additional disclosure framework for foreign investors",
+  "impact" : "The proposal signals a pro-FPI stance, likely boosting foreign fund inflows and improving overall market liquidity. Nifty is expected to see a bullish bias while the rupee may strengthen on improved capital account sentiment.",
+  "source" : "BusinessLine",
+  "publishedAt" : "20-Nov-2026 21:17 IST",
+  "score" : 7
 } ]
