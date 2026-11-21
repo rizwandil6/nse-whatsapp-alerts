@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-23T13:23:21",
-  "title" : "Nifty sinks below 22,400, breadth collapses as metal, finance stocks lead rout",
-  "impact" : "The Indian equity market is witnessing a major technical breakdown with broad-based selling pressure across large and mid-cap segments. Nifty is likely to test lower support levels near 22,200, while the rupee faces depreciation pressure due to FII outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "23-Oct-2026 13:13 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-23T13:23:23",
   "title" : "Jio Platforms’ IPO becomes first public offer globally to cross 1 crore applications",
   "impact" : "The record-breaking IPO subscription reflects high retail liquidity and bullish investor sentiment in India. Nifty is expected to see positive momentum driven by increased market participation and confidence in large-cap conglomerates, with a neutral impact on the rupee.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "21-Nov-2026 10:11 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-21T10:41:26",
+  "title" : "Sebi proposes easing disclosure norms For FPIs",
+  "impact" : "This policy pivot is expected to boost foreign capital inflows, driving a bullish trend for the Nifty and broadening market participation. Increased FPI flows will likely strengthen the rupee further, enhancing liquidity across the equity landscape.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Nov-2026 10:01 IST",
+  "score" : 7
 } ]
