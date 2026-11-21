@@ -357,5 +357,12 @@
   "rsRankAtEntry": 81.5028901734104,
   "salesGrowth3Y": null,
   "fundamentalsPending": true
+ },
+ "LALPATHLAB": {
+  "entryDate": "2026-11-19",
+  "entryPrice": 2006,
+  "rsRankAtEntry": 83.8150289017341,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

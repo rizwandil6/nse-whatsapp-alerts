@@ -2852,5 +2852,12 @@
   "date": "2026-11-18",
   "price": 165.44,
   "rsRankAtEntry": 81.5028901734104
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "LALPATHLAB",
+  "date": "2026-11-19",
+  "price": 2006,
+  "rsRankAtEntry": 83.8150289017341
  }
 ]
