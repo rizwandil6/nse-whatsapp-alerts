@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-23T16:13:20",
-  "title" : "India stands to benefit from a $22 billion market",
-  "impact" : "The $22 billion investment inflow signals strong structural growth for India, likely boosting Nifty toward new highs. Increased capital inflows are expected to strengthen the rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Oct-2026 15:50 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-23T16:43:57",
   "title" : "Sensex today | Stock Market Highlights: Sensex, Nifty extend losses as crude surges to $114, all sectors close in red",
   "impact" : "The Indian market faces significant downward pressure driven by soaring global crude oil prices and negative sentiment. Nifty is expected to struggle with further downside momentum, while the rupee faces potential depreciation against the dollar due to oil import costs.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower crude oil prices improve India's current account deficit and reduce inflationary pressures. This supports a bullish Nifty outlook and provides stability to the Indian Rupee against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "21-Nov-2026 11:20 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-21T11:27:05",
+  "title" : "US Treasury yields drop for day and week; AI trade concern spurs safe-haven bid",
+  "impact" : "Global risk-off sentiment following the US tech rout will likely trigger a negative opening for Nifty. Expect volatility in Indian IT and defensive buying in safe-haven sectors, with the Rupee facing pressure due to potential FII outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Nov-2026 10:53 IST",
   "score" : 7
 } ]
