@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-23T20:09:36",
-  "title" : "Data suggests broad-based increase in food prices: RBI Bulletin",
-  "impact" : "Persistent food inflation pressures may delay RBI rate cut expectations, keeping Nifty under consolidation pressure. The Indian Rupee remains vulnerable due to higher domestic inflation compared to major trading partners.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "23-Oct-2026 20:01 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-23T20:26:33",
   "title" : "Melania Trump brokers Russia-Ukraine ceasefire",
   "impact" : "Global risk-on sentiment would likely trigger a massive Nifty rally driven by lower crude prices and reduced geopolitical risk. The Rupee would see significant appreciation against the USD due to reduced safe-haven demand and stabilized global trade.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "21-Nov-2026 13:39 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-21T22:09:48",
+  "title" : "US Market Outlook: Indices plunge deeply",
+  "impact" : "Indian markets are likely to open with a significant gap down following negative cues from the US benchmarks. Nifty is expected to test lower support levels as risk-off sentiment prevails. The rupee may face downward pressure against the dollar due to global uncertainty.",
+  "source" : "BusinessLine",
+  "publishedAt" : "21-Nov-2026 21:52 IST",
+  "score" : 7
 } ]
