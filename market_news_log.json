@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-23T13:53:49",
-  "title" : "Scarier crude awakening looms as oil tops $114/bbl",
-  "impact" : "Rising crude prices will likely trigger a Nifty correction due to imported inflation fears and FII outflows. The INR is expected to depreciate against the USD, putting further pressure on equity valuations.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Oct-2026 07:37 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-23T16:13:20",
   "title" : "India stands to benefit from a $22 billion market",
   "impact" : "The $22 billion investment inflow signals strong structural growth for India, likely boosting Nifty toward new highs. Increased capital inflows are expected to strengthen the rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Accelerated FPI onboarding will likely boost liquidity and strengthen Nifty as foreign inflows stabilize. The Rupee is expected to find support against the dollar due to improved capital account prospects.",
   "source" : "Economic Times",
   "publishedAt" : "21-Nov-2026 09:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-21T11:26:50",
+  "title" : "Global crude oil prices may fall to $70 by end-2027 as supply surplus looms",
+  "impact" : "Lower crude oil prices improve India's current account deficit and reduce inflationary pressures. This supports a bullish Nifty outlook and provides stability to the Indian Rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "21-Nov-2026 11:20 IST",
   "score" : 7
 } ]
