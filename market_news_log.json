@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-23T19:08:09",
-  "title" : "US gas prices hit $4.29 nationwide amid Iran war",
-  "impact" : "Rising global crude prices will exert pressure on India's import bill and inflation, likely leading to a bearish trend for Nifty. Expect volatility in the rupee due to increased demand for foreign exchange to meet rising oil import costs.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Oct-2026 18:48 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-23T20:09:36",
   "title" : "Data suggests broad-based increase in food prices: RBI Bulletin",
   "impact" : "Persistent food inflation pressures may delay RBI rate cut expectations, keeping Nifty under consolidation pressure. The Indian Rupee remains vulnerable due to higher domestic inflation compared to major trading partners.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "21-Nov-2026 15:09 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-21T21:38:23",
+  "title" : "Rs 1 lakh cr FII flood lifts D-Street, but clouds loom",
+  "impact" : "Massive FII inflows provide a strong liquidity boost to Indian equities, driving Nifty toward new highs in the short term. However, overvaluation concerns and potential profit-booking by FIIs may trigger volatility and exert downward pressure on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "21-Nov-2026 13:39 IST",
+  "score" : 8
 } ]
