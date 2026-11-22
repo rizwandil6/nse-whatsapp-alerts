@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-24T00:15:40",
-  "title" : "'We could take all of the oil in Iran': Trump",
-  "impact" : "Heightened geopolitical risk in the Middle East will likely trigger a risk-off sentiment in Indian equity markets. Nifty is expected to open with a downward gap due to volatility, while the INR may face depreciation pressure against the USD due to rising oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Oct-2026 20:56 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-24T00:45:58",
   "title" : "Asset monetisation to continue: DIPAM",
   "impact" : "Government's commitment to asset monetisation signals fiscal discipline and potential divestment activity. Nifty likely to see support from PSU-led buying interest. INR remains stable as divestment inflows improve sentiment.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "22-Nov-2026 11:26 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-22T12:14:16",
+  "title" : "India's oil, gas import bill jumps 60% in Oct",
+  "impact" : "High oil import costs exert significant pressure on the INR, likely leading to a bearish trend for the Nifty due to inflationary concerns and potential RBI tightening. Increased current account deficit risks will weigh on overall market sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Nov-2026 11:24 IST",
+  "score" : 8
 } ]
