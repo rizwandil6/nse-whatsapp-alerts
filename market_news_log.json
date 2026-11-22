@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-23T21:59:28",
-  "title" : "Jio Platforms IPO draws record ₹7 lakh crore demand",
-  "impact" : "The record-breaking demand will likely trigger a sharp rally in Nifty as massive liquidity is deployed into a bellwether entity. The rupee may witness temporary appreciation due to significant foreign institutional inflows expected from the QIB subscription.",
-  "source" : "BusinessLine",
-  "publishedAt" : "23-Oct-2026 21:40 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-10-23T23:00:07",
   "title" : "Infosys CEO: Macro recovery ‘more uneven’",
   "impact" : "The downward revision in guidance for a bellwether like Infosys weighs on market sentiment and Nifty IT indices. Continued caution on discretionary spending poses risks to earnings growth and may lead to consolidation in the rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Upbeat earnings outlook supports positive sentiment for Nifty and broad market indices. FII inflows may stabilize, providing a marginal cushion for the rupee against global volatility.",
   "source" : "Economic Times",
   "publishedAt" : "22-Nov-2026 09:03 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-22T11:13:52",
+  "title" : "Wall Street asks what can save AI trade after Anthropic wipeout",
+  "impact" : "Global tech rout and interest rate anxiety likely to trigger a bearish opening for Nifty, with foreign institutional selling pressure expected. Rupee may face depreciation risks as capital shifts toward safe-haven assets amid heightened volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Nov-2026 10:13 IST",
   "score" : 7
 } ]
