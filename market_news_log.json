@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-23T21:13:52",
-  "title" : "Net FDI at $3.3 billion in September 2026, positive for third consecutive month",
-  "impact" : "Consistent positive FDI inflows strengthen the capital account, providing support for the Nifty 50 toward its near-term resistance levels. The improved dollar supply stabilizes the Indian Rupee, reducing volatility in foreign investor sentiment.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "23-Oct-2026 21:10 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-23T21:59:28",
   "title" : "Jio Platforms IPO draws record ₹7 lakh crore demand",
   "impact" : "The record-breaking demand will likely trigger a sharp rally in Nifty as massive liquidity is deployed into a bellwether entity. The rupee may witness temporary appreciation due to significant foreign institutional inflows expected from the QIB subscription.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower oil prices alleviate inflationary pressure on the Indian economy and trade deficit. Nifty may witness a relief rally due to reduced geopolitical risk premium, while the Rupee is likely to strengthen against the USD.",
   "source" : "Economic Times",
   "publishedAt" : "22-Nov-2026 06:34 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-22T09:57:28",
+  "title" : "India Inc earnings outlook remains upbeat for H2",
+  "impact" : "Upbeat earnings outlook supports positive sentiment for Nifty and broad market indices. FII inflows may stabilize, providing a marginal cushion for the rupee against global volatility.",
+  "source" : "Economic Times",
+  "publishedAt" : "22-Nov-2026 09:03 IST",
   "score" : 7
 } ]
