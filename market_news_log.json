@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-23T23:00:07",
-  "title" : "Infosys CEO: Macro recovery ‘more uneven’",
-  "impact" : "The downward revision in guidance for a bellwether like Infosys weighs on market sentiment and Nifty IT indices. Continued caution on discretionary spending poses risks to earnings growth and may lead to consolidation in the rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "23-Oct-2026 18:07 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-23T23:45:35",
   "title" : "Silver hits 11-month low of ₹1.95 lakh as crude stokes inflation fears",
   "impact" : "The surging crude prices and precious metal sell-off indicate rising inflationary pressure, likely causing Nifty volatility. Persistent inflation fears and hawkish Fed rate expectations will likely keep the Rupee under pressure against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global tech rout and interest rate anxiety likely to trigger a bearish opening for Nifty, with foreign institutional selling pressure expected. Rupee may face depreciation risks as capital shifts toward safe-haven assets amid heightened volatility.",
   "source" : "Economic Times",
   "publishedAt" : "22-Nov-2026 10:13 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-22T12:14:05",
+  "title" : "India's oil, gas import bill jumps 60% in Oct as Brent nearly doubles; cooking-gas usage falls",
+  "impact" : "Rising import bills will exert downward pressure on Nifty due to widening current account deficit concerns. Expect rupee depreciation against the dollar as demand for foreign currency increases to settle energy payments.",
+  "source" : "BusinessLine",
+  "publishedAt" : "22-Nov-2026 12:01 IST",
   "score" : 7
 } ]
