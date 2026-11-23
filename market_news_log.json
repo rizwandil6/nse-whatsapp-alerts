@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-26T06:04:27",
-  "title" : "BlackRock stays cautious on Indian equities despite cheaper valuations",
-  "impact" : "The market remains in a consolidation phase with a bearish bias as institutional caution persists. Nifty is expected to face resistance due to sustained FII outflows, putting further downward pressure on the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "26-Oct-2026 05:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-26T06:34:49",
   "title" : "India valuations hit 6-year low, but stocks still expensive than EM peers",
   "impact" : "Indian markets remain under significant downward pressure due to foreign selling and elevated valuations. Nifty is expected to continue consolidating as earnings estimates face downward revisions, with a weak rupee further discouraging overseas inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The deal bolsters investor sentiment toward Indian IT and infrastructure firms pivoting to AI infrastructure. Nifty is expected to maintain a positive bias while the rupee remains stable against the dollar despite technology-led capital expenditure.",
   "source" : "Economic Times",
   "publishedAt" : "23-Nov-2026 09:55 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-23T10:53:49",
+  "title" : "Share Market Highlights 30 May 2024: Sensex, Nifty end lower as US treasury yields climb",
+  "impact" : "The Indian market faces downward pressure due to rising US yields and pre-election anxiety. Nifty is expected to exhibit heightened volatility with a bearish bias during the derivative settlement week, while the rupee remains vulnerable to FPI outflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "23-Nov-2026 10:34 IST",
   "score" : 7
 } ]
