@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-26T15:10:31",
-  "title" : "Indian stock markets flash a rare bargain signal",
-  "impact" : "The rare bargain signal suggests a tactical buying opportunity for domestic institutional investors. Nifty is expected to find strong support at lower levels, while the INR may stabilize against the USD due to renewed equity inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "26-Oct-2026 09:19 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-26T15:40:49",
   "title" : "Modi’s ‘dear friend’ is back, with $30 bn at stake",
   "impact" : "The return of Donald Trump signals a shift toward protectionist trade policies that may pressure emerging markets. Nifty is expected to experience heightened volatility as investors weigh geopolitical shifts and potential US tariff impacts on the rupee which may face renewed depreciation pressure.",
@@ -3497,5 +3490,12 @@
   "impact" : "Indian markets face divergent sentiment as domestic IT resilience contrasts with global AI-driven bearishness. Nifty IT may see short-term volatility while overall equity indices face pressure from global selloffs and potential rupee appreciation risks.",
   "source" : "Economic Times",
   "publishedAt" : "23-Nov-2026 10:29 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-23T14:45:22",
+  "title" : "Ambani pours billions in an untapped Indian market",
+  "impact" : "Reliance investments typically signal positive sentiment for long-term capex-driven growth in India. Nifty is expected to sustain its upward momentum with increased institutional participation, while the rupee may find support through long-term FDI inflows linked to such capital deployments.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Nov-2026 14:16 IST",
   "score" : 7
 } ]
