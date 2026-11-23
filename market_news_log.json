@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-26T15:10:19",
-  "title" : "Missed call for China a loud wake-up call for desi cos",
-  "impact" : "The shift in capital flows from China to India is expected to boost Nifty sentiment and drive liquidity inflows into large-cap indices. The INR may see short-term appreciation pressure due to increased FII interest in Indian equities.",
-  "source" : "Economic Times",
-  "publishedAt" : "26-Oct-2026 14:22 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-26T15:10:31",
   "title" : "Indian stock markets flash a rare bargain signal",
   "impact" : "The rare bargain signal suggests a tactical buying opportunity for domestic institutional investors. Nifty is expected to find strong support at lower levels, while the INR may stabilize against the USD due to renewed equity inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The large-scale acquisition and open offer by Tata Steel create significant volatility in the steel sector. Nifty may face consolidation due to heavy-weight selling pressure, while the rupee remains largely unaffected by this corporate M&A event.",
   "source" : "Economic Times",
   "publishedAt" : "23-Nov-2026 12:16 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-23T13:12:45",
+  "title" : "TCS, Infosys, Wipro, other IT stocks rise up to 3% as AI bloodbath continues; Nasdaq logs worst week since 2020",
+  "impact" : "Indian markets face divergent sentiment as domestic IT resilience contrasts with global AI-driven bearishness. Nifty IT may see short-term volatility while overall equity indices face pressure from global selloffs and potential rupee appreciation risks.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Nov-2026 10:29 IST",
   "score" : 7
 } ]
