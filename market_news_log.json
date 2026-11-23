@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-26T06:34:49",
-  "title" : "India valuations hit 6-year low, but stocks still expensive than EM peers",
-  "impact" : "Indian markets remain under significant downward pressure due to foreign selling and elevated valuations. Nifty is expected to continue consolidating as earnings estimates face downward revisions, with a weak rupee further discouraging overseas inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "26-Oct-2026 06:07 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-26T12:38:48",
   "title" : "HDFC Bank slips further as Bagchi takes charge amid leadership uncertainty",
   "impact" : "HDFC Bank weakness exerts downward pressure on the Nifty index and banking sector sentiment. Overall market outlook remains cautious with potential rupee volatility due to foreign institutional outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market faces downward pressure due to rising US yields and pre-election anxiety. Nifty is expected to exhibit heightened volatility with a bearish bias during the derivative settlement week, while the rupee remains vulnerable to FPI outflows.",
   "source" : "BusinessLine",
   "publishedAt" : "23-Nov-2026 10:34 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-23T10:53:51",
+  "title" : "Auto retail hits record 55.25 lakh units during 42-day festive season, EV sales suge 53%: FADA",
+  "impact" : "Positive sentiment for the broader market as record retail consumption strengthens economic growth signals. Expect Nifty to maintain a bullish bias with support near recent lows; the rupee may see marginal stability due to increased domestic capital circulation.",
+  "source" : "BusinessLine",
+  "publishedAt" : "23-Nov-2026 10:41 IST",
   "score" : 7
 } ]
