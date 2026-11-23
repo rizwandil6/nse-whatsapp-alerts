@@ -2859,5 +2859,127 @@
   "date": "2026-11-19",
   "price": 2006,
   "rsRankAtEntry": 83.8150289017341
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "JINDALSAW",
+  "date": "2026-11-23",
+  "price": 261.45,
+  "rsRankAtEntry": 80.7766990291262
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "CYIENT",
+  "date": "2026-11-23",
+  "price": 1103.2,
+  "rsRankAtEntry": 80.42635658914729
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GESHIP",
+  "date": "2026-11-23",
+  "price": 1532.9,
+  "rsRankAtEntry": 80.81395348837209
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "KPRMILL",
+  "date": "2026-11-23",
+  "price": 1211,
+  "rsRankAtEntry": 81.0077519379845
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "NEULANDLAB",
+  "date": "2026-11-23",
+  "price": 21640,
+  "rsRankAtEntry": 82.17054263565892,
+  "salesGrowth3Y": 19
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "TECHM",
+  "date": "2026-11-23",
+  "price": 1776.4,
+  "rsRankAtEntry": 80.03875968992247
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "VIJAYA",
+  "date": "2026-11-23",
+  "price": 1487.5,
+  "rsRankAtEntry": 81.97674418604652,
+  "salesGrowth3Y": 21
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "ARVIND",
+  "date": "2026-11-23",
+  "price": 511.4,
+  "rsRankAtEntry": 80.03875968992247
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GRANULES",
+  "date": "2026-11-23",
+  "price": 815.5,
+  "rsRankAtEntry": 80.42635658914729
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "PETRONET",
+  "date": "2026-11-23",
+  "price": 328.1,
+  "rsRankAtEntry": 80.23255813953489
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "AXISCADES",
+  "date": "2026-11-23",
+  "price": 1915.8,
+  "rsRankAtEntry": 82.04633204633205
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "BELRISE",
+  "date": "2026-11-23",
+  "price": 234.48,
+  "rsRankAtEntry": 80.5019305019305
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "DLF",
+  "date": "2026-11-23",
+  "price": 764.3,
+  "rsRankAtEntry": 80.3088803088803
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "GMMPFAUDLR",
+  "date": "2026-11-23",
+  "price": 1190.6,
+  "rsRankAtEntry": 80.6949806949807
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "MINDACORP",
+  "date": "2026-11-23",
+  "price": 753.2,
+  "rsRankAtEntry": 82.65895953757226
+ },
+ {
+  "type": "FUNDAMENTALS_CONFIRMED",
+  "symbol": "MOTHERSON",
+  "date": "2026-11-23",
+  "price": 165.44,
+  "rsRankAtEntry": 81.5028901734104,
+  "salesGrowth3Y": 17
+ },
+ {
+  "type": "FUNDAMENTALS_FAILED",
+  "symbol": "LALPATHLAB",
+  "date": "2026-11-23",
+  "price": 2006,
+  "rsRankAtEntry": 83.8150289017341
  }
 ]

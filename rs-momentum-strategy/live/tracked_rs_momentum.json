@@ -246,123 +246,22 @@
   "rsRankAtEntry": 82.33009708737865,
   "salesGrowth3Y": 17
  },
- "JINDALSAW": {
-  "entryDate": "2026-11-12",
-  "entryPrice": 261.45,
-  "rsRankAtEntry": 80.7766990291262,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "CYIENT": {
-  "entryDate": "2026-11-15",
-  "entryPrice": 1103.2,
-  "rsRankAtEntry": 80.42635658914729,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GESHIP": {
-  "entryDate": "2026-11-15",
-  "entryPrice": 1532.9,
-  "rsRankAtEntry": 80.81395348837209,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "KPRMILL": {
-  "entryDate": "2026-11-15",
-  "entryPrice": 1211,
-  "rsRankAtEntry": 81.0077519379845,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
  "NEULANDLAB": {
   "entryDate": "2026-11-15",
   "entryPrice": 21640,
   "rsRankAtEntry": 82.17054263565892,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "TECHM": {
-  "entryDate": "2026-11-15",
-  "entryPrice": 1776.4,
-  "rsRankAtEntry": 80.03875968992247,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 19
  },
  "VIJAYA": {
   "entryDate": "2026-11-15",
   "entryPrice": 1487.5,
   "rsRankAtEntry": 81.97674418604652,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "ARVIND": {
-  "entryDate": "2026-11-16",
-  "entryPrice": 511.4,
-  "rsRankAtEntry": 80.03875968992247,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GRANULES": {
-  "entryDate": "2026-11-16",
-  "entryPrice": 815.5,
-  "rsRankAtEntry": 80.42635658914729,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "PETRONET": {
-  "entryDate": "2026-11-16",
-  "entryPrice": 328.1,
-  "rsRankAtEntry": 80.23255813953489,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "AXISCADES": {
-  "entryDate": "2026-11-17",
-  "entryPrice": 1915.8,
-  "rsRankAtEntry": 82.04633204633205,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "BELRISE": {
-  "entryDate": "2026-11-17",
-  "entryPrice": 234.48,
-  "rsRankAtEntry": 80.5019305019305,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "DLF": {
-  "entryDate": "2026-11-17",
-  "entryPrice": 764.3,
-  "rsRankAtEntry": 80.3088803088803,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "GMMPFAUDLR": {
-  "entryDate": "2026-11-17",
-  "entryPrice": 1190.6,
-  "rsRankAtEntry": 80.6949806949807,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "MINDACORP": {
-  "entryDate": "2026-11-18",
-  "entryPrice": 753.2,
-  "rsRankAtEntry": 82.65895953757226,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 21
  },
  "MOTHERSON": {
   "entryDate": "2026-11-18",
   "entryPrice": 165.44,
   "rsRankAtEntry": 81.5028901734104,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
- },
- "LALPATHLAB": {
-  "entryDate": "2026-11-19",
-  "entryPrice": 2006,
-  "rsRankAtEntry": 83.8150289017341,
-  "salesGrowth3Y": null,
-  "fundamentalsPending": true
+  "salesGrowth3Y": 17
  }
 }

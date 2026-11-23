@@ -1,29 +1,29 @@
 [
  {
-  "symbol": "LALPATHLAB",
-  "entryDate": "2026-11-19",
-  "entryPrice": 2006,
+  "symbol": "NEULANDLAB",
+  "entryDate": "2026-11-23",
+  "entryPrice": 21640,
   "status": "open",
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 2006,
-  "returnSinceEntry": 0
+  "currentPrice": 20642,
+  "returnSinceEntry": -4.611829944547135
  },
  {
-  "symbol": "MINDACORP",
-  "entryDate": "2026-11-18",
-  "entryPrice": 753.2,
+  "symbol": "VIJAYA",
+  "entryDate": "2026-11-23",
+  "entryPrice": 1487.5,
   "status": "open",
   "exitDate": null,
   "exitPrice": null,
   "returnWhileOpen": null,
-  "currentPrice": 749.3,
-  "returnSinceEntry": -0.5177907594264592
+  "currentPrice": 1572.3,
+  "returnSinceEntry": 5.700840336134451
  },
  {
   "symbol": "MOTHERSON",
-  "entryDate": "2026-11-18",
+  "entryDate": "2026-11-23",
   "entryPrice": 165.44,
   "status": "open",
   "exitDate": null,
@@ -31,127 +31,6 @@
   "returnWhileOpen": null,
   "currentPrice": 166.53,
   "returnSinceEntry": 0.6588491295938125
- },
- {
-  "symbol": "GMMPFAUDLR",
-  "entryDate": "2026-11-17",
-  "entryPrice": 1190.6,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1176.2,
-  "returnSinceEntry": -1.2094742146816617
- },
- {
-  "symbol": "BELRISE",
-  "entryDate": "2026-11-17",
-  "entryPrice": 234.48,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 236.33,
-  "returnSinceEntry": 0.7889798703514256
- },
- {
-  "symbol": "AXISCADES",
-  "entryDate": "2026-11-17",
-  "entryPrice": 1915.8,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1873.3,
-  "returnSinceEntry": -2.2183944044263493
- },
- {
-  "symbol": "DLF",
-  "entryDate": "2026-11-17",
-  "entryPrice": 764.3,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 785,
-  "returnSinceEntry": 2.7083605913908215
- },
- {
-  "symbol": "GRANULES",
-  "entryDate": "2026-11-16",
-  "entryPrice": 815.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 822.65,
-  "returnSinceEntry": 0.8767627222562817
- },
- {
-  "symbol": "PETRONET",
-  "entryDate": "2026-11-16",
-  "entryPrice": 328.1,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 329.15,
-  "returnSinceEntry": 0.320024382810105
- },
- {
-  "symbol": "ARVIND",
-  "entryDate": "2026-11-16",
-  "entryPrice": 511.4,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 526,
-  "returnSinceEntry": 2.8549080954243298
- },
- {
-  "symbol": "GESHIP",
-  "entryDate": "2026-11-15",
-  "entryPrice": 1532.9,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1531.6,
-  "returnSinceEntry": -0.08480657577142552
- },
- {
-  "symbol": "CYIENT",
-  "entryDate": "2026-11-15",
-  "entryPrice": 1103.2,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1155.5,
-  "returnSinceEntry": 4.740754169688175
- },
- {
-  "symbol": "TECHM",
-  "entryDate": "2026-11-15",
-  "entryPrice": 1776.4,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1746.2,
-  "returnSinceEntry": -1.700067552353076
- },
- {
-  "symbol": "KPRMILL",
-  "entryDate": "2026-11-15",
-  "entryPrice": 1211,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1191.3,
-  "returnSinceEntry": -1.6267547481420352
  },
  {
   "symbol": "ATLANTAELE",
@@ -174,28 +53,6 @@
   "returnWhileOpen": null,
   "currentPrice": 14339,
   "returnSinceEntry": -2.2363128110724757
- },
- {
-  "symbol": "NEULANDLAB",
-  "entryDate": "2026-11-15",
-  "entryPrice": 21640,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 20642,
-  "returnSinceEntry": -4.611829944547135
- },
- {
-  "symbol": "VIJAYA",
-  "entryDate": "2026-11-15",
-  "entryPrice": 1487.5,
-  "status": "open",
-  "exitDate": null,
-  "exitPrice": null,
-  "returnWhileOpen": null,
-  "currentPrice": 1572.3,
-  "returnSinceEntry": 5.700840336134451
  },
  {
   "symbol": "PHOENIXLTD",
