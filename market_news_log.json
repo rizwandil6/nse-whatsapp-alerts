@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-25T16:13:04",
-  "title" : "Beyond Jio listing: 5 IPOs to raise Rs 2,581 cr next week",
-  "impact" : "The record-breaking Jio listing and heavy primary market activity will likely drain short-term liquidity, leading to potential Nifty volatility. Expect high institutional focus on upcoming IPOs to temporarily shift attention away from large-cap index stocks.",
-  "source" : "Economic Times",
-  "publishedAt" : "25-Oct-2026 09:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-25T16:28:07",
   "title" : "Crude oil near $120, to intensify headwinds for economy, but tailwinds likely to reduce pressure",
   "impact" : "Sustained high crude prices exert significant pressure on the fiscal deficit and widen the trade gap. Nifty is likely to face volatility with a downward bias, while the rupee remains under pressure against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market is poised for a strong gap-up opening tracking GIFT Nifty, providing a positive start despite global headwinds. Investors will focus on FPI activity and crude oil volatility, while the rupee remains pressured near record lows.",
   "source" : "BusinessLine",
   "publishedAt" : "23-Nov-2026 07:14 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-23T08:22:15",
+  "title" : "US futures bounce as AI rout rattles Asian stocks",
+  "impact" : "Indian markets are likely to open with a gap down tracking the volatility in Asian peers and global AI sector concerns. Nifty is expected to witness high volatility with a bearish bias in early trade. The rupee may face pressure as foreign capital inflows pause amid global risk aversion.",
+  "source" : "BusinessLine",
+  "publishedAt" : "23-Nov-2026 08:15 IST",
   "score" : 7
 } ]
