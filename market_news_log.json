@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-26T12:38:48",
-  "title" : "HDFC Bank slips further as Bagchi takes charge amid leadership uncertainty",
-  "impact" : "HDFC Bank weakness exerts downward pressure on the Nifty index and banking sector sentiment. Overall market outlook remains cautious with potential rupee volatility due to foreign institutional outflows.",
-  "source" : "BusinessLine",
-  "publishedAt" : "26-Oct-2026 12:32 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-26T14:25:06",
   "title" : "The next big wait for ₹30K cr Jio IPO may end today",
   "impact" : "The potential announcement of the Jio IPO valuation and timeline is expected to trigger significant liquidity rotation and retail excitement. Nifty likely to see a bullish sentiment boost led by market heavyweights, with the rupee remaining stable against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for the broader market as record retail consumption strengthens economic growth signals. Expect Nifty to maintain a bullish bias with support near recent lows; the rupee may see marginal stability due to increased domestic capital circulation.",
   "source" : "BusinessLine",
   "publishedAt" : "23-Nov-2026 10:41 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-23T11:39:59",
+  "title" : "Corporate earnings hit a multi-quarter high in Sept",
+  "impact" : "Strong corporate earnings drive positive sentiment for the Indian equity markets. Nifty is expected to maintain an upward trajectory as fundamental growth supports valuations, likely strengthening the rupee against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "23-Nov-2026 06:30 IST",
   "score" : 7
 } ]
