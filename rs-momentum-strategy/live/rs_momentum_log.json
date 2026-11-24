@@ -2981,5 +2981,13 @@
   "date": "2026-11-23",
   "price": 2006,
   "rsRankAtEntry": 83.8150289017341
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "PWL",
+  "date": "2026-11-22",
+  "price": 139.76,
+  "rsRankAtEntry": 84.03846153846153,
+  "salesGrowth3Y": 74
  }
 ]
