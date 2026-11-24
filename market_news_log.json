@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-27T18:30:57",
-  "title" : "El Nino ramping up into a ‘very strong' weather event as index surges to 18-year high",
-  "impact" : "El Nino poses risks to Indian monsoon-dependent rural consumption and inflation, likely leading to cautious Nifty movement. Expected food price volatility may exert downward pressure on the Rupee due to import requirements.",
-  "source" : "BusinessLine",
-  "publishedAt" : "27-Oct-2026 18:18 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-27T21:24:30",
   "title" : "Modi’s blueprint for a Viksit Bharat has a secret sauce",
   "impact" : "The Viksit Bharat blueprint reinforces a long-term bullish sentiment for the Indian equity markets. Nifty is expected to sustain its upward trajectory with a focus on core infrastructure. The rupee is likely to remain stable supported by steady foreign capital inflows into strategic manufacturing and infra sectors.",
@@ -3497,5 +3490,12 @@
   "impact" : "Increased PE-VC inflows provide long-term capital depth, fostering a bullish sentiment for private investment-heavy infrastructure and manufacturing. Nifty expected to find support at higher levels due to liquidity optimism, while the rupee remains stable against potential FII-led equity inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "24-Nov-2026 14:28 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-24T17:22:29",
+  "title" : "El Nino nears historic peak as Pacific warming raises global weather extremes",
+  "impact" : "El Nino poses risks to rural demand and inflation, likely creating volatility in Nifty. Rupee faces depreciation pressure if food inflation forces sustained high interest rates.",
+  "source" : "BusinessLine",
+  "publishedAt" : "24-Nov-2026 17:16 IST",
   "score" : 7
 } ]
