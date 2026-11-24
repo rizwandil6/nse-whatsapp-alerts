@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-27T13:41:16",
-  "title" : "₹5 tn bet on Reliance Jio may create a 'jio' moment",
-  "impact" : "Reliance's massive capex plan acts as a major market stabilizer, likely pushing Nifty higher. The large-scale investment is expected to attract significant foreign inflows, strengthening the rupee outlook.",
-  "source" : "Economic Times",
-  "publishedAt" : "27-Oct-2026 09:36 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-27T14:12:01",
   "title" : "W Asia crisis so far may cost govt ₹1.35L cr: ICRA",
   "impact" : "Rising geopolitical tensions in West Asia threaten to elevate oil prices and widen the fiscal deficit. Nifty is expected to witness volatility with a bearish bias as foreign institutional investors turn risk-averse. The Rupee is likely to face depreciation pressure against the USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "Global tech-led sentiment from Jensen Huang's AI outlook will likely boost Nifty sentiment toward record highs. Foreign institutional inflows may strengthen, providing mild support to the rupee against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "24-Nov-2026 06:24 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-24T09:43:46",
+  "title" : "Nvidia's Huang finds exoneration at AI speed",
+  "impact" : "The return of Jensen Huang provides a massive relief rally for global tech sentiment, likely boosting Nifty IT through positive correlation with US markets. Expect a bullish bias in Indian markets, with minimal impact on the rupee as this is a specific US corporate governance event.",
+  "source" : "Economic Times",
+  "publishedAt" : "24-Nov-2026 07:16 IST",
   "score" : 7
 } ]
