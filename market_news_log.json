@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-27T17:15:26",
-  "title" : "Houthis launch attack on Saudi Ras Tanura oil refinery",
-  "impact" : "Heightened geopolitical tension in the Middle East is likely to trigger a bearish opening for the Nifty, driven by a risk-off sentiment. Crude oil price spikes will exert downward pressure on the Indian Rupee, increasing inflationary concerns and fiscal deficit anxieties.",
-  "source" : "Economic Times",
-  "publishedAt" : "27-Oct-2026 16:46 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-27T18:30:57",
   "title" : "El Nino ramping up into a ‘very strong' weather event as index surges to 18-year high",
   "impact" : "El Nino poses risks to Indian monsoon-dependent rural consumption and inflation, likely leading to cautious Nifty movement. Expected food price volatility may exert downward pressure on the Rupee due to import requirements.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "24-Nov-2026 13:41 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-24T14:33:42",
+  "title" : "PE-VC ‘mega’ deals hit three year high in 2026 (YTD) at $31 billion",
+  "impact" : "Increased PE-VC inflows provide long-term capital depth, fostering a bullish sentiment for private investment-heavy infrastructure and manufacturing. Nifty expected to find support at higher levels due to liquidity optimism, while the rupee remains stable against potential FII-led equity inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "24-Nov-2026 14:28 IST",
+  "score" : 7
 } ]
