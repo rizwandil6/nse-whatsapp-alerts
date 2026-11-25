@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-28T15:25:40",
-  "title" : "Drones &amp; DJs: Ambani throws a party for Jio IPO",
-  "impact" : "The potential IPO of Jio will likely drive significant liquidity and investor interest into the Indian equity markets. Nifty is expected to trend bullish due to the massive scale of the offering, while the rupee may appreciate slightly on expected foreign institutional capital inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Oct-2026 15:01 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-28T15:57:02",
   "title" : "Jio does what none of India's 5 biggest IPOs could",
   "impact" : "The potential spin-off of Reliance Jio is likely to drive significant liquidity and investor interest in the Indian equity markets. Nifty is expected to see a bullish trend with large-cap support, while the rupee may appreciate due to anticipated high-value foreign capital inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising power demand pressures fiscal stability and inflation due to fuel imports. Nifty may face volatility as energy costs squeeze margins in manufacturing while utility firms gain.",
   "source" : "BusinessLine",
   "publishedAt" : "25-Nov-2026 14:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-25T17:10:47",
+  "title" : "Rupee soars 69 paise to settle at its eight-month high of 92.16 against US dollar",
+  "impact" : "A significantly stronger rupee boosts foreign investor sentiment and lowers input costs for import-heavy firms. Nifty is expected to see bullish momentum as lower import bills benefit the macro-economic outlook.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Nov-2026 17:07 IST",
   "score" : 7
 } ]
