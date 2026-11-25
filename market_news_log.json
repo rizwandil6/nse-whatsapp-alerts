@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-28T00:01:57",
-  "title" : "Trump declares a new kind of war against AI",
-  "impact" : "Heightened US regulatory scrutiny on AI could trigger volatility in Indian IT services exports and dampen sentiment for tech-heavy portfolios. Nifty may face selling pressure in IT bellwethers while the rupee remains stable against the USD as global risk-off sentiment shifts focus.",
-  "source" : "Economic Times",
-  "publishedAt" : "27-Oct-2026 21:58 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-28T07:03:42",
   "title" : "India to remain top of the Asian pie for Advent",
   "impact" : "This signals strong long-term foreign capital inflow, bolstering investor sentiment for Indian equities. Expect Nifty to maintain a positive trend supported by institutional liquidity, with the rupee likely receiving support from steady FDI/FPI inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "Sustained earnings visibility reinforces investor confidence, likely supporting a bullish trend for Nifty with potential to test record highs. Strong domestic fundamentals may provide incremental support to the rupee against volatility.",
   "source" : "BusinessLine",
   "publishedAt" : "24-Nov-2026 17:39 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-25T06:51:23",
+  "title" : "India faces tariff heat as Trump readies new levies",
+  "impact" : "Heightened trade protectionism sentiment is likely to keep the Nifty volatile with a downward bias. The Indian Rupee may face depreciation pressure against the USD due to potential capital outflows and export headwinds.",
+  "source" : "Economic Times",
+  "publishedAt" : "24-Nov-2026 19:09 IST",
   "score" : 7
 } ]
