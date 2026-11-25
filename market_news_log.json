@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-28T07:03:42",
-  "title" : "India to remain top of the Asian pie for Advent",
-  "impact" : "This signals strong long-term foreign capital inflow, bolstering investor sentiment for Indian equities. Expect Nifty to maintain a positive trend supported by institutional liquidity, with the rupee likely receiving support from steady FDI/FPI inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "27-Oct-2026 19:52 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-28T07:03:47",
   "title" : "Sebi may ease extra disclosure rules for foreign portfolio investors",
   "impact" : "This policy pivot is expected to boost FPI sentiment and ease capital inflows, providing a positive tailwind for Nifty. The rupee may see stability or slight appreciation due to reduced concerns over potential forced selling by foreign funds.",
@@ -3497,5 +3490,12 @@
   "impact" : "Heightened trade protectionism sentiment is likely to keep the Nifty volatile with a downward bias. The Indian Rupee may face depreciation pressure against the USD due to potential capital outflows and export headwinds.",
   "source" : "Economic Times",
   "publishedAt" : "24-Nov-2026 19:09 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-25T08:21:40",
+  "title" : "Sensex, Nifty may open higher as foreign inflows, lower oil prices aid sentiment",
+  "impact" : "The Indian market is poised for a strong opening with the Nifty likely to test higher resistance levels. Sustained foreign inflows and reduced oil prices are providing a favorable tailwind, likely strengthening the rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Nov-2026 08:06 IST",
   "score" : 7
 } ]
