@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-28T09:48:51",
-  "title" : "Crude oil futures gain after Houthi attack on Saudi refinery",
-  "impact" : "Rising crude prices trigger inflationary concerns, likely weighing on Nifty sentiment. Increased import bills are expected to exert downward pressure on the Indian Rupee, raising fiscal deficit worries.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Oct-2026 09:43 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-28T13:08:18",
   "title" : "Jio creates 13 records, rewrites D-St history",
   "impact" : "The record-breaking IPO will lead to significant liquidity absorption, potentially tightening near-term market sentiment. Nifty may face volatility as capital shifts toward this major listing, though rupee impact will likely remain stable due to foreign institutional inflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian equity market is witnessing a strong reversal with broad-based buying across large caps. Nifty is expected to sustain momentum above 25,700 levels with the positive sentiment likely providing minor support to the rupee.",
   "source" : "BusinessLine",
   "publishedAt" : "25-Nov-2026 09:39 IST",
+  "score" : 8
+}, {
+  "timestamp" : "2026-11-25T11:08:41",
+  "title" : "A ₹43,000 crore bet on banks and financial stocks: What changed in FIIs’ November flows?",
+  "impact" : "The return of FII flows signals a bullish trend for Indian equities, supporting the Nifty to test higher levels despite valuation resistance. A stable rupee outlook is providing additional confidence to foreign investors, likely sustaining near-term liquidity.",
+  "source" : "Economic Times",
+  "publishedAt" : "25-Nov-2026 09:17 IST",
   "score" : 8
 } ]
