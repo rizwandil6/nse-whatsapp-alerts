@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T06:41:44",
-  "title" : "Jio Platforms lists on NSE as 3,138th company, making Ambani family proud with a 21.36% surge",
-  "impact" : "The listing of Jio Platforms will drive a significant bullish sentiment for the broader Indian equity indices, likely boosting Nifty toward new highs. Increased market liquidity and institutional inflows are expected to provide strong support to the Indian Rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Oct-2026 03:22 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-10-29T07:26:50",
   "title" : "US Fed holds rates steady as inflation fears persist",
   "impact" : "Indian markets likely to see cautious sentiment and volatility as sticky US inflation delays rate cut expectations. Nifty may face downward pressure toward support levels while the Rupee faces depreciation risks against a strengthening dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The record market cap and AUM milestones signal robust domestic liquidity and strong investor confidence. Nifty is expected to maintain a positive bias while the rupee likely stabilizes against volatility due to strong inflows.",
   "source" : "BusinessLine",
   "publishedAt" : "25-Nov-2026 18:23 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-25T23:57:58",
+  "title" : "Trump's 25% tariff axe comes swinging down on India",
+  "impact" : "The proposed tariffs create significant uncertainty for Indian exporters, likely leading to Nifty volatility. Expect downward pressure on the rupee as trade deficit concerns weigh on investor sentiment.",
+  "source" : "Economic Times",
+  "publishedAt" : "25-Nov-2026 19:02 IST",
   "score" : 7
 } ]
