@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-28T13:08:18",
-  "title" : "Jio creates 13 records, rewrites D-St history",
-  "impact" : "The record-breaking IPO will lead to significant liquidity absorption, potentially tightening near-term market sentiment. Nifty may face volatility as capital shifts toward this major listing, though rupee impact will likely remain stable due to foreign institutional inflows.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Oct-2026 09:25 IST",
-  "score" : 9
-}, {
   "timestamp" : "2026-10-28T13:39:03",
   "title" : "World war 3 coming? Why US, UK, Japan are alert",
   "impact" : "Heightened geopolitical tensions are likely to drive investors toward safe-haven assets, pressuring the Nifty toward its immediate support levels. The rupee is expected to face depreciation pressure due to risk-off sentiment and potential crude oil volatility.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "25-Nov-2026 09:17 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-25T11:24:02",
+  "title" : "Huang boost fades quickly as AI fears sink TSMC, SK Hynix shares",
+  "impact" : "Global risk-off sentiment following the sell-off in semiconductor giants will likely trigger a sharp opening decline in the Nifty. Expect volatility as investors move toward safety, potentially weakening the rupee against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Nov-2026 11:17 IST",
+  "score" : 7
 } ]
