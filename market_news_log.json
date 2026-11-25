@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T01:25:31",
-  "title" : "Disinvestment as key economic strategy",
-  "impact" : "Accelerated disinvestment signals fiscal prudence and capital efficiency, likely boosting Nifty sentiment. Increased government divestment supply may cause short-term liquidity absorption while supporting long-term rupee stability through capital inflows.",
-  "source" : "https://www.thehindu.com/business/Economy/?service=rss",
-  "publishedAt" : "29-Oct-2026 01:14 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-29T06:41:44",
   "title" : "Jio Platforms lists on NSE as 3,138th company, making Ambani family proud with a 21.36% surge",
   "impact" : "The listing of Jio Platforms will drive a significant bullish sentiment for the broader Indian equity indices, likely boosting Nifty toward new highs. Increased market liquidity and institutional inflows are expected to provide strong support to the Indian Rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The government's focus on infrastructure and logistics will likely sustain the current bullish sentiment in the Indian market. Nifty is expected to test higher levels as capital expenditure projects gain momentum, with minimal negative impact on the rupee.",
   "source" : "Economic Times",
   "publishedAt" : "25-Nov-2026 16:37 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-25T18:35:41",
+  "title" : "India’s equity market capitalisation crosses ₹500 lakh crore; MF assets touch ₹83 lakh crore",
+  "impact" : "The record market cap and AUM milestones signal robust domestic liquidity and strong investor confidence. Nifty is expected to maintain a positive bias while the rupee likely stabilizes against volatility due to strong inflows.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Nov-2026 18:23 IST",
   "score" : 7
 } ]
