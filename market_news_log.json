@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-28T07:03:47",
-  "title" : "Sebi may ease extra disclosure rules for foreign portfolio investors",
-  "impact" : "This policy pivot is expected to boost FPI sentiment and ease capital inflows, providing a positive tailwind for Nifty. The rupee may see stability or slight appreciation due to reduced concerns over potential forced selling by foreign funds.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Oct-2026 05:30 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-28T07:18:52",
   "title" : "Jio to make trading debut after record $3.2 billion IPO",
   "impact" : "The record-breaking IPO listing is expected to boost overall market sentiment and liquidity in the Indian equity markets. Nifty is likely to see a positive opening with sustained buying interest in large-cap stocks. The influx of foreign capital may provide slight support to the Indian Rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The Indian market is poised for a strong opening with the Nifty likely to test higher resistance levels. Sustained foreign inflows and reduced oil prices are providing a favorable tailwind, likely strengthening the rupee against the dollar.",
   "source" : "BusinessLine",
   "publishedAt" : "25-Nov-2026 08:06 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-25T08:21:45",
+  "title" : "Tata Electronics begins hunt for partner",
+  "impact" : "This move signals a major acceleration in domestic semiconductor manufacturing, likely boosting investor confidence in the industrial and technology sectors. Expect Nifty to maintain a positive bias on the back of manufacturing-led growth expectations, with minimal impact on the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "25-Nov-2026 06:00 IST",
   "score" : 7
 } ]
