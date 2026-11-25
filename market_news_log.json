@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-28T07:18:52",
-  "title" : "Jio to make trading debut after record $3.2 billion IPO",
-  "impact" : "The record-breaking IPO listing is expected to boost overall market sentiment and liquidity in the Indian equity markets. Nifty is likely to see a positive opening with sustained buying interest in large-cap stocks. The influx of foreign capital may provide slight support to the Indian Rupee.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Oct-2026 07:15 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-28T09:48:51",
   "title" : "Crude oil futures gain after Houthi attack on Saudi refinery",
   "impact" : "Rising crude prices trigger inflationary concerns, likely weighing on Nifty sentiment. Increased import bills are expected to exert downward pressure on the Indian Rupee, raising fiscal deficit worries.",
@@ -3498,4 +3491,11 @@
   "source" : "Economic Times",
   "publishedAt" : "25-Nov-2026 06:00 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-25T09:52:38",
+  "title" : "Markets snap two-day losing streak with sharp gap-up; Banks, IT lead recovery",
+  "impact" : "The Indian equity market is witnessing a strong reversal with broad-based buying across large caps. Nifty is expected to sustain momentum above 25,700 levels with the positive sentiment likely providing minor support to the rupee.",
+  "source" : "BusinessLine",
+  "publishedAt" : "25-Nov-2026 09:39 IST",
+  "score" : 8
 } ]
