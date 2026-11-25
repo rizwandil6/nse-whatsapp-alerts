@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-28T16:12:20",
-  "title" : "SEBI reviews FPI compliance norms, plans consultation paper on global alignment",
-  "impact" : "Easing compliance norms for FPIs is expected to improve liquidity and boost investor sentiment in Indian equity markets. Nifty 50 is likely to test higher levels as capital inflows increase, providing support to the Rupee against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "28-Oct-2026 16:09 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-28T19:14:44",
   "title" : "Jio Platforms' post-IPO playbook: What's next?",
   "impact" : "Jio Platforms potential IPO is a significant liquidity event expected to boost investor sentiment and drive Nifty towards higher resistance levels. Increased foreign capital inflows may support the Rupee against the dollar in the medium term.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "25-Nov-2026 16:15 IST",
   "score" : 8
+}, {
+  "timestamp" : "2026-11-25T17:26:14",
+  "title" : "Trump's tariff blitz on India, China faces political heat",
+  "impact" : "Heightened trade protectionism will likely lead to Nifty volatility and a defensive bias in the near term. The rupee may face depreciation pressure against the dollar due to risks of reduced export competitiveness and capital outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "25-Nov-2026 13:20 IST",
+  "score" : 7
 } ]
