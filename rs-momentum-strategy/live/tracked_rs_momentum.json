@@ -108,12 +108,6 @@
   "rsRankAtEntry": 86.15702479338843,
   "salesGrowth3Y": 77
  },
- "GOKULAGRO": {
-  "entryDate": "2026-08-18",
-  "entryPrice": 243.02,
-  "rsRankAtEntry": 80.07889546351085,
-  "salesGrowth3Y": 31
- },
  "NYKAA": {
   "entryDate": "2026-08-18",
   "entryPrice": 327.35,
@@ -269,5 +263,23 @@
   "entryPrice": 139.76,
   "rsRankAtEntry": 84.03846153846153,
   "salesGrowth3Y": 74
+ },
+ "AGARWALEYE": {
+  "entryDate": "2026-11-24",
+  "entryPrice": 576.2,
+  "rsRankAtEntry": 81.15384615384616,
+  "salesGrowth3Y": 27
+ },
+ "THOMASCOOK": {
+  "entryDate": "2026-11-24",
+  "entryPrice": 149.6,
+  "rsRankAtEntry": 92.3076923076923,
+  "salesGrowth3Y": 18
+ },
+ "TRENT": {
+  "entryDate": "2026-11-24",
+  "entryPrice": 3319.6,
+  "rsRankAtEntry": 80.57692307692308,
+  "salesGrowth3Y": 35
  }
 }

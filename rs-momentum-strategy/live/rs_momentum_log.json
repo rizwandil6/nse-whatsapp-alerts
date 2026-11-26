@@ -2989,5 +2989,36 @@
   "price": 139.76,
   "rsRankAtEntry": 84.03846153846153,
   "salesGrowth3Y": 74
+ },
+ {
+  "type": "EXIT",
+  "symbol": "GOKULAGRO",
+  "date": "2026-11-24",
+  "price": 204.26,
+  "pnlPct": -15.949304583984864
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "AGARWALEYE",
+  "date": "2026-11-24",
+  "price": 576.2,
+  "rsRankAtEntry": 81.15384615384616,
+  "salesGrowth3Y": 27
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "THOMASCOOK",
+  "date": "2026-11-24",
+  "price": 149.6,
+  "rsRankAtEntry": 92.3076923076923,
+  "salesGrowth3Y": 18
+ },
+ {
+  "type": "ENTRY",
+  "symbol": "TRENT",
+  "date": "2026-11-24",
+  "price": 3319.6,
+  "rsRankAtEntry": 80.57692307692308,
+  "salesGrowth3Y": 35
  }
 ]
