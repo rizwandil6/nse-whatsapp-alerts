@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T23:52:15",
-  "title" : "IMF flags Super El Niño risks to India’s growth",
-  "impact" : "The market faces downside risk as inflationary pressures from food supply disruptions dampen GDP sentiment. Nifty is expected to consolidate near support levels with potential volatility in the INR due to higher import costs for essential commodities.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Oct-2026 23:06 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-30T06:38:20",
   "title" : "Advance-decline ratio hits 7-month low as market breadth weakens",
   "impact" : "The market is undergoing a structural shift toward safety as liquidity tightens, with the Nifty likely to consolidate near major supports. The divergence between large and small caps indicates a sustained correction in broader indices, while a stronger dollar continues to pressure the rupee.",
@@ -3497,5 +3490,12 @@
   "impact" : "The multi-crore urban infrastructure push serves as a positive catalyst for domestic capital expenditure, likely boosting the Nifty towards resistance levels. The rupee is expected to remain stable, as these investments focus primarily on domestic industrial growth.",
   "source" : "Economic Times",
   "publishedAt" : "26-Nov-2026 21:17 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-27T00:45:38",
+  "title" : "Centre gears up to face the two-thirds test again",
+  "impact" : "Political stability concerns ahead of legislative tests may trigger short-term market volatility. Nifty is likely to consolidate with a downward bias until policy continuity is confirmed, keeping the rupee under pressure against the dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "27-Nov-2026 00:07 IST",
   "score" : 7
 } ]
