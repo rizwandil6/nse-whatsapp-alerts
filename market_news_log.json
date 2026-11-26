@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T17:25:37",
-  "title" : "Nifty surges past 22,900, Sensex jumps 905 points as Fed pause, crude dip lift sentiment",
-  "impact" : "Broad-based rally expected as global risk-on sentiment improves following the Fed's stance. Nifty likely to consolidate near 23,000 with a potential breakout. The rupee may strengthen slightly due to lower crude oil prices and reduced volatility.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Oct-2026 17:16 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-29T19:46:19",
   "title" : "Equity LTCG tax cut could revive FPI flows, support rupee",
   "impact" : "Reduction in LTCG tax would improve net post-tax returns, likely triggering a bullish sentiment for Nifty 50 and mid-cap indices. Increased FPI inflows are expected to provide strong support to the Indian Rupee against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "This milestone validates the maturity of Indian capital markets, likely driving sustained foreign institutional inflows. Nifty is expected to sustain its upward momentum with positive sentiment, while the rupee should see support from increased investor confidence.",
   "source" : "BusinessLine",
   "publishedAt" : "26-Nov-2026 17:57 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-26T19:06:54",
+  "title" : "West Asia conflict has generated a relatively stronger oil price shock, larger rupee depreciation, surge in price of gold: RBI Study",
+  "impact" : "Rising oil prices and rupee depreciation will weigh on equity sentiment, leading to potential FII outflows. Nifty is expected to face resistance and remain range-bound with a bearish bias as inflationary fears persist.",
+  "source" : "BusinessLine",
+  "publishedAt" : "26-Nov-2026 18:50 IST",
   "score" : 7
 } ]
