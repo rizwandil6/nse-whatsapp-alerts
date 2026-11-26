@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T22:21:19",
-  "title" : "'India can achieve $1 trillion exports target'",
-  "impact" : "Positive sentiment for trade-linked sectors with potential long-term boost to GDP. Nifty likely to see sustained buying interest in industrial and export-oriented themes. INR expected to stabilize due to improved trade balance prospects.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Oct-2026 21:24 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-29T23:52:15",
   "title" : "IMF flags Super El Niño risks to India’s growth",
   "impact" : "The market faces downside risk as inflationary pressures from food supply disruptions dampen GDP sentiment. Nifty is expected to consolidate near support levels with potential volatility in the INR due to higher import costs for essential commodities.",
@@ -3497,5 +3490,12 @@
   "impact" : "Pre-budget meetings typically trigger sector-specific volatility as policy expectations sharpen. Expect Nifty to consolidate with a positive bias as investors rotate into infrastructure and capital goods ahead of potential announcements.",
   "source" : "Economic Times",
   "publishedAt" : "26-Nov-2026 18:42 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-26T22:15:03",
+  "title" : "Centre clears Rs 50,000 cr+ urban projects",
+  "impact" : "The multi-crore urban infrastructure push serves as a positive catalyst for domestic capital expenditure, likely boosting the Nifty towards resistance levels. The rupee is expected to remain stable, as these investments focus primarily on domestic industrial growth.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Nov-2026 21:17 IST",
   "score" : 7
 } ]
