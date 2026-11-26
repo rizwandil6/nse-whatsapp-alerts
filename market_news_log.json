@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T16:38:42",
-  "title" : "India to gain a big edge after US trade deal: Goyal",
-  "impact" : "Enhanced trade ties with the US will likely boost foreign direct investment inflows and investor sentiment. Nifty is expected to trend higher on increased export optimism, while the rupee should stabilize against the dollar due to improved trade balances.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Oct-2026 13:26 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-29T16:53:55",
   "title" : "Jio Q2 Preview: First results after listing tomorrow",
   "impact" : "The Reliance Jio listing performance will set the tone for market sentiment and index movement. Nifty is expected to remain range-bound with volatility, while the rupee remains stable against dollar outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The shift away from foreign gold vaults suggests rising domestic institutional control and sovereign security, likely leading to short-term Nifty volatility as FIIs adjust holdings. The rupee may face temporary pressure from capital outflow concerns offset by long-term domestic confidence.",
   "source" : "Economic Times",
   "publishedAt" : "26-Nov-2026 14:12 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-26T15:09:00",
+  "title" : "Nifty IT jumps over 2% as HCLTech, Wipro, Infosys lead IT rally",
+  "impact" : "The IT rally provides a positive momentum boost for the Nifty 50, likely leading to a bullish opening or intraday gains. Improved sentiment in large-cap IT stocks could stabilize the index against currency volatility and foreign institutional selling pressure.",
+  "source" : "BusinessLine",
+  "publishedAt" : "26-Nov-2026 14:54 IST",
   "score" : 7
 } ]
