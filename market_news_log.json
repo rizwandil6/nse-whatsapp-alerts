@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T07:26:50",
-  "title" : "US Fed holds rates steady as inflation fears persist",
-  "impact" : "Indian markets likely to see cautious sentiment and volatility as sticky US inflation delays rate cut expectations. Nifty may face downward pressure toward support levels while the Rupee faces depreciation risks against a strengthening dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "28-Oct-2026 23:31 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-29T12:34:20",
   "title" : "'2026 resembles 1991': CEA on new inflection point",
   "impact" : "The comparison to the 1991 liberalization phase suggests a structural long-term bull run for Indian equities. Nifty is expected to see a significant upward trajectory as capital expenditure cycles accelerate and the rupee remains stable against global volatility.",
@@ -3497,5 +3490,12 @@
   "impact" : "The proposed tariffs create significant uncertainty for Indian exporters, likely leading to Nifty volatility. Expect downward pressure on the rupee as trade deficit concerns weigh on investor sentiment.",
   "source" : "Economic Times",
   "publishedAt" : "25-Nov-2026 19:02 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-26T06:11:20",
+  "title" : "PLI, Make in India under US scanner",
+  "impact" : "The US trade scrutiny creates uncertainty for Nifty by potentially stalling export-oriented growth narratives. Expect increased volatility in the near term with potential downward pressure on the rupee due to foreign institutional caution.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Nov-2026 05:30 IST",
   "score" : 7
 } ]
