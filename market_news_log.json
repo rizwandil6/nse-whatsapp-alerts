@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T12:34:20",
-  "title" : "'2026 resembles 1991': CEA on new inflection point",
-  "impact" : "The comparison to the 1991 liberalization phase suggests a structural long-term bull run for Indian equities. Nifty is expected to see a significant upward trajectory as capital expenditure cycles accelerate and the rupee remains stable against global volatility.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Oct-2026 11:53 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-29T13:20:02",
   "title" : "Potential equity LTCG tax cut could boost foreign inflows, support rupee: Jefferies",
   "impact" : "A reduction in LTCG tax would likely reverse recent FPI outflows, acting as a major positive catalyst for the Indian equity markets. Nifty is expected to regain upward momentum, while improved capital inflows will provide significant support to the rupee against the USD.",
@@ -3497,5 +3490,12 @@
   "impact" : "The US trade scrutiny creates uncertainty for Nifty by potentially stalling export-oriented growth narratives. Expect increased volatility in the near term with potential downward pressure on the rupee due to foreign institutional caution.",
   "source" : "Economic Times",
   "publishedAt" : "26-Nov-2026 05:30 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-26T06:11:28",
+  "title" : "Retail investors turn net sellers in November as FIIs pile into Indian stocks",
+  "impact" : "The index is facing short-term consolidation as domestic institutions book profits, but sustained FII buying provides a strong floor. Nifty is expected to oscillate near the 26,000 resistance with downward pressure on the rupee due to institutional repatriation.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Nov-2026 05:52 IST",
   "score" : 7
 } ]
