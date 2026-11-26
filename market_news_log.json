@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T13:20:02",
-  "title" : "Potential equity LTCG tax cut could boost foreign inflows, support rupee: Jefferies",
-  "impact" : "A reduction in LTCG tax would likely reverse recent FPI outflows, acting as a major positive catalyst for the Indian equity markets. Nifty is expected to regain upward momentum, while improved capital inflows will provide significant support to the rupee against the USD.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Oct-2026 13:08 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-29T13:35:36",
   "title" : "Iran war to push airlines' losses to ₹38,000 cr",
   "impact" : "The escalation of geopolitical tensions in Iran is likely to trigger a flight to safety, putting pressure on Indian equities. Nifty faces immediate resistance with increased volatility, while the rupee may weaken due to rising crude oil import bills and foreign institutional outflows.",
@@ -3497,5 +3490,12 @@
   "impact" : "The index is facing short-term consolidation as domestic institutions book profits, but sustained FII buying provides a strong floor. Nifty is expected to oscillate near the 26,000 resistance with downward pressure on the rupee due to institutional repatriation.",
   "source" : "Economic Times",
   "publishedAt" : "26-Nov-2026 05:52 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-26T08:13:36",
+  "title" : "Trump's tariff move is about power, not popularity",
+  "impact" : "Expect Nifty to experience volatility as protectionist trade policies strengthen the USD and dampen export sentiment. The Indian Rupee may face downward pressure due to increased demand for safe-haven assets and capital outflows.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Nov-2026 07:42 IST",
   "score" : 7
 } ]
