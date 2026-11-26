@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T19:46:19",
-  "title" : "Equity LTCG tax cut could revive FPI flows, support rupee",
-  "impact" : "Reduction in LTCG tax would improve net post-tax returns, likely triggering a bullish sentiment for Nifty 50 and mid-cap indices. Increased FPI inflows are expected to provide strong support to the Indian Rupee against the dollar.",
-  "source" : "BusinessLine",
-  "publishedAt" : "29-Oct-2026 19:31 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-29T22:21:19",
   "title" : "'India can achieve $1 trillion exports target'",
   "impact" : "Positive sentiment for trade-linked sectors with potential long-term boost to GDP. Nifty likely to see sustained buying interest in industrial and export-oriented themes. INR expected to stabilize due to improved trade balance prospects.",
@@ -3497,5 +3490,12 @@
   "impact" : "Rising oil prices and rupee depreciation will weigh on equity sentiment, leading to potential FII outflows. Nifty is expected to face resistance and remain range-bound with a bearish bias as inflationary fears persist.",
   "source" : "BusinessLine",
   "publishedAt" : "26-Nov-2026 18:50 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-26T19:07:01",
+  "title" : "Finmin chairs final pre-Budget consultation",
+  "impact" : "Pre-budget meetings typically trigger sector-specific volatility as policy expectations sharpen. Expect Nifty to consolidate with a positive bias as investors rotate into infrastructure and capital goods ahead of potential announcements.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Nov-2026 18:42 IST",
   "score" : 7
 } ]
