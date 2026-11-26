@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-29T16:38:32",
-  "title" : "Finance ministry gives Q2 GDP target in new report",
-  "impact" : "Government-led GDP growth targets act as a sentiment booster for the Nifty 50, signaling policy continuity and economic optimism. Increased economic activity projections typically support the rupee against the dollar due to stronger foreign institutional interest.",
-  "source" : "Economic Times",
-  "publishedAt" : "29-Oct-2026 14:34 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-29T16:38:42",
   "title" : "India to gain a big edge after US trade deal: Goyal",
   "impact" : "Enhanced trade ties with the US will likely boost foreign direct investment inflows and investor sentiment. Nifty is expected to trend higher on increased export optimism, while the rupee should stabilize against the dollar due to improved trade balances.",
@@ -3497,5 +3490,12 @@
   "impact" : "Trump tariff threats create volatility for export-oriented sectors and manufacturing, likely putting pressure on Nifty in the near term. The rupee may weaken against the dollar due to trade deficit concerns and potential capital outflows.",
   "source" : "Economic Times",
   "publishedAt" : "26-Nov-2026 14:22 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-26T14:53:35",
+  "title" : "Why is India turning its back on foreign vaults?",
+  "impact" : "The shift away from foreign gold vaults suggests rising domestic institutional control and sovereign security, likely leading to short-term Nifty volatility as FIIs adjust holdings. The rupee may face temporary pressure from capital outflow concerns offset by long-term domestic confidence.",
+  "source" : "Economic Times",
+  "publishedAt" : "26-Nov-2026 14:12 IST",
   "score" : 7
 } ]
