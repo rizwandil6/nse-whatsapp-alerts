@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-30T23:19:59",
-  "title" : "RIL profit soars 41% to ₹25,548 cr, revenue up 29%",
-  "impact" : "Strong earnings from RIL will provide a significant boost to Nifty50 and index sentiment. The massive profitability is expected to attract foreign institutional inflows, strengthening the rupee against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Oct-2026 19:46 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-31T07:21:27",
   "title" : "War prompts US to squeeze more from refineries",
   "impact" : "Global supply crunches and high refining margins create persistent inflation risks for India, keeping Nifty under pressure due to cost-push concerns. The Rupee remains vulnerable as a net importer of crude, potentially facing depreciation against the dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "The shift toward significant domestic borrowing supports local liquidity and infra growth, potentially boosting Nifty's capex-heavy sentiment. The increased demand for rupee-denominated bonds may put mild pressure on domestic yields while stabilizing the currency outlook.",
   "source" : "Economic Times",
   "publishedAt" : "27-Nov-2026 19:54 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-27T21:28:23",
+  "title" : "US is turning to India to thwart China's next coup",
+  "impact" : "Enhanced US-India strategic alignment is expected to bolster investor sentiment and attract long-term FDI. Nifty may test higher resistance levels as geopolitical de-risking gains momentum while the Rupee likely stabilizes against the Dollar.",
+  "source" : "Economic Times",
+  "publishedAt" : "27-Nov-2026 20:40 IST",
   "score" : 7
 } ]
