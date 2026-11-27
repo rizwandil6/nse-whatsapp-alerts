@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-30T15:44:16",
-  "title" : "What RBI bond rate hike means for your investment",
-  "impact" : "An RBI rate hike typically pressures equity valuations by increasing the cost of capital. Expect a bearish trend for Nifty with potential consolidation, while the rupee may see temporary strengthening against the dollar.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Oct-2026 15:17 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-30T18:31:37",
   "title" : "Bank credit growth outpaces deposits at 17.94%",
   "impact" : "Credit growth outpacing deposits signals robust economic activity and festive demand, sustaining bullish sentiment for financials. Nifty is expected to trend upward, while strong credit expansion and liquidity may keep the rupee stable or slightly pressured due to increased import-linked credit demand.",
@@ -3497,5 +3490,12 @@
   "impact" : "Enhanced trade agreements with US and EU will likely boost investor sentiment, supporting Nifty's upward momentum. Anticipate capital inflows strengthening the Rupee against the dollar in the medium term.",
   "source" : "BusinessLine",
   "publishedAt" : "27-Nov-2026 14:41 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-27T15:15:52",
+  "title" : "Global brands shift hundreds of millions in orders from Bangladesh to India amid worker protests",
+  "impact" : "Positive sentiment for the manufacturing sector as India captures regional market share from Bangladesh. Nifty may see upward momentum in textile-linked industrial stocks with the rupee remaining stable as export competitiveness strengthens.",
+  "source" : "BusinessLine",
+  "publishedAt" : "27-Nov-2026 15:07 IST",
   "score" : 7
 } ]
