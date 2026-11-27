@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-30T18:31:37",
-  "title" : "Bank credit growth outpaces deposits at 17.94%",
-  "impact" : "Credit growth outpacing deposits signals robust economic activity and festive demand, sustaining bullish sentiment for financials. Nifty is expected to trend upward, while strong credit expansion and liquidity may keep the rupee stable or slightly pressured due to increased import-linked credit demand.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Oct-2026 18:02 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-30T18:46:44",
   "title" : "ITC, RIL, HDFC Bank among top laggards as Nifty falls over 12% in 2026: Time to buy beaten-down stocks or wait for a recovery?",
   "impact" : "The Indian equity market is experiencing a significant correction led by sustained FII outflows and valuation mean reversion. Nifty 50 remains under pressure near-term, with potential rupee depreciation risk due to sustained foreign capital flight to safer assets.",
@@ -3497,5 +3490,12 @@
   "impact" : "Positive sentiment for the manufacturing sector as India captures regional market share from Bangladesh. Nifty may see upward momentum in textile-linked industrial stocks with the rupee remaining stable as export competitiveness strengthens.",
   "source" : "BusinessLine",
   "publishedAt" : "27-Nov-2026 15:07 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-27T16:05:23",
+  "title" : "8th CPC: JP Morgan estimates 1.83 fitment factor",
+  "impact" : "The implementation of the 8th CPC is expected to boost domestic consumption and discretionary spending. Nifty may see a short-term rally due to positive sentiment, though inflationary concerns could pressure the rupee.",
+  "source" : "Economic Times",
+  "publishedAt" : "27-Nov-2026 15:08 IST",
   "score" : 7
 } ]
