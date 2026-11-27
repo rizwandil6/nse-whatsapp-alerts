@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-30T14:28:47",
-  "title" : "Here’s how to trade RIL stocks on results day",
-  "impact" : "Reliance results often dictate Nifty momentum and influence foreign institutional flows. A positive earnings surprise could provide a much-needed lift to the index, though rupee volatility may persist if crude oil prices fluctuate post-earnings.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Oct-2026 09:38 IST",
-  "score" : 8
-}, {
   "timestamp" : "2026-10-30T14:28:52",
   "title" : "Indian banks get a 20% boost from West Asia conflict",
   "impact" : "The escalation creates significant volatility, driving safe-haven buying and inflationary pressures. Expect Nifty to consolidate with a bearish bias as FIIs trim risk and the Rupee weakens against the US Dollar.",
@@ -3497,5 +3490,12 @@
   "impact" : "HDFC Bank consolidating digital operations strengthens the overall banking sector sentiment. Nifty is expected to lean bullish on improved operational efficiency and improved valuation prospects. The rupee remains neutral as this move is internal and structural.",
   "source" : "Economic Times",
   "publishedAt" : "27-Nov-2026 00:35 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-27T14:15:18",
+  "title" : "India sounds the horn for the captain's chair in seas",
+  "impact" : "India's push to become a global maritime hub boosts long-term logistics infrastructure sentiment. Expect Nifty to find support in industrial and logistics stocks, with moderate appreciation for the Rupee due to lower logistics costs.",
+  "source" : "Economic Times",
+  "publishedAt" : "27-Nov-2026 13:34 IST",
   "score" : 7
 } ]
