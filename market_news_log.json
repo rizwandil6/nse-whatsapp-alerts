@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-30T06:38:30",
-  "title" : "Bulls return as Fed rate pause, dip in US yields lift sentiment",
-  "impact" : "The Indian market exhibits a bullish recovery as a pause in US rates reduces yield pressures. Nifty is expected to target the 23,100-23,300 range, while the rupee faces persistent volatility due to elevated crude oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Oct-2026 06:07 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-30T07:38:44",
   "title" : "India’s nuclear dream triggers a talent hunt",
   "impact" : "The push for nuclear power boosts long-term capital expenditure and infrastructure sentiment. Nifty is expected to hold bullish support levels as energy policy visibility improves, while the rupee remains stable amid industrial growth prospects.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "27-Nov-2026 11:18 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-27T12:38:52",
+  "title" : "What are RBI’s plans for the rupee?",
+  "impact" : "Record FII inflows are driving strong bullish sentiment for Indian equities and providing stability to the Nifty 50. The RBI's reserve building is likely to keep the rupee range-bound, reducing volatility and supporting broad market confidence.",
+  "source" : "BusinessLine",
+  "publishedAt" : "27-Nov-2026 12:33 IST",
+  "score" : 8
 } ]
