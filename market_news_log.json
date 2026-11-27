@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-30T21:34:18",
-  "title" : "War lifts Reliance’s O2C earnings to a record",
-  "impact" : "Reliance results provide a positive sentiment boost to the heavyweight index. Nifty is expected to sustain its upward momentum with stability in the rupee amid stable energy prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Oct-2026 21:04 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-30T21:34:22",
   "title" : "US stocks slide: Amazon, Intel, Nvidia fall",
   "impact" : "Indian markets are likely to open with a significant gap-down tracking the global sell-off in AI and tech stocks. The Nifty is expected to face heavy selling pressure, while the rupee may weaken due to risk-off sentiment and rising US treasury yields.",
@@ -3497,5 +3490,12 @@
   "impact" : "Enhanced FPI onboarding signals higher liquidity inflow and structural ease of doing business, likely pushing Nifty toward fresh highs. The rupee may see support as increased foreign capital inflows strengthen forex reserves.",
   "source" : "BusinessLine",
   "publishedAt" : "27-Nov-2026 16:43 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-27T17:37:41",
+  "title" : "NaBFID, World Bank Group tie up to channel long-term capital into infrastructure",
+  "impact" : "Enhanced institutional liquidity signals long-term stability for India's capital markets. Nifty is expected to maintain a positive trend due to strengthened infrastructure financing, with the rupee likely to stabilize amid increased foreign capital participation.",
+  "source" : "BusinessLine",
+  "publishedAt" : "27-Nov-2026 17:34 IST",
   "score" : 7
 } ]
