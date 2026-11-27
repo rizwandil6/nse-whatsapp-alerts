@@ -281,5 +281,33 @@
   "entryPrice": 3319.6,
   "rsRankAtEntry": 80.57692307692308,
   "salesGrowth3Y": 35
+ },
+ "COHANCE": {
+  "entryDate": "2026-11-25",
+  "entryPrice": 502.6,
+  "rsRankAtEntry": 80.38461538461539,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "LTTS": {
+  "entryDate": "2026-11-25",
+  "entryPrice": 4245.2,
+  "rsRankAtEntry": 80.76923076923077,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "MARICO": {
+  "entryDate": "2026-11-25",
+  "entryPrice": 939.1,
+  "rsRankAtEntry": 80.1923076923077,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
+ },
+ "PRESTIGE": {
+  "entryDate": "2026-11-25",
+  "entryPrice": 1832.1,
+  "rsRankAtEntry": 82.3076923076923,
+  "salesGrowth3Y": null,
+  "fundamentalsPending": true
  }
 }

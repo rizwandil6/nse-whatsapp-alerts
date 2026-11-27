@@ -3020,5 +3020,33 @@
   "price": 3319.6,
   "rsRankAtEntry": 80.57692307692308,
   "salesGrowth3Y": 35
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "COHANCE",
+  "date": "2026-11-25",
+  "price": 502.6,
+  "rsRankAtEntry": 80.38461538461539
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "LTTS",
+  "date": "2026-11-25",
+  "price": 4245.2,
+  "rsRankAtEntry": 80.76923076923077
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "MARICO",
+  "date": "2026-11-25",
+  "price": 939.1,
+  "rsRankAtEntry": 80.1923076923077
+ },
+ {
+  "type": "ENTRY_PENDING",
+  "symbol": "PRESTIGE",
+  "date": "2026-11-25",
+  "price": 1832.1,
+  "rsRankAtEntry": 82.3076923076923
  }
 ]
