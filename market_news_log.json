@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-30T06:38:20",
-  "title" : "Advance-decline ratio hits 7-month low as market breadth weakens",
-  "impact" : "The market is undergoing a structural shift toward safety as liquidity tightens, with the Nifty likely to consolidate near major supports. The divergence between large and small caps indicates a sustained correction in broader indices, while a stronger dollar continues to pressure the rupee.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Oct-2026 05:53 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-30T06:38:30",
   "title" : "Bulls return as Fed rate pause, dip in US yields lift sentiment",
   "impact" : "The Indian market exhibits a bullish recovery as a pause in US rates reduces yield pressures. Nifty is expected to target the 23,100-23,300 range, while the rupee faces persistent volatility due to elevated crude oil prices.",
@@ -3497,5 +3490,12 @@
   "impact" : "Political stability concerns ahead of legislative tests may trigger short-term market volatility. Nifty is likely to consolidate with a downward bias until policy continuity is confirmed, keeping the rupee under pressure against the dollar.",
   "source" : "Economic Times",
   "publishedAt" : "27-Nov-2026 00:07 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-27T11:23:09",
+  "title" : "India-US trade deal is close to culmination: Goyal",
+  "impact" : "The deal signals stronger India-US economic ties, likely boosting investor sentiment and FII inflows. Nifty is expected to see a bullish trend, while the INR could strengthen against the USD due to improved trade stability.",
+  "source" : "BusinessLine",
+  "publishedAt" : "27-Nov-2026 11:18 IST",
   "score" : 7
 } ]
