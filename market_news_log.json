@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-10-30T21:34:22",
-  "title" : "US stocks slide: Amazon, Intel, Nvidia fall",
-  "impact" : "Indian markets are likely to open with a significant gap-down tracking the global sell-off in AI and tech stocks. The Nifty is expected to face heavy selling pressure, while the rupee may weaken due to risk-off sentiment and rising US treasury yields.",
-  "source" : "Economic Times",
-  "publishedAt" : "30-Oct-2026 20:49 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-10-30T22:34:35",
   "title" : "Intel stock crashes 29%, worst day since 1974",
   "impact" : "Indian markets are likely to open with a sharp bearish gap following global tech sell-offs. Nifty will face immediate resistance at lower levels due to weak sentiment in IT bellwethers, while the rupee may face pressure from foreign fund outflows.",
@@ -3498,4 +3491,11 @@
   "source" : "BusinessLine",
   "publishedAt" : "27-Nov-2026 17:34 IST",
   "score" : 7
+}, {
+  "timestamp" : "2026-11-27T18:39:37",
+  "title" : "Sensex sheds 989 points as crude, rupee end four-week Nifty rally",
+  "impact" : "The sharp rise in crude oil prices combined with a weakening rupee has triggered significant profit-booking. Nifty is likely to face sustained selling pressure and volatility as inflationary risks escalate and FIIs trim exposure.",
+  "source" : "BusinessLine",
+  "publishedAt" : "27-Nov-2026 18:23 IST",
+  "score" : 8
 } ]
