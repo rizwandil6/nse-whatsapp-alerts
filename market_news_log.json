@@ -1,11 +1,4 @@
 [ {
-  "timestamp" : "2026-11-01T07:37:52",
-  "title" : "Trump, Netanyahu discuss Iran amid strike fears",
-  "impact" : "Heightened geopolitical tensions in the Middle East are expected to drive risk aversion, leading to a bearish trend for Indian markets. Nifty is likely to see downward pressure, while the rupee may face depreciation against the dollar due to rising oil prices.",
-  "source" : "Economic Times",
-  "publishedAt" : "01-Nov-2026 06:51 IST",
-  "score" : 7
-}, {
   "timestamp" : "2026-11-01T08:26:44",
   "title" : "H-1B crackdown poses severe risks to US economy",
   "impact" : "Heightened H-1B restrictions pose a significant headwind for the Indian IT services sector, leading to potential Nifty volatility. Increased supply of skilled labor in India could dampen wage inflation, while the rupee may face minor pressure due to potential software export revenue concerns.",
@@ -3497,5 +3490,12 @@
   "impact" : "Lower crude prices provide a significant tailwind for the Indian equity market by reducing the import bill and controlling inflation. Expect a bullish bias for the Nifty as margin pressures ease for downstream manufacturers.",
   "source" : "Economic Times",
   "publishedAt" : "28-Nov-2026 10:35 IST",
+  "score" : 7
+}, {
+  "timestamp" : "2026-11-28T12:54:55",
+  "title" : "India markets rebound in November; domestic growth drivers key to 2027 rally: HSBC",
+  "impact" : "Sentiment has shifted to risk-on across Indian asset classes. Nifty is expected to sustain upward momentum supported by domestic growth, with the rupee showing signs of stabilization and potential appreciation against the dollar.",
+  "source" : "BusinessLine",
+  "publishedAt" : "28-Nov-2026 12:40 IST",
   "score" : 7
 } ]
